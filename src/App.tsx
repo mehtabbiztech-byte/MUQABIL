@@ -19,6 +19,7 @@ import { SidebarLayout } from './components/SidebarLayout';
 import { SplitWorkspaceLayout } from './components/SplitWorkspaceLayout';
 import { ZenFocusLayout } from './components/ZenFocusLayout';
 import { LayoutSwitcherModal } from './components/LayoutSwitcherModal';
+import { InstallAppButton } from './components/InstallAppButton';
 
 import { HomeView } from './views/HomeView';
 import { McqsView } from './views/McqsView';
@@ -139,6 +140,7 @@ const MainContent: React.FC = () => {
 
       {/* Floating Gemini AI Chatbot accessible across all pages */}
       <GeminiFloatingWidget />
+      <InstallAppButton />
 
       {/* Click any readable word for Simple English, Urdu and Sindhi meanings */}
       <WordMeaningPopup />

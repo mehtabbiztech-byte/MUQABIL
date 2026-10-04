@@ -10,12 +10,13 @@ interface ResumeTemplateGalleryProps {
 }
 
 const MiniPreview: React.FC<{ template: ResumeTemplateDefinition }> = ({ template }) => {
-  const color = template.previewLayout === 'sts-govt' ? '#334155' : '#e2e8f0';
+  const palette: Record<string, string> = { emerald: '#047857', navy: '#1e3a8a', slate: '#475569', burgundy: '#9f1239', indigo: '#4338ca', teal: '#0f766e', blue: '#2563eb', violet: '#6d28d9', rose: '#be123c', amber: '#b45300' };
+  const color = palette[template.accentColor] || '#1e3a8a';
   return (
     <div aria-hidden="true" className="h-[76px] overflow-hidden rounded-lg border border-slate-200 bg-white p-2">
       {template.previewLayout === 'executive' ? (
         <div className="flex h-full gap-1.5">
-          <div className="w-1/3 rounded-sm p-1" style={{ backgroundColor: template.accentColor === 'amber' ? '#b45309' : undefined, background: template.accentColor === 'amber' ? '#b45309' : undefined, backgroundColor: undefined }}>
+          <div className="w-1/3 rounded-sm p-1" style={{ backgroundColor: color }}>
             <div className="mb-2 h-2 rounded-sm bg-white/80" />
             <div className="mb-1 h-1 rounded-sm bg-white/50" />
             <div className="h-1 w-2/3 rounded-sm bg-white/50" />
@@ -42,7 +43,7 @@ const MiniPreview: React.FC<{ template: ResumeTemplateDefinition }> = ({ templat
           <div className="mt-2 h-1 w-1/2 rounded-sm bg-slate-200" />
         </div>
       )}
-      <div className="mt-1 h-[3px] w-full rounded-full" style={{ backgroundColor: template.accentColor === 'emerald' ? '#047857' : template.accentColor === 'rose' ? '#be123c' : template.accentColor === 'amber' ? '#b45309' : template.accentColor === 'teal' ? '#0f766e' : template.accentColor === 'violet' ? '#6d28d9' : template.accentColor === 'blue' ? '#2563eb' : template.accentColor === 'indigo' ? '#4338ca' : template.accentColor === 'burgundy' ? '#9f1239' : template.accentColor === 'slate' ? '#475569' : '#1e3a8a' }} />
+      <div className="mt-1 h-[3px] w-full rounded-full" style={{ backgroundColor: color }}} />
     </div>
   );
 };

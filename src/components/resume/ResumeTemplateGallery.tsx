@@ -10,7 +10,7 @@ interface ResumeTemplateGalleryProps {
 }
 
 const MiniPreview: React.FC<{ template: ResumeTemplateDefinition }> = ({ template }) => {
-  const palette: Record<string, string> = { emerald: '#047857', navy: '#1e3a8a', slate: '#475569', burgundy: '#9f1239', indigo: '#4338ca', teal: '#0f766e', blue: '#2563eb', violet: '#6d28d9', rose: '#be123c', amber: '#b45300' };
+  const palette: Record<string, string> = { emerald: '#047857', navy: '#1e3a8a', slate: '#475569', burgundy: '#9f1239', indigo: '#4338ca', teal: '#0f766e', blue: '#2563eb', violet: '#6d28d9', rose: '#be123c', amber: '#b45309' };
   const color = palette[template.accentColor] || '#1e3a8a';
   return (
     <div aria-hidden="true" className="h-[76px] overflow-hidden rounded-lg border border-slate-200 bg-white p-2">
@@ -43,7 +43,7 @@ const MiniPreview: React.FC<{ template: ResumeTemplateDefinition }> = ({ templat
           <div className="mt-2 h-1 w-1/2 rounded-sm bg-slate-200" />
         </div>
       )}
-      <div className="mt-1 h-[3px] w-full rounded-full" style={{ backgroundColor: color }}} />
+      <div className="mt-1 h-[3px] w-full rounded-full" style={{ backgroundColor: color }} />
     </div>
   );
 };

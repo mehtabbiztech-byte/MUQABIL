@@ -29,6 +29,7 @@ import {
 import { useApp } from '../context/AppContext';
 import { useCmsContent } from '../context/CmsContentContext';
 import { MCQS_DATA } from '../data/mcqsData';
+import { countSubjectMcqs } from '../utils/subjectMcqCounts';
 import { 
   TOP_SUBJECTS_DIRECTORY, 
   TEST_PREPARATION_ONLINE_SERVICES, 
@@ -44,23 +45,8 @@ export const TopSubjectsAndTestingServicesHub: React.FC<{
 }> = ({ variant = 'full', onSelectSubject, onSelectExam }) => {
   const { setTab, setSelectedCategorySlug, setSelectedExamId } = useApp();
   const { mcqs: liveMcqs } = useCmsContent();
-  const subjectMcqCounts = useMemo(() => {
-    return [...liveMcqs, ...MCQS_DATA].reduce<Record<string, number>>((counts, mcq) => {
-      counts[mcq.category] = (counts[mcq.category] || 0) + 1;
-      return counts;
-    }, {});
-  }, [liveMcqs]);
-  const getSubjectMcqCount = (slug: string) => {
-    const categoriesBySubject: Record<string, string[]> = {
-      'management-sciences': ['management-sciences', 'accounting', 'auditing', 'finance', 'hrm', 'marketing'],
-      'pakistan-affairs': ['pakistan-affairs', 'pakistan-studies'],
-      'pakistan-studies': ['pakistan-studies', 'pakistan-affairs'],
-      'computer-science': ['computer-science', 'computer'],
-      computer: ['computer', 'computer-science'],
-    };
-    const categories = categoriesBySubject[slug] || [slug];
-    return categories.reduce((total, category) => total + (subjectMcqCounts[category] || 0), 0);
-  };
+  const availableMcqs = useMemo(() => [...liveMcqs, ...MCQS_DATA], [liveMcqs]);
+  const getSubjectMcqCount = (slug: string) => countSubjectMcqs(availableMcqs, slug);
   const [activeTab, setActiveTab] = useState<'subjects' | 'testing-agencies'>('subjects');
   const [agencyFilter, setAgencyFilter] = useState<'All' | 'Federal' | 'Provincial' | 'Testing Agency' | 'Admission'>('All');
   const [subjectGroupFilter, setSubjectGroupFilter] = useState<'all' | 'general' | 'management-sciences'>('all');

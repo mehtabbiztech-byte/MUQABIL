@@ -53,7 +53,7 @@ const slugify = (value: string) => value.toLowerCase().trim().replace(/[^a-z0-9]
 export function createMinimumSubjectMcqs(existing: MCQ[], minimum = 500): MCQ[] {
   const counts = new Map<string, number>();
   for (const item of existing) {
-    const key = slugify(item.category);
+    const key = item.category.trim().toLowerCase();
     counts.set(key, (counts.get(key) || 0) + 1);
   }
   const generated: MCQ[] = [];

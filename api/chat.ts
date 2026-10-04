@@ -14,6 +14,9 @@ type ApiRequest = {
     model?: string;
     roleId?: string;
     systemInstruction?: string;
+    imageBase64?: string;
+    imageMimeType?: string;
+    enableSearchGrounding?: boolean;
     userContext?: {
       targetExam?: string;
       accuracy?: number;
@@ -23,7 +26,7 @@ type ApiRequest = {
   };
 };
 
-const BASE_SYSTEM_PROMPT = `You are "Mehtab AI", an advanced, universal AI assistant and official smart mentor for MATB STS PREP.
+const BASE_SYSTEM_PROMPT = `You are "Mehtab AI", an advanced, universal AI assistant and official smart mentor for MATB STS PREP (muqabil.pk).
 
 CAPABILITIES & SCOPE:
 You can answer ANY question on ANY topic without restriction:
@@ -31,6 +34,16 @@ You can answer ANY question on ANY topic without restriction:
 2. Academic & General Knowledge: World history, Islamic history, Pakistan Studies, science, mathematics, geography, literature, biology, chemistry, physics, and computer science.
 3. Competitive Exam Mastery: Sukkur IBA STS BPS-05 to 15 (Graduation, Intermediate, Matriculation), SPSC CCE, FPSC (Customs, FIA), CSS MPT, PPSC, and NTS.
 4. Languages: Fluently communicate and translate in English, Urdu (اردو), and Sindhi (سنڌي).
+5. Visual Question / Screenshot Analysis: When an image is provided, extract any text, question, formula, or diagram accurately, verify the correct option, explain why other options are distractor traps, and provide the complete solution.
+
+INTERACTIVE PRACTICE MCQS (CRITICAL CAPABILITY):
+When the user asks for practice questions, quizzes, or tests (or when you want to test their understanding), generate interactive MCQs using this exact directive format so an interactive card is rendered in the chat:
+<<<QUIZ_MCQ: {"question": "<Question text>", "options": ["A) ...", "B) ...", "C) ...", "D) ..."], "answer": "A"|"B"|"C"|"D", "explanation": "<Concise clear breakdown of why this option is correct and why other options are distractor traps>"}>>>
+
+EXAM TRAP ANALYSIS:
+When explaining exam questions, explicitly point out:
+- [Examiner Trap]: The subtle distractor candidates mistakenly choose.
+- [Shortcut / Golden Rule]: The 10-second formula or grammar rule to solve it instantly.
 
 DIRECT NAVIGATION CAPABILITY:
 When the user expresses interest in finding, solving, or viewing an exam past paper, mock test, mistake vault, learning lab, or job vacancy, include an interactive navigation action at the very end of your response in this exact format:
@@ -88,6 +101,18 @@ export const ROLES: Record<string, {
     defaultModel: 'gemini-3.8-flash',
     systemInstruction: `You are the "Sindh & Pakistan Language Specialist" on MUQABIL. Master English grammar, Urdu linguistics (محاورے، تلمیح، قواعد), and Sindhi grammar (سنڌي وياڪرڻ: پهاڪا، اصطلاح، علمِ بيان). Assist candidates with idioms, translation, and grammatical correction in English, Urdu, and Sindhi.`,
   },
+  'math-wizard': {
+    name: 'Quantitative Reasoning & Math Shortcut Wizard',
+    taskType: 'complex',
+    defaultModel: 'gemini-3.1-pro-preview',
+    systemInstruction: `You are the "Quantitative Reasoning & Math Shortcut Wizard" on MUQABIL. Specialize in speed arithmetic, percentage shortcuts, ratio & proportions, time-speed-distance, algebraic equations, LCM/HCF, geometry, and probability. Always show the conventional formula alongside a 10-second mental shortcut.`,
+  },
+  'pedagogy-coach': {
+    name: 'Teaching License & Pedagogy Specialist',
+    taskType: 'general',
+    defaultModel: 'gemini-3.8-flash',
+    systemInstruction: `You are the "Teaching License & Pedagogy Specialist" on MUQABIL. Specialize in Sindh Teaching License examinations, PST, JEST, SST, Child Development, Bloom's Revised Taxonomy, Classroom Management, Lesson Planning, Formative/Summative Assessment, and Inclusive Education.`,
+  },
 };
 
 export default async function handler(request: ApiRequest, response: ApiResponse) {
@@ -122,6 +147,9 @@ export default async function handler(request: ApiRequest, response: ApiResponse
     model: requestedModel,
     roleId = 'general-mentor',
     systemInstruction: customInstruction,
+    imageBase64,
+    imageMimeType,
+    enableSearchGrounding = false,
     userContext,
     mode,
   } = parsedBody || {};
@@ -147,25 +175,20 @@ export default async function handler(request: ApiRequest, response: ApiResponse
   const candidateContext = userContext ? `\n[Candidate Profile]: Target Exam: ${userContext.targetExam || 'STS BPS-05 to 15'}, Province: ${userContext.province || 'Sindh'}.` : '';
   const fullSystemInstruction = `${BASE_SYSTEM_PROMPT}\n\n[ACTIVE ROLE: ${activeRole.name}]\n${roleInstruction}${voiceInstruction}${candidateContext}`;
 
+  const lastUserMsg = messages.filter((m) => m.role === 'user').slice(-1)[0]?.content?.toLowerCase() || '';
+  const isComplex = /\b(solve step-by-step|derive|mathematical proof|calculus|pedagogy|bloom|piaget|vygotsky|constitutional article|deep reasoning|trap analysis)\b/.test(lastUserMsg) || lastUserMsg.length > 400;
+  const isFast = /\b(quick|rapid|drill|flashcard|synonym|antonym|fast|instant|meaning of|define in one line)\b/.test(lastUserMsg);
+
   // Model determination:
-  // "Use gemini-3.1-pro-preview for particularly complex tasks, gemini-3.8-flash for general tasks, and gemini-3.1-flash-lite for tasks that should happen fast."
   let targetModel: string = 'gemini-3.8-flash';
   if (requestedModel && ['gemini-3.1-pro-preview', 'gemini-3.8-flash', 'gemini-3.1-flash-lite'].includes(requestedModel)) {
     targetModel = requestedModel;
-  } else if (taskType === 'complex' || roleId === 'complex-solver') {
+  } else if (taskType === 'complex' || roleId === 'complex-solver' || roleId === 'math-wizard' || isComplex) {
     targetModel = 'gemini-3.1-pro-preview';
-  } else if (taskType === 'fast' || roleId === 'rapid-drill') {
+  } else if (taskType === 'fast' || roleId === 'rapid-drill' || isFast) {
     targetModel = 'gemini-3.1-flash-lite';
-  } else if (taskType === 'general' || roleId === 'general-mentor' || roleId === 'language-coach') {
-    targetModel = 'gemini-3.8-flash';
   } else {
-    const lastUserMsg = messages.filter((m) => m.role === 'user').slice(-1)[0]?.content?.toLowerCase() || '';
-    const isComplex = /\b(solve step-by-step|derive|mathematical proof|calculus|pedagogy|bloom|piaget|vygotsky|constitutional article|deep reasoning)\b/.test(lastUserMsg) || lastUserMsg.length > 400;
-    const isFast = /\b(quick|rapid|drill|flashcard|synonym|antonym|fast|instant|meaning of|define in one line)\b/.test(lastUserMsg);
-
-    if (isComplex) targetModel = 'gemini-3.1-pro-preview';
-    else if (isFast) targetModel = 'gemini-3.1-flash-lite';
-    else targetModel = 'gemini-3.8-flash';
+    targetModel = 'gemini-3.8-flash';
   }
 
   const candidateModels = [
@@ -174,10 +197,28 @@ export default async function handler(request: ApiRequest, response: ApiResponse
     ...(targetModel !== 'gemini-3.1-flash-lite' ? ['gemini-3.1-flash-lite'] : []),
   ];
 
-  const conversationHistory = messages.slice(-16).map((m) => ({
-    role: m.role === 'user' ? 'user' : 'model',
-    parts: [{ text: m.content || '' }],
-  }));
+  const conversationHistory = messages.slice(-16).map((m, idx, arr) => {
+    const isLast = idx === arr.length - 1;
+    const parts: any[] = [];
+    if (isLast && m.role === 'user' && imageBase64) {
+      const cleanBase64 = imageBase64.replace(/^data:image\/[a-zA-Z0-9+]+;base64,/, '');
+      parts.push({
+        inlineData: {
+          mimeType: imageMimeType || 'image/jpeg',
+          data: cleanBase64,
+        },
+      });
+    }
+    parts.push({ 
+      text: m.content || (imageBase64 ? 'Please analyze this exam question from the attached image, determine the correct answer, and explain why.' : '') 
+    });
+    return {
+      role: m.role === 'user' ? 'user' : 'model',
+      parts,
+    };
+  });
+
+  const needsSearch = enableSearchGrounding || /\b(current|latest|recent|news|update|who is the current|chief justice|governor|prime minister|2025|2026)\b/i.test(lastUserMsg);
 
   try {
     const ai = new GoogleGenAI({
@@ -192,23 +233,49 @@ export default async function handler(request: ApiRequest, response: ApiResponse
     let lastError: string | null = null;
     for (const modelToTry of candidateModels) {
       try {
+        const tools = (needsSearch && (modelToTry === 'gemini-3.8-flash' || modelToTry === 'gemini-3.1-flash-lite')) 
+          ? [{ googleSearch: {} }] 
+          : undefined;
+
         const genResponse = await ai.models.generateContent({
           model: modelToTry,
           contents: conversationHistory,
           config: {
             systemInstruction: fullSystemInstruction,
-            maxOutputTokens: 3000,
+            maxOutputTokens: 3500,
             temperature: modelToTry === 'gemini-3.1-pro-preview' ? 0.3 : 0.7,
+            ...(tools ? { tools } : {}),
           },
         });
 
-        const reply = genResponse.text || 'I am ready to help you with your exam preparation!';
+        let reply = genResponse.text || 'I am ready to help you with your exam preparation!';
+        
+        // Extract real-time search grounding sources if present
+        const candidate = genResponse.candidates?.[0] as any;
+        const groundingChunks = candidate?.groundingMetadata?.groundingChunks;
+        const groundingSources: Array<{ title: string; url: string }> = [];
+        if (Array.isArray(groundingChunks)) {
+          for (const c of groundingChunks) {
+            if (c.web?.uri) {
+              groundingSources.push({
+                title: c.web.title || 'Web Reference',
+                url: c.web.uri,
+              });
+            }
+          }
+        }
+
+        if (groundingSources.length > 0) {
+          reply += `\n\n<<<GROUNDING_SOURCES: ${JSON.stringify(groundingSources.slice(0, 5))}>>>`;
+        }
+
         return response.status(200).json({
           reply,
           model: modelToTry,
           roleId,
           roleName: activeRole.name,
           taskType: activeRole.taskType,
+          groundingSources: groundingSources.slice(0, 5),
           fallback: false,
         });
       } catch (err: unknown) {

@@ -4,10 +4,12 @@ import {
   Copy, 
   ExternalLink, 
   ChevronRight, 
-  Sparkles,
-  BookOpen,
-  HelpCircle,
-  FileText
+  Sparkles, 
+  BookOpen, 
+  HelpCircle, 
+  FileText,
+  Globe,
+  Award
 } from 'lucide-react';
 
 interface ChatMarkdownRendererProps {
@@ -178,15 +180,168 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ language, code }) => {
   );
 };
 
+interface QuizMcqData {
+  question: string;
+  options: string[];
+  answer: string;
+  explanation?: string;
+  topic?: string;
+}
+
+const InteractiveQuizCard: React.FC<{ data: QuizMcqData; index: number }> = ({ data, index }) => {
+  const [selectedOpt, setSelectedOpt] = useState<string | null>(null);
+  const [showExplanation, setShowExplanation] = useState(false);
+
+  // Normalize answer letter (A, B, C, D)
+  const correctLetter = (data.answer || '').trim().toUpperCase().charAt(0);
+
+  const handleSelect = (letter: string) => {
+    if (selectedOpt !== null) return;
+    setSelectedOpt(letter);
+    setShowExplanation(true);
+  };
+
+  const isCorrect = selectedOpt === correctLetter;
+
+  return (
+    <div className="my-3 p-4 rounded-2xl bg-gradient-to-br from-slate-50 to-indigo-50/40 dark:from-slate-900/90 dark:to-indigo-950/40 border border-purple-200/80 dark:border-purple-800/70 shadow-sm space-y-3">
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center gap-1.5">
+          <span className="w-5 h-5 rounded-full bg-purple-600 text-white text-[10px] font-black flex items-center justify-center">
+            {index + 1}
+          </span>
+          <span className="text-[11px] font-extrabold uppercase tracking-wider text-purple-700 dark:text-purple-300">
+            Interactive Exam MCQ
+          </span>
+        </div>
+        {selectedOpt && (
+          <span className={`text-xs font-bold flex items-center gap-1 ${isCorrect ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
+            {isCorrect ? '✓ Correct Choice!' : `✗ Incorrect (Correct: Option ${correctLetter})`}
+          </span>
+        )}
+      </div>
+
+      <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white leading-relaxed">
+        {data.question}
+      </h4>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        {Array.isArray(data.options) && data.options.map((opt, optIdx) => {
+          const letterMatch = opt.match(/^([A-D])[\).\s]+(.*)$/i);
+          const letter = letterMatch ? letterMatch[1].toUpperCase() : String.fromCharCode(65 + optIdx);
+          const text = letterMatch ? letterMatch[2] : opt;
+
+          let btnClass = "border-slate-200 dark:border-slate-700/80 bg-white dark:bg-slate-800 hover:border-purple-300 text-slate-800 dark:text-slate-200";
+          if (selectedOpt !== null) {
+            if (letter === correctLetter) {
+              btnClass = "border-emerald-500 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-900 dark:text-emerald-100 font-bold ring-2 ring-emerald-500/30";
+            } else if (selectedOpt === letter) {
+              btnClass = "border-rose-500 bg-rose-50 dark:bg-rose-950/50 text-rose-900 dark:text-rose-100 font-bold ring-2 ring-rose-500/30";
+            } else {
+              btnClass = "opacity-50 border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 text-slate-400";
+            }
+          }
+
+          return (
+            <button
+              key={letter}
+              type="button"
+              onClick={() => handleSelect(letter)}
+              disabled={selectedOpt !== null}
+              className={`p-2.5 rounded-xl border text-left text-xs transition cursor-pointer flex items-center gap-2.5 ${btnClass}`}
+            >
+              <span className={`w-6 h-6 rounded-lg flex items-center justify-center text-[11px] font-black shrink-0 ${
+                selectedOpt !== null && letter === correctLetter
+                  ? 'bg-emerald-600 text-white'
+                  : selectedOpt === letter
+                  ? 'bg-rose-600 text-white'
+                  : 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300'
+              }`}>
+                {letter}
+              </span>
+              <span className="flex-1 text-[12px]">{text}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {showExplanation && data.explanation && (
+        <div className="p-3 rounded-xl bg-purple-50/80 dark:bg-purple-950/40 border border-purple-200/80 dark:border-purple-800/70 text-xs text-slate-700 dark:text-slate-300 space-y-1 animate-in fade-in duration-200">
+          <div className="font-bold text-purple-700 dark:text-purple-300 flex items-center gap-1.5 text-[11px]">
+            <HelpCircle className="w-3.5 h-3.5" />
+            <span>Explanation & Key Takeaway</span>
+          </div>
+          <p className="leading-relaxed text-[11px] sm:text-xs">
+            {data.explanation}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+const GroundingSourcesCard: React.FC<{ sources: Array<{ title: string; url: string }> }> = ({ sources }) => {
+  const [expanded, setExpanded] = useState(false);
+  if (!sources || sources.length === 0) return null;
+
+  return (
+    <div className="mt-3 p-3.5 rounded-2xl bg-sky-50/80 dark:bg-sky-950/40 border border-sky-200/80 dark:border-sky-800/80 text-xs space-y-2">
+      <button 
+        type="button"
+        onClick={() => setExpanded(!expanded)}
+        className="w-full flex items-center justify-between text-left text-sky-900 dark:text-sky-200 font-bold cursor-pointer"
+      >
+        <span className="flex items-center gap-1.5 text-[11px]">
+          <Globe className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
+          <span>Verified Real-Time Sources (Google Search Grounding · {sources.length})</span>
+        </span>
+        <span className="text-[11px] text-sky-600 dark:text-sky-400 font-semibold underline">
+          {expanded ? 'Hide Sources' : 'View Citations'}
+        </span>
+      </button>
+
+      {expanded && (
+        <ul className="space-y-1.5 pt-2 border-t border-sky-200/70 dark:border-sky-800/70">
+          {sources.map((src, sIdx) => (
+            <li key={sIdx} className="flex items-center gap-2 text-[11px]">
+              <ExternalLink className="w-3 h-3 text-sky-500 shrink-0" />
+              <a 
+                href={src.url} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-sky-700 dark:text-sky-300 hover:underline truncate"
+              >
+                {src.title || src.url}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
 export const ChatMarkdownRenderer: React.FC<ChatMarkdownRendererProps> = ({
   content,
   onNavigateTab
 }) => {
   // 1. Extract Navigation Directives (<<<NAVIGATE: {...}>>>)
   const navMatches = [...content.matchAll(/<<<NAVIGATE:\s*({[\s\S]*?})\s*>>>/g)];
-  const cleanContent = content.replace(/<<<NAVIGATE:\s*({[\s\S]*?})\s*>>>/g, '').trim();
+  
+  // 2. Extract Interactive Quiz MCQs (<<<QUIZ_MCQ: {...}>>>)
+  const quizMatches = [...content.matchAll(/<<<QUIZ_MCQ:\s*({[\s\S]*?})\s*>>>/g)];
 
-  // 2. Parse Lines into Blocks
+  // 3. Extract Grounding Sources (<<<GROUNDING_SOURCES: [...]>>>)
+  const sourceMatches = [...content.matchAll(/<<<GROUNDING_SOURCES:\s*(\[[\s\S]*?\])\s*>>>/g)];
+
+  // Clean raw content by removing embedded metadata directives
+  const cleanContent = content
+    .replace(/<<<NAVIGATE:\s*({[\s\S]*?})\s*>>>/g, '')
+    .replace(/<<<QUIZ_MCQ:\s*({[\s\S]*?})\s*>>>/g, '')
+    .replace(/<<<GROUNDING_SOURCES:\s*(\[[\s\S]*?\])\s*>>>/g, '')
+    .trim();
+
+  // 4. Parse Lines into Blocks
   const lines = cleanContent.split('\n');
   const elements: React.ReactNode[] = [];
   
@@ -456,7 +611,27 @@ export const ChatMarkdownRenderer: React.FC<ChatMarkdownRendererProps> = ({
     );
   }
 
-  // 3. Render Interactive Navigation Cards
+  // 5. Render Interactive Quiz MCQs
+  const quizDirectives = quizMatches.map((match, qIdx) => {
+    try {
+      const data = JSON.parse(match[1]) as QuizMcqData;
+      return <InteractiveQuizCard key={`quiz-card-${qIdx}`} data={data} index={qIdx} />;
+    } catch {
+      return null;
+    }
+  });
+
+  // 6. Render Grounding Citations
+  const groundingDirectives = sourceMatches.map((match, sIdx) => {
+    try {
+      const sources = JSON.parse(match[1]) as Array<{ title: string; url: string }>;
+      return <GroundingSourcesCard key={`grounding-card-${sIdx}`} sources={sources} />;
+    } catch {
+      return null;
+    }
+  });
+
+  // 7. Render Interactive Navigation Cards
   const navDirectives = navMatches.map((match, mIdx) => {
     try {
       const data = JSON.parse(match[1]);
@@ -498,6 +673,8 @@ export const ChatMarkdownRenderer: React.FC<ChatMarkdownRendererProps> = ({
   return (
     <div className="chat-markdown-body space-y-1">
       {elements}
+      {quizDirectives}
+      {groundingDirectives}
       {navDirectives}
     </div>
   );

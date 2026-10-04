@@ -36,10 +36,10 @@ export const GeminiChatView: React.FC = () => {
           </h1>
 
           <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-            Experience multi-turn conversational preparation powered by Google Gemini. Switch dynamically between specialized roles and task-optimized models: 
-            <strong className="text-purple-300 font-bold"> Gemini 3.1 Pro</strong> for complex reasoning, 
-            <strong className="text-emerald-300 font-bold"> Gemini 3.5 Flash</strong> for general mentoring, and 
-            <strong className="text-amber-300 font-bold"> Gemini 3.1 Flash-Lite</strong> for lightning-fast drills.
+            Experience multi-turn conversational exam preparation powered by Google Gemini. Switch dynamically between specialized roles and task-optimized engines: 
+            <strong className="text-purple-300 font-bold"> Gemini 3.1 Pro</strong> for deep mathematical &amp; pedagogy reasoning, 
+            <strong className="text-emerald-300 font-bold"> Gemini 3.8 Flash</strong> for general syllabus mentoring &amp; multimodal question OCR, and 
+            <strong className="text-amber-300 font-bold"> Gemini 3.1 Flash-Lite</strong> for lightning-fast speed drills.
           </p>
 
           <div className="flex flex-wrap items-center gap-3 pt-2 text-xs font-medium text-slate-300">
@@ -48,12 +48,16 @@ export const GeminiChatView: React.FC = () => {
               <span>Full Multi-Turn History</span>
             </span>
             <span className="flex items-center gap-1.5 bg-white/10 px-3 py-1 rounded-xl">
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <span>Multimodal Question OCR</span>
+            </span>
+            <span className="flex items-center gap-1.5 bg-white/10 px-3 py-1 rounded-xl">
               <Languages className="w-3.5 h-3.5 text-blue-400" />
               <span>English • اردو • سنڌي</span>
             </span>
             <span className="flex items-center gap-1.5 bg-white/10 px-3 py-1 rounded-xl">
-              <GraduationCap className="w-3.5 h-3.5 text-amber-400" />
-              <span>STS, SPSC &amp; FPSC Aligned</span>
+              <GraduationCap className="w-3.5 h-3.5 text-teal-400" />
+              <span>STS, SPSC &amp; Teaching License</span>
             </span>
           </div>
         </div>
@@ -74,10 +78,10 @@ export const GeminiChatView: React.FC = () => {
           </div>
           <div>
             <h3 className="font-bold text-slate-900 dark:text-white text-sm">
-              gemini-3.5-flash
+              gemini-3.8-flash
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-              General study mentoring, syllabus breakdowns, Everyday Science concepts, and balanced conceptual explanations.
+              General study mentoring, syllabus breakdowns, question image OCR, and real-time Google search grounding.
             </p>
           </div>
         </div>

@@ -21,7 +21,16 @@ import {
   Info,
   ExternalLink,
   MessageSquare,
-  AlertCircle
+  AlertCircle,
+  Calculator,
+  GraduationCap,
+  Paperclip,
+  Image as ImageIcon,
+  Globe,
+  X,
+  Target,
+  HelpCircle,
+  FileQuestion
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { ChatMarkdownRenderer } from './ChatMarkdownRenderer';
@@ -34,6 +43,8 @@ export interface ChatMessageItem {
   model?: string;
   roleId?: string;
   isStreaming?: boolean;
+  image?: string;
+  groundingSources?: Array<{ title: string; url: string }>;
 }
 
 export interface ChatRoleDefinition {
@@ -43,7 +54,7 @@ export interface ChatRoleDefinition {
   subtitle: string;
   taskType: 'general' | 'complex' | 'fast';
   recommendedModel: 'gemini-3.8-flash' | 'gemini-3.1-pro-preview' | 'gemini-3.1-flash-lite';
-  icon: 'general' | 'complex' | 'fast' | 'language';
+  icon: 'general' | 'complex' | 'fast' | 'language' | 'math' | 'pedagogy';
   badge: string;
   color: string;
   systemInstruction: string;
@@ -64,6 +75,8 @@ export const CHAT_ROLES: ChatRoleDefinition[] = [
     systemInstruction: `You are the "General STS & SPSC Exam Mentor" on MUQABIL (muqabil.pk).
 Your role: Provide clear, comprehensive, and syllabus-aligned explanations for aspirants of Sukkur IBA STS BPS-05 to 15, SPSC CCE, FPSC, CSS MPT, and provincial exams.
 Style: Encouraging, structured, with bullet points, bold key takeaways, and exam relevance notes. Give thorough and complete explanations without cutting off early.
+When user asks for practice questions, you may generate interactive MCQs:
+<<<QUIZ_MCQ: {"question": "<text>", "options": ["A) ...", "B) ...", "C) ...", "D) ..."], "answer": "B", "explanation": "<details>"}>>>
 When user asks for practice or past papers, you may provide navigation directives:
 <<<NAVIGATE: {"tab": "<target_tab>", "paperId": "<optional_paper_id>", "label": "<action_button_label>", "description": "<brief_description>"}>>>`,
     starterPrompts: [
@@ -91,6 +104,24 @@ Style: Rigorous step-by-step deductions, explicit mathematical formulas, trap id
       'Compare Piaget\'s formal operational stage with Vygotsky\'s Scaffolding in classroom pedagogy.',
       'Explain the constitutional mechanism of NFC Award under Article 160 vs Council of Common Interests (Article 153).',
       'Break down a complex permutation and combination probability problem with examiner traps highlighted.',
+    ],
+  },
+  {
+    id: 'math-wizard',
+    name: 'Quantitative Reasoning & Math Shortcut Wizard',
+    shortName: 'Math Wizard',
+    subtitle: 'Speed arithmetic, percentage shortcuts, algebra & geometry proofs',
+    taskType: 'complex',
+    recommendedModel: 'gemini-3.1-pro-preview',
+    icon: 'math',
+    badge: 'Quant Master · gemini-3.1-pro-preview',
+    color: 'from-amber-600 to-rose-700',
+    systemInstruction: `You are the "Quantitative Reasoning & Math Shortcut Wizard" on MUQABIL. Specialize in speed arithmetic, percentage shortcuts, ratio & proportions, time-speed-distance, algebraic equations, LCM/HCF, geometry, and probability. Always show the conventional formula alongside a 10-second mental shortcut. Highlight common trap answers examiners put in options C and D.`,
+    starterPrompts: [
+      'Solve in 10 seconds: A train 150m long passes a pole in 9 seconds. What is its speed in km/h?',
+      'Explain the fast shortcut formula for Compound Interest vs Simple Interest difference for 2 years.',
+      'How to quickly solve age word problems with ratio methods instead of lengthy equations?',
+      'Give me 4 high-yield geometry formulas for circles and triangles frequently tested in STS.',
     ],
   },
   {
@@ -131,6 +162,24 @@ Style: Fluent and accurate in English, Urdu (اردو), and Sindhi (سنڌي). P
       'سنڌي وياڪرڻ ۾ تشبيهه ۽ استعاري جي وچ ۾ ڪهڙو فرق آهي؟ مثالن سان سمجهايو۔',
       'اردو گرامر: صنعتِ تضاد اور صنعتِ مراعاۃ النظیر میں کیا فرق ہے؟ اشعار کے ساتھ بتائیں۔',
       'Translate and explain 3 common Sindhi and Urdu proverbs used in screening tests.',
+    ],
+  },
+  {
+    id: 'pedagogy-coach',
+    name: 'Teaching License & Pedagogy Specialist',
+    shortName: 'Pedagogy Coach',
+    subtitle: 'Sindh Teaching License, Bloom\'s Taxonomy, Piaget, Lesson Plans & CRQs',
+    taskType: 'general',
+    recommendedModel: 'gemini-3.8-flash',
+    icon: 'pedagogy',
+    badge: 'Teaching License · gemini-3.8-flash',
+    color: 'from-emerald-700 to-teal-800',
+    systemInstruction: `You are the "Teaching License & Pedagogy Specialist" on MUQABIL. Specialize in Sindh Teaching License examinations, PST, JEST, SST, Child Development, Bloom's Revised Taxonomy, Classroom Management, Lesson Planning, Formative/Summative Assessment, and Inclusive Education.`,
+    starterPrompts: [
+      'Break down Bloom\'s Revised Taxonomy with classroom assessment verbs for STS Teaching License.',
+      'Explain the difference between Formative and Summative assessment with 3 exam scenarios.',
+      'How does Jacob Kounin\'s "Withitness" apply to managing multi-grade classrooms in Sindh?',
+      'Provide a sample model answer for a 10-mark Constructive Response Question (CRQ) on Lesson Planning.',
     ],
   },
 ];
@@ -199,8 +248,13 @@ Select a preset question below, switch roles above, or type your question in Eng
   const [speechSupported, setSpeechSupported] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+  // Enhanced Capabilities States: Vision Image Attachment & Web Search Grounding
+  const [attachedImage, setAttachedImage] = useState<{ base64: string; mimeType: string; name: string } | null>(null);
+  const [enableSearchGrounding, setEnableSearchGrounding] = useState(false);
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const recognitionRef = useRef<any>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const activeRole = CHAT_ROLES.find((r) => r.id === selectedRoleId) || CHAT_ROLES[0];
 
@@ -224,7 +278,50 @@ Select a preset question below, switch roles above, or type your question in Eng
   // Auto-scroll to bottom of messages thread
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isLoading]);
+  }, [messages, isLoading, attachedImage]);
+
+  // Handle clipboard paste of screenshot / image
+  useEffect(() => {
+    const handlePaste = (e: ClipboardEvent) => {
+      const items = e.clipboardData?.items;
+      if (!items) return;
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].type.startsWith('image/')) {
+          const file = items[i].getAsFile();
+          if (file) {
+            handleImageFile(file);
+            break;
+          }
+        }
+      }
+    };
+    window.addEventListener('paste', handlePaste);
+    return () => window.removeEventListener('paste', handlePaste);
+  }, []);
+
+  const handleImageFile = (file: File) => {
+    if (!file.type.startsWith('image/')) {
+      setErrorMessage('Please select a valid image file (PNG, JPG, WEBP).');
+      return;
+    }
+    if (file.size > 12 * 1024 * 1024) {
+      setErrorMessage('Image size is too large (maximum 12MB).');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const result = e.target?.result as string;
+      if (result) {
+        setAttachedImage({
+          base64: result,
+          mimeType: file.type,
+          name: file.name || 'Pasted screenshot',
+        });
+        setErrorMessage(null);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
 
   // Check Web Speech API support
   useEffect(() => {
@@ -338,19 +435,57 @@ Select a preset question below, switch roles above, or type your question in Eng
     URL.revokeObjectURL(url);
   };
 
+  // Quick Smart Capabilities Action Presets
+  const handleQuickCapability = (type: 'quiz' | 'solve' | 'traps' | 'urdu' | 'sindhi' | 'merit') => {
+    let prompt = '';
+    const currentText = inputPrompt.trim();
+    switch (type) {
+      case 'quiz':
+        prompt = `Generate 5 high-yield screening MCQs with <<<QUIZ_MCQ>>> format on: ${currentText || 'Sukkur IBA STS BPS-05 to 15 Core Syllabus (Prepositions, Percentages & Pakistan Affairs)'}.`;
+        break;
+      case 'solve':
+        prompt = currentText 
+          ? `Solve this problem step-by-step with clear arithmetic steps, formula shortcut, and examiner distractor warnings: "${currentText}"`
+          : 'Explain the 10-second shortcut technique for solving complex Percentage and Profit/Loss questions in IBA STS exams.';
+        break;
+      case 'traps':
+        prompt = currentText
+          ? `Analyze the examiner traps and distractor tricks in this question: "${currentText}"`
+          : 'What are the top 5 examiner traps and distractor tricks used in STS English and Math questions?';
+        break;
+      case 'urdu':
+        prompt = currentText
+          ? `اس سوال اور تصور کو اردو میں جامع اور آسان انداز میں سمجھائیں: "${currentText}"`
+          : 'اردو گرامر کے 5 اہم ترین قواعد (تشبیہ، استعارہ، محاورے) مثالوں کے ساتھ سمجھائیں۔';
+        break;
+      case 'sindhi':
+        prompt = currentText
+          ? `هن سوال ۽ تصور کي سنڌيءَ ۾ سولو ۽ واضح ڪري سمجهايو: "${currentText}"`
+          : 'سنڌي وياڪرڻ جا 5 اهم ترين اصول، پهاڪا ۽ اصطلاح ٻڌايو جيڪي سنڌ اسڪريننگ ٽيسٽ ۾ اچن ٿا. ';
+        break;
+      case 'merit':
+        prompt = 'Explain the official STS Sukkur IBA BPS-05 to 15 qualifying cut-off, merit calculation formula, and district quota aggregation rules.';
+        break;
+    }
+    handleSendMessage(prompt);
+  };
+
   // Multi-Turn Message Send Handler
   const handleSendMessage = async (promptToSend?: string) => {
     const query = (promptToSend || inputPrompt).trim();
-    if (!query || isLoading) return;
+    const currentImg = attachedImage;
+    if ((!query && !currentImg) || isLoading) return;
 
     setErrorMessage(null);
     setInputPrompt('');
+    setAttachedImage(null);
 
     const userMessage: ChatMessageItem = {
       id: `user-${Date.now()}`,
       role: 'user',
-      content: query,
+      content: query || 'Please analyze this attached exam question image, solve it step-by-step, and explain the correct answer.',
       timestamp: Date.now(),
+      image: currentImg?.base64,
     };
 
     // Append user message immediately to the thread
@@ -374,6 +509,9 @@ Select a preset question below, switch roles above, or type your question in Eng
           model: modelOverride === 'auto' ? undefined : modelOverride,
           roleId: activeRole.id,
           systemInstruction: customSystemInstruction || undefined,
+          imageBase64: currentImg?.base64,
+          imageMimeType: currentImg?.mimeType,
+          enableSearchGrounding,
           userContext: user
             ? {
                 targetExam: 'STS BPS-05 to 15',
@@ -406,6 +544,7 @@ Select a preset question below, switch roles above, or type your question in Eng
         timestamp: Date.now(),
         model: modelUsed,
         roleId: data.roleId || activeRole.id,
+        groundingSources: data.groundingSources,
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
@@ -590,6 +729,8 @@ A **Verb** is the foundational engine of any English sentence. It expresses an *
                 {role.icon === 'fast' && <Zap className="w-3.5 h-3.5 text-amber-400" />}
                 {role.icon === 'general' && <Sparkles className="w-3.5 h-3.5 text-emerald-400" />}
                 {role.icon === 'language' && <Languages className="w-3.5 h-3.5 text-blue-400" />}
+                {role.icon === 'math' && <Calculator className="w-3.5 h-3.5 text-amber-400" />}
+                {role.icon === 'pedagogy' && <GraduationCap className="w-3.5 h-3.5 text-teal-400" />}
                 <span>{role.shortName}</span>
                 {isSelected && (
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -693,6 +834,15 @@ A **Verb** is the foundational engine of any English sentence. It expresses an *
                 )}
 
                 {/* Content */}
+                {message.image && (
+                  <div className="mb-2 rounded-xl overflow-hidden border border-white/20 max-w-xs shadow-xs">
+                    <img 
+                      src={message.image} 
+                      alt="Question Attachment" 
+                      className="max-h-52 w-auto object-contain bg-black/30 rounded-lg" 
+                    />
+                  </div>
+                )}
                 {renderMessageContent(message.content)}
 
                 {/* Bubble Footer Actions for Assistant Messages */}
@@ -769,7 +919,110 @@ A **Verb** is the foundational engine of any English sentence. It expresses an *
         <div ref={messagesEndRef} />
       </div>
 
-      {/* 3. STARTER PROMPT SUGGESTIONS (Active Role Prompts) */}
+      {/* 3. SMART ACTION TOOLKITS BAR */}
+      <div className="px-4 py-2 bg-gradient-to-r from-slate-100 via-purple-50/40 to-slate-100 dark:from-slate-900/90 dark:via-purple-950/20 dark:to-slate-900/90 border-t border-slate-200 dark:border-slate-800 flex items-center gap-1.5 overflow-x-auto scrollbar-none">
+        <span className="text-[10px] font-black uppercase tracking-wider text-purple-700 dark:text-purple-300 shrink-0 flex items-center gap-1 mr-1">
+          <Sparkles className="w-3 h-3 text-amber-500" />
+          <span>Toolkits:</span>
+        </span>
+
+        {/* Generate 5 MCQs */}
+        <button
+          type="button"
+          onClick={() => handleQuickCapability('quiz')}
+          disabled={isLoading}
+          className="px-2.5 py-1 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 hover:bg-purple-600 hover:text-white text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800/80 transition cursor-pointer flex items-center gap-1.5 shrink-0 shadow-2xs"
+          title="Generate 5 interactive exam questions on the current topic"
+        >
+          <Target className="w-3.5 h-3.5 text-purple-500" />
+          <span>🎯 Generate 5 MCQs</span>
+        </button>
+
+        {/* Step-by-Step Solver */}
+        <button
+          type="button"
+          onClick={() => handleQuickCapability('solve')}
+          disabled={isLoading}
+          className="px-2.5 py-1 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 hover:bg-indigo-600 hover:text-white text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800/80 transition cursor-pointer flex items-center gap-1.5 shrink-0 shadow-2xs"
+          title="Solve step-by-step with formulas and shortcuts"
+        >
+          <Calculator className="w-3.5 h-3.5 text-indigo-500" />
+          <span>🧮 Step-by-Step</span>
+        </button>
+
+        {/* Examiner Traps */}
+        <button
+          type="button"
+          onClick={() => handleQuickCapability('traps')}
+          disabled={isLoading}
+          className="px-2.5 py-1 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 hover:bg-amber-600 hover:text-white text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800/80 transition cursor-pointer flex items-center gap-1.5 shrink-0 shadow-2xs"
+          title="Analyze examiner distractors and pitfalls"
+        >
+          <HelpCircle className="w-3.5 h-3.5 text-amber-500" />
+          <span>⚠️ Examiner Traps</span>
+        </button>
+
+        {/* Google Search Grounding Toggle */}
+        <button
+          type="button"
+          onClick={() => setEnableSearchGrounding(!enableSearchGrounding)}
+          className={`px-2.5 py-1 rounded-xl text-xs font-bold transition cursor-pointer flex items-center gap-1.5 shrink-0 shadow-2xs border ${
+            enableSearchGrounding
+              ? 'bg-sky-600 text-white border-sky-500 ring-2 ring-sky-500/20'
+              : 'bg-white dark:bg-slate-800 hover:bg-sky-50 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-800'
+          }`}
+          title="Toggle Real-Time Google Search Grounding for current affairs & appointments"
+        >
+          <Globe className="w-3.5 h-3.5" />
+          <span>Live Search</span>
+          {enableSearchGrounding && (
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          )}
+        </button>
+
+        {/* Scan / Upload Image */}
+        <button
+          type="button"
+          onClick={() => fileInputRef.current?.click()}
+          className="px-2.5 py-1 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 hover:bg-emerald-600 hover:text-white text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/80 transition cursor-pointer flex items-center gap-1.5 shrink-0 shadow-2xs"
+          title="Attach question image / screenshot (or paste with Ctrl+V)"
+        >
+          <ImageIcon className="w-3.5 h-3.5 text-emerald-500" />
+          <span>📷 Scan Question</span>
+        </button>
+
+        {/* Urdu Translation */}
+        <button
+          type="button"
+          onClick={() => handleQuickCapability('urdu')}
+          disabled={isLoading}
+          className="px-2.5 py-1 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 hover:bg-blue-600 hover:text-white text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800/80 transition cursor-pointer shrink-0 shadow-2xs"
+        >
+          اردو میں سمجھائیں
+        </button>
+
+        {/* Sindhi Translation */}
+        <button
+          type="button"
+          onClick={() => handleQuickCapability('sindhi')}
+          disabled={isLoading}
+          className="px-2.5 py-1 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 hover:bg-teal-600 hover:text-white text-teal-700 dark:text-teal-300 border border-teal-200 dark:border-teal-800/80 transition cursor-pointer shrink-0 shadow-2xs"
+        >
+          سنڌيءَ ۾ سمجهايو
+        </button>
+
+        {/* Merit Formula */}
+        <button
+          type="button"
+          onClick={() => handleQuickCapability('merit')}
+          disabled={isLoading}
+          className="px-2.5 py-1 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 hover:bg-slate-700 hover:text-white text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition cursor-pointer shrink-0 shadow-2xs"
+        >
+          ⏱️ Merit Formula
+        </button>
+      </div>
+
+      {/* 4. STARTER PROMPT SUGGESTIONS (Active Role Prompts) */}
       <div className="px-4 py-2 bg-slate-100/70 dark:bg-slate-900/90 border-t border-slate-200 dark:border-slate-800 flex items-center gap-2 overflow-x-auto scrollbar-none">
         <span className="text-[11px] font-bold text-slate-400 shrink-0 flex items-center gap-1">
           <Sparkles className="w-3 h-3 text-amber-500" />
@@ -787,8 +1040,50 @@ A **Verb** is the foundational engine of any English sentence. It expresses an *
         ))}
       </div>
 
-      {/* 4. CHAT INPUT BAR & VOICE CONTROLS */}
+      {/* 5. CHAT INPUT BAR & VISION/VOICE CONTROLS */}
       <div className="p-3 sm:p-4 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
+        {/* Hidden File Input for Image Upload */}
+        <input
+          type="file"
+          ref={fileInputRef}
+          className="hidden"
+          accept="image/*"
+          onChange={(e) => {
+            const f = e.target.files?.[0];
+            if (f) handleImageFile(f);
+            e.target.value = '';
+          }}
+        />
+
+        {/* Attached Image Preview Card */}
+        {attachedImage && (
+          <div className="mb-2.5 p-2 rounded-2xl bg-purple-50 dark:bg-purple-950/50 border border-purple-200 dark:border-purple-800 flex items-center justify-between gap-3 animate-in fade-in duration-150">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <img
+                src={attachedImage.base64}
+                alt="Upload preview"
+                className="w-10 h-10 rounded-lg object-cover border border-purple-300 shrink-0"
+              />
+              <div className="min-w-0">
+                <span className="text-xs font-bold text-slate-900 dark:text-white block truncate">
+                  {attachedImage.name}
+                </span>
+                <span className="text-[11px] text-purple-600 dark:text-purple-300 block">
+                  Question photo attached • Gemini Multimodal OCR will extract &amp; solve
+                </span>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setAttachedImage(null)}
+              className="p-1.5 rounded-lg hover:bg-rose-100 dark:hover:bg-rose-900/50 text-rose-600 transition cursor-pointer"
+              title="Remove attached image"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        )}
+
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -796,12 +1091,22 @@ A **Verb** is the foundational engine of any English sentence. It expresses an *
           }}
           className="flex items-center gap-2"
         >
+          {/* Attach Question Image Button */}
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            className="p-3 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 transition cursor-pointer shrink-0"
+            title="Attach question image / screenshot (or paste with Ctrl+V)"
+          >
+            <Paperclip className="w-4 h-4" />
+          </button>
+
           {/* Voice Input Button */}
           {speechSupported && (
             <button
               type="button"
               onClick={toggleListening}
-              className={`p-3 rounded-2xl transition cursor-pointer border ${
+              className={`p-3 rounded-2xl transition cursor-pointer border shrink-0 ${
                 isListening
                   ? 'bg-rose-600 text-white border-rose-500 animate-pulse ring-4 ring-rose-500/20'
                   : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-200'
@@ -818,7 +1123,11 @@ A **Verb** is the foundational engine of any English sentence. It expresses an *
               type="text"
               value={inputPrompt}
               onChange={(e) => setInputPrompt(e.target.value)}
-              placeholder={`Ask ${activeRole.shortName} in English, اردو or سنڌي...`}
+              placeholder={
+                attachedImage 
+                  ? 'Ask a specific question about this image, or press Send to solve...' 
+                  : `Ask ${activeRole.shortName} in English, اردو or سنڌي...`
+              }
               disabled={isLoading}
               className="w-full rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
             />
@@ -827,7 +1136,7 @@ A **Verb** is the foundational engine of any English sentence. It expresses an *
           {/* Send Button */}
           <button
             type="submit"
-            disabled={!inputPrompt.trim() || isLoading}
+            disabled={(!inputPrompt.trim() && !attachedImage) || isLoading}
             className="p-3 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white disabled:opacity-40 shadow-md transition cursor-pointer flex items-center justify-center shrink-0"
             title="Send Message"
           >
@@ -836,7 +1145,14 @@ A **Verb** is the foundational engine of any English sentence. It expresses an *
         </form>
 
         <div className="mt-2 flex items-center justify-between text-[11px] text-slate-400 px-1">
-          <span>Multi-turn chat • History preserved across tabs</span>
+          <span className="flex items-center gap-1.5">
+            <span>Multi-turn chat • History preserved across tabs</span>
+            {enableSearchGrounding && (
+              <span className="text-[10px] text-sky-600 dark:text-sky-400 font-bold flex items-center gap-0.5">
+                • <Globe className="w-2.5 h-2.5 inline" /> Live Search Active
+              </span>
+            )}
+          </span>
           <span className="font-mono text-[10px] text-purple-600 dark:text-purple-400 font-semibold">
             {activeRole.badge}
           </span>

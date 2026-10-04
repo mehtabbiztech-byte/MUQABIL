@@ -3,11 +3,9 @@ import assert from 'node:assert/strict';
 import { MCQS_DATA } from './mcqsData';
 import { MINIMUM_SUBJECT_MCQ_BANKS } from './generatedSubjectMcqs';
 
-const slugify = (value: string) => value.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-
 test('every listed discipline has at least 500 bundled MCQs', () => {
   for (const bank of MINIMUM_SUBJECT_MCQ_BANKS) {
-    const questions = MCQS_DATA.filter(item => slugify(item.category) === bank.slug);
+    const questions = MCQS_DATA.filter(item => item.category.trim() === bank.slug);
     assert.ok(questions.length >= bank.minimum, `${bank.name} has only ${questions.length} MCQs`);
     assert.equal(new Set(questions.map(item => item.id)).size, questions.length, `${bank.name} has duplicate MCQ IDs`);
     assert.ok(questions.every(item => item.options.length === 4 && item.correctIndex >= 0 && item.correctIndex < 4), `${bank.name} has an invalid answer key`);

@@ -42,7 +42,7 @@ export interface ChatRoleDefinition {
   shortName: string;
   subtitle: string;
   taskType: 'general' | 'complex' | 'fast';
-  recommendedModel: 'gemini-3.5-flash' | 'gemini-3.1-pro-preview' | 'gemini-3.1-flash-lite';
+  recommendedModel: 'gemini-3.8-flash' | 'gemini-3.1-pro-preview' | 'gemini-3.1-flash-lite';
   icon: 'general' | 'complex' | 'fast' | 'language';
   badge: string;
   color: string;
@@ -57,13 +57,13 @@ export const CHAT_ROLES: ChatRoleDefinition[] = [
     shortName: 'General Mentor',
     subtitle: 'Balanced conceptual guidance, syllabus breakdowns & full explanations',
     taskType: 'general',
-    recommendedModel: 'gemini-3.5-flash',
+    recommendedModel: 'gemini-3.8-flash',
     icon: 'general',
-    badge: 'General Tasks · gemini-3.5-flash',
+    badge: 'General Tasks · gemini-3.8-flash',
     color: 'from-emerald-600 to-teal-700',
-    systemInstruction: `You are the "General STS & SPSC Exam Mentor" on MATB STS PREP.
+    systemInstruction: `You are the "General STS & SPSC Exam Mentor" on MUQABIL (muqabil.pk).
 Your role: Provide clear, comprehensive, and syllabus-aligned explanations for aspirants of Sukkur IBA STS BPS-05 to 15, SPSC CCE, FPSC, CSS MPT, and provincial exams.
-Style: Encouraging, structured, with bullet points, bold key takeaways, and exam relevance notes.
+Style: Encouraging, structured, with bullet points, bold key takeaways, and exam relevance notes. Give thorough and complete explanations without cutting off early.
 When user asks for practice or past papers, you may provide navigation directives:
 <<<NAVIGATE: {"tab": "<target_tab>", "paperId": "<optional_paper_id>", "label": "<action_button_label>", "description": "<brief_description>"}>>>`,
     starterPrompts: [
@@ -83,7 +83,7 @@ When user asks for practice or past papers, you may provide navigation directive
     icon: 'complex',
     badge: 'Complex Tasks · gemini-3.1-pro-preview',
     color: 'from-purple-600 to-indigo-700',
-    systemInstruction: `You are the "Deep Reasoning & Complex Problem Solver" on MATB STS PREP powered by Gemini 3.1 Pro.
+    systemInstruction: `You are the "Deep Reasoning & Complex Problem Solver" on MUQABIL powered by Gemini 3.1 Pro.
 Your role: Analyze particularly complex exam challenges, multi-step quantitative reasoning, algebraic & geometric proofs, probability & permutations, constitutional articles (1973 Constitution, NFC, CCI), child development & pedagogy frameworks (Piaget's stages, Vygotsky's ZPD, Bloom's Revised Taxonomy, Jacob Kounin's classroom management), and tricky examiner distractors.
 Style: Rigorous step-by-step deductions, explicit mathematical formulas, trap identification ("Subtractive Trap", "Neighboring Article Trap"), and analytical clarity. Always double check your intermediate arithmetic.`,
     starterPrompts: [
@@ -103,7 +103,7 @@ Style: Rigorous step-by-step deductions, explicit mathematical formulas, trap id
     icon: 'fast',
     badge: 'Fast Tasks · gemini-3.1-flash-lite',
     color: 'from-amber-500 to-orange-600',
-    systemInstruction: `You are the "Rapid MCQ Drill Master" on MATB STS PREP powered by Gemini 3.1 Flash-Lite.
+    systemInstruction: `You are the "Rapid MCQ Drill Master" on MUQABIL powered by Gemini 3.1 Flash-Lite.
 Your role: Ultra-fast question answering, lightning flashcard review, instant formula checks, and quick definition lookups.
 Style: High-speed, succinct, direct, 2-4 crisp bullet points or flashcard format. Zero fluff or lengthy preamble. Always test the user with a quick follow-up question.`,
     starterPrompts: [
@@ -119,11 +119,11 @@ Style: High-speed, succinct, direct, 2-4 crisp bullet points or flashcard format
     shortName: 'Language Coach',
     subtitle: 'English grammar rules, Urdu adab & Sindhi vyakaran (Bilingual/Trilingual)',
     taskType: 'general',
-    recommendedModel: 'gemini-3.5-flash',
+    recommendedModel: 'gemini-3.8-flash',
     icon: 'language',
-    badge: 'Trilingual Mastery · gemini-3.5-flash',
+    badge: 'Trilingual Mastery · gemini-3.8-flash',
     color: 'from-blue-600 to-cyan-700',
-    systemInstruction: `You are the "Sindh & Pakistan Language Specialist" on MATB STS PREP.
+    systemInstruction: `You are the "Sindh & Pakistan Language Specialist" on MUQABIL.
 Your role: Master English grammar (subject-verb agreement, Royal Order of Adjectives, conditionals, voice/narration), Urdu linguistics (محاورے، تلمیح، تشبیہ و استعارہ), and Sindhi grammar (سنڌي وياڪرڻ: پهاڪا، اصطلاح، علمِ بيان).
 Style: Fluent and accurate in English, Urdu (اردو), and Sindhi (سنڌي). Provide side-by-side linguistic explanations and practical examples.`,
     starterPrompts: [
@@ -416,7 +416,30 @@ Select a preset question below, switch roles above, or type your question in Eng
       const lower = query.toLowerCase();
       let fallbackText = '';
 
-      if (lower.includes('syllabus') || lower.includes('pattern') || lower.includes('bps')) {
+      if (lower.includes('verb') || lower.includes('noun') || lower.includes('tense') || lower.includes('grammar') || lower.includes('preposition') || lower.includes('adjective')) {
+        fallbackText = `### English Grammar Master Note: Verbs & Core Parts of Speech
+
+A **Verb** is the foundational engine of any English sentence. It expresses an **action** (*run, write*), a **state of being** (*is, appear*), or an **occurrence** (*happen, become*). Without a finite verb, a complete grammatical sentence cannot exist.
+
+*   **In Urdu:** Verb کو اردو میں **فعل** کہتے ہیں، جو کسی کام کے کرنے یا ہونے کو ظاہر کرتا ہے۔ جیسے: وہ دوڑتا ہے (*Ali runs*).
+*   **In Sindhi:** سنڌيءَ ۾ فعل کي **ڪم يا فعل** چئبو آهي، جيڪو ڪنهن ڪم جي ڪرڻ يا ٿيڻ کي ظاهر ڪري ٿو. مثال طور: هو لکي ٿو (*He writes*).
+
+---
+
+### High-Yield Verb Types for STS & SPSC Screening Tests:
+
+1.  **Transitive vs Intransitive Verbs**:
+    *   **Transitive:** Requires a direct object to complete its meaning (*He **wrote** a report*).
+    *   **Intransitive:** Does not require an object (*The baby **smiled***).
+2.  **Helping / Auxiliary Verbs**:
+    *   Primary: *be (is/am/are/was/were), have (has/have/had), do (do/does/did)*.
+    *   Modal: *can, could, may, might, must, should, would* indicating possibility or necessity.
+3.  **Subject-Verb Agreement Golden Rule**:
+    *   Singular subject takes a singular verb (*The quality of the books **is** good*, not *are*).
+    *   Two singular subjects joined by *and* take a plural verb (*Ali and Ahmed **are** preparing*).
+
+<<<NAVIGATE: {"tab": "mcqs", "categorySlug": "english", "label": "Practice English Grammar MCQs", "description": "Practice 1,500+ solved questions on Verbs, Tenses & Prepositions"}>>>`;
+      } else if (lower.includes('syllabus') || lower.includes('pattern') || lower.includes('bps')) {
         fallbackText = `### Sukkur IBA STS BPS-05 to 15 Official Syllabus Breakdown\n\n*   **Part I - English (40%)**: Reading Comprehension (10), Synonyms & Antonyms (10), Prepositions & Use of Verbs (10), Error Detection (10).\n*   **Part II - Mathematics (20%)**: Basic Arithmetic, Percentages, Ratios, Fractions, Word Problems, and Simple Equations.\n*   **Part III - General Knowledge (40%)**: Everyday Science (15), Pakistan Studies & Current Affairs (15), Basic Computer Knowledge (10).\n\n<<<NAVIGATE: {"tab": "past-papers", "paperId": "pp-sts-bps-5-15-grad-2024", "label": "Practice STS Past Papers", "description": "Review official solved questions and detailed keys"}>>>`;
       } else if (lower.includes('pedagogy') || lower.includes('bloom') || lower.includes('piaget') || lower.includes('teaching license') || lower.includes('zpd')) {
         fallbackText = `### Teaching License & Pedagogy Analysis (${activeRole.name})\n\n1.  **Vygotsky's ZPD**: The zone between independent capability and assisted competence. The teacher provides temporary **scaffolding** that fades as mastery develops.\n2.  **Bloom's Revised Taxonomy**: Remember → Understand → Apply → Analyze → Evaluate → Create.\n3.  **Formative vs Summative**: Formative is *for* learning (during instruction, low-stakes); Summative is *of* learning (post-instruction, high-stakes).\n\n<<<NAVIGATE: {"tab": "exams", "categorySlug": "teaching-license", "label": "Open Teaching License Hub", "description": "Subjective CRQ & ERQ practice with answer plans"}>>>`;
@@ -481,7 +504,7 @@ Select a preset question below, switch roles above, or type your question in Eng
   };
 
   return (
-    <div className={`flex flex-col rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xl overflow-hidden transition-all duration-300 ${compactMode ? 'h-[580px]' : 'h-[750px] max-h-[85vh]'}`}>
+    <div className={`flex flex-col rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xl overflow-hidden transition-all duration-300 ${compactMode ? 'h-full min-h-[500px]' : 'h-[750px] max-h-[85vh]'}`}>
       
       {/* 1. CHATBOT HEADER & ROLE / MODEL COCKPIT */}
       <div className="p-4 sm:p-5 border-b border-slate-200 dark:border-slate-800 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white relative">

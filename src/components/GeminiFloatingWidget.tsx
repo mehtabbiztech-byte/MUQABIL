@@ -48,7 +48,7 @@ export const GeminiFloatingWidget: React.FC = () => {
           className={`fixed z-50 transition-all duration-300 ${
             isExpanded
               ? 'inset-4 sm:inset-10'
-              : 'bottom-20 right-4 sm:right-6 w-[94vw] sm:w-[460px] max-h-[82vh]'
+              : 'bottom-20 right-4 sm:right-6 w-[95vw] sm:w-[500px] h-[660px] max-h-[88vh]'
           }`}
         >
           <div className="relative h-full shadow-2xl rounded-3xl overflow-hidden ring-1 ring-slate-900/10">

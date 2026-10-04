@@ -61,32 +61,32 @@ Polite, encouraging, clear, and comprehensive. Format explanations with clean bu
 export const ROLES: Record<string, {
   name: string;
   taskType: 'general' | 'complex' | 'fast';
-  defaultModel: 'gemini-3.5-flash' | 'gemini-3.1-pro-preview' | 'gemini-3.1-flash-lite';
+  defaultModel: 'gemini-3.8-flash' | 'gemini-3.1-pro-preview' | 'gemini-3.1-flash-lite';
   systemInstruction: string;
 }> = {
   'general-mentor': {
     name: 'General STS & SPSC Exam Mentor',
     taskType: 'general',
-    defaultModel: 'gemini-3.5-flash',
-    systemInstruction: `You are the "General STS & SPSC Exam Mentor" on MATB STS PREP. Provide comprehensive, syllabus-aligned explanations for aspirants of Sukkur IBA STS BPS-05 to 15, SPSC CCE, FPSC, CSS MPT, and provincial exams. Use structured bullet points and bold key takeaways.`,
+    defaultModel: 'gemini-3.8-flash',
+    systemInstruction: `You are the "General STS & SPSC Exam Mentor" on MUQABIL (muqabil.pk). Provide comprehensive, syllabus-aligned explanations for aspirants of Sukkur IBA STS BPS-05 to 15, SPSC CCE, FPSC, CSS MPT, and provincial exams. Use structured bullet points, clear examples, bold key takeaways, and relevant Urdu/Sindhi translations where helpful. Always provide complete, thorough explanations without cutting off prematurely.`,
   },
   'complex-solver': {
     name: 'Deep Reasoning & Complex Problem Solver',
     taskType: 'complex',
     defaultModel: 'gemini-3.1-pro-preview',
-    systemInstruction: `You are the "Deep Reasoning & Complex Problem Solver" on MATB STS PREP powered by Gemini 3.1 Pro. Analyze particularly complex exam challenges, multi-step math derivations, algebraic & geometric proofs, constitutional law articles, child development & pedagogy frameworks (Piaget, Vygotsky, Bloom), and tricky examiner distractors. Provide rigorous step-by-step deductions and arithmetic checks.`,
+    systemInstruction: `You are the "Deep Reasoning & Complex Problem Solver" on MUQABIL powered by Gemini 3.1 Pro. Analyze particularly complex exam challenges, multi-step math derivations, algebraic & geometric proofs, constitutional law articles, child development & pedagogy frameworks (Piaget, Vygotsky, Bloom), and tricky examiner distractors. Provide rigorous step-by-step deductions and arithmetic checks.`,
   },
   'rapid-drill': {
     name: 'Rapid MCQ Drill Master',
     taskType: 'fast',
     defaultModel: 'gemini-3.1-flash-lite',
-    systemInstruction: `You are the "Rapid MCQ Drill Master" on MATB STS PREP powered by Gemini 3.1 Flash-Lite. Your mission is high-speed question-answering, flashcard review, and instant fact verification. Deliver punchy, succinct, high-accuracy answers without filler.`,
+    systemInstruction: `You are the "Rapid MCQ Drill Master" on MUQABIL powered by Gemini 3.1 Flash-Lite. Your mission is high-speed question-answering, flashcard review, and instant fact verification. Deliver punchy, succinct, high-accuracy answers without filler.`,
   },
   'language-coach': {
     name: 'Sindh & Pakistan Language Specialist',
     taskType: 'general',
-    defaultModel: 'gemini-3.5-flash',
-    systemInstruction: `You are the "Sindh & Pakistan Language Specialist" on MATB STS PREP. Master English grammar, Urdu linguistics (محاورے), and Sindhi grammar (سنڌي وياڪرڻ: پهاڪا، اصطلاح). Assist candidates with idioms, translation, and grammatical correction in English, Urdu, and Sindhi.`,
+    defaultModel: 'gemini-3.8-flash',
+    systemInstruction: `You are the "Sindh & Pakistan Language Specialist" on MUQABIL. Master English grammar, Urdu linguistics (محاورے، تلمیح، قواعد), and Sindhi grammar (سنڌي وياڪرڻ: پهاڪا، اصطلاح، علمِ بيان). Assist candidates with idioms, translation, and grammatical correction in English, Urdu, and Sindhi.`,
   },
 };
 
@@ -97,13 +97,23 @@ export default async function handler(request: ApiRequest, response: ApiResponse
       status: 'ok',
       endpoint: '/api/chat',
       supportedMethods: ['POST', 'GET'],
-      models: ['gemini-3.5-flash', 'gemini-3.1-pro-preview', 'gemini-3.1-flash-lite'],
+      models: ['gemini-3.8-flash', 'gemini-3.1-pro-preview', 'gemini-3.1-flash-lite'],
       roles: Object.keys(ROLES),
     });
   }
 
   if (request.method !== 'POST') {
     return response.status(405).json({ error: 'Method Not Allowed' });
+  }
+
+  // Safe parsing of request body on serverless runtime
+  let parsedBody = request.body;
+  if (typeof parsedBody === 'string') {
+    try {
+      parsedBody = JSON.parse(parsedBody);
+    } catch {
+      parsedBody = {};
+    }
   }
 
   const {
@@ -114,7 +124,7 @@ export default async function handler(request: ApiRequest, response: ApiResponse
     systemInstruction: customInstruction,
     userContext,
     mode,
-  } = request.body || {};
+  } = parsedBody || {};
 
   if (!Array.isArray(messages) || messages.length === 0) {
     return response.status(400).json({ error: 'Messages array is required.' });
@@ -124,7 +134,7 @@ export default async function handler(request: ApiRequest, response: ApiResponse
   if (!apiKey) {
     return response.status(200).json({
       fallback: true,
-      reply: 'The server GEMINI_API_KEY is currently unconfigured. You can continue practicing questions and past papers in the platform modules while AI cloud connectivity is established.',
+      reply: 'The server GEMINI_API_KEY is currently unconfigured in Vercel environment variables. Please add GEMINI_API_KEY in your Vercel Project Settings > Environment Variables, or continue practicing questions and past papers in the platform modules while AI cloud connectivity is established.',
       model: 'offline-knowledge-engine',
     });
   }
@@ -138,16 +148,16 @@ export default async function handler(request: ApiRequest, response: ApiResponse
   const fullSystemInstruction = `${BASE_SYSTEM_PROMPT}\n\n[ACTIVE ROLE: ${activeRole.name}]\n${roleInstruction}${voiceInstruction}${candidateContext}`;
 
   // Model determination:
-  // "Use gemini-3.1-pro-preview for particularly complex tasks, gemini-3.5-flash for general tasks, and gemini-3.1-flash-lite for tasks that should happen fast."
-  let targetModel: string = 'gemini-3.5-flash';
-  if (requestedModel && ['gemini-3.1-pro-preview', 'gemini-3.5-flash', 'gemini-3.1-flash-lite'].includes(requestedModel)) {
+  // "Use gemini-3.1-pro-preview for particularly complex tasks, gemini-3.8-flash for general tasks, and gemini-3.1-flash-lite for tasks that should happen fast."
+  let targetModel: string = 'gemini-3.8-flash';
+  if (requestedModel && ['gemini-3.1-pro-preview', 'gemini-3.8-flash', 'gemini-3.1-flash-lite'].includes(requestedModel)) {
     targetModel = requestedModel;
   } else if (taskType === 'complex' || roleId === 'complex-solver') {
     targetModel = 'gemini-3.1-pro-preview';
   } else if (taskType === 'fast' || roleId === 'rapid-drill') {
     targetModel = 'gemini-3.1-flash-lite';
   } else if (taskType === 'general' || roleId === 'general-mentor' || roleId === 'language-coach') {
-    targetModel = 'gemini-3.5-flash';
+    targetModel = 'gemini-3.8-flash';
   } else {
     const lastUserMsg = messages.filter((m) => m.role === 'user').slice(-1)[0]?.content?.toLowerCase() || '';
     const isComplex = /\b(solve step-by-step|derive|mathematical proof|calculus|pedagogy|bloom|piaget|vygotsky|constitutional article|deep reasoning)\b/.test(lastUserMsg) || lastUserMsg.length > 400;
@@ -155,14 +165,13 @@ export default async function handler(request: ApiRequest, response: ApiResponse
 
     if (isComplex) targetModel = 'gemini-3.1-pro-preview';
     else if (isFast) targetModel = 'gemini-3.1-flash-lite';
-    else targetModel = 'gemini-3.5-flash';
+    else targetModel = 'gemini-3.8-flash';
   }
 
   const candidateModels = [
     targetModel,
-    ...(targetModel !== 'gemini-3.5-flash' ? ['gemini-3.5-flash'] : []),
+    ...(targetModel !== 'gemini-3.8-flash' ? ['gemini-3.8-flash'] : []),
     ...(targetModel !== 'gemini-3.1-flash-lite' ? ['gemini-3.1-flash-lite'] : []),
-    'gemini-3.8-flash',
   ];
 
   const conversationHistory = messages.slice(-16).map((m) => ({
@@ -188,6 +197,7 @@ export default async function handler(request: ApiRequest, response: ApiResponse
           contents: conversationHistory,
           config: {
             systemInstruction: fullSystemInstruction,
+            maxOutputTokens: 3000,
             temperature: modelToTry === 'gemini-3.1-pro-preview' ? 0.3 : 0.7,
           },
         });

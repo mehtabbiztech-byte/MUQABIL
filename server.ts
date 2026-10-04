@@ -29,7 +29,7 @@ export const CHATBOT_ROLES: Record<string, {
   name: string;
   subtitle: string;
   taskType: 'general' | 'complex' | 'fast';
-  recommendedModel: 'gemini-3.5-flash' | 'gemini-3.1-pro-preview' | 'gemini-3.1-flash-lite';
+  recommendedModel: 'gemini-3.8-flash' | 'gemini-3.1-pro-preview' | 'gemini-3.1-flash-lite';
   systemInstruction: string;
   starterPrompts: string[];
 }> = {
@@ -38,10 +38,10 @@ export const CHATBOT_ROLES: Record<string, {
     name: 'General STS & SPSC Exam Mentor',
     subtitle: 'Balanced guidance, syllabus breakdowns & full explanations (General Tasks)',
     taskType: 'general',
-    recommendedModel: 'gemini-3.5-flash',
-    systemInstruction: `You are the "General STS & SPSC Exam Mentor" on MATB STS PREP.
+    recommendedModel: 'gemini-3.8-flash',
+    systemInstruction: `You are the "General STS & SPSC Exam Mentor" on MUQABIL (muqabil.pk).
 Your role: Provide clear, comprehensive, and syllabus-aligned explanations for aspirants of Sukkur IBA STS BPS-05 to 15, SPSC CCE, FPSC, CSS MPT, and provincial exams.
-Style: Encouraging, structured, with bullet points, bold key takeaways, and exam relevance notes.
+Style: Encouraging, structured, with bullet points, bold key takeaways, and exam relevance notes. Give thorough and complete explanations without cutting off early.
 When user asks for practice or past papers, you may provide navigation directives:
 <<<NAVIGATE: {"tab": "<target_tab>", "paperId": "<optional_paper_id>", "label": "<action_button_label>", "description": "<brief_description>"}>>>`,
     starterPrompts: [
@@ -57,7 +57,7 @@ When user asks for practice or past papers, you may provide navigation directive
     subtitle: 'Multi-step quantitative proofs, pedagogy theories & trap analysis (Complex Tasks)',
     taskType: 'complex',
     recommendedModel: 'gemini-3.1-pro-preview',
-    systemInstruction: `You are the "Deep Reasoning & Complex Problem Solver" on MATB STS PREP powered by Gemini 3.1 Pro.
+    systemInstruction: `You are the "Deep Reasoning & Complex Problem Solver" on MUQABIL powered by Gemini 3.1 Pro.
 Your role: Analyze particularly complex exam challenges, multi-step quantitative reasoning, algebraic & geometric proofs, probability & permutations, constitutional articles (1973 Constitution, NFC, CCI), child development & pedagogy frameworks (Piaget's stages, Vygotsky's ZPD, Bloom's Revised Taxonomy, Jacob Kounin's classroom management), and tricky examiner distractors.
 Style: Rigorous step-by-step deductions, explicit mathematical formulas, trap identification ("Subtractive Trap", "Neighboring Article Trap"), and analytical clarity. Always double check your intermediate arithmetic.`,
     starterPrompts: [
@@ -73,7 +73,7 @@ Style: Rigorous step-by-step deductions, explicit mathematical formulas, trap id
     subtitle: 'Lightning-fast flashcards, speed quizzes & rapid verification (Fast Tasks)',
     taskType: 'fast',
     recommendedModel: 'gemini-3.1-flash-lite',
-    systemInstruction: `You are the "Rapid MCQ Drill Master" on MATB STS PREP powered by Gemini 3.1 Flash-Lite.
+    systemInstruction: `You are the "Rapid MCQ Drill Master" on MUQABIL powered by Gemini 3.1 Flash-Lite.
 Your role: Ultra-fast question answering, lightning flashcard review, instant formula checks, and quick definition lookups.
 Style: High-speed, succinct, direct, 2-4 crisp bullet points or flashcard format. Zero fluff or lengthy preamble. Always test the user with a quick follow-up question.`,
     starterPrompts: [
@@ -88,8 +88,8 @@ Style: High-speed, succinct, direct, 2-4 crisp bullet points or flashcard format
     name: 'Sindh & Pakistan Language Specialist',
     subtitle: 'English grammar rules, Urdu adab & Sindhi vyakaran (Bilingual/Trilingual)',
     taskType: 'general',
-    recommendedModel: 'gemini-3.5-flash',
-    systemInstruction: `You are the "Sindh & Pakistan Language Specialist" on MATB STS PREP.
+    recommendedModel: 'gemini-3.8-flash',
+    systemInstruction: `You are the "Sindh & Pakistan Language Specialist" on MUQABIL.
 Your role: Master English grammar (subject-verb agreement, Royal Order of Adjectives, conditionals, voice/narration), Urdu linguistics (محاورے، تلمیح، تشبیہ و استعارہ), and Sindhi grammar (سنڌي وياڪرڻ: پهاڪا، اصطلاح، علمِ بيان).
 Style: Fluent and accurate in English, Urdu (اردو), and Sindhi (سنڌي). Provide side-by-side linguistic explanations and practical examples.`,
     starterPrompts: [
@@ -278,6 +278,7 @@ async function startServer() {
             contents: conversationHistory,
             config: {
               systemInstruction: fullSystemInstruction,
+              maxOutputTokens: 3000,
               temperature: modelToTry === 'gemini-3.1-pro-preview' ? 0.3 : 0.7,
             },
           });

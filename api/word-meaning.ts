@@ -35,7 +35,7 @@ export default async function handler(request: ApiRequest, response: ApiResponse
 Give a short, child-friendly Simple English definition, accurate Urdu meaning in Urdu script, accurate Sindhi meaning in Sindhi script, and one short English example. If the clicked form is inflected, explain that form. Do not use markdown.`;
 
     const aiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(apiKey)}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${encodeURIComponent(apiKey)}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

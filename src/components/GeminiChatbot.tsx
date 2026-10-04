@@ -4,9 +4,6 @@ import {
   Bot,
   User,
   Sparkles,
-  Zap,
-  Brain,
-  Languages,
   Mic,
   MicOff,
   Volume2,
@@ -22,14 +19,9 @@ import {
   ExternalLink,
   MessageSquare,
   AlertCircle,
-  Calculator,
-  GraduationCap,
   Paperclip,
   Image as ImageIcon,
-  Globe,
   X,
-  Target,
-  HelpCircle,
   FileQuestion
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
@@ -201,7 +193,7 @@ export const GeminiChatbot: React.FC<GeminiChatbotProps> = ({
   const { user, setTab, setSelectedPastPaperId } = useApp();
 
   // Active Role and Model Selection
-  const [selectedRoleId, setSelectedRoleId] = useState<string>(() => {
+  const [selectedRoleId] = useState<string>(() => {
     return localStorage.getItem(ROLE_STORAGE_KEY) || initialRoleId;
   });
   const [modelOverride, setModelOverride] = useState<'auto' | 'gemini-3.5-flash' | 'gemini-3.1-pro-preview' | 'gemini-3.1-flash-lite'>('auto');
@@ -250,7 +242,6 @@ Select a preset question below, switch roles above, or type your question in Eng
 
   // Enhanced Capabilities States: Vision Image Attachment & Web Search Grounding
   const [attachedImage, setAttachedImage] = useState<{ base64: string; mimeType: string; name: string } | null>(null);
-  const [enableSearchGrounding, setEnableSearchGrounding] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const recognitionRef = useRef<any>(null);
@@ -435,41 +426,6 @@ Select a preset question below, switch roles above, or type your question in Eng
     URL.revokeObjectURL(url);
   };
 
-  // Quick Smart Capabilities Action Presets
-  const handleQuickCapability = (type: 'quiz' | 'solve' | 'traps' | 'urdu' | 'sindhi' | 'merit') => {
-    let prompt = '';
-    const currentText = inputPrompt.trim();
-    switch (type) {
-      case 'quiz':
-        prompt = `Generate 5 high-yield screening MCQs with <<<QUIZ_MCQ>>> format on: ${currentText || 'Sukkur IBA STS BPS-05 to 15 Core Syllabus (Prepositions, Percentages & Pakistan Affairs)'}.`;
-        break;
-      case 'solve':
-        prompt = currentText 
-          ? `Solve this problem step-by-step with clear arithmetic steps, formula shortcut, and examiner distractor warnings: "${currentText}"`
-          : 'Explain the 10-second shortcut technique for solving complex Percentage and Profit/Loss questions in IBA STS exams.';
-        break;
-      case 'traps':
-        prompt = currentText
-          ? `Analyze the examiner traps and distractor tricks in this question: "${currentText}"`
-          : 'What are the top 5 examiner traps and distractor tricks used in STS English and Math questions?';
-        break;
-      case 'urdu':
-        prompt = currentText
-          ? `اس سوال اور تصور کو اردو میں جامع اور آسان انداز میں سمجھائیں: "${currentText}"`
-          : 'اردو گرامر کے 5 اہم ترین قواعد (تشبیہ، استعارہ، محاورے) مثالوں کے ساتھ سمجھائیں۔';
-        break;
-      case 'sindhi':
-        prompt = currentText
-          ? `هن سوال ۽ تصور کي سنڌيءَ ۾ سولو ۽ واضح ڪري سمجهايو: "${currentText}"`
-          : 'سنڌي وياڪرڻ جا 5 اهم ترين اصول، پهاڪا ۽ اصطلاح ٻڌايو جيڪي سنڌ اسڪريننگ ٽيسٽ ۾ اچن ٿا. ';
-        break;
-      case 'merit':
-        prompt = 'Explain the official STS Sukkur IBA BPS-05 to 15 qualifying cut-off, merit calculation formula, and district quota aggregation rules.';
-        break;
-    }
-    handleSendMessage(prompt);
-  };
-
   // Multi-Turn Message Send Handler
   const handleSendMessage = async (promptToSend?: string) => {
     const query = (promptToSend || inputPrompt).trim();
@@ -511,7 +467,6 @@ Select a preset question below, switch roles above, or type your question in Eng
           systemInstruction: customSystemInstruction || undefined,
           imageBase64: currentImg?.base64,
           imageMimeType: currentImg?.mimeType,
-          enableSearchGrounding,
           userContext: user
             ? {
                 targetExam: 'STS BPS-05 to 15',
@@ -663,13 +618,8 @@ A **Verb** is the foundational engine of any English sentence. It expresses an *
                   </span>
                 </h3>
               </div>
-              <p className="text-xs text-slate-300 flex items-center gap-1.5">
-                <span>Active Role:</span>
-                <span className="font-bold text-amber-300">{activeRole.shortName}</span>
-                <span className="text-slate-500">•</span>
-                <span className="text-[11px] text-emerald-400 font-mono font-semibold">
-                  {effectiveModel}
-                </span>
+              <p className="text-xs text-slate-300">
+                Your exam preparation assistant
               </p>
             </div>
           </div>
@@ -706,38 +656,6 @@ A **Verb** is the foundational engine of any English sentence. It expresses an *
               <RotateCcw className="w-4 h-4" />
             </button>
           </div>
-        </div>
-
-        {/* Role Selector Chips */}
-        <div className="mt-3 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-          {CHAT_ROLES.map((role) => {
-            const isSelected = role.id === selectedRoleId;
-            return (
-              <button
-                key={role.id}
-                onClick={() => {
-                  setSelectedRoleId(role.id);
-                  setErrorMessage(null);
-                }}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition cursor-pointer flex items-center gap-1.5 shrink-0 border ${
-                  isSelected
-                    ? 'bg-white text-slate-900 border-white shadow-md'
-                    : 'bg-white/5 hover:bg-white/15 text-slate-300 border-white/10'
-                }`}
-              >
-                {role.icon === 'complex' && <Brain className="w-3.5 h-3.5 text-purple-400" />}
-                {role.icon === 'fast' && <Zap className="w-3.5 h-3.5 text-amber-400" />}
-                {role.icon === 'general' && <Sparkles className="w-3.5 h-3.5 text-emerald-400" />}
-                {role.icon === 'language' && <Languages className="w-3.5 h-3.5 text-blue-400" />}
-                {role.icon === 'math' && <Calculator className="w-3.5 h-3.5 text-amber-400" />}
-                {role.icon === 'pedagogy' && <GraduationCap className="w-3.5 h-3.5 text-teal-400" />}
-                <span>{role.shortName}</span>
-                {isSelected && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                )}
-              </button>
-            );
-          })}
         </div>
 
         {/* Collapsible System Instruction & Model Override Panel */}
@@ -919,128 +837,7 @@ A **Verb** is the foundational engine of any English sentence. It expresses an *
         <div ref={messagesEndRef} />
       </div>
 
-      {/* 3. SMART ACTION TOOLKITS BAR */}
-      <div className="px-4 py-2 bg-gradient-to-r from-slate-100 via-purple-50/40 to-slate-100 dark:from-slate-900/90 dark:via-purple-950/20 dark:to-slate-900/90 border-t border-slate-200 dark:border-slate-800 flex items-center gap-1.5 overflow-x-auto scrollbar-none">
-        <span className="text-[10px] font-black uppercase tracking-wider text-purple-700 dark:text-purple-300 shrink-0 flex items-center gap-1 mr-1">
-          <Sparkles className="w-3 h-3 text-amber-500" />
-          <span>Toolkits:</span>
-        </span>
-
-        {/* Generate 5 MCQs */}
-        <button
-          type="button"
-          onClick={() => handleQuickCapability('quiz')}
-          disabled={isLoading}
-          className="px-2.5 py-1 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 hover:bg-purple-600 hover:text-white text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800/80 transition cursor-pointer flex items-center gap-1.5 shrink-0 shadow-2xs"
-          title="Generate 5 interactive exam questions on the current topic"
-        >
-          <Target className="w-3.5 h-3.5 text-purple-500" />
-          <span>🎯 Generate 5 MCQs</span>
-        </button>
-
-        {/* Step-by-Step Solver */}
-        <button
-          type="button"
-          onClick={() => handleQuickCapability('solve')}
-          disabled={isLoading}
-          className="px-2.5 py-1 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 hover:bg-indigo-600 hover:text-white text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800/80 transition cursor-pointer flex items-center gap-1.5 shrink-0 shadow-2xs"
-          title="Solve step-by-step with formulas and shortcuts"
-        >
-          <Calculator className="w-3.5 h-3.5 text-indigo-500" />
-          <span>🧮 Step-by-Step</span>
-        </button>
-
-        {/* Examiner Traps */}
-        <button
-          type="button"
-          onClick={() => handleQuickCapability('traps')}
-          disabled={isLoading}
-          className="px-2.5 py-1 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 hover:bg-amber-600 hover:text-white text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800/80 transition cursor-pointer flex items-center gap-1.5 shrink-0 shadow-2xs"
-          title="Analyze examiner distractors and pitfalls"
-        >
-          <HelpCircle className="w-3.5 h-3.5 text-amber-500" />
-          <span>⚠️ Examiner Traps</span>
-        </button>
-
-        {/* Google Search Grounding Toggle */}
-        <button
-          type="button"
-          onClick={() => setEnableSearchGrounding(!enableSearchGrounding)}
-          className={`px-2.5 py-1 rounded-xl text-xs font-bold transition cursor-pointer flex items-center gap-1.5 shrink-0 shadow-2xs border ${
-            enableSearchGrounding
-              ? 'bg-sky-600 text-white border-sky-500 ring-2 ring-sky-500/20'
-              : 'bg-white dark:bg-slate-800 hover:bg-sky-50 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-800'
-          }`}
-          title="Toggle Real-Time Google Search Grounding for current affairs & appointments"
-        >
-          <Globe className="w-3.5 h-3.5" />
-          <span>Live Search</span>
-          {enableSearchGrounding && (
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          )}
-        </button>
-
-        {/* Scan / Upload Image */}
-        <button
-          type="button"
-          onClick={() => fileInputRef.current?.click()}
-          className="px-2.5 py-1 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 hover:bg-emerald-600 hover:text-white text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/80 transition cursor-pointer flex items-center gap-1.5 shrink-0 shadow-2xs"
-          title="Attach question image / screenshot (or paste with Ctrl+V)"
-        >
-          <ImageIcon className="w-3.5 h-3.5 text-emerald-500" />
-          <span>📷 Scan Question</span>
-        </button>
-
-        {/* Urdu Translation */}
-        <button
-          type="button"
-          onClick={() => handleQuickCapability('urdu')}
-          disabled={isLoading}
-          className="px-2.5 py-1 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 hover:bg-blue-600 hover:text-white text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800/80 transition cursor-pointer shrink-0 shadow-2xs"
-        >
-          اردو میں سمجھائیں
-        </button>
-
-        {/* Sindhi Translation */}
-        <button
-          type="button"
-          onClick={() => handleQuickCapability('sindhi')}
-          disabled={isLoading}
-          className="px-2.5 py-1 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 hover:bg-teal-600 hover:text-white text-teal-700 dark:text-teal-300 border border-teal-200 dark:border-teal-800/80 transition cursor-pointer shrink-0 shadow-2xs"
-        >
-          سنڌيءَ ۾ سمجهايو
-        </button>
-
-        {/* Merit Formula */}
-        <button
-          type="button"
-          onClick={() => handleQuickCapability('merit')}
-          disabled={isLoading}
-          className="px-2.5 py-1 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 hover:bg-slate-700 hover:text-white text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition cursor-pointer shrink-0 shadow-2xs"
-        >
-          ⏱️ Merit Formula
-        </button>
-      </div>
-
-      {/* 4. STARTER PROMPT SUGGESTIONS (Active Role Prompts) */}
-      <div className="px-4 py-2 bg-slate-100/70 dark:bg-slate-900/90 border-t border-slate-200 dark:border-slate-800 flex items-center gap-2 overflow-x-auto scrollbar-none">
-        <span className="text-[11px] font-bold text-slate-400 shrink-0 flex items-center gap-1">
-          <Sparkles className="w-3 h-3 text-amber-500" />
-          <span>Suggestions:</span>
-        </span>
-        {activeRole.starterPrompts.map((prompt, idx) => (
-          <button
-            key={idx}
-            onClick={() => handleSendMessage(prompt)}
-            disabled={isLoading}
-            className="px-2.5 py-1 rounded-lg text-xs bg-white dark:bg-slate-800 hover:bg-purple-50 dark:hover:bg-purple-950/50 hover:text-purple-700 dark:hover:text-purple-300 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700/80 whitespace-nowrap transition cursor-pointer shadow-2xs shrink-0"
-          >
-            {prompt.length > 45 ? `${prompt.substring(0, 45)}…` : prompt}
-          </button>
-        ))}
-      </div>
-
-      {/* 5. CHAT INPUT BAR & VISION/VOICE CONTROLS */}
+      {/* Chat input and attachment controls */}
       <div className="p-3 sm:p-4 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
         {/* Hidden File Input for Image Upload */}
         <input
@@ -1126,7 +923,7 @@ A **Verb** is the foundational engine of any English sentence. It expresses an *
               placeholder={
                 attachedImage 
                   ? 'Ask a specific question about this image, or press Send to solve...' 
-                  : `Ask ${activeRole.shortName} in English, اردو or سنڌي...`
+                  : 'Ask your exam question in English, اردو or سنڌي...'
               }
               disabled={isLoading}
               className="w-full rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
@@ -1144,18 +941,8 @@ A **Verb** is the foundational engine of any English sentence. It expresses an *
           </button>
         </form>
 
-        <div className="mt-2 flex items-center justify-between text-[11px] text-slate-400 px-1">
-          <span className="flex items-center gap-1.5">
-            <span>Multi-turn chat • History preserved across tabs</span>
-            {enableSearchGrounding && (
-              <span className="text-[10px] text-sky-600 dark:text-sky-400 font-bold flex items-center gap-0.5">
-                • <Globe className="w-2.5 h-2.5 inline" /> Live Search Active
-              </span>
-            )}
-          </span>
-          <span className="font-mono text-[10px] text-purple-600 dark:text-purple-400 font-semibold">
-            {activeRole.badge}
-          </span>
+        <div className="mt-2 px-1 text-[11px] text-slate-400">
+          Conversation history is saved on this device
         </div>
       </div>
 

@@ -146,7 +146,12 @@ export function PaperSession({ paper, onExit, onRetake }: { paper: PastPaper; on
 
 export const PastPapersView: React.FC = () => {
   const { papers: cmsPapers } = useCmsContent();
-  const { selectedPastPaperId, setSelectedPastPaperId } = useApp();
+  const { 
+    selectedPastPaperId, 
+    setSelectedPastPaperId, 
+    openPrintablePaper,
+    setAgeCalculatorOpen 
+  } = useApp();
   const [active, setActive] = useState<PastPaper | null>(null);
   const [session, setSession] = useState(0);
 
@@ -487,6 +492,33 @@ export const PastPapersView: React.FC = () => {
                   <span>Source PDFs When Available</span>
                 </div>
               </div>
+
+              {/* High-Impact Utility Buttons */}
+              <div className="flex flex-wrap gap-2.5 mt-4">
+                <button
+                  onClick={() => openPrintablePaper({
+                    id: 'sts-master-export',
+                    title: 'Sukkur IBA STS BPS 05–15 Official Master Paper',
+                    exam: 'Sukkur IBA STS',
+                    bps: 'BPS 05–15',
+                    totalQuestions: 100,
+                    conductedBy: 'Sukkur IBA Testing Services (STS)',
+                    syllabus: 'English (40%) | Math (20%) | General Knowledge (40%)'
+                  })}
+                  className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-black flex items-center gap-1.5 shadow-lg transition cursor-pointer"
+                >
+                  <Printer className="w-4 h-4" />
+                  <span>Export Solved Past Paper (PDF)</span>
+                </button>
+
+                <button
+                  onClick={() => setAgeCalculatorOpen(true)}
+                  className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-bold flex items-center gap-1.5 transition cursor-pointer backdrop-blur-md"
+                >
+                  <Clock className="w-4 h-4 text-amber-400" />
+                  <span>Age Eligibility Calculator</span>
+                </button>
+              </div>
             </div>
             {/* Background decoration */}
             <div className="absolute right-0 top-0 -mr-20 -mt-20 w-80 h-80 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
@@ -723,11 +755,11 @@ export const PastPapersView: React.FC = () => {
                                   Syllabus
                                 </button>
                                 <button
-                                  onClick={() => setShowPdfModal(paper)}
+                                  onClick={() => openPrintablePaper(paper)}
                                   className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 transition cursor-pointer"
-                                  title="Print or Download PDF Syllabus Outline"
+                                  title="Print or Export Solved Past Paper (PDF)"
                                 >
-                                  <Download className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                                  <Printer className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                                 </button>
                                 <button
                                   onClick={() => startPaperFromDirectory(paper)}
@@ -790,10 +822,11 @@ export const PastPapersView: React.FC = () => {
                           </button>
                           <span className="text-slate-300 dark:text-slate-700">|</span>
                           <button
-                            onClick={() => setShowPdfModal(paper)}
+                            onClick={() => openPrintablePaper(paper)}
                             className="text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition cursor-pointer flex items-center gap-1"
+                            title="Export Printable PDF"
                           >
-                            <Download className="w-3.5 h-3.5" />
+                            <Printer className="w-3.5 h-3.5" />
                             <span>PDF</span>
                           </button>
                         </div>

@@ -46,6 +46,13 @@ interface AppContextType {
   setSelectedExamId: (examId: string | null) => void;
   selectedPastPaperId: string | null;
   setSelectedPastPaperId: (id: string | null) => void;
+  selectedStsTier: 'all' | 'matric' | 'intermediate' | 'graduation';
+  setSelectedStsTier: (tier: 'all' | 'matric' | 'intermediate' | 'graduation') => void;
+  ageCalculatorOpen: boolean;
+  setAgeCalculatorOpen: (open: boolean) => void;
+  printablePaper: any | null;
+  setPrintablePaper: (paper: any | null) => void;
+  openPrintablePaper: (paper: any) => void;
   
   // Real Firebase Auth state & methods
   user: User | null;
@@ -152,6 +159,30 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [selectedCategorySlug, setSelectedCategorySlug] = useState<string | null>(null);
   const [selectedExamId, setSelectedExamId] = useState<string | null>(null);
   const [selectedPastPaperId, setSelectedPastPaperId] = useState<string | null>(null);
+
+  // STS Tier Selection (persisted in localStorage)
+  const [selectedStsTier, setSelectedStsTierState] = useState<'all' | 'matric' | 'intermediate' | 'graduation'>(() => {
+    const saved = localStorage.getItem('muqabil_sts_tier');
+    if (saved && ['all', 'matric', 'intermediate', 'graduation'].includes(saved)) {
+      return saved as 'all' | 'matric' | 'intermediate' | 'graduation';
+    }
+    return 'all';
+  });
+
+  const setSelectedStsTier = useCallback((tier: 'all' | 'matric' | 'intermediate' | 'graduation') => {
+    setSelectedStsTierState(tier);
+    localStorage.setItem('muqabil_sts_tier', tier);
+  }, []);
+
+  // Age Calculator Modal State
+  const [ageCalculatorOpen, setAgeCalculatorOpen] = useState(false);
+
+  // Printable Past Paper State
+  const [printablePaper, setPrintablePaper] = useState<any | null>(null);
+
+  const openPrintablePaper = useCallback((paper: any) => {
+    setPrintablePaper(paper);
+  }, []);
 
   // Real Firebase Auth states
   const [user, setUser] = useState<User | null>(null);
@@ -554,6 +585,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setSelectedExamId,
         selectedPastPaperId,
         setSelectedPastPaperId,
+        selectedStsTier,
+        setSelectedStsTier,
+        ageCalculatorOpen,
+        setAgeCalculatorOpen,
+        printablePaper,
+        setPrintablePaper,
+        openPrintablePaper,
         user,
         authLoading,
         isSyncing,

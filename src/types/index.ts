@@ -30,7 +30,8 @@ export type NavigationTab =
   | 'ai-chat'
   | 'about'
   | 'bookmarks'
-  | 'mistakes';
+  | 'mistakes'
+  | 'age-calculator';
 
 export * from './resume';
 

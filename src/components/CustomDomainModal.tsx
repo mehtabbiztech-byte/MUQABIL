@@ -19,12 +19,12 @@ interface CustomDomainModalProps {
 }
 
 export const CustomDomainModal: React.FC<CustomDomainModalProps> = ({ isOpen, onClose }) => {
-  const [domainInput, setDomainInput] = useState('meaq-sts-prep.vercel.app');
+  const [domainInput, setDomainInput] = useState('muqabil.pk');
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
-  const cleanDomain = domainInput.trim().replace(/^https?:\/\//, '').replace(/\/$/, '') || 'meaq-sts-prep.vercel.app';
+  const cleanDomain = domainInput.trim().replace(/^https?:\/\//, '').replace(/\/$/, '') || 'muqabil.pk';
   const isSubdomain = cleanDomain.split('.').length > 2 && !cleanDomain.startsWith('www.');
 
   const handleCopy = (text: string, key: string) => {
@@ -78,16 +78,16 @@ export const CustomDomainModal: React.FC<CustomDomainModalProps> = ({ isOpen, on
               </span>
             </div>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono">
-              <span className="text-slate-400 truncate max-w-xs" title="meaq-sts-prep.vercel.app">
-                meaq-sts-prep.vercel.app
+              <span className="text-slate-400 truncate max-w-xs" title="muqabil.vercel.app">
+                muqabil.vercel.app
               </span>
               <div className="flex items-center gap-2 text-emerald-400 font-bold shrink-0">
                 <ArrowRight className="w-4 h-4" />
-                <span className="text-sm text-emerald-300">meaq-sts-prep.vercel.app</span>
+                <span className="text-sm text-emerald-300">muqabil.pk</span>
               </div>
             </div>
             <p className="text-[11px] text-slate-400 leading-normal">
-              Linking <strong className="text-white">meaq-sts-prep.vercel.app</strong> will replace the temporary preview hash with your professional brand address.
+              Linking <strong className="text-white">muqabil.pk</strong> will replace the temporary preview URL with your official domain.
             </p>
           </div>
 
@@ -101,7 +101,7 @@ export const CustomDomainModal: React.FC<CustomDomainModalProps> = ({ isOpen, on
                 type="text"
                 value={domainInput}
                 onChange={(e) => setDomainInput(e.target.value)}
-                placeholder="meaq-sts-prep.vercel.app"
+                placeholder="muqabil.pk"
                 className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white font-mono text-sm focus:outline-hidden focus:ring-2 focus:ring-emerald-500"
               />
             </div>
@@ -230,14 +230,14 @@ export const CustomDomainModal: React.FC<CustomDomainModalProps> = ({ isOpen, on
             </div>
           </div>
 
-          {/* .app TLD & HTTPS Security Note */}
+          {/* Domain & HTTPS Security Note */}
           <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60 text-xs text-emerald-900 dark:text-emerald-200 space-y-1.5">
             <div className="font-bold flex items-center gap-1.5 text-emerald-800 dark:text-emerald-300">
               <ShieldCheck className="w-4 h-4 text-emerald-600" />
-              <span>Special Note for .app Domains (meaq-sts-prep.vercel.app)</span>
+              <span>Official Domain Security (muqabil.pk)</span>
             </div>
             <p className="leading-relaxed text-[11px]">
-              The <strong>.app</strong> top-level domain is included in Google’s <strong>HSTS preload list</strong>, meaning browsers require strict HTTPS. Vercel provisions a free, auto-renewing Let's Encrypt SSL certificate within minutes of adding your DNS records. Once DNS verifies, <code className="font-mono font-bold">https://meaq-sts-prep.vercel.app</code> goes live with end-to-end encryption.
+              Vercel provisions a free, auto-renewing Let's Encrypt SSL certificate within minutes of adding your DNS records. Once DNS verifies, <code className="font-mono font-bold">https://muqabil.pk</code> (or <code className="font-mono">https://muqabil.vercel.app</code>) goes live with fast edge caching and end-to-end HTTPS encryption.
             </p>
           </div>
         </div>

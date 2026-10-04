@@ -42,6 +42,7 @@ import { POPULAR_CATEGORIES } from '../data/categoriesData';
 import { EXAMS_DATA } from '../data/examsData';
 import { PersonalizedDashboard } from '../components/PersonalizedDashboard';
 import { TopSubjectsAndTestingServicesHub } from '../components/TopSubjectsAndTestingServicesHub';
+import { StsCategoryTierHub } from '../components/StsCategoryTierHub';
 
 // Map string icon names to Lucide components
 const iconMap: Record<string, React.ReactNode> = {
@@ -535,7 +536,12 @@ export const HomeView: React.FC = () => {
 
       </section>
 
-      {/* 2. ADAPTIVE PERSONALIZED DASHBOARD */}
+      {/* 2. COMPLETE EDUCATIONAL TIER SEPARATION (Matric vs Intermediate vs Graduation) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <StsCategoryTierHub />
+      </section>
+
+      {/* 3. ADAPTIVE PERSONALIZED DASHBOARD */}
       <PersonalizedDashboard />
 
       {/* 3. INTERACTIVE QUESTION OF THE DAY */}

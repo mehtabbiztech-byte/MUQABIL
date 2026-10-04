@@ -37,6 +37,9 @@ import { GeminiChatView } from './views/GeminiChatView';
 import { ResumeView } from './views/ResumeView';
 import { WordMeaningPopup } from './components/WordMeaningPopup';
 import { GeminiFloatingWidget } from './components/GeminiFloatingWidget';
+import { AgeEligibilityCalculator } from './components/AgeEligibilityCalculator';
+import { AgeEligibilityModal } from './components/AgeEligibilityModal';
+import { PrintablePastPaperModal } from './components/PrintablePastPaperModal';
 
 const TabContent: React.FC = () => {
   const { tab } = useApp();
@@ -57,6 +60,12 @@ const TabContent: React.FC = () => {
       {tab === 'about' && <AboutView />}
       {tab === 'bookmarks' && <SavedMcqsView initialSubTab="bookmarks" />}
       {tab === 'mistakes' && <SavedMcqsView initialSubTab="mistakes" />}
+      {tab === 'age-calculator' && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <AgeEligibilityCalculator />
+        </div>
+      )}
+      {tab === 'past-papers-pdf' && <PastPapersView />}
     </>
   );
 };
@@ -110,6 +119,8 @@ const MainContent: React.FC = () => {
       <SearchModal />
       <AuthModal />
       <ContactModal />
+      <AgeEligibilityModal />
+      <PrintablePastPaperModal />
       <CustomDomainModal 
         isOpen={domainModalOpen} 
         onClose={() => setDomainModalOpen(false)} 

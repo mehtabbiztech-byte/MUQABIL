@@ -93,6 +93,7 @@ export const SidebarLayout: React.FC<SidebarLayoutProps> = ({ children }) => {
         { id: 'current-affairs', label: 'Current Affairs 2026', icon: <Globe2 className="w-4 h-4" />, badge: 'Daily', badgeColor: 'bg-rose-500 text-white' },
         { id: 'exams', label: 'Exams & Syllabi', icon: <GraduationCap className="w-4 h-4" /> },
         { id: 'jobs', label: 'Government Jobs', icon: <Briefcase className="w-4 h-4" />, badge: 'BPS 5-17', badgeColor: 'bg-blue-600 text-white' },
+        { id: 'age-calculator', label: 'Age Calculator', icon: <Clock className="w-4 h-4" />, badge: '15-Yr Rule', badgeColor: 'bg-emerald-600 text-white font-bold' },
         { id: 'study-notes', label: 'Study Notes Hub', icon: <BookMarked className="w-4 h-4" /> },
         { id: 'resume', label: 'ATS Resume Builder', icon: <FileCheck2 className="w-4 h-4" />, badge: 'New', badgeColor: 'bg-teal-500 text-white' },
       ]

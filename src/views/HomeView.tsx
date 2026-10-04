@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { 
   Search, 
@@ -39,6 +39,9 @@ import {
   FileCheck2
 } from 'lucide-react';
 import { POPULAR_CATEGORIES } from '../data/categoriesData';
+import { MCQS_DATA } from '../data/mcqsData';
+import { useCmsContent } from '../context/CmsContentContext';
+import { countSubjectMcqs } from '../utils/subjectMcqCounts';
 import { EXAMS_DATA } from '../data/examsData';
 import { PersonalizedDashboard } from '../components/PersonalizedDashboard';
 import { TopSubjectsAndTestingServicesHub } from '../components/TopSubjectsAndTestingServicesHub';
@@ -82,6 +85,8 @@ export const HomeView: React.FC = () => {
     isBookmarked,
     launchSimulator
   } = useApp();
+  const { mcqs: liveMcqs } = useCmsContent();
+  const availableMcqs = useMemo(() => [...liveMcqs, ...MCQS_DATA], [liveMcqs]);
 
   const [searchInput, setSearchInput] = useState('');
   const [showAllCategories, setShowAllCategories] = useState(false);
@@ -859,7 +864,7 @@ export const HomeView: React.FC = () => {
                     {iconMap[cat.iconName] || <BookOpen className="w-5 h-5 text-emerald-600" />}
                   </div>
                   <span className="text-xs font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">
-                    {cat.totalMcqs.toLocaleString()} items
+                    {countSubjectMcqs(availableMcqs, cat.slug).toLocaleString()} items
                   </span>
                 </div>
 

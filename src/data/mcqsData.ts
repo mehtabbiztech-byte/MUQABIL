@@ -1,4 +1,5 @@
 import { MCQ } from '../types';
+import { createMinimumSubjectMcqs } from './generatedSubjectMcqs';
 import { CURRENT_AFFAIRS_2000 } from './currentAffairs2000';
 import { STS_IBA_MCQS } from './stsIba5000';
 import { TEACHING_LICENSE_PAPER_1_MCQS } from './teachingLicensePaper1';
@@ -21,7 +22,7 @@ const STBB_CONVERTED_MCQS: MCQ[] = STBB_MCQS_DATA.map(m => ({
   submittedBy: 'Sindh Textbook Board (STBB) Jamshoro'
 }));
 
-export const MCQS_DATA: MCQ[] = [
+const BASE_MCQS_DATA: MCQ[] = [
   ...STS_IBA_MCQS,
   ...TEACHING_LICENSE_PAPER_1_MCQS,
   ...TEACHING_LICENSE_PAPER_2_MCQS,
@@ -921,4 +922,9 @@ export const MCQS_DATA: MCQ[] = [
     viewsCount: 31200,
     submittedBy: 'Medical Sciences Cell',
   },
+];
+
+export const MCQS_DATA: MCQ[] = [
+  ...BASE_MCQS_DATA,
+  ...createMinimumSubjectMcqs(BASE_MCQS_DATA),
 ];

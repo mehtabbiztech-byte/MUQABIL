@@ -20,28 +20,27 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+const cacheResponse = (request, response) => {
+  if (!response.ok || response.type !== 'basic') return Promise.resolve(response);
+  return caches.open(CACHE_NAME)
+    .then((cache) => cache.put(request, response.clone()))
+    .then(() => response);
+};
+
 self.addEventListener('fetch', (event) => {
   const request = event.request;
   const url = new URL(request.url);
 
-  // Never cache API, Firebase, or other cross-origin account and AI traffic.
+  // Account, AI, API, and cross-origin traffic always stays online-only.
   if (request.method !== 'GET' || url.origin !== self.location.origin || url.pathname.startsWith('/api/')) {
     return;
   }
 
   if (request.mode === 'navigate') {
     event.respondWith(
-      fetch(request).then((response) => {
-        if (response.ok) {
-          const copy = response.clone();
-          event.waitUntil(
-            caches.open(CACHE_NAME).then((cache) => cache.put(request, copy))
-          );
-        }
-        return response;
-      }).catch(async () => {
-        return (await caches.match(request)) || (await caches.match('/'));
-      })
+      fetch(request)
+        .then((response) => cacheResponse(request, response))
+        .catch(async () => (await caches.match(request)) || (await caches.match('/')))
     );
     return;
   }
@@ -49,15 +48,7 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(request).then((cached) => {
       if (cached) return cached;
-      return fetch(request).then((response) => {
-        if (response.ok && response.type === 'basic') {
-          const copy = response.clone();
-          event.waitUntil(
-            caches.open(CACHE_NAME).then((cache) => cache.put(request, copy))
-          );
-        }
-        return response;
-      });
+      return fetch(request).then((response) => cacheResponse(request, response));
     })
   );
 });

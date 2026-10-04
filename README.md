@@ -73,3 +73,10 @@ by the existing AI services). The endpoint is available in both the Express
 server and Vercel at `/api/subjective-feedback`. Without the key, model answers
 and rubrics remain available for self-review. Answers are sent to the AI provider
 only when feedback is requested; AI feedback itself is not persisted.
+
+
+## Install MUQABIL as an app
+
+On a supported browser, open the live site and select **Install App**. If the browser does not show an install prompt, use its menu and choose **Install app** or **Add to Home screen**. On iPhone or iPad, open MUQABIL in Safari, tap **Share**, then choose **Add to Home Screen**.
+
+The installable web app caches its shell and same-origin files that have been opened. Sign-in, Firebase sync, live CMS updates, AI services, and uncached online resources require an internet connection. This PWA does not bundle Firebase credentials or server secrets into a download.

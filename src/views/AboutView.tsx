@@ -26,14 +26,14 @@ export const AboutView: React.FC = () => {
       <div className="text-center max-w-3xl mx-auto">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 border border-emerald-300 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 text-xs font-bold uppercase tracking-wider mb-4">
           <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-          <span>MEQSA Study Platform Vision</span>
+          <span>MUQABIL (مقابل) Platform Vision</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white font-display">
-          “Practice Smart. Prepare Better. <br />
-          <span className="text-emerald-600 dark:text-emerald-400">Crack Your Exam.”</span>
+          “Har Test Mein Sab Se Agay. <br />
+          <span className="text-emerald-600 dark:text-emerald-400">The Contender’s Edge.”</span>
         </h1>
         <p className="mt-4 text-slate-600 dark:text-slate-300 text-base sm:text-lg leading-relaxed">
-          MEQSA Study Platform is an independent, state-of-the-art educational platform founded by <strong>Mehtab Ali</strong>, designed specifically to help Pakistani students and civil service aspirants conquer public examinations.
+          <strong>MUQABIL (muqabil.pk)</strong> is an independent, state-of-the-art educational testing platform founded by <strong>Mehtab Ali</strong>, designed specifically to help Pakistani students and civil service aspirants conquer public examinations (STS BPS 05–15, STEDA Teaching License, SPSC, and FPSC).
         </p>
       </div>
 
@@ -44,7 +44,7 @@ export const AboutView: React.FC = () => {
         <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-8 justify-between">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
             <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-tr from-emerald-500 via-teal-400 to-emerald-300 text-slate-950 font-black text-2xl sm:text-3xl flex items-center justify-center shadow-xl ring-4 ring-emerald-500/30 shrink-0 font-display">
-              MA
+              M
             </div>
             <div className="space-y-1.5">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/90 border border-emerald-600/60 text-emerald-300 text-xs font-bold uppercase tracking-wider">
@@ -55,10 +55,10 @@ export const AboutView: React.FC = () => {
                 Mehtab Ali
               </h2>
               <p className="text-emerald-400 font-semibold text-xs sm:text-sm">
-                Creator of MEQSA Study Platform • Tech &amp; Education Lead
+                Creator of MUQABIL (مقابل) • Tech &amp; Education Lead
               </p>
               <p className="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-xl pt-1">
-                “I built MEQSA Study Platform to give every learner access to clearly labelled practice material, sourced content, and exam-pattern simulators for FPSC, SPSC, PPSC, and STS.”
+                “I built MUQABIL to empower every candidate with rigorous test simulators, official past paper solutions, and comprehensive notes for Sukkur IBA STS, STEDA, SPSC, and FPSC.”
               </p>
             </div>
           </div>
@@ -128,16 +128,16 @@ export const AboutView: React.FC = () => {
         <div className="space-y-4">
           <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
             <h4 className="font-bold text-sm text-slate-900 dark:text-white mb-1">
-              Who is the founder and developer of MEQSA Study Platform?
+              Who is the founder and developer of MUQABIL (مقابل)?
             </h4>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-              MEQSA Study Platform was founded and built by <strong className="text-slate-900 dark:text-white">Mehtab Ali</strong>. Use the project’s GitHub Issues page for inquiries, academic suggestions, or corrections.
+              MUQABIL was founded and built by <strong className="text-slate-900 dark:text-white">Mehtab Ali</strong>. Direct email support and inquiries are available at <code className="text-emerald-500 font-bold">mehtabbiztech@gmail.com</code>.
             </p>
           </div>
 
           <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
             <h4 className="font-bold text-sm text-slate-900 dark:text-white mb-1">
-              Is MEQSA Study Platform free to use?
+              Is MUQABIL free to use?
             </h4>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
               Yes, our MCQ practice banks, subject-wise quizzes, study notes, and solved past paper archives are completely accessible for all aspirants across Pakistan.
@@ -169,13 +169,13 @@ export const AboutView: React.FC = () => {
         <div className="space-y-2 max-w-xl">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950 border border-emerald-800 text-emerald-400 text-xs font-bold">
             <Globe className="w-3.5 h-3.5" />
-            <span>Vercel Custom Domain Configuration</span>
+            <span>Official Domain Configuration</span>
           </div>
           <h3 className="text-xl font-bold font-display">
-            Host MEQSA Study Platform on Your Own Domain
+            Official Production URL: muqabil.pk
           </h3>
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            Attach your official production domain: <code className="text-emerald-400 font-mono font-bold">meaq-sts-prep.vercel.app</code>. Automated SSL certificate, edge routing, and global CDN are provisioned instantly.
+            Target primary URL: <code className="text-emerald-400 font-mono font-bold">muqabil.pk</code> (Secondary: <code className="text-emerald-300 font-mono">muqabilprep.com</code>). Automated SSL certificate, edge routing, and cloud synchronization are built-in.
           </p>
         </div>
 
@@ -190,7 +190,7 @@ export const AboutView: React.FC = () => {
 
       {/* Disclaimer */}
       <div className="p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/40 text-center text-xs text-slate-500 dark:text-slate-400">
-        <strong>Academic Disclaimer:</strong> MEQSA Study Platform is an independent educational preparatory resource. It is not officially affiliated with or endorsed by the Federal Public Service Commission (FPSC), Punjab Public Service Commission (PPSC), Sindh Public Service Commission (SPSC), or Sukkur IBA Testing Services (STS).
+        <strong>Academic Disclaimer:</strong> MUQABIL (muqabil.pk) is an independent educational preparatory resource. It is not officially affiliated with or endorsed by the Federal Public Service Commission (FPSC), Punjab Public Service Commission (PPSC), Sindh Public Service Commission (SPSC), or Sukkur IBA Testing Services (STS).
       </div>
 
     </div>

@@ -14,7 +14,11 @@ import {
   Search, 
   Bookmark, 
   ShieldCheck, 
-  ArrowLeft 
+  ArrowLeft,
+  Home,
+  Info,
+  Mail,
+  LogIn 
 } from 'lucide-react';
 import { POPULAR_CATEGORIES } from '../data/categoriesData';
 import { LayoutButton } from './LayoutButton';
@@ -30,8 +34,11 @@ export const SplitWorkspaceLayout: React.FC<SplitWorkspaceLayoutProps> = ({ chil
     setTab, 
     selectedCategorySlug, 
     setSelectedCategorySlug, 
+    user,
     userProfile, 
     setSearchOpen,
+    setAuthModalOpen,
+    setContactModalOpen,
     launchSimulator
   } = useApp();
 
@@ -58,16 +65,83 @@ export const SplitWorkspaceLayout: React.FC<SplitWorkspaceLayoutProps> = ({ chil
               M
             </div>
             <span className="font-black text-sm text-slate-900 dark:text-white font-display hidden sm:inline">
-              MATB STS PREP
+              MUQABIL <span className="text-emerald-500 font-urdu text-xs">مقابل</span>
             </span>
           </div>
 
           <div className="h-4 w-px bg-slate-300 dark:bg-slate-700 mx-1" />
 
-          <span className="px-2 py-0.5 rounded-md bg-blue-100 dark:bg-blue-950 text-blue-800 dark:text-blue-300 text-[10px] font-black uppercase">
+          <span className="px-2 py-0.5 rounded-md bg-blue-100 dark:bg-blue-950 text-blue-800 dark:text-blue-300 text-[10px] font-black uppercase hidden lg:inline">
             Split Workspace
           </span>
         </div>
+
+        {/* Center Navigation Links: Home, Important MCQs, Past Papers, About Us, Contact, Login */}
+        <nav className="flex items-center gap-1 sm:gap-1.5 md:gap-2 mx-1 sm:mx-3 overflow-x-auto no-scrollbar py-1">
+          <button
+            onClick={() => { setTab('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold transition whitespace-nowrap cursor-pointer ${
+              tab === 'home'
+                ? 'bg-emerald-600 text-white shadow-xs'
+                : 'text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+            }`}
+          >
+            <Home className="w-3.5 h-3.5" />
+            <span>Home</span>
+          </button>
+
+          <button
+            onClick={() => { setTab('mcqs'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold transition whitespace-nowrap cursor-pointer ${
+              tab === 'mcqs'
+                ? 'bg-emerald-600 text-white shadow-xs'
+                : 'text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+            }`}
+          >
+            <BookOpen className="w-3.5 h-3.5" />
+            <span>Important MCQs</span>
+          </button>
+
+          <button
+            onClick={() => { setTab('past-papers'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold transition whitespace-nowrap cursor-pointer ${
+              tab === 'past-papers'
+                ? 'bg-emerald-600 text-white shadow-xs'
+                : 'text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+            }`}
+          >
+            <FileText className="w-3.5 h-3.5" />
+            <span>Past Papers</span>
+          </button>
+
+          <button
+            onClick={() => { setTab('about'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold transition whitespace-nowrap cursor-pointer ${
+              tab === 'about'
+                ? 'bg-emerald-600 text-white shadow-xs'
+                : 'text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+            }`}
+          >
+            <Info className="w-3.5 h-3.5" />
+            <span>About Us</span>
+          </button>
+
+          <button
+            onClick={() => setContactModalOpen(true)}
+            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition whitespace-nowrap cursor-pointer"
+          >
+            <Mail className="w-3.5 h-3.5" />
+            <span>Contact</span>
+          </button>
+
+          <button
+            onClick={() => setAuthModalOpen(true)}
+            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 border border-emerald-300/70 dark:border-emerald-800 transition whitespace-nowrap cursor-pointer"
+          >
+            <LogIn className="w-3.5 h-3.5" />
+            <span>{user ? (userProfile.name?.split(' ')[0] || 'Account') : 'Login'}</span>
+          </button>
+        </nav>
 
         <div className="flex items-center gap-2">
           <button

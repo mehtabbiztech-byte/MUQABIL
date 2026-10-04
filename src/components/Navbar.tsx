@@ -474,10 +474,10 @@ export const Navbar: React.FC = () => {
                 </div>
                 <div className="min-w-0">
                   <span className="font-extrabold text-base sm:text-xl tracking-tight text-slate-900 dark:text-white font-display block whitespace-nowrap">
-                    MEQSA <span className={palette.brandTextGradient}>STUDY</span>
+                    MUQABIL <span className={palette.brandTextGradient}>مقابل</span>
                   </span>
-                  <p className="text-[9px] sm:text-[10px] text-slate-500 dark:text-slate-400 tracking-wider uppercase font-semibold hidden md:block whitespace-nowrap">
-                    By Mehtab Ali • Practice Smart
+                  <p className="text-[9px] sm:text-[10px] text-slate-500 dark:text-slate-400 tracking-wider font-semibold hidden md:block whitespace-nowrap">
+                    muqabil.pk • Har Test Mein Sab Se Agay
                   </p>
                 </div>
               </button>

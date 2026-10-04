@@ -11,6 +11,7 @@ import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { SearchModal } from './components/SearchModal';
 import { AuthModal } from './components/AuthModal';
+import { ContactModal } from './components/ContactModal';
 import { CustomDomainModal } from './components/CustomDomainModal';
 import { CertificateModal } from './components/CertificateModal';
 import { AttractiveBackground } from './components/AttractiveBackground';
@@ -108,6 +109,7 @@ const MainContent: React.FC = () => {
       {/* Global Modals & Controls */}
       <SearchModal />
       <AuthModal />
+      <ContactModal />
       <CustomDomainModal 
         isOpen={domainModalOpen} 
         onClose={() => setDomainModalOpen(false)} 

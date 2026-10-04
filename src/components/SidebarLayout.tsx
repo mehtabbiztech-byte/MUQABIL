@@ -29,10 +29,12 @@ import {
   Layers, 
   User, 
   Clock, 
-  Zap, 
   Check, 
   Compass, 
-  ShieldCheck 
+  ShieldCheck,
+  LogIn,
+  Mail,
+  Info 
 } from 'lucide-react';
 import { LayoutButton } from './LayoutButton';
 import { ThemeSwitcherWidget } from './AttractiveBackground';
@@ -62,7 +64,7 @@ export const SidebarLayout: React.FC<SidebarLayoutProps> = ({ children }) => {
     toggleDarkMode, 
     setSearchOpen, 
     setAuthModalOpen,
-    launchSimulator
+    setContactModalOpen
   } = useApp();
 
   const { 
@@ -107,15 +109,6 @@ export const SidebarLayout: React.FC<SidebarLayoutProps> = ({ children }) => {
     }
   ];
 
-  const getTabTitle = (currentTab: NavigationTab): string => {
-    for (const section of navSections) {
-      const match = section.items.find(i => i.id === currentTab);
-      if (match) return match.label;
-    }
-    if (currentTab === 'about') return 'About MEQSA Platform';
-    return 'Preparation Workspace';
-  };
-
   const handleNavClick = (tabId: NavigationTab) => {
     setTab(tabId);
     setMobileSidebarOpen(false);
@@ -152,14 +145,14 @@ export const SidebarLayout: React.FC<SidebarLayoutProps> = ({ children }) => {
               <div className="min-w-0">
                 <div className="flex items-center gap-1.5">
                   <span className="font-black text-base tracking-tight text-slate-900 dark:text-white font-display truncate">
-                    MATB STS
+                    MUQABIL
                   </span>
-                  <span className="px-1.5 py-0.2 rounded-md bg-emerald-500 text-white text-[9px] font-black uppercase">
-                    PRO
+                  <span className="px-1.5 py-0.2 rounded-md bg-emerald-500 text-white text-[9px] font-black">
+                    مقابل
                   </span>
                 </div>
-                <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium truncate">
-                  Testing &amp; Screening
+                <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold truncate">
+                  muqabil.pk • Sab Se Agay
                 </p>
               </div>
             )}
@@ -333,54 +326,89 @@ export const SidebarLayout: React.FC<SidebarLayoutProps> = ({ children }) => {
         sidebarCollapsed ? 'lg:pl-20' : 'lg:pl-72'
       }`}>
         
-        {/* Top Breadcrumb & Quick Action Bar */}
-        <header className="sticky top-0 z-30 h-16 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800/80 flex items-center justify-between px-4 sm:px-6 lg:px-8">
+        {/* Top Header Bar */}
+        <header className="sticky top-0 z-30 h-16 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800/80 flex items-center justify-between px-3 sm:px-6 lg:px-8 gap-3">
           
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
             {/* Mobile menu trigger */}
             <button
               onClick={() => setMobileSidebarOpen(true)}
-              className="lg:hidden p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+              className="lg:hidden p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition shrink-0"
               aria-label="Open Sidebar Menu"
             >
               <Menu className="w-5 h-5" />
             </button>
 
-            {/* Breadcrumb path */}
-            <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
-              <span 
+            {/* Navigation Links: Home, Important MCQs, Past Papers, About Us, Contact, Login */}
+            <nav className="flex items-center gap-1 sm:gap-1.5 md:gap-2 overflow-x-auto no-scrollbar py-1">
+              <button
                 onClick={() => handleNavClick('home')}
-                className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer transition hidden sm:inline"
+                className={`inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition whitespace-nowrap cursor-pointer ${
+                  tab === 'home'
+                    ? 'bg-emerald-600 text-white shadow-xs'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                }`}
               >
-                Workspace
-              </span>
-              <span className="text-slate-300 dark:text-slate-600 hidden sm:inline">/</span>
-              <span className="text-slate-900 dark:text-white font-display">
-                {getTabTitle(tab)}
-              </span>
-            </div>
+                <Home className="w-3.5 h-3.5" />
+                <span>Home</span>
+              </button>
+
+              <button
+                onClick={() => handleNavClick('mcqs')}
+                className={`inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition whitespace-nowrap cursor-pointer ${
+                  tab === 'mcqs'
+                    ? 'bg-emerald-600 text-white shadow-xs'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                }`}
+              >
+                <BookOpen className="w-3.5 h-3.5" />
+                <span>Important MCQs</span>
+              </button>
+
+              <button
+                onClick={() => handleNavClick('past-papers')}
+                className={`inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition whitespace-nowrap cursor-pointer ${
+                  tab === 'past-papers'
+                    ? 'bg-emerald-600 text-white shadow-xs'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                }`}
+              >
+                <FileText className="w-3.5 h-3.5" />
+                <span>Past Papers</span>
+              </button>
+
+              <button
+                onClick={() => handleNavClick('about')}
+                className={`inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition whitespace-nowrap cursor-pointer ${
+                  tab === 'about'
+                    ? 'bg-emerald-600 text-white shadow-xs'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                }`}
+              >
+                <Info className="w-3.5 h-3.5" />
+                <span>About Us</span>
+              </button>
+
+              <button
+                onClick={() => setContactModalOpen(true)}
+                className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition whitespace-nowrap cursor-pointer"
+              >
+                <Mail className="w-3.5 h-3.5" />
+                <span>Contact</span>
+              </button>
+
+              <button
+                onClick={() => setAuthModalOpen(true)}
+                className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 border border-emerald-300/70 dark:border-emerald-800 transition whitespace-nowrap cursor-pointer"
+              >
+                <LogIn className="w-3.5 h-3.5" />
+                <span>{user ? (userProfile.name?.split(' ')[0] || 'Account') : 'Login'}</span>
+              </button>
+            </nav>
           </div>
 
-          {/* Right quick tools in top bar */}
-          <div className="flex items-center gap-2">
-            <LayoutButton variant="navbar" />
-
-            <button
-              onClick={() => launchSimulator({
-                simulatorId: 'sts',
-                title: 'STS IBA Teaching License Test (STEDA)',
-                category: 'STS IBA Teaching License Test',
-                durationMinutes: 120,
-                timeMinutes: 120,
-                questionCount: 100,
-                negativeMarking: false,
-              })}
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-xs font-black shadow-xs cursor-pointer"
-            >
-              <Zap className="w-3.5 h-3.5 fill-white" />
-              <span>STEDA Mock</span>
-            </button>
-
+          {/* Right Profile Tool */}
+          <div className="flex items-center gap-2 shrink-0">
             <button
               onClick={() => setAuthModalOpen(true)}
               className="p-1.5 rounded-full ring-2 ring-emerald-500/30 hover:ring-emerald-500 transition cursor-pointer"

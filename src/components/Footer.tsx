@@ -80,16 +80,16 @@ export const Footer: React.FC = () => {
               </div>
               <div>
                 <span className="font-extrabold text-xl tracking-tight text-white font-display">
-                  MEQSA <span className="text-emerald-400">STUDY</span>
+                  MUQABIL <span className="text-emerald-400">مقابل</span>
                 </span>
                 <p className="text-xs text-emerald-400 font-medium tracking-wide">
-                  “Practice Smart. Prepare Better. Crack Your Exam.”
+                  “Har Test Mein Sab Se Agay — The Contender’s Edge”
                 </p>
               </div>
             </div>
 
             <p className="text-sm text-slate-400 leading-relaxed mb-4">
-              MEQSA Study Platform is an independent educational portal founded and developed by <strong className="text-white font-semibold">Mehtab Ali</strong> for Pakistani learners and government-job aspirants. Practice sets are distinguished from official records and samples.
+              <strong>MUQABIL (muqabil.pk)</strong> is Pakistan's premier competitive examination portal founded and developed by <strong className="text-white font-semibold">Mehtab Ali</strong> for STS BPS 05–15, STEDA Teaching License, SPSC, and FPSC aspirants.
             </p>
 
             <div className="space-y-2 text-xs text-slate-400">
@@ -212,7 +212,7 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <button onClick={() => setTab('about')} className="hover:text-emerald-400 transition">
-                  About MEQSA Study Platform
+                  About MUQABIL (مقابل)
                 </button>
               </li>
               <li>
@@ -220,7 +220,7 @@ export const Footer: React.FC = () => {
                   onClick={() => setDomainModalOpen(true)} 
                   className="inline-flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 font-semibold transition"
                 >
-                  <span>🌐 Custom Domain (Vercel)</span>
+                  <span>🌐 Custom Domain (muqabil.pk)</span>
                 </button>
               </li>
             </ul>
@@ -233,11 +233,11 @@ export const Footer: React.FC = () => {
           <div className="flex items-center gap-2">
             <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
             <span>
-              Disclaimer: MEQSA Study Platform is an independent educational platform. All questions are compiled from public past papers, standard syllabi, and official curriculum for study and practice purposes.
+              Disclaimer: MUQABIL (muqabil.pk) is an independent educational platform. All questions are compiled from public past papers, standard syllabi, and official curriculum for study and practice purposes.
             </span>
           </div>
           <div className="text-slate-400 shrink-0 text-center md:text-right">
-            © {new Date().getFullYear()} <span className="font-semibold text-white">MEQSA Study Platform</span> • Founded &amp; Developed by <span className="text-emerald-400 font-semibold">Mehtab Ali</span>. All Rights Reserved.
+            © {new Date().getFullYear()} <span className="font-semibold text-white">MUQABIL (مقابل)</span> • Founded &amp; Developed by <span className="text-emerald-400 font-semibold">Mehtab Ali</span>. All Rights Reserved.
           </div>
         </div>
       </div>

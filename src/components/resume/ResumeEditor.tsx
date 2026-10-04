@@ -11,6 +11,7 @@ import {
   ResumeAccentColor 
 } from '../../types/resume';
 import { SUMMARY_PRESETS } from '../../data/resumeSampleData';
+import { ResumeTemplateGallery } from './ResumeTemplateGallery';
 import { 
   User, 
   BookOpen, 
@@ -1373,35 +1374,15 @@ export const ResumeEditor: React.FC<ResumeEditorProps> = ({ data, onChange }) =>
                 </button>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
-                {[
-                  { id: 'sts-govt', name: 'STS & Govt Official', desc: 'Screening table format with division breakdown' },
-                  { id: 'fortune-500', name: 'Fortune 500 Standard', desc: 'Harvard/Wharton single-column ATS format for global tech & MNCs' },
-                  { id: 'tech-compact', name: '⚡ Tech & Digital', desc: 'High-density developer/analyst layout with project tech stack' },
-                  { id: 'modern-ats', name: 'Modern ATS', desc: 'Clean dual-column layout for corporate jobs' },
-                  { id: 'executive', name: 'Executive Sidebar', desc: 'Two-tone dark sidebar with contact & skills' },
-                  { id: 'minimal', name: 'Classic Minimal', desc: 'Timeless typographic serif layout' },
-                ].map((tpl) => (
-                  <button
-                    key={tpl.id}
-                    type="button"
-                    onClick={() => updateField('template', tpl.id as ResumeTemplateId)}
-                    className={`p-3 rounded-xl border text-left transition-all ${
-                      data.template === tpl.id
-                        ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-950/60 ring-2 ring-indigo-500/30'
-                        : 'border-slate-200 dark:border-slate-800 hover:border-slate-400 bg-white dark:bg-slate-900'
-                    }`}
-                  >
-                    <div className="font-bold text-xs text-slate-900 dark:text-white flex items-center justify-between">
-                      <span>{tpl.name}</span>
-                      {data.template === tpl.id && <Check size={14} className="text-indigo-600" />}
-                    </div>
-                    <p className="text-[10.5px] text-slate-500 dark:text-slate-400 mt-1 leading-snug">
-                      {tpl.desc}
-                    </p>
-                  </button>
-                ))}
-              </div>
+              <ResumeTemplateGallery
+                selectedTemplate={data.template}
+                onSelect={(template) => onChange({
+                  ...data,
+                  template: template.id,
+                  accentColor: template.accentColor,
+                  fontSize: template.fontSize,
+                })}
+              />
             </div>
 
             {/* Accent Color */}
@@ -1411,11 +1392,16 @@ export const ResumeEditor: React.FC<ResumeEditorProps> = ({ data, onChange }) =>
               </label>
               <div className="flex flex-wrap gap-2">
                 {[
-                  { id: 'emerald', label: 'STS Emerald', bg: 'bg-emerald-600' },
-                  { id: 'navy', label: 'Navy Blue', bg: 'bg-slate-900' },
-                  { id: 'slate', label: 'Classic Slate', bg: 'bg-slate-700' },
+                  { id: 'emerald', label: 'Emerald', bg: 'bg-emerald-600' },
+                  { id: 'navy', label: 'Navy', bg: 'bg-blue-900' },
+                  { id: 'slate', label: 'Slate', bg: 'bg-slate-700' },
                   { id: 'burgundy', label: 'Burgundy', bg: 'bg-rose-900' },
-                  { id: 'indigo', label: 'Royal Indigo', bg: 'bg-indigo-700' },
+                  { id: 'indigo', label: 'Indigo', bg: 'bg-indigo-700' },
+                  { id: 'teal', label: 'Teal', bg: 'bg-teal-700' },
+                  { id: 'blue', label: 'Blue', bg: 'bg-blue-600' },
+                  { id: 'violet', label: 'Violet', bg: 'bg-violet-700' },
+                  { id: 'rose', label: 'Rose', bg: 'bg-rose-700' },
+                  { id: 'amber', label: 'Amber', bg: 'bg-amber-700' },
                 ].map((col) => (
                   <button
                     key={col.id}

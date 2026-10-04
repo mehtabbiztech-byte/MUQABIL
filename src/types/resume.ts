@@ -1,5 +1,6 @@
-export type ResumeTemplateId = 'sts-govt' | 'modern-ats' | 'executive' | 'minimal' | 'fortune-500' | 'tech-compact';
-export type ResumeAccentColor = 'emerald' | 'navy' | 'slate' | 'burgundy' | 'indigo';
+export type ResumeTemplateId = string;
+export type ResumeLayoutFamily = 'sts-govt' | 'fortune-500' | 'modern-ats' | 'tech-compact' | 'executive' | 'minimal';
+export type ResumeAccentColor = 'emerald' | 'navy' | 'slate' | 'burgundy' | 'indigo' | 'teal' | 'blue' | 'violet' | 'rose' | 'amber';
 export type ResumeFontSize = 'compact' | 'normal' | 'spacious';
 
 export interface ProjectEntry {

@@ -24,6 +24,7 @@ import {
   AlertCircle
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import { ChatMarkdownRenderer } from './ChatMarkdownRenderer';
 
 export interface ChatMessageItem {
   id: string;
@@ -462,47 +463,20 @@ Select a preset question below, switch roles above, or type your question in Eng
 
   // Helper to render formatted markdown content with interactive navigation buttons
   const renderMessageContent = (content: string) => {
-    // Extract any navigation direct command
-    const navMatch = content.match(/<<<NAVIGATE:\s*({[\s\S]*?})\s*>>>/);
-    const cleanContent = content.replace(/<<<NAVIGATE:\s*({[\s\S]*?})\s*>>>/g, '').trim();
-
     return (
-      <div className="space-y-3">
-        <div className="prose prose-sm dark:prose-invert max-w-none text-slate-800 dark:text-slate-100 leading-relaxed whitespace-pre-wrap font-sans">
-          {cleanContent}
-        </div>
-
-        {navMatch && navMatch[1] && (
-          (() => {
-            try {
-              const navData = JSON.parse(navMatch[1]);
-              return (
-                <div className="mt-3 p-3 rounded-xl bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800 flex items-center justify-between gap-3">
-                  <div className="space-y-0.5">
-                    <p className="text-xs font-bold text-purple-900 dark:text-purple-200">
-                      {navData.label || 'Open Recommended Exam Section'}
-                    </p>
-                    {navData.description && (
-                      <p className="text-[11px] text-purple-700 dark:text-purple-300">
-                        {navData.description}
-                      </p>
-                    )}
-                  </div>
-                  <button
-                    onClick={() => handleNavigateDirect(navMatch[1])}
-                    className="px-3.5 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition shrink-0 cursor-pointer"
-                  >
-                    <span>Launch</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              );
-            } catch {
-              return null;
-            }
-          })()
-        )}
-      </div>
+      <ChatMarkdownRenderer
+        content={content}
+        onNavigateTab={(tab, paperId) => {
+          if (paperId && setSelectedPastPaperId) {
+            setSelectedPastPaperId(paperId);
+          }
+          if (onNavigateTab) {
+            onNavigateTab(tab, paperId);
+          } else if (setTab) {
+            setTab(tab as any);
+          }
+        }}
+      />
     );
   };
 

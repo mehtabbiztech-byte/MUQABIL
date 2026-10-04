@@ -1,5 +1,6 @@
 import React from 'react';
 import { ResumeData, ResumeAccentColor } from '../../types/resume';
+import { resolveResumeTemplate, RESUME_ACCENT_HEX } from '../../data/resumeTemplates';
 import { 
   Phone, 
   Mail, 
@@ -67,9 +68,50 @@ const ACCENT_STYLES: Record<ResumeAccentColor, {
     subheading: 'text-indigo-800',
     icon: 'text-indigo-800',
   },
+  teal: {
+    primary: 'text-teal-800 dark:text-teal-300',
+    badge: 'bg-teal-50 text-teal-800 border-teal-300',
+    border: 'border-teal-600',
+    tableHeader: 'bg-teal-800 text-white',
+    subheading: 'text-teal-700',
+    icon: 'text-teal-700',
+  },
+  blue: {
+    primary: 'text-blue-800 dark:text-blue-300',
+    badge: 'bg-blue-50 text-blue-800 border-blue-300',
+    border: 'border-blue-600',
+    tableHeader: 'bg-blue-800 text-white',
+    subheading: 'text-blue-700',
+    icon: 'text-blue-700',
+  },
+  violet: {
+    primary: 'text-violet-800 dark:text-violet-300',
+    badge: 'bg-violet-50 text-violet-800 border-violet-300',
+    border: 'border-violet-600',
+    tableHeader: 'bg-violet-800 text-white',
+    subheading: 'text-violet-700',
+    icon: 'text-violet-700',
+  },
+  rose: {
+    primary: 'text-rose-800 dark:text-rose-300',
+    badge: 'bg-rose-50 text-rose-800 border-rose-300',
+    border: 'border-rose-600',
+    tableHeader: 'bg-rose-800 text-white',
+    subheading: 'text-rose-700',
+    icon: 'text-rose-700',
+  },
+  amber: {
+    primary: 'text-amber-800 dark:text-amber-300',
+    badge: 'bg-amber-50 text-amber-800 border-amber-300',
+    border: 'border-amber-600',
+    tableHeader: 'bg-amber-800 text-white',
+    subheading: 'text-amber-700',
+    icon: 'text-amber-700',
+  },
 };
 
 export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, scale = 1 }) => {
+  const selectedTemplate = resolveResumeTemplate(data.template);
   const accent = ACCENT_STYLES[data.accentColor] || ACCENT_STYLES.emerald;
   const isCompact = data.fontSize === 'compact';
   const isSpacious = data.fontSize === 'spacious';
@@ -79,12 +121,12 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, scale = 1 })
   const zoomStyle = scale !== 1 ? { transform: `scale(${scale})`, transformOrigin: 'top center' } : undefined;
 
   // Format STS Govt Standard Format
-  if (data.template === 'sts-govt') {
+  if (selectedTemplate.previewLayout === 'sts-govt') {
     return (
       <div 
         id="resume-printable-area"
         className={`resume-printable bg-white text-slate-900 w-full max-w-[820px] mx-auto p-7 sm:p-10 shadow-2xl rounded-sm border border-slate-300 font-sans print:p-0 print:border-0 print:shadow-none ${baseTextSize}`}
-        style={{ minHeight: '1050px', ...zoomStyle }}
+        style={{ minHeight: '1050px', ...zoomStyle, borderTop: '5px solid ' + (RESUME_ACCENT_HEX[data.accentColor] || RESUME_ACCENT_HEX.emerald), fontFamily: selectedTemplate.fontFamily }}
       >
         {/* Header Title for Public Sector Scrutiny */}
         <div className="text-center border-b-2 border-slate-800 pb-3 mb-4">
@@ -357,12 +399,12 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, scale = 1 })
   }
 
   // Fortune 500 ATS Standard Format (Strict Single-Column, Harvard/Wharton Standard, EEO Anti-Bias compliant)
-  if (data.template === 'fortune-500') {
+  if (selectedTemplate.previewLayout === 'fortune-500') {
     return (
       <div 
         id="resume-printable-area"
         className={`resume-printable bg-white text-slate-900 w-full max-w-[820px] mx-auto p-8 sm:p-12 shadow-2xl rounded-sm font-sans print:p-0 print:shadow-none print:max-w-none ${baseTextSize}`}
-        style={{ minHeight: '1050px', ...zoomStyle }}
+        style={{ minHeight: '1050px', ...zoomStyle, borderTop: '5px solid ' + (RESUME_ACCENT_HEX[data.accentColor] || RESUME_ACCENT_HEX.emerald), fontFamily: selectedTemplate.fontFamily }}
       >
         {/* Fortune 500 EEO Compliance Header */}
         <header className="text-center border-b-2 border-slate-900 pb-3.5 mb-4">
@@ -420,7 +462,7 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, scale = 1 })
           <section className="mb-4">
             <h2 className="text-xs font-black uppercase tracking-wider text-slate-950 border-b border-slate-300 pb-1 mb-1.5 flex items-center justify-between">
               <span>Professional Summary</span>
-              <span className="text-[10px] text-slate-500 font-mono lowercase tracking-normal print:hidden">ATS 100% compliant</span>
+              <span className="text-[10px] text-slate-500 font-mono lowercase tracking-normal print:hidden">ATS-friendly format</span>
             </h2>
             <p className="text-slate-800 leading-relaxed text-justify">
               {data.professionalSummary}
@@ -585,12 +627,12 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, scale = 1 })
   }
 
   // Modern ATS Format (Clean, single/dual column with subtle accent lines)
-  if (data.template === 'modern-ats') {
+  if (selectedTemplate.previewLayout === 'modern-ats') {
     return (
       <div 
         id="resume-printable-area"
         className={`resume-printable bg-white text-slate-900 w-full max-w-[820px] mx-auto p-8 sm:p-11 shadow-2xl rounded-sm font-sans print:p-0 print:shadow-none ${baseTextSize}`}
-        style={{ minHeight: '1050px', ...zoomStyle }}
+        style={{ minHeight: '1050px', ...zoomStyle, borderTop: '5px solid ' + (RESUME_ACCENT_HEX[data.accentColor] || RESUME_ACCENT_HEX.emerald), fontFamily: selectedTemplate.fontFamily }}
       >
         {/* Modern Header */}
         <header className="border-b-2 pb-4 mb-5 border-slate-900">
@@ -812,12 +854,12 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, scale = 1 })
   }
 
   // Tech & Digital Compact Format (High-density, developer/analyst/engineering focused)
-  if (data.template === 'tech-compact') {
+  if (selectedTemplate.previewLayout === 'tech-compact') {
     return (
       <div 
         id="resume-printable-area"
         className={`resume-printable bg-white text-slate-900 w-full max-w-[820px] mx-auto p-7 sm:p-9 shadow-2xl rounded-sm font-sans print:p-0 print:shadow-none ${baseTextSize}`}
-        style={{ minHeight: '1050px', ...zoomStyle }}
+        style={{ minHeight: '1050px', ...zoomStyle, borderTop: '5px solid ' + (RESUME_ACCENT_HEX[data.accentColor] || RESUME_ACCENT_HEX.emerald), fontFamily: selectedTemplate.fontFamily }}
       >
         <header className="border-b-2 border-slate-900 pb-3 mb-4">
           <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
@@ -973,12 +1015,12 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, scale = 1 })
   }
 
   // Executive Template (Distinctive Two-Tone Layout)
-  if (data.template === 'executive') {
+  if (selectedTemplate.previewLayout === 'executive') {
     return (
       <div 
         id="resume-printable-area"
         className={`resume-printable bg-white text-slate-900 w-full max-w-[820px] mx-auto shadow-2xl rounded-sm font-sans flex flex-col md:flex-row print:p-0 print:shadow-none ${baseTextSize}`}
-        style={{ minHeight: '1050px', ...zoomStyle }}
+        style={{ minHeight: '1050px', ...zoomStyle, borderTop: '5px solid ' + (RESUME_ACCENT_HEX[data.accentColor] || RESUME_ACCENT_HEX.emerald), fontFamily: selectedTemplate.fontFamily }}
       >
         {/* Left Column Sidebar */}
         <aside className="w-full md:w-[280px] bg-slate-900 text-white p-6 sm:p-7 shrink-0 print:bg-slate-900">
@@ -1137,7 +1179,7 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, scale = 1 })
     <div 
       id="resume-printable-area"
       className={`resume-printable bg-white text-slate-900 w-full max-w-[820px] mx-auto p-8 sm:p-10 shadow-2xl rounded-sm font-serif print:p-0 print:shadow-none ${baseTextSize}`}
-      style={{ minHeight: '1050px', ...zoomStyle }}
+      style={{ minHeight: '1050px', ...zoomStyle, borderTop: '5px solid ' + (RESUME_ACCENT_HEX[data.accentColor] || RESUME_ACCENT_HEX.emerald), fontFamily: selectedTemplate.fontFamily }}
     >
       <div className="text-center pb-4 mb-4 border-b border-slate-400">
         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-950 font-serif">

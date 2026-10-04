@@ -15,14 +15,9 @@ import {
   ChevronDown,
   ChevronUp,
   FileDown,
-  Info,
-  ExternalLink,
-  MessageSquare,
   AlertCircle,
   Paperclip,
-  Image as ImageIcon,
   X,
-  FileQuestion
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { ChatMarkdownRenderer } from './ChatMarkdownRenderer';

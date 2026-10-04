@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { MCQS_DATA } from './mcqsData';
 import { MINIMUM_SUBJECT_MCQ_BANKS } from './generatedSubjectMcqs';
+import { countSubjectMcqs } from '../utils/subjectMcqCounts';
 
 test('every listed discipline has at least 500 bundled MCQs', () => {
   for (const bank of MINIMUM_SUBJECT_MCQ_BANKS) {
@@ -21,4 +22,17 @@ test('generated subject items are labelled for editorial review', () => {
     item.verificationMethod?.includes('editorial review')
   ));
   assert.equal(new Set(generated.map(item => item.question)).size, generated.length);
+});
+
+test('subject card counts match the categories available in the practice filter', () => {
+  const sample = [
+    { category: 'computer' },
+    { category: 'computer-science' },
+    { category: 'marketing' },
+    { category: 'accounting' },
+  ];
+  assert.equal(countSubjectMcqs(sample, 'computer-science'), 2);
+  assert.equal(countSubjectMcqs(sample, 'management-sciences'), 2);
+  assert.equal(countSubjectMcqs(sample, 'marketing'), 1);
+  assert.equal(countSubjectMcqs(sample, 'biology'), 0);
 });

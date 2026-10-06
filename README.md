@@ -1,6 +1,8 @@
-# MEQSA Study Platform
+# MUQABIL (`muqabil.pk`) — Competitive Exam Preparation Platform
 
-MEQSA is a React, TypeScript, Vite and Firebase learning platform for Pakistani learners—from primary classes through university, recruitment tests and competitive examinations.
+**GitHub Repository:** [https://github.com/mehtabbiztech-byte/MUQABIL](https://github.com/mehtabbiztech-byte/MUQABIL)
+
+MUQABIL is a premier React 19, TypeScript, Vite, Tailwind CSS and Google Gemini-powered preparation platform for competitive examinations across Pakistan—including Sukkur IBA STS BPS-05 to 15 (Graduation, Intermediate, Matriculation), SPSC CCE, STEDA Sindh Teaching License, FPSC, CSS MPT, and provincial recruitments.
 
 ## Content transparency
 
@@ -56,7 +58,7 @@ The code does not make a GitHub repository or Vercel deployment private. Reposit
 
 Mehtab Ali — Founder and Academic Lead
 
-For project questions, open a GitHub issue in this repository.
+For project questions or feedback, open a GitHub issue at [https://github.com/mehtabbiztech-byte/MUQABIL/issues](https://github.com/mehtabbiztech-byte/MUQABIL/issues).
 
 ## Teaching License writing practice
 

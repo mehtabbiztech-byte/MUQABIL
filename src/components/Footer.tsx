@@ -6,7 +6,8 @@ import {
   Mail, 
   CheckCircle2, 
   ArrowUpRight,
-  Sparkles
+  Sparkles,
+  ExternalLink
 } from 'lucide-react';
 import { POPULAR_CATEGORIES, TOP_SUBJECTS_DIRECTORY, TEST_PREPARATION_ONLINE_SERVICES } from '../data/categoriesData';
 import { EXAMS_DATA } from '../data/examsData';
@@ -107,7 +108,14 @@ export const Footer: React.FC = () => {
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>Feedback and corrections are accepted through the project’s GitHub Issues page.</span>
+                <a 
+                  href="https://github.com/mehtabbiztech-byte/MUQABIL/issues"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-emerald-400 transition underline cursor-pointer"
+                >
+                  Feedback &amp; corrections on GitHub Issues
+                </a>
               </div>
             </div>
           </div>
@@ -211,14 +219,25 @@ export const Footer: React.FC = () => {
                 </button>
               </li>
               <li>
-                <button onClick={() => setTab('about')} className="hover:text-emerald-400 transition">
+                <button onClick={() => setTab('about')} className="hover:text-emerald-400 transition cursor-pointer">
                   About MUQABIL (مقابل)
                 </button>
               </li>
               <li>
+                <a 
+                  href="https://github.com/mehtabbiztech-byte/MUQABIL" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="hover:text-emerald-400 transition inline-flex items-center gap-1.5 cursor-pointer"
+                >
+                  <span>GitHub Repository</span>
+                  <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
+                </a>
+              </li>
+              <li>
                 <button 
                   onClick={() => setDomainModalOpen(true)} 
-                  className="inline-flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 font-semibold transition"
+                  className="inline-flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 font-semibold transition cursor-pointer"
                 >
                   <span>🌐 Custom Domain (muqabil.pk)</span>
                 </button>

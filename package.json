@@ -4,6 +4,11 @@
   "version": "1.0.0",
   "type": "module",
   "packageManager": "npm@11.9.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mehtabbiztech-byte/MUQABIL.git"
+  },
+  "homepage": "https://github.com/mehtabbiztech-byte/MUQABIL",
   "scripts": {
     "dev": "tsx server.ts",
     "build": "vite build && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",

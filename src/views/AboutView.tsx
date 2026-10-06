@@ -64,13 +64,24 @@ export const AboutView: React.FC = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row md:flex-col gap-3 shrink-0 w-full md:w-auto">
-            <div className="px-5 py-3 rounded-xl bg-emerald-600 text-white font-bold text-xs sm:text-sm flex items-center justify-center">
-              Feedback via GitHub Issues
-            </div>
-            <div className="px-4 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700/70 text-slate-300 text-xs flex items-center justify-center gap-2">
+            <a 
+              href="https://github.com/mehtabbiztech-byte/MUQABIL/issues"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition shadow-xs cursor-pointer"
+            >
+              <span>Feedback via GitHub Issues</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+            <a
+              href="https://github.com/mehtabbiztech-byte/MUQABIL"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/70 text-slate-300 hover:text-white text-xs flex items-center justify-center gap-2 transition cursor-pointer"
+            >
               <Code className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Full-Stack Platform Engineering</span>
-            </div>
+              <span>mehtabbiztech-byte/MUQABIL</span>
+            </a>
           </div>
         </div>
       </div>

@@ -41,6 +41,8 @@ import {
   Compass,
   BookmarkCheck,
   GraduationCap,
+  FileText,
+  FileSpreadsheet
 } from 'lucide-react';
 import {
   TEACHING_LICENSE_PARTS,
@@ -48,6 +50,8 @@ import {
   LicenseTopicNote,
 } from '../data/teachingLicenseNotesData';
 import { useApp } from '../context/AppContext';
+import { StudyLesson, MCQ } from '../types';
+import { exportStudyLessonToPdf, exportMcqsToExcel } from '../lib/exportUtils';
 import { InteractivePartsOfSpeechExplorer } from './InteractivePartsOfSpeechExplorer';
 import { InteractiveTensesExplorer } from './InteractiveTensesExplorer';
 import { InteractiveVoiceExplorer } from './InteractiveVoiceExplorer';
@@ -372,6 +376,46 @@ PREPARED VIA MEHTAB STS IBA PREP
     navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  // Download Current Topic Note as PDF
+  const handleDownloadTopicPdf = () => {
+    const lesson: StudyLesson = {
+      id: currentTopic.id,
+      title: `STEDA Teaching License: ${currentPart.subjectName} — ${currentTopic.title}`,
+      audience: 'advanced',
+      readTime: '12 min',
+      explanation: `${currentTopic.summary}\n\nSTEDA High-Yield Alert: ${currentTopic.highYieldAlert}`,
+      importantPoints: (currentTopic.concepts || []).map((c) => `${c.conceptTitle}: ${c.explanation || ''}`),
+      examples: (currentTopic.examDistractorTraps || []),
+      practice: [],
+      mcqs: (currentTopic.quiz || []).map((q, qIdx) => ({
+        id: `${currentTopic.id}-q-${qIdx}`,
+        question: q.question,
+        options: q.options,
+        correctIndex: q.correctAnswer,
+        explanation: q.explanation,
+        category: 'pedagogy',
+        difficulty: 'Medium'
+      }))
+    };
+    exportStudyLessonToPdf(lesson);
+  };
+
+  // Download Topic Quiz to Excel
+  const handleDownloadQuizExcel = () => {
+    if (!currentTopic.quiz || currentTopic.quiz.length === 0) return;
+    const mcqs: MCQ[] = currentTopic.quiz.map((q, qIdx) => ({
+      id: `${currentTopic.id}-q-${qIdx}`,
+      question: q.question,
+      options: q.options,
+      correctIndex: q.correctAnswer,
+      explanation: q.explanation,
+      category: 'pedagogy',
+      difficulty: 'Medium',
+      examTags: ['STEDA Teaching License', `Part ${currentPart.partNumber}`]
+    }));
+    exportMcqsToExcel(mcqs, `STEDA_${currentTopic.title.replace(/\s+/g, '_')}`, { subject: currentPart.subjectName });
   };
 
   // Handle Quiz selection
@@ -1017,6 +1061,28 @@ PREPARED VIA MEHTAB STS IBA PREP
                   >
                     {isFocusMode ? <Minimize2 className="w-4 h-4 text-purple-600" /> : <Maximize2 className="w-4 h-4" />}
                   </button>
+
+                  {/* Download Topic Note as PDF */}
+                  <button
+                    onClick={handleDownloadTopicPdf}
+                    title="Download this topic note as a PDF booklet"
+                    className="p-1.5 rounded-xl border border-purple-200 dark:border-purple-800 bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 hover:bg-purple-100 transition cursor-pointer flex items-center gap-1 text-xs font-bold"
+                  >
+                    <FileText className="w-3.5 h-3.5" />
+                    <span className="hidden lg:inline">PDF</span>
+                  </button>
+
+                  {/* Download Topic Quiz to Excel */}
+                  {currentTopic.quiz && currentTopic.quiz.length > 0 && (
+                    <button
+                      onClick={handleDownloadQuizExcel}
+                      title="Download this topic's practice quiz questions in Excel"
+                      className="p-1.5 rounded-xl border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 hover:bg-blue-100 transition cursor-pointer flex items-center gap-1 text-xs font-bold"
+                    >
+                      <FileSpreadsheet className="w-3.5 h-3.5" />
+                      <span className="hidden lg:inline">Excel</span>
+                    </button>
+                  )}
 
                   {/* Print Note */}
                   <button

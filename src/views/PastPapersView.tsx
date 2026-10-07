@@ -30,7 +30,8 @@ import {
   Square,
   Play,
   Check,
-  ArrowRight
+  ArrowRight,
+  FileSpreadsheet
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { PAST_PAPERS_DATA } from '../data/pastPapersData';
@@ -40,6 +41,11 @@ import { PastPaper } from '../types';
 import { practiceMinutes, scorePaper } from '../lib/paperResults';
 import { useCmsContent } from '../context/CmsContentContext';
 import { MeaningText } from '../components/MeaningText';
+import { 
+  exportPastPapersDirectoryToExcel, 
+  exportPastPaperAttemptToPdf, 
+  exportPastPaperAttemptToExcel 
+} from '../lib/exportUtils';
 
 const panel = 'rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 sm:p-7';
 const button = 'px-4 py-2 rounded-xl bg-emerald-700 text-white font-semibold hover:bg-emerald-800 disabled:opacity-40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 cursor-pointer transition';
@@ -98,7 +104,28 @@ export function PaperSession({ paper, onExit, onRetake }: { paper: PastPaper; on
       </div>
       <p className="text-sm text-slate-500">Score: {result.percentage}% of all questions. Accuracy: correct ÷ answered. One mark per correct answer; no negative marking.</p>
       <p className="text-sm mt-2">Rank: unavailable — no verified comparison results yet.</p>
-      <div className="flex flex-wrap gap-3 mt-5"><button className={button} disabled={saveStarted.current} onClick={save}>Save result & mistakes</button><button className={secondary} onClick={onRetake}>Retake paper</button><button className={secondary} onClick={onExit}>Back to papers</button><button className={secondary} onClick={() => setTab('mistakes')}>My mistakes</button></div>
+      <div className="flex flex-wrap gap-3 mt-5">
+        <button className={button} disabled={saveStarted.current} onClick={save}>Save result & mistakes</button>
+        <button 
+          onClick={() => exportPastPaperAttemptToPdf(paper, result, answers, elapsed, userProfile.name || 'Candidate')}
+          className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm flex items-center gap-1.5 transition cursor-pointer shadow-sm"
+          title="Download complete result scorecard & question review in PDF format"
+        >
+          <FileText className="w-4 h-4" />
+          <span>Download Scorecard (PDF)</span>
+        </button>
+        <button 
+          onClick={() => exportPastPaperAttemptToExcel(paper, result, answers, elapsed, userProfile.name || 'Candidate')}
+          className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm flex items-center gap-1.5 transition cursor-pointer shadow-sm"
+          title="Export question-by-question attempt log to Excel (.xlsx)"
+        >
+          <FileSpreadsheet className="w-4 h-4" />
+          <span>Export Scorecard (Excel)</span>
+        </button>
+        <button className={secondary} onClick={onRetake}>Retake paper</button>
+        <button className={secondary} onClick={onExit}>Back to papers</button>
+        <button className={secondary} onClick={() => setTab('mistakes')}>My mistakes</button>
+      </div>
       <p role="status" className="mt-3 text-sm">{saving}</p>
     </div>
     <section className={panel}><h2 className="text-xl font-bold">Subject breakdown</h2><p className="text-sm mt-1">Revise subjects below 70%; unanswered questions count as missed.</p><div className="space-y-4 mt-5">{Object.entries(result.subjects).sort((a,b) => a[1].correct/a[1].total - b[1].correct/b[1].total).map(([name, data]) => <div key={name}><div className="flex justify-between gap-3 text-sm"><span className="capitalize">{name.replaceAll('-', ' ')} {data.correct/data.total < .7 ? '· Needs practice' : '· On track'}</span><span>{data.correct}/{data.total}</span></div><progress aria-label={name} value={data.correct} max={data.total} className="w-full accent-emerald-600" /></div>)}</div></section>
@@ -508,7 +535,16 @@ export const PastPapersView: React.FC = () => {
                   className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-black flex items-center gap-1.5 shadow-lg transition cursor-pointer"
                 >
                   <Printer className="w-4 h-4" />
-                  <span>Export Solved Past Paper (PDF)</span>
+                  <span>Export Solved Paper (PDF)</span>
+                </button>
+
+                <button
+                  onClick={() => exportPastPapersDirectoryToExcel(filteredDirectoryPapers, 'MUQABIL_Past_Papers_Index')}
+                  className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold flex items-center gap-1.5 shadow-lg transition cursor-pointer"
+                  title="Export complete past papers directory to Excel (.xlsx)"
+                >
+                  <FileSpreadsheet className="w-4 h-4" />
+                  <span>Export Index (Excel)</span>
                 </button>
 
                 <button
@@ -590,6 +626,15 @@ export const PastPapersView: React.FC = () => {
                 >
                   <List className="w-3.5 h-3.5" />
                   <span>Compact</span>
+                </button>
+
+                <button
+                  onClick={() => exportPastPapersDirectoryToExcel(filteredDirectoryPapers, 'MUQABIL_Past_Papers_Directory')}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-900/60 hover:bg-blue-100 dark:hover:bg-blue-900/60 transition cursor-pointer"
+                  title="Export current filtered directory to Excel spreadsheet (.xlsx)"
+                >
+                  <FileSpreadsheet className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                  <span>Excel (.xlsx)</span>
                 </button>
               </div>
             )}

@@ -12,10 +12,15 @@ import {
   ArrowRight,
   BookOpen,
   Cloud,
-  LogIn
+  LogIn,
+  FileDown,
+  FileSpreadsheet,
+  FileText
 } from 'lucide-react';
 import { MCQS_DATA } from '../data/mcqsData';
 import { MCQ } from '../types';
+import { ExportModal } from '../components/ExportModal';
+import { exportMcqsToExcel } from '../lib/exportUtils';
 
 interface SavedMcqsViewProps {
   initialSubTab?: 'bookmarks' | 'mistakes';
@@ -35,6 +40,7 @@ export const SavedMcqsView: React.FC<SavedMcqsViewProps> = ({ initialSubTab = 'b
 
   const [activeSubTab, setActiveSubTab] = useState<'bookmarks' | 'mistakes'>(initialSubTab);
   const [revealed, setRevealed] = useState<Record<string, boolean>>({});
+  const [exportModalOpen, setExportModalOpen] = useState(false);
 
   React.useEffect(() => {
     setActiveSubTab(initialSubTab);
@@ -87,31 +93,60 @@ export const SavedMcqsView: React.FC<SavedMcqsViewProps> = ({ initialSubTab = 'b
           )}
         </div>
 
-        {/* Tab switchers */}
-        <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center gap-3">
-          <button
-            onClick={() => setActiveSubTab('bookmarks')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer flex items-center gap-2 ${
-              activeSubTab === 'bookmarks'
-                ? 'bg-emerald-600 text-white shadow-2xs'
-                : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200'
-            }`}
-          >
-            <Bookmark className="w-3.5 h-3.5" />
-            <span>Saved Bookmarks ({userProfile.bookmarks.length})</span>
-          </button>
+        {/* Tab switchers and Download buttons */}
+        <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setActiveSubTab('bookmarks')}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer flex items-center gap-2 ${
+                activeSubTab === 'bookmarks'
+                  ? 'bg-emerald-600 text-white shadow-2xs'
+                  : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200'
+              }`}
+            >
+              <Bookmark className="w-3.5 h-3.5" />
+              <span>Saved Bookmarks ({userProfile.bookmarks.length})</span>
+            </button>
 
-          <button
-            onClick={() => setActiveSubTab('mistakes')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer flex items-center gap-2 ${
-              activeSubTab === 'mistakes'
-                ? 'bg-rose-600 text-white shadow-2xs'
-                : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200'
-            }`}
-          >
-            <HelpCircle className="w-3.5 h-3.5" />
-            <span>Mistakes Notebook ({userProfile.mistakeIds.length})</span>
-          </button>
+            <button
+              onClick={() => setActiveSubTab('mistakes')}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer flex items-center gap-2 ${
+                activeSubTab === 'mistakes'
+                  ? 'bg-rose-600 text-white shadow-2xs'
+                  : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200'
+              }`}
+            >
+              <HelpCircle className="w-3.5 h-3.5" />
+              <span>Mistakes Notebook ({userProfile.mistakeIds.length})</span>
+            </button>
+          </div>
+
+          {currentList.length > 0 && (
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setExportModalOpen(true)}
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow-2xs cursor-pointer"
+                title="Download as PDF practice paper"
+              >
+                <FileText className="w-3.5 h-3.5" />
+                <span>Download PDF</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  const title = activeSubTab === 'bookmarks' ? 'MUQABIL_Bookmarked_MCQs' : 'MUQABIL_Mistakes_Notebook';
+                  exportMcqsToExcel(currentList, title, { subject: activeSubTab === 'bookmarks' ? 'Bookmarked MCQs' : 'Mistakes Notebook' });
+                }}
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-blue-200 dark:border-blue-900/60 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/50 text-xs font-bold transition cursor-pointer"
+                title="Download as Excel spreadsheet"
+              >
+                <FileSpreadsheet className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                <span>Download Excel</span>
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Database Sync Status Alert */}
@@ -254,6 +289,15 @@ export const SavedMcqsView: React.FC<SavedMcqsViewProps> = ({ initialSubTab = 'b
           })}
         </div>
       )}
+
+      {/* Export Options Modal */}
+      <ExportModal
+        isOpen={exportModalOpen}
+        onClose={() => setExportModalOpen(false)}
+        mcqs={currentList}
+        subjectTitle={activeSubTab === 'bookmarks' ? 'My Bookmarked Questions' : 'My Mistakes Revision Notebook'}
+        defaultCandidateName={userProfile?.name}
+      />
 
     </div>
   );

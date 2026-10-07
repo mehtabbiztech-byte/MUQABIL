@@ -15,12 +15,14 @@ import {
   Eye,
   EyeOff,
   Layers,
-  Award
+  Award,
+  FileSpreadsheet
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { MCQS_DATA } from '../data/mcqsData';
 import { MCQ, PastPaper } from '../types';
 import { AllPastPaperEntry } from '../data/allPastPapersDirectory';
+import { exportMcqsToExcel, exportMcqsToPdf } from '../lib/exportUtils';
 
 export const PrintablePastPaperModal: React.FC = () => {
   const { printablePaper, setPrintablePaper } = useApp();
@@ -69,6 +71,22 @@ export const PrintablePastPaperModal: React.FC = () => {
 
   const handlePrint = () => {
     window.print();
+  };
+
+  const handleExportExcel = () => {
+    const cleanTitle = paperTitle.replace(/[^a-zA-Z0-9_-]/g, '_');
+    exportMcqsToExcel(questions, `MUQABIL_${cleanTitle}`, { subject: paperExam });
+  };
+
+  const handleExportDirectPdf = () => {
+    exportMcqsToPdf(questions, {
+      title: paperTitle,
+      subtitle: conductedBy,
+      includeAnswers: mode === 'solved',
+      includeExplanations: showExplanations,
+      includeOmrSheet: showOmrSheet,
+      subject: paperExam,
+    });
   };
 
   return (
@@ -154,13 +172,34 @@ export const PrintablePastPaperModal: React.FC = () => {
               <option value="Yellow" className="text-slate-900">Key: Yellow</option>
             </select>
 
-            {/* Big Print Button */}
+            {/* Print / Save PDF Button */}
             <button
               onClick={handlePrint}
-              className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs sm:text-sm flex items-center gap-1.5 transition cursor-pointer shadow-lg"
+              className="px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs sm:text-sm flex items-center gap-1.5 transition cursor-pointer shadow-lg"
+              title="Print to printer or save as PDF via system dialog"
             >
               <Printer className="w-4 h-4" />
-              <span>Print / Save PDF</span>
+              <span>Print / PDF</span>
+            </button>
+
+            {/* Direct PDF Download Button */}
+            <button
+              onClick={handleExportDirectPdf}
+              className="px-3 py-2 rounded-xl bg-emerald-700/80 hover:bg-emerald-600 text-white font-bold text-xs flex items-center gap-1.5 transition cursor-pointer border border-emerald-500/40"
+              title="Download standalone A4 PDF file"
+            >
+              <FileText className="w-4 h-4" />
+              <span>Direct PDF</span>
+            </button>
+
+            {/* Download Excel Button */}
+            <button
+              onClick={handleExportExcel}
+              className="px-3 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center gap-1.5 transition cursor-pointer shadow-md"
+              title="Download past paper questions in Excel spreadsheet"
+            >
+              <FileSpreadsheet className="w-4 h-4" />
+              <span>Excel (.xlsx)</span>
             </button>
 
             {/* Close Button */}

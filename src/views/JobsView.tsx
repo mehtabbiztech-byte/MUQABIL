@@ -1,10 +1,11 @@
 import React, { useMemo, useState } from 'react';
-import { ArrowRight, BadgeCheck, BookOpenCheck, Building2, CalendarDays, CheckCircle2, Clock, ExternalLink, FileQuestion, MapPin, Search, TimerReset } from 'lucide-react';
+import { ArrowRight, BadgeCheck, BookOpenCheck, Building2, CalendarDays, CheckCircle2, Clock, ExternalLink, FileQuestion, MapPin, Search, TimerReset, FileSpreadsheet, FileText } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { JOBS_DATA, JOBS_LAST_VERIFIED } from '../data/jobsData';
 import { NADRA_JUNIOR_EXECUTIVE_PAPERS, NADRA_TEST_BLUEPRINT } from '../data/nadraJuniorExecutiveData';
 import type { PastPaper } from '../types';
 import { PaperSession } from './PastPapersView';
+import { exportJobsToExcel, exportJobsToPdf } from '../lib/exportUtils';
 
 const FILTERS = ['All', 'NADRA', 'Pakistan Railways', 'ATH', 'PARC', 'Air University', 'AWKUM', 'NUST'];
 
@@ -57,12 +58,30 @@ export const JobsView: React.FC = () => {
               Exact deadlines, eligibility guidance and direct official links. Every listing below was checked on {JOBS_LAST_VERIFIED}.
             </p>
           </div>
-          <button
-            onClick={() => { setTab('exams'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-emerald-700"
-          >
-            Prepare for job tests <ArrowRight className="h-4 w-4" />
-          </button>
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              onClick={() => exportJobsToPdf(filteredJobs, 'MUQABIL_Govt_Jobs_Bulletin')}
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 px-4 py-3 text-sm font-bold text-white shadow-sm transition cursor-pointer"
+              title="Download verified vacancies notice bulletin in PDF format"
+            >
+              <FileText className="h-4 w-4" />
+              <span>Download Bulletin (PDF)</span>
+            </button>
+            <button
+              onClick={() => exportJobsToExcel(filteredJobs, 'MUQABIL_Govt_Jobs_Pakistan')}
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-500 px-4 py-3 text-sm font-bold text-white shadow-sm transition cursor-pointer"
+              title="Export all open vacancies to Excel spreadsheet (.xlsx)"
+            >
+              <FileSpreadsheet className="h-4 w-4" />
+              <span>Export Jobs (.xlsx)</span>
+            </button>
+            <button
+              onClick={() => { setTab('exams'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-700/80 px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-emerald-700 cursor-pointer"
+            >
+              Prepare for job tests <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
         </div>
 
         <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">

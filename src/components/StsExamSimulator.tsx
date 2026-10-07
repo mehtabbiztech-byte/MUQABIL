@@ -28,7 +28,8 @@ import {
   Flame,
   ChevronDown,
   ChevronUp,
-  Grid
+  Grid,
+  FileSpreadsheet
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { 
@@ -40,6 +41,13 @@ import {
   STS_READING_PASSAGES
 } from '../data/stsPatternData';
 import { useApp } from '../context/AppContext';
+import { MCQ, QuizAttempt } from '../types';
+import { 
+  exportMcqsToPdf, 
+  exportMcqsToExcel, 
+  exportQuizScorecardToPdf, 
+  exportQuizAttemptToExcel 
+} from '../lib/exportUtils';
 
 interface StsExamSimulatorProps {
   initialCategory?: StsCategory;
@@ -50,7 +58,7 @@ export const StsExamSimulator: React.FC<StsExamSimulatorProps> = ({
   initialCategory = 'graduation',
   onClose
 }) => {
-  const { toggleBookmark, isBookmarked, recordQuizAttempt } = useApp();
+  const { toggleBookmark, isBookmarked, recordQuizAttempt, userProfile } = useApp();
 
   // Mode: 'overview' (Syllabus & Blueprint), 'in-progress' (Live CBT), 'results'
   const [activeMode, setActiveMode] = useState<'overview' | 'in-progress' | 'results'>('overview');
@@ -60,6 +68,39 @@ export const StsExamSimulator: React.FC<StsExamSimulatorProps> = ({
   const paper: StsGeneratedPaper = useMemo(() => {
     return generateStsExamPaper(selectedCategory);
   }, [selectedCategory]);
+
+  // Convert questions to standard MCQ format for exports
+  const convertedMcqs: MCQ[] = useMemo(() => {
+    return paper.allQuestions.map((q) => ({
+      id: q.id,
+      question: q.question,
+      options: q.options,
+      correctIndex: q.correctIndex,
+      explanation: q.explanation,
+      category: q.part,
+      subtopic: q.subSection,
+      difficulty: (q.difficulty as any) || 'Medium',
+      examTags: ['Sukkur IBA STS', paper.categoryInfo.name, paper.categoryInfo.bps]
+    }));
+  }, [paper]);
+
+  const handleDownloadPaperPdf = (withAnswers: boolean = false) => {
+    exportMcqsToPdf(convertedMcqs, {
+      title: `${paper.categoryInfo.name} Practice Paper`,
+      subtitle: `Sukkur IBA STS Screening Pattern (${paper.categoryInfo.bps}) • 100 MCQs`,
+      subject: 'Screening Test (English, Math, General Knowledge)',
+      includeAnswers: withAnswers,
+      includeExplanations: withAnswers,
+      includeOmrSheet: true,
+    });
+  };
+
+  const handleExportQuestionsExcel = () => {
+    exportMcqsToExcel(convertedMcqs, `MUQABIL_STS_${selectedCategory}_100_MCQs`, {
+      subject: paper.categoryInfo.name,
+      filterName: paper.categoryInfo.bps
+    });
+  };
 
   // Exam Progress State
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -215,6 +256,60 @@ export const StsExamSimulator: React.FC<StsExamSimulatorProps> = ({
     };
   }, [paper, userAnswers, selectedCategory]);
 
+  const handleDownloadScorecardPdf = () => {
+    const attempt: QuizAttempt = {
+      id: `sts-${selectedCategory}-${Date.now()}`,
+      title: `Sukkur IBA STS ${paper.categoryInfo.name} Simulator`,
+      date: new Date().toISOString(),
+      score: resultsData.totalScore,
+      totalQuestions: 100,
+      timeSpentSeconds: (paper.durationMinutes * 60) - secondsRemaining,
+      incorrectQuestions: paper.allQuestions
+        .filter((q, idx) => userAnswers[idx] !== q.correctIndex)
+        .map(q => q.id),
+      certificate: {
+        id: `sts-cert-${Date.now()}`,
+        quizAttemptId: `sts-${selectedCategory}-${Date.now()}`,
+        candidateName: userProfile.name || 'Candidate',
+        quizTitle: `Sukkur IBA STS ${paper.categoryInfo.name}`,
+        dateIssued: new Date().toISOString(),
+        score: resultsData.totalScore,
+        totalQuestions: 100,
+        percentage: resultsData.percentage,
+        verificationCode: `STS-IBA-${resultsData.totalScore}-${Date.now().toString().slice(-4)}`,
+        rankTier: resultsData.isQualified ? 'Gold Distinction' : resultsData.isQuotaEligible ? 'Silver Merit' : 'Participation'
+      }
+    };
+    exportQuizScorecardToPdf(attempt, convertedMcqs, userAnswers, userProfile.name || 'Candidate');
+  };
+
+  const handleExportSolutionsExcel = () => {
+    const attempt: QuizAttempt = {
+      id: `sts-${selectedCategory}-${Date.now()}`,
+      title: `Sukkur IBA STS ${paper.categoryInfo.name} Simulator`,
+      date: new Date().toISOString(),
+      score: resultsData.totalScore,
+      totalQuestions: 100,
+      timeSpentSeconds: (paper.durationMinutes * 60) - secondsRemaining,
+      incorrectQuestions: paper.allQuestions
+        .filter((q, idx) => userAnswers[idx] !== q.correctIndex)
+        .map(q => q.id),
+      certificate: {
+        id: `sts-cert-${Date.now()}`,
+        quizAttemptId: `sts-${selectedCategory}-${Date.now()}`,
+        candidateName: userProfile.name || 'Candidate',
+        quizTitle: `Sukkur IBA STS ${paper.categoryInfo.name}`,
+        dateIssued: new Date().toISOString(),
+        score: resultsData.totalScore,
+        totalQuestions: 100,
+        percentage: resultsData.percentage,
+        verificationCode: `STS-IBA-${resultsData.totalScore}-${Date.now().toString().slice(-4)}`,
+        rankTier: resultsData.isQualified ? 'Gold Distinction' : resultsData.isQuotaEligible ? 'Silver Merit' : 'Participation'
+      }
+    };
+    exportQuizAttemptToExcel(attempt, convertedMcqs, userAnswers, userProfile.name || 'Candidate');
+  };
+
   return (
     <div className="w-full max-w-7xl mx-auto space-y-6">
       
@@ -324,7 +419,7 @@ export const StsExamSimulator: React.FC<StsExamSimulatorProps> = ({
                 </p>
               </div>
 
-              {/* Action Button */}
+              {/* Action Button & Downloads */}
               <div className="flex flex-col gap-3 shrink-0">
                 <button
                   onClick={handleStartExam}
@@ -334,6 +429,24 @@ export const StsExamSimulator: React.FC<StsExamSimulatorProps> = ({
                   <span>Start {paper.totalMarks}-Mark Mock Simulator</span>
                   <ArrowRight className="w-5 h-5" />
                 </button>
+                <div className="flex flex-wrap items-center gap-2">
+                  <button
+                    onClick={() => handleDownloadPaperPdf(false)}
+                    className="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer border border-slate-200 dark:border-slate-700 shadow-2xs"
+                    title="Download 100-MCQ Blank Exam Paper with OMR Grid in PDF format"
+                  >
+                    <FileText className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                    <span>Download Paper (PDF)</span>
+                  </button>
+                  <button
+                    onClick={handleExportQuestionsExcel}
+                    className="flex-1 px-3.5 py-2.5 rounded-xl bg-blue-50 hover:bg-blue-100 dark:bg-blue-950/40 dark:hover:bg-blue-900/50 text-blue-700 dark:text-blue-300 text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer border border-blue-200 dark:border-blue-900/50 shadow-2xs"
+                    title="Export 100 questions to Excel (.xlsx)"
+                  >
+                    <FileSpreadsheet className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                    <span>Export MCQs (.xlsx)</span>
+                  </button>
+                </div>
                 <div className="text-[11px] text-center text-slate-500 dark:text-slate-400">
                   Strict {paper.durationMinutes}-minute timer · {paper.totalQuestions} MCQs · Full Explanations
                 </div>
@@ -1048,8 +1161,26 @@ export const StsExamSimulator: React.FC<StsExamSimulatorProps> = ({
             {/* Retake & Navigation Buttons */}
             <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
               <button
+                onClick={handleDownloadScorecardPdf}
+                className="px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-md transition flex items-center gap-2 cursor-pointer"
+                title="Download complete result scorecard & explanations in PDF format"
+              >
+                <FileText className="w-4 h-4" />
+                <span>Download Scorecard (PDF)</span>
+              </button>
+
+              <button
+                onClick={handleExportSolutionsExcel}
+                className="px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-md transition flex items-center gap-2 cursor-pointer"
+                title="Export complete 100-question attempt log to Excel (.xlsx)"
+              >
+                <FileSpreadsheet className="w-4 h-4" />
+                <span>Export Solutions (Excel)</span>
+              </button>
+
+              <button
                 onClick={handleStartExam}
-                className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-md transition flex items-center gap-2 cursor-pointer"
+                className="px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow-md transition flex items-center gap-2 cursor-pointer border border-slate-700"
               >
                 <RotateCcw className="w-4 h-4" />
                 <span>Retake This Simulator</span>
@@ -1057,7 +1188,7 @@ export const StsExamSimulator: React.FC<StsExamSimulatorProps> = ({
 
               <button
                 onClick={() => setActiveMode('overview')}
-                className="px-6 py-3 rounded-xl border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-sm transition cursor-pointer"
+                className="px-5 py-3 rounded-xl border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-sm transition cursor-pointer"
               >
                 Change Category / View Syllabus
               </button>

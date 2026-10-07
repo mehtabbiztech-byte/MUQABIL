@@ -18,7 +18,9 @@ import {
   Cloud,
   LogIn,
   Award,
-  ShieldCheck
+  ShieldCheck,
+  FileText,
+  FileSpreadsheet
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { MCQS_DATA } from '../data/mcqsData';
@@ -29,6 +31,7 @@ import { StsExamSimulator } from '../components/StsExamSimulator';
 import { ExactPatternSimulators } from '../components/ExactPatternSimulators';
 import { buildExactPatternQuestions, SimulatorLaunch } from '../data/examSimulatorData';
 import { MeaningText } from '../components/MeaningText';
+import { exportQuizScorecardToPdf, exportQuizAttemptToExcel } from '../lib/exportUtils';
 
 export const QuizView: React.FC = () => {
   const { 
@@ -626,10 +629,28 @@ export const QuizView: React.FC = () => {
               <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
                 <button
                   onClick={() => setQuizState('config')}
-                  className="px-6 py-2.5 rounded-xl bg-white text-emerald-950 font-bold text-xs sm:text-sm hover:bg-emerald-50 transition cursor-pointer flex items-center gap-1.5"
+                  className="px-5 py-2.5 rounded-xl bg-white text-emerald-950 font-bold text-xs sm:text-sm hover:bg-emerald-50 transition cursor-pointer flex items-center gap-1.5"
                 >
                   <RotateCcw className="w-4 h-4" />
                   <span>Take Another Quiz</span>
+                </button>
+
+                <button
+                  onClick={() => exportQuizScorecardToPdf(completedAttempt, activeQuestions, userAnswers, userProfile?.name)}
+                  className="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs sm:text-sm transition cursor-pointer flex items-center gap-1.5 shadow-md"
+                  title="Download complete result scorecard & explanations in PDF"
+                >
+                  <FileText className="w-4 h-4" />
+                  <span>Download Scorecard (PDF)</span>
+                </button>
+
+                <button
+                  onClick={() => exportQuizAttemptToExcel(completedAttempt, activeQuestions, userAnswers, userProfile?.name)}
+                  className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs sm:text-sm transition cursor-pointer flex items-center gap-1.5 shadow-md"
+                  title="Export question-by-question attempt log to Excel (.xlsx)"
+                >
+                  <FileSpreadsheet className="w-4 h-4" />
+                  <span>Export Scorecard (Excel)</span>
                 </button>
 
                 <button
@@ -637,7 +658,7 @@ export const QuizView: React.FC = () => {
                     setTab('mistakes');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
-                  className="px-6 py-2.5 rounded-xl bg-emerald-700/60 hover:bg-emerald-700 text-white font-semibold text-xs sm:text-sm border border-emerald-500/40 transition cursor-pointer"
+                  className="px-5 py-2.5 rounded-xl bg-emerald-700/60 hover:bg-emerald-700 text-white font-semibold text-xs sm:text-sm border border-emerald-500/40 transition cursor-pointer"
                 >
                   Open Mistakes Notebook ({userProfile.mistakeIds.length})
                 </button>

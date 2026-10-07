@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { BookOpenCheck, CheckCircle2, ChevronDown, Clock3, Search, Sparkles, Target } from 'lucide-react';
+import { BookOpenCheck, CheckCircle2, ChevronDown, Clock3, Search, Sparkles, Target, FileText } from 'lucide-react';
 import { SubjectiveAnswerEditor } from './SubjectiveAnswerEditor';
 import { TEACHING_LICENSE_SUBJECTIVE_QUESTIONS, type SubjectiveQuestionType } from '../data/teachingLicenseSubjectiveData';
+import { exportSubjectivePracticeToPdf } from '../lib/exportUtils';
 
 
 export const TeachingLicenseSubjectivePractice: React.FC = () => {
@@ -61,11 +62,21 @@ export const TeachingLicenseSubjectivePractice: React.FC = () => {
           </aside>
 
           <article className="min-w-0 space-y-5 rounded-3xl border border-slate-200 bg-slate-50/60 p-4 dark:border-slate-800 dark:bg-slate-950/40 sm:p-6">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded-full bg-purple-100 px-3 py-1 text-xs font-extrabold text-purple-800 dark:bg-purple-950 dark:text-purple-200">{selected.type} · {selected.area}</span>
-              <span className="rounded-full bg-white px-3 py-1 text-xs font-bold text-slate-600 shadow-sm dark:bg-slate-900 dark:text-slate-300">{selected.subject}</span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1 text-xs font-bold text-slate-600 shadow-sm dark:bg-slate-900 dark:text-slate-300"><Clock3 className="h-3.5 w-3.5" />{selected.suggestedMinutes} minutes</span>
-              <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-extrabold text-amber-800 dark:bg-amber-950 dark:text-amber-200">{selected.marks} marks</span>
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="rounded-full bg-purple-100 px-3 py-1 text-xs font-extrabold text-purple-800 dark:bg-purple-950 dark:text-purple-200">{selected.type} · {selected.area}</span>
+                <span className="rounded-full bg-white px-3 py-1 text-xs font-bold text-slate-600 shadow-sm dark:bg-slate-900 dark:text-slate-300">{selected.subject}</span>
+                <span className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1 text-xs font-bold text-slate-600 shadow-sm dark:bg-slate-900 dark:text-slate-300"><Clock3 className="h-3.5 w-3.5" />{selected.suggestedMinutes} minutes</span>
+                <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-extrabold text-amber-800 dark:bg-amber-950 dark:text-amber-200">{selected.marks} marks</span>
+              </div>
+              <button
+                onClick={() => exportSubjectivePracticeToPdf(selected)}
+                className="px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold flex items-center gap-1.5 transition cursor-pointer shadow-xs"
+                title="Download prompt, answer plan, model answer and rubric as PDF"
+              >
+                <FileText className="w-3.5 h-3.5" />
+                <span>Download Dossier (PDF)</span>
+              </button>
             </div>
 
             <div><p className="text-xs font-extrabold uppercase tracking-wider text-slate-500">Question</p><h3 className="mt-2 text-lg font-extrabold leading-8 text-slate-950 dark:text-white">{selected.prompt}</h3></div>

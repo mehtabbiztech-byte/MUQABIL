@@ -17,12 +17,15 @@ import {
   HelpCircle,
   Clock,
   Eye,
-  Check
+  Check,
+  FileText,
+  FileSpreadsheet
 } from 'lucide-react';
 import { CURRENT_AFFAIRS_DATA } from '../data/currentAffairsData';
 import { CURRENT_AFFAIRS_SOURCED, PAKISTAN_CURRENT_AFFAIRS_MCQS, WORLD_CURRENT_AFFAIRS_MCQS } from '../data/currentAffairs2000';
 import { MCQ } from '../types';
 import { useCmsContent } from '../context/CmsContentContext';
+import { exportMcqsToPdf, exportMcqsToExcel } from '../lib/exportUtils';
 
 export const CurrentAffairsView: React.FC = () => {
   const { mcqs: cmsMcqs } = useCmsContent();
@@ -151,13 +154,37 @@ export const CurrentAffairsView: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
+          <div className="flex flex-wrap items-center gap-2.5 w-full lg:w-auto">
+            <button
+              onClick={() => exportMcqsToPdf(filteredMcqs.slice(0, 100), {
+                title: 'Pakistan & World Current Affairs 2026',
+                subtitle: 'Dated Sourced Questions for CSS, PMS, SPSC & STS IBA Screening',
+                subject: 'Current Affairs',
+                includeAnswers: true,
+                includeExplanations: true,
+              })}
+              className="px-4 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm shadow-md transition cursor-pointer flex items-center justify-center gap-2"
+              title="Download Current Affairs questions as printable PDF"
+            >
+              <FileText className="w-4 h-4" />
+              <span>PDF Digest</span>
+            </button>
+
+            <button
+              onClick={() => exportMcqsToExcel(filteredMcqs, 'MUQABIL_Current_Affairs_2026', { subject: 'Current Affairs' })}
+              className="px-4 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs sm:text-sm shadow-md transition cursor-pointer flex items-center justify-center gap-2"
+              title="Export Current Affairs questions to Excel (.xlsx)"
+            >
+              <FileSpreadsheet className="w-4 h-4" />
+              <span>Excel (.xlsx)</span>
+            </button>
+
             <button
               onClick={() => {
                 setTab('quiz');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="px-5 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs sm:text-sm shadow-lg hover:shadow-emerald-500/20 transition cursor-pointer flex items-center justify-center gap-2"
+              className="px-4 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs sm:text-sm shadow-lg hover:shadow-emerald-500/20 transition cursor-pointer flex items-center justify-center gap-2"
             >
               <span>Take Live Quiz</span>
               <ArrowRight className="w-4 h-4" />
@@ -169,7 +196,7 @@ export const CurrentAffairsView: React.FC = () => {
                 setTab('mcqs');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs sm:text-sm backdrop-blur-md transition cursor-pointer flex items-center justify-center gap-2"
+              className="px-4 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs sm:text-sm backdrop-blur-md transition cursor-pointer flex items-center justify-center gap-2"
             >
               <BookOpen className="w-4 h-4 text-emerald-300" />
               <span>Full Subject Library</span>

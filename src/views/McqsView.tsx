@@ -25,13 +25,18 @@ import {
   ChevronRight,
   HelpCircle,
   Clock,
-  Sparkle
+  Sparkle,
+  FileDown,
+  FileSpreadsheet,
+  FileText
 } from 'lucide-react';
 import { MCQS_DATA } from '../data/mcqsData';
 import { POPULAR_CATEGORIES, TOP_SUBJECTS_DIRECTORY } from '../data/categoriesData';
 import { MCQ } from '../types';
 import { useCmsContent } from '../context/CmsContentContext';
 import { MeaningText } from '../components/MeaningText';
+import { ExportModal } from '../components/ExportModal';
+import { exportMcqsToExcel, exportMcqsToPdf } from '../lib/exportUtils';
 
 export type McqDisplayLayout = 'standard-paper' | 'grid' | 'split-pane' | 'omr-compact';
 
@@ -68,6 +73,7 @@ export const McqsView: React.FC = () => {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [page, setPage] = useState(1);
   const [selectedSubtopic, setSelectedSubtopic] = useState<string | null>(null);
+  const [exportModalOpen, setExportModalOpen] = useState(false);
 
   // Reset subtopic when category changes
   useEffect(() => {
@@ -665,7 +671,30 @@ export const McqsView: React.FC = () => {
         </div>
 
         {/* Practice Tools */}
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Quick PDF Export */}
+          <button
+            onClick={() => setExportModalOpen(true)}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow-2xs cursor-pointer"
+            title="Download questions as printable PDF Question Paper with Answer Key"
+          >
+            <FileText className="w-3.5 h-3.5" />
+            <span>Download PDF</span>
+          </button>
+
+          {/* Quick Excel Export */}
+          <button
+            onClick={() => {
+              const cleanTitle = (activeCategory?.name || (selectedSubtopic ? `${activeCategory?.name}_${selectedSubtopic}` : 'MUQABIL_MCQs')).replace(/[^a-zA-Z0-9_-]/g, '_');
+              exportMcqsToExcel(filteredMcqs, cleanTitle, { subject: activeCategory?.name || 'All Subjects' });
+            }}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-blue-200 dark:border-blue-900/60 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/50 text-xs font-bold transition cursor-pointer"
+            title="Download full filtered question bank as an Excel (.xlsx) spreadsheet"
+          >
+            <FileSpreadsheet className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+            <span>Download Excel</span>
+          </button>
+
           <button
             onClick={handleToggleRevealAll}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer"
@@ -1220,6 +1249,15 @@ export const McqsView: React.FC = () => {
           </button>
         </nav>
       )}
+
+      {/* Export Options Modal */}
+      <ExportModal
+        isOpen={exportModalOpen}
+        onClose={() => setExportModalOpen(false)}
+        mcqs={filteredMcqs}
+        subjectTitle={activeCategory?.name || (selectedSubtopic ? `${activeCategory?.name} - ${selectedSubtopic}` : 'MUQABIL All Subjects')}
+        defaultCandidateName={userProfile?.name}
+      />
 
     </div>
   );

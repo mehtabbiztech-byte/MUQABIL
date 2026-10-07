@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { ChatMarkdownRenderer } from './ChatMarkdownRenderer';
+import { exportChatToPdf } from '../lib/exportUtils';
 
 export interface ChatMessageItem {
   id: string;
@@ -405,20 +406,25 @@ Select a preset question below, switch roles above, or type your question in Eng
   };
 
   const handleExportChat = () => {
-    const chatText = messages
-      .map(
-        (m) =>
-          `[${new Date(m.timestamp).toLocaleTimeString()}] ${m.role === 'user' ? 'YOU' : `GEMINI (${m.model || 'model'})`}:\n${m.content}\n`
-      )
-      .join('\n---\n\n');
+    try {
+      exportChatToPdf(messages, activeRole.name);
+    } catch (e) {
+      console.warn('PDF export fallback:', e);
+      const chatText = messages
+        .map(
+          (m) =>
+            `[${new Date(m.timestamp).toLocaleTimeString()}] ${m.role === 'user' ? 'YOU' : `GEMINI (${m.model || 'model'})`}:\n${m.content}\n`
+        )
+        .join('\n---\n\n');
 
-    const blob = new Blob([chatText], { type: 'text/markdown' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `matb-sts-gemini-chat-${new Date().toISOString().slice(0, 10)}.md`;
-    a.click();
-    URL.revokeObjectURL(url);
+      const blob = new Blob([chatText], { type: 'text/markdown' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `MUQABIL_Study_Guide_${new Date().toISOString().slice(0, 10)}.md`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
   };
 
   // Multi-Turn Message Send Handler

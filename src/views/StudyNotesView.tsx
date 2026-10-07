@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { BookOpen, ChevronRight, GraduationCap, Sparkles, Atom, Compass, CheckCircle2 } from 'lucide-react';
+import { BookOpen, ChevronRight, GraduationCap, Sparkles, Atom, Compass, CheckCircle2, FileText, FileSpreadsheet } from 'lucide-react';
 import { STUDY_CURRICULUM } from '../data/studyNotesData';
 import { PAST_PAPERS_DATA } from '../data/pastPapersData';
 import { StudyLesson } from '../types';
 import { useApp } from '../context/AppContext';
 import { useCmsContent } from '../context/CmsContentContext';
 import { StbbClassFiveScienceHub } from '../components/StbbClassFiveScienceHub';
+import { exportStudyLessonToPdf, exportMcqsToExcel } from '../lib/exportUtils';
 
 const panel = 'rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 sm:p-7';
 const button = 'rounded-xl px-4 py-2 bg-emerald-700 text-white font-semibold hover:bg-emerald-800 disabled:opacity-40';
@@ -18,7 +19,32 @@ function LessonReader({ lesson, onBack }: { lesson: StudyLesson; onBack: () => v
   const related = PAST_PAPERS_DATA.filter(p => p.mcqs.some(q => lesson.relatedQuestionIds.includes(q.id)));
   return <article className="space-y-5">
     <button onClick={onBack} className="text-emerald-700 dark:text-emerald-400 font-semibold cursor-pointer">← All lessons</button>
-    <header className={panel}><p className="text-sm text-emerald-600">{kids ? 'Young learners' : 'Advanced study'} · {lesson.readTime}</p><h1 className="text-3xl font-bold mt-2">{lesson.title}</h1></header>
+    <header className={`${panel} flex flex-col sm:flex-row sm:items-center justify-between gap-4`}>
+      <div>
+        <p className="text-sm text-emerald-600">{kids ? 'Young learners' : 'Advanced study'} · {lesson.readTime}</p>
+        <h1 className="text-3xl font-bold mt-2">{lesson.title}</h1>
+      </div>
+      <div className="flex flex-wrap items-center gap-2">
+        <button
+          onClick={() => exportStudyLessonToPdf(lesson)}
+          className="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 transition cursor-pointer shadow-sm"
+          title="Download complete lesson notes in PDF format"
+        >
+          <FileText className="w-4 h-4" />
+          <span>Download Notes (PDF)</span>
+        </button>
+        {lesson.mcqs && lesson.mcqs.length > 0 && (
+          <button
+            onClick={() => exportMcqsToExcel(lesson.mcqs, `MUQABIL_Notes_MCQs_${lesson.title.replace(/\s+/g, '_')}`, { subject: lesson.title })}
+            className="px-3 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center gap-1.5 transition cursor-pointer shadow-sm"
+            title="Download lesson practice MCQs in Excel (.xlsx)"
+          >
+            <FileSpreadsheet className="w-4 h-4" />
+            <span>MCQs (Excel)</span>
+          </button>
+        )}
+      </div>
+    </header>
     <section className={panel}><h2 className="text-xl font-bold">{kids ? '📖 Let’s learn' : 'Detailed notes'}</h2><p className="leading-8 mt-4">{lesson.explanation}</p><h3 className="font-bold mt-6">Important points</h3><ul className="list-disc pl-5 space-y-3 mt-3">{lesson.importantPoints.map(p => <li key={p}>{p}</li>)}</ul></section>
     {(lesson.images ?? []).map(image => <figure key={image.src} className={panel}><img src={image.src} alt={image.alt} className="w-full max-h-80 object-contain"/><figcaption className="text-center text-sm mt-3">{image.caption}</figcaption></figure>)}
     <section className={panel}><h2 className="text-xl font-bold">{kids ? '🖍 Examples' : 'Examples & revision prompts'}</h2><div className="space-y-3 mt-4">{lesson.examples.map((example, i) => <p key={i} className="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950 leading-7">{example}</p>)}</div></section>

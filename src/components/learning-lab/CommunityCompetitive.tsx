@@ -83,7 +83,7 @@ export const CommunityCompetitive: React.FC = () => {
   const [opponentScore, setOpponentScore] = useState(0);
   const [battleTimer, setBattleTimer] = useState(60);
   const [selectedBattleOption, setSelectedBattleOption] = useState<number | null>(null);
-  const [opponentName] = useState('Zeeshan_Larkana (Aspirant)');
+  const [opponentName] = useState('Practice Bot (Simulated)');
   const timerIntervalRef = useRef<number | null>(null);
 
   // Circles State
@@ -219,7 +219,7 @@ export const CommunityCompetitive: React.FC = () => {
             }`}
           >
             <Swords className="w-4 h-4" />
-            <span>1v1 Speed Showdown</span>
+            <span>1v1 Practice Showdown</span>
           </button>
 
           <button
@@ -252,7 +252,7 @@ export const CommunityCompetitive: React.FC = () => {
         </span>
       </div>
 
-      {/* 4A. LIVE MULTIPLAYER 1v1 SPEED SHOWDOWN */}
+      {/* 4A. 1v1 TIMED PRACTICE SHOWDOWN (simulated opponent, no multiplayer backend) */}
       {activeTab === 'battle' && (
         <div className="space-y-6 animate-in fade-in duration-200">
           <div className="p-6 rounded-3xl bg-gradient-to-r from-rose-950 via-purple-950 to-slate-900 text-white border border-rose-500/30 shadow-xl">
@@ -343,7 +343,7 @@ export const CommunityCompetitive: React.FC = () => {
                   </div>
                 ) : (
                   <p className="text-xs sm:text-sm text-slate-300">
-                    Press below to find an online aspirant from Hyderabad, Sukkur, Larkana, or Karachi for a 60-second rapid MCQ showdown.
+                    Start a 60-second rapid MCQ practice match against a simulated opponent and beat their pace to top the scoreboard.
                   </p>
                 )}
 
@@ -352,7 +352,7 @@ export const CommunityCompetitive: React.FC = () => {
                   className="px-8 py-3 rounded-2xl bg-white text-slate-950 font-black text-sm shadow-xl hover:bg-slate-100 transition cursor-pointer inline-flex items-center gap-2"
                 >
                   <Swords className="w-4 h-4 text-rose-600" />
-                  <span>{userScore > 0 || opponentScore > 0 ? 'Rematch Again' : 'Find Online Opponent (Start 1v1)'}</span>
+                  <span>{userScore > 0 || opponentScore > 0 ? 'Rematch Again' : 'Start 1v1 Practice Match'}</span>
                 </button>
               </div>
             )}

@@ -1,9 +1,15 @@
 import { TEACHING_LICENSE_SUBJECTIVE_QUESTIONS } from '../src/data/teachingLicenseSubjectiveData';
 import { validateWritingFeedback } from '../src/lib/subjectivePractice';
+import { clientIp, createRateLimiter, rateLimitResponse } from '../src/lib/rateLimit';
 type Response = { status: (code: number) => Response; json: (body: unknown) => void; setHeader: (name: string, value: string) => void };
-export default async function handler(req: { method?: string; body?: { questionId?: unknown; answer?: unknown } }, res: Response) {
+type Request = { method?: string; body?: { questionId?: unknown; answer?: unknown }; headers?: Record<string, string | string[] | undefined>; ip?: string };
+
+const rateLimiter = createRateLimiter({ windowMs: 5 * 60 * 1000, max: 20 });
+
+export default async function handler(req: Request, res: Response) {
   res.setHeader('Cache-Control', 'no-store');
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  if (!rateLimiter.hit(clientIp(req))) return rateLimitResponse(res);
   const question = TEACHING_LICENSE_SUBJECTIVE_QUESTIONS.find(q => q.id === req.body?.questionId);
   const answer = typeof req.body?.answer === 'string' ? req.body.answer.trim() : '';
   if (!question || answer.length < 20 || answer.length > 12000) return res.status(400).json({ error: 'Choose a valid question and write between 20 and 12,000 characters.' });

@@ -462,24 +462,52 @@ export const TechnicalDetailsModal: React.FC<TechnicalDetailsModalProps> = ({ is
                       <span className="px-2 py-0.5 rounded-md bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 font-mono font-bold text-[10px]">GET</span>
                       <code className="font-mono font-bold text-slate-900 dark:text-white">/api/health</code>
                     </div>
-                    <p className="text-slate-500 mt-1">Uptime, memory allocation, and health status verification for Google Cloud Run container monitoring.</p>
+                    <p className="text-slate-500 mt-1">Liveness probe returning service status and the active feature set, for deployment monitoring and smoke tests.</p>
                   </div>
 
                   <div className="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-800">
                     <div className="flex items-center gap-2">
                       <span className="px-2 py-0.5 rounded-md bg-blue-100 dark:bg-blue-950 text-blue-800 dark:text-blue-300 font-mono font-bold text-[10px]">POST</span>
-                      <code className="font-mono font-bold text-slate-900 dark:text-white">/api/ai/explain</code>
+                      <code className="font-mono font-bold text-slate-900 dark:text-white">/api/chat</code>
                     </div>
-                    <p className="text-slate-500 mt-1">Accepts MCQ question context and generates deep theoretical explanations and option elimination traps using Gemini 2.5 Flash.</p>
+                    <p className="text-slate-500 mt-1">Multi-turn Gemini chat with role-based system instructions, model routing, optional screenshot analysis and Google Search grounding. Rate-limited per client IP.</p>
                   </div>
 
                   <div className="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-800">
                     <div className="flex items-center gap-2">
                       <span className="px-2 py-0.5 rounded-md bg-blue-100 dark:bg-blue-950 text-blue-800 dark:text-blue-300 font-mono font-bold text-[10px]">POST</span>
-                      <code className="font-mono font-bold text-slate-900 dark:text-white">/api/ai/syllabus</code>
+                      <code className="font-mono font-bold text-slate-900 dark:text-white">/api/chat/stream</code>
                     </div>
-                    <p className="text-slate-500 mt-1">Extracts official percentage subject breakdown and testing authority recommendations from recruitment job titles.</p>
+                    <p className="text-slate-500 mt-1">Server-sent-events streaming variant of the chat endpoint for real-time typewriter rendering.</p>
                   </div>
+
+                  <div className="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-800">
+                    <div className="flex items-center gap-2">
+                      <span className="px-2 py-0.5 rounded-md bg-blue-100 dark:bg-blue-950 text-blue-800 dark:text-blue-300 font-mono font-bold text-[10px]">POST</span>
+                      <code className="font-mono font-bold text-slate-900 dark:text-white">/api/word-meaning</code>
+                    </div>
+                    <p className="text-slate-500 mt-1">Structured dictionary lookup returning Simple English, Urdu and Sindhi meanings with an exam-style example sentence.</p>
+                  </div>
+
+                  <div className="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-800">
+                    <div className="flex items-center gap-2">
+                      <span className="px-2 py-0.5 rounded-md bg-blue-100 dark:bg-blue-950 text-blue-800 dark:text-blue-300 font-mono font-bold text-[10px]">POST</span>
+                      <code className="font-mono font-bold text-slate-900 dark:text-white">/api/resume-enhance</code>
+                    </div>
+                    <p className="text-slate-500 mt-1">ATS resume helpers: bullet-point enhancement, professional summary generation and keyword suggestions.</p>
+                  </div>
+
+                  <div className="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-800">
+                    <div className="flex items-center gap-2">
+                      <span className="px-2 py-0.5 rounded-md bg-blue-100 dark:bg-blue-950 text-blue-800 dark:text-blue-300 font-mono font-bold text-[10px]">POST</span>
+                      <code className="font-mono font-bold text-slate-900 dark:text-white">/api/subjective-feedback</code>
+                    </div>
+                    <p className="text-slate-500 mt-1">Criterion-by-criterion AI feedback for Teaching License writing practice. Feedback is guidance, never official marking.</p>
+                  </div>
+
+                  <p className="text-slate-500 mt-1 px-1">
+                    All AI endpoints require <code className="font-mono font-bold">GEMINI_API_KEY</code> server-side, validate their payloads, and are throttled per client IP to protect the paid model quota.
+                  </p>
                 </div>
               </div>
 

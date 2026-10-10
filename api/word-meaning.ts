@@ -1,3 +1,5 @@
+import { clientIp, createRateLimiter, rateLimitResponse } from '../src/lib/rateLimit';
+
 type ApiResponse = {
   status: (code: number) => ApiResponse;
   json: (body: unknown) => void;
@@ -7,15 +9,24 @@ type ApiResponse = {
 type ApiRequest = {
   method?: string;
   body?: { word?: unknown };
+  headers?: Record<string, string | string[] | undefined>;
+  ip?: string;
 };
 
 const cleanModelJson = (value: string) => value.replace(/^\s*```(?:json)?/i, '').replace(/```\s*$/, '').trim();
+
+const rateLimiter = createRateLimiter({ windowMs: 5 * 60 * 1000, max: 60 });
 
 export default async function handler(request: ApiRequest, response: ApiResponse) {
   response.setHeader('Cache-Control', 's-maxage=86400, stale-while-revalidate=604800');
 
   if (request.method !== 'POST') {
     return response.status(405).json({ error: 'Method not allowed' });
+  }
+
+  if (!rateLimiter.hit(clientIp(request))) {
+    rateLimitResponse(response);
+    return;
   }
 
   const rawWord = typeof request.body?.word === 'string' ? request.body.word.trim() : '';

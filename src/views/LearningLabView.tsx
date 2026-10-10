@@ -255,7 +255,7 @@ export const LearningLabView: React.FC = () => {
               <span>Pillar 4: Community & Competitive Learning</span>
             </h2>
             <span className="text-xs font-bold text-slate-400 hidden sm:inline">
-              1v1 Speed Showdown • Academy Cohorts • Verified Mnemonics
+              1v1 Practice Showdown • Academy Cohorts • Verified Mnemonics
             </span>
           </div>
 

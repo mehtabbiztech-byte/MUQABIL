@@ -1,8 +1,7 @@
 import * as XLSX from 'xlsx';
 import { jsPDF } from 'jspdf';
-import { MCQ, QuizAttempt, StudyLesson, PastPaper } from '../types';
+import { MCQ, QuizAttempt, StudyLesson, PastPaper, JobAlert } from '../types';
 import { AllPastPaperEntry } from '../data/allPastPapersDirectory';
-import { JobPosting } from '../data/jobsData';
 import { TeachingLicenseSubjectiveQuestion } from '../data/teachingLicenseSubjectiveData';
 
 export interface McqPdfExportOptions {
@@ -188,7 +187,7 @@ export function exportQuizAttemptToExcel(
 /**
  * 3. EXPORT JOBS DIRECTORY TO EXCEL (.xlsx)
  */
-export function exportJobsToExcel(jobs: JobPosting[], filenamePrefix: string = 'MUQABIL_Govt_Jobs_Pakistan'): void {
+export function exportJobsToExcel(jobs: JobAlert[], filenamePrefix: string = 'MUQABIL_Govt_Jobs_Pakistan'): void {
   const dateStr = new Date().toISOString().split('T')[0];
   const filename = `${filenamePrefix}_${dateStr}.xlsx`;
 
@@ -203,7 +202,7 @@ export function exportJobsToExcel(jobs: JobPosting[], filenamePrefix: string = '
     'Application Deadline': j.lastDate,
     'Status': j.status,
     'Advertisement No.': j.advertisementNo,
-    'Official Source Link': j.link,
+    'Official Source Link': (j as any).link || j.applyUrl || j.sourceUrl || '',
   }));
 
   const worksheet = XLSX.utils.json_to_sheet(rows);
@@ -240,10 +239,10 @@ export function exportPastPapersDirectoryToExcel(
     'Sr#': i + 1,
     'Paper Title': p.title,
     'Testing Body / Commission': p.exam,
-    'Year': p.year,
+    'Year': p.yearLabel || '',
     'Subject Category': p.category,
-    'Total MCQs': p.totalMcqs,
-    'Paper Classification': p.isOfficial ? 'Official Past Paper' : 'Syllabus Aligned Practice',
+    'Total MCQs': p.sampleQuestionsCount || 100,
+    'Paper Classification': p.hasPdfDownload ? 'Official Past Paper' : 'Syllabus Aligned Practice',
     'Paper ID': p.id,
   }));
 
@@ -912,7 +911,7 @@ export function exportChatToPdf(
  * Generates an official, publication-quality Pakistan Government Vacancies Bulletin
  */
 export function exportJobsToPdf(
-  jobs: JobPosting[],
+  jobs: JobAlert[],
   filenamePrefix: string = 'MUQABIL_Govt_Jobs_Pakistan'
 ): void {
   const doc = new jsPDF({
@@ -1026,7 +1025,7 @@ export function exportJobsToPdf(
     doc.setFont('helvetica', 'italic');
     doc.setFontSize(7);
     doc.setTextColor(100, 116, 139);
-    doc.text(`Ref: ${sanitizeForPdf(job.advertisementNo || 'Official Advert')} | Direct: ${sanitizeForPdf(job.link)}`, margin + 3, y + 19.5);
+    doc.text(`Ref: ${sanitizeForPdf(job.advertisementNo || 'Official Advert')} | Direct: ${sanitizeForPdf((job as any).link || job.applyUrl || job.sourceUrl || '')}`, margin + 3, y + 19.5);
 
     y += 25;
   });
@@ -1282,7 +1281,7 @@ export function exportPastPaperAttemptToPdf(
     percentage: number;
     accuracy: number;
     skipped: number;
-    incorrectQuestions?: string[];
+    incorrectQuestions?: any[];
     subjects?: Record<string, { correct: number; total: number }>;
   },
   answers: Record<string, number>,

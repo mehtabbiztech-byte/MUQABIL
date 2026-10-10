@@ -7,7 +7,8 @@ import {
   CheckCircle2, 
   ArrowUpRight,
   Sparkles,
-  ExternalLink
+  ExternalLink,
+  FileText
 } from 'lucide-react';
 import { POPULAR_CATEGORIES, TOP_SUBJECTS_DIRECTORY, TEST_PREPARATION_ONLINE_SERVICES } from '../data/categoriesData';
 import { EXAMS_DATA } from '../data/examsData';
@@ -222,6 +223,16 @@ export const Footer: React.FC = () => {
                 <button onClick={() => setTab('about')} className="hover:text-emerald-400 transition cursor-pointer">
                   About MUQABIL (مقابل)
                 </button>
+              </li>
+              <li>
+                <a 
+                  href="/technical-details-muqabil.pdf"
+                  download="MUQABIL_Technical_Specification_Document.pdf"
+                  className="hover:text-emerald-400 transition inline-flex items-center gap-1.5 cursor-pointer text-emerald-400/90 font-medium"
+                >
+                  <FileText className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Technical Details &amp; Specs (PDF)</span>
+                </a>
               </li>
               <li>
                 <a 

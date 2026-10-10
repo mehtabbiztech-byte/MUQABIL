@@ -380,6 +380,7 @@ PREPARED VIA MEHTAB STS IBA PREP
 
   // Download Current Topic Note as PDF
   const handleDownloadTopicPdf = () => {
+    const topicAny = currentTopic as any;
     const lesson: StudyLesson = {
       id: currentTopic.id,
       title: `STEDA Teaching License: ${currentPart.subjectName} — ${currentTopic.title}`,
@@ -387,9 +388,10 @@ PREPARED VIA MEHTAB STS IBA PREP
       readTime: '12 min',
       explanation: `${currentTopic.summary}\n\nSTEDA High-Yield Alert: ${currentTopic.highYieldAlert}`,
       importantPoints: (currentTopic.concepts || []).map((c) => `${c.conceptTitle}: ${c.explanation || ''}`),
-      examples: (currentTopic.examDistractorTraps || []),
+      examples: (topicAny.examDistractorTraps || []),
       practice: [],
-      mcqs: (currentTopic.quiz || []).map((q, qIdx) => ({
+      relatedQuestionIds: [],
+      mcqs: (topicAny.quiz || []).map((q: any, qIdx: number) => ({
         id: `${currentTopic.id}-q-${qIdx}`,
         question: q.question,
         options: q.options,
@@ -404,8 +406,9 @@ PREPARED VIA MEHTAB STS IBA PREP
 
   // Download Topic Quiz to Excel
   const handleDownloadQuizExcel = () => {
-    if (!currentTopic.quiz || currentTopic.quiz.length === 0) return;
-    const mcqs: MCQ[] = currentTopic.quiz.map((q, qIdx) => ({
+    const topicAny = currentTopic as any;
+    if (!topicAny.quiz || topicAny.quiz.length === 0) return;
+    const mcqs: MCQ[] = topicAny.quiz.map((q: any, qIdx: number) => ({
       id: `${currentTopic.id}-q-${qIdx}`,
       question: q.question,
       options: q.options,
@@ -1073,7 +1076,7 @@ PREPARED VIA MEHTAB STS IBA PREP
                   </button>
 
                   {/* Download Topic Quiz to Excel */}
-                  {currentTopic.quiz && currentTopic.quiz.length > 0 && (
+                  {(currentTopic as any).quiz && (currentTopic as any).quiz.length > 0 && (
                     <button
                       onClick={handleDownloadQuizExcel}
                       title="Download this topic's practice quiz questions in Excel"

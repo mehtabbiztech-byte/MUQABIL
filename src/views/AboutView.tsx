@@ -13,7 +13,9 @@ import {
   ExternalLink,
   GraduationCap,
   Code,
-  Heart
+  Heart,
+  FileText,
+  Download
 } from 'lucide-react';
 
 export const AboutView: React.FC = () => {
@@ -172,6 +174,48 @@ export const AboutView: React.FC = () => {
               In commissions like PPSC (Punjab Public Service Commission) and PMS screening, each incorrect answer deducts 0.25 marks. You can toggle this setting on or off in the Timed Quiz engine.
             </p>
           </div>
+        </div>
+      </div>
+
+      {/* Technical Architecture & Specification Manual (PDF) */}
+      <div className="bg-gradient-to-br from-emerald-950 via-slate-900 to-emerald-900 text-white border border-emerald-800/80 rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden">
+        <div className="space-y-2 max-w-2xl relative z-10">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-bold uppercase tracking-wider">
+            <FileText className="w-3.5 h-3.5" />
+            <span>Platform Engineering &amp; Whitepaper</span>
+          </div>
+          <h3 className="text-xl sm:text-2xl font-bold font-display text-white">
+            MUQABIL Technical Details &amp; Architecture Manual (PDF)
+          </h3>
+          <p className="text-xs sm:text-sm text-emerald-100/90 leading-relaxed">
+            Download the official publication-grade technical specification of MUQABIL (muqabil.pk). Includes React 19 architecture, Node/Express server runtime, Google Cloud Firestore schemas &amp; security rules, 1,200+ MCQs repository, 16-year FPSC CSS Current Affairs subjective exam engine, and client-side jsPDF/XLSX export subsystems.
+          </p>
+          <div className="flex flex-wrap gap-2 pt-1 text-[11px] font-semibold text-emerald-200">
+            <span className="bg-white/10 px-2.5 py-1 rounded-lg">React 19 + TypeScript + Vite</span>
+            <span className="bg-white/10 px-2.5 py-1 rounded-lg">Express 5 + Google GenAI</span>
+            <span className="bg-white/10 px-2.5 py-1 rounded-lg">Cloud Firestore RBAC</span>
+            <span className="bg-white/10 px-2.5 py-1 rounded-lg">jsPDF Document Engine</span>
+          </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row md:flex-col gap-2.5 shrink-0 w-full md:w-auto relative z-10">
+          <a
+            href="/technical-details-muqabil.pdf"
+            download="MUQABIL_Technical_Specification_Document.pdf"
+            className="px-5 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs sm:text-sm transition shadow-lg shadow-emerald-950/60 cursor-pointer flex items-center justify-center gap-2"
+          >
+            <Download className="w-4 h-4" />
+            <span>Download Technical Details (PDF)</span>
+          </a>
+          <a
+            href="/technical-details-muqabil.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs transition cursor-pointer flex items-center justify-center gap-1.5"
+          >
+            <ExternalLink className="w-3.5 h-3.5 text-emerald-300" />
+            <span>View PDF in Browser</span>
+          </a>
         </div>
       </div>
 

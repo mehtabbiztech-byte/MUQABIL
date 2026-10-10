@@ -17,6 +17,7 @@
     "test": "node --import tsx --test src/**/*.test.ts src/**/*.test.tsx",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
+    "generate:docs": "tsx scripts/generate-technical-pdf.ts",
     "validate:sts": "esbuild scripts/validate-sts-bank.ts --bundle --platform=node --format=esm --outfile=/tmp/meqsa-sts-bank-validation.mjs && node /tmp/meqsa-sts-bank-validation.mjs",
     "validate:current-affairs": "esbuild scripts/validate-current-affairs-bank.ts --bundle --platform=node --format=esm --outfile=/tmp/meqsa-current-affairs-validation.mjs && node /tmp/meqsa-current-affairs-validation.mjs"
   },

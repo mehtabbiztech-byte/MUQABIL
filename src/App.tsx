@@ -41,6 +41,7 @@ import { GeminiFloatingWidget } from './components/GeminiFloatingWidget';
 import { AgeEligibilityCalculator } from './components/AgeEligibilityCalculator';
 import { AgeEligibilityModal } from './components/AgeEligibilityModal';
 import { PrintablePastPaperModal } from './components/PrintablePastPaperModal';
+import { TechnicalDetailsModal } from './components/TechnicalDetailsModal';
 
 const TabContent: React.FC = () => {
   const { tab } = useApp();
@@ -75,6 +76,8 @@ const MainContent: React.FC = () => {
   const { 
     domainModalOpen, 
     setDomainModalOpen,
+    techModalOpen,
+    setTechModalOpen,
     activeCertificate,
     isCertificateModalOpen,
     closeCertificateModal,
@@ -137,6 +140,12 @@ const MainContent: React.FC = () => {
 
       {/* Layout Settings Dialog */}
       <LayoutSwitcherModal />
+
+      {/* Technical Details & Specifications Manual Modal */}
+      <TechnicalDetailsModal 
+        isOpen={techModalOpen} 
+        onClose={() => setTechModalOpen(false)} 
+      />
 
       {/* Floating Gemini AI Chatbot accessible across all pages */}
       <GeminiFloatingWidget />

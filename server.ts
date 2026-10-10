@@ -663,6 +663,12 @@ Return JSON with { "keywords": ["keyword1", "keyword2", ...] }`;
     }
   });
 
+  // Serve static assets from public directory
+  const publicPath = path.resolve(process.cwd(), 'public');
+  if (fs.existsSync(publicPath)) {
+    app.use(express.static(publicPath));
+  }
+
   // Vite middleware for development / static serving in production
   if (process.env.NODE_ENV !== 'production') {
     const vite = await createViteServer({

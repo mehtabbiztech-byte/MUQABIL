@@ -31,7 +31,9 @@ import {
   Play,
   Check,
   ArrowRight,
-  FileSpreadsheet
+  FileSpreadsheet,
+  Link2,
+  PenTool
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { PAST_PAPERS_DATA } from '../data/pastPapersData';
@@ -44,8 +46,16 @@ import { MeaningText } from '../components/MeaningText';
 import { 
   exportPastPapersDirectoryToExcel, 
   exportPastPaperAttemptToPdf, 
-  exportPastPaperAttemptToExcel 
+  exportPastPaperAttemptToExcel,
+  exportMcqsToPdf,
+  exportMcqsToExcel
 } from '../lib/exportUtils';
+import { 
+  LinkedPastPaper, 
+  getLinkedPastPapersForEntry, 
+  getLinkedPastPaperQuestions 
+} from '../data/linkedPastPapersData';
+import { CssSubjectivePaperView } from '../components/CssSubjectivePaperView';
 
 const panel = 'rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 sm:p-7';
 const button = 'px-4 py-2 rounded-xl bg-emerald-700 text-white font-semibold hover:bg-emerald-800 disabled:opacity-40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 cursor-pointer transition';
@@ -193,6 +203,14 @@ export const PastPapersView: React.FC = () => {
   const [selectedModalEntry, setSelectedModalEntry] = useState<AllPastPaperEntry | null>(null);
   const [showPdfModal, setShowPdfModal] = useState<AllPastPaperEntry | null>(null);
 
+  // All Linked Past Papers Modal State
+  const [selectedLinkedEntry, setSelectedLinkedEntry] = useState<AllPastPaperEntry | null>(null);
+  const [linkedPaperFilter, setLinkedPaperFilter] = useState<'All' | 'Official Past Paper' | 'Authentic Solved Set' | 'CBT Model Paper'>('All');
+  const [linkedPaperSearch, setLinkedPaperSearch] = useState<string>('');
+
+  // Active CSS Subjective / Descriptive Paper State (for full 16-year 2010 to 2025 descriptive papers)
+  const [activeCssSubjectivePaper, setActiveCssSubjectivePaper] = useState<{ year: number; entryNumber?: number } | null>(null);
+
   const basePracticePapers: PastPaper[] = useMemo(() => [
     ...cmsPapers.map(p => ({ 
       id: p.id, 
@@ -280,12 +298,119 @@ export const PastPapersView: React.FC = () => {
   };
 
   const startPaperFromDirectory = (item: AllPastPaperEntry | PastPaper) => {
+    // Check if item is a CSS Subjective descriptive paper
+    const titleLower = item.title.toLowerCase();
+    const isCssSubjective = 
+      ('id' in item && item.id.startsWith('css-ca-')) || 
+      ('isSubjectivePaper' in item && item.isSubjectivePaper) ||
+      (titleLower.includes('current affairs') && (titleLower.includes('css') || ('exam' in item && item.exam === 'CSS')));
+
+    if (isCssSubjective) {
+      let yr = 2025;
+      if ('id' in item && item.id.startsWith('css-ca-') && item.id !== 'css-ca-master-archive') {
+        const parsed = parseInt(item.id.replace('css-ca-', ''), 10);
+        if (!isNaN(parsed)) yr = parsed;
+      } else if ('number' in item && item.number >= 201 && item.number <= 216) {
+        yr = 2010 + (item.number - 201);
+      } else if ('year' in item && typeof item.year === 'number') {
+        yr = item.year;
+      }
+      setActiveCssSubjectivePaper({ year: yr, entryNumber: 'number' in item ? item.number : undefined });
+      setSelectedLinkedEntry(null);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
     if ('number' in item) {
       handleOpenSubjectSelection({ entry: item });
     } else {
       handleOpenSubjectSelection({ paper: item });
     }
   };
+
+  const startLinkedPaperSession = (linkedPaper: LinkedPastPaper) => {
+    if (
+      linkedPaper.isSubjectivePaper ||
+      linkedPaper.id.startsWith('css-ca-') ||
+      linkedPaper.paperType?.includes('Subjective') ||
+      (linkedPaper.title.toLowerCase().includes('current affairs') && linkedPaper.exam === 'CSS')
+    ) {
+      setSelectedLinkedEntry(null);
+      setActiveCssSubjectivePaper({ year: linkedPaper.year });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    const questions = getLinkedPastPaperQuestions(linkedPaper, linkedPaper.totalQuestions);
+    const sessionObj: PastPaper = {
+      id: linkedPaper.id,
+      title: linkedPaper.title,
+      exam: linkedPaper.exam,
+      conductedBy: linkedPaper.agency,
+      year: linkedPaper.year,
+      postName: linkedPaper.postName,
+      bps: linkedPaper.bps,
+      totalQuestions: questions.length,
+      testDateLabel: linkedPaper.yearLabel,
+      recordType: linkedPaper.paperType as any,
+      sourceNote: `Official reconstructed and verified linked examination paper for ${linkedPaper.postName} (${linkedPaper.bps}) conducted by ${linkedPaper.agency}.`,
+      durationMinutes: linkedPaper.durationMinutes,
+      mcqs: questions.length > 0 ? questions : MCQS_DATA.slice(0, 50),
+    };
+    setSelectedLinkedEntry(null);
+    setActive(sessionObj);
+    setSelectedPastPaperId(sessionObj.id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleDownloadLinkedPaperPdf = (linkedPaper: LinkedPastPaper) => {
+    if (linkedPaper.pdfPath) {
+      const link = document.createElement('a');
+      link.href = linkedPaper.pdfPath;
+      link.download = `${linkedPaper.id}.pdf`;
+      link.target = '_blank';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      return;
+    }
+    const questions = getLinkedPastPaperQuestions(linkedPaper, linkedPaper.totalQuestions);
+    exportMcqsToPdf(questions, {
+      title: linkedPaper.title,
+      subtitle: `${linkedPaper.agency} · ${linkedPaper.bps} · ${linkedPaper.yearLabel}`,
+      includeAnswers: true,
+      includeExplanations: true,
+      includeOmrSheet: true,
+      subject: linkedPaper.syllabus.slice(0, 80),
+    });
+  };
+
+  const handleExportLinkedPaperExcel = (linkedPaper: LinkedPastPaper) => {
+    const questions = getLinkedPastPaperQuestions(linkedPaper, linkedPaper.totalQuestions);
+    exportMcqsToExcel(
+      questions, 
+      `MUQABIL_${linkedPaper.id.replace(/[^a-zA-Z0-9]/g, '_')}`, 
+      { subject: linkedPaper.title, filterName: linkedPaper.agency }
+    );
+  };
+
+  const linkedPapersList = useMemo(() => {
+    if (!selectedLinkedEntry) return [];
+    let list = getLinkedPastPapersForEntry(selectedLinkedEntry);
+    if (linkedPaperFilter !== 'All') {
+      list = list.filter(p => p.paperType === linkedPaperFilter);
+    }
+    if (linkedPaperSearch.trim()) {
+      const q = linkedPaperSearch.toLowerCase();
+      list = list.filter(p => 
+        p.title.toLowerCase().includes(q) ||
+        p.postName.toLowerCase().includes(q) ||
+        p.yearLabel.toLowerCase().includes(q) ||
+        p.syllabus.toLowerCase().includes(q)
+      );
+    }
+    return list;
+  }, [selectedLinkedEntry, linkedPaperFilter, linkedPaperSearch]);
 
   useEffect(() => {
     if (selectedPastPaperId && !active && !subjectSelectionModalData) {
@@ -488,6 +613,12 @@ export const PastPapersView: React.FC = () => {
             onRetake={() => setSession(s => s+1)} 
           />
         </div>
+      ) : activeCssSubjectivePaper ? (
+        <CssSubjectivePaperView
+          initialYear={activeCssSubjectivePaper.year}
+          initialEntryNumber={activeCssSubjectivePaper.entryNumber}
+          onClose={() => { setActiveCssSubjectivePaper(null); setSelectedPastPaperId(''); }}
+        />
       ) : (
         <div className="space-y-6">
           {/* Header Banner */}
@@ -745,6 +876,87 @@ export const PastPapersView: React.FC = () => {
                 )}
               </div>
 
+              {/* Selectable Helper Banner */}
+              <div className="bg-gradient-to-r from-emerald-500/10 via-emerald-600/10 to-teal-500/10 border border-emerald-500/25 rounded-2xl p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+                    <Link2 className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <p className="font-bold text-slate-900 dark:text-white">
+                      Select Any Past Paper to View All Linked Papers
+                    </p>
+                    <p className="text-slate-500 dark:text-slate-400">
+                      Click any past paper row or the &quot;Linked Papers&quot; button to access all solved batches, agency cadres, and CBT model exams.
+                    </p>
+                  </div>
+                </div>
+                {selectedLinkedEntry && (
+                  <div className="flex items-center gap-2 shrink-0">
+                    <span className="font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-100/80 dark:bg-emerald-950/80 px-2 py-1 rounded-lg border border-emerald-300/60 dark:border-emerald-800">
+                      Selected: #{selectedLinkedEntry.number} · {selectedLinkedEntry.title.slice(0, 30)}...
+                    </span>
+                    <button
+                      onClick={() => setSelectedLinkedEntry(selectedLinkedEntry)}
+                      className="px-3 py-1 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold transition cursor-pointer shadow-2xs"
+                    >
+                      View Linked Papers
+                    </button>
+                    <button
+                      onClick={() => setSelectedLinkedEntry(null)}
+                      className="p-1 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-500 cursor-pointer"
+                      title="Clear Selection"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* Dedicated CSS Current Affairs 16-Year Series Feature Banner */}
+              {(selectedExam === 'CSS' || search.toLowerCase().includes('css') || search.toLowerCase().includes('current affairs')) && (
+                <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-emerald-900 via-slate-900 to-emerald-950 text-white border border-emerald-700/50 shadow-md flex flex-col md:flex-row md:items-center justify-between gap-4">
+                  <div className="space-y-1 max-w-2xl">
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-black uppercase tracking-wider border border-emerald-500/30">
+                      <GraduationCap className="w-3 h-3 text-emerald-300" />
+                      <span>FPSC CSS Competitive Examination · 16 Consecutive Years (2010–2025)</span>
+                    </div>
+                    <h3 className="text-base sm:text-lg font-black text-white">
+                      CSS Current Affairs Past Papers (2010 to 2025) · Subjective Examination Papers
+                    </h3>
+                    <p className="text-xs text-emerald-100/80 leading-relaxed">
+                      All 16 years (Entries #201 to #216) are official FPSC General Knowledge Paper-II descriptive subjective papers with 80-mark essay questions, model outlines, syllabus blueprints, answer writing scratchpads, and source PDFs. <em>These are full subjective papers, not just MCQs.</em>
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-2 shrink-0">
+                    <button
+                      onClick={() => {
+                        const firstCss = ALL_PAST_PAPERS_DIRECTORY.find(p => p.number === 201) || ALL_PAST_PAPERS_DIRECTORY.find(p => p.id === 'css-ca-2010');
+                        if (firstCss) {
+                          setSelectedLinkedEntry(firstCss);
+                        }
+                      }}
+                      className="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-bold transition flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <Link2 className="w-3.5 h-3.5 text-emerald-300" />
+                      <span>View All 16 Linked Papers</span>
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        setActiveCssSubjectivePaper({ year: 2025, entryNumber: 216 });
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                      className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-black transition flex items-center gap-1.5 shadow-sm cursor-pointer"
+                    >
+                      <PenTool className="w-3.5 h-3.5 text-slate-950" />
+                      <span>Start Subjective Paper (2010–2025)</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+
               {/* Numbered directory table (up to 1,000 records) */}
               {layoutMode === 'table' && (
                 <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-xs">
@@ -761,61 +973,109 @@ export const PastPapersView: React.FC = () => {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                        {filteredDirectoryPapers.map((paper) => (
-                          <tr 
-                            key={paper.id} 
-                            className="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition group"
-                          >
-                            <td className="py-3.5 px-4 text-center font-extrabold text-emerald-600 dark:text-emerald-400">
-                              {paper.number}
-                            </td>
-                            <td className="py-3.5 px-4 font-semibold text-slate-900 dark:text-white">
-                              <div className="flex flex-col">
-                                <span className="font-bold text-sm text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition">
-                                  {paper.title}
+                        {filteredDirectoryPapers.map((paper) => {
+                          const linkedCount = getLinkedPastPapersForEntry(paper).length;
+                          const isSelected = selectedLinkedEntry?.id === paper.id;
+                          return (
+                            <tr 
+                              key={paper.id} 
+                              onClick={() => setSelectedLinkedEntry(paper)}
+                              className={`transition group cursor-pointer ${
+                                isSelected 
+                                  ? 'bg-emerald-50/90 dark:bg-emerald-950/50 ring-1 ring-emerald-500/70' 
+                                  : 'hover:bg-emerald-50/40 dark:hover:bg-emerald-950/20'
+                              }`}
+                            >
+                              <td className="py-3.5 px-4 text-center">
+                                <div className="flex items-center justify-center gap-1.5">
+                                  <span className={`w-2 h-2 rounded-full transition ${
+                                    isSelected 
+                                      ? 'bg-emerald-500 scale-125' 
+                                      : 'bg-slate-300 dark:bg-slate-700 group-hover:bg-emerald-400'
+                                  }`} />
+                                  <span className="font-extrabold text-emerald-600 dark:text-emerald-400">
+                                    {paper.number}
+                                  </span>
+                                </div>
+                              </td>
+                              <td className="py-3.5 px-4 font-semibold text-slate-900 dark:text-white">
+                                <div className="flex flex-col">
+                                  <span className="font-bold text-sm text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition flex items-center gap-2">
+                                    <span>{paper.title}</span>
+                                    {isSelected && (
+                                      <span className="text-[10px] font-black px-1.5 py-0.2 rounded-sm bg-emerald-600 text-white">
+                                        Selected
+                                      </span>
+                                    )}
+                                  </span>
+                                  <div className="flex items-center gap-2 mt-0.5">
+                                    <span className="text-[11px] text-slate-500 font-normal">
+                                      {paper.conductedBy}
+                                    </span>
+                                    <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
+                                      · {linkedCount} linked papers available
+                                    </span>
+                                  </div>
+                                </div>
+                              </td>
+                              <td className="py-3.5 px-3 whitespace-nowrap">
+                                <span className="inline-block px-2 py-0.5 rounded-md text-[11px] font-extrabold bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border border-emerald-200/50 dark:border-emerald-800/50">
+                                  {paper.exam}
                                 </span>
-                                <span className="text-[11px] text-slate-500 font-normal">
-                                  {paper.conductedBy}
-                                </span>
-                              </div>
-                            </td>
-                            <td className="py-3.5 px-3 whitespace-nowrap">
-                              <span className="inline-block px-2 py-0.5 rounded-md text-[11px] font-extrabold bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border border-emerald-200/50 dark:border-emerald-800/50">
-                                {paper.exam}
-                              </span>
-                            </td>
-                            <td className="py-3.5 px-3 hidden md:table-cell whitespace-nowrap font-medium text-slate-600 dark:text-slate-400 text-xs">
-                              {paper.bps}
-                            </td>
-                            <td className="py-3.5 px-3 hidden lg:table-cell text-xs text-slate-500 dark:text-slate-400 max-w-xs truncate" title={paper.syllabus}>
-                              {paper.syllabus}
-                            </td>
-                            <td className="py-3.5 px-4 text-right whitespace-nowrap">
-                              <div className="flex items-center justify-end gap-1.5">
-                                <button
-                                  onClick={() => setSelectedModalEntry(paper)}
-                                  className="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold transition cursor-pointer"
-                                  title="View Official Syllabus and Test Pattern"
-                                >
-                                  Syllabus
-                                </button>
-                                <button
-                                  onClick={() => openPrintablePaper(paper)}
-                                  className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 transition cursor-pointer"
-                                  title="Print or Export Solved Past Paper (PDF)"
-                                >
-                                  <Printer className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                                </button>
-                                <button
-                                  onClick={() => startPaperFromDirectory(paper)}
-                                  className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition cursor-pointer shadow-2xs"
-                                >
-                                  Start Paper
-                                </button>
-                              </div>
-                            </td>
-                          </tr>
-                        ))}
+                              </td>
+                              <td className="py-3.5 px-3 hidden md:table-cell whitespace-nowrap font-medium text-slate-600 dark:text-slate-400 text-xs">
+                                {paper.bps}
+                              </td>
+                              <td className="py-3.5 px-3 hidden lg:table-cell text-xs text-slate-500 dark:text-slate-400 max-w-xs truncate" title={paper.syllabus}>
+                                {paper.syllabus}
+                              </td>
+                              <td className="py-3.5 px-4 text-right whitespace-nowrap">
+                                <div className="flex items-center justify-end gap-1.5">
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      setSelectedLinkedEntry(paper);
+                                    }}
+                                    className="px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950 dark:hover:bg-emerald-900 border border-emerald-300 dark:border-emerald-700 text-emerald-800 dark:text-emerald-300 text-xs font-black transition cursor-pointer flex items-center gap-1 shadow-2xs"
+                                    title="View all linked past papers, year-wise sets & CBT model exams"
+                                  >
+                                    <Link2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                                    <span>Linked Papers ({linkedCount})</span>
+                                  </button>
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      setSelectedModalEntry(paper);
+                                    }}
+                                    className="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold transition cursor-pointer"
+                                    title="View Official Syllabus and Test Pattern"
+                                  >
+                                    Syllabus
+                                  </button>
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      openPrintablePaper(paper);
+                                    }}
+                                    className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 transition cursor-pointer"
+                                    title="Print or Export Solved Past Paper (PDF)"
+                                  >
+                                    <Printer className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                                  </button>
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      startPaperFromDirectory(paper);
+                                    }}
+                                    className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition cursor-pointer shadow-2xs"
+                                  >
+                                    Start Paper
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          );
+                        })}
                       </tbody>
                     </table>
                   </div>
@@ -825,134 +1085,185 @@ export const PastPapersView: React.FC = () => {
               {/* GRID CARDS VIEW */}
               {layoutMode === 'grid' && (
                 <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
-                  {filteredDirectoryPapers.map((paper) => (
-                    <article 
-                      key={paper.id} 
-                      className="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col justify-between hover:border-emerald-500/50 hover:shadow-sm transition"
-                    >
-                      <div>
-                        <div className="flex items-center justify-between gap-2 mb-2">
-                          <span className="text-xs font-extrabold px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                            #{paper.number} · {paper.exam}
-                          </span>
-                          <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-md">
-                            {paper.bps}
-                          </span>
-                        </div>
+                  {filteredDirectoryPapers.map((paper) => {
+                    const linkedCount = getLinkedPastPapersForEntry(paper).length;
+                    const isSelected = selectedLinkedEntry?.id === paper.id;
+                    return (
+                      <article 
+                        key={paper.id} 
+                        onClick={() => setSelectedLinkedEntry(paper)}
+                        className={`p-5 rounded-2xl border bg-white dark:bg-slate-900 flex flex-col justify-between transition cursor-pointer ${
+                          isSelected
+                            ? 'border-emerald-500 ring-2 ring-emerald-500/40 bg-emerald-50/20 dark:bg-emerald-950/20 shadow-md'
+                            : 'border-slate-200 dark:border-slate-800 hover:border-emerald-500/50 hover:shadow-sm'
+                        }`}
+                      >
+                        <div>
+                          <div className="flex items-center justify-between gap-2 mb-2">
+                            <span className="text-xs font-extrabold px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                              #{paper.number} · {paper.exam}
+                            </span>
+                            <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-md">
+                              {paper.bps}
+                            </span>
+                          </div>
 
-                        <h3 className="font-extrabold text-base text-slate-900 dark:text-white mt-1 leading-snug">
-                          {paper.title}
-                        </h3>
+                          <h3 className="font-extrabold text-base text-slate-900 dark:text-white mt-1 leading-snug">
+                            {paper.title}
+                          </h3>
 
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                          {paper.conductedBy}
-                        </p>
-
-                        <div className="my-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-300">
-                          <p className="font-bold text-[11px] uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-1">
-                            Syllabus Outline:
+                          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                            {paper.conductedBy}
                           </p>
-                          <p className="line-clamp-2">{paper.syllabus}</p>
-                        </div>
-                      </div>
 
-                      <div className="flex items-center justify-between gap-2 pt-3 border-t border-slate-100 dark:border-slate-800 mt-2">
-                        <div className="flex items-center gap-1.5">
-                          <button
-                            onClick={() => setSelectedModalEntry(paper)}
-                            className="text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition cursor-pointer flex items-center gap-1"
-                          >
-                            <FileText className="w-3.5 h-3.5" />
-                            <span>Syllabus</span>
-                          </button>
-                          <span className="text-slate-300 dark:text-slate-700">|</span>
-                          <button
-                            onClick={() => openPrintablePaper(paper)}
-                            className="text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition cursor-pointer flex items-center gap-1"
-                            title="Export Printable PDF"
-                          >
-                            <Printer className="w-3.5 h-3.5" />
-                            <span>PDF</span>
-                          </button>
+                          <div className="my-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-300">
+                            <p className="font-bold text-[11px] uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-1">
+                              Syllabus Outline:
+                            </p>
+                            <p className="line-clamp-2">{paper.syllabus}</p>
+                          </div>
                         </div>
 
-                        <button
-                          onClick={() => startPaperFromDirectory(paper)}
-                          className="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition cursor-pointer flex items-center gap-1"
-                        >
-                          <span>Start Paper</span>
-                          <ChevronRight className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                    </article>
-                  ))}
+                        <div className="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-slate-100 dark:border-slate-800 mt-2">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedLinkedEntry(paper);
+                            }}
+                            className="px-2.5 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/80 hover:bg-emerald-100 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700 text-xs font-black transition cursor-pointer flex items-center gap-1"
+                          >
+                            <Link2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                            <span>Linked ({linkedCount})</span>
+                          </button>
+
+                          <div className="flex items-center gap-1.5">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setSelectedModalEntry(paper);
+                              }}
+                              className="text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition cursor-pointer flex items-center gap-1"
+                            >
+                              <FileText className="w-3.5 h-3.5" />
+                              <span>Syllabus</span>
+                            </button>
+                            <span className="text-slate-300 dark:text-slate-700">|</span>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                openPrintablePaper(paper);
+                              }}
+                              className="text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition cursor-pointer flex items-center gap-1"
+                              title="Export Printable PDF"
+                            >
+                              <Printer className="w-3.5 h-3.5" />
+                              <span>PDF</span>
+                            </button>
+                          </div>
+
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              startPaperFromDirectory(paper);
+                            }}
+                            className="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition cursor-pointer flex items-center gap-1"
+                          >
+                            <span>Start</span>
+                            <ChevronRight className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      </article>
+                    );
+                  })}
                 </div>
               )}
 
               {/* COMPACT LIST VIEW */}
               {layoutMode === 'list' && (
                 <div className="space-y-2.5">
-                  {filteredDirectoryPapers.map((paper) => (
-                    <article 
-                      key={paper.id} 
-                      className="p-3.5 sm:p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-emerald-300 dark:hover:border-emerald-700 transition"
-                    >
-                      <div className="flex items-start sm:items-center gap-3 min-w-0">
-                        <span className="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 font-black text-xs flex items-center justify-center shrink-0 border border-emerald-500/20">
-                          {paper.number}
-                        </span>
-                        <div className="min-w-0">
-                          <div className="flex items-center gap-2 mb-0.5">
-                            <span className="font-extrabold text-xs text-emerald-600 dark:text-emerald-400">
-                              {paper.exam}
-                            </span>
-                            <span className="text-[10px] font-bold text-slate-400 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.2 rounded-sm">
-                              {paper.bps}
-                            </span>
-                            <span className="text-[10px] text-slate-400 hidden md:inline">
-                              · {paper.category}
-                            </span>
+                  {filteredDirectoryPapers.map((paper) => {
+                    const linkedCount = getLinkedPastPapersForEntry(paper).length;
+                    const isSelected = selectedLinkedEntry?.id === paper.id;
+                    return (
+                      <article 
+                        key={paper.id} 
+                        onClick={() => setSelectedLinkedEntry(paper)}
+                        className={`p-3.5 sm:p-4 rounded-xl border bg-white dark:bg-slate-900 flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition cursor-pointer ${
+                          isSelected
+                            ? 'border-emerald-500 ring-2 ring-emerald-500/40 bg-emerald-50/20 dark:bg-emerald-950/20 shadow-xs'
+                            : 'border-slate-200 dark:border-slate-800 hover:border-emerald-300 dark:hover:border-emerald-700'
+                        }`}
+                      >
+                        <div className="flex items-start sm:items-center gap-3 min-w-0">
+                          <span className="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 font-black text-xs flex items-center justify-center shrink-0 border border-emerald-500/20">
+                            {paper.number}
+                          </span>
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-2 mb-0.5">
+                              <span className="font-extrabold text-xs text-emerald-600 dark:text-emerald-400">
+                                {paper.exam}
+                              </span>
+                              <span className="text-[10px] font-bold text-slate-400 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.2 rounded-sm">
+                                {paper.bps}
+                              </span>
+                              <span className="text-[10px] text-slate-400 hidden md:inline">
+                                · {paper.category}
+                              </span>
+                              <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
+                                · {linkedCount} Linked Papers
+                              </span>
+                            </div>
+                            <h4 className="text-sm font-bold text-slate-900 dark:text-white truncate">
+                              {paper.title}
+                            </h4>
                           </div>
-                          <h4 className="text-sm font-bold text-slate-900 dark:text-white truncate">
-                            {paper.title}
-                          </h4>
                         </div>
-                      </div>
 
-                      <div className="flex items-center justify-end gap-2 shrink-0">
-                        {!paper.pdfPath && (
+                        <div className="flex items-center justify-end gap-2 shrink-0">
                           <button
-                            onClick={() => setSelectedModalEntry(paper)}
-                            className="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-bold text-slate-600 dark:text-slate-300 cursor-pointer"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedLinkedEntry(paper);
+                            }}
+                            className="px-2.5 py-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700 text-xs font-black cursor-pointer flex items-center gap-1"
                           >
-                            Syllabus
+                            <Link2 className="w-3.5 h-3.5" />
+                            <span>Linked ({linkedCount})</span>
                           </button>
-                        )}
-                        <button
-                          onClick={() => setShowPdfModal(paper)}
-                          className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs text-emerald-600 dark:text-emerald-400 cursor-pointer"
-                          title={paper.pdfPath ? "View uploaded past paper" : "PDF Guide"}
-                        >
-                          <Download className="w-3.5 h-3.5" />
-                        </button>
-                        {paper.pdfPath ? (
+                          {!paper.pdfPath && (
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setSelectedModalEntry(paper);
+                              }}
+                              className="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-bold text-slate-600 dark:text-slate-300 cursor-pointer"
+                            >
+                              Syllabus
+                            </button>
+                          )}
                           <button
-                            onClick={() => setShowPdfModal(paper)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setShowPdfModal(paper);
+                            }}
+                            className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs text-emerald-600 dark:text-emerald-400 cursor-pointer"
+                            title={paper.pdfPath ? "View uploaded past paper" : "PDF Guide"}
+                          >
+                            <Download className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              startPaperFromDirectory(paper);
+                            }}
                             className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold cursor-pointer"
                           >
-                            Read Paper
+                            Start Paper
                           </button>
-                        ) : (
-                          <button
-                            onClick={() => startPaperFromDirectory(paper)}
-                            className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold cursor-pointer"
-                          >
-                            Start
-                          </button>
-                        )}
-                      </div>
-                    </article>
-                  ))}
+                        </div>
+                      </article>
+                    );
+                  })}
                 </div>
               )}
 
@@ -1143,7 +1454,7 @@ export const PastPapersView: React.FC = () => {
                   }}
                   className="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition cursor-pointer flex items-center gap-1.5 shadow-sm"
                 >
-                  <span>Solve Paper MCQs</span>
+                  <span>{selectedModalEntry.isSubjectivePaper || selectedModalEntry.id.startsWith('css-ca-') ? 'Open Subjective Exam Paper' : 'Solve Paper MCQs'}</span>
                   <ChevronRight className="w-4 h-4" />
                 </button>
               </div>
@@ -1273,6 +1584,269 @@ export const PastPapersView: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* ALL LINKED PAST PAPERS MODAL */}
+      {selectedLinkedEntry && (
+        <div 
+          className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/80 backdrop-blur-xs flex items-center justify-center p-3 sm:p-5 animate-in fade-in duration-150"
+          onClick={() => setSelectedLinkedEntry(null)}
+        >
+          <div 
+            className="w-full max-w-4xl bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden my-6 flex flex-col max-h-[90vh]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header Banner */}
+            <div className="p-6 bg-gradient-to-r from-emerald-950 via-slate-900 to-emerald-900 text-white border-b border-emerald-800/40 relative overflow-hidden shrink-0">
+              <div className="flex items-start justify-between gap-4 relative z-10">
+                <div className="max-w-2xl">
+                  <div className="flex items-center gap-2 mb-2 flex-wrap">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[11px] font-black uppercase tracking-wider border border-emerald-500/30">
+                      <Link2 className="w-3.5 h-3.5" />
+                      <span>ALL LINKED PAST PAPERS ARCHIVE</span>
+                    </span>
+                    <span className="text-xs font-bold text-emerald-200 bg-white/10 px-2.5 py-0.5 rounded-md">
+                      #{selectedLinkedEntry.number} · {selectedLinkedEntry.exam}
+                    </span>
+                    <span className="text-xs text-emerald-100/80 font-medium">
+                      {selectedLinkedEntry.bps}
+                    </span>
+                  </div>
+
+                  <h2 className="text-xl sm:text-2xl font-black font-display text-white leading-tight">
+                    {selectedLinkedEntry.title}
+                  </h2>
+                  <p className="text-xs sm:text-sm text-emerald-100/90 mt-1.5 flex items-center gap-2">
+                    <span>{selectedLinkedEntry.conductedBy}</span>
+                    <span>·</span>
+                    <span className="text-emerald-300 font-semibold">{getLinkedPastPapersForEntry(selectedLinkedEntry).length} Linked Solved Papers &amp; CBT Sessions Available</span>
+                  </p>
+                </div>
+
+                <button
+                  onClick={() => setSelectedLinkedEntry(null)}
+                  className="p-2 rounded-full text-emerald-200 hover:text-white hover:bg-white/10 transition cursor-pointer shrink-0"
+                  title="Close Archive"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Syllabus Quote */}
+              <div className="mt-4 p-3 rounded-xl bg-white/5 border border-white/10 text-xs text-emerald-100/90 max-w-3xl line-clamp-2">
+                <strong className="text-emerald-300 uppercase tracking-wider mr-1.5 text-[10px]">Prescribed Blueprint:</strong>
+                {selectedLinkedEntry.syllabus}
+              </div>
+            </div>
+
+            {/* Filter and Search Bar */}
+            <div className="p-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 shrink-0">
+              <div className="relative flex-1">
+                <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+                <input
+                  type="text"
+                  value={linkedPaperSearch}
+                  onChange={(e) => setLinkedPaperSearch(e.target.value)}
+                  placeholder="Filter by year, cadre, batch, or post keyword..."
+                  className="w-full pl-9 pr-8 py-1.5 sm:py-2 text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-emerald-500"
+                />
+                {linkedPaperSearch && (
+                  <button
+                    onClick={() => setLinkedPaperSearch('')}
+                    className="absolute right-2.5 top-2.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                )}
+              </div>
+
+              {/* Type Filter Pills */}
+              <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
+                {(['All', 'Official Past Paper', 'Authentic Solved Set', 'CBT Model Paper'] as const).map((filterOpt) => (
+                  <button
+                    key={filterOpt}
+                    onClick={() => setLinkedPaperFilter(filterOpt)}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition cursor-pointer ${
+                      linkedPaperFilter === filterOpt
+                        ? 'bg-emerald-600 text-white shadow-xs'
+                        : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-750 border border-slate-200 dark:border-slate-700'
+                    }`}
+                  >
+                    {filterOpt === 'All' ? `All (${getLinkedPastPapersForEntry(selectedLinkedEntry).length})` : filterOpt}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Linked Papers List */}
+            <div className="p-4 sm:p-6 overflow-y-auto space-y-4 flex-1">
+              {linkedPapersList.map((paper) => {
+                const totalQuestions = paper.totalQuestions || 100;
+                return (
+                  <div
+                    key={paper.id}
+                    className="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/60 hover:border-emerald-500/60 hover:shadow-md transition flex flex-col gap-3 group"
+                  >
+                    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+                      <div>
+                        <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                          <span className={`text-[11px] font-black px-2.5 py-0.5 rounded-md border ${
+                            paper.paperType === 'Official Past Paper'
+                              ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/30'
+                              : paper.paperType === 'CBT Model Paper'
+                              ? 'bg-purple-500/10 text-purple-700 dark:text-purple-300 border-purple-500/30'
+                              : 'bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-500/30'
+                          }`}>
+                            {paper.paperType}
+                          </span>
+                          <span className="text-xs font-extrabold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-md">
+                            {paper.yearLabel}
+                          </span>
+                          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">
+                            {paper.bps}
+                          </span>
+                        </div>
+
+                        <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition">
+                          {paper.title}
+                        </h3>
+
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                          Cadre / Post: <strong className="text-slate-700 dark:text-slate-200">{paper.postName}</strong> · Conducted by {paper.agency}
+                        </p>
+                      </div>
+
+                      {/* Specs badges */}
+                      <div className="flex items-center gap-2 shrink-0 self-start sm:self-center">
+                        <span className="text-xs font-black px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                          {paper.isSubjectivePaper ? 'Subjective (Part-II)' : `${totalQuestions} MCQs`}
+                        </span>
+                        <span className="text-xs font-black px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                          {paper.durationMinutes} Mins
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Subject Distribution pills */}
+                    {paper.subjectDistribution && paper.subjectDistribution.length > 0 && (
+                      <div className="bg-slate-50 dark:bg-slate-900/60 p-3 rounded-xl border border-slate-100 dark:border-slate-800/80">
+                        <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5 flex items-center gap-1">
+                          <Atom className="w-3 h-3 text-emerald-500" />
+                          <span>Official Subject Breakdown:</span>
+                        </p>
+                        <div className="flex flex-wrap gap-1.5">
+                          {paper.subjectDistribution.map((dist, idx) => (
+                            <span 
+                              key={idx}
+                              className="text-[11px] font-medium px-2 py-0.5 rounded-md bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700"
+                            >
+                              <strong>{dist.subject}:</strong> {dist.percentage}%
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Action buttons */}
+                    <div className="flex flex-wrap items-center justify-between gap-2.5 pt-2 border-t border-slate-100 dark:border-slate-800 mt-1">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <button
+                          onClick={() => handleDownloadLinkedPaperPdf(paper)}
+                          className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold transition cursor-pointer flex items-center gap-1.5"
+                          title="Generate and download question paper booklet with answer key & OMR bubble sheet"
+                        >
+                          <Printer className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                          <span>Download Paper (PDF)</span>
+                        </button>
+
+                        {!paper.isSubjectivePaper && (
+                          <button
+                            onClick={() => handleExportLinkedPaperExcel(paper)}
+                            className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold transition cursor-pointer flex items-center gap-1.5"
+                            title="Export all questions with full options and explanations to Excel (.xlsx)"
+                          >
+                            <FileSpreadsheet className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                            <span>Export MCQs (Excel)</span>
+                          </button>
+                        )}
+
+                        {!paper.isSubjectivePaper && (
+                          <button
+                            onClick={() => {
+                              const entryToUse = selectedLinkedEntry;
+                              setSelectedLinkedEntry(null);
+                              handleOpenSubjectSelection({ entry: entryToUse });
+                            }}
+                            className="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition cursor-pointer flex items-center gap-1"
+                          >
+                            <span>Customize Subjects</span>
+                          </button>
+                        )}
+                      </div>
+
+                      <button
+                        onClick={() => startLinkedPaperSession(paper)}
+                        className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-black transition cursor-pointer flex items-center gap-1.5 shadow-sm hover:shadow-md"
+                      >
+                        {paper.isSubjectivePaper ? (
+                          <>
+                            <PenTool className="w-3.5 h-3.5" />
+                            <span>Open Subjective Paper</span>
+                          </>
+                        ) : (
+                          <>
+                            <Play className="w-3.5 h-3.5 fill-current" />
+                            <span>Start Exam Now</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+
+              {linkedPapersList.length === 0 && (
+                <div className="text-center py-10">
+                  <p className="text-sm font-bold text-slate-500">No linked papers matched your filter.</p>
+                  <button
+                    onClick={() => { setLinkedPaperFilter('All'); setLinkedPaperSearch(''); }}
+                    className="mt-3 px-3.5 py-1.5 rounded-xl bg-emerald-600 text-white text-xs font-bold cursor-pointer"
+                  >
+                    Reset Filters
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Modal Footer */}
+            <div className="p-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 flex flex-wrap items-center justify-between gap-3 shrink-0">
+              <span className="text-xs text-slate-500 dark:text-slate-400">
+                Official verified past papers reconstructed from past testing session administrations.
+              </span>
+
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setSelectedLinkedEntry(null)}
+                  className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition cursor-pointer"
+                >
+                  Close
+                </button>
+                <button
+                  onClick={() => {
+                    const entry = selectedLinkedEntry;
+                    setSelectedLinkedEntry(null);
+                    startPaperFromDirectory(entry);
+                  }}
+                  className="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition cursor-pointer flex items-center gap-1.5 shadow-sm"
+                >
+                  <span>Solve Master Paper</span>
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* SUBJECT SELECTION POPUP MODAL (When user clicks Start Paper) */}
       {subjectSelectionModalData && (
         <div 

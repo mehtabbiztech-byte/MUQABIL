@@ -257,7 +257,7 @@ export const StsExamSimulator: React.FC<StsExamSimulatorProps> = ({
   }, [paper, userAnswers, selectedCategory]);
 
   const handleDownloadScorecardPdf = () => {
-    const attempt: QuizAttempt = {
+    const attempt: any = {
       id: `sts-${selectedCategory}-${Date.now()}`,
       title: `Sukkur IBA STS ${paper.categoryInfo.name} Simulator`,
       date: new Date().toISOString(),
@@ -284,7 +284,7 @@ export const StsExamSimulator: React.FC<StsExamSimulatorProps> = ({
   };
 
   const handleExportSolutionsExcel = () => {
-    const attempt: QuizAttempt = {
+    const attempt: any = {
       id: `sts-${selectedCategory}-${Date.now()}`,
       title: `Sukkur IBA STS ${paper.categoryInfo.name} Simulator`,
       date: new Date().toISOString(),

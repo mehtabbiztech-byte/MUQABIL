@@ -446,6 +446,17 @@ export const Navbar: React.FC = () => {
                 <span className="px-1 py-0.2 rounded bg-rose-500 text-[9px] text-white font-black">HOT</span>
               </button>
 
+              {/* Technical Details PDF Button */}
+              <a
+                href="/technical-details-muqabil.pdf"
+                download="MUQABIL_Technical_Specification_Document.pdf"
+                className="hidden lg:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 hover:bg-emerald-500/35 border border-emerald-400/40 text-emerald-200 hover:text-white transition text-[11px] font-bold cursor-pointer"
+                title="Download Official Technical Architecture & System Specification PDF"
+              >
+                <FileText className="w-3 h-3 text-emerald-300" />
+                <span>Technical Details (PDF)</span>
+              </a>
+
               <div className="flex items-center gap-1.5 text-amber-200">
                 <Flame className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
                 <span>Streak: <strong className="text-white">{userProfile.streakDays}d</strong></span>

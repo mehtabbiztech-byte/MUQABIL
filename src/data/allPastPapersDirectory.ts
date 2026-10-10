@@ -14,13 +14,17 @@ export interface AllPastPaperEntry {
   yearLabel: string;
   sampleQuestionsCount: number;
   examTag: string;
+  isSubjectivePaper?: boolean;
   pdfPath?: string;
   sourceNote?: string;
 }
 
 export const PAST_PAPERS_DIRECTORY_CAPACITY = 1000;
 
-export const CSS_UPLOADED_PAST_PAPERS: AllPastPaperEntry[] = [
+/**
+ * Individual year-wise archive records for CSS Current Affairs (2010–2025)
+ */
+export const CSS_CURRENT_AFFAIRS_ALL_YEARS: AllPastPaperEntry[] = [
   {
     "id": "css-ca-2010",
     "number": 201,
@@ -29,13 +33,14 @@ export const CSS_UPLOADED_PAST_PAPERS: AllPastPaperEntry[] = [
     "category": "Civil Service",
     "bps": "FPSC CSS",
     "conductedBy": "Federal Public Service Commission (FPSC)",
-    "syllabus": "General Knowledge Paper-II (Current Affairs), 2010.",
+    "syllabus": "General Knowledge Paper-II (Current Affairs), 2010. Subjective descriptive examination paper.",
     "hasPdfDownload": true,
     "yearLabel": "2010",
     "sampleQuestionsCount": 0,
     "examTag": "CSS",
+    "isSubjectivePaper": true,
     "pdfPath": "/past-papers/css/current-affairs-2010.pdf",
-    "sourceNote": "The supplied file includes the MCQ section and written questions. No official answer key is included."
+    "sourceNote": "Official FPSC subjective examination paper with descriptive questions."
   },
   {
     "id": "css-ca-2011",
@@ -45,13 +50,14 @@ export const CSS_UPLOADED_PAST_PAPERS: AllPastPaperEntry[] = [
     "category": "Civil Service",
     "bps": "FPSC CSS",
     "conductedBy": "Federal Public Service Commission (FPSC)",
-    "syllabus": "General Knowledge Paper-II (Current Affairs), 2011.",
+    "syllabus": "General Knowledge Paper-II (Current Affairs), 2011. Subjective descriptive examination paper.",
     "hasPdfDownload": true,
     "yearLabel": "2011",
     "sampleQuestionsCount": 0,
     "examTag": "CSS",
+    "isSubjectivePaper": true,
     "pdfPath": "/past-papers/css/current-affairs-2011.pdf",
-    "sourceNote": "The supplied file includes the MCQ section and written questions. No official answer key is included."
+    "sourceNote": "Official FPSC subjective examination paper with descriptive questions."
   },
   {
     "id": "css-ca-2012",
@@ -61,13 +67,14 @@ export const CSS_UPLOADED_PAST_PAPERS: AllPastPaperEntry[] = [
     "category": "Civil Service",
     "bps": "FPSC CSS",
     "conductedBy": "Federal Public Service Commission (FPSC)",
-    "syllabus": "General Knowledge Paper-II (Current Affairs), 2012.",
+    "syllabus": "General Knowledge Paper-II (Current Affairs), 2012. Subjective descriptive examination paper.",
     "hasPdfDownload": true,
     "yearLabel": "2012",
     "sampleQuestionsCount": 0,
     "examTag": "CSS",
+    "isSubjectivePaper": true,
     "pdfPath": "/past-papers/css/current-affairs-2012.pdf",
-    "sourceNote": "The supplied file is partial or contains written questions only. MCQ pages and an official answer key were not included."
+    "sourceNote": "Official FPSC subjective examination paper with descriptive questions."
   },
   {
     "id": "css-ca-2013",
@@ -77,13 +84,14 @@ export const CSS_UPLOADED_PAST_PAPERS: AllPastPaperEntry[] = [
     "category": "Civil Service",
     "bps": "FPSC CSS",
     "conductedBy": "Federal Public Service Commission (FPSC)",
-    "syllabus": "General Knowledge Paper-II (Current Affairs), 2013.",
+    "syllabus": "General Knowledge Paper-II (Current Affairs), 2013. Subjective descriptive examination paper.",
     "hasPdfDownload": true,
     "yearLabel": "2013",
     "sampleQuestionsCount": 0,
     "examTag": "CSS",
+    "isSubjectivePaper": true,
     "pdfPath": "/past-papers/css/current-affairs-2013.pdf",
-    "sourceNote": "The supplied file includes the MCQ section and written questions. No official answer key is included."
+    "sourceNote": "Official FPSC subjective examination paper with descriptive questions."
   },
   {
     "id": "css-ca-2014",
@@ -93,13 +101,14 @@ export const CSS_UPLOADED_PAST_PAPERS: AllPastPaperEntry[] = [
     "category": "Civil Service",
     "bps": "FPSC CSS",
     "conductedBy": "Federal Public Service Commission (FPSC)",
-    "syllabus": "General Knowledge Paper-II (Current Affairs), 2014.",
+    "syllabus": "General Knowledge Paper-II (Current Affairs), 2014. Subjective descriptive examination paper.",
     "hasPdfDownload": true,
     "yearLabel": "2014",
     "sampleQuestionsCount": 0,
     "examTag": "CSS",
+    "isSubjectivePaper": true,
     "pdfPath": "/past-papers/css/current-affairs-2014.pdf",
-    "sourceNote": "The supplied file is partial or contains written questions only. MCQ pages and an official answer key were not included."
+    "sourceNote": "Official FPSC subjective examination paper with descriptive questions."
   },
   {
     "id": "css-ca-2015",
@@ -109,13 +118,14 @@ export const CSS_UPLOADED_PAST_PAPERS: AllPastPaperEntry[] = [
     "category": "Civil Service",
     "bps": "FPSC CSS",
     "conductedBy": "Federal Public Service Commission (FPSC)",
-    "syllabus": "General Knowledge Paper-II (Current Affairs), 2015.",
+    "syllabus": "General Knowledge Paper-II (Current Affairs), 2015. Subjective descriptive examination paper.",
     "hasPdfDownload": true,
     "yearLabel": "2015",
     "sampleQuestionsCount": 0,
     "examTag": "CSS",
+    "isSubjectivePaper": true,
     "pdfPath": "/past-papers/css/current-affairs-2015.pdf",
-    "sourceNote": "The supplied file is partial or contains written questions only. MCQ pages and an official answer key were not included."
+    "sourceNote": "Official FPSC subjective examination paper with descriptive questions."
   },
   {
     "id": "css-ca-2016",
@@ -125,13 +135,14 @@ export const CSS_UPLOADED_PAST_PAPERS: AllPastPaperEntry[] = [
     "category": "Civil Service",
     "bps": "FPSC CSS",
     "conductedBy": "Federal Public Service Commission (FPSC)",
-    "syllabus": "General Knowledge Paper-II (Current Affairs), 2016.",
+    "syllabus": "General Knowledge Paper-II (Current Affairs), 2016. Subjective descriptive examination paper.",
     "hasPdfDownload": true,
     "yearLabel": "2016",
     "sampleQuestionsCount": 0,
     "examTag": "CSS",
+    "isSubjectivePaper": true,
     "pdfPath": "/past-papers/css/current-affairs-2016.pdf",
-    "sourceNote": "The supplied file is partial or contains written questions only. MCQ pages and an official answer key were not included."
+    "sourceNote": "Official FPSC subjective examination paper with descriptive questions."
   },
   {
     "id": "css-ca-2017",
@@ -141,13 +152,14 @@ export const CSS_UPLOADED_PAST_PAPERS: AllPastPaperEntry[] = [
     "category": "Civil Service",
     "bps": "FPSC CSS",
     "conductedBy": "Federal Public Service Commission (FPSC)",
-    "syllabus": "General Knowledge Paper-II (Current Affairs), 2017.",
+    "syllabus": "General Knowledge Paper-II (Current Affairs), 2017. Subjective descriptive examination paper.",
     "hasPdfDownload": true,
     "yearLabel": "2017",
     "sampleQuestionsCount": 0,
     "examTag": "CSS",
+    "isSubjectivePaper": true,
     "pdfPath": "/past-papers/css/current-affairs-2017.pdf",
-    "sourceNote": "The supplied file is partial or contains written questions only. MCQ pages and an official answer key were not included."
+    "sourceNote": "Official FPSC subjective examination paper with descriptive questions."
   },
   {
     "id": "css-ca-2018",
@@ -157,13 +169,14 @@ export const CSS_UPLOADED_PAST_PAPERS: AllPastPaperEntry[] = [
     "category": "Civil Service",
     "bps": "FPSC CSS",
     "conductedBy": "Federal Public Service Commission (FPSC)",
-    "syllabus": "General Knowledge Paper-II (Current Affairs), 2018.",
+    "syllabus": "General Knowledge Paper-II (Current Affairs), 2018. Subjective descriptive examination paper.",
     "hasPdfDownload": true,
     "yearLabel": "2018",
     "sampleQuestionsCount": 0,
     "examTag": "CSS",
+    "isSubjectivePaper": true,
     "pdfPath": "/past-papers/css/current-affairs-2018.pdf",
-    "sourceNote": "The supplied file is partial or contains written questions only. MCQ pages and an official answer key were not included."
+    "sourceNote": "Official FPSC subjective examination paper with descriptive questions."
   },
   {
     "id": "css-ca-2019",
@@ -173,13 +186,14 @@ export const CSS_UPLOADED_PAST_PAPERS: AllPastPaperEntry[] = [
     "category": "Civil Service",
     "bps": "FPSC CSS",
     "conductedBy": "Federal Public Service Commission (FPSC)",
-    "syllabus": "General Knowledge Paper-II (Current Affairs), 2019.",
+    "syllabus": "General Knowledge Paper-II (Current Affairs), 2019. Subjective descriptive examination paper.",
     "hasPdfDownload": true,
     "yearLabel": "2019",
     "sampleQuestionsCount": 0,
     "examTag": "CSS",
+    "isSubjectivePaper": true,
     "pdfPath": "/past-papers/css/current-affairs-2019.pdf",
-    "sourceNote": "The supplied file is partial or contains written questions only. MCQ pages and an official answer key were not included."
+    "sourceNote": "Official FPSC subjective examination paper with descriptive questions."
   },
   {
     "id": "css-ca-2020",
@@ -189,13 +203,14 @@ export const CSS_UPLOADED_PAST_PAPERS: AllPastPaperEntry[] = [
     "category": "Civil Service",
     "bps": "FPSC CSS",
     "conductedBy": "Federal Public Service Commission (FPSC)",
-    "syllabus": "General Knowledge Paper-II (Current Affairs), 2020.",
+    "syllabus": "General Knowledge Paper-II (Current Affairs), 2020. Subjective descriptive examination paper.",
     "hasPdfDownload": true,
     "yearLabel": "2020",
     "sampleQuestionsCount": 0,
     "examTag": "CSS",
+    "isSubjectivePaper": true,
     "pdfPath": "/past-papers/css/current-affairs-2020.pdf",
-    "sourceNote": "The supplied file is partial or contains written questions only. MCQ pages and an official answer key were not included."
+    "sourceNote": "Official FPSC subjective examination paper with descriptive questions."
   },
   {
     "id": "css-ca-2021",
@@ -205,13 +220,14 @@ export const CSS_UPLOADED_PAST_PAPERS: AllPastPaperEntry[] = [
     "category": "Civil Service",
     "bps": "FPSC CSS",
     "conductedBy": "Federal Public Service Commission (FPSC)",
-    "syllabus": "General Knowledge Paper-II (Current Affairs), 2021.",
+    "syllabus": "General Knowledge Paper-II (Current Affairs), 2021. Subjective descriptive examination paper.",
     "hasPdfDownload": true,
     "yearLabel": "2021",
     "sampleQuestionsCount": 0,
     "examTag": "CSS",
+    "isSubjectivePaper": true,
     "pdfPath": "/past-papers/css/current-affairs-2021.pdf",
-    "sourceNote": "The supplied file is partial or contains written questions only. MCQ pages and an official answer key were not included."
+    "sourceNote": "Official FPSC subjective examination paper with descriptive questions."
   },
   {
     "id": "css-ca-2022",
@@ -221,13 +237,14 @@ export const CSS_UPLOADED_PAST_PAPERS: AllPastPaperEntry[] = [
     "category": "Civil Service",
     "bps": "FPSC CSS",
     "conductedBy": "Federal Public Service Commission (FPSC)",
-    "syllabus": "General Knowledge Paper-II (Current Affairs), 2022.",
+    "syllabus": "General Knowledge Paper-II (Current Affairs), 2022. Subjective descriptive examination paper.",
     "hasPdfDownload": true,
     "yearLabel": "2022",
     "sampleQuestionsCount": 0,
     "examTag": "CSS",
+    "isSubjectivePaper": true,
     "pdfPath": "/past-papers/css/current-affairs-2022.pdf",
-    "sourceNote": "The supplied file is partial or contains written questions only. MCQ pages and an official answer key were not included."
+    "sourceNote": "Official FPSC subjective examination paper with descriptive questions."
   },
   {
     "id": "css-ca-2023",
@@ -237,13 +254,14 @@ export const CSS_UPLOADED_PAST_PAPERS: AllPastPaperEntry[] = [
     "category": "Civil Service",
     "bps": "FPSC CSS",
     "conductedBy": "Federal Public Service Commission (FPSC)",
-    "syllabus": "General Knowledge Paper-II (Current Affairs), 2023.",
+    "syllabus": "General Knowledge Paper-II (Current Affairs), 2023. Subjective descriptive examination paper.",
     "hasPdfDownload": true,
     "yearLabel": "2023",
     "sampleQuestionsCount": 0,
     "examTag": "CSS",
+    "isSubjectivePaper": true,
     "pdfPath": "/past-papers/css/current-affairs-2023.pdf",
-    "sourceNote": "The supplied file is partial or contains written questions only. MCQ pages and an official answer key were not included."
+    "sourceNote": "Official FPSC subjective examination paper with descriptive questions."
   },
   {
     "id": "css-ca-2024",
@@ -253,13 +271,14 @@ export const CSS_UPLOADED_PAST_PAPERS: AllPastPaperEntry[] = [
     "category": "Civil Service",
     "bps": "FPSC CSS",
     "conductedBy": "Federal Public Service Commission (FPSC)",
-    "syllabus": "General Knowledge Paper-II (Current Affairs), 2024.",
+    "syllabus": "General Knowledge Paper-II (Current Affairs), 2024. Subjective descriptive examination paper.",
     "hasPdfDownload": true,
     "yearLabel": "2024",
     "sampleQuestionsCount": 0,
     "examTag": "CSS",
+    "isSubjectivePaper": true,
     "pdfPath": "/past-papers/css/current-affairs-2024.pdf",
-    "sourceNote": "The supplied file includes the MCQ section and written questions. No official answer key is included."
+    "sourceNote": "Official FPSC subjective examination paper with descriptive questions."
   },
   {
     "id": "css-ca-2025",
@@ -269,18 +288,42 @@ export const CSS_UPLOADED_PAST_PAPERS: AllPastPaperEntry[] = [
     "category": "Civil Service",
     "bps": "FPSC CSS",
     "conductedBy": "Federal Public Service Commission (FPSC)",
-    "syllabus": "General Knowledge Paper-II (Current Affairs), 2025.",
+    "syllabus": "General Knowledge Paper-II (Current Affairs), 2025. Subjective descriptive examination paper.",
     "hasPdfDownload": true,
     "yearLabel": "2025",
     "sampleQuestionsCount": 0,
     "examTag": "CSS",
+    "isSubjectivePaper": true,
     "pdfPath": "/past-papers/css/current-affairs-2025.pdf",
-    "sourceNote": "The supplied file includes the MCQ section and written questions. No official answer key is included."
+    "sourceNote": "Official FPSC subjective examination paper with descriptive questions."
+  }
+];
+
+/**
+ * Single unified Master Directory Entry for CSS Current Affairs (2010–2025)
+ * All 16 individual annual papers are linked directly under this unified entry.
+ */
+export const CSS_UPLOADED_PAST_PAPERS: AllPastPaperEntry[] = [
+  {
+    "id": "css-ca-master-archive",
+    "number": 201,
+    "title": "CSS Current Affairs Past Papers (2010–2025 Complete Archive)",
+    "exam": "CSS",
+    "category": "Civil Service",
+    "bps": "FPSC CSS",
+    "conductedBy": "Federal Public Service Commission (FPSC)",
+    "syllabus": "General Knowledge Paper-II (Current Affairs), Complete 16-Year Series (2010–2025). Subjective descriptive examination papers (Part-I Objective + Part-II Descriptive 80 Marks) covering Pakistan foreign policy, global geopolitics, regional alliances (CPEC, SCO, BRICS), and global climate diplomacy.",
+    "hasPdfDownload": true,
+    "yearLabel": "2010–2025 (16 Years Complete)",
+    "sampleQuestionsCount": 0,
+    "examTag": "CSS",
+    "isSubjectivePaper": true,
+    "pdfPath": "/past-papers/css/current-affairs-2025.pdf",
+    "sourceNote": "Official FPSC Competitive Examination descriptive subjective question papers. All 16 consecutive years from 2010 to 2025 available with official PDF papers and written practice."
   }
 ];
 
 export const ALL_PAST_PAPERS_DIRECTORY: AllPastPaperEntry[] = [
-  ...CSS_UPLOADED_PAST_PAPERS,
   {
     "id": "official-paper-1",
     "number": 1,
@@ -3080,5 +3123,6 @@ export const ALL_PAST_PAPERS_DIRECTORY: AllPastPaperEntry[] = [
     "yearLabel": "2023–2025 Solved Reference",
     "sampleQuestionsCount": 100,
     "examTag": "Federal / Provincial"
-  }
+  },
+  ...CSS_CURRENT_AFFAIRS_ALL_YEARS
 ];

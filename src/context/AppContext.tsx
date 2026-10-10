@@ -38,6 +38,8 @@ interface AppContextType {
   setAuthModalOpen: (open: boolean) => void;
   domainModalOpen: boolean;
   setDomainModalOpen: (open: boolean) => void;
+  techModalOpen: boolean;
+  setTechModalOpen: (open: boolean) => void;
   contactModalOpen: boolean;
   setContactModalOpen: (open: boolean) => void;
   selectedCategorySlug: string | null;
@@ -155,6 +157,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [globalSearchQuery, setGlobalSearchQuery] = useState('');
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [domainModalOpen, setDomainModalOpen] = useState(false);
+  const [techModalOpen, setTechModalOpen] = useState(false);
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const [selectedCategorySlug, setSelectedCategorySlug] = useState<string | null>(null);
   const [selectedExamId, setSelectedExamId] = useState<string | null>(null);
@@ -577,6 +580,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setAuthModalOpen,
         domainModalOpen,
         setDomainModalOpen,
+        techModalOpen,
+        setTechModalOpen,
         contactModalOpen,
         setContactModalOpen,
         selectedCategorySlug,

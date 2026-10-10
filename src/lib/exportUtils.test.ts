@@ -16,8 +16,7 @@ import {
   exportPastPaperAttemptToExcel,
   exportSubjectivePracticeToPdf
 } from './exportUtils';
-import { MCQ, QuizAttempt, StudyLesson } from '../types';
-import { JobPosting } from '../data/jobsData';
+import { MCQ, QuizAttempt, StudyLesson, JobAlert } from '../types';
 import { AllPastPaperEntry } from '../data/allPastPapersDirectory';
 
 const SAMPLE_MCQS: MCQ[] = [
@@ -59,7 +58,7 @@ test('exportMcqsToExcel handles question array without throwing', () => {
 });
 
 test('exportJobsToExcel formats job rows properly', () => {
-  const sampleJobs: JobPosting[] = [
+  const sampleJobs: JobAlert[] = [
     {
       id: 'job-1',
       title: 'Junior Executive (Trainee)',
@@ -69,10 +68,10 @@ test('exportJobsToExcel formats job rows properly', () => {
       location: 'Karachi',
       eligibility: 'Intermediate or Bachelor degree',
       lastDate: '2026-09-30',
-      status: 'Open',
+      status: 'Active',
       advertisementNo: 'NADRA-KHI-2026/09',
       link: 'https://careers.nadra.gov.pk',
-    }
+    } as any
   ];
 
   assert.doesNotThrow(() => {
@@ -96,13 +95,13 @@ test('exportPastPapersDirectoryToExcel exports entries', () => {
       bps: 'BPS 05–15',
       year: 2023,
       yearLabel: '2023',
-      category: 'General Practice',
+      category: 'Clerical & Ministerial',
       totalMcqs: 100,
       isOfficial: true,
       conductedBy: 'Sukkur IBA STS',
       description: 'Official test paper',
       sourceDocName: 'STS-2023-Paper.pdf',
-    }
+    } as any
   ];
 
   assert.doesNotThrow(() => {
@@ -133,7 +132,7 @@ test('PDF exports instantiate jsPDF and handle data cleanly', () => {
       completionDate: '15 Sep 2026',
       totalMarks: 2,
       marksEarned: 2,
-    }
+    } as any
   };
 
   assert.doesNotThrow(() => {
@@ -149,7 +148,7 @@ test('PDF exports instantiate jsPDF and handle data cleanly', () => {
 });
 
 test('exportJobsToPdf and exportCandidateHistory exports handle data without throwing', () => {
-  const sampleJobs: JobPosting[] = [
+  const sampleJobs: JobAlert[] = [
     {
       id: 'job-1',
       title: 'Junior Executive (Trainee)',
@@ -159,10 +158,10 @@ test('exportJobsToPdf and exportCandidateHistory exports handle data without thr
       location: 'Karachi',
       eligibility: 'Intermediate or Bachelor degree',
       lastDate: '2026-09-30',
-      status: 'Open',
+      status: 'Active',
       advertisementNo: 'NADRA-KHI-2026/09',
       link: 'https://careers.nadra.gov.pk',
-    }
+    } as any
   ];
 
   const sampleAttempt: QuizAttempt = {

@@ -16,7 +16,7 @@ import { buildRobotsTxt, buildSitemapXml } from '../../scripts/generate-sitemap'
 
 const ALL_TABS: NavigationTab[] = [
   'home', 'mcqs', 'quiz', 'past-papers', 'past-papers-pdf', 'current-affairs', 'exams', 'jobs',
-  'resume', 'study-notes', 'rankings', 'learning-lab', 'ai-chat', 'interview', 'about',
+  'resume', 'study-notes', 'rankings', 'learning-lab', 'ai-chat', 'interview', 'study-planner', 'about',
   'bookmarks', 'mistakes', 'age-calculator',
 ];
 

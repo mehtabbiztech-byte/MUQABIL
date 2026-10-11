@@ -28,7 +28,8 @@ import {
   Check,
   FileCheck2,
   Mic,
-  Bot
+  Bot,
+  CalendarDays
 } from 'lucide-react';
 import { ThemeSwitcherWidget, THEME_OPTIONS } from './AttractiveBackground';
 import { LayoutButton } from './LayoutButton';
@@ -376,6 +377,14 @@ export const Navbar: React.FC = () => {
       badgeType: 'live',
       icon: <Mic className="w-4 h-4 shrink-0 text-rose-400" />,
       desc: 'Mock interview room, AI panel, personality assessment & answer feedback'
+    },
+    {
+      id: 'study-planner',
+      label: 'Study Planner',
+      badge: 'NEW',
+      badgeType: 'live',
+      icon: <CalendarDays className="w-4 h-4 shrink-0 text-emerald-500" />,
+      desc: 'Personal roadmap, syllabus mapping, daily targets & progress tracking'
     },
     { 
       id: 'ai-chat',

@@ -29,6 +29,7 @@ import {
   Clock, 
   Download,
   Mic,
+  CalendarDays,
   Info 
 } from 'lucide-react';
 import { LayoutButton } from './LayoutButton';
@@ -101,6 +102,8 @@ export const SidebarLayout: React.FC<SidebarLayoutProps> = ({ children }) => {
         return { label: 'ATS Government Resume Builder', subtitle: 'Clean, printable civil service & academic CV generator', icon: <FileCheck2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> };
       case 'interview':
         return { label: 'Interview Preparation Module', subtitle: 'Mock interview rooms, AI panel, personality assessment & answer feedback', icon: <Mic className="w-4 h-4 text-rose-500" /> };
+      case 'study-planner':
+        return { label: 'Prepare for the Future', subtitle: 'Smart study roadmap, syllabus map, revision targets & progress', icon: <CalendarDays className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> };
       case 'ai-chat':
         return { label: 'Gemini AI Exam Mentor', subtitle: 'Real-time multi-role question explanations & guidance', icon: <Bot className="w-4 h-4 text-purple-500" /> };
       case 'learning-lab':
@@ -121,6 +124,12 @@ export const SidebarLayout: React.FC<SidebarLayoutProps> = ({ children }) => {
   const currentTabInfo = getTabInfo(tab);
 
   const navSections: NavSection[] = [
+    {
+      title: 'Study Planning',
+      items: [
+        { id: 'study-planner', label: 'Prepare for the Future', subtitle: 'Smart roadmap, syllabus, daily targets & progress', icon: <CalendarDays className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />, badge: 'NEW', badgeColor: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/25' },
+      ],
+    },
     {
       title: 'Interview Preparation',
       items: [

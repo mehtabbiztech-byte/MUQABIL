@@ -22,6 +22,14 @@ npm ci
 npm run dev
 ```
 
+## Prepare for the Future — Smart Study Planner
+
+Open **Prepare for the Future** from the main navigation or the home-page hero to create a personalised study roadmap. Select an organization and position, map the available MUQABIL syllabus topics, then set your preparation mode, current level, exam date, daily study time, target score and weak areas. Position choices load dynamically; custom positions are supported.
+
+The planner builds phased daily targets, spaced revision and weekly mock-test reminders, and includes a syllabus checklist, local task tracking, mock-score log, readiness estimate, streaks and badges. STS positions link to the matching existing syllabus record where one is available. Other mappings use MUQABIL's existing subject bank and are study aids, not substitutes for the current official notice.
+
+Plans and progress are stored in the current browser. Optional Gemini personalisation is an explicit opt-in at plan generation; only the selected exam and syllabus details needed for that request are sent, and the local roadmap still works if AI is unavailable. The AI Mentor button opens Gemini chat with a contextual prompt prefilled; it is not sent until the learner chooses to send it. Readiness is a practice-progress indicator, not a predicted result or official score.
+
 ## Verification
 
 ```bash

@@ -228,7 +228,18 @@ Select a preset question below, switch roles above, or type your question in Eng
     ];
   });
 
-  const [inputPrompt, setInputPrompt] = useState('');
+  const [inputPrompt, setInputPrompt] = useState(() => {
+    try {
+      const plannerPrompt = sessionStorage.getItem('muqabil_study_mentor_prompt');
+      if (plannerPrompt) {
+        sessionStorage.removeItem('muqabil_study_mentor_prompt');
+        return plannerPrompt;
+      }
+    } catch {
+      // Ignore unavailable session storage.
+    }
+    return '';
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [speakingMessageId, setSpeakingMessageId] = useState<string | null>(null);

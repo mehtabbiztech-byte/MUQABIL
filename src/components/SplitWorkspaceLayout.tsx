@@ -33,7 +33,8 @@ import {
   BrainCircuit,
   FileCheck2,
   Award,
-  Mic
+  Mic,
+  CalendarDays
 } from 'lucide-react';
 import { POPULAR_CATEGORIES } from '../data/categoriesData';
 import { LayoutButton } from './LayoutButton';
@@ -80,6 +81,7 @@ export const SplitWorkspaceLayout: React.FC<SplitWorkspaceLayoutProps> = ({ chil
     { id: 'past-papers', label: 'Solved Past Papers (2010–25)', icon: <FileText className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />, badge: '16 Yrs CSS' },
     { id: 'current-affairs', label: 'Current Affairs 2026', icon: <Globe2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> },
     { id: 'interview', label: 'Interview Prep Module', icon: <Mic className="w-4 h-4 text-rose-500" />, badge: 'NEW' },
+    { id: 'study-planner', label: 'Prepare for the Future', icon: <CalendarDays className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />, badge: 'NEW' },
     { id: 'exams', label: 'Syllabi & Agencies', icon: <GraduationCap className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> },
     { id: 'jobs', label: 'Government Jobs (BPS 5–19)', icon: <Briefcase className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> },
     { id: 'study-notes', label: 'Study Notes & Subjective Lab', icon: <BookMarked className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />, badge: '210+ CRQs' },

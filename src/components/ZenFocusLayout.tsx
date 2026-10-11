@@ -22,6 +22,7 @@ import {
   BookMarked,
   Globe2,
   Mic,
+  CalendarDays,
   FileText as TechPdfIcon
 } from 'lucide-react';
 import { LayoutButton } from './LayoutButton';
@@ -81,6 +82,7 @@ export const ZenFocusLayout: React.FC<ZenFocusLayoutProps> = ({ children }) => {
       case 'current-affairs': return 'Current Affairs 2026';
       case 'learning-lab': return 'AI Learning Lab';
       case 'ai-chat': return 'Gemini AI Tutor';
+      case 'study-planner': return 'Smart Study Planner';
       default: return 'Study Session';
     }
   };
@@ -98,6 +100,7 @@ export const ZenFocusLayout: React.FC<ZenFocusLayoutProps> = ({ children }) => {
     { id: 'study-notes', label: 'Notes & CRQs', icon: <BookMarked className="w-3.5 h-3.5" /> },
     { id: 'current-affairs', label: 'Current Affairs', icon: <Globe2 className="w-3.5 h-3.5" /> },
     { id: 'interview', label: 'Interview Prep', icon: <Mic className="w-3.5 h-3.5" /> },
+    { id: 'study-planner', label: 'Study Planner', icon: <CalendarDays className="w-3.5 h-3.5" /> },
   ];
 
   return (

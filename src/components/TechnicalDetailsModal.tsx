@@ -132,7 +132,12 @@ export const TechnicalDetailsModal: React.FC<TechnicalDetailsModalProps> = ({ is
                   <span className="text-[11px] text-slate-500">2010 to 2025 Archive</span>
                 </div>
                 <div className="p-4 rounded-2xl bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800/60">
-                  <span className="text-[10px] font-black uppercase text-purple-600 dark:text-purple-400">UI Layout Shells</span>
+                  <span className="text-[10px] font-black uppercase text-purple-600 dark:text-purple-400">CRQ &amp; ERQ Bank</span>
+                  <div className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mt-1">210+ Qs</div>
+                  <span className="text-[11px] text-slate-500">105 CRQs &amp; 105 ERQs</span>
+                </div>
+                <div className="p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800/60 col-span-2 sm:col-span-1">
+                  <span className="text-[10px] font-black uppercase text-rose-600 dark:text-rose-400">UI Layout Shells</span>
                   <div className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mt-1">4 Modes</div>
                   <span className="text-[11px] text-slate-500">Standard, Sidebar, Split, Zen</span>
                 </div>

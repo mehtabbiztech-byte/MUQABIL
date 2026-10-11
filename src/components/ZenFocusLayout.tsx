@@ -95,7 +95,7 @@ export const ZenFocusLayout: React.FC<ZenFocusLayoutProps> = ({ children }) => {
     { id: 'mcqs', label: 'MCQs', icon: <BookOpen className="w-3.5 h-3.5" /> },
     { id: 'quiz', label: 'CBT Exam', icon: <Trophy className="w-3.5 h-3.5" /> },
     { id: 'past-papers', label: 'Papers', icon: <FileText className="w-3.5 h-3.5" /> },
-    { id: 'study-notes', label: 'Notes', icon: <BookMarked className="w-3.5 h-3.5" /> },
+    { id: 'study-notes', label: 'Notes & CRQs', icon: <BookMarked className="w-3.5 h-3.5" /> },
     { id: 'current-affairs', label: 'Current Affairs', icon: <Globe2 className="w-3.5 h-3.5" /> },
     { id: 'interview', label: 'Interview Prep', icon: <Mic className="w-3.5 h-3.5" /> },
   ];

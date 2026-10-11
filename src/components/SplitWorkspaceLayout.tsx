@@ -68,7 +68,7 @@ export const SplitWorkspaceLayout: React.FC<SplitWorkspaceLayoutProps> = ({ chil
 
   const quickRooms = [
     { id: 'sts', title: 'STS BPS 5–15 Room', badge: '40-20-40 Blueprint' },
-    { id: 'steda', title: 'STEDA Teaching License', badge: 'DCAR Aligned' },
+    { id: 'steda', title: 'STEDA Teaching License Hub', badge: '210+ CRQs & ERQs' },
     { id: 'fpsc', title: 'FPSC One-Paper FIA', badge: 'Negative Marking' },
     { id: 'spsc', title: 'SPSC CCE Combined Comp.', badge: 'Merit Pool' },
   ];
@@ -82,7 +82,7 @@ export const SplitWorkspaceLayout: React.FC<SplitWorkspaceLayoutProps> = ({ chil
     { id: 'interview', label: 'Interview Prep Module', icon: <Mic className="w-4 h-4 text-rose-500" />, badge: 'NEW' },
     { id: 'exams', label: 'Syllabi & Agencies', icon: <GraduationCap className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> },
     { id: 'jobs', label: 'Government Jobs (BPS 5–19)', icon: <Briefcase className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> },
-    { id: 'study-notes', label: 'High-Yield Notes', icon: <BookMarked className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> },
+    { id: 'study-notes', label: 'Study Notes & Subjective Lab', icon: <BookMarked className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />, badge: '210+ CRQs' },
     { id: 'resume', label: 'ATS Resume Builder', icon: <FileCheck2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> },
     { id: 'ai-chat', label: 'Gemini AI Mentor', icon: <Bot className="w-4 h-4 text-purple-500" /> },
     { id: 'rankings', label: 'Merit Leaderboard', icon: <Award className="w-4 h-4 text-amber-500" /> },
@@ -304,12 +304,15 @@ export const SplitWorkspaceLayout: React.FC<SplitWorkspaceLayoutProps> = ({ chil
                   onClick={() => {
                     setMobileDrawerOpen(false);
                     if (room.id === 'steda') {
+                      sessionStorage.setItem('matb_open_teaching_license', '1');
+                      setTab('study-notes');
+                    } else if (room.id === 'sts') {
                       launchSimulator({
                         simulatorId: 'sts',
-                        title: 'STS IBA Teaching License Test (STEDA)',
-                        category: 'STS IBA Teaching License Test',
-                        durationMinutes: 120,
-                        timeMinutes: 120,
+                        title: 'STS BPS 5–15 General Category Mock',
+                        category: 'Graduation (BPS 11–15)',
+                        durationMinutes: 100,
+                        timeMinutes: 100,
                         questionCount: 100,
                         negativeMarking: false,
                       });

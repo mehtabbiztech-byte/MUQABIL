@@ -6,6 +6,7 @@ import { StudyLesson } from '../types';
 import { useApp } from '../context/AppContext';
 import { useCmsContent } from '../context/CmsContentContext';
 import { StbbClassFiveScienceHub } from '../components/StbbClassFiveScienceHub';
+import { TeachingLicenseNotesHub } from '../components/TeachingLicenseNotesHub';
 import { exportStudyLessonToPdf, exportMcqsToExcel } from '../lib/exportUtils';
 
 const panel = 'rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 sm:p-7';
@@ -59,7 +60,11 @@ function LessonReader({ lesson, onBack }: { lesson: StudyLesson; onBack: () => v
 
 export const StudyNotesView: React.FC = () => {
   const { lessons: cmsLessons } = useCmsContent();
-  const [mode, setMode] = useState<'stbb' | 'kids' | 'advanced'>(() => {
+  const [mode, setMode] = useState<'stbb' | 'teaching-license' | 'kids' | 'advanced'>(() => {
+    if (sessionStorage.getItem('matb_open_teaching_license')) {
+      sessionStorage.removeItem('matb_open_teaching_license');
+      return 'teaching-license';
+    }
     if (sessionStorage.getItem('matb_open_stbb_science')) {
       sessionStorage.removeItem('matb_open_stbb_science');
       return 'stbb';
@@ -90,11 +95,11 @@ export const StudyNotesView: React.FC = () => {
         </div>
       ) : (
         <div className="space-y-6">
-          <header className="rounded-3xl p-8 bg-emerald-950 text-white">
+          <header className="rounded-3xl p-8 bg-emerald-950 text-white shadow-xl">
             <BookOpen className="text-emerald-300 mb-4" />
-            <p className="text-sm text-emerald-300 font-semibold">ONE LESSON AT A TIME</p>
-            <h1 className="text-3xl font-bold mt-2">Your study library</h1>
-            <p className="mt-3 text-emerald-100">Explore a subject. Understand a topic. Put it into practice.</p>
+            <p className="text-sm text-emerald-300 font-semibold uppercase tracking-wider">High-Yield Theory &amp; Subjective Master Hub</p>
+            <h1 className="text-3xl font-extrabold mt-2 font-display">Your Comprehensive Study Library</h1>
+            <p className="mt-3 text-emerald-100 max-w-3xl">Official Sindh Textbook Board notes, STEDA Teaching License complete 10-module curriculum with over 200 CRQs &amp; ERQs, and advanced competitive exams theory.</p>
           </header>
 
           {/* Mode Switcher Tabs */}
@@ -113,6 +118,23 @@ export const StudyNotesView: React.FC = () => {
               <span>STBB Class 5 Science (Sindh Board)</span>
               <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-400 text-slate-950 font-black">
                 Featured
+              </span>
+            </button>
+
+            <button
+              aria-pressed={mode === 'teaching-license'}
+              onClick={() => {
+                setMode('teaching-license');
+                setSubjectId('all');
+              }}
+              className={`flex items-center gap-2 rounded-xl border px-5 py-3 font-semibold transition cursor-pointer ${
+                mode === 'teaching-license' ? 'bg-gradient-to-r from-purple-700 to-indigo-800 text-white border-purple-700 shadow-md ring-2 ring-purple-500/30' : 'border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800'
+              }`}
+            >
+              <GraduationCap size={18} className="text-pink-300" />
+              <span>STEDA Teaching License (210+ CRQs &amp; ERQs)</span>
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-rose-500 text-white font-black animate-pulse">
+                New
               </span>
             </button>
 
@@ -149,6 +171,10 @@ export const StudyNotesView: React.FC = () => {
           {mode === 'stbb' ? (
             <div className="space-y-6 animate-in fade-in duration-150">
               <StbbClassFiveScienceHub />
+            </div>
+          ) : mode === 'teaching-license' ? (
+            <div className="space-y-6 animate-in fade-in duration-150">
+              <TeachingLicenseNotesHub />
             </div>
           ) : (
             <div className="space-y-6">

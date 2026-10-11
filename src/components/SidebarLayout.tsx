@@ -142,7 +142,7 @@ export const SidebarLayout: React.FC<SidebarLayoutProps> = ({ children }) => {
         { id: 'current-affairs', label: 'Current Affairs 2026', subtitle: 'Pakistan & global monthly review', icon: <Globe2 className="w-4 h-4" /> },
         { id: 'exams', label: 'Exams & Syllabi', subtitle: 'FPSC, PPSC, SPSC, STS schemes', icon: <GraduationCap className="w-4 h-4" /> },
         { id: 'jobs', label: 'Government Jobs', subtitle: 'Federal & provincial bulletins', icon: <Briefcase className="w-4 h-4" /> },
-        { id: 'study-notes', label: 'High-Yield Notes', subtitle: 'Theory, pedagogy & laws', icon: <BookMarked className="w-4 h-4" /> },
+        { id: 'study-notes', label: 'Notes & 210+ CRQs', subtitle: 'Theory, pedagogy & Subjective Bank', icon: <BookMarked className="w-4 h-4" />, badge: '210+ Qs', badgeColor: 'bg-purple-500/15 text-purple-700 dark:text-purple-300 border border-purple-400/30' },
         { id: 'age-calculator', label: 'Age Calculator', subtitle: 'Official 15-Year Rule limits', icon: <Clock className="w-4 h-4" /> },
         { id: 'resume', label: 'ATS Resume Builder', subtitle: 'Printable civil service CV', icon: <FileCheck2 className="w-4 h-4" /> },
       ]

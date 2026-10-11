@@ -390,6 +390,7 @@ export function generateTechnicalPdf(): string {
   y = drawSubSectionTitle(y, '4.1 Verified MCQs Bank & Testing Agency Mappings');
   const dataBanks: [string, string][] = [
     ['Total MCQs Bank', '1,200+ authenticated multi-choice questions with verified answer keys, detailed explanations, and syllabi codes'],
+    ['Subjective CRQ & ERQ Bank', '210+ curated items (105 CRQs [5 marks, 8 min] and 105 ERQs [10 marks, 20 min]) with step-by-step answer plans, exemplar answers, and marking rubrics aligned with STEDA & SPSC'],
     ['Subject Coverage', 'English Grammar/Vocab, Pakistan Affairs, Current Affairs, General Knowledge, Everyday Science, Math/IQ, Islamic Studies, Computer/IT, Sindhi, Urdu, Pedagogy'],
     ['Testing Agencies', 'Federal Public Service Commission (FPSC), Punjab (PPSC), Sindh (SPSC), Khyber Pakhtunkhwa (KPPSC), Balochistan (BPSC), Sukkur IBA STS, NTS, ETEA, ASF, FIA, Police']
   ];

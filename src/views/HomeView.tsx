@@ -36,7 +36,9 @@ import {
   ChevronRight,
   Briefcase,
   Target,
-  FileCheck2
+  FileCheck2,
+  Mic,
+  Brain
 } from 'lucide-react';
 import { POPULAR_CATEGORIES } from '../data/categoriesData';
 import { MCQS_DATA } from '../data/mcqsData';
@@ -83,7 +85,8 @@ export const HomeView: React.FC = () => {
     setSearchOpen,
     toggleBookmark,
     isBookmarked,
-    launchSimulator
+    launchSimulator,
+    openInterviewModule
   } = useApp();
   const { mcqs: liveMcqs } = useCmsContent();
   const availableMcqs = useMemo(() => [...liveMcqs, ...MCQS_DATA], [liveMcqs]);
@@ -539,6 +542,86 @@ export const HomeView: React.FC = () => {
           </div>
         </div>
 
+      </section>
+
+      {/* 1.5 INTERVIEW PREPARATION MODULE (mock panels, AI interviewer, feedback & personality) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="rounded-2xl border border-rose-200 dark:border-rose-900/60 bg-gradient-to-br from-rose-50 via-white to-amber-50 dark:from-slate-900 dark:via-slate-900 dark:to-rose-950/30 p-6 sm:p-8 shadow-sm">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div className="flex items-start gap-3">
+              <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-rose-600 text-white shadow-md">
+                <Mic className="h-5 w-5" />
+              </span>
+              <div>
+                <div className="inline-flex flex-wrap items-center gap-2">
+                  <span className="rounded-full bg-rose-600/10 px-2.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-rose-700 dark:text-rose-300">
+                    New
+                  </span>
+                  <h2 className="font-display text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
+                    Interview Preparation Module
+                  </h2>
+                </div>
+                <p className="mt-1.5 max-w-3xl text-xs sm:text-sm leading-6 text-slate-600 dark:text-slate-300">
+                  Most preparation stops at MCQs. This module rehearses the spoken stage for CSS, PMS, STS, NTS and PPSC candidates — practice panels, an AI panel seat, a personality self-assessment and criterion-by-criterion answer feedback.
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={() => openInterviewModule('overview')}
+              className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-rose-600 px-5 py-3 text-sm font-extrabold text-white shadow-md transition hover:bg-rose-500 cursor-pointer"
+            >
+              Open Interview Prep <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
+
+          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                id: 'mock' as const,
+                title: 'Mock interviews',
+                copy: 'Timed panel sessions with cross-questioning and a printable practice report.',
+                icon: <Users className="h-4 w-4" />
+              },
+              {
+                id: 'feedback' as const,
+                title: 'AI interviewer',
+                copy: 'A panel seat that asks the next question and probes what you actually said.',
+                icon: <Sparkles className="h-4 w-4" />
+              },
+              {
+                id: 'personality' as const,
+                title: 'Personality assessment',
+                copy: '24 statements and 8 scenarios across six behavioural dimensions.',
+                icon: <Brain className="h-4 w-4" />
+              },
+              {
+                id: 'bank' as const,
+                title: 'Answer feedback',
+                copy: 'Seven-criterion analysis with drills, weak spots and rewrite guidance.',
+                icon: <CheckCircle2 className="h-4 w-4" />
+              }
+            ].map((item) => (
+              <button
+                key={item.id}
+                onClick={() => openInterviewModule(item.id)}
+                className="group rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/70 p-4 text-left transition hover:border-rose-300 hover:shadow-md cursor-pointer"
+              >
+                <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-rose-600/10 text-rose-700 dark:text-rose-300">
+                  {item.icon}
+                </span>
+                <div className="mt-2.5 text-sm font-black text-slate-900 dark:text-white">{item.title}</div>
+                <p className="mt-1 text-[11px] leading-5 text-slate-500 dark:text-slate-400">{item.copy}</p>
+                <span className="mt-2 inline-flex items-center gap-1 text-[11px] font-extrabold text-rose-700 dark:text-rose-300 opacity-0 transition group-hover:opacity-100">
+                  Open <ChevronRight className="h-3 w-3" />
+                </span>
+              </button>
+            ))}
+          </div>
+
+          <p className="mt-4 text-[11px] leading-5 text-slate-500 dark:text-slate-400">
+            Practice guidance only — no official marks, no predicted interview score, and every exam dossier links the official portal so current weights and stages can always be verified.
+          </p>
+        </div>
       </section>
 
       {/* 2. COMPLETE EDUCATIONAL TIER SEPARATION (Matric vs Intermediate vs Graduation) */}

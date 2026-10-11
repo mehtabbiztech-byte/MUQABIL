@@ -3,6 +3,7 @@ import subjectiveFeedback from './api/subjective-feedback';
 import chatHandler from './api/chat';
 import wordMeaningHandler from './api/word-meaning';
 import resumeEnhanceHandler from './api/resume-enhance';
+import interviewCoachHandler from './api/interview-coach';
 import path from 'path';
 import fs from 'fs';
 import { createServer as createViteServer } from 'vite';
@@ -55,13 +56,29 @@ async function startServer() {
   app.post('/api/word-meaning', wordMeaningHandler);
   app.post('/api/resume-enhance', resumeEnhanceHandler);
   app.post('/api/subjective-feedback', subjectiveFeedback);
+  // Interview Preparation Module: GET returns the endpoint contract, POST asks
+  // the practice panel for a question or for criterion feedback on an answer.
+  app.get('/api/interview-coach', interviewCoachHandler);
+  app.post('/api/interview-coach', interviewCoachHandler);
 
   // Health check endpoint
   app.get('/api/health', (req, res) => {
     res.json({
       status: 'ok',
       app: 'MUQABIL Study Platform',
-      features: ['gemini-chatbot', 'multi-turn-chat', 'role-system-instructions', 'model-routing', 'multimodal-ocr', 'search-grounding', 'interactive-quiz'],
+      features: [
+        'gemini-chatbot',
+        'multi-turn-chat',
+        'role-system-instructions',
+        'model-routing',
+        'multimodal-ocr',
+        'search-grounding',
+        'interactive-quiz',
+        'mock-interviews',
+        'ai-interviewer',
+        'interview-answer-feedback',
+        'personality-assessment',
+      ],
     });
   });
 

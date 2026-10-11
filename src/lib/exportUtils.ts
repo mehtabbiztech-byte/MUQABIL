@@ -3,6 +3,7 @@ import { jsPDF } from 'jspdf';
 import { MCQ, QuizAttempt, StudyLesson, PastPaper, JobAlert } from '../types';
 import { AllPastPaperEntry } from '../data/allPastPapersDirectory';
 import { TeachingLicenseSubjectiveQuestion } from '../data/teachingLicenseSubjectiveData';
+import type { PersonalityResult } from './interviewPrep';
 
 export interface McqPdfExportOptions {
   title?: string;
@@ -1654,3 +1655,403 @@ export function exportSubjectivePracticeToPdf(
   doc.save(`MUQABIL_${question.type}_${question.id}.pdf`);
 }
 
+
+/* ------------------------- INTERVIEW PREPARATION MODULE ------------------------- */
+
+export interface InterviewSessionPdfEntry {
+  question: string;
+  categoryName: string;
+  panelSeat: string;
+  answer: string;
+  overallScore: number;
+  band: string;
+  followUp?: string;
+  followUpResponse?: string;
+  aiSummary?: string;
+  missingPoints?: string[];
+  flags?: string[];
+}
+
+export interface InterviewSessionPdfOptions {
+  candidateName: string;
+  trackName: string;
+  commission: string;
+  modeLabel: string;
+  completedAt: string;
+  averageScore: number;
+  band: string;
+  criteriaAverages: { label: string; score: number; weight: number }[];
+  entries: InterviewSessionPdfEntry[];
+  nextActions: string[];
+  notice: string;
+}
+
+/**
+ * Practice interview transcript + criterion report.
+ * The footer notice is printed on every page: these are practice scores from a
+ * transparent rubric, never marks from a commission or a real panel.
+ */
+export function exportInterviewSessionToPdf(options: InterviewSessionPdfOptions): void {
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+  const margin = 14;
+  const contentWidth = pageWidth - margin * 2;
+  let y = margin;
+
+  const footer = (): void => {
+    doc.setDrawColor(203, 213, 225);
+    doc.line(margin, pageHeight - 12, pageWidth - margin, pageHeight - 12);
+    doc.setTextColor(120, 113, 108);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7);
+    doc.text('MUQABIL Practice Interview Report - muqabil.pk - practice guidance, not an official record', margin, pageHeight - 7.5);
+    doc.setTextColor(148, 163, 184);
+    doc.text(`Page ${doc.getNumberOfPages()}`, pageWidth - margin, pageHeight - 7.5, { align: 'right' });
+  };
+
+  doc.setFillColor(190, 24, 93);
+  doc.rect(margin, y, contentWidth, 20, 'F');
+  doc.setTextColor(255, 255, 255);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(13);
+  doc.text('MUQABIL - MOCK INTERVIEW PRACTICE REPORT', margin + 4, y + 8);
+  doc.setFontSize(8.5);
+  doc.setFont('helvetica', 'normal');
+  doc.text(`${sanitizeForPdf(options.trackName)} - ${sanitizeForPdf(options.commission)}`, margin + 4, y + 14);
+  doc.text(`Candidate: ${sanitizeForPdf(options.candidateName)}`, pageWidth - margin - 4, y + 8, { align: 'right' });
+  doc.text(`Completed: ${sanitizeForPdf(options.completedAt)}`, pageWidth - margin - 4, y + 14, { align: 'right' });
+  y += 26;
+
+  doc.setFillColor(253, 242, 248);
+  doc.setDrawColor(251, 207, 232);
+  doc.roundedRect(margin, y, contentWidth, 18, 2, 2, 'FD');
+  doc.setTextColor(15, 23, 42);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(10);
+  doc.text(`Practice score: ${options.averageScore}/100  -  ${sanitizeForPdf(options.band)}`, margin + 4, y + 7);
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(8);
+  doc.setTextColor(71, 85, 105);
+  doc.text(`Format: ${sanitizeForPdf(options.modeLabel)} | Panel format, rotating seats and cross-questioning`, margin + 4, y + 13);
+  y += 24;
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(9);
+  doc.setTextColor(190, 24, 93);
+  doc.text('CRITERION AVERAGES (practice rubric)', margin, y);
+  y += 5;
+  options.criteriaAverages.forEach((criterion) => {
+    if (y > pageHeight - 25) {
+      footer();
+      doc.addPage();
+      y = margin;
+    }
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(51, 65, 85);
+    doc.text(`${sanitizeForPdf(criterion.label)} (${criterion.weight}% weight)`, margin + 2, y);
+    doc.setFont('helvetica', 'bold');
+    doc.text(`${criterion.score}/100`, pageWidth - margin - 2, y, { align: 'right' });
+    y += 4.5;
+  });
+  y += 4;
+
+  options.entries.forEach((entry, index) => {
+    if (y > pageHeight - 45) {
+      footer();
+      doc.addPage();
+      y = margin;
+    }
+    doc.setFillColor(248, 250, 252);
+    doc.setDrawColor(226, 232, 240);
+    doc.roundedRect(margin, y, contentWidth, 7, 1.5, 1.5, 'FD');
+    doc.setTextColor(15, 23, 42);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(8.5);
+    doc.text(`Q${index + 1} - ${sanitizeForPdf(entry.categoryName)} - ${sanitizeForPdf(entry.panelSeat)}`, margin + 3, y + 4.8);
+    doc.text(`${entry.overallScore}/100 ${sanitizeForPdf(entry.band)}`, pageWidth - margin - 3, y + 4.8, { align: 'right' });
+    y += 11;
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(8);
+    doc.setTextColor(190, 24, 93);
+    const questionLines = doc.splitTextToSize(sanitizeForPdf(entry.question), contentWidth - 4);
+    questionLines.forEach((line: string) => {
+      if (y > pageHeight - 20) { footer(); doc.addPage(); y = margin; }
+      doc.text(line, margin + 2, y);
+      y += 4.2;
+    });
+    y += 1;
+
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(30, 41, 59);
+    const answerLines = doc.splitTextToSize(sanitizeForPdf(entry.answer) || '(no answer recorded)', contentWidth - 4);
+    answerLines.forEach((line: string) => {
+      if (y > pageHeight - 20) { footer(); doc.addPage(); y = margin; }
+      doc.text(line, margin + 2, y);
+      y += 4.2;
+    });
+    y += 1.5;
+
+    if (entry.followUp) {
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(7.5);
+      doc.setTextColor(51, 65, 85);
+      doc.text('Cross-question:', margin + 2, y);
+      y += 4;
+      doc.setFont('helvetica', 'normal');
+      const followLines = doc.splitTextToSize(
+        `${sanitizeForPdf(entry.followUp)} ${entry.followUpResponse ? `-> ${sanitizeForPdf(entry.followUpResponse)}` : '(not attempted)'}`,
+        contentWidth - 4
+      );
+      followLines.forEach((line: string) => {
+        if (y > pageHeight - 20) { footer(); doc.addPage(); y = margin; }
+        doc.text(line, margin + 2, y);
+        y += 4.2;
+      });
+      y += 1;
+    }
+
+    if (entry.aiSummary) {
+      doc.setFont('helvetica', 'italic');
+      doc.setFontSize(7.5);
+      doc.setTextColor(71, 85, 105);
+      const noteLines = doc.splitTextToSize(`Panel impression (AI coach): ${sanitizeForPdf(entry.aiSummary)}`, contentWidth - 4);
+      noteLines.forEach((line: string) => {
+        if (y > pageHeight - 20) { footer(); doc.addPage(); y = margin; }
+        doc.text(line, margin + 2, y);
+        y += 4;
+      });
+      y += 1;
+    }
+
+    if (entry.missingPoints && entry.missingPoints.length) {
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7.5);
+      doc.setTextColor(146, 64, 14);
+      entry.missingPoints.slice(0, 4).forEach((point) => {
+        const lines = doc.splitTextToSize(`Missing: ${sanitizeForPdf(point)}`, contentWidth - 6);
+        lines.forEach((line: string) => {
+          if (y > pageHeight - 20) { footer(); doc.addPage(); y = margin; }
+          doc.text(line, margin + 4, y);
+          y += 4;
+        });
+      });
+      y += 1;
+    }
+
+    if (entry.flags && entry.flags.length) {
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7);
+      doc.setTextColor(120, 113, 108);
+      doc.text(`Structural flags: ${sanitizeForPdf(entry.flags.slice(0, 3).join('; '))}`, margin + 2, y);
+      y += 5;
+    }
+    y += 2;
+  });
+
+  if (options.nextActions.length) {
+    if (y > pageHeight - 35) { footer(); doc.addPage(); y = margin; }
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
+    doc.setTextColor(4, 120, 87);
+    doc.text('NEXT PRACTICE ACTIONS', margin, y);
+    y += 5;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(51, 65, 85);
+    options.nextActions.slice(0, 6).forEach((action) => {
+      const lines = doc.splitTextToSize(`- ${sanitizeForPdf(action)}`, contentWidth - 4);
+      lines.forEach((line: string) => {
+        if (y > pageHeight - 20) { footer(); doc.addPage(); y = margin; }
+        doc.text(line, margin + 2, y);
+        y += 4.2;
+      });
+    });
+    y += 3;
+  }
+
+  if (y > pageHeight - 30) { footer(); doc.addPage(); y = margin; }
+  doc.setFillColor(254, 249, 195);
+  doc.setDrawColor(253, 224, 71);
+  const noticeLines = doc.splitTextToSize(sanitizeForPdf(options.notice), contentWidth - 6);
+  doc.roundedRect(margin, y, contentWidth, 6 + noticeLines.length * 3.6, 2, 2, 'FD');
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(7);
+  doc.setTextColor(113, 63, 18);
+  doc.text('IMPORTANT', margin + 3, y + 4.2);
+  doc.setFont('helvetica', 'normal');
+  doc.text(noticeLines, margin + 3, y + 8);
+  y += 8 + noticeLines.length * 3.6;
+
+  footer();
+  const safeName = sanitizeForPdf(options.candidateName).replace(/[^A-Za-z0-9]+/g, '_') || 'Candidate';
+  doc.save(`MUQABIL_Interview_Report_${safeName}.pdf`);
+}
+
+/** Personality self-assessment profile (practice reflection, not a clinical instrument). */
+export function exportPersonalityProfileToPdf(result: PersonalityResult, candidateName: string): void {
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+  const margin = 14;
+  const contentWidth = pageWidth - margin * 2;
+  let y = margin;
+
+  doc.setFillColor(109, 40, 217);
+  doc.rect(margin, y, contentWidth, 20, 'F');
+  doc.setTextColor(255, 255, 255);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(13);
+  doc.text('MUQABIL - INTERVIEW PERSONALITY SELF-ASSESSMENT', margin + 4, y + 8);
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(8.5);
+  doc.text(`Candidate: ${sanitizeForPdf(candidateName)}`, margin + 4, y + 14);
+  doc.text(
+    `Completed: ${new Date(result.completedAt).toLocaleString('en-GB')}`,
+    pageWidth - margin - 4,
+    y + 14,
+    { align: 'right' }
+  );
+  y += 26;
+
+  doc.setFillColor(245, 243, 255);
+  doc.setDrawColor(221, 214, 254);
+  doc.roundedRect(margin, y, contentWidth, 16, 2, 2, 'FD');
+  doc.setTextColor(15, 23, 42);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(10);
+  doc.text(`Overall suitability index: ${result.overallIndex}/100 - ${sanitizeForPdf(result.band)}`, margin + 4, y + 7);
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(8);
+  doc.setTextColor(71, 85, 105);
+  doc.text(
+    result.situationalAlignment === null
+      ? 'Situational judgement section was not completed in this sitting.'
+      : `Situational judgement alignment with the recommended practice options: ${result.situationalAlignment}%`,
+    margin + 4,
+    y + 12.5
+  );
+  y += 22;
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(9);
+  doc.setTextColor(109, 40, 217);
+  doc.text('DIMENSION PROFILE', margin, y);
+  y += 5;
+  result.dimensions.forEach((dimension) => {
+    if (y > pageHeight - 30) { doc.addPage(); y = margin; }
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(8.5);
+    doc.setTextColor(30, 41, 59);
+    doc.text(`${sanitizeForPdf(dimension.name)} - ${dimension.index}/100 (${sanitizeForPdf(dimension.band)})`, margin + 2, y);
+    y += 4.2;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7.5);
+    doc.setTextColor(71, 85, 105);
+    const summaryLines = doc.splitTextToSize(sanitizeForPdf(dimension.summary), contentWidth - 6);
+    summaryLines.forEach((line: string) => {
+      if (y > pageHeight - 20) { doc.addPage(); y = margin; }
+      doc.text(line, margin + 4, y);
+      y += 3.8;
+    });
+    const actionLines = doc.splitTextToSize(`Next step: ${sanitizeForPdf(dimension.action)}`, contentWidth - 6);
+    actionLines.forEach((line: string) => {
+      if (y > pageHeight - 20) { doc.addPage(); y = margin; }
+      doc.text(line, margin + 4, y);
+      y += 3.8;
+    });
+    y += 2.5;
+  });
+
+  if (result.strengths.length) {
+    if (y > pageHeight - 30) { doc.addPage(); y = margin; }
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
+    doc.setTextColor(4, 120, 87);
+    doc.text('STRENGTHS THE PANEL IS LIKELY TO NOTICE', margin, y);
+    y += 5;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(51, 65, 85);
+    result.strengths.forEach((item) => {
+      const lines = doc.splitTextToSize(`- ${sanitizeForPdf(item)}`, contentWidth - 4);
+      lines.forEach((line: string) => {
+        if (y > pageHeight - 20) { doc.addPage(); y = margin; }
+        doc.text(line, margin + 2, y);
+        y += 4.2;
+      });
+    });
+    y += 3;
+  }
+
+  if (result.practicePlan.length) {
+    if (y > pageHeight - 30) { doc.addPage(); y = margin; }
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
+    doc.setTextColor(146, 64, 14);
+    doc.text('PRACTICE PLAN', margin, y);
+    y += 5;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(51, 65, 85);
+    result.practicePlan.forEach((item, index) => {
+      const lines = doc.splitTextToSize(`${index + 1}. ${sanitizeForPdf(item)}`, contentWidth - 4);
+      lines.forEach((line: string) => {
+        if (y > pageHeight - 20) { doc.addPage(); y = margin; }
+        doc.text(line, margin + 2, y);
+        y += 4.2;
+      });
+    });
+    y += 3;
+  }
+
+  if (result.situationalReview.length) {
+    if (y > pageHeight - 35) { doc.addPage(); y = margin; }
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
+    doc.setTextColor(30, 58, 138);
+    doc.text('SITUATIONAL JUDGEMENT REVIEW', margin, y);
+    y += 5;
+    result.situationalReview.forEach((review) => {
+      if (y > pageHeight - 25) { doc.addPage(); y = margin; }
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(7.5);
+      doc.setTextColor(30, 41, 59);
+      const scenarioLines = doc.splitTextToSize(sanitizeForPdf(review.scenario), contentWidth - 4);
+      scenarioLines.forEach((line: string) => {
+        if (y > pageHeight - 20) { doc.addPage(); y = margin; }
+        doc.text(line, margin + 2, y);
+        y += 3.8;
+      });
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(71, 85, 105);
+      const detailLines = doc.splitTextToSize(
+        `Your choice (${review.chosenScore}/4): ${sanitizeForPdf(review.chosenOption)} | Recommended: ${sanitizeForPdf(review.bestOption)}. ${sanitizeForPdf(review.rationale)}`,
+        contentWidth - 6
+      );
+      detailLines.forEach((line: string) => {
+        if (y > pageHeight - 20) { doc.addPage(); y = margin; }
+        doc.text(line, margin + 4, y);
+        y += 3.8;
+      });
+      y += 2.5;
+    });
+  }
+
+  if (y > pageHeight - 24) { doc.addPage(); y = margin; }
+  doc.setDrawColor(203, 213, 225);
+  doc.line(margin, y + 2, pageWidth - margin, y + 2);
+  doc.setFont('helvetica', 'italic');
+  doc.setFontSize(7);
+  doc.setTextColor(100, 116, 139);
+  const disclaimer = doc.splitTextToSize(
+    'This is a self-reflection aid built for interview practice, not a validated psychometric test, a clinical assessment or an official personality report. No commission sees or uses it. Treat every index as a conversation starter for your own preparation.',
+    contentWidth
+  );
+  doc.text(disclaimer, margin, y + 6);
+
+  const safeName = sanitizeForPdf(candidateName).replace(/[^A-Za-z0-9]+/g, '_') || 'Candidate';
+  doc.save(`MUQABIL_Personality_Profile_${safeName}.pdf`);
+}

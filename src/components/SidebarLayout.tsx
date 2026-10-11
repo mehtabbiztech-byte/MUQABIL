@@ -28,6 +28,7 @@ import {
   Sparkles, 
   Clock, 
   Download,
+  Mic,
   Info 
 } from 'lucide-react';
 import { LayoutButton } from './LayoutButton';
@@ -98,6 +99,8 @@ export const SidebarLayout: React.FC<SidebarLayoutProps> = ({ children }) => {
         return { label: 'High-Yield Study Notes Hub', subtitle: 'Core theory, pedagogy, STEDA and constitutional notes', icon: <BookMarked className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> };
       case 'resume':
         return { label: 'ATS Government Resume Builder', subtitle: 'Clean, printable civil service & academic CV generator', icon: <FileCheck2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> };
+      case 'interview':
+        return { label: 'Interview Preparation Module', subtitle: 'Mock interview rooms, AI panel, personality assessment & answer feedback', icon: <Mic className="w-4 h-4 text-rose-500" /> };
       case 'ai-chat':
         return { label: 'Gemini AI Exam Mentor', subtitle: 'Real-time multi-role question explanations & guidance', icon: <Bot className="w-4 h-4 text-purple-500" /> };
       case 'learning-lab':
@@ -118,6 +121,12 @@ export const SidebarLayout: React.FC<SidebarLayoutProps> = ({ children }) => {
   const currentTabInfo = getTabInfo(tab);
 
   const navSections: NavSection[] = [
+    {
+      title: 'Interview Preparation',
+      items: [
+        { id: 'interview', label: 'Interview Prep Module', subtitle: 'Mock panels, AI interviewer, feedback & personality', icon: <Mic className="w-4 h-4 text-rose-500" />, badge: 'NEW', badgeColor: 'bg-rose-500/20 text-rose-700 dark:text-rose-300 border border-rose-400/30' },
+      ],
+    },
     {
       title: 'Core Practice',
       items: [

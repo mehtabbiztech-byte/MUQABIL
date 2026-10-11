@@ -27,6 +27,7 @@ import {
   ChevronRight,
   Check,
   FileCheck2,
+  Mic,
   Bot
 } from 'lucide-react';
 import { ThemeSwitcherWidget, THEME_OPTIONS } from './AttractiveBackground';
@@ -367,6 +368,14 @@ export const Navbar: React.FC = () => {
       badgeType: 'live',
       icon: <BrainCircuit className="w-4 h-4 shrink-0" />,
       desc: 'Adaptive SRS, tutor, cognitive insights, battles & study circles'
+    },
+    { 
+      id: 'interview',
+      label: 'Interview Prep',
+      badge: 'NEW',
+      badgeType: 'live',
+      icon: <Mic className="w-4 h-4 shrink-0 text-rose-400" />,
+      desc: 'Mock interview room, AI panel, personality assessment & answer feedback'
     },
     { 
       id: 'ai-chat',

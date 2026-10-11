@@ -11,6 +11,7 @@ MUQABIL is a premier React 19, TypeScript, Vite, Tailwind CSS and Google Gemini-
 - Past-paper entries are labelled as an official record, official sample or reconstructed/tagged practice selection.
 - Certificates are personal practice-completion records. MEQSA does not assign national ranks or nationally calculated percentiles.
 - Official agency links are provided where available, but MEQSA is independent and is not endorsed by an examination authority.
+- Interview preparation content is practice material: mock panels, AI coaching and the personality self-assessment produce practice guidance, never official marks, eligibility predictions or psychometric certification. Every exam dossier carries a verification note and links the official portal.
 
 ## Local development
 
@@ -76,6 +77,42 @@ server and Vercel at `/api/subjective-feedback`. Without the key, model answers
 and rubrics remain available for self-review. Answers are sent to the AI provider
 only when feedback is requested; AI feedback itself is not persisted.
 
+
+## Interview Preparation Module
+
+Open **Interview Prep** in the main navigation (Home also links straight into it).
+The module covers the spoken stage that MCQ practice cannot reach:
+
+- **Mock interview room** - choose an exam format (CSS/FPSC, PMS, PPSC posts, SPSC
+  CCE, STS BPS-05 to 15, NTS-tested recruitment or a departmental panel), a panel
+  format and a question count. The panel rotates through named seats (chairperson,
+  current-affairs member, subject specialist, psychologist, communication
+  evaluator), each answer is timed, and cross-questioning follows every answer.
+  A session ends with a practice report and a printable PDF transcript.
+- **AI interviewer** - when `GEMINI_API_KEY` is set, the panel seat asks the next
+  question and cross-questions what the candidate actually wrote. Without a key
+  the module falls back to the curated question bank and the local analyser, so
+  nothing is blocked.
+- **Answer feedback** - every answer is scored against seven transparent practice
+  criteria (directness, structure, substance, relevance, clarity, composure,
+  concision) by a local structural analyser, with optional AI criterion comments,
+  quoted evidence, missing points and a rewritten opening.
+- **Personality assessment** - 24 statements and 8 situational scenarios across
+  six behavioural dimensions, producing a practice profile with panel questions
+  to rehearse and a two-week review checkpoint. Results stay in the browser.
+
+Question bank: 98 curated prompts across ten areas, each with the expected
+cross-questions, an answer skeleton, what the panel listens for and the two
+mistakes that damage good answers. Interview weights, panel composition and
+qualifying rules change by cycle and by post, so every exam dossier carries a
+`sourceNote`, a last-reviewed date and a link to the official portal (FPSC, PPSC,
+SPSC, Sukkur IBA STS, NTS) rather than an unverifiable figure.
+
+The server endpoint is `/api/interview-coach` (POST, plus GET for metadata) in
+both the Express server and Vercel. It is rate-limited per client IP, treats
+candidate answers as untrusted text, validates every model response before it
+reaches the browser, and never produces official marks or a predicted interview
+score. Practice reports are personal study records, not commission documents.
 
 ## Install MUQABIL as an app
 

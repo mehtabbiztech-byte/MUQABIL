@@ -29,6 +29,7 @@ export type NavigationTab =
   | 'learning-lab'
   | 'ai-chat'
   | 'interview'
+  | 'study-planner'
   | 'about'
   | 'bookmarks'
   | 'mistakes'

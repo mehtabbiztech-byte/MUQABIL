@@ -38,7 +38,8 @@ import {
   Target,
   FileCheck2,
   Mic,
-  Brain
+  Brain,
+  CalendarDays
 } from 'lucide-react';
 import { POPULAR_CATEGORIES } from '../data/categoriesData';
 import { MCQS_DATA } from '../data/mcqsData';
@@ -179,6 +180,18 @@ export const HomeView: React.FC = () => {
               >
                 <Trophy className="w-5 h-5 text-amber-400" />
                 <span>⚡ STS & FPSC Simulator</span>
+              </button>
+
+              <button
+                id="hero-smart-study-planner-btn"
+                onClick={() => {
+                  setTab('study-planner');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className="px-6 py-3.5 rounded-xl bg-emerald-400/15 hover:bg-emerald-400/25 backdrop-blur-xl text-white font-bold text-sm sm:text-base border border-emerald-200/40 hover:border-emerald-200/70 shadow-lg transition transform hover:-translate-y-0.5 cursor-pointer flex items-center gap-2"
+              >
+                <CalendarDays className="w-5 h-5 text-emerald-200" />
+                <span>Build a Smart Study Plan</span>
               </button>
             </div>
 

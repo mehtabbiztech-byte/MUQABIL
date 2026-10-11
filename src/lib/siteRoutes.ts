@@ -28,6 +28,7 @@ export const TAB_PATHS: Record<NavigationTab, string> = {
   'learning-lab': '/learning-lab',
   'ai-chat': '/ai-chat',
   interview: '/interview',
+  'study-planner': '/study-planner',
   about: '/about',
   bookmarks: '/bookmarks',
   mistakes: '/mistakes',
@@ -116,6 +117,12 @@ export const SITE_SECTIONS: SiteSection[] = [
     path: TAB_PATHS.interview,
     title: 'Interview Preparation — MUQABIL',
     description: 'Mock interview room, AI interview panel, personality self-assessment and answer feedback. Practice guidance only.',
+  },
+  {
+    tab: 'study-planner',
+    path: TAB_PATHS['study-planner'],
+    title: 'Smart Study Planner — MUQABIL',
+    description: 'Build a personalised Pakistan exam study roadmap with mapped MUQABIL syllabus topics, daily targets, revisions, mock tests and progress tracking.',
   },
   {
     tab: 'ai-chat',

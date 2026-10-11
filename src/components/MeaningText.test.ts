@@ -3,6 +3,7 @@ import test from 'node:test';
 import { getBuiltInMeaning } from '../data/builtInDictionary';
 
 test('offline dictionary contains key exam words and ignores non-dictionary entries', () => {
+  assert.equal(getBuiltInMeaning('officer')?.simpleEnglish.includes('person with authority'), true);
   assert.equal(getBuiltInMeaning('maximum')?.simpleEnglish.includes('greatest'), true);
   assert.equal(getBuiltInMeaning('minimum')?.simpleEnglish.includes('least'), true);
   assert.equal(getBuiltInMeaning('example')?.word, 'example');

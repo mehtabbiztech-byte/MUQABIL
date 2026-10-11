@@ -1,0 +1,7 @@
+# MUQABIL robots policy
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+Sitemap: https://muqabil.org/sitemap.xml

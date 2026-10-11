@@ -21,14 +21,18 @@ const entry = (
 export const BUILT_IN_DICTIONARY: Record<string, DictionaryEntry> = {
   ability: entry('noun', 'The skill or power to do something.', 'صلاحیت', 'صلاحيت', 'Practice improves your ability.'),
   accurate: entry('adjective', 'Correct and free from mistakes.', 'درست، صحیح', 'درست، صحيح', 'The report gives accurate information.'),
+  analyse: entry('verb', 'To study something in detail and find its parts or meaning.', 'تجزیہ کرنا', 'تجزيه ڪرڻ', 'Analyse the question before choosing an answer.'),
   answer: entry('noun', 'A response to a question.', 'جواب', 'جواب', 'Choose the correct answer.'),
+  approach: entry('noun / verb', 'A way of doing something or dealing with a problem.', 'طریقہ، متقدم ہونا', 'طريقو، هجو', 'A good approach saves time.'),
+  argument: entry('noun', 'A reason or set of reasons given to support an idea.', 'دلیل، استدلال', 'دليل، استدلال', 'Support your argument with evidence.'),
+  assess: entry('verb', 'To judge the value, quality, or importance of something.', 'تشخیص کرنا', 'تشخيص ڪرڻ', 'Assess each option carefully.'),
   attempt: entry('noun / verb', 'An effort to do or complete something.', 'کوشش', 'ڪوشش', 'Make an attempt to solve every question.'),
   benefit: entry('noun', 'A helpful result or advantage.', 'فائدہ', 'فايده', 'Exercise has many health benefits.'),
   calculate: entry('verb', 'To find an answer by using numbers.', 'حساب کرنا', 'حساب ڪرڻ', 'Calculate the total marks.'),
   careful: entry('adjective', 'Taking steps to avoid mistakes or harm.', 'محتاط', 'محتاط', 'Be careful when reading the options.'),
   challenge: entry('noun', 'Something difficult that requires effort to overcome.', 'چیلنج، مشکل', 'چيلنج، مشكل', 'This challenge needs patience and practice.'),
   compare: entry('verb', 'To examine things to find similarities or differences.', 'موازنہ کرنا', 'ڀيٽ ڪرڻ', 'Compare both answers.'),
-  complete: entry('verb / adjective', 'To finish something, or having every necessary part.', 'مکمل کرنا، مکمل', 'مڪمل ڪرڻ، مڪمل', 'Complete the test on time.'),
+  complete: entry('verb / adjective', 'To finish something, or having every necessary part.', 'مکمل کرنا، مکمل', 'مڪمل ڪرڻ، مکمل', 'Complete the test on time.'),
   conclusion: entry('noun', 'The final decision or idea reached after thinking or studying.', 'نتیجہ، خلاصہ', 'نتيجو، خلاصو', 'The conclusion was supported by evidence.'),
   correct: entry('adjective', 'Right and without error.', 'درست', 'درست', 'Select the correct option.'),
   define: entry('verb', 'To explain the exact meaning of something.', 'تعریف بیان کرنا', 'وصف بيان ڪرڻ', 'Define the term in simple words.'),
@@ -90,6 +94,3 @@ export function getBuiltInMeaning(word: string): DictionaryMeaning | null {
   const value = BUILT_IN_DICTIONARY[key];
   return value ? { word, ...value } : null;
 }
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-

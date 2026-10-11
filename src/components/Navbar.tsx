@@ -676,6 +676,21 @@ export const Navbar: React.FC = () => {
               </div>
 
               <button onClick={openKids} aria-label="Open Kids learning, art and games" className="shrink-0 inline-flex items-center gap-1 rounded-full border border-sky-200 bg-sky-100 px-2 sm:px-3 py-2 text-xs font-extrabold text-sky-900 hover:bg-sky-200"><span aria-hidden="true">🫧</span><span className="hidden sm:inline">Kids</span></button>
+
+              {/* Trilingual Dictionary & Word Meaning Shortcut */}
+              <button
+                onClick={() => {
+                  window.dispatchEvent(new CustomEvent('meqsa:word-meaning', {
+                    detail: { word: 'pedagogy' }
+                  }));
+                }}
+                aria-label="Open Trilingual Dictionary"
+                title="Trilingual Dictionary (English, Urdu & Sindhi) — Double-click any word or type to search"
+                className="shrink-0 inline-flex items-center gap-1 rounded-full border border-emerald-300 dark:border-emerald-700/80 bg-emerald-50 dark:bg-emerald-950/70 px-2 sm:px-2.5 py-1.5 sm:py-2 text-xs font-bold text-emerald-800 dark:text-emerald-200 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition shadow-2xs"
+              >
+                <BookOpen className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                <span className="hidden xl:inline">Dictionary</span>
+              </button>
               
               {/* Search Icon Trigger on mobile/tablet */}
               <button

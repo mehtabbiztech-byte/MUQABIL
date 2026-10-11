@@ -357,11 +357,31 @@ export const SidebarLayout: React.FC<SidebarLayoutProps> = ({ children }) => {
             </div>
           ))}
 
-          {/* Technical Details PDF Shortcut in Sidebar */}
-          <div className="pt-2 border-t border-slate-200 dark:border-slate-800">
+          {/* Trilingual Dictionary & Technical Details in Sidebar */}
+          <div className="pt-2 border-t border-slate-200 dark:border-slate-800 space-y-1.5">
+            <button
+              onClick={() => {
+                window.dispatchEvent(new CustomEvent('meqsa:word-meaning', {
+                  detail: { word: 'pedagogy' }
+                }));
+              }}
+              className={`w-full flex items-center gap-2.5 p-2 rounded-xl border border-teal-300/80 dark:border-teal-800/80 bg-teal-50/60 dark:bg-teal-950/40 text-teal-800 dark:text-teal-300 text-xs font-bold hover:bg-teal-100 transition cursor-pointer ${
+                sidebarCollapsed ? 'justify-center px-2' : ''
+              }`}
+              title="Trilingual Dictionary (Urdu / Sindhi / English) — Double click any word"
+            >
+              <BookOpen className="w-4 h-4 text-teal-600 dark:text-teal-400 shrink-0" />
+              {!sidebarCollapsed && (
+                <div className="flex-1 text-left min-w-0">
+                  <div className="truncate">Trilingual Dictionary</div>
+                  <div className="text-[10px] text-teal-600/80 dark:text-teal-400/80 font-normal truncate">English · اردو · سنڌي</div>
+                </div>
+              )}
+            </button>
+
             <button
               onClick={() => setTechModalOpen(true)}
-              className={`w-full flex items-center gap-2.5 p-2.5 rounded-xl border border-emerald-300/80 dark:border-emerald-800/80 bg-emerald-50/60 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 text-xs font-bold hover:bg-emerald-100 transition cursor-pointer ${
+              className={`w-full flex items-center gap-2.5 p-2 rounded-xl border border-emerald-300/80 dark:border-emerald-800/80 bg-emerald-50/60 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 text-xs font-bold hover:bg-emerald-100 transition cursor-pointer ${
                 sidebarCollapsed ? 'justify-center px-2' : ''
               }`}
               title="Technical Details & Architecture Manual (PDF)"

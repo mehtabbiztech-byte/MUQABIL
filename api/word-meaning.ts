@@ -1,3 +1,4 @@
+import { getBuiltInMeaning } from '../src/data/builtInDictionary';
 import { clientIp, createRateLimiter, rateLimitResponse } from '../src/lib/rateLimit';
 
 type ApiResponse = {
@@ -13,7 +14,22 @@ type ApiRequest = {
   ip?: string;
 };
 
-const cleanModelJson = (value: string) => value.replace(/^\s*```(?:json)?/i, '').replace(/```\s*$/, '').trim();
+const cleanModelJson = (value: string) => {
+  const withoutCodeBlocks = value.replace(/^\s*```(?:json)?/i, '').replace(/```\s*$/, '').trim();
+  try {
+    return JSON.parse(withoutCodeBlocks) as Record<string, unknown>;
+  } catch {
+    const match = value.match(/\{[\s\S]*\}/);
+    if (match) {
+      try {
+        return JSON.parse(match[0]) as Record<string, unknown>;
+      } catch {
+        return null;
+      }
+    }
+    return null;
+  }
+};
 
 const rateLimiter = createRateLimiter({ windowMs: 5 * 60 * 1000, max: 60 });
 
@@ -35,9 +51,16 @@ export default async function handler(request: ApiRequest, response: ApiResponse
     return response.status(400).json({ error: 'Please provide one valid word.' });
   }
 
+  // 1. Fast path: If word is recognized in the built-in dictionary, return immediately
+  const localMeaning = getBuiltInMeaning(word);
+  if (localMeaning) {
+    return response.status(200).json(localMeaning);
+  }
+
+  // 2. Online AI dictionary via Gemini
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    return response.status(503).json({ error: 'Dictionary service is not configured.' });
+    return response.status(503).json({ error: 'Dictionary service is not configured for non-catalog words.' });
   }
 
   try {
@@ -45,17 +68,35 @@ export default async function handler(request: ApiRequest, response: ApiResponse
 {"word":"","partOfSpeech":"","simpleEnglish":"","urdu":"","sindhi":"","example":""}
 Give a short, child-friendly Simple English definition, accurate Urdu meaning in Urdu script, accurate Sindhi meaning in Sindhi script, and one short English example. If the clicked form is inflected, explain that form. Do not use markdown.`;
 
-    const aiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${encodeURIComponent(apiKey)}`,
+    // Try gemini-2.5-flash first with fallback
+    let aiResponse = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(apiKey)}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        signal: AbortSignal.timeout(10000),
         body: JSON.stringify({
           contents: [{ parts: [{ text: prompt }] }],
           generationConfig: { temperature: 0.1, responseMimeType: 'application/json' },
         }),
       },
     );
+
+    if (!aiResponse.ok) {
+      // Fallback model
+      aiResponse = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${encodeURIComponent(apiKey)}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          signal: AbortSignal.timeout(10000),
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: { temperature: 0.1, responseMimeType: 'application/json' },
+          }),
+        },
+      );
+    }
 
     if (!aiResponse.ok) {
       return response.status(502).json({ error: 'Could not retrieve the meaning.' });
@@ -67,10 +108,12 @@ Give a short, child-friendly Simple English definition, accurate Urdu meaning in
     const text = payload.candidates?.[0]?.content?.parts?.[0]?.text;
     if (!text) return response.status(502).json({ error: 'No meaning returned.' });
 
-    const result = JSON.parse(cleanModelJson(text)) as Record<string, unknown>;
+    const result = cleanModelJson(text);
+    if (!result) return response.status(502).json({ error: 'Invalid model format.' });
+
     const meaning = {
       word,
-      partOfSpeech: String(result.partOfSpeech || 'word').slice(0, 50),
+      partOfSpeech: String(result.partOfSpeech || 'academic term').slice(0, 50),
       simpleEnglish: String(result.simpleEnglish || '').slice(0, 400),
       urdu: String(result.urdu || '').slice(0, 250),
       sindhi: String(result.sindhi || '').slice(0, 250),

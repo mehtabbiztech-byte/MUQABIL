@@ -32,7 +32,8 @@ import {
   Bot,
   BrainCircuit,
   FileCheck2,
-  Award
+  Award,
+  Mic
 } from 'lucide-react';
 import { POPULAR_CATEGORIES } from '../data/categoriesData';
 import { LayoutButton } from './LayoutButton';
@@ -78,6 +79,7 @@ export const SplitWorkspaceLayout: React.FC<SplitWorkspaceLayoutProps> = ({ chil
     { id: 'quiz', label: 'CBT Exam Simulator', icon: <Trophy className="w-4 h-4 text-amber-500" />, badge: 'LIVE' },
     { id: 'past-papers', label: 'Solved Past Papers (2010–25)', icon: <FileText className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />, badge: '16 Yrs CSS' },
     { id: 'current-affairs', label: 'Current Affairs 2026', icon: <Globe2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> },
+    { id: 'interview', label: 'Interview Prep Module', icon: <Mic className="w-4 h-4 text-rose-500" />, badge: 'NEW' },
     { id: 'exams', label: 'Syllabi & Agencies', icon: <GraduationCap className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> },
     { id: 'jobs', label: 'Government Jobs (BPS 5–19)', icon: <Briefcase className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> },
     { id: 'study-notes', label: 'High-Yield Notes', icon: <BookMarked className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> },

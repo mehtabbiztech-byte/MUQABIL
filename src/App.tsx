@@ -39,6 +39,7 @@ const AdminView = React.lazy(() => import('./views/AdminView').then((m) => ({ de
 const LearningLabView = React.lazy(() => import('./views/LearningLabView').then((m) => ({ default: m.LearningLabView })));
 const GeminiChatView = React.lazy(() => import('./views/GeminiChatView').then((m) => ({ default: m.GeminiChatView })));
 const ResumeView = React.lazy(() => import('./views/ResumeView').then((m) => ({ default: m.ResumeView })));
+const InterviewPrepView = React.lazy(() => import('./views/InterviewPrepView').then((m) => ({ default: m.InterviewPrepView })));
 
 const ViewLoader: React.FC = () => (
   <div className="max-w-7xl mx-auto px-4 py-16 flex items-center justify-center" role="status" aria-label="Loading section">
@@ -67,6 +68,7 @@ const TabContent: React.FC = () => {
       {tab === 'study-notes' && <StudyNotesView />}
       {tab === 'rankings' && <RankingsView />}
       {tab === 'learning-lab' && <LearningLabView />}
+      {tab === 'interview' && <InterviewPrepView />}
       {tab === 'ai-chat' && <GeminiChatView />}
       {tab === 'about' && <AboutView />}
       {tab === 'bookmarks' && <SavedMcqsView initialSubTab="bookmarks" />}

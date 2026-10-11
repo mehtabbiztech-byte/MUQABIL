@@ -28,6 +28,7 @@ export type NavigationTab =
   | 'rankings' 
   | 'learning-lab'
   | 'ai-chat'
+  | 'interview'
   | 'about'
   | 'bookmarks'
   | 'mistakes'
@@ -36,6 +37,9 @@ export type NavigationTab =
 export * from './resume';
 
 export type ContentStatus = 'Draft' | 'Reviewed' | 'Published';
+
+/** Sub-modules of the Interview Preparation Module. */
+export type InterviewModuleId = 'overview' | 'mock' | 'bank' | 'personality' | 'feedback';
 
 export interface CmsBase {
   id: string;

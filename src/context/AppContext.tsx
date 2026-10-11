@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { NavigationTab, UserProfile, QuizAttempt, ThemeStyle, UserPersona, QuizCertificate, InterviewModuleId } from '../types';
 import { SimulatorLaunch } from '../data/examSimulatorData';
+import { applySectionMetadata, currentPathname, pathForTab, tabFromPathname } from '../lib/siteRoutes';
 import { 
   auth, 
   googleProvider, 
@@ -156,7 +157,31 @@ const DEFAULT_PROFILE: UserProfile = {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [tab, setTab] = useState<NavigationTab>('home');
+  // The active section is driven by the URL path (e.g. /mcqs). Changing tabs
+  // pushes that path into the browser history so every section is addressable.
+  const [tab, setTabState] = useState<NavigationTab>(() => tabFromPathname(currentPathname()));
+
+  const setTab = useCallback((nextTab: NavigationTab) => {
+    setTabState(nextTab);
+    if (typeof window === 'undefined' || !window.history) return;
+    const nextPath = pathForTab(nextTab);
+    if (currentPathname() !== nextPath) {
+      window.history.pushState({ tab: nextTab }, '', nextPath);
+    }
+  }, []);
+
+  // Back / Forward navigation restores the section that matches the URL.
+  useEffect(() => {
+    const handlePopState = () => setTabState(tabFromPathname(currentPathname()));
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  // Keep the document title, description and canonical URL in step with the section.
+  useEffect(() => {
+    if (currentPathname().startsWith('/admin')) return;
+    applySectionMetadata(tab);
+  }, [tab]);
   const [searchOpen, setSearchOpen] = useState(false);
   const [globalSearchQuery, setGlobalSearchQuery] = useState('');
   const [authModalOpen, setAuthModalOpen] = useState(false);

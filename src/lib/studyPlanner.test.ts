@@ -155,6 +155,11 @@ test('popular exam presets, rebalancer and text export work smoothly', () => {
   assert.ok(stsGrad);
   assert.equal(stsGrad.organizationId, 'sts');
 
+  const teachingPreset = POPULAR_EXAM_PRESETS.find((p) => p.id === 'sts-teaching-license');
+  assert.ok(teachingPreset);
+  assert.equal(teachingPreset.positionId, 'teaching-license');
+  assert.equal(teachingPreset.organizationId, 'sts');
+
   const basePlan = createStudyPlanRecord(formWith({ examDate: '2026-10-12' }));
   const rebalanced = rebalancePlanSchedule(basePlan, '2026-10-15');
   assert.equal(rebalanced.startDate, '2026-10-15');

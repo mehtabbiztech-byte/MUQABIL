@@ -18,6 +18,7 @@ import { PAST_PAPERS_DATA } from '../data/pastPapersData';
 import { ExamCategory } from '../types';
 import { CceSyllabusExplorer } from '../components/CceSyllabusExplorer';
 import { StsExamSimulator } from '../components/StsExamSimulator';
+import { TeachingLicenseSyllabusExplorer } from '../components/TeachingLicenseSyllabusExplorer';
 import { ExactPatternSimulators } from '../components/ExactPatternSimulators';
 import { PreparationRoomDashboard } from '../components/PreparationRoomDashboard';
 
@@ -341,6 +342,8 @@ export const ExamsView: React.FC = () => {
               <CceSyllabusExplorer />
             ) : currentExam.id === 'sts' ? (
               <StsExamSimulator />
+            ) : currentExam.id === 'sts-teaching-license' ? (
+              <TeachingLicenseSyllabusExplorer />
             ) : (
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xs animate-in fade-in duration-150">
               <div className="flex items-center justify-between">

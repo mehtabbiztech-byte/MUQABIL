@@ -558,10 +558,10 @@ export const EXAMS_DATA: ExamInfo[] = [
     category: 'jobs',
     subCategory: 'Teaching & Licensing',
     targetAudience: 'B.Ed / ADE / M.Ed Degree Holders & Aspiring School Teachers in Sindh',
-    description: 'The landmark Sindh Teaching License Examination conducted by Sukkur IBA Testing Services (STS) in collaboration with STEDA (School Education & Literacy Department, Govt. of Sindh). Qualifying candidates receive the official Sindh Teaching License (Elementary BPS-16 / Secondary BPS-17), qualifying them for direct recruitment, promotions, and professional teaching allowances.',
+    description: 'The landmark Sindh Teaching License Examination conducted by Sukkur IBA Testing Services (STS) in collaboration with STEDA (School Education & Literacy Department, Govt. of Sindh). All Basic Information and Syllabus of Pedagogy, Mathematics, Science, Social Studies, English and Urdu or Sindhi subjects will be assessed from the ‘School Curriculum of Class one to eight (available at DCAR) STBB’ (Directorate of Curriculum, Assessment & Research, Sindh & Sindh Textbook Board, Jamshoro). Qualifying candidates receive the official Sindh Teaching License (Elementary BPS-16 / Secondary BPS-17), qualifying them for direct appointment and monthly professional allowances.',
     eligibility: 'Candidates having B.Ed (Hons) 4-Year, B.Ed (1.5 or 2.5 Year), ADE (Associate Degree in Education), or M.Ed from HEC-recognized institutions with at least 2nd Division / 2.5 CGPA.',
     ageLimit: 'Up to 40 years for fresh graduates; relaxation as per Sindh Civil Servant rules for in-service teachers.',
-    screeningStructure: '100 MCQs, 100 Marks, 120 Minutes. Two distinct parts: Part I - Content Knowledge (50 MCQs) and Part II - Pedagogical Content Knowledge (50 MCQs). Passing criteria: 60% (60 Marks minimum). No negative marking.',
+    screeningStructure: '100 MCQs, 100 Marks, 120 Minutes (2 Hours). Two distinct parts: Part I - Content Knowledge (50 MCQs / 50 Marks) assessed directly from the School Curriculum of Class one to eight (available at DCAR) STBB across Mathematics (10), General Science (10), Social Studies (10), English (10), and Urdu or Sindhi (10); Part II - Pedagogical Content Knowledge (50 MCQs / 50 Marks) covering Methods of Teaching (10), Child Development (10), Classroom Management (10), Classroom Assessment (10), and School & Community (10). Passing criteria: 60% minimum (60 Marks). No negative marking.',
     syllabus: [
       {
         section: 'Part I: Content Knowledge — English Language (Class 1–8)',

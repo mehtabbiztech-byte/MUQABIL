@@ -648,6 +648,19 @@ export interface ExamPreset {
 
 export const POPULAR_EXAM_PRESETS: ExamPreset[] = [
   {
+    id: 'sts-teaching-license',
+    badge: 'Teaching License',
+    title: 'STS IBA Teaching License Test',
+    subtitle: 'STEDA 50–50 Pattern · Class 1–8 DCAR & Pedagogy',
+    organizationId: 'sts',
+    positionId: 'teaching-license',
+    days: 60,
+    dailyMinutes: 120,
+    preparationMode: 'complete',
+    targetScore: '80',
+    weakAreas: ['Pedagogy', 'Mathematics', 'General Science'],
+  },
+  {
     id: 'sts-grad',
     badge: 'Most Popular',
     title: 'STS BPS 05–15 (Graduation)',

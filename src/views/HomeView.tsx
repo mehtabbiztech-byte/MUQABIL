@@ -307,7 +307,7 @@ export const HomeView: React.FC = () => {
                   </h3>
                   
                   <p className="text-xs text-slate-300 mt-1 leading-relaxed">
-                    Official <strong className="text-amber-300">50–50 STEDA Syllabus</strong>: 50% Content Knowledge (Class 1–8 DCAR) & 50% Pedagogical Content Knowledge (HEC B.Ed).
+                    Official <strong className="text-amber-300">50–50 STEDA Blueprint</strong>: All Basic Information & Syllabus of Pedagogy, Mathematics, Science, Social Studies, English and Urdu/Sindhi assessed from the <strong className="text-amber-300">‘School Curriculum of Class one to eight (available at DCAR) STBB’</strong>.
                   </p>
 
                   {/* Actions for Teaching License */}

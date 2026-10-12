@@ -21,6 +21,9 @@ import { ZenFocusLayout } from './components/ZenFocusLayout';
 import { LayoutSwitcherModal } from './components/LayoutSwitcherModal';
 import { InstallAppButton } from './components/InstallAppButton';
 
+// Views are lazy-loaded so the initial bundle only contains the app shell.
+// Each view (and the large data banks it owns) ships as its own chunk and is
+// fetched on first visit.
 const HomeView = React.lazy(() => import('./views/HomeView').then((m) => ({ default: m.HomeView })));
 const McqsView = React.lazy(() => import('./views/McqsView').then((m) => ({ default: m.McqsView })));
 const QuizView = React.lazy(() => import('./views/QuizView').then((m) => ({ default: m.QuizView })));
@@ -44,38 +47,6 @@ const ViewLoader: React.FC = () => (
     <div className="h-8 w-8 animate-spin rounded-full border-4 border-emerald-600 border-t-transparent" />
   </div>
 );
-
-class RouteErrorBoundary extends React.Component<React.PropsWithChildren, { hasError: boolean }> {
-  state = { hasError: false };
-
-  static getDerivedStateFromError() {
-    return { hasError: true };
-  }
-
-  componentDidCatch(error: Error) {
-    console.error('Route rendering failed', error);
-  }
-
-  render() {
-    if (!this.state.hasError) return this.props.children;
-    return (
-      <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-        <div className="rounded-2xl border border-amber-200 bg-amber-50 p-6 text-slate-900">
-          <h1 className="text-xl font-bold">This section could not be loaded</h1>
-          <p className="mt-2 text-sm text-slate-600">Please reload the page to try again.</p>
-          <button
-            type="button"
-            className="mt-5 rounded-xl bg-emerald-700 px-4 py-2 font-semibold text-white hover:bg-emerald-800"
-            onClick={() => window.location.reload()}
-          >
-            Reload section
-          </button>
-        </div>
-      </div>
-    );
-  }
-}
-
 import { WordMeaningPopup } from './components/WordMeaningPopup';
 import { GeminiFloatingWidget } from './components/GeminiFloatingWidget';
 import { AgeEligibilityCalculator } from './components/AgeEligibilityCalculator';
@@ -105,7 +76,9 @@ const TabContent: React.FC = () => {
       {tab === 'bookmarks' && <SavedMcqsView initialSubTab="bookmarks" />}
       {tab === 'mistakes' && <SavedMcqsView initialSubTab="mistakes" />}
       {tab === 'age-calculator' && (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"><AgeEligibilityCalculator /></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <AgeEligibilityCalculator />
+        </div>
       )}
       {tab === 'past-papers-pdf' && <PastPapersView />}
     </React.Suspense>
@@ -113,43 +86,93 @@ const TabContent: React.FC = () => {
 };
 
 const MainContent: React.FC = () => {
-  const { domainModalOpen, setDomainModalOpen, techModalOpen, setTechModalOpen, activeCertificate, isCertificateModalOpen, closeCertificateModal, updateCertificateCandidateName } = useApp();
+  const { 
+    domainModalOpen, 
+    setDomainModalOpen,
+    techModalOpen,
+    setTechModalOpen,
+    activeCertificate,
+    isCertificateModalOpen,
+    closeCertificateModal,
+    updateCertificateCandidateName,
+  } = useApp();
+
   const { shellLayout, getContainerClass, getContentSpacingClass } = useLayout();
 
   if (window.location.pathname.startsWith('/admin')) {
-    return <React.Suspense fallback={<ViewLoader />}><AdminView /></React.Suspense>;
+    return (
+      <React.Suspense fallback={<ViewLoader />}>
+        <AdminView />
+      </React.Suspense>
+    );
   }
 
   return (
     <div className="min-h-screen flex flex-col bg-transparent text-slate-900 dark:text-slate-100 transition-colors duration-500 relative selection:bg-purple-600 selection:text-white w-full max-w-full overflow-x-hidden">
+      {/* Eye-catching ambient background lighting & patterns */}
       <AttractiveBackground />
+
+      {/* Dynamic Shell Layout Rendering */}
       {shellLayout === 'sidebar' ? (
-        <SidebarLayout><TabContent /></SidebarLayout>
+        <SidebarLayout>
+          <TabContent />
+        </SidebarLayout>
       ) : shellLayout === 'split' ? (
-        <SplitWorkspaceLayout><TabContent /></SplitWorkspaceLayout>
+        <SplitWorkspaceLayout>
+          <TabContent />
+        </SplitWorkspaceLayout>
       ) : shellLayout === 'zen' ? (
-        <ZenFocusLayout><TabContent /></ZenFocusLayout>
+        <ZenFocusLayout>
+          <TabContent />
+        </ZenFocusLayout>
       ) : (
+        /* Classic Standard Top-Nav Layout */
         <>
           <Navbar />
+          
           <main className={`flex-1 relative z-10 w-full max-w-full pb-16 sm:pb-0 ${getContainerClass()} ${getContentSpacingClass()}`}>
-            <RouteErrorBoundary><TabContent /></RouteErrorBoundary>
+            <TabContent />
           </main>
+
           <Footer />
         </>
       )}
+
+      {/* Global Modals & Controls */}
       <SearchModal />
       <AuthModal />
       <ContactModal />
       <AgeEligibilityModal />
       <PrintablePastPaperModal />
-      <CustomDomainModal isOpen={domainModalOpen} onClose={() => setDomainModalOpen(false)} />
-      {activeCertificate && <CertificateModal certificate={activeCertificate} isOpen={isCertificateModalOpen} onClose={closeCertificateModal} onUpdateCandidateName={updateCertificateCandidateName} />}
+      <CustomDomainModal 
+        isOpen={domainModalOpen} 
+        onClose={() => setDomainModalOpen(false)} 
+      />
+      {activeCertificate && (
+        <CertificateModal
+          certificate={activeCertificate}
+          isOpen={isCertificateModalOpen}
+          onClose={closeCertificateModal}
+          onUpdateCandidateName={updateCertificateCandidateName}
+        />
+      )}
+
+      {/* Layout Settings Dialog */}
       <LayoutSwitcherModal />
-      <TechnicalDetailsModal isOpen={techModalOpen} onClose={() => setTechModalOpen(false)} />
+
+      {/* Technical Details & Specifications Manual Modal */}
+      <TechnicalDetailsModal 
+        isOpen={techModalOpen} 
+        onClose={() => setTechModalOpen(false)} 
+      />
+
+      {/* Floating Gemini AI Chatbot accessible across all pages */}
       <GeminiFloatingWidget />
       <InstallAppButton />
+
+      {/* Click any readable word for Simple English, Urdu and Sindhi meanings */}
       <WordMeaningPopup />
+
     </div>
   );
 };
@@ -160,9 +183,16 @@ export default function App() {
     <AppProvider>
       <LayoutProvider>
         <CmsContentProvider>
-          {isAdminPath ? <React.Suspense fallback={<ViewLoader />}><AdminView /></React.Suspense> : <MainContent />}
+          {isAdminPath ? (
+            <React.Suspense fallback={<ViewLoader />}>
+              <AdminView />
+            </React.Suspense>
+          ) : (
+            <MainContent />
+          )}
         </CmsContentProvider>
       </LayoutProvider>
     </AppProvider>
   );
 }
+

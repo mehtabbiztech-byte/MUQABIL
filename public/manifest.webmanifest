@@ -1,11 +1,11 @@
 {
-  "id": "/",
+  "id": "./",
   "name": "MUQABIL — Exam Preparation",
   "short_name": "MUQABIL",
   "description": "Prepare for STS IBA, SPSC, FPSC and Pakistan's competitive examinations.",
   "lang": "en-PK",
-  "start_url": "/?source=installed-app",
-  "scope": "/",
+  "start_url": "./?source=installed-app",
+  "scope": "./",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#f8fafc",
@@ -13,7 +13,7 @@
   "categories": ["education", "productivity"],
   "icons": [
     {
-      "src": "/muqabil-icon.svg",
+      "src": "./muqabil-icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"

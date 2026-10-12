@@ -53,6 +53,16 @@ The Vercel project uses:
 
 The health endpoint is available at `/api/health`.
 
+GitHub Pages is published by `.github/workflows/pages.yml` to <https://mehtabbiztech-byte.github.io/MUQABIL/>. Vite builds that site with a `/MUQABIL/` base path (`GITHUB_ACTIONS=true`), while Vercel and local development build for `/`.
+
+Enabling Pages is a one-time repository-administration step that only a repository owner can perform, because a workflow token can deploy to a Pages site but can never create one (see [actions/configure-pages#40](https://github.com/actions/configure-pages/issues/40)):
+
+1. Open <https://github.com/mehtabbiztech-byte/MUQABIL/settings/pages>.
+2. Under **Build and deployment → Source**, choose **GitHub Actions**.
+3. Re-run **Deploy to GitHub Pages**, or push to `main`.
+
+Until that is done the workflow builds the site, explains the missing setting and skips only the deployment steps; it does not fail, so a red run on `main` never means the deploy is broken.
+
 ## Firebase CMS
 
 Firebase Authentication and Firestore power the optional editorial CMS. See `FIREBASE_AUTH_SETUP.md`, `CMS_SETUP.md`, `firestore.rules` and `firestore.indexes.json`.

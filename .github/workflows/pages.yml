@@ -32,15 +32,54 @@ jobs:
         run: npm ci || npm install
       - name: Build
         run: npm run build
+
+      # Creating a Pages site is a repository *administration* operation. The
+      # workflow token can deploy to an existing Pages site but can never create
+      # one, no matter which `permissions:` are requested, so the `enablement`
+      # input of actions/configure-pages cannot work here. Calling it only turns
+      # every push to main red with a message that misreads as a workflow bug.
+      # See actions/configure-pages#40 for the confirmed platform restriction.
+      - name: Check whether GitHub Pages is enabled
+        id: pages_site
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # `gh` ships on GitHub-hosted runners. A 404 here means no Pages site
+          # exists yet; any other failure is reported by the step below too.
+          if gh api "repos/${{ github.repository }}/pages" >/dev/null 2>&1; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Report the one-time Pages step
+        if: steps.pages_site.outputs.enabled != 'true'
+        run: |
+          {
+            echo "### GitHub Pages is not enabled, so nothing was deployed"
+            echo ""
+            echo "Enabling Pages is a one-time **repository administration** action. \`GITHUB_TOKEN\`"
+            echo "can deploy to an existing Pages site but can never create one, whatever the"
+            echo "\`permissions:\` block requests, so this workflow cannot switch it on itself"
+            echo "(actions/configure-pages#40). The build above passed and stays valid."
+            echo ""
+            echo "**One-time fix, repository owner only:**"
+            echo ""
+            echo "1. Open https://github.com/${{ github.repository }}/settings/pages"
+            echo "2. Under **Build and deployment → Source**, choose **GitHub Actions**."
+            echo "3. Re-run this workflow (Actions → Deploy to GitHub Pages → Run workflow), or push to \`main\`."
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "::warning title=GitHub Pages is not enabled::Open https://github.com/${{ github.repository }}/settings/pages and set Build and deployment > Source to \"GitHub Actions\", then re-run this workflow."
+
       - name: Setup Pages
+        if: steps.pages_site.outputs.enabled == 'true'
         uses: actions/configure-pages@v5
-        with:
-          # Create the Pages site on first run if it does not yet exist.
-          enablement: true
       - name: Upload artifact
+        if: steps.pages_site.outputs.enabled == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: './dist'
       - name: Deploy to GitHub Pages
         id: deployment
+        if: steps.pages_site.outputs.enabled == 'true'
         uses: actions/deploy-pages@v4

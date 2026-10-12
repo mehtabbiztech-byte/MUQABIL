@@ -4,7 +4,12 @@ import path from 'node:path';
 import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
+  // GitHub Pages serves this repository from /MUQABIL/, while Vercel and local
+  // development serve it from /. Keep the production base environment-specific.
+  const base = process.env.GITHUB_ACTIONS === 'true' ? '/MUQABIL/' : '/';
+
   return {
+    base,
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
@@ -28,14 +33,9 @@ export default defineConfig(() => {
       },
     },
     server: {
-      // Hosted sandbox previews proxy the dev server under a generated host
-      // (e.g. https://<port>-<id>.e2b.app). Vite rejects unknown Host headers
-      // with HTTP 403, which blocks the preview, so allow the preview domains.
+      // Hosted sandbox previews proxy the dev server under a generated host.
       allowedHosts: ['.e2b.app', '.arena.ai', 'localhost', '127.0.0.1'],
-      // HMR is disabled in AI Studio via DISABLE_HMR env var.
-      // Do not modifyâfile watching is disabled to prevent flickering during agent edits.
       hmr: process.env.DISABLE_HMR !== 'true',
-      // Disable file watching when DISABLE_HMR is true to save CPU during agent edits.
       watch: process.env.DISABLE_HMR === 'true' ? null : {},
     },
   };

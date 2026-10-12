@@ -1,5 +1,6 @@
-const CACHE_NAME = 'muqabil-shell-v1';
-const APP_SHELL = ['/', '/manifest.webmanifest', '/muqabil-icon.svg'];
+const CACHE_NAME = 'muqabil-shell-v2';
+const BASE_URL = new URL('./', self.registration.scope).toString();
+const APP_SHELL = [BASE_URL, new URL('manifest.webmanifest', BASE_URL).toString(), new URL('muqabil-icon.svg', BASE_URL).toString()];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -31,8 +32,8 @@ self.addEventListener('fetch', (event) => {
   const request = event.request;
   const url = new URL(request.url);
 
-  // Account, AI, API, and cross-origin traffic always stays online-only.
-  if (request.method !== 'GET' || url.origin !== self.location.origin || url.pathname.startsWith('/api/')) {
+  // Do not intercept requests outside this deployment or any API traffic.
+  if (request.method !== 'GET' || url.origin !== self.location.origin || !url.pathname.startsWith(new URL(BASE_URL).pathname) || url.pathname.includes('/api/')) {
     return;
   }
 
@@ -40,7 +41,7 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       fetch(request)
         .then((response) => cacheResponse(request, response))
-        .catch(async () => (await caches.match(request)) || (await caches.match('/')))
+        .catch(async () => (await caches.match(request)) || (await caches.match(BASE_URL)))
     );
     return;
   }

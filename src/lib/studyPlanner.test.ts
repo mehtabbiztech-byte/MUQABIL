@@ -15,6 +15,9 @@ import {
   getSyllabusRecord,
   getTopicCount,
   loadStoredStudyPlan,
+  POPULAR_EXAM_PRESETS,
+  rebalancePlanSchedule,
+  exportPlanScheduleAsText,
   STUDY_ORGANIZATIONS,
   STUDY_PLANNER_STORAGE_KEY,
   type StudyPlannerForm,
@@ -145,3 +148,21 @@ test('stored planner data is validated and safely defaults optional progress', (
   assert.equal(loadStoredStudyPlan({ getItem: () => JSON.stringify(interruptedRequest) })?.aiPlanStatus, 'offline');
   assert.equal(loadStoredStudyPlan({ getItem: () => '{broken' }), null);
 });
+
+test('popular exam presets, rebalancer and text export work smoothly', () => {
+  assert.ok(POPULAR_EXAM_PRESETS.length >= 6);
+  const stsGrad = POPULAR_EXAM_PRESETS.find((p) => p.id === 'sts-grad');
+  assert.ok(stsGrad);
+  assert.equal(stsGrad.organizationId, 'sts');
+
+  const basePlan = createStudyPlanRecord(formWith({ examDate: '2026-10-12' }));
+  const rebalanced = rebalancePlanSchedule(basePlan, '2026-10-15');
+  assert.equal(rebalanced.startDate, '2026-10-15');
+  assert.ok(rebalanced.form.examDate > '2026-10-15');
+
+  const schedule = generateStudySchedule(basePlan.form, fixedToday);
+  const exported = exportPlanScheduleAsText(basePlan, schedule);
+  assert.match(exported, /MUQABIL SMART STUDY ROADMAP/);
+  assert.match(exported, /DAILY STUDY SCHEDULE/);
+});
+

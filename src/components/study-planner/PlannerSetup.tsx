@@ -14,6 +14,7 @@ import {
   Sparkles,
   Target,
   WandSparkles,
+  Zap,
 } from 'lucide-react';
 import {
   addDaysToDateString,
@@ -28,11 +29,13 @@ import {
   getSubjectsForPosition,
   getTopicCount,
   PLANNER_SUBJECTS,
+  POPULAR_EXAM_PRESETS,
   PREPARATION_MODES,
   STUDY_ORGANIZATIONS,
   TARGET_SCORE_OPTIONS,
   toLocalDateString,
   WEAK_AREAS,
+  type ExamPreset,
   type StudyPlannerForm,
 } from '../../lib/studyPlanner';
 
@@ -121,6 +124,27 @@ export const PlannerSetup: React.FC<PlannerSetupProps> = ({ initialForm, onGener
     setActiveStep((step) => Math.min(PAGE_STEPS.length - 1, step + 1));
   };
 
+  const applyPreset = (preset: ExamPreset, autoGenerate = false) => {
+    const subjects = getSubjectsForPosition(preset.organizationId, preset.positionId).map((s) => s.slug);
+    const updated: StudyPlannerForm = {
+      ...form,
+      organizationId: preset.organizationId,
+      positionId: preset.positionId,
+      customPosition: '',
+      subjectSlugs: subjects.length ? subjects : form.subjectSlugs,
+      examDate: addDaysToDateString(today, preset.days),
+      dailyStudyMinutes: preset.dailyMinutes,
+      preparationMode: preset.preparationMode,
+      targetScore: preset.targetScore,
+      weakAreas: [...preset.weakAreas],
+    };
+    setForm(updated);
+    setExpandedSubjects([]);
+    if (autoGenerate) {
+      onGenerate(updated, false);
+    }
+  };
+
   const timePreset = DAILY_TIME_PRESETS.find((item) => item.minutes === form.dailyStudyMinutes);
   const isCustomTime = !timePreset;
 
@@ -192,8 +216,66 @@ export const PlannerSetup: React.FC<PlannerSetupProps> = ({ initialForm, onGener
               <div>
                 <p className="text-xs font-black uppercase tracking-wide text-emerald-700 dark:text-emerald-300">Step 1 · Select organization</p>
                 <h3 className="mt-1 text-2xl font-black text-slate-900 dark:text-white">Which exam are you preparing for?</h3>
-                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Choose an organization to load its available positions and matching syllabus map.</p>
+                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Choose an organization to load its available positions and matching syllabus map, or select a 1-click popular preset below.</p>
               </div>
+
+              {/* 1-Click Popular Exam Presets for Simplicity */}
+              <div className="rounded-2xl border border-emerald-200/80 bg-gradient-to-br from-emerald-50/60 via-teal-50/40 to-slate-50 p-4 dark:border-emerald-900/60 dark:from-emerald-950/20 dark:via-teal-950/10 dark:to-slate-900/40">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-emerald-800 dark:text-emerald-300">
+                    <Zap className="h-3.5 w-3.5 text-amber-500" /> 1-Click Popular Exam Presets
+                  </span>
+                  <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">Click any preset to auto-configure</span>
+                </div>
+                <div className="mt-3 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
+                  {POPULAR_EXAM_PRESETS.map((preset) => {
+                    const isSelected = form.organizationId === preset.organizationId && form.positionId === preset.positionId;
+                    return (
+                      <div
+                        key={preset.id}
+                        className={`flex flex-col justify-between rounded-xl border p-3 transition ${
+                          isSelected
+                            ? 'border-emerald-500 bg-white ring-2 ring-emerald-500/20 dark:border-emerald-500 dark:bg-slate-900'
+                            : 'border-slate-200/90 bg-white/90 hover:border-emerald-300 dark:border-slate-800 dark:bg-slate-950/60'
+                        }`}
+                      >
+                        <div>
+                          <div className="flex items-center justify-between gap-1">
+                            <span className="rounded-md bg-emerald-100 px-1.5 py-0.5 text-[9px] font-black uppercase tracking-wider text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+                              {preset.badge}
+                            </span>
+                            <span className="text-[10px] font-bold text-slate-400">{preset.days}d · {preset.dailyMinutes}m/d</span>
+                          </div>
+                          <h4 className="mt-1.5 text-xs font-black text-slate-900 dark:text-white line-clamp-1">{preset.title}</h4>
+                          <p className="mt-0.5 text-[10px] text-slate-500 dark:text-slate-400 line-clamp-1">{preset.subtitle}</p>
+                        </div>
+                        <div className="mt-3 flex items-center gap-1.5">
+                          <button
+                            type="button"
+                            onClick={() => applyPreset(preset, false)}
+                            className={`flex-1 rounded-lg py-1.5 text-[10px] font-extrabold transition ${
+                              isSelected
+                                ? 'bg-emerald-600 text-white'
+                                : 'bg-slate-100 text-slate-700 hover:bg-emerald-100 hover:text-emerald-900 dark:bg-slate-800 dark:text-slate-200'
+                            }`}
+                          >
+                            {isSelected ? '✓ Selected' : 'Use Preset'}
+                          </button>
+                          <button
+                            type="button"
+                            title="Generate plan immediately with this preset"
+                            onClick={() => applyPreset(preset, true)}
+                            className="rounded-lg bg-emerald-700 px-2.5 py-1.5 text-[10px] font-black text-white hover:bg-emerald-800"
+                          >
+                            ⚡ Quick Start
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
               <div className="grid gap-4 sm:grid-cols-2">
                 <label className="space-y-2 text-sm font-bold text-slate-700 dark:text-slate-300">
                   <span>Organization / testing body</span>
@@ -368,6 +450,33 @@ export const PlannerSetup: React.FC<PlannerSetupProps> = ({ initialForm, onGener
                       <button key={level.id} type="button" aria-pressed={active} onClick={() => updateForm({ currentLevel: level.id })} className={`rounded-2xl border p-3 text-left transition ${active ? 'border-violet-500 bg-violet-50 dark:bg-violet-950/35' : 'border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950/40'}`}>
                         <span className={`block text-sm font-extrabold ${active ? 'text-violet-800 dark:text-violet-200' : 'text-slate-900 dark:text-white'}`}>{level.label}</span>
                         <span className="mt-1 block text-[11px] text-slate-500 dark:text-slate-400">{level.description}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-slate-600 dark:text-slate-400">Quick date presets</span>
+                  <span className="text-[11px] text-slate-400">Auto-calculates exam date</span>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {[30, 45, 60, 90, 120].map((days) => {
+                    const targetDate = addDaysToDateString(today, days);
+                    const isCurrent = form.examDate === targetDate;
+                    return (
+                      <button
+                        key={days}
+                        type="button"
+                        onClick={() => updateForm({ examDate: targetDate })}
+                        className={`rounded-xl border px-3 py-1.5 text-xs font-black transition ${
+                          isCurrent
+                            ? 'border-emerald-500 bg-emerald-600 text-white shadow-sm'
+                            : 'border-slate-200 bg-white text-slate-700 hover:border-emerald-300 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200'
+                        }`}
+                      >
+                        +{days} Days
                       </button>
                     );
                   })}

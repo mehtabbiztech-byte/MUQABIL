@@ -632,6 +632,196 @@ export const createMentorPrompt = (plan: StoredStudyPlan, day?: StudyDay): strin
   return `I am preparing for ${positionName} through ${organization}. My exam date is ${plan.form.examDate}, my current level is ${plan.form.currentLevel}, I can study ${plan.form.dailyStudyMinutes} minutes per day, and my target is ${plan.form.targetScore === 'merit' ? 'a top merit position' : plan.form.targetScore === 'pass' ? 'to pass' : `${plan.form.targetScore}%`} . My selected preparation mode is ${PREPARATION_MODES.find((item) => item.id === plan.form.preparationMode)?.label}. Today's focus is ${topicText}. My weak areas are ${weakAreas}. Give me one focused, practical study session for today: explain the highest-yield concept, include a short recall check, and end with a realistic next step. Keep claims about official syllabi qualified and tell me to verify details against the latest official notice.`;
 };
 
+export interface ExamPreset {
+  id: string;
+  badge: string;
+  title: string;
+  subtitle: string;
+  organizationId: string;
+  positionId: string;
+  days: number;
+  dailyMinutes: number;
+  preparationMode: PreparationMode;
+  targetScore: 'pass' | '70' | '80' | '90' | 'merit';
+  weakAreas: string[];
+}
+
+export const POPULAR_EXAM_PRESETS: ExamPreset[] = [
+  {
+    id: 'sts-grad',
+    badge: 'Most Popular',
+    title: 'STS BPS 05–15 (Graduation)',
+    subtitle: 'Screening test · IBA Sukkur Testing Services',
+    organizationId: 'sts',
+    positionId: 'graduation-bps-05-15',
+    days: 60,
+    dailyMinutes: 90,
+    preparationMode: 'complete',
+    targetScore: '80',
+    weakAreas: ['English', 'Mathematics'],
+  },
+  {
+    id: 'sts-inter',
+    badge: 'High Demand',
+    title: 'STS BPS 05–15 (Intermediate)',
+    subtitle: 'Screening test · Intermediate category',
+    organizationId: 'sts',
+    positionId: 'intermediate-bps-05-15',
+    days: 45,
+    dailyMinutes: 60,
+    preparationMode: 'complete',
+    targetScore: '80',
+    weakAreas: ['English', 'Mathematics'],
+  },
+  {
+    id: 'fpsc-css',
+    badge: 'Competitive',
+    title: 'CSS MPT / Screening (FPSC)',
+    subtitle: 'Preliminary screening examination',
+    organizationId: 'fpsc',
+    positionId: 'css-mpt',
+    days: 90,
+    dailyMinutes: 180,
+    preparationMode: 'complete',
+    targetScore: 'merit',
+    weakAreas: ['English', 'Current Affairs', 'GK'],
+  },
+  {
+    id: 'police-asi',
+    badge: 'Uniform Service',
+    title: 'Sindh Police ASI / Constable',
+    subtitle: 'STS recruitment screening',
+    organizationId: 'sts',
+    positionId: 'police-asi',
+    days: 45,
+    dailyMinutes: 60,
+    preparationMode: 'mcqs-notes',
+    targetScore: '80',
+    weakAreas: ['English', 'Computer'],
+  },
+  {
+    id: 'sts-pst-jest',
+    badge: 'Education',
+    title: 'PST / JEST Educator',
+    subtitle: 'School Education & Literacy Dept.',
+    organizationId: 'sts',
+    positionId: 'pst-jest',
+    days: 60,
+    dailyMinutes: 90,
+    preparationMode: 'complete',
+    targetScore: 'merit',
+    weakAreas: ['Mathematics', 'English'],
+  },
+  {
+    id: 'spsc-cce',
+    badge: 'Provincial',
+    title: 'SPSC CCE / Section Officer',
+    subtitle: 'Sindh Public Service Commission',
+    organizationId: 'spsc',
+    positionId: 'cce-screening',
+    days: 75,
+    dailyMinutes: 120,
+    preparationMode: 'complete',
+    targetScore: '80',
+    weakAreas: ['GK', 'Current Affairs'],
+  },
+  {
+    id: 'ppsc-one-paper',
+    badge: 'General',
+    title: 'PPSC One-Paper Screening',
+    subtitle: 'Punjab Public Service Commission',
+    organizationId: 'ppsc',
+    positionId: 'one-paper',
+    days: 45,
+    dailyMinutes: 90,
+    preparationMode: 'complete',
+    targetScore: '80',
+    weakAreas: ['GK', 'Pakistan Studies'],
+  },
+  {
+    id: 'nts-gat',
+    badge: 'Aptitude',
+    title: 'NTS NAT / GAT General',
+    subtitle: 'Higher education & aptitude entry',
+    organizationId: 'nts',
+    positionId: 'gat-general',
+    days: 30,
+    dailyMinutes: 60,
+    preparationMode: 'mcqs',
+    targetScore: '80',
+    weakAreas: ['English', 'Mathematics'],
+  },
+];
+
+export const STUDY_QUOTES = [
+  { text: "It's not about being the best. It's about being better than you were yesterday.", author: 'Consistency Principle' },
+  { text: 'Koshish karne walon ki kabhi haar nahi hoti.', author: 'Urdu Adab' },
+  { text: 'Success in competitive exams is built in the quiet hours when nobody is clapping.', author: "Aspirant's Creed" },
+  { text: 'Small daily improvements over time lead to stunning results.', author: 'Robin Sharma' },
+  { text: 'Sitaron se aagay jahan aur bhi hain, abhi ishq ke imtehan aur bhi hain.', author: 'Allama Iqbal' },
+  { text: 'Discipline is choosing between what you want now and what you want most.', author: 'Abraham Lincoln' },
+];
+
+export const rebalancePlanSchedule = (
+  currentPlan: StoredStudyPlan,
+  today: string,
+  extendDaysIfShort = 14,
+): StoredStudyPlan => {
+  let examDate = currentPlan.form.examDate;
+  const remainingDays = daysBetweenDates(today, examDate);
+  // If exam date has passed or is fewer than 3 days away, extend slightly to provide breathing room
+  if (remainingDays < 3) {
+    examDate = addDaysToDateString(today, Math.max(30, extendDaysIfShort));
+  }
+  return {
+    ...currentPlan,
+    startDate: today,
+    form: {
+      ...currentPlan.form,
+      examDate,
+    },
+  };
+};
+
+export const exportPlanScheduleAsText = (plan: StoredStudyPlan, schedule: StudyDay[]): string => {
+  const org = getOrganization(plan.form.organizationId).name;
+  const pos = getPositionName(plan.form);
+  const subjects = getPlannerSubjects(plan.form.subjectSlugs).map((s) => s.name).join(', ');
+  
+  const lines: string[] = [
+    `==================================================`,
+    `   MUQABIL SMART STUDY ROADMAP & EXAM SCHEDULE    `,
+    `==================================================`,
+    `Exam Target    : ${pos} (${org})`,
+    `Exam Date      : ${plan.form.examDate}`,
+    `Daily Time     : ${plan.form.dailyStudyMinutes} minutes/day`,
+    `Target Score   : ${plan.form.targetScore.toUpperCase()}`,
+    `Study Mode     : ${plan.form.preparationMode}`,
+    `Mapped Subjects: ${subjects}`,
+    `Weak Areas     : ${plan.form.weakAreas.join(', ') || 'None selected'}`,
+    `Generated On   : ${plan.generatedAt.slice(0, 10)}`,
+    `--------------------------------------------------`,
+    `DAILY STUDY SCHEDULE (DAY BY DAY):`,
+    `--------------------------------------------------`,
+  ];
+
+  schedule.forEach((day) => {
+    lines.push(`\n[Day ${day.dayNumber} · Week ${day.weekNumber}] - ${day.date} (${day.phase.toUpperCase()})`);
+    lines.push(`  Focus: ${day.focus}`);
+    lines.push(`  Time Budget: ${day.studyMinutes}m | MCQ Target: ${day.mcqTarget}`);
+    day.tasks.forEach((task, idx) => {
+      const isDone = plan.completedTaskIds.includes(task.id) ? '[DONE]' : '[TODO]';
+      lines.push(`    ${idx + 1}. ${isDone} ${task.title} (${task.durationMinutes}m)`);
+      lines.push(`       Detail: ${task.detail}`);
+    });
+  });
+
+  lines.push(`\n==================================================`);
+  lines.push(`Practice consistently. Track progress on MUQABIL.`);
+  lines.push(`==================================================`);
+  return lines.join('\n');
+};
+
 export const loadStoredStudyPlan = (storage: Pick<Storage, 'getItem'> | null | undefined): StoredStudyPlan | null => {
   if (!storage) return null;
   try {

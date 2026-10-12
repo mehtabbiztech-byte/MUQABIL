@@ -6,7 +6,9 @@ import {
   createDefaultStudyPlannerForm,
   createStudyPlanRecord,
   generateStudySchedule,
+  getPlannerSubjects,
   loadStoredStudyPlan,
+  rebalancePlanSchedule,
   STUDY_PLANNER_STORAGE_KEY,
   toLocalDateString,
   type MockAttempt,
@@ -120,6 +122,29 @@ export const SmartStudyPlannerView: React.FC = () => {
     });
   };
 
+  const toggleAllSubtopicsInSubject = (subjectSlug: string, markReviewed: boolean) => {
+    setPlan((current) => {
+      if (!current) return current;
+      const subject = getPlannerSubjects([subjectSlug])[0];
+      if (!subject) return current;
+      const set = new Set(current.completedSubtopicIds);
+      subject.subtopics.forEach((_, idx) => {
+        const id = `${subjectSlug}::${idx}`;
+        if (markReviewed) set.add(id);
+        else set.delete(id);
+      });
+      return { ...current, completedSubtopicIds: [...set] };
+    });
+  };
+
+  const rebalancePlan = () => {
+    setPlan((current) => {
+      if (!current) return current;
+      const today = toLocalDateString(new Date());
+      return rebalancePlanSchedule(current, today);
+    });
+  };
+
   const recordMock = (attempt: MockAttempt) => {
     setPlan((current) => {
       if (!current) return current;
@@ -157,7 +182,9 @@ export const SmartStudyPlannerView: React.FC = () => {
       onNewPlan={beginNewPlan}
       onToggleTask={toggleTask}
       onToggleSubtopic={toggleSubtopic}
+      onToggleAllSubtopicsInSubject={toggleAllSubtopicsInSubject}
       onRecordMock={recordMock}
+      onRebalance={rebalancePlan}
     />
   );
 };

@@ -192,6 +192,11 @@ async function startServer() {
     }
   });
 
+  // 404 for unmatched API routes (prefix-matched in Express 5)
+  app.use('/api', (req, res) => {
+    res.status(404).json({ error: 'Endpoint not found' });
+  });
+
   // Serve static assets from public directory
   const publicPath = path.resolve(process.cwd(), 'public');
   if (fs.existsSync(publicPath)) {

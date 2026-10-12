@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "packageManager": "npm@11.9.0",
+  "packageManager": "npm@10.9.8",
   "repository": {
     "type": "git",
     "url": "https://github.com/mehtabbiztech-byte/MUQABIL.git"

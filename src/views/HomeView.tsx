@@ -366,6 +366,18 @@ export const HomeView: React.FC = () => {
                     </button>
                     <button
                       onClick={() => {
+                        setSelectedPastPaperId('sts-teaching-license-sample-spec');
+                        setTab('past-papers');
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                      className="px-2.5 py-2 rounded-xl bg-gradient-to-r from-purple-500/30 to-pink-500/30 hover:from-purple-500/50 hover:to-pink-500/50 border border-pink-400/50 text-pink-200 font-extrabold text-xs transition cursor-pointer flex items-center gap-1 shadow-xs"
+                      title="Official Sample Paper with Specification (ERQ 25%, CRQ 50%, MCQs 25% - Total 300 Marks)"
+                    >
+                      <Sparkles className="w-3.5 h-3.5 text-pink-300" />
+                      <span>Sample Spec</span>
+                    </button>
+                    <button
+                      onClick={() => {
                         setTab('study-notes');
                         window.scrollTo({ top: 0, behavior: 'smooth' });
                       }}

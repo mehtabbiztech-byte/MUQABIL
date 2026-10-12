@@ -23,6 +23,7 @@ import {
   Printer
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import { TeachingLicenseSamplePaperExplorer } from './TeachingLicenseSamplePaperExplorer';
 
 export interface SubjectSyllabusDetail {
   id: string;
@@ -372,11 +373,16 @@ export const TEACHING_LICENSE_SUBJECTS: SubjectSyllabusDetail[] = [
 
 export const TeachingLicenseSyllabusExplorer: React.FC = () => {
   const { setTab, setSelectedPastPaperId, launchSimulator } = useApp();
+  const [viewMode, setViewMode] = useState<'syllabus' | 'sample-paper'>('syllabus');
   const [selectedSubjectId, setSelectedSubjectId] = useState<string>('pedagogy');
   const [activeLevelFilter, setActiveLevelFilter] = useState<'all' | 'primary' | 'elementary'>('all');
   const [activeTab, setActiveTab] = useState<'syllabus' | 'dcar-info' | 'quiz'>('syllabus');
 
   const selectedSubject = TEACHING_LICENSE_SUBJECTS.find((s) => s.id === selectedSubjectId) || TEACHING_LICENSE_SUBJECTS[0];
+
+  if (viewMode === 'sample-paper') {
+    return <TeachingLicenseSamplePaperExplorer onBackToSyllabus={() => setViewMode('syllabus')} />;
+  }
 
   return (
     <div className="space-y-6 animate-in fade-in duration-150">
@@ -445,6 +451,14 @@ export const TeachingLicenseSyllabusExplorer: React.FC = () => {
 
         {/* Action CTAs */}
         <div className="mt-6 flex flex-wrap items-center gap-3">
+          <button
+            onClick={() => setViewMode('sample-paper')}
+            className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-500 via-pink-500 to-rose-500 hover:from-purple-400 hover:to-rose-400 text-white font-black text-xs sm:text-sm shadow-md transition transform hover:-translate-y-0.5 cursor-pointer flex items-center gap-2"
+          >
+            <FileText className="w-4 h-4 text-white" />
+            <span>Sample Paper with Specification (300 Marks)</span>
+          </button>
+
           <button
             onClick={() => {
               launchSimulator({

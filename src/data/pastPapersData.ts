@@ -3,8 +3,25 @@ import { MCQS_DATA } from './mcqsData';
 import { TEACHING_LICENSE_PAPER_1_MCQS } from './teachingLicensePaper1';
 import { TEACHING_LICENSE_PAPER_2_MCQS } from './teachingLicensePaper2';
 import { TEACHING_LICENSE_PAPER_3_MCQS } from './teachingLicensePaper3';
+import { SAMPLE_PAPER_MCQS } from './teachingLicenseSamplePaperData';
 
 export const PAST_PAPERS_DATA: PastPaper[] = [
+  {
+    id: 'sts-teaching-license-sample-spec',
+    title: 'Sample Paper for Teacher Licensing Test with Specification (ERQ, CRQ & 50 MCQs)',
+    exam: 'STS',
+    conductedBy: 'Sukkur IBA Testing Services (STS) & STEDA',
+    year: 2024,
+    postName: 'Elementary & Secondary Teaching License (BPS-16 / BPS-17)',
+    bps: 'BPS-16/17',
+    totalQuestions: 50,
+    solvedDate: 'Official Specification Model Paper',
+    testDateLabel: 'Official Specification Blueprint (ERQ 25%, CRQ 50%, MCQs 25%)',
+    recordType: 'Official Sample Paper',
+    sourceUrl: 'https://steda.gos.pk/',
+    sourceNote: 'Official Sample Paper for Teacher Licensing Test with Specification. Comprises Case Study Analysis (ERQ 100 Marks), 10 Constructed Response Questions (150 Marks), and 50 MCQs (50 Marks).',
+    mcqs: SAMPLE_PAPER_MCQS,
+  },
   {
     id: 'sts-teaching-license-paper-1',
     title: 'STS IBA Teaching License Test — Solved Paper 1 (Practice Set 100 Questions)',

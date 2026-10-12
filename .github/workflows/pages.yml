@@ -23,6 +23,58 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      # GitHub Pages must be switched on for this repository before
+      # actions/configure-pages can resolve a site. Creating a Pages site needs
+      # repository administration rights, which the workflow GITHUB_TOKEN does
+      # not have (configure-pages' own `enablement` input explicitly requires a
+      # PAT or GitHub App token instead). Without this pre-flight the job dies
+      # inside "Setup Pages" with an opaque error on every push, so detect the
+      # condition up front, report exactly what is needed, and skip cleanly.
+      # Once Pages is enabled in the repository settings this workflow starts
+      # deploying again on the next push with no further changes.
+      - name: Check GitHub Pages is enabled
+        id: pages_check
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          status_file="$(mktemp)"
+          status="$(curl -sS -o "$status_file" -w '%{http_code}' \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            "https://api.github.com/repos/${REPO}/pages")" || status="000"
+          rm -f "$status_file"
+
+          # 200 = a Pages site exists. 404 = Pages has never been enabled.
+          if [ "$status" = "200" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+            echo "GitHub Pages is enabled for ${REPO}; continuing with the deployment."
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "Pages lookup returned HTTP ${status} for ${REPO}; treating Pages as not enabled."
+          fi
+
+      - name: Report that Pages needs enabling
+        if: steps.pages_check.outputs.enabled != 'true'
+        run: |
+          echo "::warning title=GitHub Pages not enabled::Skipping the Pages deployment because GitHub Pages is not enabled for this repository. Enable it once under Settings > Pages > Build and deployment > Source: 'GitHub Actions', then re-run this workflow."
+          {
+            echo "## GitHub Pages deployment skipped"
+            echo ""
+            echo "The bundle built successfully, but **GitHub Pages is not enabled** for this repository, so there is no site to publish to."
+            echo ""
+            echo "### One-time manual step (repository administrator)"
+            echo ""
+            echo "1. Open **Settings → Pages**."
+            echo "2. Under **Build and deployment**, set **Source** to **GitHub Actions**."
+            echo ""
+            echo "This cannot be automated from the workflow: creating a Pages site requires repository administration rights, and \`actions/configure-pages\` documents that its \`enablement\` input needs a PAT with the \`repo\` scope or a GitHub App with \`administration:write\` and \`pages:write\` — the default \`GITHUB_TOKEN\` is not sufficient."
+            echo ""
+            echo "Once Pages is enabled, every push to \`main\` deploys automatically with no workflow change. The production site remains https://muqabil-prep.vercel.app."
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -30,14 +82,30 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm ci || npm install
+      # Always built: GITHUB_ACTIONS is set here, so vite.config.ts emits the
+      # Pages-relative base (/MUQABIL/). Verifying that bundle stays valuable
+      # even while publishing is skipped.
       - name: Build
         run: npm run build
+
       - name: Setup Pages
+        if: steps.pages_check.outputs.enabled == 'true'
         uses: actions/configure-pages@v5
+      # `npm run build` also emits the Node/Express bundle (dist/server.cjs) and
+      # its sourcemap. GitHub Pages is static-only and can never execute them,
+      # while server.cjs.map embeds the full server sourcesContent (server.ts,
+      # src/lib/rateLimit.ts, ...). Publishing it would hand out the server
+      # implementation, so drop both from the Pages artifact.
+      - name: Trim server-only artifacts from the static bundle
+        if: steps.pages_check.outputs.enabled == 'true'
+        run: rm -f dist/server.cjs dist/server.cjs.map
+
       - name: Upload artifact
+        if: steps.pages_check.outputs.enabled == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: './dist'
       - name: Deploy to GitHub Pages
+        if: steps.pages_check.outputs.enabled == 'true'
         id: deployment
         uses: actions/deploy-pages@v4

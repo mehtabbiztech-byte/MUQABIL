@@ -145,7 +145,7 @@ export const TeachingLicenseSamplePaperExplorer: React.FC<Props> = ({ onBackToSy
           IBA STS 2024 Past Paper for Teacher Licensing Test with Specification
         </h2>
         <p className="text-sm text-slate-300 mt-2 max-w-3xl leading-relaxed">
-          The complete official specification blueprint and past examination paper comprising <strong>Section 1: Case Study Analysis (ERQ - 100 Marks, Mr. Ahmed Interior Sindh Case)</strong>, <strong>Section 2: Constructed Response Questions (10 CRQs - 150 Marks)</strong>, and <strong>Section 3: 50 Multiple Choice Questions (50 Marks)</strong> with full marking rubrics and official answer keys.
+          A specification-based reconstruction of the IBA STS 2024 Teacher Licensing Test comprising <strong>Section 1: Case Study Analysis (ERQ - 100 Marks, Mr. Ahmed Interior Sindh Case)</strong>, <strong>Section 2: Constructed Response Questions (10 CRQs - 150 Marks)</strong>, and <strong>Section 3: 50 Multiple Choice Questions (50 Marks)</strong> with full marking rubrics and answer keys. Aligned strictly to the published STEDA &amp; Sukkur IBA blueprint — practice material, not a certified complete official paper release.
         </p>
 
         {/* Section Tabs */}

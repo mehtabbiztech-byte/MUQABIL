@@ -63,8 +63,10 @@ export async function testConnection() {
   }
 }
 
-// Kick off connectivity test
-testConnection().catch(() => {});
+// Kick off connectivity test only in browser runtime
+if (typeof window !== 'undefined' && typeof window.document !== 'undefined' && process.env.NODE_ENV !== 'test') {
+  testConnection().catch(() => {});
+}
 
 export {
   signInWithPopup,

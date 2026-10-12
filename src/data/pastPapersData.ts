@@ -18,9 +18,9 @@ export const PAST_PAPERS_DATA: PastPaper[] = [
     durationMinutes: 50,
     solvedDate: 'IBA STS 2024 Official Past Paper',
     testDateLabel: 'IBA STS 2024 Official Past Paper & Specification Blueprint (ERQ 25%, CRQ 50%, MCQs 25%)',
-    recordType: 'Official Past Paper',
+    recordType: 'Reconstructed Practice Paper',
     sourceUrl: 'https://steda.gos.pk/',
-    sourceNote: 'IBA STS 2024 Past Paper for Teacher Licensing Test with Specification. Comprises Case Study Analysis (ERQ 100 Marks), 10 Constructed Response Questions (150 Marks), and 50 MCQs (50 Marks).',
+    sourceNote: 'Reconstructed practice paper & specification blueprint based on IBA STS 2024; not a certified complete official paper release. Comprises Case Study Analysis (ERQ 100 Marks), 10 Constructed Response Questions (150 Marks), and 50 MCQs (50 Marks).',
     mcqs: SAMPLE_PAPER_MCQS,
   },
   {

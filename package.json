@@ -22,6 +22,13 @@
     "validate:sts": "esbuild scripts/validate-sts-bank.ts --bundle --platform=node --format=esm --outfile=/tmp/meqsa-sts-bank-validation.mjs && node /tmp/meqsa-sts-bank-validation.mjs",
     "validate:current-affairs": "esbuild scripts/validate-current-affairs-bank.ts --bundle --platform=node --format=esm --outfile=/tmp/meqsa-current-affairs-validation.mjs && node /tmp/meqsa-current-affairs-validation.mjs"
   },
+  "allowScripts": {
+    "@firebase/util@1.15.3": true,
+    "@google/genai@2.22.0": true,
+    "core-js@3.50.0": true,
+    "esbuild@0.28.2": true,
+    "protobufjs@7.6.6": true
+  },
   "dependencies": {
     "@google/genai": "^2.22.0",
     "@tailwindcss/vite": "^4.1.14",
@@ -47,7 +54,6 @@
     "esbuild": "^0.28.2",
     "tailwindcss": "^4.1.14",
     "tsx": "^4.21.0",
-    "typescript": "~5.8.3",
-    "vite": "^8.3.0"
+    "typescript": "~5.8.3"
   }
 }

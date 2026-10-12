@@ -453,11 +453,11 @@ PREPARED VIA MEHTAB STS IBA PREP
       : 'text-sm sm:text-base leading-relaxed';
 
   // Topic Navigation
-  const currentPartTopics = currentPart.topics;
-  const currentTopicIndex = currentPartTopics.findIndex((t) => t.id === currentTopic.id);
+  const currentPartTopics = currentPart?.topics || [];
+  const currentTopicIndex = currentPartTopics.findIndex((t) => t.id === currentTopic?.id);
   const prevTopic = currentTopicIndex > 0 ? currentPartTopics[currentTopicIndex - 1] : null;
   const nextTopic =
-    currentTopicIndex < currentPartTopics.length - 1
+    currentTopicIndex >= 0 && currentTopicIndex < currentPartTopics.length - 1
       ? currentPartTopics[currentTopicIndex + 1]
       : null;
 
@@ -1205,6 +1205,15 @@ PREPARED VIA MEHTAB STS IBA PREP
                     >
                       <Sparkles className="w-3 h-3 text-indigo-600" />
                       <span>Narration Studio</span>
+                    </button>
+                  )}
+                  {currentTopic.id.includes('methods') && (
+                    <button
+                      onClick={() => scrollToSection('sec-matrix')}
+                      className="px-2 py-1 rounded-lg bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-200 text-[11px] font-extrabold hover:bg-amber-200 transition cursor-pointer flex items-center gap-1 border border-amber-300/60"
+                    >
+                      <Sparkles className="w-3 h-3 text-amber-600" />
+                      <span>Instructional Matrix</span>
                     </button>
                   )}
                   {['math-topic-1', 'math-topic-2', 'math-topic-3', 'math-topic-4', 'math-topic-5'].includes(currentTopic.id) && (

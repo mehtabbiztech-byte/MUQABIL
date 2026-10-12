@@ -627,11 +627,12 @@ export const EXAMS_DATA: ExamInfo[] = [
       'Urdu',
       'Sindhi',
     ],
-    pastPapersCount: 3,
+    pastPapersCount: 4,
     mockTestsCount: 30,
     resources: [
       { title: 'STEDA Official Teaching License Policy & Rules', type: 'Official Link', url: 'https://steda.gos.pk/', description: 'Official Sindh Teacher Education Development Authority notification and policy framework.' },
       { title: 'Sukkur IBA STS Teaching License Candidate Portal', type: 'Official Link', url: 'https://apply.sts.net.pk/', description: 'Official application and slip issuance portal for the license test.' },
+      { title: 'Official Past Paper & Specification (ERQ 100M, CRQ 150M, MCQs 50M)', type: 'Guide', description: 'Complete 300-Mark official specification paper with Case Study ERQ, 10 CRQs, and 50 MCQs.' },
       { title: 'National Professional Standards for Teachers in Pakistan (NPSTP)', type: 'Syllabus PDF', description: 'Core standards outlining the 10 professional competencies required for licensed teachers.' },
       { title: 'Teaching License Solved Past Paper 1 (100 Questions)', type: 'Guide', description: 'Complete 100 MCQs covering Part I (Content Knowledge) and Part II (Pedagogical Content Knowledge).' },
       { title: 'Teaching License Solved Past Paper 2 (100 Questions)', type: 'Guide', description: 'Comprehensive 100 MCQs timed test paper with detailed explanatory keys.' },

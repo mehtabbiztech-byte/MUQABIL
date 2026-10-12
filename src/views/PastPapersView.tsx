@@ -187,7 +187,9 @@ export const PastPapersView: React.FC = () => {
     selectedPastPaperId, 
     setSelectedPastPaperId, 
     openPrintablePaper,
-    setAgeCalculatorOpen 
+    setAgeCalculatorOpen,
+    setTab,
+    setSelectedExamId
   } = useApp();
   const [active, setActive] = useState<PastPaper | null>(null);
   const [session, setSession] = useState(0);
@@ -1308,12 +1310,27 @@ export const PastPapersView: React.FC = () => {
                       {p.mcqs.length ? `Practice selection · ${p.mcqs.length} questions · ${p.durationMinutes ?? practiceMinutes(p.mcqs.length)} minutes` : p.sourceNote}
                     </p>
                     {p.mcqs.length ? (
-                      <button 
-                        className={`${button} mt-auto w-full text-center`} 
-                        onClick={() => startPaperFromDirectory(p)}
-                      >
-                        Start Timed Paper
-                      </button>
+                      <>
+                        <button 
+                          className={`${button} mt-auto w-full text-center`} 
+                          onClick={() => startPaperFromDirectory(p)}
+                        >
+                          Start Timed Paper
+                        </button>
+                        {p.id === 'sts-teaching-license-sample-spec' && (
+                          <button
+                            className="mt-2 w-full py-2 rounded-xl bg-purple-50 dark:bg-purple-950/60 hover:bg-purple-100 dark:hover:bg-purple-900/60 text-purple-700 dark:text-pink-300 font-bold text-xs border border-purple-200 dark:border-purple-800 transition cursor-pointer flex items-center justify-center gap-1.5"
+                            onClick={() => {
+                              setSelectedExamId('sts-teaching-license');
+                              setTab('exams');
+                              window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }}
+                          >
+                            <FileText className="w-3.5 h-3.5" />
+                            <span>View ERQ Case Study & 10 CRQs (250M)</span>
+                          </button>
+                        )}
+                      </>
                     ) : p.sourceUrl ? (
                       <a
                         className={`${button} mt-auto text-center flex items-center justify-center gap-1.5`}

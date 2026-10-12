@@ -86,7 +86,9 @@ export const ExamsView: React.FC = () => {
   const examPastPapers = useMemo(() => {
     return PAST_PAPERS_DATA.filter((p) =>
       p.exam.toLowerCase().includes(currentExam.shortName.toLowerCase()) ||
-      currentExam.shortName.toLowerCase().includes(p.exam.toLowerCase())
+      currentExam.shortName.toLowerCase().includes(p.exam.toLowerCase()) ||
+      p.title.toLowerCase().includes(currentExam.shortName.toLowerCase()) ||
+      (currentExam.id === 'sts-teaching-license' && (p.id.includes('teaching-license') || p.title.toLowerCase().includes('teaching license')))
     );
   }, [currentExam]);
 

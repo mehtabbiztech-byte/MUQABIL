@@ -158,6 +158,130 @@ export const STUDY_CURRICULUM: StudySubject[] = [
       }],
     }] }],
   },
+  {
+    id: 'pedagogy-teaching-license',
+    title: 'Pedagogy (STS IBA Teaching License)',
+    chapters: [
+      {
+        id: 'methods-of-teaching',
+        title: 'Methods of Teaching',
+        topics: [
+          {
+            id: 'instructional-approaches-and-strategies',
+            title: 'Instructional approaches & strategies',
+            lessons: [
+              {
+                id: 'lesson-instructional-approaches-strategies',
+                title: 'Instructional Approaches, Models & Pedagogical Strategies',
+                audience: 'advanced',
+                readTime: '15 min read',
+                explanation: `Comprehensive pedagogical study note for candidates appearing in the Sindh Teaching License Examination conducted by Sukkur IBA Testing Services (STS) in collaboration with STEDA.
+
+Instructional approaches and pedagogical strategies govern how educators organize the learning environment, engage students, and scaffold conceptual mastery. The official syllabus assesses two overarching orientations:
+
+1. Teacher-Centered Direct Instruction (Madeline Hunter’s 7-Step Model): A systematic, explicit framework where the educator models the skill ("I Do"), guides initial practice with immediate corrective feedback ("We Do"), and monitors independent student execution ("You Do"). It is particularly potent for foundational literacy, phonics, computational algorithms, and lab safety rules.
+
+2. Student-Centered Constructivist Approaches:
+- The 5E Instructional Model (Roger Bybee): Spanning Engage, Explore, Explain, Elaborate, and Evaluate. CRITICAL EXAM FOCUS: Scientific terminology, formal definitions, and textbook nomenclature are introduced ONLY in the "Explain" phase after learners verbalize their findings!
+- Inductive vs. Deductive Strategies: Inductive reasoning proceeds Bottom-Up from Specific Examples to General Rules (Baconian discovery). Deductive reasoning proceeds Top-Down from General Rules/Formulas to Specific Practice (Aristotelian verification).
+- Inquiry-Based Learning: Structured across four tiers: Confirmation -> Structured -> Guided -> Open Inquiry.
+- Cooperative Learning (Johnson & Johnson / Kagan / Slavin): Requires Positive Interdependence ("sink or swim together") and Individual Accountability to prevent social loafing. Key structures include Jigsaw (Elliot Aronson: Home Groups -> Expert Groups -> Home Groups), Think-Pair-Share (Frank Lyman), and STAD (Robert Slavin).
+- Mary Budd Rowe's Wait Time: Increasing pauses to 3–5 seconds after asking a question (Wait Time 1) and after student response (Wait Time 2) significantly elevates cognitive complexity and voluntary participation.
+- Differentiated Instruction (Carol Ann Tomlinson): Proactively tailoring Content, Process, Product, and Learning Environment to student readiness, interest, and profile.`,
+                examples: [
+                  'Example 1 (5E Explore vs Explain): In a Class 6 Science lesson on magnetism, students test which objects cling to a bar magnet (Explore). Afterward, the teacher introduces the terms "Ferromagnetic", "Magnetic Poles", and "Magnetic Field" (Explain).',
+                  'Example 2 (Inductive Grammar): An educator presents 5 sentences showing singular subjects with singular verbs and plural subjects with plural verbs. Students deduce the rule for Subject-Verb Agreement on their own.',
+                  'Example 3 (Jigsaw in Social Studies): A Class 8 history class on the 18th Constitutional Amendment divides into 4 Expert Groups: 1) Devolution of Ministries, 2) Article 25-A, 3) Renaming of NWFP to KPK, 4) NFC Award. Each expert masters their section and returns to teach their Home Group teammates.'
+                ],
+                importantPoints: [
+                  '5E Model: Teacher lecture and formal terminology occur STRICTLY in the Explain phase, never in Explore or Engage.',
+                  'Inductive reasoning = Specific Observations -> General Rule (Bottom-Up). Deductive reasoning = General Rule -> Specific Examples (Top-Down).',
+                  'Jigsaw Cooperative Strategy (Elliot Aronson): Originates in Home Groups -> Moves to Expert Groups -> Returns to Home Groups to teach.',
+                  'Mary Budd Rowe Wait-Time: Pausing for 3 to 5 seconds increases student response length by over 300% and fosters higher-order Bloom reasoning.',
+                  'Differentiated Instruction (Tomlinson): Modifies Content, Process, Product, or Environment—without dumbing down or lowering curriculum standards.',
+                  'Madeline Hunter Direct Instruction: Anticipatory Set -> Objective & Input -> Modeling ("I Do") -> Checking for Understanding -> Guided Practice ("We Do") -> Independent Practice ("You Do").',
+                  'Levels of Inquiry (Banchi & Bell): Confirmation (lowest) -> Structured -> Guided -> Open Inquiry (highest student autonomy).'
+                ],
+                tables: [
+                  {
+                    title: 'Pedagogical Models at a Glance (STEDA Licensing Blueprint)',
+                    headers: ['Approach', 'Cognitive Focus', 'Teacher Role', 'Student Role', 'Best Used For'],
+                    rows: [
+                      ['Direct Instruction', 'Behavioral Skill Mastery', 'Demonstrator & Modeler', 'Guided Practitioner', 'Phonics, math algorithms, lab safety'],
+                      ['5E Model', 'Constructivist Conceptual Discovery', 'Facilitator & Clarifier', 'Active Investigator', 'Science concepts, DCAR Class 1–8 inquiry'],
+                      ['Inductive Method', 'Pattern Recognition & Rule Derivation', 'Question Guide', 'Rule Discoverer', 'Concept formation, grammar, math patterns'],
+                      ['Deductive Method', 'Rule Application & Verification', 'Rule Explainer', 'Formula Applier', 'Advanced secondary formulas, abstract theorems'],
+                      ['Jigsaw Technique', 'Social Constructivist Collaboration', 'Accountability Monitor', 'Peer Expert & Instructor', 'Information-dense texts, history, multi-topic units']
+                    ]
+                  }
+                ],
+                formulas: [
+                  '5E Phases: Engage -> Explore -> Explain -> Elaborate -> Evaluate',
+                  'Hunter 7-Steps: Anticipatory Set -> Input/Objective -> Modeling -> Check Understanding -> Guided Practice -> Independent Practice',
+                  'Wait-Time Metric: Wait Time 1 (3–5s pause after question) + Wait Time 2 (3–5s pause after student response)'
+                ],
+                mcqs: [
+                  {
+                    id: 'study-ped-mcq-1',
+                    question: 'In Roger Bybee\'s 5E Instructional Model, during which phase should the teacher formally introduce scientific vocabulary and concept definitions?',
+                    options: ['Explore phase', 'Engage phase', 'Explain phase', 'Elaborate phase'],
+                    correctIndex: 2,
+                    explanation: 'Formal scientific vocabulary, conceptual definitions, and textbook explanations are introduced exclusively during the Explain phase, after students have explored and verbalized their observations.',
+                    category: 'pedagogy',
+                    difficulty: 'Medium'
+                  },
+                  {
+                    id: 'study-ped-mcq-2',
+                    question: 'A teacher presents specific examples of triangles on the board, guides students to measure the interior angles, and prompts them to discover that the sum is always 180°. This instructional approach is:',
+                    options: ['Deductive approach', 'Inductive approach', 'Rote drill approach', 'Direct transmission'],
+                    correctIndex: 1,
+                    explanation: 'The Inductive approach starts with specific concrete instances and observations, leading learners to discover the general geometric rule/principle.',
+                    category: 'pedagogy',
+                    difficulty: 'Medium'
+                  },
+                  {
+                    id: 'study-ped-mcq-3',
+                    question: 'In the Jigsaw cooperative learning technique, what is the role of "Expert Groups"?',
+                    options: [
+                      'To take a final competitive exam against other teams.',
+                      'To master a designated segment of the curriculum and prepare how to teach it back to their Home Group.',
+                      'To evaluate the teacher\'s performance and grade their classmates.',
+                      'To complete administrative attendance duties for the school.'
+                    ],
+                    correctIndex: 1,
+                    explanation: 'In Jigsaw, members from different Home Groups assemble into Expert Groups to master one specific subtopic before returning to teach their Home Group peers.',
+                    category: 'pedagogy',
+                    difficulty: 'Medium'
+                  },
+                  {
+                    id: 'study-ped-mcq-4',
+                    question: 'According to educational researcher Mary Budd Rowe, increasing teacher wait time to 3–5 seconds produces which major classroom effect?',
+                    options: [
+                      'Reduces student interest and increases disciplinary infractions.',
+                      'Increases the length, quality, and cognitive complexity of student answers.',
+                      'Decreases student voluntary participation.',
+                      'Encourages rote single-word guessing.'
+                    ],
+                    correctIndex: 1,
+                    explanation: 'Increasing wait-time from the typical 1-second baseline to 3–5 seconds allows deeper cognitive processing, resulting in longer, more sophisticated, and evidence-based student responses.',
+                    category: 'pedagogy',
+                    difficulty: 'Medium'
+                  }
+                ],
+                practice: [
+                  {
+                    prompt: 'Explain how you would apply the 5E Instructional Model to teach a Class 6 General Science lesson on "States of Matter" (Solid, Liquid, Gas) aligned with DCAR Sindh textbooks.',
+                    answer: '1. Engage: Show students an ice cube melting in a beaker over hot water, asking them to observe the steam without naming the states.\n2. Explore: Have students in small groups observe water in three states (ice, room-temperature water, steam from a kettle) and record shape and volume properties on worksheets.\n3. Explain: Ask students to describe what they observed; introduce the terms "Solid", "Liquid", "Gas", and explain molecular arrangement and kinetic energy.\n4. Elaborate: Challenge students to explain why wet laundry dries on clotheslines under the hot Sindh sun (Evaporation).\n5. Evaluate: Use a 3-question formative exit ticket assessing shape, volume, and phase change terminology.'
+                  }
+                ],
+                relatedQuestionIds: ['tlt1-ped-51', 'tlt2-ped-52', 'tlt3-ped-51']
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
   ...STUDY_NOTES_DATA.map(note => {
     const location = locations[note.id];
     return {

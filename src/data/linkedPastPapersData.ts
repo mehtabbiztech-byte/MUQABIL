@@ -324,6 +324,27 @@ const AGENCY_LINKED_PAPERS: Record<string, Array<Omit<LinkedPastPaper, 'parentEn
       ]
     },
     {
+      id: 'sts-teaching-license-sample-spec',
+      title: 'STS IBA Teaching License Official Past Paper with Specification (ERQ, CRQ & 50 MCQs)',
+      postName: 'Elementary & Secondary Teaching License',
+      exam: 'Sukkur IBA STS / STEDA',
+      agency: 'STEDA & Sukkur IBA STS',
+      year: 2024,
+      yearLabel: 'Official Specification Model Paper',
+      bps: 'BPS-16/17',
+      totalQuestions: 50,
+      durationMinutes: 50,
+      syllabus: 'Section 1: Case Study Analysis ERQ (25%, 100 Marks). Section 2: 10 CRQs (50%, 150 Marks). Section 3: 50 MCQs (25%, 50 Marks).',
+      examTags: ['STS', 'STEDA', 'Teaching License', 'Official Past Paper'],
+      paperType: 'Official Past Paper',
+      isSolved: true,
+      subjectDistribution: [
+        { subject: 'Pedagogy & Classroom Assessment', percentage: 50 },
+        { subject: 'Content Knowledge (Science & Math)', percentage: 25 },
+        { subject: 'Learning Styles & Teaching Methodology', percentage: 25 },
+      ]
+    },
+    {
       id: 'sts-tlt-paper-1-2024',
       title: 'STS IBA Teaching License Test — Solved Paper 1 (Morning Batch)',
       postName: 'Elementary & Secondary Teaching License',

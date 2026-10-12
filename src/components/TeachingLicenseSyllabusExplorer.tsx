@@ -456,7 +456,7 @@ export const TeachingLicenseSyllabusExplorer: React.FC = () => {
             className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-500 via-pink-500 to-rose-500 hover:from-purple-400 hover:to-rose-400 text-white font-black text-xs sm:text-sm shadow-md transition transform hover:-translate-y-0.5 cursor-pointer flex items-center gap-2"
           >
             <FileText className="w-4 h-4 text-white" />
-            <span>Sample Paper with Specification (300 Marks)</span>
+            <span>IBA STS 2024 Past Paper with Specification (300 Marks)</span>
           </button>
 
           <button

@@ -142,10 +142,10 @@ export const TeachingLicenseSamplePaperExplorer: React.FC<Props> = ({ onBackToSy
         </div>
 
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black font-display text-white">
-          Sample Paper for Teacher Licensing Test with Specification
+          IBA STS 2024 Past Paper for Teacher Licensing Test with Specification
         </h2>
         <p className="text-sm text-slate-300 mt-2 max-w-3xl leading-relaxed">
-          The complete official specification blueprint and sample examination paper comprising <strong>Section 1: Case Study Analysis (ERQ - 100 Marks)</strong>, <strong>Section 2: Constructed Response Questions (10 CRQs - 150 Marks)</strong>, and <strong>Section 3: 50 Multiple Choice Questions (50 Marks)</strong> with full marking rubrics and official answer keys.
+          The complete official specification blueprint and past examination paper comprising <strong>Section 1: Case Study Analysis (ERQ - 100 Marks, Mr. Ahmed Interior Sindh Case)</strong>, <strong>Section 2: Constructed Response Questions (10 CRQs - 150 Marks)</strong>, and <strong>Section 3: 50 Multiple Choice Questions (50 Marks)</strong> with full marking rubrics and official answer keys.
         </p>
 
         {/* Section Tabs */}

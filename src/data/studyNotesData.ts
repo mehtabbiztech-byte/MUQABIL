@@ -155,6 +155,7 @@ export const STUDY_CURRICULUM: StudySubject[] = [
       mcqs: [{ id: 'lesson-percent-1', question: 'A value increases by 20% and then decreases by 20%. What is the net change?', options: ['No change', '4% decrease', '4% increase', '40% decrease'], correctIndex: 1, explanation: 'Start at 100: 100 × 1.2 × 0.8 = 96, a 4% decrease.', category: 'mathematics', difficulty: 'Hard' }],
       practice: [{ prompt: 'A candidate answers 42 of 60 questions correctly. Calculate the score percentage.', answer: '42 ÷ 60 × 100 = 70%.' }], relatedQuestionIds: [],
     }] }],
+    }],
   },
   {
     id: 'pedagogy-teaching-license',

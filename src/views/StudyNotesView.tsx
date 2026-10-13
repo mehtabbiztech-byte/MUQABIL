@@ -339,19 +339,20 @@ export const StudyNotesView: React.FC = () => {
   const [fullScreenTopic, setFullScreenTopic] = useState<PedagogicalSubjectTopic | null>(null);
 
   // General curriculum lessons for kids/advanced
-  const lessons = STUDY_CURRICULUM.flatMap((subject) =>
-    subject.chapters.flatMap((chapter) =>
-      chapter.topics.flatMap((topic) =>
-        topic.lessons.map((lesson) => ({ subject, chapter, topic, lesson }))
+  const lessons = (STUDY_CURRICULUM || []).flatMap((subject) =>
+    (subject?.chapters || []).flatMap((chapter) =>
+      (chapter?.topics || []).flatMap((topic) =>
+        (topic?.lessons || []).map((lesson) => ({ subject, chapter, topic, lesson }))
       )
     )
   );
-  const selectedLesson = lessons.find((item) => item.lesson.id === lessonId);
+  const selectedLesson = lessons.find((item) => item?.lesson?.id === lessonId);
   const visibleLessons = lessons.filter(
     (item) =>
+      item?.lesson &&
       (mode === 'stbb' || item.lesson.audience === mode) &&
-      (subjectId === 'all' || item.subject.id === subjectId) &&
-      `${item.subject.title} ${item.chapter.title} ${item.topic.title} ${item.lesson.title} ${item.lesson.explanation}`
+      (subjectId === 'all' || item.subject?.id === subjectId) &&
+      `${item.subject?.title || ''} ${item.chapter?.title || ''} ${item.topic?.title || ''} ${item.lesson?.title || ''} ${item.lesson?.explanation || ''}`
         .toLowerCase()
         .includes(topicQuery.toLowerCase())
   );
@@ -407,13 +408,13 @@ export const StudyNotesView: React.FC = () => {
       {selectedLesson ? (
         <div key={selectedLesson.lesson.id}>
           <nav aria-label="Lesson location" className="flex flex-wrap items-center gap-2 text-sm text-slate-500 mb-5">
-            <span>{selectedLesson.subject.title}</span>
+            <span>{selectedLesson.subject?.title || ''}</span>
             <ChevronRight size={14} />
-            <span>{selectedLesson.chapter.title}</span>
+            <span>{selectedLesson.chapter?.title || ''}</span>
             <ChevronRight size={14} />
-            <span>{selectedLesson.topic.title}</span>
+            <span>{selectedLesson.topic?.title || ''}</span>
             <ChevronRight size={14} />
-            <span>{selectedLesson.lesson.title}</span>
+            <span>{selectedLesson.lesson?.title || ''}</span>
           </nav>
           <LessonReader
             lesson={selectedLesson.lesson}
@@ -842,7 +843,7 @@ export const StudyNotesView: React.FC = () => {
                   <div className="grid md:grid-cols-2 gap-3">
                     {cmsLessons
                       .filter((item) =>
-                        `${item.subject} ${item.chapter} ${item.topic} ${item.title}`
+                        `${item?.subject || ''} ${item?.chapter || ''} ${item?.topic || ''} ${item?.title || ''}`
                           .toLowerCase()
                           .includes(topicQuery.toLowerCase())
                       )
@@ -852,7 +853,7 @@ export const StudyNotesView: React.FC = () => {
                             {item.subject} → {item.chapter} → {item.topic} → {item.title}
                           </summary>
                           <p className="mt-4 leading-7 whitespace-pre-line">{item.explanation}</p>
-                          {item.importantPoints.length > 0 && (
+                          {item.importantPoints && item.importantPoints.length > 0 && (
                             <ul className="list-disc pl-5 mt-4 space-y-2">
                               {item.importantPoints.map((point) => (
                                 <li key={point}>{point}</li>
@@ -866,31 +867,31 @@ export const StudyNotesView: React.FC = () => {
               )}
 
               <div className="space-y-6">
-                {STUDY_CURRICULUM.filter((s) => visibleLessons.some((i) => i.subject.id === s.id)).map((subject) => (
+                {(STUDY_CURRICULUM || []).filter((s) => visibleLessons.some((i) => i.subject?.id === s.id)).map((subject) => (
                   <section className={panel} key={subject.id}>
                     <h2 className="text-2xl font-bold mb-5">{subject.title}</h2>
-                    {subject.chapters
-                      .filter((c) => visibleLessons.some((i) => i.chapter.id === c.id))
+                    {(subject.chapters || [])
+                      .filter((c) => visibleLessons.some((i) => i.chapter?.id === c.id))
                       .map((chapter) => (
                         <div key={chapter.id}>
                           <h3 className="font-semibold text-emerald-700 dark:text-emerald-400">{chapter.title}</h3>
-                          {chapter.topics
-                            .filter((t) => visibleLessons.some((i) => i.topic.id === t.id))
+                          {(chapter.topics || [])
+                            .filter((t) => visibleLessons.some((i) => i.topic?.id === t.id))
                             .map((topic) => (
                               <div key={topic.id} className="mt-4">
                                 <p className="text-sm text-slate-500 mb-2">{topic.title}</p>
                                 <div className="grid md:grid-cols-2 gap-3">
                                   {visibleLessons
-                                    .filter((i) => i.topic.id === topic.id)
+                                    .filter((i) => i.topic?.id === topic.id)
                                     .map(({ lesson }) => (
                                       <button
                                         key={lesson.id}
                                         onClick={() => setLessonId(lesson.id)}
                                         className="text-left rounded-xl border border-slate-200 dark:border-slate-700 p-4 hover:border-emerald-500 focus-visible:ring-2 focus-visible:ring-emerald-500 cursor-pointer"
                                       >
-                                        <span className="font-bold block">{lesson.title}</span>
+                                        <span className="font-bold block">{lesson?.title}</span>
                                         <span className="block text-sm text-slate-500 mt-2">
-                                          {lesson.readTime} · {lesson.mcqs.length} MCQs
+                                          {lesson?.readTime} · {lesson?.mcqs?.length ?? 0} MCQs
                                         </span>
                                         <span className="block mt-3 text-emerald-700 dark:text-emerald-400 font-semibold">
                                           Open lesson →

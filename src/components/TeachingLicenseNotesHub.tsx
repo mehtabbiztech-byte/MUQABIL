@@ -213,11 +213,21 @@ export const TeachingLicenseNotesHub: React.FC<TeachingLicenseNotesHubProps> = (
 
   // Active module & topic
   const currentPart = useMemo(() => {
-    return TEACHING_LICENSE_PARTS.find((p) => p.id === selectedPartId) || TEACHING_LICENSE_PARTS[0];
+    return TEACHING_LICENSE_PARTS.find((p) => p.id === selectedPartId) || TEACHING_LICENSE_PARTS[0] || null;
   }, [selectedPartId]);
 
   const currentTopic = useMemo(() => {
-    return currentPart.topics.find((t) => t.id === selectedTopicId) || currentPart.topics[0];
+    if (currentPart?.topics?.length) {
+      const found = currentPart.topics.find((t) => t.id === selectedTopicId);
+      if (found) return found;
+      return currentPart.topics[0];
+    }
+    for (const p of TEACHING_LICENSE_PARTS) {
+      if (p.topics?.length) {
+        return p.topics[0];
+      }
+    }
+    return null;
   }, [currentPart, selectedTopicId]);
 
   // Total topics count & mastered count
@@ -618,9 +628,11 @@ PREPARED VIA MEHTAB STS IBA PREP
                   <p className="mt-3 max-w-2xl text-sm leading-6 text-indigo-100">Resume your current topic, mark lessons as mastered, and use the 50–50 blueprint to keep content knowledge and pedagogy balanced.</p>
                 </div>
                 <div className="flex flex-wrap gap-3">
-                  <button onClick={() => setWorkspaceView('reader')} className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-extrabold text-indigo-700 shadow-lg transition hover:-translate-y-0.5">
-                    Continue: {currentTopic.title}<ArrowRight className="h-4 w-4" />
-                  </button>
+                  {currentTopic && (
+                    <button onClick={() => setWorkspaceView('reader')} className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-extrabold text-indigo-700 shadow-lg transition hover:-translate-y-0.5">
+                      Continue: {currentTopic.title}<ArrowRight className="h-4 w-4" />
+                    </button>
+                  )}
                   <button onClick={() => { setPartCategoryFilter('starred'); setWorkspaceView('reader'); }} className="inline-flex items-center gap-2 rounded-xl border border-white/30 bg-white/10 px-4 py-3 text-sm font-bold text-white backdrop-blur hover:bg-white/20">
                     <Star className="h-4 w-4 text-amber-300" /> {totalStarredCount} saved topics
                   </button>
@@ -648,9 +660,10 @@ PREPARED VIA MEHTAB STS IBA PREP
             <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {TEACHING_LICENSE_PARTS.map((part) => {
                 const IconComp = ICON_MAP[part.iconName] || BookOpen;
-                const done = part.topics.filter((topic) => masteredTopics[topic.id]).length;
-                const completion = Math.round((done / part.topics.length) * 100);
-                return <button key={part.id} onClick={() => handleSelectTopic(part.id, part.topics[0].id)} className="group rounded-2xl border border-slate-200 bg-slate-50/60 p-4 text-left transition hover:-translate-y-1 hover:border-purple-300 hover:bg-white hover:shadow-xl dark:border-slate-800 dark:bg-slate-950/40 dark:hover:border-purple-700 dark:hover:bg-slate-900">
+                const partTopics = part.topics || [];
+                const done = partTopics.filter((topic) => masteredTopics[topic.id]).length;
+                const completion = partTopics.length ? Math.round((done / partTopics.length) * 100) : 0;
+                return <button key={part.id} onClick={() => partTopics[0] && handleSelectTopic(part.id, partTopics[0].id)} className="group rounded-2xl border border-slate-200 bg-slate-50/60 p-4 text-left transition hover:-translate-y-1 hover:border-purple-300 hover:bg-white hover:shadow-xl dark:border-slate-800 dark:bg-slate-950/40 dark:hover:border-purple-700 dark:hover:bg-slate-900">
                   <div className="flex items-start justify-between gap-3"><span className={`grid h-11 w-11 place-items-center rounded-2xl bg-gradient-to-br ${part.themeColor} text-white shadow-md`}><IconComp className="h-5 w-5" /></span><span className="rounded-full bg-white px-2.5 py-1 text-[10px] font-extrabold text-slate-500 shadow-sm dark:bg-slate-800">{part.weightage}</span></div>
                   <p className="mt-4 text-[10px] font-extrabold uppercase tracking-widest text-purple-600 dark:text-purple-400">Part {part.partNumber} · {part.partCategory}</p>
                   <h3 className="mt-1 text-base font-extrabold text-slate-950 group-hover:text-purple-700 dark:text-white dark:group-hover:text-purple-300">{part.subjectName}</h3>

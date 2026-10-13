@@ -1,4 +1,4 @@
-import { QuickQuizItem, ConceptBlock, ComparisonTable, LicenseTopicNote } from './teachingLicenseNotesData';
+import { QuickQuizItem, ConceptBlock, ComparisonTable, LicenseTopicNote } from '../types/teachingLicenseNotes';
 
 export interface SubjectDidacticStrategy {
   frameworkName: string;

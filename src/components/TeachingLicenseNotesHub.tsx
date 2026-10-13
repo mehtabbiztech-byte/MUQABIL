@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import {
   BookOpen,
+  BookOpenCheck,
   Calculator,
   Atom,
   Globe,
@@ -591,7 +592,7 @@ PREPARED VIA MEHTAB STS IBA PREP
       )}
 
       {!isFocusMode && (
-        <nav aria-label="Teaching License workspace" className="sticky top-2 z-20 mx-auto grid w-full max-w-2xl grid-cols-3 gap-1 rounded-2xl border border-slate-200 bg-white/90 p-1.5 shadow-lg shadow-slate-900/5 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-900/90">
+        <nav aria-label="Teaching License workspace" className={`sticky top-2 z-20 mx-auto grid w-full ${allTopics.length > 0 ? 'max-w-2xl grid-cols-3' : 'max-w-md grid-cols-2'} gap-1 rounded-2xl border border-slate-200 bg-white/90 p-1.5 shadow-lg shadow-slate-900/5 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-900/90`}>
           <button
             onClick={() => setWorkspaceView('overview')}
             aria-pressed={workspaceView === 'overview'}
@@ -599,19 +600,21 @@ PREPARED VIA MEHTAB STS IBA PREP
           >
             Study Dashboard
           </button>
-          <button
-            onClick={() => setWorkspaceView('reader')}
-            aria-pressed={workspaceView === 'reader'}
-            className={`flex-1 rounded-xl px-4 py-2.5 text-sm font-extrabold transition ${workspaceView === 'reader' ? 'bg-purple-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800'}`}
-          >
-            Notes Reader
-          </button>
+          {allTopics.length > 0 && (
+            <button
+              onClick={() => setWorkspaceView('reader')}
+              aria-pressed={workspaceView === 'reader'}
+              className={`flex-1 rounded-xl px-4 py-2.5 text-sm font-extrabold transition ${workspaceView === 'reader' ? 'bg-purple-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800'}`}
+            >
+              Notes Reader
+            </button>
+          )}
           <button
             onClick={() => setWorkspaceView('subjective')}
             aria-pressed={workspaceView === 'subjective'}
             className={`rounded-xl px-2 py-2.5 text-xs font-extrabold transition sm:px-4 sm:text-sm ${workspaceView === 'subjective' ? 'bg-gradient-to-r from-rose-600 to-fuchsia-700 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800'}`}
           >
-            CRQs &amp; ERQs
+            CRQs &amp; ERQs (210+)
           </button>
         </nav>
       )}
@@ -624,17 +627,31 @@ PREPARED VIA MEHTAB STS IBA PREP
               <div className="flex h-full flex-col justify-between gap-7">
                 <div>
                   <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-purple-200">Continue your preparation</p>
-                  <h2 className="mt-3 max-w-2xl font-display text-3xl font-extrabold leading-tight sm:text-4xl">One syllabus. Ten focused modules. A clear route to 60+.</h2>
-                  <p className="mt-3 max-w-2xl text-sm leading-6 text-indigo-100">Resume your current topic, mark lessons as mastered, and use the 50–50 blueprint to keep content knowledge and pedagogy balanced.</p>
+                  <h2 className="mt-3 max-w-2xl font-display text-3xl font-extrabold leading-tight sm:text-4xl">One syllabus. Five focused modules. A clear route to 60+.</h2>
+                  <p className="mt-3 max-w-2xl text-sm leading-6 text-indigo-100">Review core examination competencies, practice authentic constructed-response and extended-response questions, and test your exam readiness.</p>
                 </div>
                 <div className="flex flex-wrap gap-3">
-                  {currentTopic && (
+                  {currentTopic ? (
                     <button onClick={() => setWorkspaceView('reader')} className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-extrabold text-indigo-700 shadow-lg transition hover:-translate-y-0.5">
                       Continue: {currentTopic.title}<ArrowRight className="h-4 w-4" />
                     </button>
+                  ) : (
+                    <button onClick={() => setWorkspaceView('subjective')} className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-extrabold text-indigo-700 shadow-lg transition hover:-translate-y-0.5">
+                      Practice CRQs &amp; ERQs<ArrowRight className="h-4 w-4" />
+                    </button>
                   )}
-                  <button onClick={() => { setPartCategoryFilter('starred'); setWorkspaceView('reader'); }} className="inline-flex items-center gap-2 rounded-xl border border-white/30 bg-white/10 px-4 py-3 text-sm font-bold text-white backdrop-blur hover:bg-white/20">
-                    <Star className="h-4 w-4 text-amber-300" /> {totalStarredCount} saved topics
+                  <button
+                    onClick={() => {
+                      if (onOpenPaperSimulator) {
+                        onOpenPaperSimulator();
+                      } else {
+                        setSelectedPastPaperId('tlt-2024-paper-3');
+                        setTab('past-papers');
+                      }
+                    }}
+                    className="inline-flex items-center gap-2 rounded-xl border border-white/30 bg-white/10 px-4 py-3 text-sm font-bold text-white backdrop-blur hover:bg-white/20"
+                  >
+                    <Trophy className="h-4 w-4 text-amber-300" /> Full Mock Test
                   </button>
                 </div>
               </div>
@@ -654,8 +671,10 @@ PREPARED VIA MEHTAB STS IBA PREP
 
           <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-7">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-              <div><p className="text-xs font-extrabold uppercase tracking-[0.18em] text-purple-600">Complete syllabus</p><h2 className="mt-1 font-display text-2xl font-extrabold text-slate-950 dark:text-white">Choose a module to begin</h2><p className="mt-1 text-sm text-slate-500">Progress is saved automatically on this device.</p></div>
-              <div className="rounded-2xl bg-slate-100 px-4 py-2 text-sm font-bold text-slate-700 dark:bg-slate-800 dark:text-slate-200">{totalMasteredCount}/{allTopics.length} topics mastered</div>
+              <div><p className="text-xs font-extrabold uppercase tracking-[0.18em] text-purple-600">Complete syllabus</p><h2 className="mt-1 font-display text-2xl font-extrabold text-slate-950 dark:text-white">Choose a module to begin</h2><p className="mt-1 text-sm text-slate-500">Practice questions with rubrics, marking criteria, and model answers.</p></div>
+              <div className="rounded-2xl bg-slate-100 px-4 py-2 text-sm font-bold text-slate-700 dark:bg-slate-800 dark:text-slate-200">
+                {allTopics.length > 0 ? `${totalMasteredCount}/${allTopics.length} topics mastered` : '5 Core Modules · 210+ CRQs & ERQs'}
+              </div>
             </div>
             <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {TEACHING_LICENSE_PARTS.map((part) => {
@@ -663,14 +682,57 @@ PREPARED VIA MEHTAB STS IBA PREP
                 const partTopics = part.topics || [];
                 const done = partTopics.filter((topic) => masteredTopics[topic.id]).length;
                 const completion = partTopics.length ? Math.round((done / partTopics.length) * 100) : 0;
-                return <button key={part.id} onClick={() => partTopics[0] && handleSelectTopic(part.id, partTopics[0].id)} className="group rounded-2xl border border-slate-200 bg-slate-50/60 p-4 text-left transition hover:-translate-y-1 hover:border-purple-300 hover:bg-white hover:shadow-xl dark:border-slate-800 dark:bg-slate-950/40 dark:hover:border-purple-700 dark:hover:bg-slate-900">
-                  <div className="flex items-start justify-between gap-3"><span className={`grid h-11 w-11 place-items-center rounded-2xl bg-gradient-to-br ${part.themeColor} text-white shadow-md`}><IconComp className="h-5 w-5" /></span><span className="rounded-full bg-white px-2.5 py-1 text-[10px] font-extrabold text-slate-500 shadow-sm dark:bg-slate-800">{part.weightage}</span></div>
-                  <p className="mt-4 text-[10px] font-extrabold uppercase tracking-widest text-purple-600 dark:text-purple-400">Part {part.partNumber} · {part.partCategory}</p>
-                  <h3 className="mt-1 text-base font-extrabold text-slate-950 group-hover:text-purple-700 dark:text-white dark:group-hover:text-purple-300">{part.subjectName}</h3>
-                  <p className="mt-2 line-clamp-2 text-xs leading-5 text-slate-500">{part.description}</p>
-                  <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800"><div className="h-full rounded-full bg-gradient-to-r from-purple-500 to-indigo-500" style={{ width: `${Math.max(completion, 3)}%` }} /></div>
-                  <div className="mt-2 flex items-center justify-between text-[11px] font-bold text-slate-500"><span>{part.topics.length} topics</span><span>{completion}% complete</span></div>
-                </button>;
+                return (
+                  <button
+                    key={part.id}
+                    onClick={() => {
+                      if (partTopics.length > 0) {
+                        handleSelectTopic(part.id, partTopics[0].id);
+                      } else {
+                        setWorkspaceView('subjective');
+                      }
+                    }}
+                    className="group rounded-2xl border border-slate-200 bg-slate-50/60 p-4 text-left transition hover:-translate-y-1 hover:border-purple-300 hover:bg-white hover:shadow-xl dark:border-slate-800 dark:bg-slate-950/40 dark:hover:border-purple-700 dark:hover:bg-slate-900 cursor-pointer"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <span className={`grid h-11 w-11 place-items-center rounded-2xl bg-gradient-to-br ${part.themeColor} text-white shadow-md`}>
+                        <IconComp className="h-5 w-5" />
+                      </span>
+                      <span className="rounded-full bg-white px-2.5 py-1 text-[10px] font-extrabold text-slate-500 shadow-sm dark:bg-slate-800">
+                        {part.weightage}
+                      </span>
+                    </div>
+                    <p className="mt-4 text-[10px] font-extrabold uppercase tracking-widest text-purple-600 dark:text-purple-400">
+                      Part {part.partNumber} · {part.partCategory}
+                    </p>
+                    <h3 className="mt-1 text-base font-extrabold text-slate-950 group-hover:text-purple-700 dark:text-white dark:group-hover:text-purple-300">
+                      {part.subjectName}
+                    </h3>
+                    <p className="mt-2 line-clamp-2 text-xs leading-5 text-slate-500">{part.description}</p>
+                    {partTopics.length > 0 ? (
+                      <>
+                        <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
+                          <div
+                            className="h-full rounded-full bg-gradient-to-r from-purple-500 to-indigo-500"
+                            style={{ width: `${Math.max(completion, 3)}%` }}
+                          />
+                        </div>
+                        <div className="mt-2 flex items-center justify-between text-[11px] font-bold text-slate-500">
+                          <span>{partTopics.length} topics</span>
+                          <span>{completion}% complete</span>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="mt-4 flex items-center justify-between text-xs font-bold text-purple-600 dark:text-purple-400 pt-2 border-t border-slate-100 dark:border-slate-800/80">
+                        <span className="flex items-center gap-1.5">
+                          <BookOpenCheck className="w-3.5 h-3.5" />
+                          <span>Practice CRQs &amp; ERQs</span>
+                        </span>
+                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition" />
+                      </div>
+                    )}
+                  </button>
+                );
               })}
             </div>
           </div>
@@ -888,7 +950,7 @@ PREPARED VIA MEHTAB STS IBA PREP
                       {isCurrentPart && (
                         <div className="px-2 pb-2.5 pt-1 space-y-1 border-t border-purple-100/60 dark:border-purple-900/40">
                           {part.topics.map((t) => {
-                            const isTopicActive = t.id === currentTopic.id;
+                            const isTopicActive = t.id === currentTopic?.id;
                             const isDone = masteredTopics[t.id];
                             const isStarred = starredTopics[t.id];
 
@@ -960,15 +1022,40 @@ PREPARED VIA MEHTAB STS IBA PREP
             ${isFocusMode ? 'max-w-4xl mx-auto ring-4 ring-purple-500/20' : ''}
           `}
         >
-          {/* Top Reading Progress Bar */}
-          <div className="w-full h-1 bg-slate-100 dark:bg-slate-800 rounded-t-3xl overflow-hidden">
-            <div
-              className="h-full bg-gradient-to-r from-purple-500 to-indigo-600 transition-all duration-150"
-              style={{ width: `${readingProgress}%` }}
-            />
-          </div>
+          {!currentTopic ? (
+            <div className="p-8 sm:p-14 text-center space-y-4">
+              <div className="w-16 h-16 rounded-3xl bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-300 mx-auto flex items-center justify-center shadow-inner">
+                <BookOpenCheck className="w-8 h-8" />
+              </div>
+              <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white font-display">
+                Subjective Questions Studio (CRQs &amp; ERQs)
+              </h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400 max-w-md mx-auto leading-relaxed">
+                Notes have been removed from these modules. Practice official constructed-response and extended-response exam questions with rubrics, marking criteria, and model answers.
+              </p>
+              <div className="pt-2 flex justify-center">
+                <button
+                  type="button"
+                  onClick={() => setWorkspaceView('subjective')}
+                  className="inline-flex items-center gap-2 rounded-2xl bg-purple-600 hover:bg-purple-500 px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-purple-600/20 transition cursor-pointer"
+                >
+                  <BookOpenCheck className="w-4 h-4" />
+                  <span>Open CRQs &amp; ERQs Practice (210+ Questions)</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          ) : (
+            <>
+              {/* Top Reading Progress Bar */}
+              <div className="w-full h-1 bg-slate-100 dark:bg-slate-800 rounded-t-3xl overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-purple-500 to-indigo-600 transition-all duration-150"
+                  style={{ width: `${readingProgress}%` }}
+                />
+              </div>
 
-          <div className="p-5 sm:p-8 space-y-6 sm:space-y-8">
+              <div className="p-5 sm:p-8 space-y-6 sm:space-y-8">
             {/* Breadcrumbs & Reader Toolbar Container */}
             <div className="pb-5 border-b border-slate-100 dark:border-slate-800 space-y-4">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -1755,7 +1842,11 @@ PREPARED VIA MEHTAB STS IBA PREP
                           (TEACHING_LICENSE_PARTS.findIndex((p) => p.id === currentPart.id) + 1) %
                           TEACHING_LICENSE_PARTS.length;
                         const nextPart = TEACHING_LICENSE_PARTS[nextPartIndex];
-                        handleSelectTopic(nextPart.id, nextPart.topics[0].id);
+                        if (nextPart?.topics?.[0]) {
+                          handleSelectTopic(nextPart.id, nextPart.topics[0].id);
+                        } else {
+                          setWorkspaceView('subjective');
+                        }
                       }}
                       className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition flex items-center gap-2 shadow-xs cursor-pointer"
                     >
@@ -1766,6 +1857,8 @@ PREPARED VIA MEHTAB STS IBA PREP
               </div>
             </article>
           </div>
+          </>
+          )}
         </main>
       </div>
       )}

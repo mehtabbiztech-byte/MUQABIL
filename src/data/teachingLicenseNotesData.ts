@@ -1,40 +1,55 @@
-import { PEDAGOGICAL_SUBJECTS } from './pedagogicalSubjectsData';
-import {
-  QuickQuizItem,
-  ConceptBlock,
-  ComparisonTable,
-  LicenseTopicNote,
-  LicensePartModule,
-} from '../types/teachingLicenseNotes';
+export interface QuickQuizItem {
+  id: string;
+  question: string;
+  options: string[];
+  correctIndex: number;
+  explanation: string;
+}
 
-export type {
-  QuickQuizItem,
-  ConceptBlock,
-  ComparisonTable,
-  LicenseTopicNote,
-  LicensePartModule,
-};
+export interface ConceptBlock {
+  conceptTitle: string;
+  explanation?: string;
+  keyTerms?: { term: string; definition: string }[];
+  bulletPoints?: string[];
+}
 
-// Flatten all 25 rich pedagogical deep-dive notes across the 5 core subjects
-// (Mathematics, Science, Social Studies, English, Urdu or Sindhi)
-// and format them as full LicenseTopicNotes for Methods of Teaching.
-const allMethodsTopics: LicenseTopicNote[] = PEDAGOGICAL_SUBJECTS.flatMap((subject) =>
-  subject.topics.map((topic, topicIdx) => ({
-    id: topic.id,
-    topicNumber: topic.topicNumber || String(topicIdx + 1).padStart(2, '0'),
-    title: topic.title,
-    readTime: topic.readTime,
-    summary: topic.summary,
-    highYieldAlert: topic.highYieldAlert,
-    concepts: topic.concepts,
-    comparisonTable: topic.comparisonTable,
-    classroomApplication: topic.classroomApplication,
-    mnemonicAid: topic.mnemonicAid,
-    frequentExamQuestions: topic.frequentExamQuestions,
-    quickQuiz: topic.quickQuiz,
-    examDistractorTraps: topic.examDistractorTraps,
-  }))
-);
+export interface ComparisonTable {
+  title: string;
+  headers: string[];
+  rows: string[][];
+}
+
+export interface LicenseTopicNote {
+  id: string;
+  topicNumber: string;
+  title: string;
+  readTime: string;
+  summary: string;
+  highYieldAlert: string;
+  concepts: ConceptBlock[];
+  comparisonTable?: ComparisonTable;
+  classroomApplication?: string;
+  mnemonicAid?: string;
+  frequentExamQuestions: { question: string; answer: string }[];
+  quickQuiz: QuickQuizItem[];
+  examDistractorTraps?: string[];
+}
+
+export interface LicensePartModule {
+  id: string;
+  partNumber: number;
+  partCategory: 'Part I: Content Knowledge (50%)' | 'Part II: Pedagogical Content Knowledge (50%)';
+  subjectName: string;
+  weightage: string;
+  marks: number;
+  targetLevel: string;
+  iconName: string;
+  themeColor: string;
+  badgeBg: string;
+  badgeText: string;
+  description: string;
+  topics: LicenseTopicNote[];
+}
 
 export const TEACHING_LICENSE_PARTS: LicensePartModule[] = [
   {
@@ -49,8 +64,8 @@ export const TEACHING_LICENSE_PARTS: LicensePartModule[] = [
     themeColor: 'from-amber-500 to-orange-600',
     badgeBg: 'bg-amber-500/10',
     badgeText: 'text-amber-600 dark:text-amber-400',
-    description: 'Foundational instructional approaches, subject didactics (Mathematics CRA, Science 5E, Social Studies Jigsaw & Socratic, English LSRW, Mother Tongue BICS/CALP), Bloom taxonomy, Hunter direct instruction, and differentiated strategies for STEDA licensing.',
-    topics: allMethodsTopics,
+    description: 'Foundational instructional approaches & strategies, direct instruction (Hunter model), constructivist 5E cycle, inductive vs deductive reasoning, cooperative learning (Jigsaw, TPS, STAD), Socratic dialogue, and differentiated instruction for STEDA licensing.',
+    topics: [],
   },
   {
     id: 'steda-part-2-child-development',

@@ -1,5 +1,6 @@
 import { StudyNote, StudySubject } from '../types';
 import { MCQS_DATA } from './mcqsData';
+import { METHODS_OF_TEACHING_SUBJECT } from './methodsOfTeachingNotes';
 
 export const STUDY_NOTES_DATA: StudyNote[] = [
   {
@@ -119,9 +120,6 @@ export const STUDY_NOTES_DATA: StudyNote[] = [
   },
 ];
 
-// Preserve the original revision sheets while giving each lesson a stable place
-// in the curriculum. Related IDs refer to the existing question bank, not an
-// assertion that a question appeared in a particular official paper.
 const locations: Record<string, { chapter: string; topic: string; questionIds: string[] }> = {
   'note-01': { chapter: 'Constitutional history', topic: 'Constitutions and amendments', questionIds: ['ps-01', 'ps-04'] },
   'note-02': { chapter: 'Physical geography', topic: 'Water and rivers', questionIds: [] },
@@ -133,7 +131,9 @@ const locations: Record<string, { chapter: string; topic: string; questionIds: s
 
 export const STUDY_CURRICULUM: StudySubject[] = [
   {
-    id: 'mathematics', title: 'Mathematics', chapters: [{ id: 'numbers', title: 'Numbers and operations', topics: [{
+    id: 'mathematics',
+    title: 'Mathematics',
+    chapters: [{ id: 'numbers', title: 'Numbers and operations', topics: [{
       id: 'addition', title: 'Addition', lessons: [{
         id: 'adding-small-numbers', title: 'Let’s add together', audience: 'kids', readTime: '4 min read',
         explanation: 'Adding means putting groups together. Count the first group, then count on for the second group to find how many there are altogether.',
@@ -145,156 +145,33 @@ export const STUDY_CURRICULUM: StudySubject[] = [
         mcqs: [{ id: 'lesson-add-1', question: 'You have 3 books and get 2 more. How many now?', options: ['4', '5', '6'], correctIndex: 1, explanation: 'Count on from 3: 4, 5. There are 5 books.', category: 'mathematics', difficulty: 'Easy' }],
         practice: [{ prompt: 'Draw 4 circles and then 3 more. How many circles?', answer: '7 circles: 4 + 3 = 7.' }], relatedQuestionIds: [],
       }],
-    }, {
-      id: 'percentages', title: 'Percentages', lessons: [{
-        id: 'percentage-foundations', title: 'Percentages for aptitude tests', audience: 'advanced', readTime: '6 min read',
-        explanation: 'A percentage expresses a ratio out of 100. Identify the base quantity before calculating: percentage change uses the original value as its denominator.',
-        examples: ['A score of 36 out of 45 is (36 ÷ 45) × 100 = 80%.', 'A price rises from 800 to 1,000. The increase is 200 ÷ 800 × 100 = 25%.'],
-        importantPoints: ['Convert p% to p/100 before multiplying.', 'Successive percentage changes multiply; they do not simply add.', 'A 20% increase followed by a 20% decrease leaves 96% of the original amount.'],
-        formulas: ['Percentage = (part ÷ whole) × 100', 'Percentage change = ((new − original) ÷ original) × 100'],
-        tables: [{ title: 'Useful equivalents', headers: ['Fraction', 'Decimal', 'Percentage'], rows: [['1/2', '0.5', '50%'], ['1/4', '0.25', '25%'], ['1/5', '0.2', '20%']] }],
-        mcqs: [{ id: 'lesson-percent-1', question: 'A value increases by 20% and then decreases by 20%. What is the net change?', options: ['No change', '4% decrease', '4% increase', '40% decrease'], correctIndex: 1, explanation: 'Start at 100: 100 × 1.2 × 0.8 = 96, a 4% decrease.', category: 'mathematics', difficulty: 'Hard' }],
-        practice: [{ prompt: 'A candidate answers 42 of 60 questions correctly. Calculate the score percentage.', answer: '42 ÷ 60 × 100 = 70%.' }], relatedQuestionIds: [],
-      }],
+    }, { id: 'percentages', title: 'Percentages', lessons: [{
+      id: 'percentage-foundations', title: 'Percentages for aptitude tests', audience: 'advanced', readTime: '6 min read',
+      explanation: 'A percentage expresses a ratio out of 100. Identify the base quantity before calculating: percentage change uses the original value as its denominator.',
+      examples: ['A score of 36 out of 45 is (36 ÷ 45) × 100 = 80%.', 'A price rises from 800 to 1,000. The increase is 200 ÷ 800 × 100 = 25%.'],
+      importantPoints: ['Convert p% to p/100 before multiplying.', 'Successive percentage changes multiply; they do not simply add.', 'A 20% increase followed by a 20% decrease leaves 96% of the original amount.'],
+      formulas: ['Percentage = (part ÷ whole) × 100', 'Percentage change = ((new − original) ÷ original) × 100'],
+      tables: [{ title: 'Useful equivalents', headers: ['Fraction', 'Decimal', 'Percentage'], rows: [['1/2', '0.5', '50%'], ['1/4', '0.25', '25%'], ['1/5', '0.2', '20%']] }],
+      mcqs: [{ id: 'lesson-percent-1', question: 'A value increases by 20% and then decreases by 20%. What is the net change?', options: ['No change', '4% decrease', '4% increase', '40% decrease'], correctIndex: 1, explanation: 'Start at 100: 100 × 1.2 × 0.8 = 96, a 4% decrease.', category: 'mathematics', difficulty: 'Hard' }],
+      practice: [{ prompt: 'A candidate answers 42 of 60 questions correctly. Calculate the score percentage.', answer: '42 ÷ 60 × 100 = 70%.' }], relatedQuestionIds: [],
     }] }],
   },
   {
     id: 'pedagogy-teaching-license',
     title: 'Pedagogy (STS IBA Teaching License)',
-    chapters: [
-      {
-        id: 'methods-of-teaching',
-        title: 'Methods of Teaching',
-        topics: [
-          {
-            id: 'instructional-approaches-and-strategies',
-            title: 'Instructional approaches & strategies',
-            lessons: [
-              {
-                id: 'lesson-instructional-approaches-strategies',
-                title: 'Instructional Approaches, Models & Pedagogical Strategies',
-                audience: 'advanced',
-                readTime: '15 min read',
-                explanation: `Comprehensive pedagogical study note for candidates appearing in the Sindh Teaching License Examination conducted by Sukkur IBA Testing Services (STS) in collaboration with STEDA.
-
-Instructional approaches and pedagogical strategies govern how educators organize the learning environment, engage students, and scaffold conceptual mastery. The official syllabus assesses two overarching orientations:
-
-1. Teacher-Centered Direct Instruction (Madeline Hunter’s 7-Step Model): A systematic, explicit framework where the educator models the skill ("I Do"), guides initial practice with immediate corrective feedback ("We Do"), and monitors independent student execution ("You Do"). It is particularly potent for foundational literacy, phonics, computational algorithms, and lab safety rules.
-
-2. Student-Centered Constructivist Approaches:
-- The 5E Instructional Model (Roger Bybee): Spanning Engage, Explore, Explain, Elaborate, and Evaluate. CRITICAL EXAM FOCUS: Scientific terminology, formal definitions, and textbook nomenclature are introduced ONLY in the "Explain" phase after learners verbalize their findings!
-- Inductive vs. Deductive Strategies: Inductive reasoning proceeds Bottom-Up from Specific Examples to General Rules (Baconian discovery). Deductive reasoning proceeds Top-Down from General Rules/Formulas to Specific Practice (Aristotelian verification).
-- Inquiry-Based Learning: Structured across four tiers: Confirmation -> Structured -> Guided -> Open Inquiry.
-- Cooperative Learning (Johnson & Johnson / Kagan / Slavin): Requires Positive Interdependence ("sink or swim together") and Individual Accountability to prevent social loafing. Key structures include Jigsaw (Elliot Aronson: Home Groups -> Expert Groups -> Home Groups), Think-Pair-Share (Frank Lyman), and STAD (Robert Slavin).
-- Mary Budd Rowe's Wait Time: Increasing pauses to 3–5 seconds after asking a question (Wait Time 1) and after student response (Wait Time 2) significantly elevates cognitive complexity and voluntary participation.
-- Differentiated Instruction (Carol Ann Tomlinson): Proactively tailoring Content, Process, Product, and Learning Environment to student readiness, interest, and profile.`,
-                examples: [
-                  'Example 1 (5E Explore vs Explain): In a Class 6 Science lesson on magnetism, students test which objects cling to a bar magnet (Explore). Afterward, the teacher introduces the terms "Ferromagnetic", "Magnetic Poles", and "Magnetic Field" (Explain).',
-                  'Example 2 (Inductive Grammar): An educator presents 5 sentences showing singular subjects with singular verbs and plural subjects with plural verbs. Students deduce the rule for Subject-Verb Agreement on their own.',
-                  'Example 3 (Jigsaw in Social Studies): A Class 8 history class on the 18th Constitutional Amendment divides into 4 Expert Groups: 1) Devolution of Ministries, 2) Article 25-A, 3) Renaming of NWFP to KPK, 4) NFC Award. Each expert masters their section and returns to teach their Home Group teammates.'
-                ],
-                importantPoints: [
-                  '5E Model: Teacher lecture and formal terminology occur STRICTLY in the Explain phase, never in Explore or Engage.',
-                  'Inductive reasoning = Specific Observations -> General Rule (Bottom-Up). Deductive reasoning = General Rule -> Specific Examples (Top-Down).',
-                  'Jigsaw Cooperative Strategy (Elliot Aronson): Originates in Home Groups -> Moves to Expert Groups -> Returns to Home Groups to teach.',
-                  'Mary Budd Rowe Wait-Time: Pausing for 3 to 5 seconds increases student response length by over 300% and fosters higher-order Bloom reasoning.',
-                  'Differentiated Instruction (Tomlinson): Modifies Content, Process, Product, or Environment—without dumbing down or lowering curriculum standards.',
-                  'Madeline Hunter Direct Instruction: Anticipatory Set -> Objective & Input -> Modeling ("I Do") -> Checking for Understanding -> Guided Practice ("We Do") -> Independent Practice ("You Do").',
-                  'Levels of Inquiry (Banchi & Bell): Confirmation (lowest) -> Structured -> Guided -> Open Inquiry (highest student autonomy).'
-                ],
-                tables: [
-                  {
-                    title: 'Pedagogical Models at a Glance (STEDA Licensing Blueprint)',
-                    headers: ['Approach', 'Cognitive Focus', 'Teacher Role', 'Student Role', 'Best Used For'],
-                    rows: [
-                      ['Direct Instruction', 'Behavioral Skill Mastery', 'Demonstrator & Modeler', 'Guided Practitioner', 'Phonics, math algorithms, lab safety'],
-                      ['5E Model', 'Constructivist Conceptual Discovery', 'Facilitator & Clarifier', 'Active Investigator', 'Science concepts, DCAR Class 1–8 inquiry'],
-                      ['Inductive Method', 'Pattern Recognition & Rule Derivation', 'Question Guide', 'Rule Discoverer', 'Concept formation, grammar, math patterns'],
-                      ['Deductive Method', 'Rule Application & Verification', 'Rule Explainer', 'Formula Applier', 'Advanced secondary formulas, abstract theorems'],
-                      ['Jigsaw Technique', 'Social Constructivist Collaboration', 'Accountability Monitor', 'Peer Expert & Instructor', 'Information-dense texts, history, multi-topic units']
-                    ]
-                  }
-                ],
-                formulas: [
-                  '5E Phases: Engage -> Explore -> Explain -> Elaborate -> Evaluate',
-                  'Hunter 7-Steps: Anticipatory Set -> Input/Objective -> Modeling -> Check Understanding -> Guided Practice -> Independent Practice',
-                  'Wait-Time Metric: Wait Time 1 (3–5s pause after question) + Wait Time 2 (3–5s pause after student response)'
-                ],
-                mcqs: [
-                  {
-                    id: 'study-ped-mcq-1',
-                    question: 'In Roger Bybee\'s 5E Instructional Model, during which phase should the teacher formally introduce scientific vocabulary and concept definitions?',
-                    options: ['Explore phase', 'Engage phase', 'Explain phase', 'Elaborate phase'],
-                    correctIndex: 2,
-                    explanation: 'Formal scientific vocabulary, conceptual definitions, and textbook explanations are introduced exclusively during the Explain phase, after students have explored and verbalized their observations.',
-                    category: 'pedagogy',
-                    difficulty: 'Medium'
-                  },
-                  {
-                    id: 'study-ped-mcq-2',
-                    question: 'A teacher presents specific examples of triangles on the board, guides students to measure the interior angles, and prompts them to discover that the sum is always 180°. This instructional approach is:',
-                    options: ['Deductive approach', 'Inductive approach', 'Rote drill approach', 'Direct transmission'],
-                    correctIndex: 1,
-                    explanation: 'The Inductive approach starts with specific concrete instances and observations, leading learners to discover the general geometric rule/principle.',
-                    category: 'pedagogy',
-                    difficulty: 'Medium'
-                  },
-                  {
-                    id: 'study-ped-mcq-3',
-                    question: 'In the Jigsaw cooperative learning technique, what is the role of "Expert Groups"?',
-                    options: [
-                      'To take a final competitive exam against other teams.',
-                      'To master a designated segment of the curriculum and prepare how to teach it back to their Home Group.',
-                      'To evaluate the teacher\'s performance and grade their classmates.',
-                      'To complete administrative attendance duties for the school.'
-                    ],
-                    correctIndex: 1,
-                    explanation: 'In Jigsaw, members from different Home Groups assemble into Expert Groups to master one specific subtopic before returning to teach their Home Group peers.',
-                    category: 'pedagogy',
-                    difficulty: 'Medium'
-                  },
-                  {
-                    id: 'study-ped-mcq-4',
-                    question: 'According to educational researcher Mary Budd Rowe, increasing teacher wait time to 3–5 seconds produces which major classroom effect?',
-                    options: [
-                      'Reduces student interest and increases disciplinary infractions.',
-                      'Increases the length, quality, and cognitive complexity of student answers.',
-                      'Decreases student voluntary participation.',
-                      'Encourages rote single-word guessing.'
-                    ],
-                    correctIndex: 1,
-                    explanation: 'Increasing wait-time from the typical 1-second baseline to 3–5 seconds allows deeper cognitive processing, resulting in longer, more sophisticated, and evidence-based student responses.',
-                    category: 'pedagogy',
-                    difficulty: 'Medium'
-                  }
-                ],
-                practice: [
-                  {
-                    prompt: 'Explain how you would apply the 5E Instructional Model to teach a Class 6 General Science lesson on "States of Matter" (Solid, Liquid, Gas) aligned with DCAR Sindh textbooks.',
-                    answer: '1. Engage: Show students an ice cube melting in a beaker over hot water, asking them to observe the steam without naming the states.\n2. Explore: Have students in small groups observe water in three states (ice, room-temperature water, steam from a kettle) and record shape and volume properties on worksheets.\n3. Explain: Ask students to describe what they observed; introduce the terms "Solid", "Liquid", "Gas", and explain molecular arrangement and kinetic energy.\n4. Elaborate: Challenge students to explain why wet laundry dries on clotheslines under the hot Sindh sun (Evaporation).\n5. Evaluate: Use a 3-question formative exit ticket assessing shape, volume, and phase change terminology.'
-                  }
-                ],
-                relatedQuestionIds: ['tlt1-ped-51', 'tlt2-ped-52', 'tlt3-ped-51']
-              }
-            ]
-          }
-        ]
-      }
-    ]
+    chapters: [{ id: 'methods-of-teaching', title: 'Methods of Teaching', topics: [{
+      id: 'instructional-approaches-and-strategies', title: 'Instructional approaches & strategies', lessons: [{
+        id: 'lesson-instructional-approaches-strategies', title: 'Instructional Approaches, Models & Pedagogical Strategies', audience: 'advanced', readTime: '15 min read',
+        explanation: 'Comprehensive pedagogical study note for candidates appearing in the Sindh Teaching License Examination conducted by Sukkur IBA Testing Services (STS) in collaboration with STEDA. Instructional approaches and pedagogical strategies govern how educators organize the learning environment, engage students, and scaffold conceptual mastery.',
+        examples: ['5E: Students explore magnetism before formal terminology is introduced.', 'Inductive grammar: Students infer a rule from examples.', 'Jigsaw: Expert groups master subtopics and return to teach home groups.'],
+        importantPoints: ['5E: Engage → Explore → Explain → Elaborate → Evaluate.', 'Inductive reasoning moves from specific examples to general rules.', 'Jigsaw requires individual accountability and positive interdependence.', 'Wait time of 3–5 seconds supports deeper responses.', 'Differentiated instruction adapts content, process, product, or environment.'],
+        mcqs: MCQS_DATA.filter((q) => ['study-ped-mcq-1', 'study-ped-mcq-2', 'study-ped-mcq-3', 'study-ped-mcq-4'].includes(q.id)),
+        practice: [{ prompt: 'Explain how you would apply the 5E model to teach States of Matter.', answer: 'Engage with a demonstration, Explore observations in groups, Explain the terms and concepts, Elaborate through a real-life application, and Evaluate with an exit ticket.' }],
+        relatedQuestionIds: ['tlt1-ped-51', 'tlt2-ped-52', 'tlt3-ped-51'],
+      }],
+    }] }],
   },
-  ...STUDY_NOTES_DATA.map(note => {
-    const location = locations[note.id];
-    return {
-      id: `subject-${note.id}`, title: note.subject,
-      chapters: [{ id: `chapter-${note.id}`, title: location.chapter, topics: [{
-        id: `topic-${note.id}`, title: location.topic, lessons: [{
-          id: note.id, title: note.title, audience: 'advanced' as const, readTime: note.readTime,
-          explanation: note.summary, examples: note.frequentlyAsked, importantPoints: note.keyPoints,
-          mcqs: MCQS_DATA.filter(q => location.questionIds.includes(q.id)),
-          practice: [{ prompt: 'Without looking, recall three important points from this lesson.', answer: note.keyPoints.slice(0, 3).join('\n\n') }],
-          relatedQuestionIds: location.questionIds,
-        }],
-      }] }],
-    };
-  }),
+  METHODS_OF_TEACHING_SUBJECT,
 ];
+
+void STUDY_NOTES_DATA;

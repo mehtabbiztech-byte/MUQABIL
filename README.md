@@ -53,9 +53,9 @@ The Vercel project uses:
 - Output directory: `dist`
 - Install command: `npm ci`
 
-The health endpoint is available at `/api/health`.
+Production is <https://muqabil-test.vercel.app>. The health endpoint is `/api/health`.
 
-GitHub Pages is published by `.github/workflows/pages.yml` to <https://mehtabbiztech-byte.github.io/MUQABIL/>. Vite builds that site with a `/MUQABIL/` base path (`GITHUB_ACTIONS=true`), while Vercel and local development build for `/`.
+GitHub Pages is published by `.github/workflows/pages.yml` to <https://mehtabbiztech-byte.github.io/MUQABIL/>. Vite builds that site with a `/MUQABIL/` base path (`GITHUB_ACTIONS=true`), while Vercel and local development build for `/`. Do not add a `*.vercel.app` CNAME — those hostnames belong to Vercel, and GitHub Pages would redirect github.io at a domain it cannot serve.
 
 Enabling Pages is a one-time repository-administration step that only a repository owner can perform, because a workflow token can deploy to a Pages site but can never create one (see [actions/configure-pages#40](https://github.com/actions/configure-pages/issues/40)):
 

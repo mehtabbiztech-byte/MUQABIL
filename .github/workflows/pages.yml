@@ -19,20 +19,21 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
-      # GitHub Pages must be switched on for this repository before
-      # actions/configure-pages can resolve a site. Creating a Pages site needs
-      # repository administration rights, which the workflow GITHUB_TOKEN does
-      # not have (configure-pages' own `enablement` input explicitly requires a
-      # PAT or GitHub App token instead). Without this pre-flight the job dies
-      # inside "Setup Pages" with an opaque error on every push, so detect the
-      # condition up front, report exactly what is needed, and skip cleanly.
-      # Once Pages is enabled in the repository settings this workflow starts
-      # deploying again on the next push with no further changes.
+      # GitHub Pages must use Source = GitHub Actions before
+      # actions/configure-pages can publish this workflow's artifact.
+      # Creating a Pages site, or switching it off "Deploy from a branch",
+      # needs repository administration rights, which the workflow GITHUB_TOKEN
+      # does not have (configure-pages' own `enablement` input explicitly
+      # requires a PAT or GitHub App token instead). Without this pre-flight
+      # the job dies inside "Setup Pages" with an opaque error on every push,
+      # so detect the condition up front, report exactly what is needed, and
+      # skip cleanly. A branch-source site would publish the unbuilt Vite
+      # tree and any root CNAME, which is not a working deployment.
       - name: Check GitHub Pages is enabled
         id: pages_check
         env:
@@ -45,38 +46,63 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${GH_TOKEN}" \
             "https://api.github.com/repos/${REPO}/pages")" || status="000"
+
+          build_type=""
+          if [ "$status" = "200" ]; then
+            build_type="$(jq -r '.build_type // "legacy"' "$status_file")"
+          fi
           rm -f "$status_file"
 
-          # 200 = a Pages site exists. 404 = Pages has never been enabled.
-          if [ "$status" = "200" ]; then
+          # 200 + build_type=workflow = Pages will serve this artifact.
+          # 200 + legacy = site exists but still deploys the branch source.
+          # 404 = Pages has never been enabled.
+          if [ "$status" = "200" ] && [ "$build_type" = "workflow" ]; then
             echo "enabled=true" >> "$GITHUB_OUTPUT"
-            echo "GitHub Pages is enabled for ${REPO}; continuing with the deployment."
+            echo "reason=ok" >> "$GITHUB_OUTPUT"
+            echo "GitHub Pages is set to GitHub Actions for ${REPO}; continuing with the deployment."
           else
             echo "enabled=false" >> "$GITHUB_OUTPUT"
-            echo "Pages lookup returned HTTP ${status} for ${REPO}; treating Pages as not enabled."
+            if [ "$status" = "200" ]; then
+              echo "reason=legacy" >> "$GITHUB_OUTPUT"
+              echo "Pages exists for ${REPO} but build_type is '${build_type}', not 'workflow'."
+            else
+              echo "reason=missing" >> "$GITHUB_OUTPUT"
+              echo "Pages lookup returned HTTP ${status} for ${REPO}; treating Pages as not enabled."
+            fi
           fi
 
       - name: Report that Pages needs enabling
         if: steps.pages_check.outputs.enabled != 'true'
+        env:
+          REASON: ${{ steps.pages_check.outputs.reason }}
         run: |
-          echo "::warning title=GitHub Pages not enabled::Skipping the Pages deployment because GitHub Pages is not enabled for this repository. Enable it once under Settings > Pages > Build and deployment > Source: 'GitHub Actions', then re-run this workflow."
+          if [ "$REASON" = "legacy" ]; then
+            echo "::warning title=GitHub Pages still deploys from the branch::Skipping the Pages deployment because Source is 'Deploy from a branch', not 'GitHub Actions'. The branch publish serves unbuilt Vite source. Set Source to GitHub Actions under Settings > Pages, then re-run this workflow."
+          else
+            echo "::warning title=GitHub Pages not enabled::Skipping the Pages deployment because GitHub Pages is not enabled for this repository. Enable it once under Settings > Pages > Build and deployment > Source: 'GitHub Actions', then re-run this workflow."
+          fi
           {
             echo "## GitHub Pages deployment skipped"
             echo ""
-            echo "The bundle built successfully, but **GitHub Pages is not enabled** for this repository, so there is no site to publish to."
+            if [ "$REASON" = "legacy" ]; then
+              echo "The bundle built successfully, but **GitHub Pages is still set to 'Deploy from a branch'**, so this workflow's artifact is not what github.io serves. A branch publish of this Vite app is the unbuilt source tree."
+            else
+              echo "The bundle built successfully, but **GitHub Pages is not enabled** for this repository, so there is no site to publish to."
+            fi
             echo ""
             echo "### One-time manual step (repository administrator)"
             echo ""
             echo "1. Open **Settings → Pages**."
             echo "2. Under **Build and deployment**, set **Source** to **GitHub Actions**."
+            echo "3. Do not set a \`*.vercel.app\` custom domain — Vercel aliases are not GitHub Pages domains. The Pages URL is https://mehtabbiztech-byte.github.io/MUQABIL/."
             echo ""
-            echo "This cannot be automated from the workflow: creating a Pages site requires repository administration rights, and \`actions/configure-pages\` documents that its \`enablement\` input needs a PAT with the \`repo\` scope or a GitHub App with \`administration:write\` and \`pages:write\` — the default \`GITHUB_TOKEN\` is not sufficient."
+            echo "This cannot be automated from the workflow: creating a Pages site or switching its source requires repository administration rights, and \`actions/configure-pages\` documents that its \`enablement\` input needs a PAT with the \`repo\` scope or a GitHub App with \`administration:write\` and \`pages:write\` — the default \`GITHUB_TOKEN\` is not sufficient."
             echo ""
-            echo "Once Pages is enabled, every push to \`main\` deploys automatically with no workflow change. The production site remains https://muqabil-prep.vercel.app."
+            echo "Once Pages is set to GitHub Actions, every push to \`main\` deploys automatically with no workflow change. The production site remains https://muqabil-test.vercel.app."
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: 'npm'

@@ -42,7 +42,7 @@
     "lucide-react": "^1.55.0",
     "motion": "^14.0.0",
     "react": "^19.0.1",
-    "react-dom": "^19.0.1",
+    "react-dom": "^19.3.0",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {

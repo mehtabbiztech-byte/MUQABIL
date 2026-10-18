@@ -40,6 +40,16 @@ export interface StudyPlannerForm {
   weakAreas: string[];
 }
 
+export interface PlannerTopic {
+  id: string;
+  subjectSlug: string;
+  subjectName: string;
+  subtopic: string;
+  sectionName?: string;
+  sectionWeight?: number;
+  syllabusRecordId?: string;
+}
+
 export interface StudyPlannerTask {
   id: string;
   kind: PlannerTaskKind;
@@ -48,6 +58,9 @@ export interface StudyPlannerTask {
   durationMinutes: number;
   subjectSlug?: string;
   subtopic?: string;
+  topicId?: string;
+  sectionName?: string;
+  sectionWeight?: number;
   targetCount?: number;
 }
 
@@ -57,10 +70,17 @@ export interface StudyDay {
   weekNumber: number;
   phase: StudyPhase;
   focus: string;
-  topics: Array<{ id: string; subjectSlug: string; subjectName: string; subtopic: string }>;
+  topics: PlannerTopic[];
   studyMinutes: number;
+  budgetMinutes: number;
   mcqTarget: number;
   tasks: StudyPlannerTask[];
+}
+
+export interface MockSubjectScore {
+  subjectSlug: string;
+  score: number;
+  total: number;
 }
 
 export interface MockAttempt {
@@ -69,19 +89,75 @@ export interface MockAttempt {
   score: number;
   total: number;
   recordedAt: string;
+  source?: 'manual' | 'quiz';
+  subjectScores?: MockSubjectScore[];
+  completedTaskId?: string;
 }
+
+export const getMockSubjectScoresFromQuiz = (
+  questions: ReadonlyArray<{ category: string; correctIndex: number }>,
+  answers: Record<number, number>,
+): MockSubjectScore[] => {
+  const totals = new Map<string, MockSubjectScore>();
+  questions.forEach((question, index) => {
+    const subjectSlug = normalizeWeakArea(question.category);
+    if (!subjectSlug) return;
+    const result = totals.get(subjectSlug) ?? { subjectSlug, score: 0, total: 0 };
+    result.total += 1;
+    if (answers[index] === question.correctIndex) result.score += 1;
+    totals.set(subjectSlug, result);
+  });
+  return [...totals.values()];
+};
 
 export interface StoredStudyPlan {
   id: string;
   generatedAt: string;
+  updatedAt?: string;
   startDate: string;
   form: StudyPlannerForm;
   completedTaskIds: string[];
+  completedTaskDates?: Record<string, string>;
+  completedTopicIds?: string[];
   completedSubtopicIds: string[];
+  plannedTopicIds?: string[];
   mockAttempts: MockAttempt[];
   aiPersonalizationRequested?: boolean;
   aiPlanStatus?: 'pending' | 'ready' | 'offline';
   aiPlanAdvice?: string;
+}
+
+export interface StudyPlannerCollection {
+  activePlanId: string | null;
+  plans: StoredStudyPlan[];
+}
+
+export interface StudyScheduleOptions {
+  topicIds?: string[];
+  mockAttempts?: MockAttempt[];
+}
+
+export interface PlannerTaskHandoff {
+  planId: string;
+  subjectSlug?: string;
+  subtopic?: string;
+}
+
+export interface PlannerQuizLaunch extends PlannerTaskHandoff {
+  taskId: string;
+  questionCount: number;
+  examName: string;
+}
+
+export interface PlanFeasibility {
+  totalTopics: number;
+  availableDays: number;
+  learningDays: number;
+  topicsPerDayCapacity: number;
+  requiredTopicsPerDay: number;
+  estimatedMinutesPerDay: number;
+  feasible: boolean;
+  overloadedByTopicsPerDay: number;
 }
 
 export interface PlannerProgress {
@@ -126,7 +202,7 @@ export const STUDY_ORGANIZATIONS: StudyOrganization[] = [
       position('matric-bps-05-15', 'Matriculation category · BPS 05–15', GENERAL_RECRUITMENT, 'screen-matric-2025'),
       position('pst-jest', 'PST / JEST educator screening', TEACHING),
       position('junior-clerk', 'Junior Clerk / clerical recruitment', ['english', 'computer', 'general-knowledge', 'current-affairs', 'pakistan-affairs', 'mathematics']),
-      position('police-asi', 'Sindh Police ASI', ['english', 'mathematics', 'general-knowledge', 'pakistan-affairs', 'current-affairs', 'computer'], 'sindh-police-asi-2025'),
+      position('police-asi', 'Sindh Police ASI', ['english', 'urdu', 'sindhi', 'mathematics', 'general-knowledge', 'pakistan-affairs', 'current-affairs', 'computer'], 'sindh-police-asi-2025'),
       position('teaching-license', 'Sindh Teaching License (STEDA)', TEACHING, 'steda-teaching-license-2024'),
       position('custom', 'Custom position…', GENERAL_RECRUITMENT),
     ],
@@ -231,18 +307,41 @@ for (const category of POPULAR_CATEGORIES) {
 
 export const PLANNER_SUBJECTS = [...SUBJECTS_BY_SLUG.values()];
 export const MAX_PLAN_HORIZON_DAYS = 730;
+export const MAX_STORED_STUDY_PLANS = 20;
 export const STUDY_PLANNER_STORAGE_KEY = 'muqabil_smart_study_planner_v1';
-export const WEAK_AREAS = ['English', 'Mathematics', 'Current Affairs', 'GK', 'Computer', 'Islamic Studies'] as const;
-export type WeakArea = typeof WEAK_AREAS[number];
+export const STUDY_PLANS_STORAGE_KEY = 'muqabil_smart_study_plans_v2';
+export const STUDY_PLANNER_SYNC_KEY = 'muqabil_smart_study_planner_cloud_sync_v1';
+export const STUDY_PLANNER_TASK_HANDOFF_KEY = 'muqabil_study_planner_task_handoff';
+export const STUDY_PLANNER_QUIZ_LAUNCH_KEY = 'muqabil_study_planner_quiz_launch';
+export const WEAK_AREAS = PLANNER_SUBJECTS.map((subject) => subject.slug);
+export type WeakArea = string;
 
-const WEAK_AREA_SUBJECTS: Record<WeakArea, string> = {
-  English: 'english',
-  Mathematics: 'mathematics',
-  'Current Affairs': 'current-affairs',
-  GK: 'general-knowledge',
-  Computer: 'computer',
-  'Islamic Studies': 'islamic-studies',
+const WEAK_AREA_ALIASES: Record<string, string> = {
+  english: 'english',
+  mathematics: 'mathematics',
+  'current affairs': 'current-affairs',
+  'general knowledge': 'general-knowledge',
+  gk: 'general-knowledge',
+  computer: 'computer',
+  'islamic studies': 'islamic-studies',
+  islamiat: 'islamic-studies',
+  pedagogy: 'pedagogy',
+  'general science': 'everyday-science',
+  'pakistan studies': 'pakistan-studies',
+  'pakistan affairs': 'pakistan-affairs',
 };
+
+export const normalizeWeakArea = (area: unknown): string | null => {
+  if (typeof area !== 'string') return null;
+  if (SUBJECTS_BY_SLUG.has(area)) return area;
+  const normalized = area.trim().toLowerCase().replace(/[_-]+/g, ' ');
+  const alias = WEAK_AREA_ALIASES[normalized];
+  if (alias && SUBJECTS_BY_SLUG.has(alias)) return alias;
+  return PLANNER_SUBJECTS.find((subject) => subject.name.trim().toLowerCase() === normalized)?.slug ?? null;
+};
+
+export const getWeakAreaName = (slug: string): string =>
+  SUBJECTS_BY_SLUG.get(slug)?.name ?? slug;
 
 export const PREPARATION_MODES: Array<{ id: PreparationMode; label: string; description: string }> = [
   { id: 'mcqs', label: 'MCQs Only', description: 'Timed questions, accuracy drills and mistake review.' },
@@ -316,6 +415,95 @@ export const getPlannerSubjects = (subjectSlugs: string[]): PlannerSubject[] => 
 export const getTopicCount = (subjectSlugs: string[]): number =>
   getPlannerSubjects(subjectSlugs).reduce((total, subject) => total + subject.subtopics.length, 0);
 
+const getOfficialTopicSubjectSlugs = (
+  sectionName: string,
+  topicTitle: string,
+  selectedSlugs: Set<string>,
+): string[] => {
+  const section = sectionName.toLowerCase();
+  const topic = topicTitle.toLowerCase();
+  const candidates: string[] = [];
+
+  if (/mother tongue/.test(section)) {
+    if (/urdu/.test(topic)) candidates.push('urdu');
+    if (/sindhi/.test(topic)) candidates.push('sindhi');
+    if (!candidates.length) candidates.push('urdu', 'sindhi');
+  } else {
+    // Prefer the listed topic itself over a broad section label (e.g. maths inside
+    // an early-learning assessment section) to keep source topics accurately mapped.
+    if (/english|language and literacy|\bliteracy\b|grammar|reading comprehension|prepositions|vocabulary|spelling|synonyms|antonyms/.test(topic)) candidates.push('english');
+    if (/mathematics|\bmath\b|arithmetic|numeracy|fractions|percentages|ratio|proportion|geometry|mensuration|data handling/.test(topic)) candidates.push('mathematics');
+    if (/everyday science|\bscience\b|biology|living things|cell biology|plant processes|photosynthesis|atoms|energy|forces|matter/.test(topic)) candidates.push('everyday-science');
+    if (/computer|ms office|it skills|web search|information technology/.test(topic)) candidates.push('computer');
+    if (/current affairs/.test(topic)) candidates.push('current-affairs');
+    if (/world knowledge|world around us|international/.test(topic)) candidates.push('general-knowledge');
+    if (/islamiat|islamic/.test(topic)) candidates.push('islamic-studies');
+    if (/pakistan affairs/.test(topic)) candidates.push('pakistan-affairs');
+    if (/pakistan studies|pak studies|pakistan history|indus valley|sindh heritage|constitution of pakistan|geography of pakistan/.test(topic)) candidates.push('pakistan-studies');
+    if (/\biq\b/.test(topic)) candidates.push('general-knowledge');
+    if (/reasoning|aptitude|arithmetic|word problem/.test(topic)) candidates.push('mathematics');
+    if (/social and emotional|child|development|learning theory|classroom|instruction|play-based|assessment|creative arts|health and nutrition|physical development|child rights|behavior|discipline|inclusive education|professional ethics/.test(topic)) candidates.push('pedagogy');
+
+    if (!candidates.length) {
+      if (/current affairs/.test(section)) candidates.push('current-affairs');
+      else if (/english/.test(section)) candidates.push('english');
+      else if (/mathematics|\bmath\b/.test(section)) candidates.push('mathematics');
+      else if (/science/.test(section)) candidates.push('everyday-science');
+      else if (/social studies|pakistan studies|pak studies/.test(section)) candidates.push('pakistan-studies');
+      else if (/computer|\bit skills\b|information technology/.test(section)) candidates.push('computer');
+      else if (/pedagogy|teaching|learning|child development|child wellbeing|classroom|assessment|curriculum|professional ethics|instructional strategies/.test(section)) candidates.push('pedagogy');
+      else candidates.push('general-knowledge');
+    }
+  }
+
+  return [...new Set(candidates)].filter((slug) => selectedSlugs.has(slug));
+};
+
+/**
+ * Returns the actual topic units used by the planner. A position-linked source
+ * syllabus wins where it can be mapped to selected MUQABIL subjects; unmapped
+ * selected subjects retain their bank topics rather than silently disappearing.
+ */
+export const getStudyPlanTopics = (form: StudyPlannerForm): PlannerTopic[] => {
+  const subjects = getPlannerSubjects(form.subjectSlugs);
+  const selectedSlugs = new Set(subjects.map((subject) => subject.slug));
+  const record = getSyllabusRecord(form);
+  const officialTopics: PlannerTopic[] = [];
+  const officialSlugs = new Set<string>();
+
+  if (record) {
+    record.sections.forEach((section, sectionIndex) => {
+      section.topics.forEach((topicTitle, topicIndex) => {
+        getOfficialTopicSubjectSlugs(section.name, topicTitle, selectedSlugs).forEach((subjectSlug) => {
+          const subject = SUBJECTS_BY_SLUG.get(subjectSlug);
+          if (!subject) return;
+          officialSlugs.add(subjectSlug);
+          officialTopics.push({
+            id: `official:${record.id}:${sectionIndex}:${topicIndex}:${subjectSlug}`,
+            subjectSlug,
+            subjectName: subject.name,
+            subtopic: topicTitle,
+            sectionName: section.name,
+            sectionWeight: section.percent,
+            syllabusRecordId: record.id,
+          });
+        });
+      });
+    });
+  }
+
+  const bankTopics = subjects
+    .filter((subject) => !officialSlugs.has(subject.slug))
+    .flatMap((subject) => subject.subtopics.map((subtopic, index): PlannerTopic => ({
+      id: `${subject.slug}::${index}`,
+      subjectSlug: subject.slug,
+      subjectName: subject.name,
+      subtopic,
+    })));
+
+  return [...officialTopics, ...bankTopics];
+};
+
 const pad2 = (value: number) => String(value).padStart(2, '0');
 
 export const toLocalDateString = (date: Date): string =>
@@ -351,30 +539,34 @@ export const createDefaultStudyPlannerForm = (today = toLocalDateString(new Date
     examDate: addDaysToDateString(today, 60),
     dailyStudyMinutes: 60,
     targetScore: '70',
-    weakAreas: ['English', 'Mathematics'],
+    weakAreas: ['english', 'mathematics'],
   };
 };
 
 export const createStudyPlanRecord = (form: StudyPlannerForm, now = new Date()): StoredStudyPlan => ({
-  id: `study-plan-${now.getTime()}`,
+  id: `study-plan-${now.getTime()}-${Math.random().toString(36).slice(2, 8)}`,
   generatedAt: now.toISOString(),
+  updatedAt: now.toISOString(),
   startDate: toLocalDateString(now),
   form: {
     ...form,
     subjectSlugs: [...new Set(form.subjectSlugs)],
-    weakAreas: [...new Set(form.weakAreas)],
+    weakAreas: [...new Set(form.weakAreas.map(normalizeWeakArea).filter((slug): slug is string => Boolean(slug)))],
   },
   completedTaskIds: [],
+  completedTaskDates: {},
+  completedTopicIds: [],
   completedSubtopicIds: [],
   mockAttempts: [],
 });
 
-const topicId = (subjectSlug: string, subtopicIndex: number): string => `${subjectSlug}::${subtopicIndex}`;
+const getFinalRevisionDays = (totalDays: number): number =>
+  totalDays > 3 ? Math.max(2, Math.ceil(totalDays * 0.18)) : 0;
 
 const getPhase = (dayIndex: number, totalDays: number, isExamDay: boolean): StudyPhase => {
   if (isExamDay && dayIndex === 0) return 'exam-day';
   if (totalDays <= 3) return 'final-revision';
-  const finalRevisionDays = Math.max(2, Math.ceil(totalDays * 0.18));
+  const finalRevisionDays = getFinalRevisionDays(totalDays);
   if (dayIndex >= totalDays - finalRevisionDays) return 'final-revision';
   const foundationDays = Math.max(1, Math.floor(totalDays * 0.45));
   return dayIndex < foundationDays ? 'foundation' : 'practice';
@@ -394,15 +586,118 @@ export const getDailyMcqTarget = (form: StudyPlannerForm): number => {
   return Math.max(5, Math.round(rawTarget / 5) * 5);
 };
 
+const minutesPerTopic = (mode: PreparationMode): number => ({
+  mcqs: 20,
+  notes: 30,
+  'mcqs-notes': 40,
+  'mock-tests': 0,
+  complete: 45,
+}[mode]);
+
+const getDailyTopicCapacity = (form: StudyPlannerForm): number => {
+  if (form.preparationMode === 'mock-tests') return 0;
+  return Math.max(1, Math.min(3, Math.floor(form.dailyStudyMinutes / minutesPerTopic(form.preparationMode))));
+};
+
+export const getPlanFeasibility = (
+  form: StudyPlannerForm,
+  startDate: string,
+  topicCountOverride?: number,
+): PlanFeasibility => {
+  const rawDayCount = daysBetweenDates(startDate, form.examDate);
+  const availableDays = rawDayCount < 0 ? 0 : Math.min(MAX_PLAN_HORIZON_DAYS, Math.max(1, rawDayCount));
+  const finalRevisionDays = availableDays > 5 ? getFinalRevisionDays(availableDays) : 0;
+  const learningDays = availableDays ? Math.max(1, availableDays - finalRevisionDays) : 0;
+  const totalTopics = topicCountOverride ?? getStudyPlanTopics(form).length;
+  const topicsPerDayCapacity = getDailyTopicCapacity(form);
+  const requiredTopicsPerDay = form.preparationMode === 'mock-tests' || !learningDays
+    ? 0
+    : Math.ceil(totalTopics / learningDays);
+  const feasible = form.preparationMode === 'mock-tests'
+    || (learningDays > 0 && requiredTopicsPerDay <= topicsPerDayCapacity);
+  const estimatedMinutesPerDay = form.preparationMode === 'mock-tests'
+    ? form.dailyStudyMinutes
+    : Math.max(form.dailyStudyMinutes, requiredTopicsPerDay * minutesPerTopic(form.preparationMode) + 10);
+
+  return {
+    totalTopics,
+    availableDays,
+    learningDays,
+    topicsPerDayCapacity,
+    requiredTopicsPerDay,
+    estimatedMinutesPerDay,
+    feasible,
+    overloadedByTopicsPerDay: Math.max(0, requiredTopicsPerDay - topicsPerDayCapacity),
+  };
+};
+
+const getSubjectAccuracy = (attempts: MockAttempt[]): Map<string, number> => {
+  const totals = new Map<string, { score: number; total: number }>();
+  attempts.forEach((attempt) => attempt.subjectScores?.forEach((subjectScore) => {
+    if (!SUBJECTS_BY_SLUG.has(subjectScore.subjectSlug) || subjectScore.total <= 0) return;
+    const current = totals.get(subjectScore.subjectSlug) ?? { score: 0, total: 0 };
+    current.score += Math.max(0, Math.min(subjectScore.total, subjectScore.score));
+    current.total += subjectScore.total;
+    totals.set(subjectScore.subjectSlug, current);
+  }));
+  return new Map([...totals].map(([slug, result]) => [slug, result.total ? result.score / result.total : 0]));
+};
+
+const getWeightedTopicOrder = (
+  topics: PlannerTopic[],
+  form: StudyPlannerForm,
+  attempts: MockAttempt[],
+): PlannerTopic[] => {
+  const accuracyBySubject = getSubjectAccuracy(attempts);
+  const weakSubjects = new Set(form.weakAreas.map(normalizeWeakArea).filter((slug): slug is string => Boolean(slug)));
+  const groups = new Map<string, { topics: PlannerTopic[]; weight: number; index: number }>();
+
+  topics.forEach((topic) => {
+    const key = topic.sectionName ? `section:${topic.sectionName}` : `subject:${topic.subjectSlug}`;
+    const accuracy = accuracyBySubject.get(topic.subjectSlug);
+    const weakMultiplier = weakSubjects.has(topic.subjectSlug) ? 1.4 : 1;
+    const performanceMultiplier = accuracy === undefined ? 1 : accuracy < 0.45 ? 2.4 : accuracy < 0.6 ? 1.8 : accuracy < 0.75 ? 1.45 : accuracy < 0.85 ? 1.15 : 0.85;
+    const officialWeight = topic.sectionWeight ? topic.sectionWeight / 100 : 1;
+    const nextWeight = Math.max(0.1, officialWeight * weakMultiplier * performanceMultiplier);
+    const existing = groups.get(key);
+    if (existing) {
+      existing.topics.push(topic);
+      existing.weight = Math.max(existing.weight, nextWeight);
+    } else {
+      groups.set(key, { topics: [topic], weight: nextWeight, index: 0 });
+    }
+  });
+
+  const ordered: PlannerTopic[] = [];
+  while (ordered.length < topics.length) {
+    let bestGroup: { topics: PlannerTopic[]; weight: number; index: number } | null = null;
+    let bestPriority = -1;
+    groups.forEach((group) => {
+      if (group.index >= group.topics.length) return;
+      const priority = group.weight / (group.index + 1);
+      if (priority > bestPriority) {
+        bestPriority = priority;
+        bestGroup = group;
+      }
+    });
+    if (!bestGroup) break;
+    ordered.push(bestGroup.topics[bestGroup.index]);
+    bestGroup.index += 1;
+  }
+  return ordered;
+};
+
 const makeTask = (
   dayDate: string,
   index: number,
   kind: PlannerTaskKind,
   title: string,
   detail: string,
-  metadata: Pick<StudyPlannerTask, 'subjectSlug' | 'subtopic' | 'targetCount'> = {},
+  metadata: Pick<StudyPlannerTask, 'subjectSlug' | 'subtopic' | 'topicId' | 'sectionName' | 'sectionWeight' | 'targetCount'> & { occurrence?: number } = {},
 ): StudyPlannerTask => ({
-  id: `${dayDate}:${kind}:${index}`,
+  id: metadata.topicId
+    ? `${kind}:${metadata.topicId}${metadata.occurrence ? `:${metadata.occurrence}` : ''}`
+    : `${dayDate}:${kind}:${index}`,
   kind,
   title,
   detail,
@@ -422,101 +717,109 @@ const allocateTaskMinutes = (tasks: StudyPlannerTask[], totalMinutes: number): S
   });
 };
 
-const getSelectedFocusTopics = (form: StudyPlannerForm, dayCount: number): StudyDay['topics'][] => {
-  const subjects = getPlannerSubjects(form.subjectSlugs);
-  if (!subjects.length) return Array.from({ length: dayCount }, () => []);
-
-  const weakSlugs = new Set(
-    form.weakAreas
-      .map((area) => WEAK_AREA_SUBJECTS[area as WeakArea])
-      .filter((slug) => subjects.some((subject) => subject.slug === slug)),
-  );
-  const wheel = subjects.flatMap((subject) => [
-    subject.slug,
-    ...(weakSlugs.has(subject.slug) ? [subject.slug] : []),
-  ]);
-  const subjectBySlug = new Map(subjects.map((subject) => [subject.slug, subject]));
-  const nextSubtopicIndex = new Map(subjects.map((subject) => [subject.slug, 0]));
-  const result: StudyDay['topics'][] = [];
-  let wheelIndex = 0;
-
-  for (let dayIndex = 0; dayIndex < dayCount; dayIndex += 1) {
-    const numberOfTopics = form.dailyStudyMinutes >= 180 ? 2 : 1;
-    const selected: StudyDay['topics'] = [];
-    for (let slot = 0; slot < numberOfTopics; slot += 1) {
-      const subjectSlug = wheel[wheelIndex % wheel.length];
-      wheelIndex += 1;
-      const subject = subjectBySlug.get(subjectSlug);
-      if (!subject) continue;
-      const nextIndex = nextSubtopicIndex.get(subjectSlug) ?? 0;
-      const subtopicIndex = nextIndex % subject.subtopics.length;
-      nextSubtopicIndex.set(subjectSlug, nextIndex + 1);
-      selected.push({
-        id: topicId(subjectSlug, subtopicIndex),
-        subjectSlug,
-        subjectName: subject.name,
-        subtopic: subject.subtopics[subtopicIndex],
-      });
-    }
-    result.push(selected);
-  }
-  return result;
-};
-
-export const generateStudySchedule = (form: StudyPlannerForm, startDate: string): StudyDay[] => {
+export const generateStudySchedule = (
+  form: StudyPlannerForm,
+  startDate: string,
+  options: StudyScheduleOptions = {},
+): StudyDay[] => {
   const rawDayCount = daysBetweenDates(startDate, form.examDate);
   if (rawDayCount < 0) return [];
   const dayCount = Math.min(MAX_PLAN_HORIZON_DAYS, Math.max(1, rawDayCount));
-  const focusTopics = getSelectedFocusTopics(form, dayCount);
+  const examDay = rawDayCount === 0;
+  const topicIds = options.topicIds ? new Set(options.topicIds) : null;
+  const allTopics = form.preparationMode === 'mock-tests' || examDay ? [] : getStudyPlanTopics(form);
+  const selectedTopics = topicIds ? allTopics.filter((topic) => topicIds.has(topic.id)) : allTopics;
+  const topicOrder = getWeightedTopicOrder(selectedTopics, form, options.mockAttempts ?? []);
+  const feasibility = getPlanFeasibility(form, startDate, topicOrder.length);
+  const reservedFinalRevisionDays = dayCount > 5 ? getFinalRevisionDays(dayCount) : 0;
+  const learningWindowDays = Math.max(1, dayCount - reservedFinalRevisionDays);
+  const assignmentDays = feasibility.feasible ? learningWindowDays : dayCount;
+  const topicsPerDay = topicOrder.length
+    ? feasibility.feasible
+      ? Math.max(1, feasibility.topicsPerDayCapacity)
+      : Math.max(1, Math.ceil(topicOrder.length / assignmentDays))
+    : 0;
+  const topicAssignments: PlannerTopic[][] = Array.from({ length: dayCount }, () => []);
+  topicOrder.forEach((topic, index) => {
+    const dayIndex = Math.min(assignmentDays - 1, Math.floor(index / Math.max(1, topicsPerDay)));
+    topicAssignments[dayIndex]?.push(topic);
+  });
+
   const dailyMcqTarget = getDailyMcqTarget(form);
   const mockOnly = form.preparationMode === 'mock-tests';
   const includesMcqs = ['mcqs', 'mcqs-notes', 'complete'].includes(form.preparationMode);
   const includesNotes = ['notes', 'mcqs-notes', 'complete'].includes(form.preparationMode);
   const days: StudyDay[] = [];
+  const revisionOccurrences = new Map<string, number>();
 
   for (let dayIndex = 0; dayIndex < dayCount; dayIndex += 1) {
     const date = addDaysToDateString(startDate, dayIndex);
-    const phase = getPhase(dayIndex, dayCount, rawDayCount === 0);
-    const topics = focusTopics[dayIndex] ?? [];
-    const mainTopic = topics[0];
+    const phase = getPhase(dayIndex, dayCount, examDay);
+    const topics = topicAssignments[dayIndex] ?? [];
     const focus = topics.length
       ? topics.map((topic) => `${topic.subjectName}: ${topic.subtopic}`).join(' · ')
       : 'Review your selected syllabus';
     const tasks: StudyPlannerTask[] = [];
 
     if (phase === 'exam-day') {
-      tasks.push(makeTask(date, tasks.length, 'light-review', 'Exam-day warm-up', 'Review a short formula / fact sheet, prepare your materials and protect your rest.', mainTopic ? { subjectSlug: mainTopic.subjectSlug, subtopic: mainTopic.subtopic } : {}));
+      tasks.push(makeTask(date, tasks.length, 'light-review', 'Exam-day warm-up', 'Review a short formula / fact sheet, prepare your materials and protect your rest.'));
     } else if (mockOnly) {
       const isMockDay = (dayIndex % 3 === 0 || dayIndex % 7 === 6) && dayIndex < dayCount - 1;
       if (isMockDay) {
         const count = Math.max(10, Math.round(Math.min(60, form.dailyStudyMinutes * 0.7) / 5) * 5);
-        tasks.push(makeTask(date, tasks.length, 'mock', `Take a ${count}-question timed mock`, 'Use exam conditions, then record the score in your progress dashboard.', { targetCount: count }));
+        tasks.push(makeTask(date, tasks.length, 'mock', `Take a ${count}-question timed mock`, 'Start a timed MUQABIL mock. Your score and subject accuracy will update your future revision priorities.', { targetCount: count }));
       } else {
         tasks.push(makeTask(date, tasks.length, 'analysis', 'Analyse your latest mock', 'Review every wrong answer, identify the pattern and note one correction for your next attempt.'));
       }
     } else {
-      if (phase !== 'final-revision' && mainTopic && form.preparationMode !== 'mcqs') {
-        tasks.push(makeTask(date, tasks.length, 'learn', `Study ${mainTopic.subtopic}`, `Learn the core ideas in ${mainTopic.subjectName}; explain the topic in your own words.`, { subjectSlug: mainTopic.subjectSlug, subtopic: mainTopic.subtopic }));
-      }
-      if (includesMcqs && dailyMcqTarget > 0) {
-        const mcqSubject = mainTopic?.subjectName ?? 'selected topics';
-        tasks.push(makeTask(date, tasks.length, 'mcq', `Practise ${dailyMcqTarget} MCQs`, `Work through a timed set on ${mcqSubject}; review each incorrect answer.`, { ...(mainTopic ? { subjectSlug: mainTopic.subjectSlug } : {}), targetCount: dailyMcqTarget }));
-      }
-      if (includesNotes && mainTopic) {
-        tasks.push(makeTask(date, tasks.length, 'notes', `Make smart notes: ${mainTopic.subtopic}`, `Capture key facts, a short example and one likely exam trap for ${mainTopic.subjectName}.`, { subjectSlug: mainTopic.subjectSlug, subtopic: mainTopic.subtopic }));
-      }
+      topics.forEach((topic) => {
+        const metadata = {
+          subjectSlug: topic.subjectSlug,
+          subtopic: topic.subtopic,
+          topicId: topic.id,
+          ...(topic.sectionName ? { sectionName: topic.sectionName } : {}),
+          ...(topic.sectionWeight ? { sectionWeight: topic.sectionWeight } : {}),
+        };
+        if (form.preparationMode !== 'mcqs') {
+          tasks.push(makeTask(date, tasks.length, 'learn', `Study ${topic.subtopic}`, `Learn the core ideas in ${topic.subjectName}; explain the topic in your own words.`, metadata));
+        }
+        if (includesMcqs && dailyMcqTarget > 0) {
+          const targetCount = Math.max(1, Math.floor(dailyMcqTarget / Math.max(1, topics.length)));
+          tasks.push(makeTask(date, tasks.length, 'mcq', `Practise ${targetCount} MCQs: ${topic.subtopic}`, `Complete a focused set for ${topic.subjectName}; review every wrong answer.`, { ...metadata, targetCount }));
+        }
+        if (includesNotes) {
+          tasks.push(makeTask(date, tasks.length, 'notes', `Make smart notes: ${topic.subtopic}`, `Capture key facts, a short example and one likely exam trap for ${topic.subjectName}.`, metadata));
+        }
+      });
+
       if (phase === 'final-revision' || (dayIndex > 0 && dayIndex % 3 === 0)) {
-        const reviewTopic = focusTopics[Math.max(0, dayIndex - 2)]?.[0] ?? mainTopic;
-        tasks.push(makeTask(date, tasks.length, 'revision', reviewTopic ? `Spaced revision: ${reviewTopic.subtopic}` : 'Spaced revision', 'Recall first without notes, then check gaps and correct the error log.', reviewTopic ? { subjectSlug: reviewTopic.subjectSlug, subtopic: reviewTopic.subtopic } : {}));
+        const priorTopics = topicAssignments.slice(0, dayIndex).flat();
+        const reviewTopic = priorTopics.length
+          ? priorTopics[Math.max(0, priorTopics.length - 2)]
+          : topicOrder[0];
+        if (reviewTopic) {
+          const occurrence = (revisionOccurrences.get(reviewTopic.id) ?? 0) + 1;
+          revisionOccurrences.set(reviewTopic.id, occurrence);
+          tasks.push(makeTask(date, tasks.length, 'revision', `Spaced revision: ${reviewTopic.subtopic}`, 'Recall first without notes, then check gaps and correct the error log.', {
+            subjectSlug: reviewTopic.subjectSlug,
+            subtopic: reviewTopic.subtopic,
+            topicId: reviewTopic.id,
+            occurrence,
+            ...(reviewTopic.sectionName ? { sectionName: reviewTopic.sectionName } : {}),
+            ...(reviewTopic.sectionWeight ? { sectionWeight: reviewTopic.sectionWeight } : {}),
+          }));
+        }
       }
+
       if (includesMcqs && dayIndex % 7 === 6 && dayIndex < dayCount - 1) {
-        tasks.push(makeTask(date, tasks.length, 'mock', 'Weekly mock test', 'Complete a timed mixed mock, then log your score to track progress.', { targetCount: 50 }));
+        tasks.push(makeTask(date, tasks.length, 'mock', 'Weekly mixed mock test', 'Start a timed MUQABIL quiz. The recorded result will inform your next revision priorities.', { targetCount: 50 }));
       }
       if (!tasks.length) {
         tasks.push(makeTask(date, tasks.length, 'revision', 'Review your selected syllabus', 'Use active recall on a weak topic and write down one question to revisit.'));
       }
     }
 
+    const allocatedTasks = allocateTaskMinutes(tasks, form.dailyStudyMinutes);
     days.push({
       date,
       dayNumber: dayIndex + 1,
@@ -524,9 +827,10 @@ export const generateStudySchedule = (form: StudyPlannerForm, startDate: string)
       phase,
       focus,
       topics,
-      studyMinutes: form.dailyStudyMinutes,
+      studyMinutes: allocatedTasks.reduce((sum, task) => sum + task.durationMinutes, 0),
+      budgetMinutes: form.dailyStudyMinutes,
       mcqTarget: phase === 'exam-day' ? 0 : dailyMcqTarget,
-      tasks: allocateTaskMinutes(tasks, form.dailyStudyMinutes),
+      tasks: allocatedTasks,
     });
   }
   return days;
@@ -535,27 +839,41 @@ export const generateStudySchedule = (form: StudyPlannerForm, startDate: string)
 export const getTargetScorePercent = (targetScore: StudyPlannerForm['targetScore']): number =>
   TARGET_SCORE_OPTIONS.find((item) => item.id === targetScore)?.percent ?? 70;
 
-const dateFromTaskId = (taskId: string): string => taskId.slice(0, 10);
+const dateFromTaskId = (taskId: string): string | null => {
+  const match = taskId.match(/^(\d{4}-\d{2}-\d{2}):/);
+  return match?.[1] ?? null;
+};
 
 export const getPlannerProgress = (
   plan: StoredStudyPlan,
   schedule: StudyDay[],
   today: string,
 ): PlannerProgress => {
-  const scheduledTaskIds = new Set(schedule.flatMap((day) => day.tasks.map((task) => task.id)));
-  const completedTaskIds = new Set(plan.completedTaskIds.filter((id) => scheduledTaskIds.has(id)));
-  const totalTasks = scheduledTaskIds.size;
-  const completedTasks = completedTaskIds.size;
+  const scheduledTasks = schedule.flatMap((day) => day.tasks.map((task) => ({ task, date: day.date })));
+  const scheduledTaskIds = new Set(scheduledTasks.map(({ task }) => task.id));
+  const completedTaskIdSet = new Set(plan.completedTaskIds);
+  const scheduledCompletedTaskIds = plan.completedTaskIds.filter((id) => scheduledTaskIds.has(id));
+  const validTopicIds = new Set(getStudyPlanTopics(plan.form).map((topic) => topic.id));
+  const historicalCompletedTaskIds = plan.completedTaskIds.filter((id) => {
+    if (scheduledTaskIds.has(id)) return false;
+    const topicTask = id.match(/^(learn|mcq|notes|revision):(.+?)(?::\d+)?$/);
+    if (topicTask) return validTopicIds.has(topicTask[2]);
+    return Boolean(dateFromTaskId(id)) && Boolean(plan.completedTaskDates?.[id] || dateFromTaskId(id));
+  });
+  const totalTasks = scheduledTaskIds.size + historicalCompletedTaskIds.length;
+  const completedTasks = scheduledCompletedTaskIds.length + historicalCompletedTaskIds.length;
   const taskCompletionPercent = totalTasks ? Math.round((completedTasks / totalTasks) * 100) : 0;
-  const totalSubtopics = getTopicCount(plan.form.subjectSlugs);
-  const completedSubtopicSet = new Set(plan.completedSubtopicIds);
-  const completedSubtopics = getPlannerSubjects(plan.form.subjectSlugs).reduce((total, subject) =>
-    total + subject.subtopics.filter((_, index) => completedSubtopicSet.has(topicId(subject.slug, index))).length, 0);
+  const planTopics = getStudyPlanTopics(plan.form);
+  const totalSubtopics = planTopics.length;
+  const completedSubtopicSet = new Set([...plan.completedSubtopicIds, ...(plan.completedTopicIds ?? [])]);
+  const completedSubtopics = planTopics.filter((topic) => completedSubtopicSet.has(topic.id)).length;
   const syllabusCoveragePercent = totalSubtopics ? Math.round((completedSubtopics / totalSubtopics) * 100) : 0;
 
+  const taskDates = Object.values(plan.completedTaskDates ?? {});
+  const legacyTaskDates = plan.completedTaskIds.map(dateFromTaskId).filter((date): date is string => Boolean(date));
   const activityDates = new Set(
-    [...[...completedTaskIds].map(dateFromTaskId), ...plan.mockAttempts.map((attempt) => attempt.date)]
-      .filter((date) => date <= today),
+    [...taskDates, ...legacyTaskDates, ...plan.mockAttempts.map((attempt) => attempt.date)]
+      .filter((date) => /^\d{4}-\d{2}-\d{2}$/.test(date) && date <= today),
   );
   const activeDays = activityDates.size;
   let currentStreak = 0;
@@ -574,11 +892,18 @@ export const getPlannerProgress = (
     ? Math.round(plan.mockAttempts.reduce((sum, attempt) => sum + (attempt.total > 0 ? (attempt.score / attempt.total) * 100 : 0), 0) / plan.mockAttempts.length)
     : null;
   const targetScorePercent = getTargetScorePercent(plan.form.targetScore);
-  const mockAttainment = averageMockScore === null ? 0 : Math.min(100, Math.round((averageMockScore / targetScorePercent) * 100));
-  const readinessScore = Math.round(syllabusCoveragePercent * 0.4 + taskCompletionPercent * 0.35 + mockAttainment * 0.25);
+  const mockAttainment = averageMockScore === null ? null : Math.min(100, Math.round((averageMockScore / targetScorePercent) * 100));
+  const dueTasks = scheduledTasks.filter(({ date }) => date <= today);
+  const dueTaskIds = new Set(dueTasks.map(({ task }) => task.id));
+  const dueCompletion = dueTasks.length
+    ? Math.round([...completedTaskIdSet].filter((id) => dueTaskIds.has(id)).length / dueTasks.length * 100)
+    : taskCompletionPercent;
+  const readinessScore = mockAttainment === null
+    ? Math.round((syllabusCoveragePercent * 0.4 + dueCompletion * 0.35) / 0.75)
+    : Math.round(syllabusCoveragePercent * 0.4 + dueCompletion * 0.35 + mockAttainment * 0.25);
 
   const badges: PlannerProgress['badges'] = [];
-  if (completedTasks > 0) badges.push({ id: 'first-step', title: 'First Step', description: 'Completed your first study target.', icon: '🌱' });
+  if (plan.completedTaskIds.length > 0 || completedSubtopics > 0 || plan.mockAttempts.length > 0) badges.push({ id: 'first-step', title: 'First Step', description: 'Completed your first study target.', icon: '🌱' });
   if (currentStreak >= 3 || activeDays >= 3) badges.push({ id: 'three-day-streak', title: 'Consistency Builder', description: 'Studied on three different days.', icon: '🔥' });
   if (currentStreak >= 7) badges.push({ id: 'seven-day-streak', title: '7-Day Streak', description: 'Built a full week of consecutive study momentum.', icon: '⚡' });
   if (syllabusCoveragePercent >= 25) badges.push({ id: 'quarter-syllabus', title: 'Quarter Covered', description: 'Marked at least 25% of your mapped syllabus as mastered.', icon: '📚' });
@@ -615,12 +940,15 @@ export const getMotivationMessage = (progress: PlannerProgress): string => {
 export const createAiPlanPrompt = (form: StudyPlannerForm): string => {
   const organization = getOrganization(form.organizationId).name;
   const positionName = getPositionName(form);
-  const subjects = getPlannerSubjects(form.subjectSlugs);
-  const syllabusLines = subjects.map((subject) => `- ${subject.name}: ${subject.subtopics.join('; ')}`).join('\n');
-  const weakAreas = form.weakAreas.length ? form.weakAreas.join(', ') : 'none selected';
+  const syllabusLines = getStudyPlanTopics(form).map((topic) => {
+    const sourceWeight = topic.sectionWeight ? ` · ${topic.sectionWeight}% section weight` : '';
+    const source = topic.sectionName ? ` · ${topic.sectionName}${sourceWeight}` : '';
+    return `- ${topic.subjectName}: ${topic.subtopic}${source}`;
+  }).join('\n');
+  const weakAreas = form.weakAreas.length ? form.weakAreas.map(getWeakAreaName).join(', ') : 'none selected';
   const target = form.targetScore === 'merit' ? 'top merit position' : form.targetScore === 'pass' ? 'pass the test' : `${form.targetScore}%`;
   const mode = PREPARATION_MODES.find((item) => item.id === form.preparationMode)?.label ?? form.preparationMode;
-  return `Create a personalised coaching overlay for this MUQABIL study roadmap. Keep it practical and concise (under 350 words). Include a daily routine that fits ${form.dailyStudyMinutes} minutes, a weekly checkpoint, a first-week focus sequence using only the syllabus topics below, a strategy for the weak areas, and a final-revision tip. Do not invent official syllabus weights, topics, dates, or guarantee a result.\n\nExam: ${organization} — ${positionName}\nExam date: ${form.examDate}\nCurrent level: ${form.currentLevel}\nPreparation mode: ${mode}\nTarget: ${target}\nWeak areas: ${weakAreas}\nMapped MUQABIL syllabus:\n${syllabusLines}`;
+  return `Create a personalised coaching overlay for this MUQABIL study roadmap. Keep it practical and concise (under 350 words). Include a daily routine that fits ${form.dailyStudyMinutes} minutes, a weekly checkpoint, a first-week focus sequence using only the syllabus topics below, a strategy for the weak areas, and a final-revision tip. Do not invent official syllabus weights, topics, dates, or guarantee a result.\n\nExam: ${organization} — ${positionName}\nExam date: ${form.examDate}\nCurrent level: ${form.currentLevel}\nPreparation mode: ${mode}\nTarget: ${target}\nWeak areas: ${weakAreas}\nSelected syllabus topics (published source details where matched):\n${syllabusLines}`;
 };
 
 export const createMentorPrompt = (plan: StoredStudyPlan, day?: StudyDay): string => {
@@ -628,7 +956,7 @@ export const createMentorPrompt = (plan: StoredStudyPlan, day?: StudyDay): strin
   const positionName = getPositionName(plan.form);
   const topicText = day?.topics.map((topic) => `${topic.subjectName} — ${topic.subtopic}`).join('; ')
     || getPlannerSubjects(plan.form.subjectSlugs).map((subject) => subject.name).join(', ');
-  const weakAreas = plan.form.weakAreas.length ? plan.form.weakAreas.join(', ') : 'none selected';
+  const weakAreas = plan.form.weakAreas.length ? plan.form.weakAreas.map(getWeakAreaName).join(', ') : 'none selected';
   return `I am preparing for ${positionName} through ${organization}. My exam date is ${plan.form.examDate}, my current level is ${plan.form.currentLevel}, I can study ${plan.form.dailyStudyMinutes} minutes per day, and my target is ${plan.form.targetScore === 'merit' ? 'a top merit position' : plan.form.targetScore === 'pass' ? 'to pass' : `${plan.form.targetScore}%`} . My selected preparation mode is ${PREPARATION_MODES.find((item) => item.id === plan.form.preparationMode)?.label}. Today's focus is ${topicText}. My weak areas are ${weakAreas}. Give me one focused, practical study session for today: explain the highest-yield concept, include a short recall check, and end with a realistic next step. Keep claims about official syllabi qualified and tell me to verify details against the latest official notice.`;
 };
 
@@ -658,7 +986,7 @@ export const POPULAR_EXAM_PRESETS: ExamPreset[] = [
     dailyMinutes: 120,
     preparationMode: 'complete',
     targetScore: '80',
-    weakAreas: ['Pedagogy', 'Mathematics', 'General Science'],
+    weakAreas: ['pedagogy', 'mathematics', 'everyday-science'],
   },
   {
     id: 'sts-grad',
@@ -671,7 +999,7 @@ export const POPULAR_EXAM_PRESETS: ExamPreset[] = [
     dailyMinutes: 90,
     preparationMode: 'complete',
     targetScore: '80',
-    weakAreas: ['English', 'Mathematics'],
+    weakAreas: ['english', 'mathematics'],
   },
   {
     id: 'sts-inter',
@@ -684,7 +1012,7 @@ export const POPULAR_EXAM_PRESETS: ExamPreset[] = [
     dailyMinutes: 60,
     preparationMode: 'complete',
     targetScore: '80',
-    weakAreas: ['English', 'Mathematics'],
+    weakAreas: ['english', 'mathematics'],
   },
   {
     id: 'fpsc-css',
@@ -697,7 +1025,7 @@ export const POPULAR_EXAM_PRESETS: ExamPreset[] = [
     dailyMinutes: 180,
     preparationMode: 'complete',
     targetScore: 'merit',
-    weakAreas: ['English', 'Current Affairs', 'GK'],
+    weakAreas: ['english', 'current-affairs', 'general-knowledge'],
   },
   {
     id: 'police-asi',
@@ -710,7 +1038,7 @@ export const POPULAR_EXAM_PRESETS: ExamPreset[] = [
     dailyMinutes: 60,
     preparationMode: 'mcqs-notes',
     targetScore: '80',
-    weakAreas: ['English', 'Computer'],
+    weakAreas: ['english', 'computer'],
   },
   {
     id: 'sts-pst-jest',
@@ -723,7 +1051,7 @@ export const POPULAR_EXAM_PRESETS: ExamPreset[] = [
     dailyMinutes: 90,
     preparationMode: 'complete',
     targetScore: 'merit',
-    weakAreas: ['Mathematics', 'English'],
+    weakAreas: ['mathematics', 'english'],
   },
   {
     id: 'spsc-cce',
@@ -736,7 +1064,7 @@ export const POPULAR_EXAM_PRESETS: ExamPreset[] = [
     dailyMinutes: 120,
     preparationMode: 'complete',
     targetScore: '80',
-    weakAreas: ['GK', 'Current Affairs'],
+    weakAreas: ['general-knowledge', 'current-affairs'],
   },
   {
     id: 'ppsc-one-paper',
@@ -749,7 +1077,7 @@ export const POPULAR_EXAM_PRESETS: ExamPreset[] = [
     dailyMinutes: 90,
     preparationMode: 'complete',
     targetScore: '80',
-    weakAreas: ['GK', 'Pakistan Studies'],
+    weakAreas: ['general-knowledge', 'pakistan-studies'],
   },
   {
     id: 'nts-gat',
@@ -762,7 +1090,7 @@ export const POPULAR_EXAM_PRESETS: ExamPreset[] = [
     dailyMinutes: 60,
     preparationMode: 'mcqs',
     targetScore: '80',
-    weakAreas: ['English', 'Mathematics'],
+    weakAreas: ['english', 'mathematics'],
   },
 ];
 
@@ -780,89 +1108,356 @@ export const rebalancePlanSchedule = (
   today: string,
   extendDaysIfShort = 14,
 ): StoredStudyPlan => {
-  let examDate = currentPlan.form.examDate;
-  const remainingDays = daysBetweenDates(today, examDate);
-  // If exam date has passed or is fewer than 3 days away, extend slightly to provide breathing room
-  if (remainingDays < 3) {
-    examDate = addDaysToDateString(today, Math.max(30, extendDaysIfShort));
-  }
+  // Kept as an ignored compatibility argument; a fixed exam date must never move silently.
+  void extendDaysIfShort;
+  const currentSchedule = generateStudySchedule(currentPlan.form, currentPlan.startDate, {
+    topicIds: currentPlan.plannedTopicIds,
+    mockAttempts: currentPlan.mockAttempts,
+  });
+  const completedTaskIds = new Set(currentPlan.completedTaskIds);
+  const completedTopicIds = new Set(currentPlan.completedTopicIds ?? []);
+  const coveredTaskKinds = new Set<PlannerTaskKind>(['learn', 'mcq', 'notes']);
+
+  currentSchedule.flatMap((day) => day.tasks).forEach((task) => {
+    if (completedTaskIds.has(task.id) && task.topicId && coveredTaskKinds.has(task.kind)) {
+      completedTopicIds.add(task.topicId);
+    }
+  });
+
+  const alreadyCovered = new Set([...completedTopicIds, ...currentPlan.completedSubtopicIds]);
+  const plannedTopicIds = getStudyPlanTopics(currentPlan.form)
+    .filter((topic) => !alreadyCovered.has(topic.id))
+    .map((topic) => topic.id);
+
   return {
     ...currentPlan,
+    updatedAt: new Date().toISOString(),
     startDate: today,
-    form: {
-      ...currentPlan.form,
-      examDate,
-    },
+    completedTopicIds: [...completedTopicIds],
+    plannedTopicIds,
+    // Preserve the candidate's announced exam date, even when it is imminent or has passed.
+    form: { ...currentPlan.form },
   };
 };
 
 export const exportPlanScheduleAsText = (plan: StoredStudyPlan, schedule: StudyDay[]): string => {
   const org = getOrganization(plan.form.organizationId).name;
   const pos = getPositionName(plan.form);
-  const subjects = getPlannerSubjects(plan.form.subjectSlugs).map((s) => s.name).join(', ');
-  
+  const subjects = getPlannerSubjects(plan.form.subjectSlugs).map((subject) => subject.name).join(', ');
+  const source = getSyllabusRecord(plan.form);
   const lines: string[] = [
-    `==================================================`,
-    `   MUQABIL SMART STUDY ROADMAP & EXAM SCHEDULE    `,
-    `==================================================`,
+    '==================================================',
+    '   MUQABIL SMART STUDY ROADMAP & EXAM SCHEDULE',
+    '==================================================',
     `Exam Target    : ${pos} (${org})`,
-    `Exam Date      : ${plan.form.examDate}`,
-    `Daily Time     : ${plan.form.dailyStudyMinutes} minutes/day`,
+    `Exam Date      : ${plan.form.examDate} (fixed; edit explicitly to change)`,
+    `Daily Budget   : ${plan.form.dailyStudyMinutes} minutes/day`,
     `Target Score   : ${plan.form.targetScore.toUpperCase()}`,
-    `Study Mode     : ${plan.form.preparationMode}`,
+    `Study Mode     : ${PREPARATION_MODES.find((mode) => mode.id === plan.form.preparationMode)?.label ?? plan.form.preparationMode}`,
     `Mapped Subjects: ${subjects}`,
-    `Weak Areas     : ${plan.form.weakAreas.join(', ') || 'None selected'}`,
+    `Weak Areas     : ${plan.form.weakAreas.map(getWeakAreaName).join(', ') || 'None selected'}`,
     `Generated On   : ${plan.generatedAt.slice(0, 10)}`,
-    `--------------------------------------------------`,
-    `DAILY STUDY SCHEDULE (DAY BY DAY):`,
-    `--------------------------------------------------`,
+    ...(source ? [`Syllabus Source: ${source.sourceUrl}`] : []),
+    '--------------------------------------------------',
+    'DAILY STUDY SCHEDULE (DAY BY DAY):',
+    '--------------------------------------------------',
   ];
 
   schedule.forEach((day) => {
     lines.push(`\n[Day ${day.dayNumber} · Week ${day.weekNumber}] - ${day.date} (${day.phase.toUpperCase()})`);
     lines.push(`  Focus: ${day.focus}`);
-    lines.push(`  Time Budget: ${day.studyMinutes}m | MCQ Target: ${day.mcqTarget}`);
-    day.tasks.forEach((task, idx) => {
-      const isDone = plan.completedTaskIds.includes(task.id) ? '[DONE]' : '[TODO]';
-      lines.push(`    ${idx + 1}. ${isDone} ${task.title} (${task.durationMinutes}m)`);
+    lines.push(`  Planned: ${day.studyMinutes}m / ${day.budgetMinutes}m budget | MCQ Target: ${day.mcqTarget}`);
+    day.tasks.forEach((task, index) => {
+      const status = plan.completedTaskIds.includes(task.id) ? '[DONE]' : '[TODO]';
+      const section = task.sectionName ? ` · ${task.sectionName}${task.sectionWeight ? ` (${task.sectionWeight}%)` : ''}` : '';
+      lines.push(`    ${index + 1}. ${status} ${task.title} (${task.durationMinutes}m)${section}`);
       lines.push(`       Detail: ${task.detail}`);
     });
   });
 
-  lines.push(`\n==================================================`);
-  lines.push(`Practice consistently. Track progress on MUQABIL.`);
-  lines.push(`==================================================`);
+  lines.push('\n==================================================');
+  lines.push('Practice consistently. Track progress on MUQABIL.');
+  lines.push('Readiness is a study indicator, not a predicted result.');
+  lines.push('==================================================');
   return lines.join('\n');
 };
 
-export const loadStoredStudyPlan = (storage: Pick<Storage, 'getItem'> | null | undefined): StoredStudyPlan | null => {
-  if (!storage) return null;
+const escapeIcsText = (value: string): string => value
+  .replace(/\\/g, '\\\\')
+  .replace(/\n/g, '\\n')
+  .replace(/,/g, '\\,')
+  .replace(/;/g, '\\;');
+
+const toIcsDate = (date: string): string => date.replace(/-/g, '');
+
+export const exportPlanScheduleAsIcs = (plan: StoredStudyPlan, schedule: StudyDay[]): string => {
+  const timestamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+  const events = schedule.flatMap((day) => day.tasks.map((task) => [
+    'BEGIN:VEVENT',
+    `UID:${escapeIcsText(`${plan.id}-${task.id}@muqabil.org`)}`,
+    `DTSTAMP:${timestamp}`,
+    `DTSTART;VALUE=DATE:${toIcsDate(day.date)}`,
+    `DTEND;VALUE=DATE:${toIcsDate(addDaysToDateString(day.date, 1))}`,
+    `SUMMARY:${escapeIcsText(task.title)}`,
+    `DESCRIPTION:${escapeIcsText(`${task.detail} (${task.durationMinutes} minutes)`)}`,
+    'END:VEVENT',
+  ].join('\r\n')));
+  return [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//MUQABIL//Study Planner//EN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    ...events,
+    'END:VCALENDAR',
+    '',
+  ].join('\r\n');
+};
+
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  Boolean(value && typeof value === 'object' && !Array.isArray(value));
+
+const isValidDateString = (value: unknown): value is string => {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const [year, month, day] = value.split('-').map(Number);
+  const parsed = new Date(Date.UTC(year, month - 1, day));
+  return parsed.getUTCFullYear() === year && parsed.getUTCMonth() === month - 1 && parsed.getUTCDate() === day;
+};
+
+const sanitizeMockAttempt = (value: unknown): MockAttempt | null => {
+  if (!isRecord(value)
+    || typeof value.id !== 'string'
+    || !isValidDateString(value.date)
+    || !Number.isFinite(value.score)
+    || !Number.isFinite(value.total)
+    || Number(value.total) <= 0
+    || Number(value.total) > 10000
+    || Number(value.score) < 0
+    || Number(value.score) > Number(value.total)) return null;
+
+  const subjectScores = Array.isArray(value.subjectScores)
+    ? value.subjectScores.flatMap((score): MockSubjectScore[] => {
+      if (!isRecord(score) || typeof score.subjectSlug !== 'string' || !SUBJECTS_BY_SLUG.has(score.subjectSlug)
+        || !Number.isFinite(score.score) || !Number.isFinite(score.total) || Number(score.total) <= 0) return [];
+      const total = Math.min(10000, Number(score.total));
+      return [{ subjectSlug: score.subjectSlug, score: Math.max(0, Math.min(total, Number(score.score))), total }];
+    })
+    : undefined;
+
+  return {
+    id: value.id.slice(0, 200),
+    date: value.date,
+    score: Number(value.score),
+    total: Number(value.total),
+    recordedAt: typeof value.recordedAt === 'string' ? value.recordedAt.slice(0, 50) : new Date(`${value.date}T12:00:00.000Z`).toISOString(),
+    ...(value.source === 'manual' || value.source === 'quiz' ? { source: value.source } : {}),
+    ...(subjectScores?.length ? { subjectScores } : {}),
+    ...(typeof value.completedTaskId === 'string' ? { completedTaskId: value.completedTaskId.slice(0, 300) } : {}),
+  };
+};
+
+export const sanitizeStoredStudyPlan = (value: unknown): StoredStudyPlan | null => {
+  if (!isRecord(value) || !isRecord(value.form)) return null;
+  const formValue = value.form;
+  if (typeof value.id !== 'string'
+    || !isValidDateString(value.startDate)
+    || typeof formValue.organizationId !== 'string'
+    || typeof formValue.positionId !== 'string'
+    || !isValidDateString(formValue.examDate)) return null;
+
+  const organization = STUDY_ORGANIZATIONS.find((item) => item.id === formValue.organizationId);
+  if (!organization) return null;
+  const position = organization.positions.find((item) => item.id === formValue.positionId);
+  if (!position) return null;
+
+  const defaults = createDefaultStudyPlannerForm(value.startDate);
+  const subjectSlugs = Array.isArray(formValue.subjectSlugs)
+    ? [...new Set(formValue.subjectSlugs.filter((slug): slug is string => typeof slug === 'string' && SUBJECTS_BY_SLUG.has(slug)))]
+    : defaults.subjectSlugs;
+  const validSubjectSlugs = subjectSlugs.length ? subjectSlugs : position.subjectSlugs.filter((slug) => SUBJECTS_BY_SLUG.has(slug));
+  const weakAreas = Array.isArray(formValue.weakAreas)
+    ? [...new Set(formValue.weakAreas.map(normalizeWeakArea).filter((slug): slug is string => Boolean(slug)))].slice(0, 30)
+    : [];
+  const validModes: PreparationMode[] = ['mcqs', 'notes', 'mcqs-notes', 'mock-tests', 'complete'];
+  const validLevels: CurrentLevel[] = ['beginner', 'intermediate', 'advanced', 'expert'];
+  const validTargets: StudyPlannerForm['targetScore'][] = ['pass', '70', '80', '90', 'merit'];
+  const dailyStudyMinutes = Number.isFinite(formValue.dailyStudyMinutes)
+    ? Math.max(15, Math.min(600, Math.round(Number(formValue.dailyStudyMinutes))))
+    : defaults.dailyStudyMinutes;
+
+  const completedTaskDates: Record<string, string> = {};
+  if (isRecord(value.completedTaskDates)) {
+    Object.entries(value.completedTaskDates).slice(-10000).forEach(([taskId, date]) => {
+      if (typeof date === 'string' && isValidDateString(date)) completedTaskDates[taskId.slice(0, 300)] = date;
+    });
+  }
+
+  const mockAttempts = Array.isArray(value.mockAttempts)
+    ? value.mockAttempts.map(sanitizeMockAttempt).filter((attempt): attempt is MockAttempt => Boolean(attempt)).slice(-500)
+    : [];
+  const form: StudyPlannerForm = {
+    organizationId: organization.id,
+    positionId: position.id,
+    customPosition: typeof formValue.customPosition === 'string' ? formValue.customPosition.slice(0, 120) : '',
+    subjectSlugs: validSubjectSlugs,
+    preparationMode: validModes.includes(formValue.preparationMode as PreparationMode) ? formValue.preparationMode as PreparationMode : defaults.preparationMode,
+    currentLevel: validLevels.includes(formValue.currentLevel as CurrentLevel) ? formValue.currentLevel as CurrentLevel : defaults.currentLevel,
+    examDate: formValue.examDate,
+    dailyStudyMinutes,
+    targetScore: validTargets.includes(formValue.targetScore as StudyPlannerForm['targetScore']) ? formValue.targetScore as StudyPlannerForm['targetScore'] : defaults.targetScore,
+    weakAreas,
+  };
+
+  const completedTaskIds = Array.isArray(value.completedTaskIds)
+    ? [...new Set(value.completedTaskIds.filter((id): id is string => typeof id === 'string').map((id) => id.slice(0, 300)))].slice(-10000)
+    : [];
+  const completedTopicIds = Array.isArray(value.completedTopicIds)
+    ? [...new Set(value.completedTopicIds.filter((id): id is string => typeof id === 'string').map((id) => id.slice(0, 300)))].slice(-10000)
+    : [];
+  const completedSubtopicIds = Array.isArray(value.completedSubtopicIds)
+    ? [...new Set(value.completedSubtopicIds.filter((id): id is string => typeof id === 'string').map((id) => id.slice(0, 300)))].slice(-10000)
+    : [];
+  const plannedTopicIds = Array.isArray(value.plannedTopicIds)
+    ? [...new Set(value.plannedTopicIds.filter((id): id is string => typeof id === 'string').map((id) => id.slice(0, 300)))].slice(-10000)
+    : undefined;
+
+  return {
+    id: value.id.slice(0, 200),
+    generatedAt: typeof value.generatedAt === 'string' ? value.generatedAt.slice(0, 50) : new Date().toISOString(),
+    ...(typeof value.updatedAt === 'string' ? { updatedAt: value.updatedAt.slice(0, 50) } : {}),
+    startDate: value.startDate,
+    form,
+    completedTaskIds,
+    completedTaskDates,
+    completedTopicIds,
+    completedSubtopicIds,
+    ...(plannedTopicIds ? { plannedTopicIds } : {}),
+    mockAttempts,
+    ...(value.aiPersonalizationRequested === true ? { aiPersonalizationRequested: true } : {}),
+    ...(value.aiPlanStatus === 'pending' ? { aiPlanStatus: 'offline' as const } : value.aiPlanStatus === 'ready' || value.aiPlanStatus === 'offline' ? { aiPlanStatus: value.aiPlanStatus } : {}),
+    ...(typeof value.aiPlanAdvice === 'string' ? { aiPlanAdvice: value.aiPlanAdvice.slice(0, 3500) } : {}),
+  };
+};
+
+const sanitizeCollection = (value: unknown): StudyPlannerCollection | null => {
+  if (!isRecord(value) || !Array.isArray(value.plans)) return null;
+  const plans = value.plans.map(sanitizeStoredStudyPlan).filter((plan): plan is StoredStudyPlan => Boolean(plan)).slice(-MAX_STORED_STUDY_PLANS);
+  const requestedActiveId = typeof value.activePlanId === 'string' ? value.activePlanId : null;
+  const activePlanId = plans.some((plan) => plan.id === requestedActiveId) ? requestedActiveId : plans[0]?.id ?? null;
+  return { activePlanId, plans };
+};
+
+export const loadStoredStudyPlans = (storage: Pick<Storage, 'getItem'> | null | undefined): StudyPlannerCollection => {
+  if (!storage) return { activePlanId: null, plans: [] };
   try {
-    const serialized = storage.getItem(STUDY_PLANNER_STORAGE_KEY);
-    if (!serialized) return null;
-    const value = JSON.parse(serialized) as Partial<StoredStudyPlan>;
-    if (!value || typeof value !== 'object' || !value.form || !Array.isArray(value.form.subjectSlugs)) return null;
-    if (!value.id || !value.startDate || !value.form.organizationId || !value.form.positionId || !value.form.examDate) return null;
-    return {
-      id: value.id,
-      generatedAt: value.generatedAt ?? new Date().toISOString(),
-      startDate: value.startDate,
-      form: {
-        ...createDefaultStudyPlannerForm(value.startDate),
-        ...value.form,
-        subjectSlugs: [...new Set(value.form.subjectSlugs.filter((slug): slug is string => typeof slug === 'string' && SUBJECTS_BY_SLUG.has(slug)))],
-        weakAreas: Array.isArray(value.form.weakAreas) ? value.form.weakAreas.filter((area): area is string => typeof area === 'string' && WEAK_AREAS.includes(area as WeakArea)) : [],
-      } as StudyPlannerForm,
-      completedTaskIds: Array.isArray(value.completedTaskIds) ? value.completedTaskIds.filter((id): id is string => typeof id === 'string') : [],
-      completedSubtopicIds: Array.isArray(value.completedSubtopicIds) ? value.completedSubtopicIds.filter((id): id is string => typeof id === 'string') : [],
-      mockAttempts: Array.isArray(value.mockAttempts) ? value.mockAttempts.filter((attempt): attempt is MockAttempt =>
-        Boolean(attempt && typeof attempt.id === 'string' && typeof attempt.date === 'string' && Number.isFinite(attempt.score) && Number.isFinite(attempt.total) && attempt.total > 0),
-      ) : [],
-      ...(value.aiPersonalizationRequested === true ? { aiPersonalizationRequested: true } : {}),
-      ...(value.aiPlanStatus === 'pending' ? { aiPlanStatus: 'offline' as const } : value.aiPlanStatus === 'ready' || value.aiPlanStatus === 'offline' ? { aiPlanStatus: value.aiPlanStatus } : {}),
-      ...(typeof value.aiPlanAdvice === 'string' ? { aiPlanAdvice: value.aiPlanAdvice.slice(0, 3500) } : {}),
-    };
+    const serialized = storage.getItem(STUDY_PLANS_STORAGE_KEY);
+    if (serialized) {
+      const collection = sanitizeCollection(JSON.parse(serialized));
+      if (collection) return collection;
+    }
+  } catch {
+    // A malformed or inaccessible v2 value should not prevent recovery of the legacy plan below.
+  }
+  try {
+    const legacy = storage.getItem(STUDY_PLANNER_STORAGE_KEY);
+    if (!legacy) return { activePlanId: null, plans: [] };
+    const plan = sanitizeStoredStudyPlan(JSON.parse(legacy));
+    return plan ? { activePlanId: plan.id, plans: [plan] } : { activePlanId: null, plans: [] };
+  } catch {
+    return { activePlanId: null, plans: [] };
+  }
+};
+
+export const loadStoredStudyPlan = (storage: Pick<Storage, 'getItem'> | null | undefined): StoredStudyPlan | null => {
+  const collection = loadStoredStudyPlans(storage);
+  return collection.plans.find((plan) => plan.id === collection.activePlanId) ?? collection.plans[0] ?? null;
+};
+
+export const saveStoredStudyPlans = (
+  storage: Pick<Storage, 'setItem'> & Partial<Pick<Storage, 'removeItem'>> | null | undefined,
+  collection: StudyPlannerCollection,
+): boolean => {
+  if (!storage) return false;
+  const plans = collection.plans.map(sanitizeStoredStudyPlan).filter((plan): plan is StoredStudyPlan => Boolean(plan));
+  if (plans.length > MAX_STORED_STUDY_PLANS) return false;
+  const activePlanId = plans.some((plan) => plan.id === collection.activePlanId) ? collection.activePlanId : plans[0]?.id ?? null;
+  try {
+    storage.setItem(STUDY_PLANS_STORAGE_KEY, JSON.stringify({ schemaVersion: 2, activePlanId, plans }));
+    const activePlan = plans.find((plan) => plan.id === activePlanId);
+    if (activePlan) storage.setItem(STUDY_PLANNER_STORAGE_KEY, JSON.stringify(activePlan));
+    else storage.removeItem?.(STUDY_PLANNER_STORAGE_KEY);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+export const mergeStudyPlannerCollections = (
+  local: StudyPlannerCollection,
+  remote: StudyPlannerCollection,
+): StudyPlannerCollection => {
+  const byId = new Map<string, StoredStudyPlan>();
+  [...local.plans, ...remote.plans].forEach((plan) => {
+    const existing = byId.get(plan.id);
+    const existingTime = Date.parse(existing?.updatedAt ?? existing?.generatedAt ?? '') || 0;
+    const nextTime = Date.parse(plan.updatedAt ?? plan.generatedAt) || 0;
+    if (!existing || nextTime >= existingTime) byId.set(plan.id, plan);
+  });
+  const plans = [...byId.values()]
+    .sort((left, right) => (Date.parse(left.generatedAt) || 0) - (Date.parse(right.generatedAt) || 0))
+    .slice(-MAX_STORED_STUDY_PLANS);
+  const activePlanId = plans.some((plan) => plan.id === local.activePlanId)
+    ? local.activePlanId
+    : plans.some((plan) => plan.id === remote.activePlanId) ? remote.activePlanId : plans[0]?.id ?? null;
+  return { activePlanId, plans };
+};
+
+export const exportStudyPlannerBackup = (collection: StudyPlannerCollection): string => JSON.stringify({
+  format: 'muqabil-study-planner-backup',
+  version: 1,
+  exportedAt: new Date().toISOString(),
+  activePlanId: collection.activePlanId,
+  plans: collection.plans,
+}, null, 2);
+
+export const parseStudyPlannerBackup = (serialized: string): StudyPlannerCollection | null => {
+  try {
+    const value = JSON.parse(serialized) as unknown;
+    if (!isRecord(value) || value.format !== 'muqabil-study-planner-backup' || value.version !== 1) return null;
+    return sanitizeCollection(value);
   } catch {
     return null;
   }
+};
+
+export const appendStudyPlannerMockAttempt = (
+  storage: Pick<Storage, 'getItem' | 'setItem'> | null | undefined,
+  planId: string,
+  attempt: MockAttempt,
+): boolean => {
+  if (!storage) return false;
+  const collection = loadStoredStudyPlans(storage);
+  const planIndex = collection.plans.findIndex((plan) => plan.id === planId);
+  if (planIndex < 0) return false;
+  const plan = collection.plans[planIndex];
+  const sanitizedAttempt = sanitizeMockAttempt(attempt);
+  if (!sanitizedAttempt) return false;
+  const mockAttempts = plan.mockAttempts.filter((existing) => existing.id !== sanitizedAttempt.id);
+  mockAttempts.push(sanitizedAttempt);
+  const completedTaskIds = new Set(plan.completedTaskIds);
+  const completedTaskDates = { ...(plan.completedTaskDates ?? {}) };
+  if (sanitizedAttempt.completedTaskId) {
+    completedTaskIds.add(sanitizedAttempt.completedTaskId);
+    completedTaskDates[sanitizedAttempt.completedTaskId] = sanitizedAttempt.date;
+  }
+  const updatedPlan: StoredStudyPlan = {
+    ...plan,
+    updatedAt: sanitizedAttempt.recordedAt,
+    completedTaskIds: [...completedTaskIds],
+    completedTaskDates,
+    mockAttempts: mockAttempts.slice(-500),
+  };
+  const plans = [...collection.plans];
+  plans[planIndex] = updatedPlan;
+  return saveStoredStudyPlans(storage, { ...collection, plans });
 };

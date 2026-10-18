@@ -37,6 +37,7 @@ import { useCmsContent } from '../context/CmsContentContext';
 import { MeaningText } from '../components/MeaningText';
 import { ExportModal } from '../components/ExportModal';
 import { exportMcqsToExcel, exportMcqsToPdf } from '../lib/exportUtils';
+import { STUDY_PLANNER_TASK_HANDOFF_KEY } from '../lib/studyPlanner';
 
 export type McqDisplayLayout = 'standard-paper' | 'grid' | 'split-pane' | 'omr-compact';
 
@@ -75,9 +76,26 @@ export const McqsView: React.FC = () => {
   const [selectedSubtopic, setSelectedSubtopic] = useState<string | null>(null);
   const [exportModalOpen, setExportModalOpen] = useState(false);
 
-  // Reset subtopic when category changes
+  // Reset subtopic when category changes, then apply a pending planner topic handoff.
   useEffect(() => {
     setSelectedSubtopic(null);
+  }, [selectedCategorySlug]);
+
+  useEffect(() => {
+    try {
+      const serialized = sessionStorage.getItem(STUDY_PLANNER_TASK_HANDOFF_KEY);
+      if (!serialized) return;
+      const handoff = JSON.parse(serialized) as { subjectSlug?: unknown; subtopic?: unknown };
+      if (typeof handoff.subtopic !== 'string' || !handoff.subtopic.trim()) {
+        sessionStorage.removeItem(STUDY_PLANNER_TASK_HANDOFF_KEY);
+        return;
+      }
+      if (typeof handoff.subjectSlug === 'string' && handoff.subjectSlug !== selectedCategorySlug) return;
+      setSelectedSubtopic(handoff.subtopic.slice(0, 180));
+      sessionStorage.removeItem(STUDY_PLANNER_TASK_HANDOFF_KEY);
+    } catch {
+      sessionStorage.removeItem(STUDY_PLANNER_TASK_HANDOFF_KEY);
+    }
   }, [selectedCategorySlug]);
 
   // Content Layout State

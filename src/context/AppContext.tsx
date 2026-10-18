@@ -679,3 +679,6 @@ export const useApp = (): AppContextType => {
   }
   return context;
 };
+
+/** Optional context access for standalone SSR/tests; interactive app views still require AppProvider. */
+export const useOptionalApp = () => useContext(AppContext);

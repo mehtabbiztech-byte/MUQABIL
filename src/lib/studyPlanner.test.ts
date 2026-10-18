@@ -7,19 +7,31 @@ import {
   createMentorPrompt,
   createStudyPlanRecord,
   daysBetweenDates,
+  exportPlanScheduleAsIcs,
+  exportStudyPlannerBackup,
+  getPlanFeasibility,
+  getStudyPlanTopics,
   generateStudySchedule,
   getDailyMcqTarget,
   getPlannerProgress,
+  getMockSubjectScoresFromQuiz,
   getPositionName,
   getPosition,
   getSyllabusRecord,
   getTopicCount,
   loadStoredStudyPlan,
+  loadStoredStudyPlans,
+  saveStoredStudyPlans,
+  appendStudyPlannerMockAttempt,
+  mergeStudyPlannerCollections,
+  parseStudyPlannerBackup,
+  normalizeWeakArea,
   POPULAR_EXAM_PRESETS,
   rebalancePlanSchedule,
   exportPlanScheduleAsText,
   STUDY_ORGANIZATIONS,
   STUDY_PLANNER_STORAGE_KEY,
+  STUDY_PLANS_STORAGE_KEY,
   type StudyPlannerForm,
 } from './studyPlanner';
 
@@ -48,6 +60,94 @@ test('known STS positions connect the existing syllabus record and MUQABIL subto
   assert.ok(form.subjectSlugs.includes('english'));
   assert.ok(getTopicCount(form.subjectSlugs) > form.subjectSlugs.length);
   assert.equal(getPositionName(form), 'Graduation category · BPS 05–15');
+
+  const policeForm = formWith({ organizationId: 'sts', positionId: 'police-asi', subjectSlugs: [...getPosition('sts', 'police-asi').subjectSlugs] });
+  const policeRecord = getSyllabusRecord(policeForm);
+  const policeTopics = getStudyPlanTopics(policeForm).filter((topic) => topic.syllabusRecordId === policeRecord?.id);
+  assert.ok(policeTopics.some((topic) => topic.subjectSlug === 'urdu'));
+  assert.ok(policeTopics.some((topic) => topic.subjectSlug === 'sindhi'));
+  policeRecord?.sections.forEach((section) => section.topics.forEach((title) => {
+    assert.ok(policeTopics.some((topic) => topic.sectionName === section.name && topic.subtopic === title), `${section.name}: ${title}`);
+  }));
+
+  const teachingForm = formWith({ organizationId: 'sts', positionId: 'teaching-license', subjectSlugs: [...getPosition('sts', 'teaching-license').subjectSlugs] });
+  const teachingRecord = getSyllabusRecord(teachingForm);
+  const sourcedTeachingTopics = getStudyPlanTopics(teachingForm).filter((topic) => topic.syllabusRecordId === teachingRecord?.id);
+  const expectedTeachingTopicCount = teachingRecord?.sections.reduce((total, section) => total + section.topics.length, 0) ?? 0;
+  assert.equal(sourcedTeachingTopics.length, expectedTeachingTopicCount, 'every published teaching topic maps to a selected syllabus subject');
+});
+
+test('published syllabus topics and section weights drive unique, topic-level schedule tasks', () => {
+  const form = formWith({ examDate: addDaysToDateString(fixedToday, 60) });
+  const topics = getStudyPlanTopics(form);
+  assert.ok(topics.length > 0);
+  assert.ok(topics.some((topic) => topic.sectionName === 'English' && topic.sectionWeight === 40));
+  assert.ok(topics.some((topic) => topic.sectionName === 'Mathematics' && topic.sectionWeight === 20));
+  assert.ok(topics.some((topic) => topic.sectionName === 'General Knowledge' && topic.sectionWeight === 40));
+  assert.ok(topics.some((topic) => topic.syllabusRecordId === 'screen-grad-2025'));
+
+  const schedule = generateStudySchedule(form, fixedToday);
+  const firstPassTasks = schedule.flatMap((day) => day.tasks).filter((task) => task.kind === 'learn' && task.topicId);
+  const scheduledTopicIds = new Set(firstPassTasks.map((task) => task.topicId));
+  assert.equal(scheduledTopicIds.size, topics.length, 'each matched syllabus topic receives a first-pass task');
+  assert.ok(topics.every((topic) => scheduledTopicIds.has(topic.id)));
+  assert.equal(new Set(firstPassTasks.map((task) => task.id)).size, topics.length, 'topic tasks use stable, unique IDs');
+});
+
+test('coverage feasibility warns on short plans but never silently omits mapped topics', () => {
+  const tightForm = formWith({ examDate: addDaysToDateString(fixedToday, 3), dailyStudyMinutes: 30 });
+  const feasibility = getPlanFeasibility(tightForm, fixedToday);
+  assert.equal(feasibility.feasible, false);
+  assert.ok(feasibility.requiredTopicsPerDay > feasibility.topicsPerDayCapacity);
+  const schedule = generateStudySchedule(tightForm, fixedToday);
+  const scheduledTopicIds = new Set(schedule.flatMap((day) => day.tasks)
+    .filter((task) => task.kind === 'learn' && task.topicId)
+    .map((task) => task.topicId));
+  assert.equal(scheduledTopicIds.size, getStudyPlanTopics(tightForm).length);
+  assert.ok(schedule.some((day) => day.studyMinutes > day.budgetMinutes), 'overloaded days expose their real estimated load');
+});
+
+test('quiz subject accuracy and selected weak areas adapt the order of future topic work', () => {
+  const form = formWith({ examDate: addDaysToDateString(fixedToday, 60), weakAreas: [] });
+  const attempt = {
+    id: 'adaptive-low-english',
+    date: fixedToday,
+    score: 10,
+    total: 30,
+    recordedAt: `${fixedToday}T13:00:00Z`,
+    source: 'quiz' as const,
+    subjectScores: [
+      { subjectSlug: 'english', score: 0, total: 10 },
+      { subjectSlug: 'general-knowledge', score: 10, total: 10 },
+      { subjectSlug: 'mathematics', score: 10, total: 10 },
+    ],
+  };
+  const defaultOrder = generateStudySchedule(form, fixedToday).flatMap((day) => day.topics).map((topic) => topic.subjectSlug);
+  const adaptiveOrder = generateStudySchedule(form, fixedToday, { mockAttempts: [attempt] }).flatMap((day) => day.topics).map((topic) => topic.subjectSlug);
+  assert.equal(defaultOrder[0], 'english');
+  assert.equal(defaultOrder[1], 'current-affairs');
+  assert.deepEqual(adaptiveOrder.slice(0, 2), ['english', 'english']);
+
+  const weakAreaForm = { ...form, weakAreas: ['mathematics'] };
+  const weakAreaOrder = generateStudySchedule(weakAreaForm, fixedToday).flatMap((day) => day.topics).map((topic) => topic.subjectSlug);
+  assert.ok(weakAreaOrder.indexOf('mathematics') < defaultOrder.indexOf('mathematics'));
+  assert.equal(normalizeWeakArea('Pedagogy'), 'pedagogy');
+  assert.equal(normalizeWeakArea('General Science'), 'everyday-science');
+  assert.ok(POPULAR_EXAM_PRESETS.every((preset) => preset.weakAreas.every((area) => normalizeWeakArea(area) === area)));
+});
+
+test('quiz subject results normalize MCQ category labels and include unanswered questions', () => {
+  const subjectScores = getMockSubjectScoresFromQuiz([
+    { category: 'English', correctIndex: 1 },
+    { category: 'mathematics', correctIndex: 0 },
+    { category: 'General Science', correctIndex: 2 },
+    { category: 'English', correctIndex: 3 },
+  ], { 0: 1, 1: 1, 2: 2 });
+  assert.deepEqual(subjectScores, [
+    { subjectSlug: 'english', score: 1, total: 2 },
+    { subjectSlug: 'mathematics', score: 0, total: 1 },
+    { subjectSlug: 'everyday-science', score: 1, total: 1 },
+  ]);
 });
 
 test('date helpers handle inclusive planning boundaries and leap days without timezone drift', () => {
@@ -66,7 +166,11 @@ test('schedule generation makes daily plans through the day before the exam and 
   assert.ok(schedule.every((day) => day.tasks.length > 0));
   assert.ok(schedule.every((day) => day.tasks.every((task) => task.durationMinutes >= 5)));
   assert.ok(schedule.some((day) => day.tasks.some((task) => task.kind === 'revision')));
-  const shortWindow = generateStudySchedule(formWith({ examDate: addDaysToDateString(fixedToday, 5) }), fixedToday);
+  const fiveDayForm = formWith({ examDate: addDaysToDateString(fixedToday, 5) });
+  const shortWindow = generateStudySchedule(fiveDayForm, fixedToday);
+  assert.equal(getPlanFeasibility(fiveDayForm, fixedToday).learningDays, 5, 'short plans use every available day to check topic feasibility');
+  const sixDayForm = formWith({ examDate: addDaysToDateString(fixedToday, 6) });
+  assert.equal(getPlanFeasibility(sixDayForm, fixedToday).learningDays, 4, 'plans longer than five days reserve final-revision time');
   assert.equal(shortWindow.at(-1)?.phase, 'final-revision');
   assert.ok(!shortWindow.at(-1)?.tasks.some((task) => task.kind === 'mock'), 'avoid a timed mock on the day before the exam');
 });
@@ -103,7 +207,7 @@ test('progress measures syllabus, completed targets, mock results, streaks and e
   const plan = createStudyPlanRecord(form, new Date(`${fixedToday}T12:00:00Z`));
   const schedule = generateStudySchedule(form, fixedToday);
   plan.completedTaskIds = schedule[0].tasks.map((task) => task.id);
-  plan.completedSubtopicIds = ['english::0', 'english::1'];
+  plan.completedSubtopicIds = getStudyPlanTopics(form).slice(0, 2).map((topic) => topic.id);
   plan.mockAttempts = [{ id: 'mock-one', date: fixedToday, score: 8, total: 10, recordedAt: `${fixedToday}T13:00:00Z` }];
   const progress = getPlannerProgress(plan, schedule, fixedToday);
   assert.equal(progress.completedTasks, schedule[0].tasks.length);
@@ -132,7 +236,7 @@ test('mentor prompt includes the user’s chosen exam and today focus without se
 test('AI plan prompt uses only the selected syllabus and qualifies official claims', () => {
   const prompt = createAiPlanPrompt(formWith({ examDate: '2026-12-10', weakAreas: ['English'] }));
   assert.match(prompt, /2026-12-10/);
-  assert.match(prompt, /Selected syllabus|Mapped MUQABIL syllabus/);
+  assert.match(prompt, /Selected syllabus topics/);
   assert.match(prompt, /Reading comprehension|Appropriate Prepositions/);
   assert.match(prompt, /Do not invent official syllabus weights/);
 });
@@ -149,6 +253,53 @@ test('stored planner data is validated and safely defaults optional progress', (
   assert.equal(loadStoredStudyPlan({ getItem: () => '{broken' }), null);
 });
 
+test('multi-plan storage migrates, backs up, restores and records planner-linked quiz results', () => {
+  const store = new Map<string, string>();
+  const storage = {
+    getItem: (key: string) => store.get(key) ?? null,
+    setItem: (key: string, value: string) => { store.set(key, value); },
+    removeItem: (key: string) => { store.delete(key); },
+  } as Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
+  const first = createStudyPlanRecord(formWith({ examDate: '2026-12-01' }), new Date(`${fixedToday}T10:00:00Z`));
+  const second = createStudyPlanRecord(formWith({ examDate: '2027-01-01', organizationId: 'fpsc', positionId: 'css-mpt' }), new Date(`${fixedToday}T11:00:00Z`));
+  const collection = { activePlanId: second.id, plans: [first, second] };
+  assert.equal(saveStoredStudyPlans(storage, collection), true);
+  assert.ok(store.has(STUDY_PLANS_STORAGE_KEY));
+  const loaded = loadStoredStudyPlans(storage);
+  assert.equal(loaded.activePlanId, second.id);
+  assert.deepEqual(loaded.plans.map((plan) => plan.id), [first.id, second.id]);
+
+  const backup = exportStudyPlannerBackup(loaded);
+  const restored = parseStudyPlannerBackup(backup);
+  assert.equal(restored?.plans.length, 2);
+  assert.equal(restored?.activePlanId, second.id);
+  assert.equal(parseStudyPlannerBackup('{"format":"other"}'), null);
+
+  const merged = mergeStudyPlannerCollections({ activePlanId: first.id, plans: [first] }, restored!);
+  assert.equal(merged.plans.length, 2);
+  assert.equal(merged.activePlanId, first.id, 'local active selection wins when merging device and account data');
+
+  const scheduledMock = generateStudySchedule(first.form, first.startDate).flatMap((day) => day.tasks).find((task) => task.kind === 'mock');
+  assert.ok(scheduledMock);
+  const saved = appendStudyPlannerMockAttempt(storage, first.id, {
+    id: 'linked-quiz',
+    date: fixedToday,
+    score: 7,
+    total: 10,
+    recordedAt: `${fixedToday}T12:00:00Z`,
+    source: 'quiz',
+    subjectScores: [{ subjectSlug: 'english', score: 5, total: 8 }],
+    completedTaskId: scheduledMock.id,
+  });
+  assert.equal(saved, true);
+  const updated = loadStoredStudyPlans(storage).plans.find((plan) => plan.id === first.id);
+  assert.equal(updated?.mockAttempts[0].source, 'quiz');
+  assert.deepEqual(updated?.mockAttempts[0].subjectScores, [{ subjectSlug: 'english', score: 5, total: 8 }]);
+  assert.ok(updated?.completedTaskIds.includes(scheduledMock.id));
+  assert.equal(saveStoredStudyPlans(storage, { activePlanId: null, plans: [] }), true);
+  assert.equal(store.has(STUDY_PLANNER_STORAGE_KEY), false, 'deleting the last plan also clears its legacy single-plan backup');
+});
+
 test('popular exam presets, rebalancer and text export work smoothly', () => {
   assert.ok(POPULAR_EXAM_PRESETS.length >= 6);
   const stsGrad = POPULAR_EXAM_PRESETS.find((p) => p.id === 'sts-grad');
@@ -160,14 +311,34 @@ test('popular exam presets, rebalancer and text export work smoothly', () => {
   assert.equal(teachingPreset.positionId, 'teaching-license');
   assert.equal(teachingPreset.organizationId, 'sts');
 
-  const basePlan = createStudyPlanRecord(formWith({ examDate: '2026-10-12' }));
+  const baseForm = formWith({ examDate: '2026-10-20' });
+  const basePlan = createStudyPlanRecord(baseForm, new Date(`${fixedToday}T12:00:00Z`));
+  const originalSchedule = generateStudySchedule(basePlan.form, basePlan.startDate);
+  const completedContentTask = originalSchedule.flatMap((day) => day.tasks).find((task) => task.kind === 'learn' && task.topicId);
+  assert.ok(completedContentTask?.topicId);
+  basePlan.completedTaskIds = [completedContentTask.id];
+  basePlan.completedTaskDates = { [completedContentTask.id]: fixedToday };
   const rebalanced = rebalancePlanSchedule(basePlan, '2026-10-15');
   assert.equal(rebalanced.startDate, '2026-10-15');
-  assert.ok(rebalanced.form.examDate > '2026-10-15');
+  assert.equal(rebalanced.form.examDate, basePlan.form.examDate, 'rebalancing never moves a fixed exam date');
+  assert.ok(rebalanced.completedTaskIds.includes(completedContentTask.id));
+  assert.ok(rebalanced.completedTopicIds?.includes(completedContentTask.topicId));
+  assert.ok(!rebalanced.plannedTopicIds?.includes(completedContentTask.topicId));
+  const pendingSchedule = generateStudySchedule(rebalanced.form, rebalanced.startDate, { topicIds: rebalanced.plannedTopicIds });
+  assert.ok(pendingSchedule.flatMap((day) => day.topics).every((topic) => topic.id !== completedContentTask.topicId));
+  const rebalancedProgress = getPlannerProgress(rebalanced, pendingSchedule, '2026-10-15');
+  assert.ok(rebalancedProgress.completedTasks >= 1, 'completed work remains visible after the schedule moves forward');
+
+  const passedExamPlan = rebalancePlanSchedule({ ...basePlan, form: { ...basePlan.form, examDate: '2026-10-12' } }, '2026-10-15');
+  assert.equal(passedExamPlan.form.examDate, '2026-10-12', 'past exam dates are never extended silently');
 
   const schedule = generateStudySchedule(basePlan.form, fixedToday);
   const exported = exportPlanScheduleAsText(basePlan, schedule);
   assert.match(exported, /MUQABIL SMART STUDY ROADMAP/);
   assert.match(exported, /DAILY STUDY SCHEDULE/);
+  assert.match(exported, /Syllabus Source/);
+  const calendar = exportPlanScheduleAsIcs(basePlan, schedule);
+  assert.match(calendar, /BEGIN:VCALENDAR/);
+  assert.match(calendar, /SUMMARY:/);
 });
 

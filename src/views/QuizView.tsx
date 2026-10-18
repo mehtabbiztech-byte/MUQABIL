@@ -32,6 +32,68 @@ import { ExactPatternSimulators } from '../components/ExactPatternSimulators';
 import { buildExactPatternQuestions, SimulatorLaunch } from '../data/examSimulatorData';
 import { MeaningText } from '../components/MeaningText';
 import { exportQuizScorecardToPdf, exportQuizAttemptToExcel } from '../lib/exportUtils';
+import {
+  appendStudyPlannerMockAttempt,
+  getMockSubjectScoresFromQuiz,
+  normalizeWeakArea,
+  STUDY_PLANNER_QUIZ_LAUNCH_KEY,
+  toLocalDateString,
+  type PlannerQuizLaunch,
+} from '../lib/studyPlanner';
+
+const readPlannerQuizLaunch = (): PlannerQuizLaunch | null => {
+  if (typeof window === 'undefined') return null;
+  try {
+    const storage = window.sessionStorage;
+    const serialized = storage.getItem(STUDY_PLANNER_QUIZ_LAUNCH_KEY);
+    if (!serialized) return null;
+    storage.removeItem(STUDY_PLANNER_QUIZ_LAUNCH_KEY);
+    const value = JSON.parse(serialized) as Partial<PlannerQuizLaunch>;
+    if (typeof value.planId !== 'string' || typeof value.taskId !== 'string'
+      || typeof value.examName !== 'string' || !Number.isFinite(value.questionCount)) return null;
+    return {
+      planId: value.planId.slice(0, 200),
+      taskId: value.taskId.slice(0, 300),
+      examName: value.examName.slice(0, 160),
+      questionCount: Math.max(1, Math.min(200, Math.round(Number(value.questionCount)))),
+      ...(typeof value.subjectSlug === 'string' ? { subjectSlug: value.subjectSlug.slice(0, 100) } : {}),
+      ...(typeof value.subtopic === 'string' ? { subtopic: value.subtopic.slice(0, 180) } : {}),
+    };
+  } catch {
+    try {
+      window.sessionStorage.removeItem(STUDY_PLANNER_QUIZ_LAUNCH_KEY);
+    } catch {
+      // Storage can be unavailable in restricted browsing contexts.
+    }
+    return null;
+  }
+};
+
+const shuffleQuestions = (questions: MCQ[]): MCQ[] => {
+  const shuffled = [...questions];
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+  }
+  return shuffled;
+};
+
+const getPlannerQuizPool = (subjectSlug?: string): MCQ[] => {
+  if (!subjectSlug || subjectSlug === 'all') return MCQS_DATA;
+  const aliases: Record<string, string[]> = {
+    'management-sciences': ['management-sciences', 'accounting', 'auditing', 'finance', 'hrm', 'marketing'],
+    'pakistan-affairs': ['pakistan-affairs', 'pakistan-studies'],
+    'pakistan-studies': ['pakistan-studies', 'pakistan-affairs'],
+    computer: ['computer', 'computer-science'],
+    'computer-science': ['computer-science', 'computer'],
+  };
+  const pool = MCQS_DATA.filter((question) => {
+    const category = question.category.toLowerCase();
+    const relatedSlugs = aliases[subjectSlug] ?? [subjectSlug];
+    return relatedSlugs.includes(category) || normalizeWeakArea(category) === subjectSlug;
+  });
+  return pool.length >= 5 ? pool : MCQS_DATA;
+};
 
 export const QuizView: React.FC = () => {
   const { 
@@ -68,9 +130,13 @@ export const QuizView: React.FC = () => {
 
   // Results State
   const [completedAttempt, setCompletedAttempt] = useState<QuizAttempt | null>(null);
+  const [plannerLaunch, setPlannerLaunch] = useState<PlannerQuizLaunch | null>(readPlannerQuizLaunch);
+  const [plannerResultSaved, setPlannerResultSaved] = useState(false);
 
   // Launch from Exact Pattern Simulator
   const handleLaunchFromSimulator = (launch: SimulatorLaunch) => {
+    setPlannerLaunch(null);
+    setPlannerResultSaved(false);
     const questions = buildExactPatternQuestions(MCQS_DATA, launch);
     setActiveQuestions(questions);
     setCurrentIndex(0);
@@ -93,6 +159,30 @@ export const QuizView: React.FC = () => {
     }
   }, [pendingSimulatorLaunch, setPendingSimulatorLaunch]);
 
+  // A scheduled planner mock starts a real, category-aware MUQABIL quiz immediately.
+  useEffect(() => {
+    if (!plannerLaunch || pendingSimulatorLaunch) return;
+    const pool = getPlannerQuizPool(plannerLaunch.subjectSlug);
+    const count = Math.min(plannerLaunch.questionCount, pool.length);
+    const questions = shuffleQuestions(pool).slice(0, count);
+    if (!questions.length) return;
+    const duration = Math.min(180, Math.max(10, Math.ceil(questions.length * 1.2)));
+    setSimulatorMode('standard');
+    setSelectedCategory(plannerLaunch.subjectSlug ?? 'all');
+    setQuestionCount(questions.length);
+    setNegativeMarking(true);
+    setTimeMinutes(duration);
+    setActiveQuestions(questions);
+    setCurrentIndex(0);
+    setUserAnswers({});
+    setFlaggedQuestions({});
+    setSecondsRemaining(duration * 60);
+    setQuizTitle(`${plannerLaunch.examName} · timed study mock`);
+    setQuizStartTime(Date.now());
+    setPlannerResultSaved(false);
+    setQuizState('in-progress');
+  }, [plannerLaunch, pendingSimulatorLaunch]);
+
   // Start Quiz Handler (Standard Custom Mode)
   const startQuiz = () => {
     let pool = [...MCQS_DATA];
@@ -103,8 +193,8 @@ export const QuizView: React.FC = () => {
       }
     }
 
-    // Shuffle pool
-    const shuffled = pool.sort(() => 0.5 - Math.random()).slice(0, questionCount);
+    // Shuffle the available questions without mutating the source bank.
+    const shuffled = shuffleQuestions(pool).slice(0, questionCount);
     setActiveQuestions(shuffled);
     setCurrentIndex(0);
     setUserAnswers({});
@@ -158,6 +248,23 @@ export const QuizView: React.FC = () => {
     });
 
     const finalScore = Math.max(0, Number(rawScore.toFixed(2)));
+
+    if (plannerLaunch) {
+      try {
+        setPlannerResultSaved(appendStudyPlannerMockAttempt(window.localStorage, plannerLaunch.planId, {
+          id: `planner-quiz-${Date.now()}`,
+          date: toLocalDateString(new Date()),
+          score: finalScore,
+          total: activeQuestions.length,
+          recordedAt: new Date().toISOString(),
+          source: 'quiz',
+          subjectScores: getMockSubjectScoresFromQuiz(activeQuestions, userAnswers),
+          completedTaskId: plannerLaunch.taskId,
+        }));
+      } catch {
+        setPlannerResultSaved(false);
+      }
+    }
 
     const attempt: QuizAttempt = {
       id: `attempt-${Date.now()}`,
@@ -424,6 +531,8 @@ export const QuizView: React.FC = () => {
                 onClick={() => {
                   setQuizState('config');
                   setActiveQuestions([]);
+                  setPlannerLaunch(null);
+                  setPlannerResultSaved(false);
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
                 className="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-700 hover:bg-rose-50 hover:text-rose-700 hover:border-rose-300 dark:hover:bg-rose-950 dark:hover:text-rose-300 text-xs font-bold transition flex items-center gap-1 cursor-pointer"
@@ -626,9 +735,18 @@ export const QuizView: React.FC = () => {
                 )}
               </div>
 
+              {plannerLaunch && (
+                <div className="mt-4 flex flex-col items-center justify-between gap-3 rounded-2xl border border-cyan-400/30 bg-cyan-950/50 p-4 text-left sm:flex-row">
+                  <p className="text-xs leading-5 text-cyan-100">{plannerResultSaved
+                    ? 'Mock result saved to your study plan. Subject-level accuracy will shape future revision and this task is marked complete.'
+                    : 'The quiz is complete, but the planner could not update in this browser. Return to the plan and enter this score manually.'}</p>
+                  <button type="button" onClick={() => { setTab('study-planner'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="shrink-0 rounded-xl bg-cyan-300 px-3 py-2 text-xs font-black text-cyan-950 hover:bg-cyan-200">Back to planner</button>
+                </div>
+              )}
+
               <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
                 <button
-                  onClick={() => setQuizState('config')}
+                  onClick={() => { setPlannerLaunch(null); setPlannerResultSaved(false); setQuizState('config'); }}
                   className="px-5 py-2.5 rounded-xl bg-white text-emerald-950 font-bold text-xs sm:text-sm hover:bg-emerald-50 transition cursor-pointer flex items-center gap-1.5"
                 >
                   <RotateCcw className="w-4 h-4" />

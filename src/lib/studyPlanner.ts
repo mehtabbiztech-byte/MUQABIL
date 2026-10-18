@@ -94,6 +94,61 @@ export interface MockAttempt {
   completedTaskId?: string;
 }
 
+export type MistakeReason = 'factual' | 'distractor' | 'time' | 'guessing' | 'unspecified';
+
+export interface VaultMistakeItem {
+  id: string;
+  planId: string;
+  questionId?: string;
+  question: string;
+  options: string[];
+  correctIndex: number;
+  userSelected?: number;
+  explanation: string;
+  subjectSlug: string;
+  subtopic?: string;
+  reason?: MistakeReason;
+  createdAt: string;
+  lastReviewedAt?: string;
+  nextReviewDate: string; // YYYY-MM-DD
+  intervalDays: number;
+  repetitionCount: number;
+  easeFactor: number; // default 2.5
+  status: 'learning' | 'review' | 'mastered';
+}
+
+export type VaultReviewRating = 'again' | 'hard' | 'good' | 'easy';
+
+export interface VaultStats {
+  totalCards: number;
+  dueCards: number;
+  masteredCards: number;
+  learningCards: number;
+  retentionRate: number; // 0-100%
+  topTraps: { subjectSlug: string; count: number; reason: MistakeReason }[];
+}
+
+export interface MeritProjection {
+  projectedMinScore: number;
+  projectedMaxScore: number;
+  projectedMedian: number;
+  targetPercent: number;
+  passingLikelihood: number; // 0-100%
+  meritRankLikelihood: number; // 0-100%
+  tier: 'elite' | 'competitive' | 'on-track' | 'needs-focus';
+  tierLabel: string;
+  recommendations: string[];
+  subjectStrengths: { subjectSlug: string; subjectName: string; scorePercent: number; status: 'strong' | 'average' | 'weak' }[];
+}
+
+export interface TopicHighYieldSprint {
+  topicTitle: string;
+  subjectName: string;
+  keyFormulasAndRules: string[];
+  examDistractorTrap: string;
+  quickRecallCards: { prompt: string; answer: string; mnemonic?: string }[];
+}
+
 export const getMockSubjectScoresFromQuiz = (
   questions: ReadonlyArray<{ category: string; correctIndex: number }>,
   answers: Record<number, number>,
@@ -1412,19 +1467,36 @@ export const mergeStudyPlannerCollections = (
   return { activePlanId, plans };
 };
 
-export const exportStudyPlannerBackup = (collection: StudyPlannerCollection): string => JSON.stringify({
+export interface StudyPlannerBackupPayload extends StudyPlannerCollection {
+  vault?: VaultMistakeItem[];
+}
+
+export const STUDY_PLANNER_VAULT_STORAGE_KEY = 'muqabil_smart_study_planner_vault_v1';
+
+export const exportStudyPlannerBackup = (
+  collection: StudyPlannerCollection,
+  vault?: VaultMistakeItem[],
+): string => JSON.stringify({
   format: 'muqabil-study-planner-backup',
-  version: 1,
+  version: 2,
   exportedAt: new Date().toISOString(),
   activePlanId: collection.activePlanId,
   plans: collection.plans,
+  vault: vault ?? [],
 }, null, 2);
 
-export const parseStudyPlannerBackup = (serialized: string): StudyPlannerCollection | null => {
+export const parseStudyPlannerBackup = (serialized: string): StudyPlannerBackupPayload | null => {
   try {
     const value = JSON.parse(serialized) as unknown;
-    if (!isRecord(value) || value.format !== 'muqabil-study-planner-backup' || value.version !== 1) return null;
-    return sanitizeCollection(value);
+    if (!isRecord(value) || value.format !== 'muqabil-study-planner-backup') return null;
+    if (value.version !== 1 && value.version !== 2) return null;
+    const base = sanitizeCollection(value);
+    if (!base) return null;
+    const vault = Array.isArray((value as any).vault) ? (value as any).vault : [];
+    return {
+      ...base,
+      vault: vault.filter((it: any) => it && typeof it === 'object' && typeof it.id === 'string' && typeof it.question === 'string'),
+    };
   } catch {
     return null;
   }
@@ -1460,4 +1532,445 @@ export const appendStudyPlannerMockAttempt = (
   const plans = [...collection.plans];
   plans[planIndex] = updatedPlan;
   return saveStoredStudyPlans(storage, { ...collection, plans });
+};
+
+export const loadVaultMistakes = (
+  storage: Pick<Storage, 'getItem'> | null | undefined,
+  planId?: string,
+): VaultMistakeItem[] => {
+  if (!storage) return [];
+  try {
+    const raw = storage.getItem(STUDY_PLANNER_VAULT_STORAGE_KEY);
+    if (!raw) return [];
+    const items = JSON.parse(raw);
+    if (!Array.isArray(items)) return [];
+    const sanitized = items.filter(
+      (it) => it && typeof it === 'object' && typeof it.id === 'string' && typeof it.question === 'string',
+    );
+    return planId ? sanitized.filter((it) => it.planId === planId) : sanitized;
+  } catch {
+    return [];
+  }
+};
+
+export const saveVaultMistakes = (
+  storage: Pick<Storage, 'setItem'> | null | undefined,
+  items: VaultMistakeItem[],
+): boolean => {
+  if (!storage) return false;
+  try {
+    const capped = items.slice(-2000);
+    storage.setItem(STUDY_PLANNER_VAULT_STORAGE_KEY, JSON.stringify(capped));
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+export const appendVaultMistake = (
+  storage: Pick<Storage, 'getItem' | 'setItem'> | null | undefined,
+  item: {
+    planId: string;
+    questionId?: string;
+    question: string;
+    options: string[];
+    correctIndex: number;
+    userSelected?: number;
+    explanation: string;
+    subjectSlug: string;
+    subtopic?: string;
+    reason?: MistakeReason;
+  },
+): boolean => {
+  if (!storage) return false;
+  const existing = loadVaultMistakes(storage);
+  const now = new Date();
+  const today = toLocalDateString(now);
+
+  const duplicate = existing.find(
+    (ex) =>
+      ex.planId === item.planId &&
+      ((item.questionId && ex.questionId === item.questionId) ||
+        ex.question.trim().toLowerCase() === item.question.trim().toLowerCase()),
+  );
+
+  if (duplicate) {
+    duplicate.userSelected = item.userSelected;
+    duplicate.reason = item.reason ?? duplicate.reason ?? 'unspecified';
+    duplicate.nextReviewDate = today;
+    duplicate.status = 'learning';
+    duplicate.intervalDays = 1;
+    return saveVaultMistakes(storage, existing);
+  }
+
+  const newItem: VaultMistakeItem = {
+    id: `vault-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+    planId: item.planId,
+    questionId: item.questionId,
+    question: item.question,
+    options: item.options,
+    correctIndex: item.correctIndex,
+    userSelected: item.userSelected,
+    explanation: item.explanation,
+    subjectSlug: item.subjectSlug,
+    subtopic: item.subtopic,
+    reason: item.reason ?? 'unspecified',
+    createdAt: now.toISOString(),
+    nextReviewDate: today,
+    intervalDays: 1,
+    repetitionCount: 0,
+    easeFactor: 2.5,
+    status: 'learning',
+  };
+
+  existing.push(newItem);
+  return saveVaultMistakes(storage, existing);
+};
+
+export const reviewVaultCard = (
+  storage: Pick<Storage, 'getItem' | 'setItem'> | null | undefined,
+  cardId: string,
+  rating: VaultReviewRating,
+  today: string,
+  reason?: MistakeReason,
+): boolean => {
+  if (!storage) return false;
+  const existing = loadVaultMistakes(storage);
+  const cardIndex = existing.findIndex((c) => c.id === cardId);
+  if (cardIndex < 0) return false;
+  const card = existing[cardIndex];
+
+  let nextInterval = 1;
+  let nextRepetitions = card.repetitionCount;
+  let nextEase = card.easeFactor;
+  let nextStatus: VaultMistakeItem['status'] = 'learning';
+
+  if (rating === 'again') {
+    nextRepetitions = 0;
+    nextInterval = 1;
+    nextEase = Math.max(1.3, nextEase - 0.2);
+    nextStatus = 'learning';
+  } else if (rating === 'hard') {
+    nextRepetitions += 1;
+    nextInterval = Math.max(1, Math.round(card.intervalDays * 1.2));
+    nextEase = Math.max(1.3, nextEase - 0.15);
+    nextStatus = nextRepetitions >= 3 ? 'review' : 'learning';
+  } else if (rating === 'good') {
+    nextRepetitions += 1;
+    if (nextRepetitions === 1) nextInterval = 1;
+    else if (nextRepetitions === 2) nextInterval = 3;
+    else nextInterval = Math.max(4, Math.round(card.intervalDays * nextEase));
+    nextStatus = nextRepetitions >= 4 ? 'mastered' : 'review';
+  } else if (rating === 'easy') {
+    nextRepetitions += 1;
+    if (nextRepetitions === 1) nextInterval = 3;
+    else if (nextRepetitions === 2) nextInterval = 6;
+    else nextInterval = Math.max(7, Math.round(card.intervalDays * nextEase * 1.3));
+    nextEase = Math.min(3.0, nextEase + 0.15);
+    nextStatus = nextRepetitions >= 3 ? 'mastered' : 'review';
+  }
+
+  const updatedCard: VaultMistakeItem = {
+    ...card,
+    lastReviewedAt: new Date().toISOString(),
+    nextReviewDate: addDaysToDateString(today, nextInterval),
+    intervalDays: nextInterval,
+    repetitionCount: nextRepetitions,
+    easeFactor: Number(nextEase.toFixed(2)),
+    status: nextStatus,
+    ...(reason ? { reason } : {}),
+  };
+
+  existing[cardIndex] = updatedCard;
+  return saveVaultMistakes(storage, existing);
+};
+
+export const deleteVaultCard = (
+  storage: Pick<Storage, 'getItem' | 'setItem'> | null | undefined,
+  cardId: string,
+): boolean => {
+  if (!storage) return false;
+  const existing = loadVaultMistakes(storage);
+  const filtered = existing.filter((c) => c.id !== cardId);
+  return saveVaultMistakes(storage, filtered);
+};
+
+export const getVaultStats = (
+  items: VaultMistakeItem[],
+  today: string,
+): VaultStats => {
+  const totalCards = items.length;
+  const dueCards = items.filter((c) => c.nextReviewDate <= today).length;
+  const masteredCards = items.filter((c) => c.status === 'mastered').length;
+  const learningCards = items.filter((c) => c.status === 'learning').length;
+  const retentionRate = totalCards > 0 ? Math.round((masteredCards / totalCards) * 100) : 100;
+
+  const trapMap = new Map<string, { subjectSlug: string; count: number; reason: MistakeReason }>();
+  items.forEach((it) => {
+    const key = `${it.subjectSlug}:${it.reason || 'unspecified'}`;
+    const ex = trapMap.get(key) || { subjectSlug: it.subjectSlug, count: 0, reason: it.reason || 'unspecified' };
+    ex.count += 1;
+    trapMap.set(key, ex);
+  });
+
+  const topTraps = [...trapMap.values()]
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 5);
+
+  return {
+    totalCards,
+    dueCards,
+    masteredCards,
+    learningCards,
+    retentionRate,
+    topTraps,
+  };
+};
+
+export const calculateMeritProjection = (
+  plan: StoredStudyPlan,
+  progress: PlannerProgress,
+): MeritProjection => {
+  const targetPercent = getTargetScorePercent(plan.form.targetScore);
+  const syllabusWeight = progress.syllabusCoveragePercent;
+  const taskWeight = progress.taskCompletionPercent;
+
+  const mockCount = plan.mockAttempts.length;
+  let averageMock = 0;
+  if (mockCount > 0) {
+    const sum = plan.mockAttempts.reduce((acc, curr) => acc + (curr.total > 0 ? (curr.score / curr.total) * 100 : 0), 0);
+    averageMock = sum / mockCount;
+  } else {
+    const levelBase: Record<string, number> = {
+      beginner: 48,
+      intermediate: 60,
+      advanced: 70,
+      expert: 78,
+    };
+    averageMock = levelBase[plan.form.currentLevel] ?? 60;
+  }
+
+  let rawExpected = (syllabusWeight * 0.40) + (taskWeight * 0.25) + (averageMock * 0.35);
+  if (progress.currentStreak >= 3) rawExpected += Math.min(5, progress.currentStreak * 0.8);
+
+  const spread = Math.max(3, Math.min(8, Math.round(9 - Math.min(mockCount, 5) * 1.2)));
+  const projectedMedian = Math.max(20, Math.min(96, Math.round(rawExpected)));
+  const projectedMinScore = Math.max(15, projectedMedian - spread);
+  const projectedMaxScore = Math.min(100, projectedMedian + spread);
+
+  const passCutoff = plan.form.positionId === 'teaching-license' ? 60 : 50;
+  const meritCutoff = 75;
+
+  const passingLikelihood = Math.max(5, Math.min(99, Math.round(
+    100 / (1 + Math.exp(-0.15 * (projectedMedian - passCutoff))),
+  )));
+
+  const meritRankLikelihood = Math.max(2, Math.min(98, Math.round(
+    100 / (1 + Math.exp(-0.14 * (projectedMedian - meritCutoff))),
+  )));
+
+  let tier: MeritProjection['tier'] = 'on-track';
+  let tierLabel = 'On Track (Passing Range)';
+  if (projectedMedian >= 78) {
+    tier = 'elite';
+    tierLabel = 'Top Merit Range (Top 5% Aspirant)';
+  } else if (projectedMedian >= 68) {
+    tier = 'competitive';
+    tierLabel = 'Competitive Selection Zone';
+  } else if (projectedMedian < 50) {
+    tier = 'needs-focus';
+    tierLabel = 'Needs Immediate Focus (Below Safe Cutoff)';
+  }
+
+  const subjectMap = new Map<string, { score: number; total: number }>();
+  plan.mockAttempts.forEach((attempt) => {
+    attempt.subjectScores?.forEach((sc) => {
+      const existing = subjectMap.get(sc.subjectSlug) || { score: 0, total: 0 };
+      existing.score += sc.score;
+      existing.total += sc.total;
+      subjectMap.set(sc.subjectSlug, existing);
+    });
+  });
+
+  const subjects = getPlannerSubjects(plan.form.subjectSlugs);
+  const subjectStrengths = subjects.map((sub) => {
+    const data = subjectMap.get(sub.slug);
+    let scorePercent = 60;
+    if (data && data.total > 0) {
+      scorePercent = Math.round((data.score / data.total) * 100);
+    } else {
+      const isWeak = plan.form.weakAreas.some((w) => normalizeWeakArea(w) === sub.slug);
+      scorePercent = isWeak ? 45 : 65;
+    }
+    const status: 'strong' | 'average' | 'weak' = scorePercent >= 75 ? 'strong' : scorePercent >= 55 ? 'average' : 'weak';
+    return {
+      subjectSlug: sub.slug,
+      subjectName: sub.name,
+      scorePercent,
+      status,
+    };
+  });
+
+  const recommendations: string[] = [];
+  const weakSubs = subjectStrengths.filter((s) => s.status === 'weak');
+  if (weakSubs.length > 0) {
+    recommendations.push(`Prioritise ${weakSubs.map((s) => s.subjectName).join(' & ')} to gain +${weakSubs.length * 4} marks toward your target.`);
+  }
+  if (mockCount < 2) {
+    recommendations.push(`Complete at least 2 full timed mocks to tighten your score projection range and discover hidden exam traps.`);
+  }
+  if (progress.syllabusCoveragePercent < 50) {
+    recommendations.push(`Review unchecked syllabus topics; high-weight sections directly drive test question selection.`);
+  }
+  if (recommendations.length === 0) {
+    recommendations.push(`Maintain your consistent study streak and use the Memory Vault to eliminate residual careless errors.`);
+  }
+
+  return {
+    projectedMinScore,
+    projectedMaxScore,
+    projectedMedian,
+    targetPercent,
+    passingLikelihood,
+    meritRankLikelihood,
+    tier,
+    tierLabel,
+    recommendations,
+    subjectStrengths,
+  };
+};
+
+export const getTopicHighYieldSprint = (
+  subjectSlug: string,
+  subtopicTitle: string,
+): TopicHighYieldSprint => {
+  const normSubject = normalizeWeakArea(subjectSlug) || subjectSlug;
+  const titleLower = subtopicTitle.toLowerCase();
+
+  if (normSubject === 'english') {
+    if (/preposition/.test(titleLower)) {
+      return {
+        topicTitle: subtopicTitle,
+        subjectName: 'English',
+        keyFormulasAndRules: [
+          'Latin comparatives take "TO" (never "than"): senior to, junior to, prior to, superior to, inferior to, prefer X to Y.',
+          'Die OF disease/hunger/thirst vs. Die FROM wound/overwork/snakebite/loss of blood.',
+          'Blind IN one eye (physical sight) vs. Blind TO faults (metaphorical/moral blindness).',
+        ],
+        examDistractorTrap: 'STS Trap: "He is senior than me" is incorrect. The correct STS form is "He is senior to me".',
+        quickRecallCards: [
+          { prompt: 'Which preposition follows "prefer"?', answer: 'TO (e.g. "I prefer tea to coffee")', mnemonic: '"Prefer... to" is a Latin comparative pair' },
+          { prompt: 'He died _____ cholera. Fill in the blank.', answer: 'OF (die OF a disease)', mnemonic: 'Disease = OF; Injury/external cause = FROM' },
+          { prompt: "She is blind _____ her brother's shortcomings.", answer: 'TO (blind TO moral faults)', mnemonic: 'Eye = IN; Character = TO' },
+        ],
+      };
+    }
+    if (/tense|grammar|verb|voice|narration/.test(titleLower)) {
+      return {
+        topicTitle: subtopicTitle,
+        subjectName: 'English',
+        keyFormulasAndRules: [
+          'Subject-Verb Agreement: Phrases with "as well as", "along with", "together with" do not affect the main subject.',
+          '"Neither of", "Either of", "Each of" always take a singular verb (e.g. "Each of the boys IS present").',
+          'Past unreal conditional: "If I had known, I WOULD HAVE attended" (never "would had").',
+        ],
+        examDistractorTrap: 'STS Trap: "The teacher, along with the students, ARE coming" is wrong. The subject is singular teacher -> "IS coming".',
+        quickRecallCards: [
+          { prompt: '"Each of the candidates _____ qualified." (was / were)', answer: 'WAS (Each is grammatically singular)', mnemonic: 'Each/Every/Neither = Singular' },
+          { prompt: 'In past perfect conditional, what accompanies "If + had + V3"?', answer: 'would have + V3', mnemonic: 'Had done -> Would have done' },
+          { prompt: '"Neither the teacher nor the students _____ present." (was / were)', answer: 'WERE (Verb agrees with the closer subject "students")', mnemonic: 'Proximity rule for Neither... Nor' },
+        ],
+      };
+    }
+  }
+
+  if (normSubject === 'mathematics') {
+    if (/percentage/.test(titleLower)) {
+      return {
+        topicTitle: subtopicTitle,
+        subjectName: 'Mathematics',
+        keyFormulasAndRules: [
+          'Percentage Change = ((New Value - Original Value) / Original Value) × 100%. Always divide by the ORIGINAL base.',
+          'Successive % changes: Net = a + b + (ab / 100). If a price increases 20% and decreases 20%, net is -4% (a decrease).',
+          'Fraction equivalents: 1/8 = 12.5%, 3/8 = 37.5%, 5/8 = 62.5%, 1/6 = 16.67%, 1/7 = 14.28%.',
+        ],
+        examDistractorTrap: 'STS Trap: A price increased by 25%. To restore the original price, it must decrease by 20%, NOT 25% (1/4 increase -> 1/5 decrease).',
+        quickRecallCards: [
+          { prompt: 'What is the net change after a 10% increase followed by a 10% decrease?', answer: '1% decrease (10 - 10 - 100/100 = -1%)', mnemonic: 'Equal increase & decrease always produces a net loss of x²/100%' },
+          { prompt: 'What fraction corresponds to 37.5%?', answer: '3/8', mnemonic: '1/8 is 12.5%, so 3 × 12.5% = 37.5%' },
+          { prompt: 'A salary rises from 40,000 to 50,000. Calculate % increase.', answer: '25% (10,000 / 40,000 × 100)', mnemonic: 'Difference ÷ Original base' },
+        ],
+      };
+    }
+    if (/ratio|proportion/.test(titleLower)) {
+      return {
+        topicTitle: subtopicTitle,
+        subjectName: 'Mathematics',
+        keyFormulasAndRules: [
+          'Direct Proportion: y = kx -> y₁/x₁ = y₂/x₂ (more workers = more work done).',
+          'Inverse Proportion: x₁y₁ = x₂y₂ (more workers = fewer hours needed to complete same task).',
+          'Compound Ratio: If A:B = 2:3 and B:C = 4:5, then A:B:C = (2×4):(3×4):(3×5) = 8:12:15.',
+        ],
+        examDistractorTrap: 'STS Trap: Men and Days problem is INVERSE proportion (Men₁ × Days₁ = Men₂ × Days₂). Do not cross-multiply directly.',
+        quickRecallCards: [
+          { prompt: 'If 6 men complete a wall in 10 days, how many days will 15 men take?', answer: '4 days (6 × 10 = 15 × D -> 60/15 = 4)', mnemonic: 'Inverse proportion: Man-Days remains constant' },
+          { prompt: 'Simplify the compound ratio of 2:3 and 4:5.', answer: '8:15 for A:C, or 8:12:15 for A:B:C', mnemonic: 'Multiply first by first, second by second' },
+          { prompt: 'Three parts of 100 in the ratio 2:3:5 are:', answer: '20, 30, and 50 (Sum of parts = 10; unit = 10)', mnemonic: 'Total ÷ sum of ratio parts' },
+        ],
+      };
+    }
+  }
+
+  if (normSubject === 'pedagogy') {
+    return {
+      topicTitle: subtopicTitle,
+      subjectName: 'Pedagogy',
+      keyFormulasAndRules: [
+        'Bloom 2001 Revised Sequence: Remember → Understand → Apply → Analyse → Evaluate → Create (Apex level).',
+        '5E Constructivist Sequence: Engage → Explore → Explain → Elaborate → Evaluate (Explore always comes before Explain).',
+        'Mary Budd Rowe Wait Time: 3 to 5 seconds pause after posing a question boosts student response depth significantly.',
+      ],
+      examDistractorTrap: 'STS Trap: Thinking "Synthesis" is still the 5th level; Anderson & Krathwohl placed "Evaluate" at 5 and "Create" at 6.',
+      quickRecallCards: [
+        { prompt: 'In the 5E Model, which phase immediately precedes "Explain"?', answer: 'EXPLORE (Students must explore phenomena before formal naming)', mnemonic: 'Engage -> Explore -> Explain -> Elaborate -> Evaluate' },
+        { prompt: 'What is the optimal teacher wait time after asking a question?', answer: '3 to 5 seconds', mnemonic: 'Mary Budd Rowe Rule' },
+        { prompt: 'What are the two core pillars of true cooperative learning (Johnson & Johnson)?', answer: 'Positive Interdependence and Individual Accountability', mnemonic: '"Sink or swim together" + no free-riding' },
+      ],
+    };
+  }
+
+  if (normSubject === 'computer') {
+    return {
+      topicTitle: subtopicTitle,
+      subjectName: 'Computer',
+      keyFormulasAndRules: [
+        'Storage Hierarchy (Fastest to Slowest): Registers → Cache (L1/L2/L3) → RAM → SSD → HDD → Optical/Tape.',
+        'Binary Data Units: 1 Byte = 8 Bits, 1 KB = 1024 Bytes, 1 MB = 1024 KB, 1 GB = 1024 MB, 1 TB = 1024 GB.',
+        'Essential STS Shortcuts: Ctrl+K (Hyperlink), F4 (Repeat action / Absolute reference $ in Excel), F7 (Spelling check).',
+      ],
+      examDistractorTrap: 'STS Trap: ROM is non-volatile (retains data without power); RAM is volatile (erases data when power is off).',
+      quickRecallCards: [
+        { prompt: 'Which computer memory is fastest and closest to the CPU?', answer: 'Registers (followed by L1 Cache)', mnemonic: 'Registers > Cache > RAM' },
+        { prompt: 'What does pressing F7 do in MS Word and Excel?', answer: 'Opens Spelling & Grammar Check', mnemonic: 'F7 = Spellcheck' },
+        { prompt: 'What is the difference between RAM and ROM?', answer: 'RAM is volatile (temporary); ROM is non-volatile (permanent firmware)', mnemonic: 'RAM forgets when powered down' },
+      ],
+    };
+  }
+
+  const subName = SUBJECTS_BY_SLUG.get(normSubject)?.name || 'General Knowledge';
+  return {
+    topicTitle: subtopicTitle,
+    subjectName: subName,
+    keyFormulasAndRules: [
+      `Master the core definitions and official terminology in ${subtopicTitle}.`,
+      `Distinguish primary causes from secondary effects; examine past exam paper recurrences in ${subName}.`,
+      `Eliminate extreme options ("always", "never", "only") in STS multiple-choice questions.`,
+    ],
+    examDistractorTrap: 'STS Trap: Look out for negative questions containing "NOT", "EXCEPT", or "LEAST"; candidates frequently overlook the negative stem.',
+    quickRecallCards: [
+      { prompt: `What is the single most tested foundational concept in ${subtopicTitle}?`, answer: `Core definitions, key principles, and real-world exam applications in ${subName}.`, mnemonic: 'Focus on primary facts first' },
+      { prompt: 'When faced with 4 options in an STS paper, what should you do first?', answer: 'Eliminate two clearly incorrect distractor options, then compare the remaining two on precise definitions.', mnemonic: 'Process of Elimination (POE)' },
+      { prompt: 'Why is active self-testing more effective than passive re-reading?', answer: 'Active recall strengthens neural retrieval pathways and reveals genuine knowledge gaps before test day.', mnemonic: 'Testing effect > Re-reading' },
+    ],
+  };
 };

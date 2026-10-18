@@ -43,17 +43,27 @@ import {
   VolumeX,
   Wand2,
   Zap,
+  BrainCircuit,
+  Brain,
+  ShieldAlert,
+  FileText,
+  HelpCircle,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { ChatMarkdownRenderer } from '../ChatMarkdownRenderer';
 import {
   addDaysToDateString,
+  appendVaultMistake,
+  calculateMeritProjection,
   createMentorPrompt,
   daysBetweenDates,
+  deleteVaultCard,
   exportPlanScheduleAsText,
   exportPlanScheduleAsIcs,
   exportStudyPlannerBackup,
   getStudyPlanTopics,
+  getTopicHighYieldSprint,
+  getVaultStats,
   getWeakAreaName,
   getMotivationMessage,
   getOrganization,
@@ -61,7 +71,11 @@ import {
   getPlannerSubjects,
   getPositionName,
   getSyllabusRecord,
+  loadVaultMistakes,
+  normalizeWeakArea,
   PREPARATION_MODES,
+  reviewVaultCard,
+  saveVaultMistakes,
   STUDY_QUOTES,
   STUDY_PLANNER_TASK_HANDOFF_KEY,
   STUDY_PLANNER_QUIZ_LAUNCH_KEY,
@@ -71,6 +85,11 @@ import {
   type StudyPlannerTask,
   type StoredStudyPlan,
   type MockAttempt,
+  type VaultMistakeItem,
+  type VaultReviewRating,
+  type MistakeReason,
+  type MeritProjection,
+  type TopicHighYieldSprint,
 } from '../../lib/studyPlanner';
 
 interface PlannerDashboardProps {
@@ -95,7 +114,7 @@ interface PlannerDashboardProps {
   onRebalance?: () => void;
 }
 
-type PlannerSection = 'overview' | 'roadmap' | 'syllabus' | 'timer' | 'progress';
+type PlannerSection = 'overview' | 'roadmap' | 'syllabus' | 'vault' | 'timer' | 'progress';
 
 const DASHBOARD_PANEL = 'rounded-3xl border border-slate-200 bg-white/95 shadow-sm dark:border-slate-800 dark:bg-slate-900/95';
 const SMALL_BUTTON = 'inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs font-extrabold text-slate-700 transition hover:border-emerald-300 hover:bg-emerald-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-emerald-800 dark:hover:bg-emerald-950/30';
@@ -104,8 +123,9 @@ const SECTION_TABS: Array<{ id: PlannerSection; label: string; icon: React.React
   { id: 'overview', label: "Today's Focus", icon: <CalendarCheck2 className="h-4 w-4" /> },
   { id: 'roadmap', label: 'Roadmap', icon: <CalendarDays className="h-4 w-4" /> },
   { id: 'syllabus', label: 'Syllabus', icon: <BookOpenCheck className="h-4 w-4" /> },
+  { id: 'vault', label: 'Memory Vault', icon: <BrainCircuit className="h-4 w-4" /> },
   { id: 'timer', label: 'Focus Timer', icon: <Timer className="h-4 w-4" /> },
-  { id: 'progress', label: 'Progress & Badges', icon: <TrendingUp className="h-4 w-4" /> },
+  { id: 'progress', label: 'Merit & Progress', icon: <TrendingUp className="h-4 w-4" /> },
 ];
 
 const TASK_ACTIONS: Record<StudyPlannerTask['kind'], { label: string; tab: 'mcqs' | 'study-notes' | 'quiz' }> = {
@@ -221,7 +241,46 @@ export const PlannerDashboard: React.FC<PlannerDashboardProps> = ({
   const [showRebalanceModal, setShowRebalanceModal] = useState(false);
 
   // High-Yield Topic Advice Drawer / Modal
-  const [selectedTopicForAdvice, setSelectedTopicForAdvice] = useState<{ subjectName: string; subtopic: string } | null>(null);
+  const [selectedTopicForAdvice, setSelectedTopicForAdvice] = useState<{ subjectName: string; subtopic: string; subjectSlug?: string } | null>(null);
+  const [flippedRecallCards, setFlippedRecallCards] = useState<Record<number, boolean>>({});
+  const [adviceSavedToVault, setAdviceSavedToVault] = useState(false);
+
+  // Memory Vault State (SM-2 Spaced Repetition)
+  const [vaultItems, setVaultItems] = useState<VaultMistakeItem[]>(() => {
+    if (typeof window === 'undefined') return [];
+    return loadVaultMistakes(window.localStorage, plan.id);
+  });
+  const [vaultFilter, setVaultFilter] = useState<'due' | 'all' | 'learning' | 'mastered'>('due');
+  const [vaultReviewIndex, setVaultReviewIndex] = useState(0);
+  const [isVaultCardFlipped, setIsVaultCardFlipped] = useState(false);
+  const [showAddMistakeModal, setShowAddMistakeModal] = useState(false);
+  const [vaultSearchQuery, setVaultSearchQuery] = useState('');
+  const [vaultSeedSuccess, setVaultSeedSuccess] = useState(false);
+
+  // New Mistake Form
+  const [newMistakeQuestion, setNewMistakeQuestion] = useState('');
+  const [newMistakeOptions, setNewMistakeOptions] = useState(['', '', '', '']);
+  const [newMistakeCorrectIndex, setNewMistakeCorrectIndex] = useState(0);
+  const [newMistakeExplanation, setNewMistakeExplanation] = useState('');
+  const [newMistakeSubject, setNewMistakeSubject] = useState(() => plan.form.subjectSlugs[0] || 'general-knowledge');
+  const [newMistakeReason, setNewMistakeReason] = useState<MistakeReason>('distractor');
+
+  // Printable Wall Chart Modal
+  const [showWallChartModal, setShowWallChartModal] = useState(false);
+
+  // Merit Projection calculation
+  const meritProjection = useMemo(() => calculateMeritProjection(plan, progress), [plan, progress]);
+
+  // Memory Vault statistics
+  const vaultStats = useMemo(() => getVaultStats(vaultItems, today), [vaultItems, today]);
+
+  // Keep vault in sync with active plan
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    setVaultItems(loadVaultMistakes(window.localStorage, plan.id));
+    setVaultReviewIndex(0);
+    setIsVaultCardFlipped(false);
+  }, [plan.id]);
 
   // Daily quote selection
   const dailyQuote = useMemo(() => {
@@ -687,6 +746,125 @@ export const PlannerDashboard: React.FC<PlannerDashboardProps> = ({
   const timerTotalSeconds = timerMode === 'pomodoro' ? 25 * 60 : timerMode === 'deep' ? 50 * 60 : 5 * 60;
   const timerProgress = Math.round(((timerTotalSeconds - timerSecondsLeft) / timerTotalSeconds) * 100);
 
+  const dueCardsList = useMemo(() => {
+    return vaultItems.filter((item) => item.nextReviewDate <= today);
+  }, [vaultItems, today]);
+
+  const safeReviewIndex = Math.min(vaultReviewIndex, Math.max(0, dueCardsList.length - 1));
+  const currentDueCard = dueCardsList[safeReviewIndex] ?? null;
+
+  const filteredVaultCards = useMemo(() => {
+    return vaultItems.filter((item) => {
+      if (vaultFilter === 'due' && item.nextReviewDate > today) return false;
+      if (vaultFilter === 'learning' && item.status !== 'learning') return false;
+      if (vaultFilter === 'mastered' && item.status !== 'mastered') return false;
+      if (vaultSearchQuery.trim()) {
+        const q = vaultSearchQuery.toLowerCase();
+        return item.question.toLowerCase().includes(q) || item.explanation.toLowerCase().includes(q) || item.subjectSlug.toLowerCase().includes(q);
+      }
+      return true;
+    });
+  }, [vaultItems, vaultFilter, vaultSearchQuery, today]);
+
+  const handleReviewRating = (cardId: string, rating: VaultReviewRating) => {
+    if (typeof window === 'undefined') return;
+    reviewVaultCard(window.localStorage, cardId, rating, today);
+    const updated = loadVaultMistakes(window.localStorage, plan.id);
+    setVaultItems(updated);
+    setIsVaultCardFlipped(false);
+  };
+
+  const handleDeleteVaultCard = (cardId: string) => {
+    if (typeof window === 'undefined') return;
+    deleteVaultCard(window.localStorage, cardId);
+    setVaultItems(loadVaultMistakes(window.localStorage, plan.id));
+  };
+
+  const handleAddMistake = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newMistakeQuestion.trim() || typeof window === 'undefined') return;
+    appendVaultMistake(window.localStorage, {
+      planId: plan.id,
+      question: newMistakeQuestion.trim(),
+      options: newMistakeOptions.filter((opt) => opt.trim()),
+      correctIndex: newMistakeCorrectIndex,
+      explanation: newMistakeExplanation.trim() || 'Key syllabus rule verified from past papers.',
+      subjectSlug: newMistakeSubject,
+      reason: newMistakeReason,
+    });
+    setVaultItems(loadVaultMistakes(window.localStorage, plan.id));
+    setNewMistakeQuestion('');
+    setNewMistakeOptions(['', '', '', '']);
+    setNewMistakeCorrectIndex(0);
+    setNewMistakeExplanation('');
+    setShowAddMistakeModal(false);
+  };
+
+  const handleSeedHighYieldTraps = () => {
+    if (typeof window === 'undefined') return;
+    const seeds: Array<{ question: string; options: string[]; correctIndex: number; explanation: string; subjectSlug: string; reason: MistakeReason }> = [
+      {
+        subjectSlug: 'english',
+        question: 'Identify the grammatically correct sentence for Sukkur IBA STS screening:',
+        options: ['He is senior than me in service.', 'He is senior to me in service.', 'He is more senior than me in service.', 'He is senior over me in service.'],
+        correctIndex: 1,
+        explanation: 'Latin comparatives (senior, junior, prior, superior, inferior) always take preposition "TO", never "than".',
+        reason: 'distractor',
+      },
+      {
+        subjectSlug: 'english',
+        question: 'Fill in the blank: "The committee _____ divided in their opinions."',
+        options: ['was', 'were', 'is', 'has been'],
+        correctIndex: 1,
+        explanation: 'Collective nouns (committee, jury, council) take plural verbs when the members act individually or are divided.',
+        reason: 'distractor',
+      },
+      {
+        subjectSlug: 'mathematics',
+        question: 'A shopkeeper increases a price by 25%. By what percentage must the new price be reduced to return to the original?',
+        options: ['25%', '20%', '15%', '30%'],
+        correctIndex: 1,
+        explanation: 'If original is 100 -> new is 125. To go from 125 back to 100, reduction is 25/125 × 100 = 20%.',
+        reason: 'distractor',
+      },
+      {
+        subjectSlug: 'computer',
+        question: 'Which of the following computer memories loses its contents immediately when power is turned off?',
+        options: ['ROM', 'RAM', 'Flash Drive', 'Hard Disk Drive'],
+        correctIndex: 1,
+        explanation: 'RAM (Random Access Memory) is volatile storage; ROM, SSD, and HDD are non-volatile and retain data indefinitely without power.',
+        reason: 'factual',
+      },
+      {
+        subjectSlug: 'general-knowledge',
+        question: 'Which is the largest barrage built on the River Indus in Sindh province?',
+        options: ['Guddu Barrage', 'Sukkur Barrage (Lloyd Barrage)', 'Kotri Barrage (Ghulam Muhammad)', 'Taunsa Barrage'],
+        correctIndex: 1,
+        explanation: 'Sukkur Barrage (inaugurated 1932 as Lloyd Barrage) is the oldest and largest barrage in Sindh, commanding over 7.6 million acres.',
+        reason: 'factual',
+      },
+      {
+        subjectSlug: 'pedagogy',
+        question: 'In the Revised Bloom’s Taxonomy (Anderson & Krathwohl, 2001), what is the highest cognitive process level?',
+        options: ['Evaluating', 'Analyzing', 'Creating', 'Synthesizing'],
+        correctIndex: 2,
+        explanation: 'The revised taxonomy replaced Evaluation with Creating (verb form) as the 6th and apex level, moving Evaluating to 5th.',
+        reason: 'distractor',
+      },
+    ];
+
+    seeds.forEach((seed) => {
+      appendVaultMistake(window.localStorage, {
+        planId: plan.id,
+        ...seed,
+      });
+    });
+
+    setVaultItems(loadVaultMistakes(window.localStorage, plan.id));
+    setVaultSeedSuccess(true);
+    setTimeout(() => setVaultSeedSuccess(false), 3000);
+  };
+
   return (
     <div className="mx-auto max-w-7xl space-y-6 px-4 py-8 sm:px-6 lg:px-8">
       {/* Hero Banner */}
@@ -734,6 +912,13 @@ export const PlannerDashboard: React.FC<PlannerDashboardProps> = ({
               <button type="button" onClick={onNewPlan} className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-xs font-extrabold text-emerald-900 hover:bg-emerald-50">
                 <RotateCcw className="h-4 w-4" />New roadmap
               </button>
+              <button
+                type="button"
+                onClick={() => setShowWallChartModal(true)}
+                className="inline-flex items-center gap-2 rounded-xl border border-teal-200/40 bg-teal-950/40 px-3.5 py-2.5 text-xs font-extrabold text-teal-200 transition hover:bg-teal-900/60"
+              >
+                <FileText className="h-4 w-4" />Print Wall Chart
+              </button>
               {onDeletePlan && (
                 <button
                   type="button"
@@ -776,6 +961,51 @@ export const PlannerDashboard: React.FC<PlannerDashboardProps> = ({
         {topMetric(<CheckCircle2 className="h-5 w-5" />, 'Plan complete', `${progress.taskCompletionPercent}%`, `${progress.completedTasks} of ${progress.totalTasks} targets done`, 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300')}
         {topMetric(<Target className="h-5 w-5" />, 'Readiness estimate', `${progress.readinessScore}%`, 'Study progress indicator, not a predicted result', 'bg-violet-100 text-violet-700 dark:bg-violet-950 dark:text-violet-300')}
         {topMetric(<Flame className="h-5 w-5" />, 'Study streak', `${progress.currentStreak} ${progress.currentStreak === 1 ? 'day' : 'days'}`, `${progress.activeDays} active study days total`, 'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300')}
+      </section>
+
+      {/* High-Yield Intelligence Strip */}
+      <section className="grid grid-cols-1 gap-3 md:grid-cols-2">
+        <div className="flex items-center justify-between gap-3 rounded-2xl border border-violet-200/80 bg-violet-50/70 p-3.5 dark:border-violet-900/40 dark:bg-violet-950/20">
+          <div className="flex items-center gap-3">
+            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-violet-100 text-violet-700 dark:bg-violet-900 dark:text-violet-200">
+              <Sparkles className="h-4 w-4" />
+            </span>
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-wider text-violet-800 dark:text-violet-300">Merit Projector</p>
+              <p className="text-xs font-black text-slate-900 dark:text-white">
+                Projected: {meritProjection.projectedMedian}/100 <span className="ml-1 text-[11px] font-bold text-violet-700 dark:text-violet-300">({meritProjection.tierLabel})</span>
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => setActiveSection('progress')}
+            className="rounded-lg bg-violet-600 px-3 py-1.5 text-[11px] font-extrabold text-white hover:bg-violet-700"
+          >
+            View Gauge
+          </button>
+        </div>
+
+        <div className="flex items-center justify-between gap-3 rounded-2xl border border-amber-200/80 bg-amber-50/70 p-3.5 dark:border-amber-900/40 dark:bg-amber-950/20">
+          <div className="flex items-center gap-3">
+            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-200">
+              <BrainCircuit className="h-4 w-4" />
+            </span>
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-wider text-amber-800 dark:text-amber-300">SM-2 Memory Vault</p>
+              <p className="text-xs font-black text-slate-900 dark:text-white">
+                {vaultStats.dueCards > 0 ? `${vaultStats.dueCards} mistake cards due for review today` : `${vaultStats.totalCards} cards logged · ${vaultStats.retentionRate}% retention`}
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => setActiveSection('vault')}
+            className="rounded-lg bg-amber-600 px-3 py-1.5 text-[11px] font-extrabold text-white hover:bg-amber-700"
+          >
+            {vaultStats.dueCards > 0 ? 'Review Due' : 'Open Vault'}
+          </button>
+        </div>
       </section>
 
       {/* Navigation Tabs */}
@@ -1122,7 +1352,305 @@ export const PlannerDashboard: React.FC<PlannerDashboardProps> = ({
         </section>
       )}
 
-      {/* TAB 4: POMODORO FOCUS TIMER */}
+      {/* TAB: MEMORY VAULT (SM-2 SPACED REPETITION) */}
+      {activeSection === 'vault' && (
+        <div className="space-y-6">
+          {/* Header Panel */}
+          <section className={`${DASHBOARD_PANEL} p-5 sm:p-6`}>
+            <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+              <div>
+                <span className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-[0.14em] text-amber-700 dark:text-amber-300">
+                  <BrainCircuit className="h-4 w-4" /> Spaced Repetition Engine
+                </span>
+                <h2 className="mt-1 text-2xl font-black text-slate-950 dark:text-white sm:text-3xl">Exam Mistake Memory Vault</h2>
+                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                  Top qualifiers don't just study—they review their past mistakes until they can't get them wrong. Powered by the SM-2 spaced repetition algorithm.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={handleSeedHighYieldTraps}
+                  className="inline-flex items-center gap-2 rounded-xl border border-amber-300 bg-amber-50 px-3.5 py-2.5 text-xs font-extrabold text-amber-900 transition hover:bg-amber-100 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-200"
+                >
+                  <Sparkles className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+                  {vaultSeedSuccess ? '✓ Traps Seeded!' : 'Seed Syllabus Traps'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowAddMistakeModal(true)}
+                  className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-3.5 py-2.5 text-xs font-extrabold text-white transition hover:bg-slate-800 dark:bg-emerald-600 dark:hover:bg-emerald-500"
+                >
+                  <FileText className="h-4 w-4" /> Add Mistake Card
+                </button>
+              </div>
+            </div>
+
+            {/* Metrics */}
+            <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              <div className="rounded-2xl border border-amber-200/60 bg-amber-50/60 p-4 dark:border-amber-900/40 dark:bg-amber-950/20">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-black uppercase tracking-wider text-amber-800 dark:text-amber-300">Due Today</span>
+                  <span className="rounded-full bg-amber-200/70 px-2 py-0.5 text-[10px] font-black text-amber-900 dark:bg-amber-900 dark:text-amber-200">
+                    {vaultStats.dueCards > 0 ? 'Urgent' : 'Clear'}
+                  </span>
+                </div>
+                <div className="mt-2 text-3xl font-black text-slate-950 dark:text-white">{vaultStats.dueCards}</div>
+                <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">cards waiting for review</p>
+              </div>
+
+              <div className="rounded-2xl border border-sky-200/60 bg-sky-50/60 p-4 dark:border-sky-900/40 dark:bg-sky-950/20">
+                <span className="text-[10px] font-black uppercase tracking-wider text-sky-800 dark:text-sky-300">Total Mistakes</span>
+                <div className="mt-2 text-3xl font-black text-slate-950 dark:text-white">{vaultStats.totalCards}</div>
+                <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">logged in this roadmap</p>
+              </div>
+
+              <div className="rounded-2xl border border-emerald-200/60 bg-emerald-50/60 p-4 dark:border-emerald-900/40 dark:bg-emerald-950/20">
+                <span className="text-[10px] font-black uppercase tracking-wider text-emerald-800 dark:text-emerald-300">Retention Rate</span>
+                <div className="mt-2 text-3xl font-black text-emerald-700 dark:text-emerald-300">{vaultStats.retentionRate}%</div>
+                <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">{vaultStats.masteredCards} cards fully retained</p>
+              </div>
+
+              <div className="rounded-2xl border border-violet-200/60 bg-violet-50/60 p-4 dark:border-violet-900/40 dark:bg-violet-950/20">
+                <span className="text-[10px] font-black uppercase tracking-wider text-violet-800 dark:text-violet-300">Learning Phase</span>
+                <div className="mt-2 text-3xl font-black text-slate-950 dark:text-white">{vaultStats.learningCards}</div>
+                <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">active repetition cycle</p>
+              </div>
+            </div>
+
+            {/* Top Traps Callout if present */}
+            {vaultStats.topTraps.length > 0 && (
+              <div className="mt-5 rounded-2xl border border-slate-200 bg-slate-50/70 p-3.5 dark:border-slate-800 dark:bg-slate-950/40">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-[11px] font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                    <ShieldAlert className="h-3.5 w-3.5 text-amber-600" /> Most Frequent Mistake Types:
+                  </span>
+                  {vaultStats.topTraps.map((trap, idx) => (
+                    <span key={idx} className="rounded-lg bg-white px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wide text-slate-700 shadow-sm dark:bg-slate-800 dark:text-slate-300">
+                      {trap.subjectSlug} · {trap.reason} ({trap.count})
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </section>
+
+          {/* ACTIVE DUE CARD REVIEW BOX */}
+          {dueCardsList.length > 0 && currentDueCard ? (
+            <section className="relative overflow-hidden rounded-3xl border border-amber-300/80 bg-gradient-to-br from-amber-500/5 via-white to-amber-500/10 p-6 shadow-xl dark:border-amber-500/30 dark:bg-slate-900/90 sm:p-8">
+              <div className="flex items-center justify-between">
+                <span className="inline-flex items-center gap-2 rounded-full border border-amber-400/40 bg-amber-100/70 px-3 py-1 text-xs font-black uppercase tracking-wider text-amber-900 dark:bg-amber-950/60 dark:text-amber-200">
+                  <Play className="h-3.5 w-3.5" /> Due Review ({safeReviewIndex + 1} of {dueCardsList.length})
+                </span>
+                <span className="text-xs font-bold text-slate-500">
+                  Card ID: {currentDueCard.id.slice(-6)} · Rep #{currentDueCard.repetitionCount}
+                </span>
+              </div>
+
+              {/* Question stem */}
+              <div className="mt-6">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="rounded-lg bg-slate-200 px-2 py-0.5 text-[10px] font-black uppercase text-slate-800 dark:bg-slate-800 dark:text-slate-200">
+                    {currentDueCard.subjectSlug}
+                  </span>
+                  <span className="rounded-lg bg-rose-100 px-2 py-0.5 text-[10px] font-bold text-rose-800 dark:bg-rose-950 dark:text-rose-200">
+                    Mistake Reason: {currentDueCard.reason || 'distractor'}
+                  </span>
+                </div>
+                <h3 className="mt-3 text-lg font-black leading-snug text-slate-900 dark:text-white sm:text-xl">
+                  {currentDueCard.question}
+                </h3>
+              </div>
+
+              {/* Options */}
+              <div className="mt-5 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+                {currentDueCard.options.map((option, optIdx) => {
+                  const isCorrect = optIdx === currentDueCard.correctIndex;
+                  const isUserSelected = optIdx === currentDueCard.userSelected;
+                  let borderStyle = 'border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800 text-slate-800 dark:text-slate-200';
+                  if (isVaultCardFlipped) {
+                    if (isCorrect) borderStyle = 'border-emerald-500 bg-emerald-50 text-emerald-950 dark:bg-emerald-950/60 dark:text-emerald-200 font-extrabold ring-2 ring-emerald-500/30';
+                    else if (isUserSelected) borderStyle = 'border-rose-400 bg-rose-50 text-rose-950 dark:bg-rose-950/50 dark:text-rose-200 line-through';
+                  }
+                  return (
+                    <div key={optIdx} className={`flex items-start gap-3 rounded-2xl border p-3.5 text-xs transition ${borderStyle}`}>
+                      <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-slate-100 font-black text-slate-700 dark:bg-slate-700 dark:text-slate-200">
+                        {String.fromCharCode(65 + optIdx)}
+                      </span>
+                      <span className="flex-1 font-semibold leading-relaxed">{option}</span>
+                      {isVaultCardFlipped && isCorrect && <Check className="h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400" />}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Reveal or SM-2 Ratings */}
+              {!isVaultCardFlipped ? (
+                <div className="mt-6 flex justify-center">
+                  <button
+                    type="button"
+                    onClick={() => setIsVaultCardFlipped(true)}
+                    className="inline-flex items-center gap-2 rounded-2xl bg-amber-600 px-6 py-3.5 text-sm font-black text-white shadow-lg shadow-amber-600/25 transition hover:bg-amber-500"
+                  >
+                    <Lightbulb className="h-4 w-4" /> Show Correct Answer & Trap Breakdown
+                  </button>
+                </div>
+              ) : (
+                <div className="mt-6 rounded-2xl border border-emerald-200 bg-emerald-50/80 p-5 dark:border-emerald-900/60 dark:bg-emerald-950/30">
+                  <p className="text-xs font-black uppercase tracking-wider text-emerald-900 dark:text-emerald-300">
+                    💡 Verified Explanation & Memory Rule:
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-slate-800 dark:text-slate-200">
+                    {currentDueCard.explanation}
+                  </p>
+
+                  <div className="mt-5 border-t border-emerald-200/60 pt-4 dark:border-emerald-900/50">
+                    <p className="text-xs font-extrabold text-slate-700 dark:text-slate-300 mb-2">
+                      How easily did you recall this answer? (SM-2 Spaced Repetition):
+                    </p>
+                    <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                      <button
+                        type="button"
+                        onClick={() => handleReviewRating(currentDueCard.id, 'again')}
+                        className="rounded-xl border border-rose-300 bg-rose-50 px-3 py-2.5 text-xs font-black text-rose-800 transition hover:bg-rose-100 dark:border-rose-900 dark:bg-rose-950 dark:text-rose-200 text-center"
+                      >
+                        🔴 Again (1 Day)
+                        <span className="block text-[10px] font-normal text-rose-600 dark:text-rose-400">Forgot completely</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleReviewRating(currentDueCard.id, 'hard')}
+                        className="rounded-xl border border-amber-300 bg-amber-50 px-3 py-2.5 text-xs font-black text-amber-900 transition hover:bg-amber-100 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-200 text-center"
+                      >
+                        🟡 Hard (~2 Days)
+                        <span className="block text-[10px] font-normal text-amber-700 dark:text-amber-400">Recalled with effort</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleReviewRating(currentDueCard.id, 'good')}
+                        className="rounded-xl border border-emerald-300 bg-emerald-50 px-3 py-2.5 text-xs font-black text-emerald-900 transition hover:bg-emerald-100 dark:border-emerald-900 dark:bg-emerald-950 dark:text-emerald-200 text-center"
+                      >
+                        🟢 Good (~4-6 Days)
+                        <span className="block text-[10px] font-normal text-emerald-700 dark:text-emerald-400">Recalled correctly</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleReviewRating(currentDueCard.id, 'easy')}
+                        className="rounded-xl border border-sky-300 bg-sky-50 px-3 py-2.5 text-xs font-black text-sky-900 transition hover:bg-sky-100 dark:border-sky-900 dark:bg-sky-950 dark:text-sky-200 text-center"
+                      >
+                        🔵 Easy (10+ Days)
+                        <span className="block text-[10px] font-normal text-sky-700 dark:text-sky-400">Mastered effortlessly</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </section>
+          ) : (
+            <div className="rounded-3xl border border-emerald-200 bg-emerald-50/50 p-6 text-center dark:border-emerald-900/40 dark:bg-emerald-950/20 sm:p-8">
+              <span className="text-3xl">🎉</span>
+              <h3 className="mt-2 text-xl font-black text-emerald-950 dark:text-emerald-200">All Due Reviews Complete for Today!</h3>
+              <p className="mt-1 text-xs text-emerald-800/80 dark:text-emerald-300/80 max-w-md mx-auto">
+                You have no cards waiting right now. As you take mock tests or review syllabus topics, add tricky questions here to maintain zero repeated mistakes.
+              </p>
+              <div className="mt-4 flex justify-center gap-2">
+                <button
+                  type="button"
+                  onClick={handleSeedHighYieldTraps}
+                  className="rounded-xl bg-emerald-600 px-4 py-2.5 text-xs font-black text-white hover:bg-emerald-700"
+                >
+                  Seed More Syllabus Traps
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowAddMistakeModal(true)}
+                  className="rounded-xl border border-emerald-300 bg-white px-4 py-2.5 text-xs font-extrabold text-emerald-900 hover:bg-emerald-50 dark:border-emerald-800 dark:bg-slate-900 dark:text-emerald-200"
+                >
+                  Add Custom Mistake
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Complete Card Directory */}
+          <section className={`${DASHBOARD_PANEL} p-5 sm:p-6`}>
+            <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
+              <div>
+                <h3 className="text-lg font-black text-slate-950 dark:text-white">Mistake Bank Directory</h3>
+                <p className="text-xs text-slate-500">Search and manage all logged mistakes.</p>
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <input
+                  type="text"
+                  value={vaultSearchQuery}
+                  onChange={(e) => setVaultSearchQuery(e.target.value)}
+                  placeholder="Search questions or keywords..."
+                  className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold outline-none focus:border-amber-400 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                />
+                <select
+                  value={vaultFilter}
+                  onChange={(e) => setVaultFilter(e.target.value as any)}
+                  className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-extrabold outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                >
+                  <option value="due">Due for Review ({vaultStats.dueCards})</option>
+                  <option value="all">All Cards ({vaultStats.totalCards})</option>
+                  <option value="learning">Learning ({vaultStats.learningCards})</option>
+                  <option value="mastered">Mastered ({vaultStats.masteredCards})</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="mt-4 space-y-3">
+              {filteredVaultCards.length === 0 ? (
+                <p className="rounded-xl bg-slate-50 p-4 text-center text-xs text-slate-500 dark:bg-slate-950 dark:text-slate-400">
+                  No cards matching your filter.
+                </p>
+              ) : (
+                filteredVaultCards.map((card) => (
+                  <div key={card.id} className="rounded-2xl border border-slate-200 p-4 transition hover:border-amber-300 dark:border-slate-800 dark:hover:border-amber-800">
+                    <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-start">
+                      <div className="flex-1">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-black uppercase text-slate-700 dark:bg-slate-800 dark:text-slate-300">
+                            {card.subjectSlug}
+                          </span>
+                          <span className={`rounded-md px-2 py-0.5 text-[10px] font-extrabold uppercase ${
+                            card.status === 'mastered' ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' :
+                            card.status === 'review' ? 'bg-sky-100 text-sky-800 dark:bg-sky-950 dark:text-sky-300' :
+                            'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300'
+                          }`}>
+                            {card.status} · Next: {card.nextReviewDate}
+                          </span>
+                          <span className="text-[10px] text-slate-400">
+                            Interval: {card.intervalDays}d · Ease: {card.easeFactor}
+                          </span>
+                        </div>
+                        <p className="mt-2 text-sm font-black text-slate-900 dark:text-white">{card.question}</p>
+                        <p className="mt-1 text-xs text-emerald-700 dark:text-emerald-400 font-semibold">
+                          ✓ Correct: {card.options[card.correctIndex]}
+                        </p>
+                        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{card.explanation}</p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteVaultCard(card.id)}
+                          className="rounded-lg p-1.5 text-slate-400 hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-950/40"
+                          title="Delete card"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          </section>
+        </div>
+      )}
+
+      {/* TAB 5: POMODORO FOCUS TIMER */}
       {activeSection === 'timer' && (
         <section className={`${DASHBOARD_PANEL} p-6 sm:p-8`}>
           <div className="mx-auto max-w-xl text-center">
@@ -1240,6 +1768,135 @@ export const PlannerDashboard: React.FC<PlannerDashboardProps> = ({
               <div className="rounded-2xl bg-sky-50 p-4 dark:bg-sky-950/30"><strong className="text-2xl font-black text-sky-800 dark:text-sky-300">{progress.taskCompletionPercent}%</strong><span className="mt-1 block text-[10px] font-bold text-slate-500">roadmap complete</span></div>
               <div className="rounded-2xl bg-violet-50 p-4 dark:bg-violet-950/30"><strong className="text-2xl font-black text-violet-800 dark:text-violet-300">{progress.averageMockScore === null ? '—' : `${progress.averageMockScore}%`}</strong><span className="mt-1 block text-[10px] font-bold text-slate-500">average mock score</span></div>
               <div className="rounded-2xl bg-amber-50 p-4 dark:bg-amber-950/30"><strong className="text-2xl font-black text-amber-800 dark:text-amber-300">{progress.activeDays}</strong><span className="mt-1 block text-[10px] font-bold text-slate-500">active days</span></div>
+            </div>
+
+            {/* WORLD-CLASS MERIT PROJECTION GAUGE & GAP ANALYSIS */}
+            <div className="mt-6 overflow-hidden rounded-3xl border border-violet-200/80 bg-gradient-to-br from-violet-950 via-slate-900 to-indigo-950 p-6 text-white shadow-xl dark:border-violet-900/60 sm:p-7">
+              <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
+                <div>
+                  <span className="inline-flex items-center gap-2 rounded-full border border-violet-300/30 bg-white/10 px-3 py-1 text-xs font-black uppercase tracking-wider text-violet-200">
+                    <Sparkles className="h-3.5 w-3.5 text-amber-300" /> Merit Rank & Selection Predictor
+                  </span>
+                  <h3 className="mt-2 text-2xl font-black text-white sm:text-3xl">
+                    Projected Score: {meritProjection.projectedMedian}/100
+                  </h3>
+                  <p className="mt-1 text-xs font-semibold text-violet-200/80">
+                    Estimated Range: <span className="font-bold text-white">{meritProjection.projectedMinScore} – {meritProjection.projectedMaxScore} marks</span> · Target Goal: <span className="font-bold text-amber-300">{meritProjection.targetPercent}%</span>
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-white/15 bg-white/10 px-4 py-3 backdrop-blur-sm sm:text-right">
+                  <span className="block text-[10px] font-black uppercase tracking-wider text-violet-200">Merit Status</span>
+                  <span className="mt-1 block text-sm font-black text-amber-300">{meritProjection.tierLabel}</span>
+                </div>
+              </div>
+
+              {/* Likelihood Gauges */}
+              <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <div className="rounded-2xl bg-white/10 p-4 backdrop-blur-sm">
+                  <div className="flex items-center justify-between text-xs font-bold text-violet-200">
+                    <span>Passing Cutoff Likelihood (50%+)</span>
+                    <span className="text-base font-black text-emerald-300">{meritProjection.passingLikelihood}%</span>
+                  </div>
+                  <div className="mt-2 h-2 overflow-hidden rounded-full bg-black/40">
+                    <div className="h-full rounded-full bg-emerald-400 transition-all" style={{ width: `${meritProjection.passingLikelihood}%` }} />
+                  </div>
+                </div>
+
+                <div className="rounded-2xl bg-white/10 p-4 backdrop-blur-sm">
+                  <div className="flex items-center justify-between text-xs font-bold text-violet-200">
+                    <span>Top Merit Rank Likelihood (75%+)</span>
+                    <span className="text-base font-black text-amber-300">{meritProjection.meritRankLikelihood}%</span>
+                  </div>
+                  <div className="mt-2 h-2 overflow-hidden rounded-full bg-black/40">
+                    <div className="h-full rounded-full bg-amber-400 transition-all" style={{ width: `${meritProjection.meritRankLikelihood}%` }} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Target Score Gap Analysis */}
+              <div className="mt-5 rounded-2xl border border-amber-300/30 bg-amber-400/10 p-4 text-xs leading-relaxed text-amber-100">
+                <p className="font-extrabold text-amber-200 flex items-center gap-1.5">
+                  <Target className="h-4 w-4" /> Target Gap Analysis:
+                </p>
+                <p className="mt-1">
+                  {meritProjection.projectedMedian >= meritProjection.targetPercent ? (
+                    `Congratulations! You are on pace to match or exceed your ${meritProjection.targetPercent}% target. Maintain your streak and practice full-length mocks to cement your top merit standing.`
+                  ) : (
+                    `You are currently ${meritProjection.targetPercent - meritProjection.projectedMedian} marks below your ${meritProjection.targetPercent}% target. Reviewing your identified weak syllabus areas and taking 2 timed mock tests can close this gap.`
+                  )}
+                </p>
+              </div>
+
+              {/* Actionable Recommendations */}
+              {meritProjection.recommendations.length > 0 && (
+                <div className="mt-4 space-y-1.5">
+                  <p className="text-[11px] font-black uppercase tracking-wider text-violet-300">Tactical Mark-Boost Actions:</p>
+                  {meritProjection.recommendations.map((rec, idx) => (
+                    <div key={idx} className="flex items-start gap-2 text-xs text-violet-100">
+                      <span className="text-emerald-400 font-bold">✓</span>
+                      <span>{rec}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* SUBJECT STRENGTHS MATRIX */}
+            <div className="mt-6 rounded-2xl border border-slate-200 p-4 dark:border-slate-800">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="font-extrabold text-slate-900 dark:text-white">Subject Mastery Matrix</h3>
+                  <p className="text-xs text-slate-500">Live breakdown across your selected syllabus.</p>
+                </div>
+                <span className="text-[10px] font-bold text-slate-400 uppercase">
+                  {meritProjection.subjectStrengths.length} Mapped Subjects
+                </span>
+              </div>
+
+              <div className="mt-4 space-y-2.5">
+                {meritProjection.subjectStrengths.map((sub) => {
+                  const tone = sub.status === 'strong' ? 'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-900' :
+                    sub.status === 'average' ? 'text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-900' :
+                    'text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 border-rose-200 dark:border-rose-900';
+                  return (
+                    <div key={sub.subjectSlug} className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-xl border border-slate-100 p-3 dark:border-slate-800/80">
+                      <div className="min-w-44">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-black text-slate-900 dark:text-white">{sub.subjectName}</span>
+                          <span className={`rounded-md border px-2 py-0.5 text-[9px] font-black uppercase ${tone}`}>
+                            {sub.status}
+                          </span>
+                        </div>
+                        <div className="mt-1.5 flex items-center gap-2">
+                          <div className="h-1.5 w-32 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
+                            <div
+                              className={`h-full rounded-full ${sub.status === 'strong' ? 'bg-emerald-500' : sub.status === 'average' ? 'bg-amber-500' : 'bg-rose-500'}`}
+                              style={{ width: `${sub.scorePercent}%` }}
+                            />
+                          </div>
+                          <span className="text-[10px] font-black tabular-nums text-slate-600 dark:text-slate-400">{sub.scorePercent}%</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => startTab('mcqs', sub.subjectSlug)}
+                          className="rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-[11px] font-bold text-slate-700 hover:border-emerald-400 hover:bg-emerald-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                        >
+                          Practise MCQs
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => startTab('study-notes', sub.subjectSlug)}
+                          className="rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-[11px] font-bold text-slate-700 hover:border-sky-400 hover:bg-sky-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                        >
+                          Open Notes
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
 
             <div className="mt-6 rounded-2xl border border-slate-200 p-4 dark:border-slate-800">
@@ -1389,68 +2046,372 @@ export const PlannerDashboard: React.FC<PlannerDashboardProps> = ({
       )}
 
       {/* HIGH YIELD TOPIC ADVICE DRAWER */}
-      {selectedTopicForAdvice && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
-          <div className="w-full max-w-lg rounded-3xl border border-teal-200 bg-white p-6 shadow-2xl dark:border-teal-900 dark:bg-slate-900">
-            <div className="flex items-start justify-between">
-              <div>
-                <span className="inline-flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-teal-700 dark:text-teal-300">
-                  <Lightbulb className="h-3.5 w-3.5 text-amber-500" /> Exam Mastery Strategy
+      {selectedTopicForAdvice && (() => {
+        const topicSprint = getTopicHighYieldSprint(selectedTopicForAdvice.subjectSlug || selectedTopicForAdvice.subjectName, selectedTopicForAdvice.subtopic);
+        return (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm overflow-y-auto">
+            <div className="w-full max-w-xl rounded-3xl border border-teal-200 bg-white p-6 shadow-2xl dark:border-teal-900 dark:bg-slate-900 my-8">
+              <div className="flex items-start justify-between">
+                <div>
+                  <span className="inline-flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-teal-700 dark:text-teal-300">
+                    <Lightbulb className="h-3.5 w-3.5 text-amber-500" /> High-Yield Strategy & Exam Traps
+                  </span>
+                  <h3 className="mt-1 text-lg font-black text-slate-900 dark:text-white">
+                    {topicSprint.topicTitle} ({topicSprint.subjectName})
+                  </h3>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setSelectedTopicForAdvice(null)}
+                  className="rounded-xl p-2 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <div className="mt-4 space-y-4 text-xs leading-5 text-slate-700 dark:text-slate-300">
+                {/* Formulas & Rules */}
+                <div className="rounded-2xl border border-teal-200 bg-teal-50/70 p-4 dark:border-teal-900/50 dark:bg-teal-950/20">
+                  <p className="font-black text-teal-900 dark:text-teal-200 flex items-center gap-1.5">
+                    <CheckCircle2 className="h-4 w-4 text-teal-600 dark:text-teal-400" /> Core Rules & High-Yield Formulas:
+                  </p>
+                  <ul className="mt-2 space-y-1.5 text-slate-700 dark:text-slate-300 pl-1">
+                    {topicSprint.keyFormulasAndRules.map((rule, idx) => (
+                      <li key={idx} className="flex items-start gap-2">
+                        <span className="font-bold text-teal-600 dark:text-teal-400">•</span>
+                        <span>{rule}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Exam Distractor Trap */}
+                <div className="rounded-2xl border border-rose-200 bg-rose-50/80 p-4 dark:border-rose-900/60 dark:bg-rose-950/20">
+                  <p className="font-black text-rose-900 dark:text-rose-200 flex items-center gap-1.5">
+                    <ShieldAlert className="h-4 w-4 text-rose-600 dark:text-rose-400" /> Authentic Screening Trap to Avoid:
+                  </p>
+                  <p className="mt-1 text-slate-700 dark:text-slate-200 font-medium">
+                    {topicSprint.examDistractorTrap}
+                  </p>
+                </div>
+
+                {/* Active Recall Cards */}
+                <div className="space-y-2">
+                  <p className="font-black text-slate-900 dark:text-white flex items-center gap-1.5">
+                    <Brain className="h-4 w-4 text-violet-600 dark:text-violet-400" /> 30-Second Active Recall Challenge:
+                  </p>
+                  {topicSprint.quickRecallCards.map((card, idx) => {
+                    const isFlipped = flippedRecallCards[idx];
+                    return (
+                      <div key={idx} className="rounded-xl border border-slate-200 bg-slate-50 p-3 dark:border-slate-800 dark:bg-slate-950">
+                        <div className="flex items-start justify-between gap-2">
+                          <p className="font-bold text-slate-900 dark:text-white">{idx + 1}. {card.prompt}</p>
+                          <button
+                            type="button"
+                            onClick={() => setFlippedRecallCards((prev) => ({ ...prev, [idx]: !prev[idx] }))}
+                            className="rounded-lg bg-white px-2 py-1 text-[10px] font-black text-violet-700 shadow-sm hover:bg-violet-50 dark:bg-slate-800 dark:text-violet-300"
+                          >
+                            {isFlipped ? 'Hide' : 'Reveal'}
+                          </button>
+                        </div>
+                        {isFlipped && (
+                          <div className="mt-2 border-t border-slate-200/80 pt-2 text-emerald-800 dark:text-emerald-300 font-semibold dark:border-slate-800">
+                            ✓ {card.answer}
+                            {card.mnemonic && (
+                              <span className="block mt-0.5 text-[10px] text-amber-700 dark:text-amber-400 font-normal">
+                                💡 Mnemonic: {card.mnemonic}
+                              </span>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="mt-6 flex flex-wrap justify-between items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (typeof window !== 'undefined') {
+                      appendVaultMistake(window.localStorage, {
+                        planId: plan.id,
+                        question: topicSprint.quickRecallCards[0]?.prompt || `High-yield rule in ${topicSprint.topicTitle}`,
+                        options: ['Option A', 'Option B', 'Option C', 'Option D'],
+                        correctIndex: 0,
+                        explanation: topicSprint.examDistractorTrap,
+                        subjectSlug: selectedTopicForAdvice.subjectSlug || 'general-knowledge',
+                        reason: 'distractor',
+                      });
+                      setVaultItems(loadVaultMistakes(window.localStorage, plan.id));
+                      setAdviceSavedToVault(true);
+                      setTimeout(() => setAdviceSavedToVault(false), 2500);
+                    }
+                  }}
+                  className="rounded-xl border border-amber-300 bg-amber-50 px-3.5 py-2 text-xs font-black text-amber-900 hover:bg-amber-100 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-200"
+                >
+                  {adviceSavedToVault ? '✓ Saved to Vault!' : '📥 Save Trap to Memory Vault'}
+                </button>
+
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedTopicForAdvice(null);
+                      startTab('mcqs', selectedTopicForAdvice.subjectSlug);
+                    }}
+                    className="rounded-xl bg-emerald-600 px-4 py-2 text-xs font-black text-white hover:bg-emerald-700"
+                  >
+                    Practise MCQs
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedTopicForAdvice(null)}
+                    className="rounded-xl border border-slate-200 px-3.5 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300"
+                  >
+                    Done
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* ADD MISTAKE CARD MODAL */}
+      {showAddMistakeModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm overflow-y-auto">
+          <div className="w-full max-w-lg rounded-3xl border border-amber-300 bg-white p-6 shadow-2xl dark:border-amber-900 dark:bg-slate-900 my-8">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="grid h-9 w-9 place-items-center rounded-xl bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300">
+                  <BrainCircuit className="h-5 w-5" />
                 </span>
-                <h3 className="mt-1 text-lg font-black text-slate-900 dark:text-white">
-                  {selectedTopicForAdvice.subtopic}
-                </h3>
+                <div>
+                  <h3 className="text-lg font-black text-slate-900 dark:text-white">Add Exam Mistake to Vault</h3>
+                  <p className="text-xs text-slate-500">Scheduled for spaced repetition review.</p>
+                </div>
               </div>
               <button
                 type="button"
-                onClick={() => setSelectedTopicForAdvice(null)}
+                onClick={() => setShowAddMistakeModal(false)}
                 className="rounded-xl p-2 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
               >
                 ✕
               </button>
             </div>
 
-            <div className="mt-4 space-y-3 text-xs leading-5 text-slate-700 dark:text-slate-300">
-              <div className="rounded-2xl border border-amber-200 bg-amber-50/70 p-3.5 dark:border-amber-900/50 dark:bg-amber-950/20">
-                <p className="font-extrabold text-amber-900 dark:text-amber-200">🎯 High-Yield Exam Angle (STS & Provincial Screening):</p>
-                <p className="mt-1 text-slate-600 dark:text-slate-300">
-                  Examiners heavily test fundamental definitions, standard rules/exceptions, and real past paper formulations. Focus on active recall rather than passive re-reading.
+            <form onSubmit={handleAddMistake} className="mt-5 space-y-4 text-xs">
+              <div>
+                <label className="block font-extrabold text-slate-700 dark:text-slate-300">Subject</label>
+                <select
+                  value={newMistakeSubject}
+                  onChange={(e) => setNewMistakeSubject(e.target.value)}
+                  className="mt-1 w-full rounded-xl border border-slate-200 bg-white p-2.5 font-bold outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                >
+                  {selectedSubjects.map((s) => (
+                    <option key={s.slug} value={s.slug}>{s.name}</option>
+                  ))}
+                  <option value="general-knowledge">General Knowledge</option>
+                  <option value="english">English</option>
+                  <option value="mathematics">Mathematics</option>
+                  <option value="pedagogy">Pedagogy</option>
+                  <option value="computer">Computer</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block font-extrabold text-slate-700 dark:text-slate-300">Mistake Reason</label>
+                <select
+                  value={newMistakeReason}
+                  onChange={(e) => setNewMistakeReason(e.target.value as MistakeReason)}
+                  className="mt-1 w-full rounded-xl border border-slate-200 bg-white p-2.5 font-bold outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                >
+                  <option value="distractor">Fell for Examiner's Distractor Trap</option>
+                  <option value="factual">Factual Knowledge Gap</option>
+                  <option value="time">Time Pressure / Rushed</option>
+                  <option value="guessing">Unsure / Blind Guess</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block font-extrabold text-slate-700 dark:text-slate-300">Question Stem</label>
+                <textarea
+                  required
+                  rows={2}
+                  value={newMistakeQuestion}
+                  onChange={(e) => setNewMistakeQuestion(e.target.value)}
+                  placeholder="e.g. He is senior _____ me in service."
+                  className="mt-1 w-full rounded-xl border border-slate-200 bg-white p-2.5 font-medium outline-none focus:border-amber-400 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                />
+              </div>
+
+              <div>
+                <label className="block font-extrabold text-slate-700 dark:text-slate-300">Four Answer Options (Mark correct radio button)</label>
+                <div className="mt-1.5 space-y-2">
+                  {newMistakeOptions.map((opt, idx) => (
+                    <div key={idx} className="flex items-center gap-2">
+                      <input
+                        type="radio"
+                        name="correctIdx"
+                        checked={newMistakeCorrectIndex === idx}
+                        onChange={() => setNewMistakeCorrectIndex(idx)}
+                        className="h-4 w-4 accent-emerald-600"
+                        title="Mark as correct answer"
+                      />
+                      <span className="font-bold text-slate-400 w-4">{String.fromCharCode(65 + idx)}</span>
+                      <input
+                        type="text"
+                        required
+                        value={opt}
+                        onChange={(e) => {
+                          const updated = [...newMistakeOptions];
+                          updated[idx] = e.target.value;
+                          setNewMistakeOptions(updated);
+                        }}
+                        placeholder={`Option ${String.fromCharCode(65 + idx)}`}
+                        className="flex-1 rounded-xl border border-slate-200 bg-white p-2 font-medium outline-none focus:border-amber-400 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="block font-extrabold text-slate-700 dark:text-slate-300">Memory Explanation & Rule to Remember</label>
+                <textarea
+                  rows={2}
+                  value={newMistakeExplanation}
+                  onChange={(e) => setNewMistakeExplanation(e.target.value)}
+                  placeholder="e.g. Latin comparatives always take 'TO', never 'than'."
+                  className="mt-1 w-full rounded-xl border border-slate-200 bg-white p-2.5 font-medium outline-none focus:border-amber-400 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                />
+              </div>
+
+              <div className="mt-5 flex justify-end gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setShowAddMistakeModal(false)}
+                  className="rounded-xl border border-slate-200 px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="rounded-xl bg-amber-600 px-5 py-2.5 text-xs font-black text-white hover:bg-amber-500"
+                >
+                  Save Mistake Card
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* PRINTABLE WALL CHART MODAL */}
+      {showWallChartModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm overflow-y-auto">
+          <div className="w-full max-w-2xl rounded-3xl border border-teal-300 bg-white p-6 shadow-2xl dark:border-teal-800 dark:bg-slate-900 my-8">
+            <div className="flex items-center justify-between border-b pb-4 dark:border-slate-800">
+              <div className="flex items-center gap-3">
+                <span className="grid h-10 w-10 place-items-center rounded-xl bg-teal-100 text-teal-800 dark:bg-teal-950 dark:text-teal-300">
+                  <FileText className="h-5 w-5" />
+                </span>
+                <div>
+                  <h3 className="text-xl font-black text-slate-900 dark:text-white">Desk-Ready Revision Wall Chart</h3>
+                  <p className="text-xs text-slate-500">Print and tape above your study desk.</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowWallChartModal(false)}
+                className="rounded-xl p-2 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Printable Preview Sheet */}
+            <div className="mt-5 rounded-2xl border-2 border-dashed border-teal-300/80 bg-teal-50/30 p-5 dark:border-teal-800 dark:bg-slate-950/60 font-sans text-xs">
+              <div className="text-center border-b border-teal-200/80 pb-3 dark:border-teal-900/60">
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-teal-800 dark:text-teal-300">MUQABIL COMPETITIVE EXAM TIMETABLE</p>
+                <h4 className="mt-1 text-xl font-black text-slate-900 dark:text-white">{positionName}</h4>
+                <p className="mt-0.5 text-xs text-slate-600 dark:text-slate-400">
+                  Agency: {organization.name} · Exam Date: <strong className="text-slate-900 dark:text-white">{formatLongDate(plan.form.examDate)}</strong> ({daysRemaining} days remaining)
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-rose-200 bg-rose-50/70 p-3.5 dark:border-rose-900/50 dark:bg-rose-950/20">
-                <p className="font-extrabold text-rose-900 dark:text-rose-200">⚠️ Common Pitfall / Trap to Avoid:</p>
-                <p className="mt-1 text-slate-600 dark:text-slate-300">
-                  Rushing through the question stem without noting negative keywords ("EXCEPT", "NOT", "INCORRECT"). In MCQs, the most tempting option is often a trap.
+              {/* 7-Day Timetable Grid */}
+              <div className="mt-4">
+                <p className="font-black text-slate-900 dark:text-white uppercase tracking-wider text-[11px] mb-2">
+                  Weekly Study Target Checklist (Check off daily):
                 </p>
+                <div className="grid grid-cols-7 gap-1.5 text-center">
+                  {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((dayName, idx) => (
+                    <div key={idx} className="rounded-xl border border-teal-200 bg-white p-2.5 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
+                      <span className="block text-[10px] font-black text-teal-800 dark:text-teal-300">{dayName}</span>
+                      <div className="mt-2 space-y-1">
+                        <div className="flex items-center justify-center gap-1 text-[9px] text-slate-500">
+                          <span className="h-3 w-3 border border-slate-300 rounded inline-block" /> Theory
+                        </div>
+                        <div className="flex items-center justify-center gap-1 text-[9px] text-slate-500">
+                          <span className="h-3 w-3 border border-slate-300 rounded inline-block" /> MCQs
+                        </div>
+                        <div className="flex items-center justify-center gap-1 text-[9px] text-slate-500">
+                          <span className="h-3 w-3 border border-slate-300 rounded inline-block" /> Vault
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
 
-              <div className="rounded-2xl border border-sky-200 bg-sky-50/70 p-3.5 dark:border-sky-900/50 dark:bg-sky-950/20">
-                <p className="font-extrabold text-sky-900 dark:text-sky-200">⚡ 30-Second Practice Action:</p>
-                <p className="mt-1 text-slate-600 dark:text-slate-300">
-                  Test yourself right now: write down 3 key facts or rules from this topic on a blank sheet from memory before looking at any notes.
-                </p>
+              {/* Daily Allocation & Syllabus Breakdown */}
+              <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="rounded-xl bg-white p-3 border border-teal-100 dark:bg-slate-900 dark:border-slate-800">
+                  <p className="font-extrabold text-teal-900 dark:text-teal-200 mb-1">⏱️ Daily Study Split:</p>
+                  <p className="text-[11px] text-slate-600 dark:text-slate-400">
+                    • 50% High-cognition theory & notes<br />
+                    • 35% Timed MCQ practice sprints<br />
+                    • 15% Memory Vault flash review
+                  </p>
+                </div>
+                <div className="rounded-xl bg-white p-3 border border-teal-100 dark:bg-slate-900 dark:border-slate-800">
+                  <p className="font-extrabold text-teal-900 dark:text-teal-200 mb-1">🎯 Target Score Goal:</p>
+                  <p className="text-[11px] text-slate-600 dark:text-slate-400">
+                    Goal: <strong>{targetLabel}</strong> · Mode: {currentMode}<br />
+                    Projected: <strong>{meritProjection.projectedMedian}/100</strong> ({meritProjection.tierLabel})
+                  </p>
+                </div>
+              </div>
+
+              {/* Desk Motto */}
+              <div className="mt-4 rounded-xl bg-amber-50 p-2.5 text-center text-amber-900 dark:bg-amber-950/40 dark:text-amber-200 italic font-medium">
+                "{dailyQuote.text}" — {dailyQuote.author}
               </div>
             </div>
 
-            <div className="mt-6 flex justify-end gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  setSelectedTopicForAdvice(null);
-                  startTab('mcqs');
-                }}
-                className="rounded-xl bg-emerald-600 px-4 py-2.5 text-xs font-black text-white hover:bg-emerald-700"
-              >
-                Practise MCQs Now
-              </button>
-              <button
-                type="button"
-                onClick={() => setSelectedTopicForAdvice(null)}
-                className="rounded-xl border border-slate-200 px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300"
-              >
-                Done
-              </button>
+            <div className="mt-6 flex justify-between items-center">
+              <span className="text-[11px] text-slate-400">
+                Tip: Press Print, select landscape or portrait, and check "Background graphics".
+              </span>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => setShowWallChartModal(false)}
+                  className="rounded-xl border border-slate-200 px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300"
+                >
+                  Close
+                </button>
+                <button
+                  type="button"
+                  onClick={() => window.print()}
+                  className="rounded-xl bg-teal-600 px-5 py-2.5 text-xs font-black text-white hover:bg-teal-700 inline-flex items-center gap-1.5"
+                >
+                  <Printer className="h-4 w-4" /> Print Wall Chart
+                </button>
+              </div>
             </div>
           </div>
         </div>

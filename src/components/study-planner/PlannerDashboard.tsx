@@ -17,6 +17,9 @@ import {
   Clock3,
   Copy,
   Download,
+  Upload,
+  Cloud,
+  CloudOff,
   Filter,
   Flame,
   GraduationCap,
@@ -35,6 +38,7 @@ import {
   Timer,
   Trophy,
   TrendingUp,
+  Trash2,
   Volume2,
   VolumeX,
   Wand2,
@@ -47,6 +51,10 @@ import {
   createMentorPrompt,
   daysBetweenDates,
   exportPlanScheduleAsText,
+  exportPlanScheduleAsIcs,
+  exportStudyPlannerBackup,
+  getStudyPlanTopics,
+  getWeakAreaName,
   getMotivationMessage,
   getOrganization,
   getPlannerProgress,
@@ -55,6 +63,8 @@ import {
   getSyllabusRecord,
   PREPARATION_MODES,
   STUDY_QUOTES,
+  STUDY_PLANNER_TASK_HANDOFF_KEY,
+  STUDY_PLANNER_QUIZ_LAUNCH_KEY,
   TARGET_SCORE_OPTIONS,
   toLocalDateString,
   type StudyDay,
@@ -66,8 +76,18 @@ import {
 interface PlannerDashboardProps {
   plan: StoredStudyPlan;
   schedule: StudyDay[];
+  plans?: StoredStudyPlan[];
+  cloudSyncEnabled?: boolean;
+  cloudSyncStatus?: 'off' | 'syncing' | 'synced' | 'error';
+  isSignedIn?: boolean;
+  localSaveError?: boolean;
   onEdit: () => void;
   onNewPlan: () => void;
+  onSelectPlan?: (planId: string) => void;
+  onDeletePlan?: (planId: string) => void;
+  isDeletingPlan?: boolean;
+  onImportBackup?: (serialized: string) => boolean;
+  onToggleCloudSync?: () => void;
   onToggleTask: (taskId: string) => void;
   onToggleSubtopic: (subtopicId: string) => void;
   onToggleAllSubtopicsInSubject?: (subjectSlug: string, markReviewed: boolean) => void;
@@ -93,7 +113,7 @@ const TASK_ACTIONS: Record<StudyPlannerTask['kind'], { label: string; tab: 'mcqs
   mcq: { label: 'Practise MCQs', tab: 'mcqs' },
   notes: { label: 'Open study notes', tab: 'study-notes' },
   revision: { label: 'Open study notes', tab: 'study-notes' },
-  mock: { label: 'Open mock tests', tab: 'quiz' },
+  mock: { label: 'Start timed mock', tab: 'quiz' },
   analysis: { label: 'Review mock tests', tab: 'quiz' },
   'light-review': { label: 'Open study notes', tab: 'study-notes' },
 };
@@ -142,20 +162,31 @@ export const PlannerDashboard: React.FC<PlannerDashboardProps> = ({
   schedule,
   onEdit,
   onNewPlan,
+  plans = [plan],
+  cloudSyncEnabled = false,
+  cloudSyncStatus = 'off',
+  isSignedIn = false,
+  localSaveError = false,
+  onSelectPlan,
+  onDeletePlan,
+  isDeletingPlan = false,
+  onImportBackup,
+  onToggleCloudSync,
   onToggleTask,
   onToggleSubtopic,
   onToggleAllSubtopicsInSubject,
   onRecordMock,
   onRebalance,
 }) => {
-  const { setTab, setSelectedCategorySlug } = useApp();
+  const { setTab, setSelectedCategorySlug, setAuthModalOpen } = useApp();
   const [activeSection, setActiveSection] = useState<PlannerSection>('overview');
   const today = toLocalDateString(new Date());
   const progress = useMemo(() => getPlannerProgress(plan, schedule, today), [plan, schedule, today]);
   const organization = getOrganization(plan.form.organizationId);
   const positionName = getPositionName(plan.form);
   const syllabusRecord = getSyllabusRecord(plan.form);
-  const selectedSubjects = getPlannerSubjects(plan.form.subjectSlugs);
+  const selectedSubjects = useMemo(() => getPlannerSubjects(plan.form.subjectSlugs), [plan.form.subjectSlugs]);
+  const planTopics = useMemo(() => getStudyPlanTopics(plan.form), [plan.form]);
   const daysRemaining = daysBetweenDates(today, plan.form.examDate);
   const defaultScheduleDate = schedule.find((day) => day.date === today)?.date
     ?? schedule.find((day) => day.date >= today)?.date
@@ -183,6 +214,8 @@ export const PlannerDashboard: React.FC<PlannerDashboardProps> = ({
   // Export / Print Modal
   const [showExportModal, setShowExportModal] = useState(false);
   const [copiedNotification, setCopiedNotification] = useState(false);
+  const [backupMessage, setBackupMessage] = useState('');
+  const backupInputRef = useRef<HTMLInputElement>(null);
 
   // Rebalance Confirm Modal
   const [showRebalanceModal, setShowRebalanceModal] = useState(false);
@@ -274,6 +307,40 @@ export const PlannerDashboard: React.FC<PlannerDashboardProps> = ({
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const openTask = (task: StudyPlannerTask) => {
+    const action = TASK_ACTIONS[task.kind];
+    if (task.kind === 'mock') {
+      try {
+        sessionStorage.setItem(STUDY_PLANNER_QUIZ_LAUNCH_KEY, JSON.stringify({
+          planId: plan.id,
+          taskId: task.id,
+          subjectSlug: task.subjectSlug,
+          subtopic: task.subtopic,
+          questionCount: task.targetCount ?? 50,
+          examName: positionName,
+        }));
+      } catch {
+        // The ordinary quiz screen remains usable if session storage is unavailable.
+      }
+      setTab('quiz');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    if (task.subtopic || task.subjectSlug) {
+      try {
+        sessionStorage.setItem(STUDY_PLANNER_TASK_HANDOFF_KEY, JSON.stringify({
+          planId: plan.id,
+          ...(task.subjectSlug ? { subjectSlug: task.subjectSlug } : {}),
+          ...(task.subtopic ? { subtopic: task.subtopic } : {}),
+        }));
+      } catch {
+        // The destination still opens with its standard filters.
+      }
+    }
+    startTab(action.tab, task.subjectSlug);
+  };
+
   const openMentor = () => {
     try {
       sessionStorage.setItem('muqabil_study_mentor_prompt', createMentorPrompt(plan, activeDay ?? undefined));
@@ -298,6 +365,7 @@ export const PlannerDashboard: React.FC<PlannerDashboardProps> = ({
       score,
       total,
       recordedAt: new Date().toISOString(),
+      source: 'manual',
     });
     setMockScore('');
     setMockTotal('100');
@@ -313,21 +381,53 @@ export const PlannerDashboard: React.FC<PlannerDashboardProps> = ({
 
   const copyScheduleText = () => {
     const text = exportPlanScheduleAsText(plan, schedule);
-    void navigator.clipboard.writeText(text).then(() => {
+    void navigator.clipboard?.writeText(text).then(() => {
       setCopiedNotification(true);
       setTimeout(() => setCopiedNotification(false), 2500);
-    });
+    }).catch(() => setCopiedNotification(false));
   };
 
-  const downloadScheduleFile = () => {
-    const text = exportPlanScheduleAsText(plan, schedule);
-    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+  const downloadTextFile = (filename: string, contents: string, mimeType: string) => {
+    const blob = new Blob([contents], { type: mimeType });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `MUQABIL_Study_Plan_${plan.form.examDate}.txt`;
+    link.download = filename;
     link.click();
     URL.revokeObjectURL(url);
+  };
+
+  const downloadScheduleFile = () => downloadTextFile(
+    `MUQABIL_Study_Plan_${plan.form.examDate}.txt`,
+    exportPlanScheduleAsText(plan, schedule),
+    'text/plain;charset=utf-8',
+  );
+
+  const downloadCalendarFile = () => downloadTextFile(
+    `MUQABIL_Study_Reminders_${plan.form.examDate}.ics`,
+    exportPlanScheduleAsIcs(plan, schedule),
+    'text/calendar;charset=utf-8',
+  );
+
+  const downloadFullBackup = () => downloadTextFile(
+    `MUQABIL_Study_Plans_Backup_${today}.json`,
+    exportStudyPlannerBackup({ activePlanId: plan.id, plans }),
+    'application/json;charset=utf-8',
+  );
+
+  const restoreBackupFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file || !onImportBackup) return;
+    setBackupMessage('Reading backup…');
+    try {
+      const contents = await file.text();
+      const restored = onImportBackup(contents);
+      setBackupMessage(restored ? 'Backup restored. Existing plans with matching IDs were updated.' : 'That file is not a valid MUQABIL planner backup.');
+    } catch {
+      setBackupMessage('Could not read this backup file.');
+    } finally {
+      event.target.value = '';
+    }
   };
 
   const navigateDay = (offset: number) => {
@@ -386,13 +486,13 @@ export const PlannerDashboard: React.FC<PlannerDashboardProps> = ({
             </div>
             <p className="mt-2 text-xs leading-5 text-slate-600 dark:text-slate-400">{task.detail}</p>
             <div className="mt-3 flex flex-wrap items-center gap-2">
-              <button type="button" onClick={() => startTab(action.tab, task.subjectSlug)} className="inline-flex items-center gap-1.5 rounded-lg bg-slate-900 px-3 py-2 text-[11px] font-extrabold text-white transition hover:bg-emerald-700 dark:bg-slate-700 dark:hover:bg-emerald-700">
+              <button type="button" onClick={() => openTask(task)} className="inline-flex items-center gap-1.5 rounded-lg bg-slate-900 px-3 py-2 text-[11px] font-extrabold text-white transition hover:bg-emerald-700 dark:bg-slate-700 dark:hover:bg-emerald-700">
                 {action.label}<ArrowRight className="h-3.5 w-3.5" />
               </button>
               {task.subtopic && (
                 <button
                   type="button"
-                  onClick={() => setSelectedTopicForAdvice({ subjectName: task.subjectSlug ?? 'Selected Topic', subtopic: task.subtopic ?? '' })}
+                  onClick={() => setSelectedTopicForAdvice({ subjectName: getPlannerSubjects(task.subjectSlug ? [task.subjectSlug] : [])[0]?.name ?? 'Selected Topic', subtopic: task.subtopic ?? '' })}
                   className="inline-flex items-center gap-1.5 rounded-lg border border-teal-200 bg-teal-50 px-2.5 py-2 text-[11px] font-extrabold text-teal-800 hover:bg-teal-100 dark:border-teal-900 dark:bg-teal-950/40 dark:text-teal-200"
                 >
                   <Lightbulb className="h-3.5 w-3.5 text-amber-500" /> Exam Tips
@@ -490,9 +590,10 @@ export const PlannerDashboard: React.FC<PlannerDashboardProps> = ({
               )}
             </div>
             <h3 className="mt-1 text-xl font-black text-slate-950 dark:text-white">{formatLongDate(day.date)}</h3>
-            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-              {day.studyMinutes} planned minutes · {day.mcqTarget ? `${day.mcqTarget} MCQs` : 'No MCQ target for this mode'}
+            <p className={`mt-1 text-xs ${day.studyMinutes > day.budgetMinutes ? 'font-bold text-amber-700 dark:text-amber-300' : 'text-slate-500 dark:text-slate-400'}`}>
+              {day.studyMinutes}m scheduled / {day.budgetMinutes}m budget · {day.mcqTarget ? `${day.mcqTarget} MCQs` : 'No MCQ target for this mode'}
             </p>
+            {day.studyMinutes > day.budgetMinutes && <p className="mt-1 text-[11px] font-semibold text-amber-700 dark:text-amber-300">High-load day: review the topic list or increase your study budget.</p>}
           </div>
           <div className="min-w-32 rounded-2xl bg-emerald-50 px-4 py-3 dark:bg-emerald-950/35">
             <div className="text-xl font-black text-emerald-800 dark:text-emerald-300">{dayPercent}%</div>
@@ -548,16 +649,20 @@ export const PlannerDashboard: React.FC<PlannerDashboardProps> = ({
   const weeklyTargetCount = thisWeekDays.reduce((sum, day) => sum + day.mcqTarget, 0);
   const weeklyMockDays = thisWeekDays.filter((day) => day.tasks.some((task) => task.kind === 'mock')).length;
 
-  // Filtered syllabus items
+  // Source-backed syllabus items and their own stable IDs power both the checklist and coverage metric.
   const filteredSubjects = useMemo(() => {
     return selectedSubjects.map((subject) => {
-      const subtopicsWithStatus = subject.subtopics.map((subtopic, index) => {
-        const id = `${subject.slug}::${index}`;
-        const isReviewed = plan.completedSubtopicIds.includes(id);
-        return { id, subtopic, index, isReviewed };
-      });
+      const subjectTopics = planTopics.filter((topic) => topic.subjectSlug === subject.slug);
+      const subtopicsWithStatus = subjectTopics.map((topic) => ({
+        id: topic.id,
+        subtopic: topic.subtopic,
+        sectionName: topic.sectionName,
+        sectionWeight: topic.sectionWeight,
+        isReviewed: plan.completedSubtopicIds.includes(topic.id) || (plan.completedTopicIds ?? []).includes(topic.id),
+      }));
       const matchingSubtopics = subtopicsWithStatus.filter((item) => {
-        const matchesQuery = !syllabusQuery.trim() || item.subtopic.toLowerCase().includes(syllabusQuery.toLowerCase()) || subject.name.toLowerCase().includes(syllabusQuery.toLowerCase());
+        const searchable = `${item.subtopic} ${item.sectionName ?? ''} ${subject.name}`.toLowerCase();
+        const matchesQuery = !syllabusQuery.trim() || searchable.includes(syllabusQuery.toLowerCase());
         const matchesStatus = syllabusStatusFilter === 'all'
           ? true
           : syllabusStatusFilter === 'reviewed'
@@ -565,12 +670,16 @@ export const PlannerDashboard: React.FC<PlannerDashboardProps> = ({
           : !item.isReviewed;
         return matchesQuery && matchesStatus;
       });
+      const mastered = subtopicsWithStatus.filter((item) => item.isReviewed).length;
       return {
         ...subject,
+        totalMappedTopics: subtopicsWithStatus.length,
+        masteredTopics: mastered,
+        coveragePercent: subtopicsWithStatus.length ? Math.round((mastered / subtopicsWithStatus.length) * 100) : 0,
         matchingSubtopics,
       };
     });
-  }, [selectedSubjects, syllabusQuery, syllabusStatusFilter, plan.completedSubtopicIds]);
+  }, [selectedSubjects, planTopics, syllabusQuery, syllabusStatusFilter, plan.completedSubtopicIds]);
 
   // Pomodoro minutes & seconds format
   const timerMinutes = Math.floor(timerSecondsLeft / 60);
@@ -603,6 +712,14 @@ export const PlannerDashboard: React.FC<PlannerDashboardProps> = ({
             )}
           </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end xl:flex-col xl:items-end">
+            {plans.length > 1 && onSelectPlan && (
+              <label className="min-w-56 space-y-1 text-[10px] font-extrabold uppercase tracking-wide text-emerald-100">
+                Switch saved roadmap
+                <select value={plan.id} onChange={(event) => onSelectPlan(event.target.value)} className="block w-full rounded-xl border border-white/20 bg-slate-950/70 px-3 py-2.5 text-xs font-bold normal-case tracking-normal text-white outline-none focus:border-emerald-300">
+                  {plans.map((savedPlan) => <option key={savedPlan.id} value={savedPlan.id}>{getPositionName(savedPlan.form)} · {savedPlan.form.examDate}</option>)}
+                </select>
+              </label>
+            )}
             <div className="min-w-44 rounded-2xl border border-white/15 bg-white/10 px-5 py-4 backdrop-blur-sm">
               <div className="text-4xl font-black tabular-nums text-white">{daysRemaining < 0 ? '—' : daysRemaining}</div>
               <div className="mt-1 text-xs font-bold uppercase tracking-wide text-emerald-100">
@@ -617,10 +734,32 @@ export const PlannerDashboard: React.FC<PlannerDashboardProps> = ({
               <button type="button" onClick={onNewPlan} className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-xs font-extrabold text-emerald-900 hover:bg-emerald-50">
                 <RotateCcw className="h-4 w-4" />New roadmap
               </button>
+              {onDeletePlan && (
+                <button
+                  type="button"
+                  onClick={() => onDeletePlan(plan.id)}
+                  disabled={isDeletingPlan || (cloudSyncEnabled && cloudSyncStatus === 'syncing')}
+                  title={cloudSyncEnabled && cloudSyncStatus === 'syncing' ? 'Wait for account sync to finish before deleting.' : undefined}
+                  className="inline-flex items-center gap-2 rounded-xl border border-rose-200/40 bg-rose-950/20 px-3 py-2.5 text-xs font-extrabold text-rose-100 transition hover:bg-rose-900/50 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  <Trash2 className="h-4 w-4" />{isDeletingPlan ? 'Deleting…' : 'Delete roadmap'}
+                </button>
+              )}
             </div>
+            {onToggleCloudSync && (
+              <div className="max-w-sm">
+                <button type="button" aria-pressed={cloudSyncEnabled} onClick={() => isSignedIn ? onToggleCloudSync() : setAuthModalOpen(true)} className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-3 py-2 text-[11px] font-extrabold text-white hover:bg-white/15">
+                  {cloudSyncEnabled ? <Cloud className="h-4 w-4 text-emerald-300" /> : <CloudOff className="h-4 w-4 text-slate-300" />}
+                  {!isSignedIn ? 'Sign in to enable sync' : cloudSyncStatus === 'syncing' ? 'Syncing plans…' : cloudSyncEnabled ? 'Account sync on' : 'Turn on account sync'}
+                </button>
+                <p className="mt-1 text-[10px] leading-4 text-emerald-50/70">{cloudSyncStatus === 'error' ? 'Cloud sync is unavailable; your local plans are safe.' : cloudSyncStatus === 'synced' ? 'Your plans are backed up to your private account.' : 'Off by default. Local plans stay on this device unless you opt in.'}</p>
+              </div>
+            )}
           </div>
         </div>
       </section>
+
+      {localSaveError && <div role="alert" className="rounded-2xl border border-rose-300 bg-rose-50 p-4 text-xs font-semibold text-rose-900 dark:border-rose-900 dark:bg-rose-950/30 dark:text-rose-200">This browser could not save your latest planner changes. Download a JSON backup now and check available browser storage; you can keep working in this tab.</div>}
 
       {/* Daily Motivation Quote */}
       <section className="flex items-center gap-3 rounded-2xl border border-amber-200/70 bg-amber-50/60 px-4 py-3 text-xs dark:border-amber-900/60 dark:bg-amber-950/20">
@@ -635,7 +774,7 @@ export const PlannerDashboard: React.FC<PlannerDashboardProps> = ({
       <section className="grid grid-cols-2 gap-3 xl:grid-cols-4" aria-label="Study progress summary">
         {topMetric(<CalendarDays className="h-5 w-5" />, 'Days to exam', daysRemaining < 0 ? '—' : String(daysRemaining), daysRemaining === 0 ? 'Your exam is today' : 'Countdown to your date', 'bg-sky-100 text-sky-700 dark:bg-sky-950 dark:text-sky-300')}
         {topMetric(<CheckCircle2 className="h-5 w-5" />, 'Plan complete', `${progress.taskCompletionPercent}%`, `${progress.completedTasks} of ${progress.totalTasks} targets done`, 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300')}
-        {topMetric(<Target className="h-5 w-5" />, 'Readiness estimate', `${progress.readinessScore}%`, 'Practice estimate, not a predicted result', 'bg-violet-100 text-violet-700 dark:bg-violet-950 dark:text-violet-300')}
+        {topMetric(<Target className="h-5 w-5" />, 'Readiness estimate', `${progress.readinessScore}%`, 'Study progress indicator, not a predicted result', 'bg-violet-100 text-violet-700 dark:bg-violet-950 dark:text-violet-300')}
         {topMetric(<Flame className="h-5 w-5" />, 'Study streak', `${progress.currentStreak} ${progress.currentStreak === 1 ? 'day' : 'days'}`, `${progress.activeDays} active study days total`, 'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300')}
       </section>
 
@@ -901,8 +1040,8 @@ export const PlannerDashboard: React.FC<PlannerDashboardProps> = ({
 
           <div className="mt-5 space-y-3">
             {filteredSubjects.map((subject) => {
-              const mastered = subject.subtopics.filter((_, index) => plan.completedSubtopicIds.includes(`${subject.slug}::${index}`)).length;
-              const percent = subject.subtopics.length ? Math.round((mastered / subject.subtopics.length) * 100) : 0;
+              const mastered = subject.masteredTopics;
+              const percent = subject.coveragePercent;
               const hasVisibleTopics = subject.matchingSubtopics.length > 0;
 
               if (syllabusQuery && !hasVisibleTopics) return null;
@@ -916,7 +1055,7 @@ export const PlannerDashboard: React.FC<PlannerDashboardProps> = ({
                     <span className="min-w-0 flex-1">
                       <span className="block font-extrabold text-slate-900 dark:text-white">{subject.name}</span>
                       <span className="mt-1 block text-[11px] text-slate-500 dark:text-slate-400">
-                        {mastered} of {subject.subtopics.length} subtopics reviewed
+                        {mastered} of {subject.totalMappedTopics} syllabus topics reviewed
                       </span>
                     </span>
                     <span className="hidden w-28 sm:block">
@@ -957,7 +1096,7 @@ export const PlannerDashboard: React.FC<PlannerDashboardProps> = ({
                               onChange={() => onToggleSubtopic(item.id)}
                               className="mt-0.5 h-4 w-4 accent-emerald-600"
                             />
-                            <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">{item.subtopic}</span>
+                            <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">{item.subtopic}{item.sectionName && <span className="ml-2 text-[10px] font-extrabold text-sky-700 dark:text-sky-300">{item.sectionName} · {item.sectionWeight}%</span>}</span>
                           </label>
                           <div className="flex items-center gap-2">
                             <button
@@ -1134,7 +1273,7 @@ export const PlannerDashboard: React.FC<PlannerDashboardProps> = ({
 
             <div className="mt-5 rounded-2xl border border-emerald-200 bg-emerald-50/60 p-4 dark:border-emerald-900 dark:bg-emerald-950/20">
               <p className="flex items-center gap-2 text-sm font-extrabold text-emerald-950 dark:text-emerald-100"><Target className="h-4 w-4" />How the readiness estimate works</p>
-              <p className="mt-2 text-xs leading-5 text-emerald-950/70 dark:text-emerald-100/70">It combines mapped syllabus review (40%), completed roadmap targets (35%) and mock-score progress toward your {targetLabel.toLowerCase()} goal (25%). It is a study-progress indicator only—not a pass prediction or official score.</p>
+              <p className="mt-2 text-xs leading-5 text-emerald-950/70 dark:text-emerald-100/70">It combines reviewed mapped topics (40%), due targets completed (35%) and subject-level mock progress toward your {targetLabel.toLowerCase()} goal (25%). Until you record a mock, the available parts are reweighted rather than treating missing results as zero. This is a study-progress indicator—not a pass prediction or official score.</p>
             </div>
           </section>
 
@@ -1177,29 +1316,33 @@ export const PlannerDashboard: React.FC<PlannerDashboardProps> = ({
               <p>Exam Date: {plan.form.examDate} ({daysRemaining} days remaining)</p>
             </div>
 
-            <div className="mt-5 grid grid-cols-1 gap-2.5 sm:grid-cols-3">
-              <button
-                type="button"
-                onClick={copyScheduleText}
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-3 text-xs font-black text-white hover:bg-emerald-700"
-              >
-                <Copy className="h-4 w-4" /> {copiedNotification ? '✓ Copied!' : 'Copy to Clipboard'}
+            <div className="mt-5 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+              <button type="button" onClick={copyScheduleText} className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-3 text-xs font-black text-white hover:bg-emerald-700">
+                <Copy className="h-4 w-4" /> {copiedNotification ? '✓ Copied!' : 'Copy schedule'}
               </button>
-              <button
-                type="button"
-                onClick={downloadScheduleFile}
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-xs font-extrabold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
-              >
-                <Download className="h-4 w-4" /> Download .txt
+              <button type="button" onClick={downloadScheduleFile} className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-xs font-extrabold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200">
+                <Download className="h-4 w-4" /> Download schedule (.txt)
               </button>
-              <button
-                type="button"
-                onClick={() => window.print()}
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-xs font-extrabold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
-              >
+              <button type="button" onClick={downloadCalendarFile} className="inline-flex items-center justify-center gap-2 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs font-extrabold text-sky-800 hover:bg-sky-100 dark:border-sky-900 dark:bg-sky-950/40 dark:text-sky-200">
+                <CalendarDays className="h-4 w-4" /> Add reminders (.ics)
+              </button>
+              <button type="button" onClick={downloadFullBackup} className="inline-flex items-center justify-center gap-2 rounded-xl border border-violet-200 bg-violet-50 px-4 py-3 text-xs font-extrabold text-violet-800 hover:bg-violet-100 dark:border-violet-900 dark:bg-violet-950/40 dark:text-violet-200">
+                <Download className="h-4 w-4" /> Back up all plans (.json)
+              </button>
+              {onImportBackup && (
+                <>
+                  <input ref={backupInputRef} type="file" accept="application/json,.json" className="hidden" onChange={restoreBackupFile} aria-label="Choose a MUQABIL study planner backup" />
+                  <button type="button" onClick={() => backupInputRef.current?.click()} className="inline-flex items-center justify-center gap-2 rounded-xl border border-violet-200 bg-white px-4 py-3 text-xs font-extrabold text-violet-800 hover:bg-violet-50 dark:border-violet-900 dark:bg-slate-900 dark:text-violet-200">
+                    <Upload className="h-4 w-4" /> Restore planner backup
+                  </button>
+                </>
+              )}
+              <button type="button" onClick={() => window.print()} className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-xs font-extrabold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200">
                 <Printer className="h-4 w-4" /> Print View
               </button>
             </div>
+            {backupMessage && <p role="status" className="mt-3 rounded-xl bg-slate-50 p-3 text-xs font-semibold text-slate-600 dark:bg-slate-950 dark:text-slate-300">{backupMessage}</p>}
+            <p className="mt-3 text-[11px] leading-5 text-slate-500 dark:text-slate-400">The JSON backup contains all saved roadmaps, task completion, self-reviewed topics, mock results and settings. Keep it private; restore merges matching plan IDs and preserves separate plans.</p>
           </div>
         </div>
       )}
@@ -1218,9 +1361,9 @@ export const PlannerDashboard: React.FC<PlannerDashboardProps> = ({
               </div>
             </div>
             <p className="mt-4 text-xs leading-5 text-slate-600 dark:text-slate-300">
-              Missed a few days? Rebalancing resets Day 1 to <strong>Today ({today})</strong> and evenly distributes all pending syllabus topics across your remaining days till the exam.
+              Rebalancing starts the remaining schedule from <strong>today ({today})</strong>, prioritises topics not yet studied or self-reviewed, and preserves your completed task history, mock results and badges.
               <br /><br />
-              Your earned badges, logged mock scores, and already reviewed topics will be preserved!
+              Your fixed exam date remains <strong>{plan.form.examDate}</strong>; it will never be changed by rebalancing. If that date has passed or is too close, update it explicitly in Edit plan before expecting future tasks.
             </p>
             <div className="mt-6 flex justify-end gap-2">
               <button
@@ -1315,7 +1458,7 @@ export const PlannerDashboard: React.FC<PlannerDashboardProps> = ({
 
       {/* Footer */}
       <footer className="rounded-2xl border border-slate-200 bg-white/75 px-4 py-3 text-xs leading-5 text-slate-500 dark:border-slate-800 dark:bg-slate-900/70 dark:text-slate-400">
-        Your plan and progress are stored locally in this browser. If you enabled optional Gemini personalisation, the planning details were sent once to MUQABIL’s AI service; the full progress record stays local. Syllabus mappings are study aids, not official notices; confirm details with {organization.name}. This roadmap is not a guarantee of exam results.
+        Your roadmaps are stored in this browser and backed up by your exported JSON. If you turn on account sync, these private planner records are saved under your signed-in account. Optional AI personalisation sends the selected plan details once to MUQABIL’s AI service. Syllabus mappings are study aids, not official notices; confirm details with {organization.name}. Readiness is not a guarantee or prediction of exam results.
       </footer>
     </div>
   );

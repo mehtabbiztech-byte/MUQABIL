@@ -38,6 +38,13 @@ const documents = [
     grids: ['factsGrid', 'domainGrid', 'levelGrid', 'lotshotGrid', 'knowledgeGrid', 'affectiveGrid', 'useGrid', 'prosconsGrid'],
     crqs: 4,
   },
+  {
+    lessonId: 'methods-cooperative-learning',
+    file: 'cooperative-learning-strategies.html',
+    heading: 'Cooperative Learning',
+    grids: ['featuresGrid', 'strategiesGrid', 'benefitsGrid'],
+    crqs: 4,
+  },
 ];
 
 test('supplied HTML documents are attached to matching topics without duplicating lessons', () => {
@@ -129,6 +136,19 @@ test("Bloom's notes preserve the ladder, domains, knowledge dimension and situat
     'Revised 2001 (lowest → highest)', 'Create ⬅ top', 'The Affective Domain (Krathwohl, 1964)',
     'Really Useful Aids Always Enhance Creativity', 'Perception', 'Origination',
     'Ms. Sana is a Grade 6 science teacher']) {
+    assert.ok(html.includes(text), text);
+  }
+});
+
+test('cooperative learning notes preserve the eight strategies, benefits and situation-based prompt', () => {
+  const html = readFileSync(path.join(process.cwd(), 'public/notes/methods-of-teaching/cooperative-learning-strategies.html'), 'utf8');
+  assert.equal((html.match(/class="info-card"/g) || []).length, 3);
+  assert.equal((html.match(/class="strategy-card"/g) || []).length, 8);
+  assert.equal((html.match(/class="benefit-item"/g) || []).length, 17);
+  for (const text of ['Cooperative Learning', '8 Cooperative Learning Strategies',
+    'Speed Quizzes', 'Puzzle Pieces', 'One-Minute Papers', 'Sentence Completion',
+    'Classmate Interviews', 'Student Expertise', 'Freeride Elimination', 'Teamwork 101',
+    'Key Takeaway', 'Ms. Fatima is a Grade 7 teacher']) {
     assert.ok(html.includes(text), text);
   }
 });

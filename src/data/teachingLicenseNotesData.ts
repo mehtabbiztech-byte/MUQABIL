@@ -190,6 +190,7 @@ export const METHODS_OF_TEACHING_TOPICS: LicenseTopicNote[] = [
     topicNumber: '2',
     title: 'Cooperative Learning Strategies',
     readTime: '9 min read',
+    htmlNotesPath: 'notes/methods-of-teaching/cooperative-learning-strategies.html',
     summary:
       'Cooperative learning organizes students into structured small groups to accomplish shared learning goals. Distinct from ordinary group work, it relies on structured positive interdependence and individual accountability. Every member has a designated role or unique topic piece to master and teach, ensuring no student dominates while others free-ride. The teacher functions as an active facilitator and coach rather than a transmission lecturer, fostering critical thinking, inclusion, social communication, and deep conceptual mastery.',
     highYieldAlert:

@@ -28,9 +28,14 @@ const hubDocuments = [
     file: 'blooms-taxonomy-of-educational-objectives.html',
     crqs: 4,
   },
+  {
+    topicId: 'methods-cooperative-learning',
+    file: 'cooperative-learning-strategies.html',
+    crqs: 4,
+  },
 ];
 
-test('Master Notes Hub attaches supplied HTML to exactly the four matching Methods of Teaching topics', () => {
+test('Master Notes Hub attaches supplied HTML to exactly the five matching Methods of Teaching topics', () => {
   const htmlTopics = METHODS_OF_TEACHING_TOPICS.filter((topic) => topic.htmlNotesPath);
   assert.deepEqual(
     htmlTopics.map((topic) => topic.id).sort(),
@@ -42,7 +47,7 @@ test('Master Notes Hub attaches supplied HTML to exactly the four matching Metho
   }
   // The remaining pedagogy notes stay on the generated structured reader.
   assert.equal(METHODS_OF_TEACHING_TOPICS.length, 6);
-  assert.equal(htmlTopics.length, 4);
+  assert.equal(htmlTopics.length, 5);
 });
 
 for (const document of hubDocuments) {

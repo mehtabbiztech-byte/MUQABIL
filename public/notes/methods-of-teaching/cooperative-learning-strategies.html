@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cooperative Learning · Methods of Teaching</title>
+  <style>
+    /* ---------- GLOBAL ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+      color: #1e2b3c;
+    }
+
+    .main-wrapper {
+      max-width: 1100px;
+      width: 100%;
+    }
+
+    /* ---------- HEADER ---------- */
+    .header-card {
+      background: white;
+      border-radius: 2rem 2rem 1.5rem 1.5rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      padding: 2rem 2rem 1.5rem 2rem;
+      margin-bottom: 1.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: transform 0.2s;
+    }
+
+    .header-card:hover {
+      transform: scale(1.002);
+    }
+
+    .badge {
+      display: inline-block;
+      background: #2a4b7c;
+      color: #f0f7ff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+      line-height: 1.25;
+    }
+
+    .subhead {
+      font-size: 1.05rem;
+      color: #2f5277;
+      font-weight: 400;
+      border-left: 5px solid #8bb3e0;
+      padding-left: 1.2rem;
+      margin: 1rem 0 0.2rem 0;
+      font-style: italic;
+    }
+
+    .intro-text {
+      background: #e6f0fc;
+      padding: 1rem 1.4rem;
+      border-radius: 1.2rem;
+      margin-top: 1.4rem;
+      font-size: 0.98rem;
+      color: #1d3a5c;
+      border-left: 5px solid #3b6ea5;
+    }
+
+    /* ---------- SECTION TITLE ---------- */
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #0e2a47;
+      margin: 2.2rem 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-title .line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #8bb3e0, transparent);
+      border-radius: 2px;
+    }
+
+    /* ---------- KEY IDEA CARDS ---------- */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .info-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.4rem 1.4rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      transition: all 0.25s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .info-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, #3f7cb0, #8bb3e0, #b8d4f0);
+      opacity: 0.75;
+      transition: height 0.2s;
+    }
+
+    .info-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 28px -16px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+
+    .info-card:hover::before {
+      height: 10px;
+      opacity: 1;
+    }
+
+    .card-icon-lg {
+      font-size: 2rem;
+      line-height: 1;
+      background: #e9f0fa;
+      width: 54px;
+      height: 54px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #1b3c61;
+      margin-bottom: 0.8rem;
+      transition: background 0.2s;
+    }
+
+    .info-card:hover .card-icon-lg {
+      background: #d3e3f8;
+    }
+
+    .card-title-md {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #0e2a47;
+      letter-spacing: -0.3px;
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-desc-sm {
+      font-size: 0.93rem;
+      color: #274e73;
+      line-height: 1.6;
+      opacity: 0.94;
+      flex: 1;
+    }
+
+    /* ---------- STRATEGY CARDS ---------- */
+    .strategy-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.5rem 1.4rem 1.5rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      transition: all 0.25s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .strategy-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, #3f7cb0, #8bb3e0, #b8d4f0);
+      opacity: 0.75;
+      transition: height 0.2s;
+    }
+
+    .strategy-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 28px -16px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+
+    .strategy-card:hover::before {
+      height: 10px;
+      opacity: 1;
+    }
+
+    .strategy-num {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: white;
+      background: #0e2a47;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.6rem;
+    }
+
+    .strategy-title {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+    }
+
+    .strategy-concept {
+      font-size: 0.91rem;
+      color: #274e73;
+      margin-bottom: 0.8rem;
+      line-height: 1.55;
+    }
+
+    .strategy-example {
+      background: #f6faff;
+      border-radius: 1rem;
+      padding: 0.8rem 1rem;
+      margin-bottom: 0.8rem;
+      border-left: 5px solid #3b7bb5;
+      font-size: 0.88rem;
+      color: #183c5e;
+      box-shadow: inset 0 0 0 1px #d9e8fc;
+      transition: background 0.2s;
+    }
+
+    .strategy-card:hover .strategy-example {
+      background: #ecf4fe;
+    }
+
+    .example-label {
+      display: inline-block;
+      font-weight: 700;
+      color: #1a4b7a;
+      font-size: 0.7rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+      background: #d7e6fa;
+      padding: 0.1rem 0.7rem;
+      border-radius: 30px;
+    }
+
+    /* ---------- BENEFITS ---------- */
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 0.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .benefit-item {
+      background: white;
+      border-radius: 1.2rem;
+      padding: 1rem 1.2rem;
+      box-shadow: 0 6px 14px -8px rgba(20, 40, 70, 0.15);
+      border: 1px solid #e3ecf7;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      font-size: 0.9rem;
+      color: #1e3c5a;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .benefit-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(180deg, #3f7cb0, #8bb3e0);
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+
+    .benefit-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 22px -12px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+
+    .benefit-item:hover::before {
+      opacity: 1;
+    }
+
+    .benefit-icon {
+      font-size: 1.2rem;
+      line-height: 1.3;
+      flex-shrink: 0;
+    }
+
+    .benefit-text {
+      font-weight: 500;
+      line-height: 1.45;
+      font-size: 0.89rem;
+      padding-top: 0.1rem;
+    }
+
+    /* ---------- KEY TAKEAWAY ---------- */
+    .takeaway-card {
+      background: #0e2a47;
+      color: white;
+      border-radius: 1.6rem;
+      padding: 1.6rem 2rem;
+      margin: 1.5rem 0 0.5rem 0;
+      font-size: 1rem;
+      line-height: 1.6;
+      box-shadow: 0 14px 26px -12px #0e2a47;
+      border-left: 6px solid #8bb3e0;
+    }
+
+    .takeaway-card strong {
+      color: #b8d4f0;
+    }
+
+    /* ---------- SEARCH & COUNT ---------- */
+    .filter-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 60px;
+      box-shadow: 0 8px 18px -8px rgba(0, 27, 45, 0.1);
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 40px;
+      padding: 0.3rem 0.3rem 0.3rem 1.2rem;
+      flex: 2;
+      min-width: 240px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      border: 1px solid #ccdcee;
+    }
+
+    .search-box span {
+      font-size: 1.1rem;
+      margin-right: 0.5rem;
+      color: #4e6b8a;
+    }
+
+    .search-box input {
+      border: none;
+      padding: 0.7rem 0.2rem;
+      width: 100%;
+      font-size: 0.95rem;
+      outline: none;
+      background: transparent;
+      color: #0c253b;
+    }
+
+    .search-box input::placeholder {
+      color: #879eb6;
+      font-weight: 300;
+    }
+
+    .count-pill {
+      background: #0e2a47;
+      color: white;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ---------- QUIZ SECTION ---------- */
+    .quiz-section {
+      margin-top: 2.5rem;
+    }
+
+    .quiz-header {
+      background: #0e2a47;
+      border-radius: 2rem 2rem 0 0;
+      padding: 1.5rem 2rem;
+      color: white;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .quiz-header h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .quiz-header .quiz-badge {
+      background: #8bb3e0;
+      color: #0e2a47;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .quiz-body {
+      background: white;
+      border-radius: 0 0 2rem 2rem;
+      padding: 2rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      border: 1px solid #e3ecf7;
+      border-top: none;
+    }
+
+    .quiz-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #e3ecf7;
+      padding-bottom: 1rem;
+    }
+
+    .quiz-tab {
+      background: #f0f5fd;
+      border: 1px solid #d0e0f0;
+      color: #1b4670;
+      padding: 0.5rem 1.3rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .quiz-tab:hover {
+      background: #e0ecfc;
+      border-color: #a0c0e0;
+    }
+
+    .quiz-tab.active {
+      background: #0e2a47;
+      color: white;
+      border-color: #0e2a47;
+    }
+
+    .quiz-panel {
+      display: none;
+    }
+
+    .quiz-panel.active {
+      display: block;
+    }
+
+    .section-label {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.2rem;
+    }
+
+    /* MCQ */
+    .mcq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+      transition: background 0.2s;
+    }
+
+    .mcq-item:hover {
+      background: #f0f7fe;
+    }
+
+    .mcq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.8rem;
+      line-height: 1.5;
+    }
+
+    .mcq-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .mcq-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 0.8rem;
+      background: white;
+      border: 1.5px solid #d9e8fc;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+    }
+
+    .mcq-option:hover {
+      border-color: #8bb3e0;
+      background: #eef6ff;
+    }
+
+    .mcq-option.selected {
+      border-color: #3b7bb5;
+      background: #e4f0fe;
+      font-weight: 500;
+    }
+
+    .mcq-option.correct {
+      border-color: #2e9b5e;
+      background: #e6f7ee;
+      font-weight: 600;
+    }
+
+    .mcq-option.incorrect {
+      border-color: #d45a5a;
+      background: #fdeaea;
+      font-weight: 500;
+    }
+
+    .mcq-option .option-letter {
+      font-weight: 700;
+      color: #2a4b7c;
+      min-width: 1.4rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .mcq-option.correct .option-letter { color: #1b7a44; }
+    .mcq-option.incorrect .option-letter { color: #b03030; }
+
+    .mcq-feedback {
+      margin-top: 0.7rem;
+      font-size: 0.88rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: 0.8rem;
+      display: none;
+      font-weight: 500;
+    }
+
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.correct-fb {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .mcq-feedback.incorrect-fb {
+      background: #fdeaea;
+      color: #9e2a2a;
+      border-left: 4px solid #d45a5a;
+    }
+
+    /* CRQ / ERQ shared */
+    .crq-item, .erq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+    }
+
+    .erq-item {
+      border: 2px solid #8bb3e0;
+      background: #f5faff;
+    }
+
+    .crq-question, .erq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+
+    .erq-question {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .erq-marks {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      margin-bottom: 0.8rem;
+    }
+
+    .crq-hint {
+      font-size: 0.85rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-bottom: 0.7rem;
+    }
+
+    .crq-textarea, .erq-textarea {
+      width: 100%;
+      border: 1.5px solid #d9e8fc;
+      border-radius: 0.9rem;
+      padding: 0.8rem 1rem;
+      font-family: inherit;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+      resize: vertical;
+      transition: border-color 0.2s;
+      background: white;
+    }
+
+    .crq-textarea { min-height: 90px; }
+    .erq-textarea { min-height: 160px; }
+
+    .crq-textarea:focus, .erq-textarea:focus {
+      outline: none;
+      border-color: #3b7bb5;
+      box-shadow: 0 0 0 3px rgba(59, 123, 181, 0.12);
+    }
+
+    .crq-actions, .erq-actions {
+      display: flex;
+      gap: 0.7rem;
+      margin-top: 0.7rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.55rem 1.4rem;
+      border-radius: 40px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: #0e2a47;
+      color: white;
+    }
+    .btn-primary:hover {
+      background: #1a4170;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #e9f0fa;
+      color: #1b4670;
+      border: 1px solid #c0d8f0;
+    }
+    .btn-secondary:hover { background: #d8e6f8; }
+
+    .crq-feedback, .erq-feedback {
+      margin-top: 0.8rem;
+      padding: 0.8rem 1rem;
+      border-radius: 0.9rem;
+      font-size: 0.9rem;
+      display: none;
+      line-height: 1.6;
+    }
+
+    .crq-feedback.show, .erq-feedback.show { display: block; }
+
+    .crq-feedback.good, .erq-feedback.good {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+
+    .crq-feedback.partial, .erq-feedback.partial {
+      background: #fff8e6;
+      color: #8a6d1f;
+      border-left: 4px solid #e0a800;
+    }
+
+    .erq-feedback.model {
+      background: #e6f0fc;
+      color: #1a3e62;
+      border-left: 5px solid #3b7bb5;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 700px) {
+      .benefits-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .header-card { padding: 1.5rem 1.2rem; }
+      h1 { font-size: 1.7rem; }
+      .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: 2rem;
+        padding: 1rem;
+      }
+      .search-box { width: 100%; }
+      .count-pill { text-align: center; padding: 0.5rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .quiz-body { padding: 1.2rem; }
+      .quiz-header { padding: 1.2rem; }
+      .quiz-header h2 { font-size: 1.3rem; }
+      .mcq-item, .crq-item, .erq-item { padding: 1rem; }
+      .quiz-tab { font-size: 0.8rem; padding: 0.4rem 1rem; }
+    }
+
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #dfe9f5; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: #94b0d1; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6d8fb4; }
+
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem 1rem;
+      background: #ffffffc9;
+      border-radius: 2rem;
+      font-size: 1.1rem;
+      color: #4b6888;
+      border: 2px dashed #b8cee8;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-wrapper">
+
+    <!-- HEADER -->
+    <div class="header-card">
+      <div class="badge">🧑‍🤝‍🧑 Methods of Teaching</div>
+      <h1>Cooperative Learning</h1>
+      <div class="subhead">Breaking students into small groups to learn together</div>
+      <div class="intro-text">
+        <strong>💡 Core Idea:</strong> Cooperative learning centers around breaking students into small groups to learn. This allows both individual students and the class at large to grasp concepts through their personal learning styles and those of fellow students. What separates it from other strategies is that <strong>each group member has a separate task</strong> to complete or concept to explain — so individual learning benefits the whole group.
+      </div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="filter-section">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="Search strategies, benefits, or examples..." autocomplete="off">
+      </div>
+      <div class="count-pill" id="countDisplay">8 strategies</div>
+    </div>
+
+    <!-- KEY FEATURES -->
+    <div class="section-title">
+      🔑 What Makes It Cooperative?
+      <span class="line"></span>
+    </div>
+
+    <div class="cards-grid" id="featuresGrid">
+      <div class="info-card" data-searchable="small groups learn individual students class concepts personal learning styles fellow students">
+        <div class="card-icon-lg">👥</div>
+        <div class="card-title-md">Small Group Learning</div>
+        <div class="card-desc-sm">
+          Students are broken into small groups. Both individual students and the class grasp concepts through their personal learning styles and those of fellow students.
+        </div>
+      </div>
+      <div class="info-card" data-searchable="separate task concept explain each group member individual learning benefits whole group mastery together">
+        <div class="card-icon-lg">🎯</div>
+        <div class="card-title-md">Individual Accountability</div>
+        <div class="card-desc-sm">
+          Each group member has a <strong>separate task</strong> or concept to explain. Individual learning benefits the whole group, so students work toward mastery <em>together</em>.
+        </div>
+      </div>
+      <div class="info-card" data-searchable="student-centric teacher facilitator guide connect pieces lead learning process">
+        <div class="card-icon-lg">🧑‍🏫</div>
+        <div class="card-title-md">Teacher as Facilitator</div>
+        <div class="card-desc-sm">
+          Students lead the learning process. The teacher acts more as a <strong>facilitator</strong>, helping students understand how to connect the pieces.
+        </div>
+      </div>
+    </div>
+
+    <!-- 8 STRATEGIES -->
+    <div class="section-title">
+      ⚙️ 8 Cooperative Learning Strategies
+      <span class="line"></span>
+    </div>
+
+    <div class="cards-grid" id="strategiesGrid">
+      <!-- 1 -->
+      <div class="strategy-card" data-searchable="speed quizzes flashcard question answer groups virtual quick succession">
+        <div class="strategy-num">1</div>
+        <div class="strategy-title">Speed Quizzes</div>
+        <div class="strategy-concept">
+          Give each student a flashcard containing a question and an answer. Break students into groups for a round of virtual speed quizzing, moving from one student's question to the next in quick succession.
+        </div>
+        <div class="strategy-example">
+          <div class="example-label">📌 Example</div>
+          In a biology revision session, each student gets a flashcard (e.g., "What is mitosis?"). Groups race through all questions, with each member reading their question aloud and peers answering before the next card.
+        </div>
+      </div>
+      <!-- 2 -->
+      <div class="strategy-card" data-searchable="puzzle pieces assign group member aspect larger project communicate put pieces together">
+        <div class="strategy-num">2</div>
+        <div class="strategy-title">Puzzle Pieces</div>
+        <div class="strategy-concept">
+          Assign each group member one aspect of a larger project. In doing so, group members will have to communicate with one another to put the pieces together.
+        </div>
+        <div class="strategy-example">
+          <div class="example-label">📌 Example</div>
+          For a group presentation on climate change, one student researches causes, another covers effects, a third explores solutions, and a fourth designs the slides. They must meet to assemble a complete picture.
+        </div>
+      </div>
+      <!-- 3 -->
+      <div class="strategy-card" data-searchable="one-minute papers assess comprehend recently-discussed material write quick beginning of class">
+        <div class="strategy-num">3</div>
+        <div class="strategy-title">One-Minute Papers</div>
+        <div class="strategy-concept">
+          To assess how well a student comprehends recently-discussed classroom material, have each student write a quick one-minute paper at the beginning of class before diving back into the topic.
+        </div>
+        <div class="strategy-example">
+          <div class="example-label">📌 Example</div>
+          At the start of a history lesson, students spend one minute writing what they remember about the previous day's topic (e.g., causes of WWI). Then they compare notes with a partner before the new lesson begins.
+        </div>
+      </div>
+      <!-- 4 -->
+      <div class="strategy-card" data-searchable="sentence completion writing exercise complete sentences topic pass along next student review clarity comprehension">
+        <div class="strategy-num">4</div>
+        <div class="strategy-title">Sentence Completion</div>
+        <div class="strategy-concept">
+          As a writing exercise, have students work together to complete sentences on a given topic. One student begins the sentence and then passes it along to the next student in the group. Once complete, the team can review it together for clarity and comprehension.
+        </div>
+        <div class="strategy-example">
+          <div class="example-label">📌 Example</div>
+          In an English class, one student writes "The main theme of the novel is..." and passes it on. The next adds "...which is shown when..." and so on, until the group has a full paragraph they review together.
+        </div>
+      </div>
+      <!-- 5 -->
+      <div class="strategy-card" data-searchable="classmate interviews groups of three writing questions interviewing notes interview">
+        <div class="strategy-num">5</div>
+        <div class="strategy-title">Classmate Interviews</div>
+        <div class="strategy-concept">
+          Divide students into groups of three. Task one student with writing questions and interviewing another student, while the third student is responsible for taking notes on the interview.
+        </div>
+        <div class="strategy-example">
+          <div class="example-label">📌 Example</div>
+          In a civics class, Student A interviews Student B about their views on voting age, while Student C takes notes. Then they rotate roles so everyone experiences each part of the process.
+        </div>
+      </div>
+      <!-- 6 -->
+      <div class="strategy-card" data-searchable="student expertise lean on one another expand levels of expertise grasp concepts sooner">
+        <div class="strategy-num">6</div>
+        <div class="strategy-title">Student Expertise</div>
+        <div class="strategy-concept">
+          Have students lean on one another to expand their respective levels of expertise. This is particularly effective when one student or group of students grasps certain concepts sooner than others.
+        </div>
+        <div class="strategy-example">
+          <div class="example-label">📌 Example</div>
+          In a math class, a student who quickly understands quadratic equations becomes the "class expert" and helps peers who are still struggling, reinforcing their own understanding in the process.
+        </div>
+      </div>
+      <!-- 7 -->
+      <div class="strategy-card" data-searchable="freeride elimination accountable specific aspect project freeride-proofing collaboration colored marker to-do list checkmark">
+        <div class="strategy-num">7</div>
+        <div class="strategy-title">Freeride Elimination</div>
+        <div class="strategy-concept">
+          Make sure every student is accountable for a specific aspect of a project by "freeride-proofing" the collaboration process. Give each group member a colored marker and a to-do list. By the end of the group work session, there should be a checkmark next to each task, with all the colors represented.
+        </div>
+        <div class="strategy-example">
+          <div class="example-label">📌 Example</div>
+          During a group poster project, each student uses a different colored marker to sign off on the tasks they completed. The teacher can instantly see who contributed what — and no one can hide.
+        </div>
+      </div>
+      <!-- 8 -->
+      <div class="strategy-card" data-searchable="teamwork 101 understand what teamwork is how to work together before sending students off">
+        <div class="strategy-num">8</div>
+        <div class="strategy-title">Teamwork 101</div>
+        <div class="strategy-concept">
+          Before sending your students off to work in groups, make sure they understand what teamwork is and how to work together.
+        </div>
+        <div class="strategy-example">
+          <div class="example-label">📌 Example</div>
+          At the start of the year, the teacher runs a mini-lesson on active listening, sharing ideas fairly, and resolving disagreements. Students practice these skills in a low-stakes group activity before real projects begin.
+        </div>
+      </div>
+    </div>
+
+    <!-- BENEFITS -->
+    <div class="section-title">
+      🌟 Benefits of Cooperative Learning
+      <span class="line"></span>
+    </div>
+
+    <div class="benefits-grid" id="benefitsGrid">
+      <div class="benefit-item" data-searchable="comprehend information">
+        <span class="benefit-icon">📚</span>
+        <span class="benefit-text">Improves how well students comprehend information</span>
+      </div>
+      <div class="benefit-item" data-searchable="feel about school teachers classmates">
+        <span class="benefit-icon">😊</span>
+        <span class="benefit-text">Improves how students feel about school, teachers, and classmates</span>
+      </div>
+      <div class="benefit-item" data-searchable="self-esteem confidence">
+        <span class="benefit-icon">💪</span>
+        <span class="benefit-text">Boosts self-esteem and confidence</span>
+      </div>
+      <div class="benefit-item" data-searchable="social skills patience time management leadership critical thinking">
+        <span class="benefit-icon">🧠</span>
+        <span class="benefit-text">Builds social skills, patience, time management, leadership, and critical thinking</span>
+      </div>
+      <div class="benefit-item" data-searchable="student-centered learning opportunities">
+        <span class="benefit-icon">🎓</span>
+        <span class="benefit-text">Creates student-centered learning opportunities</span>
+      </div>
+      <div class="benefit-item" data-searchable="teacher ability see understand how students think">
+        <span class="benefit-icon">👀</span>
+        <span class="benefit-text">Helps teachers see and understand how their students think</span>
+      </div>
+      <div class="benefit-item" data-searchable="others may think differently">
+        <span class="benefit-icon">🔄</span>
+        <span class="benefit-text">Helps students understand that others may think differently</span>
+      </div>
+      <div class="benefit-item" data-searchable="hands-on applied learning opportunities">
+        <span class="benefit-icon">🛠️</span>
+        <span class="benefit-text">Provides hands-on and applied learning opportunities</span>
+      </div>
+      <div class="benefit-item" data-searchable="inclusive classroom community">
+        <span class="benefit-icon">🌈</span>
+        <span class="benefit-text">Creates a more inclusive classroom community</span>
+      </div>
+      <div class="benefit-item" data-searchable="environment students encounter throughout life">
+        <span class="benefit-icon">🌍</span>
+        <span class="benefit-text">Teaches in an environment students will encounter throughout life</span>
+      </div>
+      <div class="benefit-item" data-searchable="reducing student disengagement minimizing classroom management issues">
+        <span class="benefit-icon">✋</span>
+        <span class="benefit-text">Reduces disengagement and minimizes classroom management issues</span>
+      </div>
+      <div class="benefit-item" data-searchable="break from listening chance to refocus">
+        <span class="benefit-icon">☕</span>
+        <span class="benefit-text">Gives students a break from listening and a chance to refocus</span>
+      </div>
+      <div class="benefit-item" data-searchable="ease of implementation">
+        <span class="benefit-icon">⚡</span>
+        <span class="benefit-text">Ease of implementation</span>
+      </div>
+      <div class="benefit-item" data-searchable="student level of achievement">
+        <span class="benefit-icon">🏆</span>
+        <span class="benefit-text">Improves a student's level of achievement</span>
+      </div>
+      <div class="benefit-item" data-searchable="authentic learning experiences">
+        <span class="benefit-icon">✨</span>
+        <span class="benefit-text">Provides more authentic learning experiences</span>
+      </div>
+      <div class="benefit-item" data-searchable="increasing student motivation personal interdependence">
+        <span class="benefit-icon">🔥</span>
+        <span class="benefit-text">Increases motivation and personal interdependence</span>
+      </div>
+      <div class="benefit-item" data-searchable="simultaneously engaging as many students as possible">
+        <span class="benefit-icon">🎯</span>
+        <span class="benefit-text">Simultaneously engages as many students as possible</span>
+      </div>
+    </div>
+
+    <!-- KEY TAKEAWAY -->
+    <div class="takeaway-card">
+      <strong>🔑 Key Takeaway:</strong> Cooperative learning works best when every student has a meaningful role. It's not just group work — it's structured interdependence where individual success contributes to group success.
+    </div>
+
+    <!-- ================= QUIZ SECTION ================= -->
+    <div class="quiz-section">
+      <div class="quiz-header">
+        <h2>📝 Practice Quiz</h2>
+        <span class="quiz-badge">Test Your Knowledge</span>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-tabs">
+          <button class="quiz-tab active" data-panel="mcqPanel">🔘 10 MCQs</button>
+          <button class="quiz-tab" data-panel="crqPanel">✍️ 4 CRQs</button>
+          <button class="quiz-tab" data-panel="erqPanel">📄 1 ERQ</button>
+        </div>
+
+        <!-- MCQ PANEL -->
+        <div class="quiz-panel active" id="mcqPanel">
+          <span class="section-label">Multiple Choice Questions</span>
+          <div id="mcqContainer"></div>
+        </div>
+
+        <!-- CRQ PANEL -->
+        <div class="quiz-panel" id="crqPanel">
+          <span class="section-label">Constructed Response Questions</span>
+          <div id="crqContainer"></div>
+        </div>
+
+        <!-- ERQ PANEL -->
+        <div class="quiz-panel" id="erqPanel">
+          <span class="section-label">Extended Response Question (Situation-Based)</span>
+          <div id="erqContainer"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      // ================= SEARCH FILTER =================
+      const searchInput = document.getElementById('searchInput');
+      const countDisplay = document.getElementById('countDisplay');
+      const strategiesGrid = document.getElementById('strategiesGrid');
+      const featuresGrid = document.getElementById('featuresGrid');
+      const benefitsGrid = document.getElementById('benefitsGrid');
+
+      const allCards = [
+        ...strategiesGrid.querySelectorAll('[data-searchable]'),
+        ...featuresGrid.querySelectorAll('[data-searchable]'),
+        ...benefitsGrid.querySelectorAll('[data-searchable]')
+      ];
+
+      const cardParents = new Map();
+      allCards.forEach(card => cardParents.set(card, card.parentNode));
+
+      function applySearch(query) {
+        const q = query.trim().toLowerCase();
+        let visibleCount = 0;
+
+        allCards.forEach(card => {
+          const searchText = (card.dataset.searchable || '').toLowerCase() + ' ' + card.textContent.toLowerCase();
+          const matches = q === '' || searchText.includes(q);
+          if (matches) {
+            visibleCount++;
+            if (!card.parentNode) cardParents.get(card).appendChild(card);
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        // Remove old no-results messages
+        document.querySelectorAll('.no-results').forEach(el => el.remove());
+
+        // Check each grid
+        const grids = [
+          { el: strategiesGrid, name: 'strategies' },
+          { el: featuresGrid, name: 'features' },
+          { el: benefitsGrid, name: 'benefits' }
+        ];
+
+        grids.forEach(grid => {
+          const visible = [...grid.el.querySelectorAll('[data-searchable]')].filter(c => c.style.display !== 'none').length;
+          if (visible === 0) {
+            const msg = document.createElement('div');
+            msg.className = 'no-results';
+            msg.textContent = `🔎 No ${grid.name} match your search.`;
+            grid.el.appendChild(msg);
+          }
+        });
+
+        countDisplay.textContent = visibleCount + ' item' + (visibleCount !== 1 ? 's' : '');
+      }
+
+      let debounceTimer;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => applySearch(e.target.value), 180);
+      });
+
+      searchInput.addEventListener('search', (e) => {
+        if (e.target.value === '') applySearch('');
+      });
+
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchInput.value !== '') {
+          searchInput.value = '';
+          applySearch('');
+        }
+      });
+
+      // ================= QUIZ DATA =================
+      const mcqs = [
+        {
+          q: "What is the core idea of cooperative learning?",
+          options: [
+            "Students work alone on individual tasks",
+            "Breaking students into small groups to learn together",
+            "The teacher lectures while students take notes",
+            "Students compete against each other for grades"
+          ],
+          correct: 1,
+          feedback: "Cooperative learning centers around breaking students into small groups so they learn through their own and each other's learning styles."
+        },
+        {
+          q: "What separates cooperative learning from other group work strategies?",
+          options: [
+            "Students choose their own groups",
+            "Each group member has a separate task or concept to explain",
+            "Only the strongest student leads the group",
+            "There is no assessment involved"
+          ],
+          correct: 1,
+          feedback: "In cooperative learning, each member has a separate task or concept to explain, so individual learning benefits the whole group."
+        },
+        {
+          q: "In a cooperative learning environment, what is the teacher's main role?",
+          options: [
+            "Lecturer who delivers all content",
+            "Facilitator who helps students connect the pieces",
+            "Evaluator who only grades the final product",
+            "Observer who does not interact"
+          ],
+          correct: 1,
+          feedback: "The teacher acts more as a facilitator, helping students understand how to connect the pieces while students lead the learning process."
+        },
+        {
+          q: "Which strategy involves giving each student a flashcard with a question and answer for quick rounds?",
+          options: ["Puzzle Pieces", "Speed Quizzes", "One-Minute Papers", "Classmate Interviews"],
+          correct: 1,
+          feedback: "Speed Quizzes use flashcards with questions and answers, moving from one student's question to the next in quick succession."
+        },
+        {
+          q: "In 'Puzzle Pieces', what does each group member do?",
+          options: [
+            "Complete the entire project alone",
+            "Take one aspect of a larger project and communicate to put pieces together",
+            "Write a one-minute paper",
+            "Interview another student"
+          ],
+          correct: 1,
+          feedback: "Puzzle Pieces assigns each member one aspect of a larger project, forcing them to communicate to assemble the complete work."
+        },
+        {
+          q: "What is the purpose of a 'One-Minute Paper'?",
+          options: [
+            "To grade students quickly",
+            "To assess comprehension of recently-discussed material",
+            "To replace homework",
+            "To test typing speed"
+          ],
+          correct: 1,
+          feedback: "One-Minute Papers assess how well a student comprehends recently-discussed material through a quick written response."
+        },
+        {
+          q: "In 'Classmate Interviews', how are students grouped and what are their roles?",
+          options: [
+            "Pairs — one speaks, one listens",
+            "Groups of three — one writes questions, one interviews, one takes notes",
+            "Groups of five — everyone interviews each other",
+            "Whole class — teacher interviews students"
+          ],
+          correct: 1,
+          feedback: "Groups of three: one student writes questions and interviews, another answers, and the third takes notes. Roles then rotate."
+        },
+        {
+          q: "What is the purpose of 'Freeride Elimination'?",
+          options: [
+            "To let some students do less work",
+            "To make sure every student is accountable for a specific aspect of a project",
+            "To speed up group work",
+            "To reduce the number of group members"
+          ],
+          correct: 1,
+          feedback: "Freeride Elimination uses colored markers and to-do lists to ensure every student contributes and is accountable."
+        },
+        {
+          q: "Why is 'Teamwork 101' important before group work?",
+          options: [
+            "It gives students free time",
+            "It ensures students understand what teamwork is and how to work together",
+            "It replaces the need for group projects",
+            "It tests individual knowledge"
+          ],
+          correct: 1,
+          feedback: "Teamwork 101 ensures students understand what teamwork is and how to work together before starting group activities."
+        },
+        {
+          q: "Which of the following is a benefit of cooperative learning?",
+          options: [
+            "It isolates students from each other",
+            "It increases motivation and personal interdependence",
+            "It eliminates the need for a teacher",
+            "It reduces social skills"
+          ],
+          correct: 1,
+          feedback: "Cooperative learning increases student motivation and personal interdependence, among many other benefits."
+        }
+      ];
+
+      const crqs = [
+        {
+          q: "Explain the core idea of cooperative learning and how it differs from simple group work.",
+          hint: "Focus on the 'separate task' aspect and individual accountability.",
+          keywords: ["small groups", "learn", "separate task", "concept", "explain", "individual", "benefits", "whole group", "mastery", "accountability"],
+          model: "Cooperative learning centers around breaking students into small groups to learn. What separates it from simple group work is that each group member has a separate task to complete or concept to explain. This way, individual students' learning benefits the whole group, so students work toward concept mastery together."
+        },
+        {
+          q: "Describe the 'Puzzle Pieces' strategy and explain why it is effective for group learning.",
+          hint: "Think about how each member contributes a piece and why communication matters.",
+          keywords: ["puzzle", "aspect", "larger project", "group member", "communicate", "pieces together", "responsibility", "interdependence"],
+          model: "In Puzzle Pieces, each group member is assigned one aspect of a larger project. Because no single student has the complete picture, group members must communicate with one another to put the pieces together. This is effective because it builds interdependence and ensures every student contributes a meaningful part to the final product."
+        },
+        {
+          q: "What is 'Freeride Elimination' and why is it important in cooperative learning?",
+          hint: "Think about accountability and how the colored markers and to-do list work.",
+          keywords: ["freeride", "accountable", "specific aspect", "project", "colored marker", "to-do list", "checkmark", "colors", "contribute"],
+          model: "Freeride Elimination makes sure every student is accountable for a specific aspect of a project. Each group member gets a colored marker and a to-do list. By the end of the session, there should be a checkmark next to each task with all colors represented. It is important because it prevents students from hiding in group work and ensures everyone contributes."
+        },
+        {
+          q: "List any FOUR benefits of cooperative learning and explain why they matter.",
+          hint: "Choose benefits related to academics, social skills, confidence, and classroom environment.",
+          keywords: ["comprehension", "confidence", "self-esteem", "social skills", "motivation", "achievement", "inclusive", "critical thinking", "engagement", "authentic"],
+          model: "Four benefits of cooperative learning: (1) It improves comprehension of information. (2) It boosts self-esteem and confidence. (3) It builds social skills, patience, and leadership. (4) It increases student motivation and personal interdependence. These matter because they support both academic achievement and the development of life skills students will use beyond the classroom."
+        }
+      ];
+
+      const erq = {
+        q: `Ms. Fatima is a Grade 7 teacher. She has noticed that during group work, two or three students in each group do all the work while others sit quietly and copy. She also finds that students rarely discuss ideas — they just divide the work and complete their own parts without talking.
+
+Based on the 8 Cooperative Learning Strategies you have studied, describe FOUR strategies Ms. Fatima could use to fix these problems. For each strategy, explain what she should do and why it would help in this situation.`,
+        marks: "10 marks",
+        model: `
+          <strong>Model Answer (key points):</strong>
+
+
+          <strong>1. Freeride Elimination:</strong> Ms. Fatima should give each group member a colored marker and a to-do list. Each student checks off the tasks they complete with their own color. This makes every student accountable and prevents the two or three students from doing all the work, because the teacher can instantly see who contributed what.
+
+
+          <strong>2. Puzzle Pieces:</strong> She should assign each group member one aspect of a larger project. Because no one has the full picture, students must communicate with one another to put the pieces together. This directly addresses the problem of students dividing work silently — they are forced to talk and collaborate.
+
+
+          <strong>3. Teamwork 101:</strong> Before starting group work, Ms. Fatima should run a mini-lesson on what teamwork is and how to work together — active listening, sharing ideas, and resolving disagreements. This sets expectations and gives students the skills they need for meaningful discussion.
+
+
+          <strong>4. Classmate Interviews:</strong> She can divide students into groups of three, where one writes questions and interviews, one answers, and one takes notes. This structure ensures every student has an active role and encourages discussion rather than silent division of labor. Rotating roles gives everyone experience in each part.
+
+
+          <em>Note: Student Expertise is also valid — having students who grasp concepts sooner help peers, which builds interdependence and discussion.</em>
+        `
+      };
+
+      // ================= RENDER MCQs =================
+      const mcqContainer = document.getElementById('mcqContainer');
+      let mcqHtml = '';
+      mcqs.forEach((item, idx) => {
+        const letters = ['A', 'B', 'C', 'D'];
+        let optionsHtml = '';
+        item.options.forEach((opt, oi) => {
+          optionsHtml += `
+            <div class="mcq-option" data-qidx="${idx}" data-oidx="${oi}">
+              <span class="option-letter">${letters[oi]}</span>
+              <span>${opt}</span>
+            </div>
+          `;
+        });
+        mcqHtml += `
+          <div class="mcq-item" id="mcq-${idx}">
+            <div class="mcq-question">${idx + 1}. ${item.q}</div>
+            <div class="mcq-options">${optionsHtml}</div>
+            <div class="mcq-feedback" id="mcq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      mcqContainer.innerHTML = mcqHtml;
+
+      mcqContainer.addEventListener('click', (e) => {
+        const option = e.target.closest('.mcq-option');
+        if (!option) return;
+        const qidx = parseInt(option.dataset.qidx);
+        const oidx = parseInt(option.dataset.oidx);
+        const mcq = mcqs[qidx];
+        const parentItem = document.getElementById(`mcq-${qidx}`);
+        const allOptions = parentItem.querySelectorAll('.mcq-option');
+        const feedbackEl = document.getElementById(`mcq-fb-${qidx}`);
+
+        if (parentItem.dataset.answered === 'correct') return;
+
+        allOptions.forEach(opt => opt.classList.remove('selected', 'correct', 'incorrect'));
+        option.classList.add('selected');
+
+        if (oidx === mcq.correct) {
+          option.classList.add('correct');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '✅ Correct! ' + mcq.feedback;
+          feedbackEl.className = 'mcq-feedback show correct-fb';
+          parentItem.dataset.answered = 'correct';
+        } else {
+          option.classList.add('incorrect');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '❌ Not quite. Try again!';
+          feedbackEl.className = 'mcq-feedback show incorrect-fb';
+          setTimeout(() => {
+            if (feedbackEl.classList.contains('incorrect-fb')) {
+              feedbackEl.classList.remove('show');
+            }
+          }, 1500);
+        }
+      });
+
+      // ================= RENDER CRQs =================
+      const crqContainer = document.getElementById('crqContainer');
+      let crqHtml = '';
+      crqs.forEach((item, idx) => {
+        crqHtml += `
+          <div class="crq-item" id="crq-${idx}">
+            <div class="crq-question">${idx + 1}. ${item.q}</div>
+            <div class="crq-hint">💡 Hint: ${item.hint}</div>
+            <textarea class="crq-textarea" id="crq-ta-${idx}" placeholder="Write your answer here..."></textarea>
+            <div class="crq-actions">
+              <button class="btn btn-primary" data-crq-check="${idx}">Check Answer</button>
+              <button class="btn btn-secondary" data-crq-clear="${idx}">Clear</button>
+            </div>
+            <div class="crq-feedback" id="crq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      crqContainer.innerHTML = crqHtml;
+
+      crqContainer.addEventListener('click', (e) => {
+        const checkBtn = e.target.closest('[data-crq-check]');
+        const clearBtn = e.target.closest('[data-crq-clear]');
+
+        if (checkBtn) {
+          const idx = parseInt(checkBtn.dataset.crqCheck);
+          const textarea = document.getElementById(`crq-ta-${idx}`);
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          const answer = textarea.value.trim().toLowerCase();
+          const crq = crqs[idx];
+
+          if (answer.length < 10) {
+            feedback.textContent = '⚠️ Please write a more complete answer (at least a sentence or two).';
+            feedback.className = 'crq-feedback show partial';
+            return;
+          }
+
+          const matched = crq.keywords.filter(kw => answer.includes(kw));
+          const ratio = matched.length / crq.keywords.length;
+
+          if (ratio >= 0.4) {
+            feedback.innerHTML = `✅ <strong>Good answer!</strong> You covered key ideas.
+
+<em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show good';
+          } else {
+            feedback.innerHTML = `📝 <strong>Partially correct.</strong> You mentioned some ideas. Try to include more key concepts.
+
+<em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show partial';
+          }
+        }
+
+        if (clearBtn) {
+          const idx = parseInt(clearBtn.dataset.crqClear);
+          document.getElementById(`crq-ta-${idx}`).value = '';
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          feedback.className = 'crq-feedback';
+          feedback.textContent = '';
+        }
+      });
+
+      // ================= RENDER ERQ =================
+      const erqContainer = document.getElementById('erqContainer');
+      erqContainer.innerHTML = `
+        <div class="erq-item">
+          <div class="erq-marks">${erq.marks}</div>
+          <div class="erq-question">${erq.q}</div>
+          <textarea class="erq-textarea" id="erq-ta" placeholder="Write your detailed answer here. Describe four strategies with explanations..."></textarea>
+          <div class="erq-actions">
+            <button class="btn btn-primary" id="erqCheck">Check Answer</button>
+            <button class="btn btn-secondary" id="erqClear">Clear</button>
+          </div>
+          <div class="erq-feedback" id="erq-fb"></div>
+        </div>
+      `;
+
+      document.getElementById('erqCheck').addEventListener('click', () => {
+        const ta = document.getElementById('erq-ta');
+        const fb = document.getElementById('erq-fb');
+        const answer = ta.value.trim().toLowerCase();
+
+        if (answer.length < 50) {
+          fb.textContent = '⚠️ Please write a more detailed answer. Describe at least four strategies.';
+          fb.className = 'erq-feedback show partial';
+          return;
+        }
+
+        const strategyKeywords = ['freeride', 'puzzle pieces', 'teamwork 101', 'classmate interviews', 'student expertise', 'speed quizzes', 'one-minute', 'sentence completion', 'colored marker', 'accountability'];
+        const found = strategyKeywords.filter(k => answer.includes(k));
+
+        if (found.length >= 3) {
+          fb.innerHTML = `✅ <strong>Excellent effort!</strong> You discussed ${found.length} strategies. Compare your answer with the model below.
+
+<em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show model';
+        } else if (found.length >= 1) {
+          fb.innerHTML = `📝 <strong>Good start!</strong> You mentioned ${found.length} strategy(ies). Try to describe at least four strategies with explanations.
+
+<em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        } else {
+          fb.innerHTML = `⚠️ It seems you haven't named specific strategies. Make sure to describe four strategies from the topic.
+
+<em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        }
+      });
+
+      document.getElementById('erqClear').addEventListener('click', () => {
+        document.getElementById('erq-ta').value = '';
+        const fb = document.getElementById('erq-fb');
+        fb.className = 'erq-feedback';
+        fb.textContent = '';
+      });
+
+      // ================= QUIZ TABS =================
+      const tabs = document.querySelectorAll('.quiz-tab');
+      const panels = document.querySelectorAll('.quiz-panel');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          panels.forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(tab.dataset.panel).classList.add('active');
+        });
+      });
+
+      // Initial count
+      countDisplay.textContent = allCards.length + ' items';
+
+    })();
+  </script>
+</body>
+</html>

@@ -82,6 +82,7 @@ export const METHODS_OF_TEACHING_LESSONS: StudyLesson[] = [
       { prompt: 'How can a teacher stop two students from doing all the group work?', answer: 'Use individual roles, task checklists, coloured markers or signatures, visible accountability, and activities such as Puzzle Pieces, Classmate Interviews, and Freeride Elimination.' },
       { prompt: 'Describe four benefits of cooperative learning.', answer: 'It improves comprehension, confidence, social skills, critical thinking, motivation, inclusion, classroom participation, and understanding of different perspectives.' },
     ],
+    'notes/methods-of-teaching/cooperative-learning-strategies.html',
   ),
   lesson(
     'methods-effective-questioning',

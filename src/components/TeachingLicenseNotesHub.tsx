@@ -78,6 +78,7 @@ const ICON_MAP: Record<string, React.ElementType> = {
   ShieldCheck,
   Award,
   School,
+  Compass,
 };
 
 export const TeachingLicenseNotesHub: React.FC<TeachingLicenseNotesHubProps> = ({

@@ -5,38 +5,76 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { HtmlTopicNoteViewer } from './HtmlTopicNoteViewer';
-import { METHODS_OF_TEACHING_TOPICS } from '../data/teachingLicenseNotesData';
+import { FOUNDATIONS_OF_EDUCATION_TOPICS, METHODS_OF_TEACHING_TOPICS } from '../data/teachingLicenseNotesData';
 
 const hubDocuments = [
   {
     topicId: 'methods-instructional-approaches',
-    file: 'instructional-approaches-and-strategies.html',
+    path: 'notes/methods-of-teaching/instructional-approaches-and-strategies.html',
     crqs: 5,
   },
   {
     topicId: 'methods-effective-questioning',
-    file: 'effective-questioning-strategies.html',
+    path: 'notes/methods-of-teaching/effective-questioning-strategies.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'methods-teacher-student-centred',
+    path: 'notes/methods-of-teaching/teacher-centred-and-student-centred-approaches.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'methods-blooms-taxonomy',
+    path: 'notes/methods-of-teaching/blooms-taxonomy-of-educational-objectives.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'methods-cooperative-learning',
+    path: 'notes/methods-of-teaching/cooperative-learning-strategies.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'methods-npstp-pakistan',
+    path: 'notes/methods-of-teaching/national-professional-standards-for-teachers-in-pakistan.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'foundations-ideological',
+    path: 'notes/foundations-of-education/ideological-foundations-of-education.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'foundations-philosophical',
+    path: 'notes/foundations-of-education/philosophical-foundations-of-education.html',
     crqs: 4,
   },
 ];
 
-test('Master Notes Hub attaches supplied HTML to exactly the two matching Methods of Teaching topics', () => {
-  const htmlTopics = METHODS_OF_TEACHING_TOPICS.filter((topic) => topic.htmlNotesPath);
+const allHubTopics = [...METHODS_OF_TEACHING_TOPICS, ...FOUNDATIONS_OF_EDUCATION_TOPICS];
+
+test('Master Notes Hub attaches supplied HTML to matching topics across modules', () => {
+  const htmlTopics = allHubTopics.filter((topic) => topic.htmlNotesPath);
   assert.deepEqual(
     htmlTopics.map((topic) => topic.id).sort(),
     hubDocuments.map((document) => document.topicId).sort(),
   );
   for (const document of hubDocuments) {
-    const topic = METHODS_OF_TEACHING_TOPICS.find((item) => item.id === document.topicId)!;
-    assert.equal(topic.htmlNotesPath, `notes/methods-of-teaching/${document.file}`);
+    const topic = allHubTopics.find((item) => item.id === document.topicId)!;
+    assert.equal(topic.htmlNotesPath, document.path);
   }
-  // The remaining pedagogy notes stay on the generated structured reader.
+  // Every Methods of Teaching topic carries its supplied standalone note.
   assert.equal(METHODS_OF_TEACHING_TOPICS.length, 6);
-  assert.equal(htmlTopics.length, 2);
+  assert.equal(METHODS_OF_TEACHING_TOPICS.filter((topic) => topic.htmlNotesPath).length, 6);
+  assert.ok(FOUNDATIONS_OF_EDUCATION_TOPICS.length >= 1);
+  assert.equal(htmlTopics.length, hubDocuments.length);
+  // Topics without a supplied document stay on the generated note body.
+  assert.ok(allHubTopics
+    .filter((topic) => !hubDocuments.some((document) => document.topicId === topic.id))
+    .every((topic) => !topic.htmlNotesPath));
 });
 
 for (const document of hubDocuments) {
-  const topic = METHODS_OF_TEACHING_TOPICS.find((item) => item.id === document.topicId)!;
+  const topic = allHubTopics.find((item) => item.id === document.topicId)!;
 
   for (const baseUrl of ['/', '/MUQABIL/']) {
     test(`${document.topicId}: hub viewer resolves the supplied document on ${baseUrl}`, () => {

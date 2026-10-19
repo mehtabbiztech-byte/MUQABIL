@@ -1,0 +1,1707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher-centred & Student-centred Approaches · Methods of Teaching</title>
+  <style>
+    /* ---------- GLOBAL ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+      color: #1e2b3c;
+    }
+
+    .main-wrapper {
+      max-width: 1100px;
+      width: 100%;
+    }
+
+    /* ---------- HEADER ---------- */
+    .header-card {
+      background: white;
+      border-radius: 2rem 2rem 1.5rem 1.5rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      padding: 2rem 2rem 1.5rem 2rem;
+      margin-bottom: 1.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: transform 0.2s;
+    }
+
+    .header-card:hover {
+      transform: scale(1.002);
+    }
+
+    .badge {
+      display: inline-block;
+      background: #2a4b7c;
+      color: #f0f7ff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+      line-height: 1.25;
+    }
+
+    .subhead {
+      font-size: 1.05rem;
+      color: #2f5277;
+      font-weight: 400;
+      border-left: 5px solid #8bb3e0;
+      padding-left: 1.2rem;
+      margin: 1rem 0 0.2rem 0;
+      font-style: italic;
+    }
+
+    .intro-text {
+      background: #e6f0fc;
+      padding: 1rem 1.4rem;
+      border-radius: 1.2rem;
+      margin-top: 1.4rem;
+      font-size: 0.98rem;
+      color: #1d3a5c;
+      border-left: 5px solid #3b6ea5;
+    }
+
+    /* ---------- SECTION TITLE ---------- */
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #0e2a47;
+      margin: 2.2rem 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-title .line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #8bb3e0, transparent);
+      border-radius: 2px;
+    }
+
+    /* ---------- SPECTRUM BAR ---------- */
+    .spectrum-bar {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin: 0.5rem 0 1.5rem 0;
+      background: white;
+      border-radius: 60px;
+      padding: 0.7rem 1.2rem;
+      box-shadow: 0 8px 18px -8px rgba(0, 27, 45, 0.1);
+      border: 1px solid #e3ecf7;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .spectrum-side {
+      flex: 1;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 0.4rem 0.6rem;
+      position: relative;
+      z-index: 2;
+      border-radius: 40px;
+    }
+
+    .spectrum-side.left {
+      color: #1b4670;
+      background: #d9e8fc;
+    }
+
+    .spectrum-side.right {
+      color: #1b6e3e;
+      background: #d4f0e0;
+    }
+
+    .spectrum-mix {
+      flex: 0.6;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.78rem;
+      color: #4e6b8a;
+      padding: 0.4rem 0.6rem;
+    }
+
+    /* ---------- CARD GRID ---------- */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .info-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.4rem 1.4rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      transition: all 0.25s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .info-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, #3f7cb0, #8bb3e0, #b8d4f0);
+      opacity: 0.75;
+      transition: height 0.2s;
+    }
+
+    .info-card.teacher::before {
+      background: linear-gradient(90deg, #2a4b7c, #3b6ea5, #5a8ec9);
+    }
+
+    .info-card.student::before {
+      background: linear-gradient(90deg, #2e7d4f, #3fa86a, #6fc98a);
+    }
+
+    .info-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 28px -16px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+
+    .info-card:hover::before {
+      height: 10px;
+      opacity: 1;
+    }
+
+    .card-icon-lg {
+      font-size: 2rem;
+      line-height: 1;
+      background: #e9f0fa;
+      width: 54px;
+      height: 54px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #1b3c61;
+      margin-bottom: 0.8rem;
+      transition: background 0.2s;
+    }
+
+    .info-card:hover .card-icon-lg {
+      background: #d3e3f8;
+    }
+
+    .card-title-md {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #0e2a47;
+      letter-spacing: -0.3px;
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-desc-sm {
+      font-size: 0.93rem;
+      color: #274e73;
+      line-height: 1.6;
+      opacity: 0.94;
+      flex: 1;
+    }
+
+    /* ---------- APPROACH CARDS (big) ---------- */
+    .approach-card {
+      background: white;
+      border-radius: 1.8rem;
+      padding: 1.6rem 1.5rem 1.5rem 1.5rem;
+      box-shadow: 0 12px 24px -14px rgba(20, 40, 70, 0.2);
+      transition: all 0.25s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1.2rem;
+    }
+
+    .approach-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      opacity: 0.85;
+      transition: height 0.2s;
+    }
+
+    .approach-card.teacher::before {
+      background: linear-gradient(90deg, #2a4b7c, #3b6ea5, #5a8ec9);
+    }
+
+    .approach-card.student::before {
+      background: linear-gradient(90deg, #2e7d4f, #3fa86a, #6fc98a);
+    }
+
+    .approach-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 32px -18px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+
+    .approach-card:hover::before {
+      height: 12px;
+    }
+
+    .approach-header {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .approach-icon {
+      font-size: 2.2rem;
+      line-height: 1;
+      background: #e9f0fa;
+      width: 60px;
+      height: 60px;
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #1b3c61;
+      transition: background 0.2s;
+    }
+
+    .approach-card:hover .approach-icon {
+      background: #d3e3f8;
+    }
+
+    .approach-title {
+      font-weight: 700;
+      font-size: 1.35rem;
+      color: #0e2a47;
+      letter-spacing: -0.3px;
+      line-height: 1.25;
+    }
+
+    .approach-sub {
+      font-size: 0.88rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-top: 0.15rem;
+    }
+
+    .approach-section {
+      margin-bottom: 0.9rem;
+    }
+
+    .approach-section-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #1a4b7a;
+      background: #d7e6fa;
+      padding: 0.15rem 0.8rem;
+      border-radius: 30px;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+
+    .approach-section-title.green {
+      color: #1b6e3e;
+      background: #d4f0e0;
+    }
+
+    .approach-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .approach-list li {
+      padding: 0.4rem 0 0.4rem 1.6rem;
+      position: relative;
+      font-size: 0.91rem;
+      line-height: 1.5;
+      color: #1e3c5a;
+    }
+
+    .approach-list.strengths li::before {
+      content: '✔';
+      position: absolute;
+      left: 0;
+      color: #2e9b5e;
+      font-weight: 700;
+    }
+
+    .approach-list.limits li::before {
+      content: '⚠';
+      position: absolute;
+      left: 0;
+      color: #d4933a;
+      font-weight: 700;
+    }
+
+    .method-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.3rem;
+    }
+
+    .method-tag {
+      background: #eef4fb;
+      color: #1b4670;
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 0.25rem 0.8rem;
+      border-radius: 30px;
+      border: 1px solid #d0e0f0;
+      transition: background 0.2s;
+    }
+
+    .method-tag:hover {
+      background: #dce9f8;
+    }
+
+    /* ---------- COMPARISON TABLE ---------- */
+    .table-wrapper {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.4rem 1.4rem 1.2rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      border: 1px solid #e3ecf7;
+      overflow-x: auto;
+      margin-bottom: 0.5rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.91rem;
+      min-width: 500px;
+    }
+
+    thead th {
+      text-align: left;
+      padding: 0.85rem 1rem;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: white;
+      background: #0e2a47;
+    }
+
+    thead th:first-child {
+      border-radius: 1rem 0 0 0;
+      background: #2a4b7c;
+    }
+
+    thead th:nth-child(2) {
+      background: #2a4b7c;
+    }
+
+    thead th:nth-child(3) {
+      background: #2e7d4f;
+      border-radius: 0 1rem 0 0;
+    }
+
+    tbody td {
+      padding: 0.8rem 1rem;
+      border-bottom: 1px solid #e8f0f9;
+      color: #1e3c5a;
+      vertical-align: top;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover td {
+      background: #f6faff;
+    }
+
+    tbody td:first-child {
+      font-weight: 600;
+      color: #0e2a47;
+      background: #f3f8fd;
+    }
+
+    tbody td:nth-child(2) {
+      background: #f9fcff;
+    }
+
+    tbody td:nth-child(3) {
+      background: #f7fdf9;
+    }
+
+    tbody tr:hover td:first-child {
+      background: #eaf3fc;
+    }
+
+    tbody tr:hover td:nth-child(2) {
+      background: #f0f7fe;
+    }
+
+    tbody tr:hover td:nth-child(3) {
+      background: #effaf3;
+    }
+
+    /* ---------- THEORY CARDS ---------- */
+    .theory-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.5rem 1.4rem 1.5rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      transition: all 0.25s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .theory-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      opacity: 0.8;
+      transition: height 0.2s;
+    }
+
+    .theory-card.teacher::before {
+      background: linear-gradient(90deg, #2a4b7c, #3b6ea5);
+    }
+
+    .theory-card.student::before {
+      background: linear-gradient(90deg, #2e7d4f, #3fa86a);
+    }
+
+    .theory-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 28px -16px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+
+    .theory-card:hover::before {
+      height: 10px;
+    }
+
+    .theory-title {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+    }
+
+    .theory-desc {
+      font-size: 0.92rem;
+      color: #274e73;
+      line-height: 1.6;
+    }
+
+    .theorist-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.8rem;
+    }
+
+    .theorist-tag {
+      background: #eef4fb;
+      color: #1b4670;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.25rem 0.8rem;
+      border-radius: 30px;
+      border: 1px solid #d0e0f0;
+    }
+
+    /* ---------- BALANCED VIEW ---------- */
+    .balanced-card {
+      background: #0e2a47;
+      color: white;
+      border-radius: 1.6rem;
+      padding: 1.6rem 2rem;
+      margin: 1.2rem 0 0.5rem 0;
+      font-size: 0.98rem;
+      line-height: 1.65;
+      box-shadow: 0 14px 26px -12px #0e2a47;
+      border-left: 6px solid #8bb3e0;
+    }
+
+    .balanced-card strong {
+      color: #b8d4f0;
+    }
+
+    .balanced-card .highlight {
+      background: #1a4170;
+      padding: 0.15rem 0.5rem;
+      border-radius: 6px;
+      color: #d4e6fa;
+    }
+
+    /* ---------- SEARCH & COUNT ---------- */
+    .filter-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 60px;
+      box-shadow: 0 8px 18px -8px rgba(0, 27, 45, 0.1);
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 40px;
+      padding: 0.3rem 0.3rem 0.3rem 1.2rem;
+      flex: 2;
+      min-width: 240px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      border: 1px solid #ccdcee;
+    }
+
+    .search-box span {
+      font-size: 1.1rem;
+      margin-right: 0.5rem;
+      color: #4e6b8a;
+    }
+
+    .search-box input {
+      border: none;
+      padding: 0.7rem 0.2rem;
+      width: 100%;
+      font-size: 0.95rem;
+      outline: none;
+      background: transparent;
+      color: #0c253b;
+    }
+
+    .search-box input::placeholder {
+      color: #879eb6;
+      font-weight: 300;
+    }
+
+    .count-pill {
+      background: #0e2a47;
+      color: white;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ---------- QUIZ SECTION ---------- */
+    .quiz-section {
+      margin-top: 2.5rem;
+    }
+
+    .quiz-header {
+      background: #0e2a47;
+      border-radius: 2rem 2rem 0 0;
+      padding: 1.5rem 2rem;
+      color: white;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .quiz-header h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .quiz-header .quiz-badge {
+      background: #8bb3e0;
+      color: #0e2a47;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .quiz-body {
+      background: white;
+      border-radius: 0 0 2rem 2rem;
+      padding: 2rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      border: 1px solid #e3ecf7;
+      border-top: none;
+    }
+
+    .quiz-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #e3ecf7;
+      padding-bottom: 1rem;
+    }
+
+    .quiz-tab {
+      background: #f0f5fd;
+      border: 1px solid #d0e0f0;
+      color: #1b4670;
+      padding: 0.5rem 1.3rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .quiz-tab:hover {
+      background: #e0ecfc;
+      border-color: #a0c0e0;
+    }
+
+    .quiz-tab.active {
+      background: #0e2a47;
+      color: white;
+      border-color: #0e2a47;
+    }
+
+    .quiz-panel {
+      display: none;
+    }
+
+    .quiz-panel.active {
+      display: block;
+    }
+
+    .section-label {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.2rem;
+    }
+
+    /* MCQ */
+    .mcq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+      transition: background 0.2s;
+    }
+
+    .mcq-item:hover {
+      background: #f0f7fe;
+    }
+
+    .mcq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.8rem;
+      line-height: 1.5;
+    }
+
+    .mcq-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .mcq-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 0.8rem;
+      background: white;
+      border: 1.5px solid #d9e8fc;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+    }
+
+    .mcq-option:hover {
+      border-color: #8bb3e0;
+      background: #eef6ff;
+    }
+
+    .mcq-option.selected {
+      border-color: #3b7bb5;
+      background: #e4f0fe;
+      font-weight: 500;
+    }
+
+    .mcq-option.correct {
+      border-color: #2e9b5e;
+      background: #e6f7ee;
+      font-weight: 600;
+    }
+
+    .mcq-option.incorrect {
+      border-color: #d45a5a;
+      background: #fdeaea;
+      font-weight: 500;
+    }
+
+    .mcq-option .option-letter {
+      font-weight: 700;
+      color: #2a4b7c;
+      min-width: 1.4rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .mcq-option.correct .option-letter { color: #1b7a44; }
+    .mcq-option.incorrect .option-letter { color: #b03030; }
+
+    .mcq-feedback {
+      margin-top: 0.7rem;
+      font-size: 0.88rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: 0.8rem;
+      display: none;
+      font-weight: 500;
+    }
+
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.correct-fb {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .mcq-feedback.incorrect-fb {
+      background: #fdeaea;
+      color: #9e2a2a;
+      border-left: 4px solid #d45a5a;
+    }
+
+    /* CRQ / ERQ shared */
+    .crq-item, .erq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+    }
+
+    .erq-item {
+      border: 2px solid #8bb3e0;
+      background: #f5faff;
+    }
+
+    .crq-question, .erq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+
+    .erq-question {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .erq-marks {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      margin-bottom: 0.8rem;
+    }
+
+    .crq-hint {
+      font-size: 0.85rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-bottom: 0.7rem;
+    }
+
+    .crq-textarea, .erq-textarea {
+      width: 100%;
+      border: 1.5px solid #d9e8fc;
+      border-radius: 0.9rem;
+      padding: 0.8rem 1rem;
+      font-family: inherit;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+      resize: vertical;
+      transition: border-color 0.2s;
+      background: white;
+    }
+
+    .crq-textarea { min-height: 90px; }
+    .erq-textarea { min-height: 160px; }
+
+    .crq-textarea:focus, .erq-textarea:focus {
+      outline: none;
+      border-color: #3b7bb5;
+      box-shadow: 0 0 0 3px rgba(59, 123, 181, 0.12);
+    }
+
+    .crq-actions, .erq-actions {
+      display: flex;
+      gap: 0.7rem;
+      margin-top: 0.7rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.55rem 1.4rem;
+      border-radius: 40px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: #0e2a47;
+      color: white;
+    }
+    .btn-primary:hover {
+      background: #1a4170;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #e9f0fa;
+      color: #1b4670;
+      border: 1px solid #c0d8f0;
+    }
+    .btn-secondary:hover { background: #d8e6f8; }
+
+    .crq-feedback, .erq-feedback {
+      margin-top: 0.8rem;
+      padding: 0.8rem 1rem;
+      border-radius: 0.9rem;
+      font-size: 0.9rem;
+      display: none;
+      line-height: 1.6;
+    }
+
+    .crq-feedback.show, .erq-feedback.show { display: block; }
+
+    .crq-feedback.good, .erq-feedback.good {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+
+    .crq-feedback.partial, .erq-feedback.partial {
+      background: #fff8e6;
+      color: #8a6d1f;
+      border-left: 4px solid #e0a800;
+    }
+
+    .erq-feedback.model {
+      background: #e6f0fc;
+      color: #1a3e62;
+      border-left: 5px solid #3b7bb5;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 700px) {
+      .approach-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    }
+
+    @media (max-width: 600px) {
+      .header-card { padding: 1.5rem 1.2rem; }
+      h1 { font-size: 1.7rem; }
+      .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: 2rem;
+        padding: 1rem;
+      }
+      .search-box { width: 100%; }
+      .count-pill { text-align: center; padding: 0.5rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .quiz-body { padding: 1.2rem; }
+      .quiz-header { padding: 1.2rem; }
+      .quiz-header h2 { font-size: 1.3rem; }
+      .mcq-item, .crq-item, .erq-item { padding: 1rem; }
+      .quiz-tab { font-size: 0.8rem; padding: 0.4rem 1rem; }
+      .spectrum-bar { flex-direction: column; gap: 0.3rem; border-radius: 1.5rem; }
+      .spectrum-side, .spectrum-mix { width: 100%; }
+      .balanced-card { padding: 1.2rem 1.2rem; }
+    }
+
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #dfe9f5; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: #94b0d1; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6d8fb4; }
+
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem 1rem;
+      background: #ffffffc9;
+      border-radius: 2rem;
+      font-size: 1.1rem;
+      color: #4b6888;
+      border: 2px dashed #b8cee8;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-wrapper">
+
+    <!-- HEADER -->
+    <div class="header-card">
+      <div class="badge">⚖️ Methods of Teaching</div>
+      <h1>Teacher-centred &amp; Student-centred Approaches</h1>
+      <div class="subhead">Two ends of a spectrum — and how good classrooms blend them</div>
+      <div class="intro-text">
+        <strong>💡 Big Picture:</strong> Teacher-centred and student-centred approaches sit at opposite ends of a spectrum, and most good classrooms blend them. In practice, effective teachers move between the two depending on the objective, the learners, and the context.
+      </div>
+    </div>
+
+    <!-- SPECTRUM BAR -->
+    <div class="spectrum-bar">
+      <div class="spectrum-side left">👨‍🏫 Teacher-centred</div>
+      <div class="spectrum-mix">blend in practice</div>
+      <div class="spectrum-side right">🧑‍🎓 Student-centred</div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="filter-section">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="Search approaches, methods, strengths, limitations..." autocomplete="off">
+      </div>
+      <div class="count-pill" id="countDisplay">14 items</div>
+    </div>
+
+    <!-- APPROACH CARDS -->
+    <div class="section-title">
+      🎯 The Two Approaches
+      <span class="line"></span>
+    </div>
+
+    <div class="cards-grid" id="approachGrid">
+      <!-- TEACHER-CENTRED -->
+      <div class="approach-card teacher" data-searchable="teacher-centred teacher centered main source of knowledge controls pace content activities students receivers lecture direct instruction demonstration drill practice recitation textbook strengths limitations">
+        <div class="approach-header">
+          <div class="approach-icon">👨‍🏫</div>
+          <div>
+            <div class="approach-title">Teacher-centred</div>
+            <div class="approach-sub">Expert &amp; transmitter</div>
+          </div>
+        </div>
+
+        <div class="approach-section">
+          <div class="approach-section-title">📖 What it is</div>
+          <div class="card-desc-sm">
+            The teacher is the <strong>main source of knowledge</strong> and controls the pace, content, and activities. Students are mostly <strong>receivers of information</strong>.
+          </div>
+        </div>
+
+        <div class="approach-section">
+          <div class="approach-section-title">🧰 Common methods</div>
+          <div class="method-tags">
+            <span class="method-tag">Lecture</span>
+            <span class="method-tag">Direct instruction</span>
+            <span class="method-tag">Demonstration</span>
+            <span class="method-tag">Drill &amp; practice</span>
+            <span class="method-tag">Recitation</span>
+            <span class="method-tag">Textbook-based</span>
+          </div>
+        </div>
+
+        <div class="approach-section">
+          <div class="approach-section-title">✅ Strengths</div>
+          <ul class="approach-list strengths">
+            <li>Efficient for delivering large amounts of content in limited time</li>
+            <li>Works well with large classes and limited resources</li>
+            <li>Gives clear structure and predictability</li>
+            <li>Suits foundational skills (phonics, arithmetic facts, safety procedures)</li>
+          </ul>
+        </div>
+
+        <div class="approach-section">
+          <div class="approach-section-title">⚠️ Limitations</div>
+          <ul class="approach-list limits">
+            <li>Students can become passive and attention often drops</li>
+            <li>Encourages memorisation more than deep understanding</li>
+            <li>Little room for individual differences or student voice</li>
+            <li>Weak at developing critical thinking and collaboration</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- STUDENT-CENTRED -->
+      <div class="approach-card student" data-searchable="student-centred student centered facilitator guide students active role constructing knowledge inquiry discussion doing inquiry-based project-based problem-based cooperative discussions debates learning centres peer teaching differentiated instruction strengths limitations">
+        <div class="approach-header">
+          <div class="approach-icon">🧑‍🎓</div>
+          <div>
+            <div class="approach-title">Student-centred</div>
+            <div class="approach-sub">Facilitator &amp; guide</div>
+          </div>
+        </div>
+
+        <div class="approach-section">
+          <div class="approach-section-title green">📖 What it is</div>
+          <div class="card-desc-sm">
+            The teacher acts as a <strong>facilitator or guide</strong>, and students take an <strong>active role in constructing knowledge</strong> through inquiry, discussion, and doing.
+          </div>
+        </div>
+
+        <div class="approach-section">
+          <div class="approach-section-title green">🧰 Common methods</div>
+          <div class="method-tags">
+            <span class="method-tag">Inquiry-based learning</span>
+            <span class="method-tag">Project-based learning</span>
+            <span class="method-tag">Problem-based learning</span>
+            <span class="method-tag">Cooperative learning</span>
+            <span class="method-tag">Discussions &amp; debates</span>
+            <span class="method-tag">Learning centres</span>
+            <span class="method-tag">Peer teaching</span>
+            <span class="method-tag">Differentiated instruction</span>
+          </div>
+        </div>
+
+        <div class="approach-section">
+          <div class="approach-section-title">✅ Strengths</div>
+          <ul class="approach-list strengths">
+            <li>Builds critical thinking, problem-solving, and communication skills</li>
+            <li>Increases motivation and ownership of learning</li>
+            <li>Accommodates different learning styles, paces, and interests</li>
+            <li>Supports deeper, longer-lasting understanding</li>
+          </ul>
+        </div>
+
+        <div class="approach-section">
+          <div class="approach-section-title">⚠️ Limitations</div>
+          <ul class="approach-list limits">
+            <li>Needs more planning, time, and materials</li>
+            <li>Harder to manage in very large classes</li>
+            <li>Can leave gaps in coverage if not well structured</li>
+            <li>Depends on students having enough prior knowledge and learning habits</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPARISON TABLE -->
+    <div class="section-title">
+      📊 Key Differences at a Glance
+      <span class="line"></span>
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>👨‍🏫 Teacher-centred</th>
+            <th>🧑‍🎓 Student-centred</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Teacher's role</td>
+            <td>Expert, transmitter</td>
+            <td>Facilitator, guide</td>
+          </tr>
+          <tr>
+            <td>Student's role</td>
+            <td>Passive receiver</td>
+            <td>Active participant</td>
+          </tr>
+          <tr>
+            <td>Focus</td>
+            <td>Content and curriculum</td>
+            <td>Learner needs and process</td>
+          </tr>
+          <tr>
+            <td>Interaction</td>
+            <td>Mostly teacher to student</td>
+            <td>Teacher-student &amp; student-student</td>
+          </tr>
+          <tr>
+            <td>Assessment</td>
+            <td>Tests, recall of facts</td>
+            <td>Projects, portfolios, performance, reflection</td>
+          </tr>
+          <tr>
+            <td>Classroom feel</td>
+            <td>Quiet, orderly</td>
+            <td>Busy, collaborative</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- THEORETICAL ROOTS -->
+    <div class="section-title">
+      📚 Theoretical Roots
+      <span class="line"></span>
+    </div>
+
+    <div class="cards-grid" id="theoryGrid">
+      <div class="theory-card teacher" data-searchable="behaviourism skinner pavlov learning shaped reinforcement repetition teacher-centred">
+        <div class="theory-title">🧠 Teacher-centred: Behaviourism</div>
+        <div class="theory-desc">
+          Learning is shaped through <strong>reinforcement and repetition</strong>. The teacher provides stimuli and reinforcement to shape student behaviour.
+        </div>
+        <div class="theorist-tags">
+          <span class="theorist-tag">Skinner</span>
+          <span class="theorist-tag">Pavlov</span>
+        </div>
+      </div>
+
+      <div class="theory-card student" data-searchable="constructivism piaget vygotsky bruner humanism rogers dewey learners build meaning experience social interaction zone of proximal development student-centred">
+        <div class="theory-title">🌱 Student-centred: Constructivism &amp; Humanism</div>
+        <div class="theory-desc">
+          Learners <strong>build meaning</strong> through experience, social interaction, and support within their <strong>zone of proximal development</strong>.
+        </div>
+        <div class="theorist-tags">
+          <span class="theorist-tag">Piaget</span>
+          <span class="theorist-tag">Vygotsky</span>
+          <span class="theorist-tag">Bruner</span>
+          <span class="theorist-tag">Rogers</span>
+          <span class="theorist-tag">Dewey</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- BALANCED VIEW -->
+    <div class="section-title">
+      ⚖️ A Balanced View
+      <span class="line"></span>
+    </div>
+
+    <div class="balanced-card" data-searchable="balanced view effective teachers move between objective learners context direct explanation group task student-led project consolidation large classes resource-limited gradual shift think-pair-share small-group lecture-based realistic overhaul">
+      <strong>🎯 In practice,</strong> effective teachers <span class="highlight">move between the two</span> depending on the objective, the learners, and the context. A short direct explanation can set up a group task; a student-led project can end with a teacher-led consolidation.
+
+
+      In many settings, including <span class="highlight">large classes and resource-limited schools</span>, a gradual shift (such as adding think-pair-share or small-group tasks to an otherwise lecture-based lesson) is more realistic than a complete overhaul.
+    </div>
+
+    <!-- ================= QUIZ SECTION ================= -->
+    <div class="quiz-section">
+      <div class="quiz-header">
+        <h2>📝 Practice Quiz</h2>
+        <span class="quiz-badge">Test Your Knowledge</span>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-tabs">
+          <button class="quiz-tab active" data-panel="mcqPanel">🔘 10 MCQs</button>
+          <button class="quiz-tab" data-panel="crqPanel">✍️ 4 CRQs</button>
+          <button class="quiz-tab" data-panel="erqPanel">📄 1 ERQ</button>
+        </div>
+
+        <!-- MCQ PANEL -->
+        <div class="quiz-panel active" id="mcqPanel">
+          <span class="section-label">Multiple Choice Questions</span>
+          <div id="mcqContainer"></div>
+        </div>
+
+        <!-- CRQ PANEL -->
+        <div class="quiz-panel" id="crqPanel">
+          <span class="section-label">Constructed Response Questions</span>
+          <div id="crqContainer"></div>
+        </div>
+
+        <!-- ERQ PANEL -->
+        <div class="quiz-panel" id="erqPanel">
+          <span class="section-label">Extended Response Question (Situation-Based)</span>
+          <div id="erqContainer"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      // ================= SEARCH FILTER =================
+      const searchInput = document.getElementById('searchInput');
+      const countDisplay = document.getElementById('countDisplay');
+      const approachGrid = document.getElementById('approachGrid');
+      const theoryGrid = document.getElementById('theoryGrid');
+      const balancedCard = document.querySelector('.balanced-card');
+
+      const allSearchables = [
+        ...approachGrid.querySelectorAll('[data-searchable]'),
+        ...theoryGrid.querySelectorAll('[data-searchable]'),
+        balancedCard
+      ];
+
+      const cardParents = new Map();
+      allSearchables.forEach(card => cardParents.set(card, card.parentNode));
+
+      function applySearch(query) {
+        const q = query.trim().toLowerCase();
+        let visibleCount = 0;
+
+        allSearchables.forEach(card => {
+          const searchText = (card.dataset.searchable || '').toLowerCase() + ' ' + card.textContent.toLowerCase();
+          const matches = q === '' || searchText.includes(q);
+          if (matches) {
+            visibleCount++;
+            if (!card.parentNode) cardParents.get(card).appendChild(card);
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        // Remove old no-results
+        document.querySelectorAll('.no-results').forEach(el => el.remove());
+
+        const grids = [
+          { el: approachGrid, name: 'approaches' },
+          { el: theoryGrid, name: 'theories' }
+        ];
+
+        grids.forEach(grid => {
+          const visible = [...grid.el.querySelectorAll('[data-searchable]')].filter(c => c.style.display !== 'none').length;
+          if (visible === 0) {
+            const msg = document.createElement('div');
+            msg.className = 'no-results';
+            msg.textContent = `🔎 No ${grid.name} match your search.`;
+            grid.el.appendChild(msg);
+          }
+        });
+
+        countDisplay.textContent = visibleCount + ' item' + (visibleCount !== 1 ? 's' : '');
+      }
+
+      let debounceTimer;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => applySearch(e.target.value), 180);
+      });
+
+      searchInput.addEventListener('search', (e) => {
+        if (e.target.value === '') applySearch('');
+      });
+
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchInput.value !== '') {
+          searchInput.value = '';
+          applySearch('');
+        }
+      });
+
+      // ================= QUIZ DATA =================
+      const mcqs = [
+        {
+          q: "In a teacher-centred approach, what is the teacher's main role?",
+          options: [
+            "Facilitator and guide",
+            "Main source of knowledge and controller of pace/content",
+            "Observer who does not interact",
+            "Peer learner alongside students"
+          ],
+          correct: 1,
+          feedback: "In teacher-centred approaches, the teacher is the main source of knowledge and controls the pace, content, and activities."
+        },
+        {
+          q: "Which of these is a common method used in teacher-centred approaches?",
+          options: [
+            "Inquiry-based learning",
+            "Project-based learning",
+            "Lecture and direct instruction",
+            "Cooperative learning"
+          ],
+          correct: 2,
+          feedback: "Lecture, direct instruction, demonstration, drill and practice, recitation, and textbook-based teaching are common teacher-centred methods."
+        },
+        {
+          q: "What is a key strength of teacher-centred approaches?",
+          options: [
+            "Builds critical thinking and collaboration",
+            "Efficient for delivering large amounts of content in limited time",
+            "Accommodates different learning styles",
+            "Increases student ownership of learning"
+          ],
+          correct: 1,
+          feedback: "Teacher-centred approaches are efficient for delivering large amounts of content in limited time and work well with large classes."
+        },
+        {
+          q: "What is a major limitation of teacher-centred approaches?",
+          options: [
+            "Needs more planning and materials",
+            "Encourages memorisation more than deep understanding",
+            "Harder to manage in large classes",
+            "Depends on students having prior knowledge"
+          ],
+          correct: 1,
+          feedback: "Teacher-centred approaches encourage memorisation more than deep understanding and leave little room for individual differences."
+        },
+        {
+          q: "In a student-centred approach, what is the teacher's role?",
+          options: [
+            "Expert transmitter of knowledge",
+            "Facilitator or guide",
+            "Passive observer",
+            "Grader of final products only"
+          ],
+          correct: 1,
+          feedback: "In student-centred approaches, the teacher acts as a facilitator or guide while students actively construct knowledge."
+        },
+        {
+          q: "Which of these is NOT a student-centred method?",
+          options: [
+            "Inquiry-based learning",
+            "Project-based learning",
+            "Drill and practice",
+            "Cooperative learning"
+          ],
+          correct: 2,
+          feedback: "Drill and practice is a teacher-centred method. Student-centred methods include inquiry, project-based, problem-based, cooperative learning, and more."
+        },
+        {
+          q: "Which theory supports teacher-centred approaches?",
+          options: [
+            "Constructivism",
+            "Humanism",
+            "Behaviourism",
+            "Progressivism"
+          ],
+          correct: 2,
+          feedback: "Behaviourism (Skinner, Pavlov) supports teacher-centred approaches, where learning is shaped through reinforcement and repetition."
+        },
+        {
+          q: "Which theorists are associated with student-centred approaches?",
+          options: [
+            "Skinner and Pavlov",
+            "Piaget, Vygotsky, and Bruner",
+            "Watson and Thorndike",
+            "Bandura and Ebbinghaus"
+          ],
+          correct: 1,
+          feedback: "Student-centred approaches are rooted in constructivism (Piaget, Vygotsky, Bruner) and humanism (Rogers, Dewey)."
+        },
+        {
+          q: "In the comparison table, what is the 'focus' of a student-centred approach?",
+          options: [
+            "Content and curriculum",
+            "Learner needs and process",
+            "Tests and recall of facts",
+            "Quiet and orderly classroom"
+          ],
+          correct: 1,
+          feedback: "Student-centred approaches focus on learner needs and process, while teacher-centred approaches focus on content and curriculum."
+        },
+        {
+          q: "What does the 'balanced view' suggest about effective teaching?",
+          options: [
+            "Teachers should always use only one approach",
+            "Effective teachers move between the two approaches depending on the context",
+            "Teacher-centred is always better",
+            "Student-centred is always better"
+          ],
+          correct: 1,
+          feedback: "Effective teachers move between the two approaches depending on the objective, learners, and context — blending them as needed."
+        }
+      ];
+
+      const crqs = [
+        {
+          q: "Explain the difference between teacher-centred and student-centred approaches in terms of the teacher's and student's roles.",
+          hint: "Think about who controls the learning and who is active in constructing knowledge.",
+          keywords: ["teacher-centred", "teacher centered", "main source", "controls", "receiver", "student-centred", "student centered", "facilitator", "guide", "active", "constructing knowledge"],
+          model: "In teacher-centred approaches, the teacher is the main source of knowledge and controls the pace, content, and activities while students are mostly receivers of information. In student-centred approaches, the teacher acts as a facilitator or guide, and students take an active role in constructing knowledge through inquiry, discussion, and doing."
+        },
+        {
+          q: "List FOUR strengths of student-centred approaches and explain why they matter.",
+          hint: "Think about critical thinking, motivation, learning styles, and depth of understanding.",
+          keywords: ["critical thinking", "problem-solving", "communication", "motivation", "ownership", "learning styles", "paces", "interests", "deeper", "longer-lasting"],
+          model: "Four strengths of student-centred approaches: (1) They build critical thinking, problem-solving, and communication skills. (2) They increase motivation and ownership of learning. (3) They accommodate different learning styles, paces, and interests. (4) They support deeper, longer-lasting understanding. These matter because they prepare students for real-world thinking and make learning more meaningful and personal."
+        },
+        {
+          q: "What are the theoretical roots of teacher-centred and student-centred approaches? Name at least two theorists for each.",
+          hint: "Behaviourism for teacher-centred; constructivism and humanism for student-centred.",
+          keywords: ["behaviourism", "skinner", "pavlov", "reinforcement", "repetition", "constructivism", "piaget", "vygotsky", "bruner", "humanism", "rogers", "dewey", "zone of proximal development"],
+          model: "Teacher-centred approaches are rooted in behaviourism (Skinner, Pavlov), where learning is shaped through reinforcement and repetition. Student-centred approaches are rooted in constructivism (Piaget, Vygotsky, Bruner) and humanism (Rogers, Dewey), where learners build meaning through experience, social interaction, and support within their zone of proximal development."
+        },
+        {
+          q: "Why is a balanced view of teacher-centred and student-centred approaches considered most effective in practice? Give an example.",
+          hint: "Think about how a lesson can combine both approaches depending on the objective.",
+          keywords: ["balanced", "move between", "objective", "learners", "context", "direct explanation", "group task", "project", "consolidation", "gradual shift", "think-pair-share", "large classes"],
+          model: "A balanced view is most effective because no single approach works for every objective, learner group, or context. Effective teachers move between the two — for example, a short direct explanation can set up a group task, and a student-led project can end with teacher-led consolidation. In large or resource-limited classes, a gradual shift (like adding think-pair-share to a lecture) is more realistic than a complete overhaul."
+        }
+      ];
+
+      const erq = {
+        q: `Mr. Khan teaches Grade 9 mathematics in a school with very large classes (45+ students) and limited resources. He currently uses only lecture-based teaching. He has noticed that students are becoming passive, attention drops quickly, and they struggle with problem-solving questions that require deeper thinking.
+
+Based on what you have learned about teacher-centred and student-centred approaches, suggest FOUR practical strategies Mr. Khan could use to gradually shift toward a more balanced approach. For each strategy, explain what he should do and why it would help in his specific context.`,
+        marks: "10 marks",
+        model: `
+          <strong>Model Answer (key points):</strong>
+
+
+          <strong>1. Add Think-Pair-Share to lectures:</strong> Mr. Khan can pause during his lecture and ask students to think individually, discuss with a partner, then share. This is a low-resource, low-risk way to add student-centred elements without losing the structure of his lecture. It directly addresses passive attention and builds communication skills.
+
+
+          <strong>2. Use Short Group Problem-Solving Tasks:</strong> After a direct explanation, he can give small groups one or two problems to solve together. This builds critical thinking and problem-solving skills — exactly what students are struggling with — while still fitting into a lecture-based lesson.
+
+
+          <strong>3. Peer Teaching / Student Expertise:</strong> When some students grasp a concept quickly, Mr. Khan can ask them to help peers who are struggling. This is practical in large classes with limited resources and reinforces learning for both the helper and the helped.
+
+
+          <strong>4. Gradual Introduction of Project-Based Learning:</strong> He can start with one small project per term (e.g., applying math to a real-life budgeting problem) rather than overhauling everything at once. This builds deeper understanding and motivation while being manageable in a large class.
+
+
+          <em>Note: The key idea is a GRADUAL shift — not abandoning teacher-centred methods entirely, but blending in student-centred strategies where they are feasible and effective.</em>
+        `
+      };
+
+      // ================= RENDER MCQs =================
+      const mcqContainer = document.getElementById('mcqContainer');
+      let mcqHtml = '';
+      mcqs.forEach((item, idx) => {
+        const letters = ['A', 'B', 'C', 'D'];
+        let optionsHtml = '';
+        item.options.forEach((opt, oi) => {
+          optionsHtml += `
+            <div class="mcq-option" data-qidx="${idx}" data-oidx="${oi}">
+              <span class="option-letter">${letters[oi]}</span>
+              <span>${opt}</span>
+            </div>
+          `;
+        });
+        mcqHtml += `
+          <div class="mcq-item" id="mcq-${idx}">
+            <div class="mcq-question">${idx + 1}. ${item.q}</div>
+            <div class="mcq-options">${optionsHtml}</div>
+            <div class="mcq-feedback" id="mcq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      mcqContainer.innerHTML = mcqHtml;
+
+      mcqContainer.addEventListener('click', (e) => {
+        const option = e.target.closest('.mcq-option');
+        if (!option) return;
+        const qidx = parseInt(option.dataset.qidx);
+        const oidx = parseInt(option.dataset.oidx);
+        const mcq = mcqs[qidx];
+        const parentItem = document.getElementById(`mcq-${qidx}`);
+        const allOptions = parentItem.querySelectorAll('.mcq-option');
+        const feedbackEl = document.getElementById(`mcq-fb-${qidx}`);
+
+        if (parentItem.dataset.answered === 'correct') return;
+
+        allOptions.forEach(opt => opt.classList.remove('selected', 'correct', 'incorrect'));
+        option.classList.add('selected');
+
+        if (oidx === mcq.correct) {
+          option.classList.add('correct');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '✅ Correct! ' + mcq.feedback;
+          feedbackEl.className = 'mcq-feedback show correct-fb';
+          parentItem.dataset.answered = 'correct';
+        } else {
+          option.classList.add('incorrect');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '❌ Not quite. Try again!';
+          feedbackEl.className = 'mcq-feedback show incorrect-fb';
+          setTimeout(() => {
+            if (feedbackEl.classList.contains('incorrect-fb')) {
+              feedbackEl.classList.remove('show');
+            }
+          }, 1500);
+        }
+      });
+
+      // ================= RENDER CRQs =================
+      const crqContainer = document.getElementById('crqContainer');
+      let crqHtml = '';
+      crqs.forEach((item, idx) => {
+        crqHtml += `
+          <div class="crq-item" id="crq-${idx}">
+            <div class="crq-question">${idx + 1}. ${item.q}</div>
+            <div class="crq-hint">💡 Hint: ${item.hint}</div>
+            <textarea class="crq-textarea" id="crq-ta-${idx}" placeholder="Write your answer here..."></textarea>
+            <div class="crq-actions">
+              <button class="btn btn-primary" data-crq-check="${idx}">Check Answer</button>
+              <button class="btn btn-secondary" data-crq-clear="${idx}">Clear</button>
+            </div>
+            <div class="crq-feedback" id="crq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      crqContainer.innerHTML = crqHtml;
+
+      crqContainer.addEventListener('click', (e) => {
+        const checkBtn = e.target.closest('[data-crq-check]');
+        const clearBtn = e.target.closest('[data-crq-clear]');
+
+        if (checkBtn) {
+          const idx = parseInt(checkBtn.dataset.crqCheck);
+          const textarea = document.getElementById(`crq-ta-${idx}`);
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          const answer = textarea.value.trim().toLowerCase();
+          const crq = crqs[idx];
+
+          if (answer.length < 10) {
+            feedback.textContent = '⚠️ Please write a more complete answer (at least a sentence or two).';
+            feedback.className = 'crq-feedback show partial';
+            return;
+          }
+
+          const matched = crq.keywords.filter(kw => answer.includes(kw));
+          const ratio = matched.length / crq.keywords.length;
+
+          if (ratio >= 0.4) {
+            feedback.innerHTML = `✅ <strong>Good answer!</strong> You covered key ideas.
+
+<em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show good';
+          } else {
+            feedback.innerHTML = `📝 <strong>Partially correct.</strong> You mentioned some ideas. Try to include more key concepts.
+
+<em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show partial';
+          }
+        }
+
+        if (clearBtn) {
+          const idx = parseInt(clearBtn.dataset.crqClear);
+          document.getElementById(`crq-ta-${idx}`).value = '';
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          feedback.className = 'crq-feedback';
+          feedback.textContent = '';
+        }
+      });
+
+      // ================= RENDER ERQ =================
+      const erqContainer = document.getElementById('erqContainer');
+      erqContainer.innerHTML = `
+        <div class="erq-item">
+          <div class="erq-marks">${erq.marks}</div>
+          <div class="erq-question">${erq.q}</div>
+          <textarea class="erq-textarea" id="erq-ta" placeholder="Write your detailed answer here. Describe four strategies with explanations..."></textarea>
+          <div class="erq-actions">
+            <button class="btn btn-primary" id="erqCheck">Check Answer</button>
+            <button class="btn btn-secondary" id="erqClear">Clear</button>
+          </div>
+          <div class="erq-feedback" id="erq-fb"></div>
+        </div>
+      `;
+
+      document.getElementById('erqCheck').addEventListener('click', () => {
+        const ta = document.getElementById('erq-ta');
+        const fb = document.getElementById('erq-fb');
+        const answer = ta.value.trim().toLowerCase();
+
+        if (answer.length < 50) {
+          fb.textContent = '⚠️ Please write a more detailed answer. Describe at least four strategies.';
+          fb.className = 'erq-feedback show partial';
+          return;
+        }
+
+        const strategyKeywords = ['think-pair-share', 'think pair share', 'group work', 'group task', 'peer teaching', 'student expertise', 'project-based', 'project based', 'gradual', 'blend', 'balanced', 'problem-solving', 'discussion'];
+        const found = strategyKeywords.filter(k => answer.includes(k));
+
+        if (found.length >= 2) {
+          fb.innerHTML = `✅ <strong>Excellent effort!</strong> You discussed practical strategies for Mr. Khan's context. Compare your answer with the model below.
+
+<em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show model';
+        } else if (found.length >= 1) {
+          fb.innerHTML = `📝 <strong>Good start!</strong> You mentioned a strategy. Try to describe at least four practical strategies with explanations.
+
+<em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        } else {
+          fb.innerHTML = `⚠️ Make sure to describe four practical strategies Mr. Khan could use to gradually shift toward a balanced approach.
+
+<em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        }
+      });
+
+      document.getElementById('erqClear').addEventListener('click', () => {
+        document.getElementById('erq-ta').value = '';
+        const fb = document.getElementById('erq-fb');
+        fb.className = 'erq-feedback';
+        fb.textContent = '';
+      });
+
+      // ================= QUIZ TABS =================
+      const tabs = document.querySelectorAll('.quiz-tab');
+      const panels = document.querySelectorAll('.quiz-panel');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          panels.forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(tab.dataset.panel).classList.add('active');
+        });
+      });
+
+      // Initial count
+      countDisplay.textContent = allSearchables.length + ' items';
+
+    })();
+  </script>
+</body>
+</html>

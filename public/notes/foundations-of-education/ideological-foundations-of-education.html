@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ideological Foundations of Education · Foundations of Education</title>
+  <style>
+    /* ---------- GLOBAL ---------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+      color: #1e2b3c;
+    }
+    .main-wrapper { max-width: 1100px; width: 100%; }
+
+    /* ---------- HEADER ---------- */
+    .header-card {
+      background: white;
+      border-radius: 2rem 2rem 1.5rem 1.5rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      padding: 2rem 2rem 1.5rem 2rem;
+      margin-bottom: 1.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: transform 0.2s;
+    }
+    .header-card:hover { transform: scale(1.002); }
+    .badge {
+      display: inline-block;
+      background: #2a4b7c;
+      color: #f0f7ff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+      line-height: 1.25;
+    }
+    .subhead {
+      font-size: 1.05rem;
+      color: #2f5277;
+      font-weight: 400;
+      border-left: 5px solid #8bb3e0;
+      padding-left: 1.2rem;
+      margin: 1rem 0 0.2rem 0;
+      font-style: italic;
+    }
+    .intro-text {
+      background: #e6f0fc;
+      padding: 1rem 1.4rem;
+      border-radius: 1.2rem;
+      margin-top: 1.4rem;
+      font-size: 0.98rem;
+      color: #1d3a5c;
+      border-left: 5px solid #3b6ea5;
+    }
+
+    /* ---------- SECTION TITLE ---------- */
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #0e2a47;
+      margin: 2.2rem 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section-title .line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #8bb3e0, transparent);
+      border-radius: 2px;
+    }
+
+    /* ---------- CARDS GRID ---------- */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+    .info-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.4rem 1.4rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      transition: all 0.25s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .info-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, #3f7cb0, #8bb3e0, #b8d4f0);
+      opacity: 0.75;
+      transition: height 0.2s;
+    }
+    .info-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 28px -16px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .info-card:hover::before { height: 10px; opacity: 1; }
+    .card-icon-lg {
+      font-size: 2rem;
+      line-height: 1;
+      background: #e9f0fa;
+      width: 54px;
+      height: 54px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #1b3c61;
+      margin-bottom: 0.8rem;
+      transition: background 0.2s;
+    }
+    .info-card:hover .card-icon-lg { background: #d3e3f8; }
+    .card-title-md {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #0e2a47;
+      letter-spacing: -0.3px;
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+    .card-desc-sm {
+      font-size: 0.93rem;
+      color: #274e73;
+      line-height: 1.6;
+      opacity: 0.94;
+      flex: 1;
+    }
+
+    /* ---------- COMPONENT CARDS ---------- */
+    .component-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.4rem 1.4rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      transition: all 0.25s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .component-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      opacity: 0.85;
+      transition: height 0.2s;
+    }
+    .component-card.core::before { background: linear-gradient(90deg, #2a4b7c, #5a8ec9); }
+    .component-card.identity::before { background: linear-gradient(90deg, #2e7d4f, #6fc98a); }
+    .component-card.moral::before { background: linear-gradient(90deg, #c94f7c, #e88bb0); }
+    .component-card.cohesion::before { background: linear-gradient(90deg, #d4933a, #e8c08b); }
+    .component-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 28px -16px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .component-card:hover::before { height: 10px; }
+    .component-icon {
+      font-size: 2rem;
+      line-height: 1;
+      background: #e9f0fa;
+      width: 54px;
+      height: 54px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #1b3c61;
+      margin-bottom: 0.8rem;
+      transition: background 0.2s;
+    }
+    .component-card:hover .component-icon { background: #d3e3f8; }
+    .component-title {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+    }
+    .component-desc {
+      font-size: 0.92rem;
+      color: #274e73;
+      line-height: 1.55;
+      flex: 1;
+    }
+    .component-example {
+      background: #f6faff;
+      border-radius: 0.9rem;
+      padding: 0.6rem 0.9rem;
+      font-size: 0.85rem;
+      color: #183c5e;
+      border-left: 4px solid #3b7bb5;
+      margin-top: 0.8rem;
+    }
+
+    /* ---------- FUNCTION CARDS ---------- */
+    .function-card {
+      background: white;
+      border-radius: 1.4rem;
+      padding: 1.3rem 1.4rem;
+      box-shadow: 0 8px 18px -10px rgba(20, 40, 70, 0.16);
+      border: 1px solid #e3ecf7;
+      transition: all 0.22s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .function-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(180deg, #3f7cb0, #8bb3e0);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .function-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 24px -14px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .function-card:hover::before { opacity: 1; }
+    .function-name {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #0e2a47;
+      margin-bottom: 0.3rem;
+    }
+    .function-desc {
+      font-size: 0.9rem;
+      color: #274e73;
+      line-height: 1.55;
+    }
+
+    /* ---------- PHILOSOPHY CARDS ---------- */
+    .phil-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.4rem 1.4rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      transition: all 0.25s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .phil-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      opacity: 0.85;
+      transition: height 0.2s;
+    }
+    .phil-card.idealism::before { background: linear-gradient(90deg, #6a4c9c, #b39ddb); }
+    .phil-card.realism::before { background: linear-gradient(90deg, #2e7d4f, #81c784); }
+    .phil-card.pragmatism::before { background: linear-gradient(90deg, #e0a800, #ffd54f); }
+    .phil-card.religious::before { background: linear-gradient(90deg, #1b4670, #5a8ec9); }
+    .phil-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 28px -16px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .phil-card:hover::before { height: 10px; }
+    .phil-icon {
+      font-size: 2rem;
+      line-height: 1;
+      background: #e9f0fa;
+      width: 54px;
+      height: 54px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #1b3c61;
+      margin-bottom: 0.8rem;
+      transition: background 0.2s;
+    }
+    .phil-card:hover .phil-icon { background: #d3e3f8; }
+    .phil-title {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+    }
+    .phil-desc {
+      font-size: 0.92rem;
+      color: #274e73;
+      line-height: 1.55;
+      margin-bottom: 0.6rem;
+    }
+    .phil-focus {
+      display: inline-block;
+      background: #eef4fb;
+      color: #1b4670;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.25rem 0.9rem;
+      border-radius: 30px;
+      border: 1px solid #d0e0f0;
+      margin-top: auto;
+    }
+
+    /* ---------- PAKISTAN CONTEXT ---------- */
+    .pakistan-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.6rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      border: 1px solid #e3ecf7;
+      border-left: 6px solid #1b6e3e;
+      margin-bottom: 0.5rem;
+    }
+    .pakistan-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #0e2a47;
+      margin-bottom: 0.7rem;
+    }
+    .pakistan-card p {
+      font-size: 0.94rem;
+      color: #274e73;
+      line-height: 1.65;
+      margin-bottom: 0.8rem;
+    }
+    .pakistan-card ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .pakistan-card li {
+      padding: 0.4rem 0 0.4rem 1.7rem;
+      position: relative;
+      font-size: 0.91rem;
+      line-height: 1.5;
+      color: #1e3c5a;
+    }
+    .pakistan-card li::before {
+      content: '🇵🇰';
+      position: absolute;
+      left: 0;
+      font-size: 0.85rem;
+    }
+
+    /* ---------- TAKEAWAY ---------- */
+    .takeaway-card {
+      background: #0e2a47;
+      color: white;
+      border-radius: 1.6rem;
+      padding: 1.6rem 2rem;
+      margin: 1.2rem 0 0.5rem 0;
+      font-size: 1rem;
+      line-height: 1.65;
+      box-shadow: 0 14px 26px -12px #0e2a47;
+      border-left: 6px solid #8bb3e0;
+    }
+    .takeaway-card strong { color: #b8d4f0; }
+
+    /* ---------- SEARCH & COUNT ---------- */
+    .filter-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 60px;
+      box-shadow: 0 8px 18px -8px rgba(0, 27, 45, 0.1);
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 40px;
+      padding: 0.3rem 0.3rem 0.3rem 1.2rem;
+      flex: 2;
+      min-width: 240px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      border: 1px solid #ccdcee;
+    }
+    .search-box span { font-size: 1.1rem; margin-right: 0.5rem; color: #4e6b8a; }
+    .search-box input {
+      border: none;
+      padding: 0.7rem 0.2rem;
+      width: 100%;
+      font-size: 0.95rem;
+      outline: none;
+      background: transparent;
+      color: #0c253b;
+    }
+    .search-box input::placeholder { color: #879eb6; font-weight: 300; }
+    .count-pill {
+      background: #0e2a47;
+      color: white;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ---------- QUIZ SECTION ---------- */
+    .quiz-section { margin-top: 2.5rem; }
+    .quiz-header {
+      background: #0e2a47;
+      border-radius: 2rem 2rem 0 0;
+      padding: 1.5rem 2rem;
+      color: white;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .quiz-header h2 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.3px; }
+    .quiz-header .quiz-badge {
+      background: #8bb3e0;
+      color: #0e2a47;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .quiz-body {
+      background: white;
+      border-radius: 0 0 2rem 2rem;
+      padding: 2rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      border: 1px solid #e3ecf7;
+      border-top: none;
+    }
+    .quiz-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #e3ecf7;
+      padding-bottom: 1rem;
+    }
+    .quiz-tab {
+      background: #f0f5fd;
+      border: 1px solid #d0e0f0;
+      color: #1b4670;
+      padding: 0.5rem 1.3rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .quiz-tab:hover { background: #e0ecfc; border-color: #a0c0e0; }
+    .quiz-tab.active { background: #0e2a47; color: white; border-color: #0e2a47; }
+    .quiz-panel { display: none; }
+    .quiz-panel.active { display: block; }
+    .section-label {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.2rem;
+    }
+
+    /* MCQ */
+    .mcq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+      transition: background 0.2s;
+    }
+    .mcq-item:hover { background: #f0f7fe; }
+    .mcq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.8rem;
+      line-height: 1.5;
+    }
+    .mcq-options { display: flex; flex-direction: column; gap: 0.5rem; }
+    .mcq-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 0.8rem;
+      background: white;
+      border: 1.5px solid #d9e8fc;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+    }
+    .mcq-option:hover { border-color: #8bb3e0; background: #eef6ff; }
+    .mcq-option.selected { border-color: #3b7bb5; background: #e4f0fe; font-weight: 500; }
+    .mcq-option.correct { border-color: #2e9b5e; background: #e6f7ee; font-weight: 600; }
+    .mcq-option.incorrect { border-color: #d45a5a; background: #fdeaea; font-weight: 500; }
+    .mcq-option .option-letter {
+      font-weight: 700;
+      color: #2a4b7c;
+      min-width: 1.4rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .mcq-option.correct .option-letter { color: #1b7a44; }
+    .mcq-option.incorrect .option-letter { color: #b03030; }
+    .mcq-feedback {
+      margin-top: 0.7rem;
+      font-size: 0.88rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: 0.8rem;
+      display: none;
+      font-weight: 500;
+    }
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.correct-fb {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .mcq-feedback.incorrect-fb {
+      background: #fdeaea;
+      color: #9e2a2a;
+      border-left: 4px solid #d45a5a;
+    }
+
+    /* CRQ / ERQ shared */
+    .crq-item, .erq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+    }
+    .erq-item { border: 2px solid #8bb3e0; background: #f5faff; }
+    .crq-question, .erq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+    .erq-question { font-size: 1.05rem; font-weight: 700; }
+    .erq-marks {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      margin-bottom: 0.8rem;
+    }
+    .crq-hint {
+      font-size: 0.85rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-bottom: 0.7rem;
+    }
+    .crq-textarea, .erq-textarea {
+      width: 100%;
+      border: 1.5px solid #d9e8fc;
+      border-radius: 0.9rem;
+      padding: 0.8rem 1rem;
+      font-family: inherit;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+      resize: vertical;
+      transition: border-color 0.2s;
+      background: white;
+    }
+    .crq-textarea { min-height: 90px; }
+    .erq-textarea { min-height: 160px; }
+    .crq-textarea:focus, .erq-textarea:focus {
+      outline: none;
+      border-color: #3b7bb5;
+      box-shadow: 0 0 0 3px rgba(59, 123, 181, 0.12);
+    }
+    .crq-actions, .erq-actions {
+      display: flex;
+      gap: 0.7rem;
+      margin-top: 0.7rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 0.55rem 1.4rem;
+      border-radius: 40px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      font-family: inherit;
+    }
+    .btn-primary { background: #0e2a47; color: white; }
+    .btn-primary:hover { background: #1a4170; transform: translateY(-1px); }
+    .btn-secondary { background: #e9f0fa; color: #1b4670; border: 1px solid #c0d8f0; }
+    .btn-secondary:hover { background: #d8e6f8; }
+    .crq-feedback, .erq-feedback {
+      margin-top: 0.8rem;
+      padding: 0.8rem 1rem;
+      border-radius: 0.9rem;
+      font-size: 0.9rem;
+      display: none;
+      line-height: 1.6;
+    }
+    .crq-feedback.show, .erq-feedback.show { display: block; }
+    .crq-feedback.good, .erq-feedback.good {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .crq-feedback.partial, .erq-feedback.partial {
+      background: #fff8e6;
+      color: #8a6d1f;
+      border-left: 4px solid #e0a800;
+    }
+    .erq-feedback.model {
+      background: #e6f0fc;
+      color: #1a3e62;
+      border-left: 5px solid #3b7bb5;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 600px) {
+      .header-card { padding: 1.5rem 1.2rem; }
+      h1 { font-size: 1.7rem; }
+      .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: 2rem;
+        padding: 1rem;
+      }
+      .search-box { width: 100%; }
+      .count-pill { text-align: center; padding: 0.5rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .quiz-body { padding: 1.2rem; }
+      .quiz-header { padding: 1.2rem; }
+      .quiz-header h2 { font-size: 1.3rem; }
+      .mcq-item, .crq-item, .erq-item { padding: 1rem; }
+      .quiz-tab { font-size: 0.8rem; padding: 0.4rem 1rem; }
+      .takeaway-card { padding: 1.3rem 1.2rem; }
+      .pakistan-card { padding: 1.2rem 1.2rem; }
+    }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #dfe9f5; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: #94b0d1; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6d8fb4; }
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem 1rem;
+      background: #ffffffc9;
+      border-radius: 2rem;
+      font-size: 1.1rem;
+      color: #4b6888;
+      border: 2px dashed #b8cee8;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-wrapper">
+
+    <!-- HEADER -->
+    <div class="header-card">
+      <div class="badge">🏛️ Foundations of Education</div>
+      <h1>Ideological Foundations of Education</h1>
+      <div class="subhead">The compass that directs individual growth and national progress</div>
+      <div class="intro-text">
+        <strong>💡 Why it's the primary pillar:</strong> The ideological foundation determines the vision, ethos, values, and ultimate purpose of education in a society. It aligns educational practice with the community's core beliefs and philosophy. Without it, an educational system lacks direction, purpose, and cultural relevance.
+      </div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="filter-section">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="Search components, functions, philosophies, Pakistan context..." autocomplete="off">
+      </div>
+      <div class="count-pill" id="countDisplay">25+ items</div>
+    </div>
+
+    <!-- KEY COMPONENTS -->
+    <div class="section-title">
+      🧩 Core Components &amp; Themes
+      <span class="line"></span>
+    </div>
+
+    <div class="cards-grid" id="componentsGrid">
+      <div class="component-card core" data-searchable="core belief system religious ethical philosophical cultural values guide human life social structure">
+        <div class="component-icon">🧭</div>
+        <div class="component-title">Core Belief System</div>
+        <div class="component-desc">
+          Incorporates religious, ethical, philosophical, and cultural values that guide human life and social structure. This is the deepest layer — what a society believes about truth, right and wrong, and human purpose.
+        </div>
+        <div class="component-example"><strong>Example:</strong> An Islamic society prioritizes Tawhid (Oneness of God) and moral accountability in its curriculum.</div>
+      </div>
+      <div class="component-card identity" data-searchable="national identity patriotism unity civic responsibility respect cultural heritage">
+        <div class="component-icon">🏳️</div>
+        <div class="component-title">National Identity</div>
+        <div class="component-desc">
+          Fosters patriotism, unity, civic responsibility, and respect for cultural heritage. Education becomes a tool for building a shared sense of belonging and pride in the nation's story.
+        </div>
+        <div class="component-example"><strong>Example:</strong> Teaching the Pakistan Movement and the ideology of Pakistan in history classes.</div>
+      </div>
+      <div class="component-card moral" data-searchable="moral ethical character shaping individual personality moral discernment integrity self-discipline">
+        <div class="component-icon">💎</div>
+        <div class="component-title">Moral &amp; Ethical Character</div>
+        <div class="component-desc">
+          Focuses on shaping individual personality, moral discernment, integrity, and self-discipline. The goal is not just knowing what is right, but consistently doing it.
+        </div>
+        <div class="component-example"><strong>Example:</strong> Character education programs that emphasize honesty, responsibility, and respect for others.</div>
+      </div>
+      <div class="component-card cohesion" data-searchable="social cohesion social justice tolerance equality mutual respect diverse groups">
+        <div class="component-icon">🤝</div>
+        <div class="component-title">Social Cohesion</div>
+        <div class="component-desc">
+          Promotes social justice, tolerance, equality, and mutual respect among diverse groups. Education becomes a bridge between communities rather than a wall.
+        </div>
+        <div class="component-example"><strong>Example:</strong> Inclusive curricula that represent different ethnic and religious communities within the nation.</div>
+      </div>
+    </div>
+
+    <!-- FUNCTIONS -->
+    <div class="section-title">
+      ⚙️ Main Functions of Ideological Foundations
+      <span class="line"></span>
+    </div>
+
+    <div class="cards-grid" id="functionsGrid">
+      <div class="function-card" data-searchable="goal setting defines overarching aims education system character building civic duty spiritual development">
+        <div class="function-name">🎯 Goal Setting</div>
+        <div class="function-desc">Defines the overarching aims of the education system — e.g., character building, civic duty, spiritual development. It answers the question: <em>"What kind of person are we trying to create?"</em></div>
+      </div>
+      <div class="function-card" data-searchable="curriculum design determines subjects historical narratives literature value-based content prioritized">
+        <div class="function-name">📚 Curriculum Design</div>
+        <div class="function-desc">Determines what subjects, historical narratives, literature, and value-based content are prioritized. The curriculum is never neutral — it reflects what a society considers important and true.</div>
+      </div>
+      <div class="function-card" data-searchable="teaching methodology guides pedagogical approaches instill discipline critical thinking moral reflections">
+        <div class="function-name">🧑‍🏫 Teaching Methodology</div>
+        <div class="function-desc">Guides pedagogical approaches to instill discipline, critical thinking, or moral reflection. An ideology that values obedience will favor different methods than one that values questioning.</div>
+      </div>
+      <div class="function-card" data-searchable="policy formulation benchmark educational reforms standards national goals">
+        <div class="function-name">📜 Policy Formulation</div>
+        <div class="function-desc">Serves as the benchmark for educational reforms, standards, and national goals. Policies translate ideology into action — from teacher standards to textbook approval.</div>
+      </div>
+    </div>
+
+    <!-- PHILOSOPHICAL STREAMS -->
+    <div class="section-title">
+      🧠 Major Philosophical &amp; Ideological Streams
+      <span class="line"></span>
+    </div>
+
+    <div class="cards-grid" id="philosophyGrid">
+      <div class="phil-card idealism" data-searchable="idealism spiritual moral intellectual development truth beauty goodness">
+        <div class="phil-icon">✨</div>
+        <div class="phil-title">Idealism</div>
+        <div class="phil-desc">Emphasizes spiritual, moral, and intellectual development through truth, beauty, and goodness. Reality is seen as mental or spiritual, and education's goal is to draw the learner toward universal ideals.</div>
+        <div class="phil-focus">Focus: Truth · Beauty · Goodness</div>
+      </div>
+      <div class="phil-card realism" data-searchable="realism objective truth empirical knowledge scientific inquiry practical understanding physical world">
+        <div class="phil-icon">🔬</div>
+        <div class="phil-title">Realism</div>
+        <div class="phil-desc">Focuses on objective truth, empirical knowledge, scientific inquiry, and practical understanding of the physical world. Knowledge comes from observation and verification, not just abstract thought.</div>
+        <div class="phil-focus">Focus: Observation · Evidence · Science</div>
+      </div>
+      <div class="phil-card pragmatism" data-searchable="pragmatism progressivism learning by doing adaptability problem-solving democratically oriented education">
+        <div class="phil-icon">🔧</div>
+        <div class="phil-title">Pragmatism / Progressivism</div>
+        <div class="phil-desc">Focuses on learning by doing, adaptability, problem-solving, and democratically oriented education. Truth is tested by its practical consequences — what works in real life.</div>
+        <div class="phil-focus">Focus: Doing · Adapting · Solving</div>
+      </div>
+      <div class="phil-card religious" data-searchable="religious cultural ideologies holistic development sacred texts spiritual values historical continuity islamic christian eastern">
+        <div class="phil-icon">🕌</div>
+        <div class="phil-title">Religious / Cultural Ideologies</div>
+        <div class="phil-desc">Focuses on holistic development guided by sacred texts, spiritual values, and historical continuity (e.g., Islamic, Christian, or Eastern educational frameworks). The ultimate aim is often spiritual and moral formation.</div>
+        <div class="phil-focus">Focus: Faith · Values · Continuity</div>
+      </div>
+    </div>
+
+    <!-- PAKISTAN CONTEXT -->
+    <div class="section-title">
+      🇵🇰 Ideological Foundations in the Pakistani Context
+      <span class="line"></span>
+    </div>
+
+    <div class="pakistan-card" data-searchable="pakistan islamic ideology national education policy 1979 2009 islamization quran sunnah pakistan movement ideological identity ummah character building">
+      <h3>How Ideology Shapes Education in Pakistan</h3>
+      <p>
+        In Pakistan, the ideological foundation of education is explicitly rooted in <strong>Islamic ideology</strong> and the <strong>ideology of Pakistan</strong>. This has been a consistent feature of national education policies since the country's founding and was particularly emphasized in the National Education Policy of 1979, which laid stress on fostering loyalty to Islam and understanding the Pakistan Movement's ideological foundations [citation:7][citation:11].
+      </p>
+      <ul>
+        <li><strong>Islamic Ideology:</strong> Education aims to develop character, conduct, and motivation in accordance with the Quran and Sunnah [citation:7].</li>
+        <li><strong>National Identity:</strong> Fostering a deep and abiding loyalty to Pakistan and a consciousness of spiritual and ideological identity [citation:7].</li>
+        <li><strong>Universal Ummah:</strong> Creating awareness that Pakistani students are part of the universal Muslim Ummah and should contribute to its welfare [citation:7].</li>
+        <li><strong>Pakistan Movement:</strong> Producing citizens fully conversant with the Pakistan Movement, its ideological foundations, history, and culture [citation:7].</li>
+        <li><strong>Curriculum Review:</strong> Mechanisms have been established to review curricula and textbooks to ensure they promote national cohesiveness, integration, and Islamic ideology [citation:7].</li>
+        <li><strong>Moral &amp; Social Values:</strong> Textbooks emphasize virtues like tolerance, charity, and acceptance of non-Muslims, often through stories from the life of Prophet Muhammad and early Muslim rulers [citation:4].</li>
+      </ul>
+    </div>
+
+    <!-- KEY TAKEAWAY -->
+    <div class="takeaway-card">
+      <strong>🔑 Key Takeaway:</strong> Without a strong ideological foundation, an educational system lacks direction, purpose, and cultural relevance. It acts as the <strong>compass</strong> that directs both individual growth and national progress. The ideology is not just taught — it shapes <em>what</em> is taught, <em>how</em> it is taught, and <em>why</em> it is taught.
+    </div>
+
+    <!-- ================= QUIZ SECTION ================= -->
+    <div class="quiz-section">
+      <div class="quiz-header">
+        <h2>📝 Practice Quiz</h2>
+        <span class="quiz-badge">Test Your Knowledge</span>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-tabs">
+          <button class="quiz-tab active" data-panel="mcqPanel">🔘 10 MCQs</button>
+          <button class="quiz-tab" data-panel="crqPanel">✍️ 4 CRQs</button>
+          <button class="quiz-tab" data-panel="erqPanel">📄 1 ERQ</button>
+        </div>
+
+        <div class="quiz-panel active" id="mcqPanel">
+          <span class="section-label">Multiple Choice Questions</span>
+          <div id="mcqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="crqPanel">
+          <span class="section-label">Constructed Response Questions</span>
+          <div id="crqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="erqPanel">
+          <span class="section-label">Extended Response Question (Situation-Based)</span>
+          <div id="erqContainer"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      // ================= SEARCH FILTER =================
+      const searchInput = document.getElementById('searchInput');
+      const countDisplay = document.getElementById('countDisplay');
+      const allSearchables = document.querySelectorAll('[data-searchable]');
+      const cardParents = new Map();
+      allSearchables.forEach(card => cardParents.set(card, card.parentNode));
+
+      function applySearch(query) {
+        const q = query.trim().toLowerCase();
+        let visibleCount = 0;
+        allSearchables.forEach(card => {
+          const searchText = (card.dataset.searchable || '').toLowerCase() + ' ' + card.textContent.toLowerCase();
+          const matches = q === '' || searchText.includes(q);
+          if (matches) {
+            visibleCount++;
+            if (!card.parentNode) cardParents.get(card).appendChild(card);
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        countDisplay.textContent = visibleCount + ' item' + (visibleCount !== 1 ? 's' : '');
+      }
+
+      let debounceTimer;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => applySearch(e.target.value), 180);
+      });
+      searchInput.addEventListener('search', (e) => { if (e.target.value === '') applySearch(''); });
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchInput.value !== '') { searchInput.value = ''; applySearch(''); }
+      });
+
+      // ================= QUIZ DATA =================
+      const mcqs = [
+        {
+          q: "Why is the ideological foundation considered the primary pillar of any educational system?",
+          options: [
+            "It determines the budget of schools",
+            "It determines the vision, ethos, values, and ultimate purpose of education",
+            "It decides the number of teachers hired",
+            "It replaces the need for a curriculum"
+          ],
+          correct: 1,
+          feedback: "The ideological foundation determines the vision, ethos, values, and ultimate purpose of education, aligning practice with the community's core beliefs."
+        },
+        {
+          q: "Which component of ideological foundations fosters patriotism, unity, and respect for cultural heritage?",
+          options: ["Core Belief System", "National Identity", "Moral & Ethical Character", "Social Cohesion"],
+          correct: 1,
+          feedback: "National Identity fosters patriotism, unity, civic responsibility, and respect for cultural heritage."
+        },
+        {
+          q: "Which function of ideological foundations determines what subjects and historical narratives are prioritized?",
+          options: ["Goal Setting", "Curriculum Design", "Teaching Methodology", "Policy Formulation"],
+          correct: 1,
+          feedback: "Curriculum Design determines what subjects, historical narratives, literature, and value-based content are prioritized."
+        },
+        {
+          q: "Which philosophical stream emphasizes spiritual, moral, and intellectual development through truth, beauty, and goodness?",
+          options: ["Realism", "Pragmatism", "Idealism", "Progressivism"],
+          correct: 2,
+          feedback: "Idealism emphasizes spiritual, moral, and intellectual development through truth, beauty, and goodness."
+        },
+        {
+          q: "Which philosophy focuses on learning by doing, adaptability, and problem-solving?",
+          options: ["Idealism", "Realism", "Pragmatism / Progressivism", "Religious Ideology"],
+          correct: 2,
+          feedback: "Pragmatism/Progressivism focuses on learning by doing, adaptability, problem-solving, and democratically oriented education."
+        },
+        {
+          q: "Realism in education primarily emphasizes:",
+          options: [
+            "Sacred texts and spiritual values",
+            "Objective truth, empirical knowledge, and scientific inquiry",
+            "Learning by doing and problem-solving",
+            "Truth, beauty, and goodness"
+          ],
+          correct: 1,
+          feedback: "Realism focuses on objective truth, empirical knowledge, scientific inquiry, and practical understanding of the physical world."
+        },
+        {
+          q: "In the Pakistani context, what has been a consistent ideological foundation of education since the country's founding?",
+          options: [
+            "Pure pragmatism",
+            "Islamic ideology and the ideology of Pakistan",
+            "Western secularism",
+            "Exclusive focus on realism"
+          ],
+          correct: 1,
+          feedback: "In Pakistan, education has been explicitly rooted in Islamic ideology and the ideology of Pakistan, particularly emphasized in the National Education Policy of 1979."
+        },
+        {
+          q: "According to the 1979 National Education Policy, one aim of education in Pakistan is to create awareness that students are part of:",
+          options: [
+            "A global secular community",
+            "The universal Muslim Ummah",
+            "A purely provincial identity",
+            "A Western educational tradition"
+          ],
+          correct: 1,
+          feedback: "The policy aimed to create awareness that Pakistani students are part of the universal Muslim Ummah and should contribute to its welfare."
+        },
+        {
+          q: "Which of the following is a function of ideological foundations?",
+          options: [
+            "Deciding school timings",
+            "Guiding pedagogical approaches to instill discipline or moral reflection",
+            "Hiring non-teaching staff",
+            "Choosing the color of school uniforms"
+          ],
+          correct: 1,
+          feedback: "Teaching Methodology is a function of ideological foundations — it guides pedagogical approaches to instill discipline, critical thinking, or moral reflection."
+        },
+        {
+          q: "What happens to an educational system without a strong ideological foundation?",
+          options: [
+            "It becomes more efficient",
+            "It lacks direction, purpose, and cultural relevance",
+            "It automatically becomes more innovative",
+            "It no longer needs teachers"
+          ],
+          correct: 1,
+          feedback: "Without a strong ideological foundation, an educational system lacks direction, purpose, and cultural relevance."
+        }
+      ];
+
+      const crqs = [
+        {
+          q: "Explain the four core components of ideological foundations of education and why each matters.",
+          hint: "Core Belief System, National Identity, Moral & Ethical Character, Social Cohesion.",
+          keywords: ["core belief", "religious", "ethical", "national identity", "patriotism", "moral", "character", "integrity", "social cohesion", "tolerance", "respect"],
+          model: "The four components are: (1) Core Belief System — religious, ethical, and cultural values that guide life; it shapes the deepest assumptions of the curriculum. (2) National Identity — fosters patriotism, unity, and respect for heritage; it builds shared belonging. (3) Moral & Ethical Character — shapes personality, integrity, and self-discipline; it aims at consistent right action. (4) Social Cohesion — promotes justice, tolerance, and mutual respect; it builds bridges between diverse groups."
+        },
+        {
+          q: "Describe the four main functions of ideological foundations in education.",
+          hint: "Goal Setting, Curriculum Design, Teaching Methodology, Policy Formulation.",
+          keywords: ["goal setting", "aims", "character", "civic", "curriculum design", "subjects", "narratives", "teaching methodology", "pedagogical", "discipline", "policy formulation", "reforms", "standards"],
+          model: "The four functions are: (1) Goal Setting — defines overarching aims such as character building and civic duty. (2) Curriculum Design — determines what subjects, historical narratives, and values are prioritized. (3) Teaching Methodology — guides pedagogical approaches to instill discipline, critical thinking, or moral reflection. (4) Policy Formulation — serves as the benchmark for reforms, standards, and national goals."
+        },
+        {
+          q: "Compare Idealism and Realism as philosophical streams of educational ideology.",
+          hint: "Focus on what each considers real and how that shapes education.",
+          keywords: ["idealism", "spiritual", "moral", "intellectual", "truth", "beauty", "goodness", "realism", "objective", "empirical", "scientific", "observation", "physical world"],
+          model: "Idealism emphasizes spiritual, moral, and intellectual development, seeking truth, beauty, and goodness; reality is seen as mental or spiritual. Realism focuses on objective truth, empirical knowledge, scientific inquiry, and the physical world; knowledge comes from observation and verification. Idealism leans toward values and ideals, while Realism leans toward evidence and the observable world."
+        },
+        {
+          q: "Explain how the ideological foundation of education in Pakistan has been shaped by Islamic ideology and the Pakistan Movement.",
+          hint: "Think about national education policies, curriculum review, and the concept of Ummah.",
+          keywords: ["islamic ideology", "pakistan movement", "national education policy", "1979", "quran", "sunnah", "character", "ummah", "curriculum review", "textbooks", "national cohesiveness"],
+          model: "In Pakistan, the ideological foundation has been explicitly rooted in Islamic ideology and the ideology of Pakistan. The 1979 National Education Policy emphasized fostering loyalty to Islam, developing character in accordance with the Quran and Sunnah, creating awareness of the universal Muslim Ummah, and producing citizens conversant with the Pakistan Movement. Mechanisms were established to review curricula and textbooks to ensure they promote national cohesiveness, integration, and Islamic ideology. Textbooks also emphasize virtues like tolerance and acceptance of non-Muslims through stories from Islamic history."
+        }
+      ];
+
+      const erq = {
+        q: `A newly established private school in Pakistan is designing its curriculum and philosophy. The school owner wants to create an "ideologically grounded" education but is unsure what that means in practice. She asks you, as an education consultant, to explain how the ideological foundation should shape the school's goals, curriculum, and teaching methods.
+
+Explain what an ideological foundation is and describe THREE specific ways it should influence the school's decisions (goals, curriculum, teaching methods, or policy). For each way, explain why it matters.`,
+        marks: "10 marks",
+        model: `
+          <strong>Model Answer (key points):</strong>
+
+
+          <strong>What it is:</strong> The ideological foundation is the set of core beliefs, values, and philosophy that determines the vision, ethos, and ultimate purpose of education. It acts as a compass for all educational decisions.
+
+
+          <strong>1. Goal Setting:</strong> The school should define its overarching aims — for example, character building, civic responsibility, and spiritual development rooted in Islamic values. This matters because goals determine what kind of person the school is trying to create, not just what grades students achieve.
+
+
+          <strong>2. Curriculum Design:</strong> The school should prioritize subjects, historical narratives, and literature that reflect its ideological commitments — for example, including the Pakistan Movement and Islamic ethical values. This matters because the curriculum is never neutral; it shapes what students consider important and true.
+
+
+          <strong>3. Teaching Methodology:</strong> The school should choose pedagogical approaches that align with its ideology — for example, if it values moral reflection, it should use discussion and storytelling; if it values discipline and structure, it may use more direct instruction. This matters because methods shape not just knowledge but character and habits.
+
+
+          <em>Note: Policy Formulation is also valid — the school should ensure that its rules, teacher standards, and assessment practices align with its stated ideology.</em>
+        `
+      };
+
+      // ================= RENDER MCQs =================
+      const mcqContainer = document.getElementById('mcqContainer');
+      let mcqHtml = '';
+      mcqs.forEach((item, idx) => {
+        const letters = ['A', 'B', 'C', 'D'];
+        let optionsHtml = '';
+        item.options.forEach((opt, oi) => {
+          optionsHtml += `
+            <div class="mcq-option" data-qidx="${idx}" data-oidx="${oi}">
+              <span class="option-letter">${letters[oi]}</span>
+              <span>${opt}</span>
+            </div>
+          `;
+        });
+        mcqHtml += `
+          <div class="mcq-item" id="mcq-${idx}">
+            <div class="mcq-question">${idx + 1}. ${item.q}</div>
+            <div class="mcq-options">${optionsHtml}</div>
+            <div class="mcq-feedback" id="mcq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      mcqContainer.innerHTML = mcqHtml;
+
+      mcqContainer.addEventListener('click', (e) => {
+        const option = e.target.closest('.mcq-option');
+        if (!option) return;
+        const qidx = parseInt(option.dataset.qidx);
+        const oidx = parseInt(option.dataset.oidx);
+        const mcq = mcqs[qidx];
+        const parentItem = document.getElementById(`mcq-${qidx}`);
+        const allOptions = parentItem.querySelectorAll('.mcq-option');
+        const feedbackEl = document.getElementById(`mcq-fb-${qidx}`);
+        if (parentItem.dataset.answered === 'correct') return;
+        allOptions.forEach(opt => opt.classList.remove('selected', 'correct', 'incorrect'));
+        option.classList.add('selected');
+        if (oidx === mcq.correct) {
+          option.classList.add('correct');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '✅ Correct! ' + mcq.feedback;
+          feedbackEl.className = 'mcq-feedback show correct-fb';
+          parentItem.dataset.answered = 'correct';
+        } else {
+          option.classList.add('incorrect');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '❌ Not quite. Try again!';
+          feedbackEl.className = 'mcq-feedback show incorrect-fb';
+          setTimeout(() => {
+            if (feedbackEl.classList.contains('incorrect-fb')) {
+              feedbackEl.classList.remove('show');
+            }
+          }, 1500);
+        }
+      });
+
+      // ================= RENDER CRQs =================
+      const crqContainer = document.getElementById('crqContainer');
+      let crqHtml = '';
+      crqs.forEach((item, idx) => {
+        crqHtml += `
+          <div class="crq-item" id="crq-${idx}">
+            <div class="crq-question">${idx + 1}. ${item.q}</div>
+            <div class="crq-hint">💡 Hint: ${item.hint}</div>
+            <textarea class="crq-textarea" id="crq-ta-${idx}" placeholder="Write your answer here..."></textarea>
+            <div class="crq-actions">
+              <button class="btn btn-primary" data-crq-check="${idx}">Check Answer</button>
+              <button class="btn btn-secondary" data-crq-clear="${idx}">Clear</button>
+            </div>
+            <div class="crq-feedback" id="crq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      crqContainer.innerHTML = crqHtml;
+
+      crqContainer.addEventListener('click', (e) => {
+        const checkBtn = e.target.closest('[data-crq-check]');
+        const clearBtn = e.target.closest('[data-crq-clear]');
+        if (checkBtn) {
+          const idx = parseInt(checkBtn.dataset.crqCheck);
+          const textarea = document.getElementById(`crq-ta-${idx}`);
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          const answer = textarea.value.trim().toLowerCase();
+          const crq = crqs[idx];
+          if (answer.length < 10) {
+            feedback.textContent = '⚠️ Please write a more complete answer (at least a sentence or two).';
+            feedback.className = 'crq-feedback show partial';
+            return;
+          }
+          const matched = crq.keywords.filter(kw => answer.includes(kw));
+          const ratio = matched.length / crq.keywords.length;
+          if (ratio >= 0.35) {
+            feedback.innerHTML = `✅ <strong>Good answer!</strong> You covered key ideas.
+
+<em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show good';
+          } else {
+            feedback.innerHTML = `📝 <strong>Partially correct.</strong> You mentioned some ideas. Try to include more key concepts.
+
+<em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show partial';
+          }
+        }
+        if (clearBtn) {
+          const idx = parseInt(clearBtn.dataset.crqClear);
+          document.getElementById(`crq-ta-${idx}`).value = '';
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          feedback.className = 'crq-feedback';
+          feedback.textContent = '';
+        }
+      });
+
+      // ================= RENDER ERQ =================
+      const erqContainer = document.getElementById('erqContainer');
+      erqContainer.innerHTML = `
+        <div class="erq-item">
+          <div class="erq-marks">${erq.marks}</div>
+          <div class="erq-question">${erq.q}</div>
+          <textarea class="erq-textarea" id="erq-ta" placeholder="Write your detailed answer here. Explain what an ideological foundation is and describe three ways it should influence the school..."></textarea>
+          <div class="erq-actions">
+            <button class="btn btn-primary" id="erqCheck">Check Answer</button>
+            <button class="btn btn-secondary" id="erqClear">Clear</button>
+          </div>
+          <div class="erq-feedback" id="erq-fb"></div>
+        </div>
+      `;
+
+      document.getElementById('erqCheck').addEventListener('click', () => {
+        const ta = document.getElementById('erq-ta');
+        const fb = document.getElementById('erq-fb');
+        const answer = ta.value.trim().toLowerCase();
+        if (answer.length < 50) {
+          fb.textContent = '⚠️ Please write a more detailed answer. Explain what it is and describe at least three ways it influences the school.';
+          fb.className = 'erq-feedback show partial';
+          return;
+        }
+        const keywords = ['goal', 'aim', 'curriculum', 'subject', 'teaching', 'method', 'pedagogy', 'policy', 'character', 'values', 'islamic', 'national'];
+        const found = keywords.filter(k => answer.includes(k));
+        if (found.length >= 3) {
+          fb.innerHTML = `✅ <strong>Excellent effort!</strong> You explained the concept and its practical implications. Compare your answer with the model below.
+
+<em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show model';
+        } else if (found.length >= 1) {
+          fb.innerHTML = `📝 <strong>Good start!</strong> Try to describe at least three specific ways the ideological foundation should influence the school's decisions.
+
+<em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        } else {
+          fb.innerHTML = `⚠️ Make sure to explain what an ideological foundation is and describe three specific ways it should influence the school.
+
+<em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        }
+      });
+
+      document.getElementById('erqClear').addEventListener('click', () => {
+        document.getElementById('erq-ta').value = '';
+        const fb = document.getElementById('erq-fb');
+        fb.className = 'erq-feedback';
+        fb.textContent = '';
+      });
+
+      // ================= QUIZ TABS =================
+      const tabs = document.querySelectorAll('.quiz-tab');
+      const panels = document.querySelectorAll('.quiz-panel');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          panels.forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(tab.dataset.panel).classList.add('active');
+        });
+      });
+
+      // Initial count
+      countDisplay.textContent = allSearchables.length + ' items';
+    })();
+  </script>
+</body>
+</html>

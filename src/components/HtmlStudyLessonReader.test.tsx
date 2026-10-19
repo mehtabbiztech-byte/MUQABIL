@@ -6,43 +6,91 @@ import path from 'node:path';
 import { Script } from 'node:vm';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { HtmlStudyLessonReader } from './HtmlStudyLessonReader';
+import { FOUNDATIONS_OF_EDUCATION_LESSONS, FOUNDATIONS_OF_EDUCATION_SUBJECT } from '../data/foundationsOfEducationNotes';
 import { METHODS_OF_TEACHING_LESSONS, METHODS_OF_TEACHING_SUBJECT } from '../data/methodsOfTeachingNotes';
 import { STUDY_CURRICULUM } from '../data/studyNotesData';
 
 const documents = [
   {
     lessonId: 'methods-instructional-approaches',
-    file: 'instructional-approaches-and-strategies.html',
+    path: 'notes/methods-of-teaching/instructional-approaches-and-strategies.html',
     heading: 'Instructional approaches & strategies',
     grids: ['methodsGrid'],
     crqs: 5,
   },
   {
     lessonId: 'methods-effective-questioning',
-    file: 'effective-questioning-strategies.html',
+    path: 'notes/methods-of-teaching/effective-questioning-strategies.html',
     heading: 'Effective Questioning Strategies in Teaching',
     grids: ['typesGrid', 'strategiesGrid'],
     crqs: 4,
   },
+  {
+    lessonId: 'methods-teacher-student-centred',
+    path: 'notes/methods-of-teaching/teacher-centred-and-student-centred-approaches.html',
+    heading: 'Teacher-centred &amp; Student-centred Approaches',
+    grids: ['approachGrid', 'theoryGrid'],
+    crqs: 4,
+  },
+  {
+    lessonId: 'methods-blooms-taxonomy',
+    path: 'notes/methods-of-teaching/blooms-taxonomy-of-educational-objectives.html',
+    heading: "Bloom's Taxonomy of Educational Objectives",
+    grids: ['factsGrid', 'domainGrid', 'levelGrid', 'lotshotGrid', 'knowledgeGrid', 'affectiveGrid', 'useGrid', 'prosconsGrid'],
+    crqs: 4,
+  },
+  {
+    lessonId: 'methods-cooperative-learning',
+    path: 'notes/methods-of-teaching/cooperative-learning-strategies.html',
+    heading: 'Cooperative Learning',
+    grids: ['featuresGrid', 'strategiesGrid', 'benefitsGrid'],
+    crqs: 4,
+  },
+  {
+    lessonId: 'methods-npstp-pakistan',
+    path: 'notes/methods-of-teaching/national-professional-standards-for-teachers-in-pakistan.html',
+    heading: 'National Professional Standards for Teachers in Pakistan',
+    grids: ['factsGrid', 'structureGrid', 'standardsGrid', 'bcsGrid'],
+    crqs: 4,
+  },
+  {
+    lessonId: 'foundations-ideological',
+    path: 'notes/foundations-of-education/ideological-foundations-of-education.html',
+    heading: 'Ideological Foundations of Education',
+    grids: ['componentsGrid', 'functionsGrid', 'philosophyGrid'],
+    crqs: 4,
+  },
+  {
+    lessonId: 'foundations-philosophical',
+    path: 'notes/foundations-of-education/philosophical-foundations-of-education.html',
+    heading: 'Philosophical Foundations of Education',
+    grids: ['branchesGrid', 'schoolsGrid', 'impactGrid'],
+    crqs: 4,
+  },
 ];
+
+const allHtmlLessons = [...METHODS_OF_TEACHING_LESSONS, ...FOUNDATIONS_OF_EDUCATION_LESSONS];
 
 test('supplied HTML documents are attached to matching topics without duplicating lessons', () => {
   assert.equal(METHODS_OF_TEACHING_LESSONS.length, 6);
-  const subject = STUDY_CURRICULUM.find(item => item.id === METHODS_OF_TEACHING_SUBJECT.id)!;
-  const lessons = subject.chapters.flatMap(chapter => chapter.topics.flatMap(topic => topic.lessons));
+  assert.ok(FOUNDATIONS_OF_EDUCATION_LESSONS.length >= 1);
+  const curriculumLessons = [METHODS_OF_TEACHING_SUBJECT, FOUNDATIONS_OF_EDUCATION_SUBJECT].flatMap((item) => {
+    const subject = STUDY_CURRICULUM.find((entry) => entry.id === item.id)!;
+    return subject.chapters.flatMap(chapter => chapter.topics.flatMap(topic => topic.lessons));
+  });
   for (const document of documents) {
-    const matching = lessons.filter(item => item.id === document.lessonId);
+    const matching = curriculumLessons.filter(item => item.id === document.lessonId);
     assert.equal(matching.length, 1);
-    assert.equal(matching[0].htmlNotesPath, `notes/methods-of-teaching/${document.file}`);
+    assert.equal(matching[0].htmlNotesPath, document.path);
   }
-  // Do not attach an unrelated HTML document to Bloom's or other pending topics.
-  assert.ok(METHODS_OF_TEACHING_LESSONS
+  // Topics without a supplied document stay on the structured reader.
+  assert.ok(allHtmlLessons
     .filter(item => !documents.some(document => document.lessonId === item.id))
     .every(item => !item.htmlNotesPath));
 });
 
 for (const document of documents) {
-  const lesson = METHODS_OF_TEACHING_LESSONS.find(item => item.id === document.lessonId)!;
+  const lesson = allHtmlLessons.find(item => item.id === document.lessonId)!;
 
   for (const baseUrl of ['/', '/MUQABIL/']) {
     test(`${document.lessonId}: HTML reader resolves its sandboxed document on ${baseUrl}`, () => {
@@ -90,6 +138,90 @@ test('questioning notes preserve all original teaching cards, best practices and
   for (const text of ['Lower-Order (Convergent)', 'Higher-Order (Divergent)', 'Probing Questions',
     'Wait Time (3–5 Seconds)', 'Cold Calling &amp; Equity', 'Think-Pair-Share', 'Bounce / Pass-the-Mic',
     'Best Practices for Teachers', 'Key Takeaway', 'Mr. Ahmed is teaching a Grade 8 science lesson about climate change.']) {
+    assert.ok(html.includes(text), text);
+  }
+});
+
+test('teacher/student-centred notes preserve the spectrum, approach cards, comparison table and situation-based prompt', () => {
+  const html = readFileSync(path.join(process.cwd(), 'public/notes/methods-of-teaching/teacher-centred-and-student-centred-approaches.html'), 'utf8');
+  assert.equal((html.match(/class="approach-card /g) || []).length, 2);
+  assert.equal((html.match(/class="theory-card /g) || []).length, 2);
+  for (const text of ['Teacher-centred &amp; Student-centred Approaches', 'Two ends of a spectrum',
+    'Key Differences at a Glance', 'Theoretical Roots', 'A Balanced View',
+    'Expert &amp; transmitter', 'Facilitator &amp; guide', 'zone of proximal development',
+    'Think-Pair-Share', 'Mr. Khan teaches Grade 9 mathematics']) {
+    assert.ok(html.includes(text), text);
+  }
+});
+
+test("Bloom's notes preserve the ladder, domains, knowledge dimension and situation-based prompt", () => {
+  const html = readFileSync(path.join(process.cwd(), 'public/notes/methods-of-teaching/blooms-taxonomy-of-educational-objectives.html'), 'utf8');
+  assert.equal((html.match(/class="info-card"/g) || []).length, 3);
+  assert.equal((html.match(/class="domain-card /g) || []).length, 3);
+  assert.equal((html.match(/class="level-card"/g) || []).length, 6);
+  for (const text of ["Bloom's Taxonomy of Educational Objectives", 'Original 1956 (lowest → highest)',
+    'Revised 2001 (lowest → highest)', 'Create ⬅ top', 'The Affective Domain (Krathwohl, 1964)',
+    'Really Useful Aids Always Enhance Creativity', 'Perception', 'Origination',
+    'Ms. Sana is a Grade 6 science teacher']) {
+    assert.ok(html.includes(text), text);
+  }
+});
+
+test('cooperative learning notes preserve the eight strategies, benefits and situation-based prompt', () => {
+  const html = readFileSync(path.join(process.cwd(), 'public/notes/methods-of-teaching/cooperative-learning-strategies.html'), 'utf8');
+  assert.equal((html.match(/class="info-card"/g) || []).length, 3);
+  assert.equal((html.match(/class="strategy-card"/g) || []).length, 8);
+  assert.equal((html.match(/class="benefit-item"/g) || []).length, 17);
+  for (const text of ['Cooperative Learning', '8 Cooperative Learning Strategies',
+    'Speed Quizzes', 'Puzzle Pieces', 'One-Minute Papers', 'Sentence Completion',
+    'Classmate Interviews', 'Student Expertise', 'Freeride Elimination', 'Teamwork 101',
+    'Key Takeaway', 'Ms. Fatima is a Grade 7 teacher']) {
+    assert.ok(html.includes(text), text);
+  }
+});
+
+test('NPSTP notes preserve the ten standards, memory aids and situation-based prompt', () => {
+  const html = readFileSync(path.join(process.cwd(), 'public/notes/methods-of-teaching/national-professional-standards-for-teachers-in-pakistan.html'), 'utf8');
+  assert.equal((html.match(/class="info-card"/g) || []).length, 3);
+  assert.equal((html.match(/class="kdp-card /g) || []).length, 3);
+  assert.equal((html.match(/class="standard-card"/g) || []).length, 10);
+  assert.equal((html.match(/class="list-card /g) || []).length, 3);
+  for (const text of ['National Professional Standards for Teachers in Pakistan',
+    'Memory Table of the Ten Standards', 'Teaching of the Holy Quran',
+    'Some Good Students Invariably Achieve Lasting Career Contentment, Practising Quran',
+    'Quick Revision Points', 'Mr. Imran is a newly appointed Grade 8 teacher']) {
+    assert.ok(html.includes(text), text);
+  }
+});
+
+test('ideological foundations notes preserve the components, functions, philosophical streams and situation-based prompt', () => {
+  const html = readFileSync(path.join(process.cwd(), 'public/notes/foundations-of-education/ideological-foundations-of-education.html'), 'utf8');
+  assert.equal((html.match(/class="component-card /g) || []).length, 4);
+  assert.equal((html.match(/class="function-card"/g) || []).length, 4);
+  assert.equal((html.match(/class="phil-card /g) || []).length, 4);
+  assert.equal((html.match(/class="pakistan-card"/g) || []).length, 1);
+  assert.equal((html.match(/class="takeaway-card"/g) || []).length, 1);
+  for (const text of ['Ideological Foundations of Education', 'Core Belief System', 'National Identity',
+    'Moral &amp; Ethical Character', 'Social Cohesion', 'Goal Setting', 'Curriculum Design',
+    'Teaching Methodology', 'Policy Formulation', 'Idealism', 'Realism', 'Pragmatism / Progressivism',
+    'Religious / Cultural Ideologies', 'universal Muslim Ummah', 'National Education Policy of 1979',
+    'Key Takeaway', 'A newly established private school in Pakistan']) {
+    assert.ok(html.includes(text), text);
+  }
+});
+
+test('philosophical foundations notes preserve the branches, schools, comparison table and situation-based prompt', () => {
+  const html = readFileSync(path.join(process.cwd(), 'public/notes/foundations-of-education/philosophical-foundations-of-education.html'), 'utf8');
+  assert.equal((html.match(/class="branch-card /g) || []).length, 3);
+  assert.equal((html.match(/class="school-card /g) || []).length, 4);
+  assert.equal((html.match(/class="impact-card"/g) || []).length, 3);
+  assert.equal((html.match(/class="table-wrapper"/g) || []).length, 1);
+  assert.equal((html.match(/class="takeaway-card"/g) || []).length, 1);
+  for (const text of ['Philosophical Foundations of Education', 'Metaphysics', 'Epistemology', 'Axiology',
+    'What is real?', 'How do we know what is true?', 'What is good, right, or beautiful?',
+    'Idealism', 'Realism', 'Pragmatism / Experimentalism', 'Existentialism',
+    'Plato', 'Aristotle', 'John Dewey', 'Jean-Paul Sartre', 'Schools at a Glance',
+    'Provocative mentor', 'Key Takeaway', 'A secondary school in Pakistan']) {
     assert.ok(html.includes(text), text);
   }
 });

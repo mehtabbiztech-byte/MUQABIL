@@ -55,6 +55,7 @@ export const METHODS_OF_TEACHING_LESSONS: StudyLesson[] = [
       { prompt: 'Differentiate between LOTS and HOTS.', answer: 'LOTS focuses on recalling, understanding, and applying information; HOTS develops analysis, evaluation, and creation. Effective teaching begins with foundations and progresses toward deeper thinking.' },
       { prompt: 'A Grade 6 assessment asks only for the stages of the water cycle. What is missing?', answer: 'The question tests only Remember. Add Understand, Apply, Analyse, Evaluate, and Create questions so the assessment measures deeper learning.' },
     ],
+    'notes/methods-of-teaching/blooms-taxonomy-of-educational-objectives.html',
   ),
   lesson(
     'methods-cooperative-learning',
@@ -81,6 +82,7 @@ export const METHODS_OF_TEACHING_LESSONS: StudyLesson[] = [
       { prompt: 'How can a teacher stop two students from doing all the group work?', answer: 'Use individual roles, task checklists, coloured markers or signatures, visible accountability, and activities such as Puzzle Pieces, Classmate Interviews, and Freeride Elimination.' },
       { prompt: 'Describe four benefits of cooperative learning.', answer: 'It improves comprehension, confidence, social skills, critical thinking, motivation, inclusion, classroom participation, and understanding of different perspectives.' },
     ],
+    'notes/methods-of-teaching/cooperative-learning-strategies.html',
   ),
   lesson(
     'methods-effective-questioning',
@@ -160,6 +162,7 @@ export const METHODS_OF_TEACHING_LESSONS: StudyLesson[] = [
       { prompt: 'Describe the three-part structure of each standard.', answer: 'Knowledge is what the teacher should know; Dispositions are the values and attitudes the teacher should hold; Performances are what the teacher should do in practice.' },
       { prompt: 'Identify four standards a teacher violates by only lecturing, planning poorly, assessing only at term-end, and avoiding colleagues and parents.', answer: 'Instructional Planning and Strategies, Assessment, Collaboration and Partnerships, and Continuous Professional Development / Code of Conduct are directly implicated; Learning Environment and Communication may also be relevant depending on the evidence.' },
     ],
+    'notes/methods-of-teaching/national-professional-standards-for-teachers-in-pakistan.html',
   ),
   lesson(
     'methods-teacher-student-centred',
@@ -185,6 +188,7 @@ export const METHODS_OF_TEACHING_LESSONS: StudyLesson[] = [
       { prompt: 'Why is a balanced approach often most effective?', answer: 'Different objectives and contexts need different levels of explanation, modelling, practice, inquiry, and collaboration. Blending methods preserves clarity while building active thinking.' },
       { prompt: 'Suggest four practical strategies for a large lecture-based mathematics class.', answer: 'Use short explanations followed by Think-Pair-Share, peer problem-solving, worked-example modelling followed by guided and independent practice, and exit tickets or quick formative checks.' },
     ],
+    'notes/methods-of-teaching/teacher-centred-and-student-centred-approaches.html',
   ),
 ];
 

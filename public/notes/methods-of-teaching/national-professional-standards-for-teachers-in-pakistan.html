@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>National Professional Standards for Teachers in Pakistan · Methods of Teaching</title>
+  <style>
+    /* ---------- GLOBAL ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+      color: #1e2b3c;
+    }
+
+    .main-wrapper {
+      max-width: 1100px;
+      width: 100%;
+    }
+
+    /* ---------- HEADER ---------- */
+    .header-card {
+      background: white;
+      border-radius: 2rem 2rem 1.5rem 1.5rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      padding: 2rem 2rem 1.5rem 2rem;
+      margin-bottom: 1.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: transform 0.2s;
+    }
+
+    .header-card:hover {
+      transform: scale(1.002);
+    }
+
+    .badge {
+      display: inline-block;
+      background: #2a4b7c;
+      color: #f0f7ff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+      line-height: 1.25;
+    }
+
+    .subhead {
+      font-size: 1.05rem;
+      color: #2f5277;
+      font-weight: 400;
+      border-left: 5px solid #8bb3e0;
+      padding-left: 1.2rem;
+      margin: 1rem 0 0.2rem 0;
+      font-style: italic;
+    }
+
+    .intro-text {
+      background: #e6f0fc;
+      padding: 1rem 1.4rem;
+      border-radius: 1.2rem;
+      margin-top: 1.4rem;
+      font-size: 0.98rem;
+      color: #1d3a5c;
+      border-left: 5px solid #3b6ea5;
+    }
+
+    /* ---------- SECTION TITLE ---------- */
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #0e2a47;
+      margin: 2.2rem 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-title .line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #8bb3e0, transparent);
+      border-radius: 2px;
+    }
+
+    /* ---------- CARD GRID ---------- */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .info-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.4rem 1.4rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      transition: all 0.25s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .info-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, #3f7cb0, #8bb3e0, #b8d4f0);
+      opacity: 0.75;
+      transition: height 0.2s;
+    }
+
+    .info-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 28px -16px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+
+    .info-card:hover::before {
+      height: 10px;
+      opacity: 1;
+    }
+
+    .card-icon-lg {
+      font-size: 2rem;
+      line-height: 1;
+      background: #e9f0fa;
+      width: 54px;
+      height: 54px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #1b3c61;
+      margin-bottom: 0.8rem;
+      transition: background 0.2s;
+    }
+
+    .info-card:hover .card-icon-lg {
+      background: #d3e3f8;
+    }
+
+    .card-title-md {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #0e2a47;
+      letter-spacing: -0.3px;
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-desc-sm {
+      font-size: 0.93rem;
+      color: #274e73;
+      line-height: 1.6;
+      opacity: 0.94;
+      flex: 1;
+    }
+
+    /* ---------- STRUCTURE CARDS (KDP) ---------- */
+    .kdp-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.4rem 1.4rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      transition: all 0.25s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .kdp-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      opacity: 0.85;
+      transition: height 0.2s;
+    }
+
+    .kdp-card.knowledge::before { background: linear-gradient(90deg, #2a4b7c, #5a8ec9); }
+    .kdp-card.dispositions::before { background: linear-gradient(90deg, #c94f7c, #e88bb0); }
+    .kdp-card.performances::before { background: linear-gradient(90deg, #2e7d4f, #6fc98a); }
+
+    .kdp-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 28px -16px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+
+    .kdp-card:hover::before { height: 10px; }
+
+    .kdp-icon {
+      font-size: 2.2rem;
+      line-height: 1;
+      background: #e9f0fa;
+      width: 60px;
+      height: 60px;
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 0.8rem auto;
+      color: #1b3c61;
+      transition: background 0.2s;
+    }
+
+    .kdp-card:hover .kdp-icon { background: #d3e3f8; }
+
+    .kdp-title {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+    }
+
+    .kdp-desc {
+      font-size: 0.92rem;
+      color: #274e73;
+      line-height: 1.55;
+      margin-bottom: 0.6rem;
+    }
+
+    .kdp-example {
+      display: inline-block;
+      background: #f6faff;
+      color: #1b4670;
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 0.3rem 0.9rem;
+      border-radius: 30px;
+      border: 1px solid #d0e0f0;
+      margin-top: auto;
+    }
+
+    /* ---------- STANDARD CARDS ---------- */
+    .standard-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.4rem 1.4rem 1.3rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      transition: all 0.25s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .standard-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, #3f7cb0, #8bb3e0, #b8d4f0);
+      opacity: 0.75;
+      transition: height 0.2s;
+    }
+
+    .standard-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 28px -16px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+
+    .standard-card:hover::before {
+      height: 10px;
+      opacity: 1;
+    }
+
+    .standard-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .standard-num {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: white;
+      background: #0e2a47;
+      min-width: 34px;
+      height: 34px;
+      padding: 0 0.5rem;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .standard-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #0e2a47;
+      line-height: 1.3;
+    }
+
+    .standard-points {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin-top: 0.3rem;
+    }
+
+    .standard-points li {
+      padding: 0.35rem 0 0.35rem 1.5rem;
+      position: relative;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: #1e3c5a;
+    }
+
+    .standard-points li::before {
+      content: '◆';
+      position: absolute;
+      left: 0;
+      color: #3b7bb5;
+      font-size: 0.7rem;
+      top: 0.55rem;
+    }
+
+    /* ---------- MEMORY TABLE ---------- */
+    .table-wrapper {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.4rem 1.4rem 1.2rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      border: 1px solid #e3ecf7;
+      overflow-x: auto;
+      margin-bottom: 0.5rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.91rem;
+      min-width: 420px;
+    }
+
+    thead th {
+      text-align: left;
+      padding: 0.85rem 1rem;
+      font-weight: 700;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: white;
+      background: #0e2a47;
+    }
+
+    thead th:first-child {
+      border-radius: 1rem 0 0 0;
+      background: #2a4b7c;
+      width: 60px;
+      text-align: center;
+    }
+
+    thead th:last-child {
+      border-radius: 0 1rem 0 0;
+    }
+
+    tbody td {
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid #e8f0f9;
+      color: #1e3c5a;
+      vertical-align: middle;
+      font-size: 0.9rem;
+    }
+
+    tbody tr:last-child td { border-bottom: none; }
+
+    tbody tr:hover td { background: #f6faff; }
+
+    tbody td:first-child {
+      font-weight: 700;
+      color: #0e2a47;
+      background: #f3f8fd;
+      text-align: center;
+    }
+
+    tbody tr:hover td:first-child { background: #eaf3fc; }
+
+    /* ---------- MEMORY TIP ---------- */
+    .memory-card {
+      background: linear-gradient(135deg, #0e2a47 0%, #1a4170 100%);
+      color: white;
+      border-radius: 1.6rem;
+      padding: 1.7rem 2rem;
+      margin: 1.2rem 0 0.5rem 0;
+      font-size: 1rem;
+      line-height: 1.6;
+      box-shadow: 0 14px 26px -12px #0e2a47;
+      border-left: 6px solid #8bb3e0;
+      text-align: center;
+    }
+
+    .memory-card .mnemonic {
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      color: #b8d4f0;
+      margin-bottom: 0.6rem;
+      line-height: 1.4;
+    }
+
+    .memory-card .mnemonic-map {
+      font-size: 0.9rem;
+      color: #d4e6fa;
+      font-weight: 500;
+      letter-spacing: 0.1px;
+      line-height: 1.6;
+    }
+
+    /* ---------- BENEFITS / CHALLENGES / SUGGESTIONS ---------- */
+    .three-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .list-card {
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.5rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.12);
+      border: 1px solid;
+    }
+
+    .list-card.benefits {
+      background: #f0faf4;
+      border-color: #b8e0c8;
+    }
+
+    .list-card.challenges {
+      background: #fdf6f6;
+      border-color: #e8c8c8;
+    }
+
+    .list-card.suggestions {
+      background: #f0f7ff;
+      border-color: #b8d0e9;
+    }
+
+    .list-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .list-card.benefits h3 { color: #1b6e3e; }
+    .list-card.challenges h3 { color: #a83535; }
+    .list-card.suggestions h3 { color: #1b4670; }
+
+    .list-card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .list-card li {
+      padding: 0.45rem 0 0.45rem 1.7rem;
+      position: relative;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #1e3c5a;
+    }
+
+    .list-card.benefits li::before {
+      content: '✔';
+      position: absolute;
+      left: 0;
+      color: #2e9b5e;
+      font-weight: 700;
+    }
+
+    .list-card.challenges li::before {
+      content: '⚠';
+      position: absolute;
+      left: 0;
+      color: #d45a5a;
+      font-weight: 700;
+    }
+
+    .list-card.suggestions li::before {
+      content: '➜';
+      position: absolute;
+      left: 0;
+      color: #3b7bb5;
+      font-weight: 700;
+    }
+
+    /* ---------- QUICK REVISION ---------- */
+    .revision-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.8rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      border: 1px solid #e3ecf7;
+      border-left: 6px solid #0e2a47;
+      margin-bottom: 0.5rem;
+    }
+
+    .revision-card ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .revision-card li {
+      padding: 0.45rem 0 0.45rem 1.8rem;
+      position: relative;
+      font-size: 0.94rem;
+      line-height: 1.55;
+      color: #1e3c5a;
+    }
+
+    .revision-card li::before {
+      content: '📌';
+      position: absolute;
+      left: 0;
+      top: 0.35rem;
+    }
+
+    .revision-card li strong { color: #0e2a47; }
+
+    /* ---------- SEARCH & COUNT ---------- */
+    .filter-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 60px;
+      box-shadow: 0 8px 18px -8px rgba(0, 27, 45, 0.1);
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 40px;
+      padding: 0.3rem 0.3rem 0.3rem 1.2rem;
+      flex: 2;
+      min-width: 240px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      border: 1px solid #ccdcee;
+    }
+
+    .search-box span {
+      font-size: 1.1rem;
+      margin-right: 0.5rem;
+      color: #4e6b8a;
+    }
+
+    .search-box input {
+      border: none;
+      padding: 0.7rem 0.2rem;
+      width: 100%;
+      font-size: 0.95rem;
+      outline: none;
+      background: transparent;
+      color: #0c253b;
+    }
+
+    .search-box input::placeholder {
+      color: #879eb6;
+      font-weight: 300;
+    }
+
+    .count-pill {
+      background: #0e2a47;
+      color: white;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ---------- QUIZ SECTION ---------- */
+    .quiz-section {
+      margin-top: 2.5rem;
+    }
+
+    .quiz-header {
+      background: #0e2a47;
+      border-radius: 2rem 2rem 0 0;
+      padding: 1.5rem 2rem;
+      color: white;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .quiz-header h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .quiz-header .quiz-badge {
+      background: #8bb3e0;
+      color: #0e2a47;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .quiz-body {
+      background: white;
+      border-radius: 0 0 2rem 2rem;
+      padding: 2rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      border: 1px solid #e3ecf7;
+      border-top: none;
+    }
+
+    .quiz-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #e3ecf7;
+      padding-bottom: 1rem;
+    }
+
+    .quiz-tab {
+      background: #f0f5fd;
+      border: 1px solid #d0e0f0;
+      color: #1b4670;
+      padding: 0.5rem 1.3rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .quiz-tab:hover {
+      background: #e0ecfc;
+      border-color: #a0c0e0;
+    }
+
+    .quiz-tab.active {
+      background: #0e2a47;
+      color: white;
+      border-color: #0e2a47;
+    }
+
+    .quiz-panel {
+      display: none;
+    }
+
+    .quiz-panel.active {
+      display: block;
+    }
+
+    .section-label {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.2rem;
+    }
+
+    /* MCQ */
+    .mcq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+      transition: background 0.2s;
+    }
+
+    .mcq-item:hover {
+      background: #f0f7fe;
+    }
+
+    .mcq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.8rem;
+      line-height: 1.5;
+    }
+
+    .mcq-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .mcq-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 0.8rem;
+      background: white;
+      border: 1.5px solid #d9e8fc;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+    }
+
+    .mcq-option:hover {
+      border-color: #8bb3e0;
+      background: #eef6ff;
+    }
+
+    .mcq-option.selected {
+      border-color: #3b7bb5;
+      background: #e4f0fe;
+      font-weight: 500;
+    }
+
+    .mcq-option.correct {
+      border-color: #2e9b5e;
+      background: #e6f7ee;
+      font-weight: 600;
+    }
+
+    .mcq-option.incorrect {
+      border-color: #d45a5a;
+      background: #fdeaea;
+      font-weight: 500;
+    }
+
+    .mcq-option .option-letter {
+      font-weight: 700;
+      color: #2a4b7c;
+      min-width: 1.4rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .mcq-option.correct .option-letter { color: #1b7a44; }
+    .mcq-option.incorrect .option-letter { color: #b03030; }
+
+    .mcq-feedback {
+      margin-top: 0.7rem;
+      font-size: 0.88rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: 0.8rem;
+      display: none;
+      font-weight: 500;
+    }
+
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.correct-fb {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .mcq-feedback.incorrect-fb {
+      background: #fdeaea;
+      color: #9e2a2a;
+      border-left: 4px solid #d45a5a;
+    }
+
+    /* CRQ / ERQ shared */
+    .crq-item, .erq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+    }
+
+    .erq-item {
+      border: 2px solid #8bb3e0;
+      background: #f5faff;
+    }
+
+    .crq-question, .erq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+
+    .erq-question {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .erq-marks {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      margin-bottom: 0.8rem;
+    }
+
+    .crq-hint {
+      font-size: 0.85rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-bottom: 0.7rem;
+    }
+
+    .crq-textarea, .erq-textarea {
+      width: 100%;
+      border: 1.5px solid #d9e8fc;
+      border-radius: 0.9rem;
+      padding: 0.8rem 1rem;
+      font-family: inherit;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+      resize: vertical;
+      transition: border-color 0.2s;
+      background: white;
+    }
+
+    .crq-textarea { min-height: 90px; }
+    .erq-textarea { min-height: 160px; }
+
+    .crq-textarea:focus, .erq-textarea:focus {
+      outline: none;
+      border-color: #3b7bb5;
+      box-shadow: 0 0 0 3px rgba(59, 123, 181, 0.12);
+    }
+
+    .crq-actions, .erq-actions {
+      display: flex;
+      gap: 0.7rem;
+      margin-top: 0.7rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.55rem 1.4rem;
+      border-radius: 40px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: #0e2a47;
+      color: white;
+    }
+    .btn-primary:hover {
+      background: #1a4170;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #e9f0fa;
+      color: #1b4670;
+      border: 1px solid #c0d8f0;
+    }
+    .btn-secondary:hover { background: #d8e6f8; }
+
+    .crq-feedback, .erq-feedback {
+      margin-top: 0.8rem;
+      padding: 0.8rem 1rem;
+      border-radius: 0.9rem;
+      font-size: 0.9rem;
+      display: none;
+      line-height: 1.6;
+    }
+
+    .crq-feedback.show, .erq-feedback.show { display: block; }
+
+    .crq-feedback.good, .erq-feedback.good {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+
+    .crq-feedback.partial, .erq-feedback.partial {
+      background: #fff8e6;
+      color: #8a6d1f;
+      border-left: 4px solid #e0a800;
+    }
+
+    .erq-feedback.model {
+      background: #e6f0fc;
+      color: #1a3e62;
+      border-left: 5px solid #3b7bb5;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 600px) {
+      .header-card { padding: 1.5rem 1.2rem; }
+      h1 { font-size: 1.7rem; }
+      .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: 2rem;
+        padding: 1rem;
+      }
+      .search-box { width: 100%; }
+      .count-pill { text-align: center; padding: 0.5rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .quiz-body { padding: 1.2rem; }
+      .quiz-header { padding: 1.2rem; }
+      .quiz-header h2 { font-size: 1.3rem; }
+      .mcq-item, .crq-item, .erq-item { padding: 1rem; }
+      .quiz-tab { font-size: 0.8rem; padding: 0.4rem 1rem; }
+      .memory-card { padding: 1.3rem 1.2rem; }
+      .memory-card .mnemonic { font-size: 1rem; }
+      .revision-card { padding: 1.2rem 1.2rem; }
+    }
+
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #dfe9f5; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: #94b0d1; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6d8fb4; }
+
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem 1rem;
+      background: #ffffffc9;
+      border-radius: 2rem;
+      font-size: 1.1rem;
+      color: #4b6888;
+      border: 2px dashed #b8cee8;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-wrapper">
+
+    <!-- HEADER -->
+    <div class="header-card">
+      <div class="badge">🇵🇰 Methods of Teaching</div>
+      <h1>National Professional Standards for Teachers in Pakistan</h1>
+      <div class="subhead">NPSTP — a national benchmark for teacher quality</div>
+      <div class="intro-text">
+        <strong>💡 What are they?</strong> The National Professional Standards for Teachers in Pakistan (NPSTP) are a set of clear statements about what a good teacher should <em>know</em>, <em>believe</em>, and be able to <em>do</em>. They describe the minimum quality expected from teachers across the country.
+      </div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="filter-section">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="Search standards, keywords, benefits..." autocomplete="off">
+      </div>
+      <div class="count-pill" id="countDisplay">40+ items</div>
+    </div>
+
+    <!-- KEY FACTS -->
+    <div class="section-title">
+      📋 Key Facts &amp; Purpose
+      <span class="line"></span>
+    </div>
+
+    <div class="cards-grid" id="factsGrid">
+      <div class="info-card" data-searchable="developed policy planning wing ministry of education government of pakistan support usaid teacher education professional development year 2009 national education policy revised updated">
+        <div class="card-icon-lg">🏛️</div>
+        <div class="card-title-md">Who, When &amp; How</div>
+        <div class="card-desc-sm">
+          <strong>Developed by:</strong> Policy &amp; Planning Wing, Ministry of Education, Government of Pakistan.
+
+          <strong>Support:</strong> USAID.
+
+          <strong>Year:</strong> 2009, as part of the National Education Policy 2009.
+
+          <strong>Later:</strong> Revised and updated by education authorities.
+        </div>
+      </div>
+      <div class="info-card" data-searchable="improve quality teaching all provinces clear picture expected performance common base teacher education training recruitment guide teacher evaluation promotion accountable professional link teaching student learning outcomes">
+        <div class="card-icon-lg">🎯</div>
+        <div class="card-title-md">Why Were They Developed?</div>
+        <div class="card-desc-sm">
+          To improve teaching quality in all provinces · Give teachers a clear picture of expected performance · Provide a common base for teacher education, training, and recruitment · Guide evaluation and promotion · Make teachers accountable and professional · Link teaching with student learning outcomes.
+        </div>
+      </div>
+      <div class="info-card" data-searchable="pre-service teacher education b.ed ade in-service training cpd continuous professional development teacher selection hiring performance appraisal developing teacher education curriculum accreditation">
+        <div class="card-icon-lg">📍</div>
+        <div class="card-title-md">Where Are They Used?</div>
+        <div class="card-desc-sm">
+          Pre-service teacher education (B.Ed., ADE) · In-service training and CPD · Teacher selection and hiring · Performance appraisal · Developing teacher education curriculum and accreditation.
+        </div>
+      </div>
+    </div>
+
+    <!-- STRUCTURE -->
+    <div class="section-title">
+      🏗️ Structure of Each Standard
+      <span class="line"></span>
+    </div>
+
+    <div class="cards-grid" id="structureGrid">
+      <div class="kdp-card knowledge" data-searchable="knowledge what the teacher should know part of each standard">
+        <div class="kdp-icon">🧠</div>
+        <div class="kdp-title">Knowledge</div>
+        <div class="kdp-desc">What the teacher should <strong>know</strong>.</div>
+        <div class="kdp-example">Facts, concepts, curriculum</div>
+      </div>
+      <div class="kdp-card dispositions" data-searchable="dispositions attitudes values beliefs teacher should have part of each standard">
+        <div class="kdp-icon">❤️</div>
+        <div class="kdp-title">Dispositions</div>
+        <div class="kdp-desc">Attitudes, values, and beliefs the teacher should <strong>have</strong>.</div>
+        <div class="kdp-example">Respect, fairness, openness</div>
+      </div>
+      <div class="kdp-card performances" data-searchable="performances what the teacher should actually do in class part of each standard">
+        <div class="kdp-icon">🎬</div>
+        <div class="kdp-title">Performances</div>
+        <div class="kdp-desc">What the teacher should actually <strong>do</strong> in class.</div>
+        <div class="kdp-example">Planning, teaching, assessing</div>
+      </div>
+    </div>
+
+    <!-- TEN STANDARDS -->
+    <div class="section-title">
+      📜 The Ten Standards
+      <span class="line"></span>
+    </div>
+
+    <div class="cards-grid" id="standardsGrid">
+      <!-- 1 -->
+      <div class="standard-card" data-searchable="standard 1 subject matter knowledge deep knowledge subject connection other subjects daily life concepts facts curriculum links content real life updates subject knowledge regularly">
+        <div class="standard-head">
+          <div class="standard-num">1</div>
+          <div class="standard-title">Subject Matter Knowledge</div>
+        </div>
+        <ul class="standard-points">
+          <li>Knows the concepts and facts of the subject</li>
+          <li>Understands the curriculum</li>
+          <li>Links content to real life</li>
+          <li>Updates subject knowledge regularly</li>
+        </ul>
+      </div>
+      <!-- 2 -->
+      <div class="standard-card" data-searchable="standard 2 human growth development understands children grow develop learn physical social emotional mental stages individual differences plans activities age ability supports special needs different backgrounds">
+        <div class="standard-head">
+          <div class="standard-num">2</div>
+          <div class="standard-title">Human Growth and Development</div>
+        </div>
+        <ul class="standard-points">
+          <li>Knows physical, social, emotional, and mental stages of development</li>
+          <li>Understands individual differences</li>
+          <li>Plans activities suitable for learners' age and ability</li>
+          <li>Supports children with special needs and different backgrounds</li>
+        </ul>
+      </div>
+      <!-- 3 -->
+      <div class="standard-card" data-searchable="standard 3 knowledge islamic ethical values social life skills models honesty justice respect tolerance teaches respect all religions cultures promotes good citizenship social responsibility encourages life skills cooperation decision-making">
+        <div class="standard-head">
+          <div class="standard-num">3</div>
+          <div class="standard-title">Islamic Ethical Values / Social Life Skills</div>
+        </div>
+        <ul class="standard-points">
+          <li>Models honesty, justice, respect, and tolerance</li>
+          <li>Teaches respect for all religions and cultures</li>
+          <li>Promotes good citizenship and social responsibility</li>
+          <li>Encourages life skills such as cooperation and decision-making</li>
+        </ul>
+      </div>
+      <!-- 4 -->
+      <div class="standard-card" data-searchable="standard 4 instructional planning strategies plans lessons variety teaching methods writes clear learning objectives prepares lesson plans linked curriculum uses different strategies group work discussion activities teaching aids technology manages time well">
+        <div class="standard-head">
+          <div class="standard-num">4</div>
+          <div class="standard-title">Instructional Planning and Strategies</div>
+        </div>
+        <ul class="standard-points">
+          <li>Writes clear learning objectives</li>
+          <li>Prepares lesson plans linked to the curriculum</li>
+          <li>Uses different strategies (group work, discussion, activities)</li>
+          <li>Uses teaching aids and technology</li>
+          <li>Manages time well</li>
+        </ul>
+      </div>
+      <!-- 5 -->
+      <div class="standard-card" data-searchable="standard 5 assessment different assessment methods check improve learning formative summative designs tests quizzes projects observation tools gives feedback uses results improve teaching fair accurate records">
+        <div class="standard-head">
+          <div class="standard-num">5</div>
+          <div class="standard-title">Assessment</div>
+        </div>
+        <ul class="standard-points">
+          <li>Understands formative and summative assessment</li>
+          <li>Designs tests, quizzes, projects, and observation tools</li>
+          <li>Gives feedback to students</li>
+          <li>Uses results to improve teaching</li>
+          <li>Keeps fair and accurate records</li>
+        </ul>
+      </div>
+      <!-- 6 -->
+      <div class="standard-card" data-searchable="standard 6 learning environment safe positive supportive classroom maintains discipline respect fairness friendly inclusive atmosphere arranges classroom space resources encourages participation girls weaker students avoids physical punishment">
+        <div class="standard-head">
+          <div class="standard-num">6</div>
+          <div class="standard-title">Learning Environment</div>
+        </div>
+        <ul class="standard-points">
+          <li>Maintains discipline with respect and fairness</li>
+          <li>Builds a friendly, inclusive atmosphere</li>
+          <li>Arranges classroom space and resources properly</li>
+          <li>Encourages participation of all students, including girls and weaker students</li>
+          <li>Avoids physical punishment</li>
+        </ul>
+      </div>
+      <!-- 7 -->
+      <div class="standard-card" data-searchable="standard 7 effective communication proficiency english national language communicates clearly correctly speaking reading writing simple clear language listens carefully urdu english body language questioning explanation skills">
+        <div class="standard-head">
+          <div class="standard-num">7</div>
+          <div class="standard-title">Effective Communication &amp; Language Proficiency</div>
+        </div>
+        <ul class="standard-points">
+          <li>Uses simple, clear language suited to students</li>
+          <li>Listens carefully to students</li>
+          <li>Has good command of Urdu and English</li>
+          <li>Uses body language, questioning, and explanation skills effectively</li>
+        </ul>
+      </div>
+      <!-- 8 -->
+      <div class="standard-card" data-searchable="standard 8 collaboration partnerships works with others support student learning cooperates colleagues head teacher communicates parents community school committees activities partnerships other schools institutions">
+        <div class="standard-head">
+          <div class="standard-num">8</div>
+          <div class="standard-title">Collaboration and Partnerships</div>
+        </div>
+        <ul class="standard-points">
+          <li>Cooperates with colleagues and the head teacher</li>
+          <li>Communicates with parents and the community</li>
+          <li>Takes part in school committees and activities</li>
+          <li>Builds partnerships with other schools and institutions</li>
+        </ul>
+      </div>
+      <!-- 9 -->
+      <div class="standard-card" data-searchable="standard 9 continuous professional development code of conduct keeps learning behaves professionally reflects own teaching attends workshops training reads professional material accepts feedback improves punctuality honesty confidentiality respect">
+        <div class="standard-head">
+          <div class="standard-num">9</div>
+          <div class="standard-title">Continuous Professional Development &amp; Code of Conduct</div>
+        </div>
+        <ul class="standard-points">
+          <li>Reflects on their own teaching</li>
+          <li>Attends workshops and training, reads professional material</li>
+          <li>Accepts feedback and improves</li>
+          <li>Follows the teachers' code of conduct (punctuality, honesty, confidentiality, respect)</li>
+        </ul>
+      </div>
+      <!-- 10 -->
+      <div class="standard-card" data-searchable="standard 10 teaching holy quran muslim teachers knowledge ability teach quran correctly respectfully curriculum recitation tajweed understanding basic teachings respectful age-appropriate">
+        <div class="standard-head">
+          <div class="standard-num">10</div>
+          <div class="standard-title">Teaching of the Holy Quran</div>
+        </div>
+        <ul class="standard-points">
+          <li>For Muslim teachers, where it is part of the curriculum</li>
+          <li>Correct recitation (tajweed) and understanding of basic teachings</li>
+          <li>Teaches in a respectful and age-appropriate way</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- MEMORY TABLE -->
+    <div class="section-title">
+      🧠 Memory Table of the Ten Standards
+      <span class="line"></span>
+    </div>
+
+    <div class="table-wrapper" data-searchable="memory table ten standards short form subject matter knowledge human growth development islamic ethical values social life skills instructional planning strategies assessment learning environment communication language proficiency collaboration partnerships continuous professional development code of conduct teaching holy quran">
+      <table>
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Standard (short form)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Subject Matter Knowledge</td></tr>
+          <tr><td>2</td><td>Human Growth and Development</td></tr>
+          <tr><td>3</td><td>Islamic Ethical Values / Social Life Skills</td></tr>
+          <tr><td>4</td><td>Instructional Planning and Strategies</td></tr>
+          <tr><td>5</td><td>Assessment</td></tr>
+          <tr><td>6</td><td>Learning Environment</td></tr>
+          <tr><td>7</td><td>Communication and Language Proficiency</td></tr>
+          <tr><td>8</td><td>Collaboration and Partnerships</td></tr>
+          <tr><td>9</td><td>Continuous Professional Development and Code of Conduct</td></tr>
+          <tr><td>10</td><td>Teaching of the Holy Quran</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- MEMORY TIP -->
+    <div class="memory-card" data-searchable="memory tip some good students invariably achieve lasting career contentment practising quran subject growth social islamic values instruction assessment learning environment communication collaboration cpd quran">
+      <div class="mnemonic">"Some Good Students Invariably Achieve Lasting Career Contentment, Practising Quran"</div>
+      <div class="mnemonic-map">
+        <strong>S</strong>ubject → <strong>G</strong>rowth → <strong>S</strong>ocial/Islamic values → <strong>I</strong>nstruction → <strong>A</strong>ssessment → <strong>L</strong>earning environment → <strong>C</strong>ommunication → <strong>C</strong>ollaboration → <strong>C</strong>PD → <strong>Q</strong>uran
+      </div>
+    </div>
+
+    <!-- BENEFITS / CHALLENGES / SUGGESTIONS -->
+    <div class="section-title">
+      ⚖️ Benefits, Challenges &amp; Suggestions
+      <span class="line"></span>
+    </div>
+
+    <div class="three-grid" id="bcsGrid">
+      <div class="list-card benefits" data-searchable="benefits clear direction teacher training institutions fair basis teacher evaluation better classroom practice student results greater respect professionalism common national benchmark provinces">
+        <h3>✅ Benefits</h3>
+        <ul>
+          <li>Clear direction for teacher training institutions</li>
+          <li>Fair basis for teacher evaluation</li>
+          <li>Better classroom practice and student results</li>
+          <li>Greater respect and professionalism for teachers</li>
+          <li>Common national benchmark across provinces</li>
+        </ul>
+      </div>
+      <div class="list-card challenges" data-searchable="challenges implementation teachers schools not fully aware limited training resources rural areas weak monitoring follow-up differences provinces large class sizes heavy workload teacher appointments not follow standards">
+        <h3>⚠️ Challenges in Implementation</h3>
+        <ul>
+          <li>Many teachers and schools are not fully aware of the standards</li>
+          <li>Limited training and resources, especially in rural areas</li>
+          <li>Weak monitoring and follow-up</li>
+          <li>Differences between provinces in how they apply them</li>
+          <li>Large class sizes and heavy workload</li>
+          <li>Teacher appointments sometimes do not follow the standards</li>
+        </ul>
+      </div>
+      <div class="list-card suggestions" data-searchable="suggestions improvement train all teachers cpd link recruitment promotion appraisal improve monitoring head teachers education officers provide libraries labs technology update standards regularly education needs change">
+        <h3>➜ Suggestions for Improvement</h3>
+        <ul>
+          <li>Train all teachers on the standards through CPD programmes</li>
+          <li>Link recruitment, promotion, and appraisal to the standards</li>
+          <li>Improve monitoring by head teachers and education officers</li>
+          <li>Provide libraries, labs, and technology</li>
+          <li>Update the standards regularly as education needs change</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- QUICK REVISION -->
+    <div class="section-title">
+      ⚡ Quick Revision Points
+      <span class="line"></span>
+    </div>
+
+    <div class="revision-card" data-searchable="quick revision npstp national benchmark teacher quality pakistan 2009 ministry of education policy planning wing usaid 10 standards knowledge dispositions performances teacher education hiring training evaluation better teachers better learning">
+      <ul>
+        <li><strong>NPSTP</strong> = national benchmark for teacher quality in Pakistan (2009).</li>
+        <li>Developed by the <strong>Ministry of Education (Policy and Planning Wing)</strong> with <strong>USAID</strong> support.</li>
+        <li><strong>10 standards</strong>, each with Knowledge, Dispositions, and Performances.</li>
+        <li>Used in teacher education, hiring, training, and evaluation.</li>
+        <li>Main aim: <strong>better teachers, better learning</strong>.</li>
+      </ul>
+    </div>
+
+    <!-- ================= QUIZ SECTION ================= -->
+    <div class="quiz-section">
+      <div class="quiz-header">
+        <h2>📝 Practice Quiz</h2>
+        <span class="quiz-badge">Test Your Knowledge</span>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-tabs">
+          <button class="quiz-tab active" data-panel="mcqPanel">🔘 10 MCQs</button>
+          <button class="quiz-tab" data-panel="crqPanel">✍️ 4 CRQs</button>
+          <button class="quiz-tab" data-panel="erqPanel">📄 1 ERQ</button>
+        </div>
+
+        <!-- MCQ PANEL -->
+        <div class="quiz-panel active" id="mcqPanel">
+          <span class="section-label">Multiple Choice Questions</span>
+          <div id="mcqContainer"></div>
+        </div>
+
+        <!-- CRQ PANEL -->
+        <div class="quiz-panel" id="crqPanel">
+          <span class="section-label">Constructed Response Questions</span>
+          <div id="crqContainer"></div>
+        </div>
+
+        <!-- ERQ PANEL -->
+        <div class="quiz-panel" id="erqPanel">
+          <span class="section-label">Extended Response Question (Situation-Based)</span>
+          <div id="erqContainer"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      // ================= SEARCH FILTER =================
+      const searchInput = document.getElementById('searchInput');
+      const countDisplay = document.getElementById('countDisplay');
+
+      const allSearchables = document.querySelectorAll('[data-searchable]');
+      const cardParents = new Map();
+      allSearchables.forEach(card => cardParents.set(card, card.parentNode));
+
+      function applySearch(query) {
+        const q = query.trim().toLowerCase();
+        let visibleCount = 0;
+
+        allSearchables.forEach(card => {
+          const searchText = (card.dataset.searchable || '').toLowerCase() + ' ' + card.textContent.toLowerCase();
+          const matches = q === '' || searchText.includes(q);
+          if (matches) {
+            visibleCount++;
+            if (!card.parentNode) cardParents.get(card).appendChild(card);
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        countDisplay.textContent = visibleCount + ' item' + (visibleCount !== 1 ? 's' : '');
+      }
+
+      let debounceTimer;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => applySearch(e.target.value), 180);
+      });
+
+      searchInput.addEventListener('search', (e) => {
+        if (e.target.value === '') applySearch('');
+      });
+
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchInput.value !== '') {
+          searchInput.value = '';
+          applySearch('');
+        }
+      });
+
+      // ================= QUIZ DATA =================
+      const mcqs = [
+        {
+          q: "What does NPSTP stand for?",
+          options: [
+            "National Programme for School Teacher Preparation",
+            "National Professional Standards for Teachers in Pakistan",
+            "National Policy for Secondary Teaching Professionals",
+            "National Panel for Standards of Teaching Practice"
+          ],
+          correct: 1,
+          feedback: "NPSTP stands for National Professional Standards for Teachers in Pakistan."
+        },
+        {
+          q: "In which year were the NPSTP introduced?",
+          options: ["2005", "2009", "2012", "2015"],
+          correct: 1,
+          feedback: "The NPSTP were introduced in 2009 as part of the National Education Policy 2009."
+        },
+        {
+          q: "Who developed the NPSTP?",
+          options: [
+            "USAID alone",
+            "Policy and Planning Wing, Ministry of Education, Government of Pakistan",
+            "Provincial governments only",
+            "UNESCO and UNICEF"
+          ],
+          correct: 1,
+          feedback: "They were developed by the Policy and Planning Wing, Ministry of Education, Government of Pakistan, with support from USAID."
+        },
+        {
+          q: "Each standard in the NPSTP is explained under which three headings?",
+          options: [
+            "Planning, Teaching, Assessment",
+            "Knowledge, Dispositions, Performances",
+            "Theory, Practice, Reflection",
+            "Content, Method, Evaluation"
+          ],
+          correct: 1,
+          feedback: "Each standard is explained under Knowledge (what the teacher should know), Dispositions (attitudes and values), and Performances (what the teacher should do)."
+        },
+        {
+          q: "How many standards are there in the NPSTP?",
+          options: ["5", "8", "10", "12"],
+          correct: 2,
+          feedback: "There are 10 standards in the NPSTP."
+        },
+        {
+          q: "Which standard deals with understanding how children grow and learn?",
+          options: [
+            "Standard 1: Subject Matter Knowledge",
+            "Standard 2: Human Growth and Development",
+            "Standard 5: Assessment",
+            "Standard 6: Learning Environment"
+          ],
+          correct: 1,
+          feedback: "Standard 2 (Human Growth and Development) covers physical, social, emotional, and mental stages of development and individual differences."
+        },
+        {
+          q: "Which standard requires teachers to use formative and summative assessment?",
+          options: [
+            "Standard 3: Islamic Ethical Values",
+            "Standard 4: Instructional Planning",
+            "Standard 5: Assessment",
+            "Standard 7: Communication"
+          ],
+          correct: 2,
+          feedback: "Standard 5 (Assessment) requires understanding formative and summative assessment, designing tools, giving feedback, and using results to improve teaching."
+        },
+        {
+          q: "What does Standard 6 (Learning Environment) require teachers to avoid?",
+          options: [
+            "Group work",
+            "Using technology",
+            "Physical punishment",
+            "Parent meetings"
+          ],
+          correct: 2,
+          feedback: "Standard 6 requires teachers to avoid physical punishment and maintain discipline with respect and fairness."
+        },
+        {
+          q: "Standard 10 of the NPSTP applies specifically to which teachers?",
+          options: [
+            "All teachers regardless of subject",
+            "Muslim teachers, where Quran teaching is part of the curriculum",
+            "Only primary school teachers",
+            "Only English language teachers"
+          ],
+          correct: 1,
+          feedback: "Standard 10 (Teaching of the Holy Quran) applies to Muslim teachers where Quran teaching is part of the curriculum."
+        },
+        {
+          q: "What is the main aim of the NPSTP?",
+          options: [
+            "To increase teacher salaries",
+            "To reduce the number of schools",
+            "To achieve better teachers and better learning",
+            "To replace the national curriculum"
+          ],
+          correct: 2,
+          feedback: "The main aim of the NPSTP is better teachers and better learning — improving teaching quality across Pakistan."
+        }
+      ];
+
+      const crqs = [
+        {
+          q: "Explain the purpose of the National Professional Standards for Teachers in Pakistan (NPSTP).",
+          hint: "Think about quality, common benchmarks, accountability, and linking teaching to learning outcomes.",
+          keywords: ["quality", "teaching", "provinces", "clear picture", "expected performance", "common base", "teacher education", "training", "recruitment", "evaluation", "promotion", "accountable", "professional", "student learning outcomes"],
+          model: "The NPSTP were developed to improve the quality of teaching in all provinces, give teachers a clear picture of expected performance, and provide a common base for teacher education, training, and recruitment. They also guide teacher evaluation and promotion, make teachers accountable and professional, and link teaching with student learning outcomes."
+        },
+        {
+          q: "Describe the three-part structure of each NPSTP standard and give an example of each part.",
+          hint: "Think of Knowledge, Dispositions, and Performances.",
+          keywords: ["knowledge", "what teacher should know", "dispositions", "attitudes", "values", "beliefs", "performances", "what teacher should do", "class", "example"],
+          model: "Each standard is explained under three headings: (1) Knowledge — what the teacher should know, e.g., subject concepts, facts, and curriculum. (2) Dispositions — attitudes, values, and beliefs the teacher should have, e.g., respect, fairness, and tolerance. (3) Performances — what the teacher should actually do in class, e.g., planning lessons, using varied strategies, and assessing learning."
+        },
+        {
+          q: "Name any FIVE of the ten NPSTP standards and briefly explain what each one covers.",
+          hint: "Choose from the ten standards and give a one-line summary for each.",
+          keywords: ["subject matter", "human growth", "islamic ethical", "social life skills", "instructional planning", "assessment", "learning environment", "communication", "collaboration", "professional development", "quran"],
+          model: "Five NPSTP standards: (1) Subject Matter Knowledge — deep knowledge of the subject and links to real life. (2) Human Growth and Development — understanding how children develop and learn. (3) Instructional Planning and Strategies — planning lessons and using varied teaching methods. (4) Assessment — using formative and summative assessment to improve learning. (5) Learning Environment — creating a safe, positive, and inclusive classroom. (Other valid answers: Islamic Ethical Values, Communication, Collaboration, CPD and Code of Conduct, Teaching of the Holy Quran.)"
+        },
+        {
+          q: "What are the main challenges in implementing the NPSTP in Pakistan, and suggest TWO ways to improve implementation.",
+          hint: "Think about awareness, resources, monitoring, provincial differences, and how to fix them.",
+          keywords: ["awareness", "training", "resources", "rural", "monitoring", "follow-up", "provinces", "large class", "workload", "appointments", "cpd", "link recruitment", "promotion", "appraisal", "libraries", "labs", "technology", "update"],
+          model: "Main challenges: many teachers and schools are not fully aware of the standards; limited training and resources, especially in rural areas; weak monitoring and follow-up; differences between provinces; large class sizes and heavy workload; and teacher appointments sometimes not following the standards. Two suggestions for improvement: (1) Train all teachers on the standards through CPD programmes and link recruitment, promotion, and appraisal to the standards. (2) Improve monitoring by head teachers and education officers, and provide libraries, labs, and technology."
+        }
+      ];
+
+      const erq = {
+        q: `Mr. Imran is a newly appointed Grade 8 teacher in a government school in a rural area of Punjab. He teaches science but does not plan his lessons carefully, mostly lectures from the textbook, and rarely assesses students except at the end of term. He also keeps to himself and does not communicate with parents or colleagues.
+
+Using the National Professional Standards for Teachers in Pakistan (NPSTP), identify FOUR standards Mr. Imran is not meeting. For each standard, explain what he is doing wrong and what he should do instead.`,
+        marks: "10 marks",
+        model: `
+          <strong>Model Answer (key points):</strong>
+
+
+          <strong>1. Standard 4 — Instructional Planning and Strategies:</strong> Mr. Imran does not plan his lessons and mostly lectures from the textbook. He should write clear learning objectives, prepare lesson plans linked to the curriculum, and use different strategies such as group work, discussion, and activities. He should also use teaching aids and technology where available and manage time well.
+
+
+          <strong>2. Standard 5 — Assessment:</strong> He rarely assesses students except at the end of term. He should understand and use both formative (during learning) and summative (end of learning) assessment, design tests, quizzes, projects, and observation tools, give regular feedback to students, and use results to improve his teaching.
+
+
+          <strong>3. Standard 8 — Collaboration and Partnerships:</strong> He keeps to himself and does not communicate with parents or colleagues. He should cooperate with colleagues and the head teacher, communicate with parents and the community, take part in school committees and activities, and build partnerships with other schools and institutions.
+
+
+          <strong>4. Standard 9 — Continuous Professional Development and Code of Conduct:</strong> Mr. Imran does not reflect on his teaching or seek improvement. He should reflect on his own practice, attend workshops and training, read professional material, accept feedback, and follow the teachers' code of conduct (punctuality, honesty, confidentiality, respect).
+
+
+          <em>Note: Standard 6 (Learning Environment) could also apply if his lecture-only approach discourages participation and does not encourage all students, including girls and weaker students, to take part.</em>
+        `
+      };
+
+      // ================= RENDER MCQs =================
+      const mcqContainer = document.getElementById('mcqContainer');
+      let mcqHtml = '';
+      mcqs.forEach((item, idx) => {
+        const letters = ['A', 'B', 'C', 'D'];
+        let optionsHtml = '';
+        item.options.forEach((opt, oi) => {
+          optionsHtml += `
+            <div class="mcq-option" data-qidx="${idx}" data-oidx="${oi}">
+              <span class="option-letter">${letters[oi]}</span>
+              <span>${opt}</span>
+            </div>
+          `;
+        });
+        mcqHtml += `
+          <div class="mcq-item" id="mcq-${idx}">
+            <div class="mcq-question">${idx + 1}. ${item.q}</div>
+            <div class="mcq-options">${optionsHtml}</div>
+            <div class="mcq-feedback" id="mcq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      mcqContainer.innerHTML = mcqHtml;
+
+      mcqContainer.addEventListener('click', (e) => {
+        const option = e.target.closest('.mcq-option');
+        if (!option) return;
+        const qidx = parseInt(option.dataset.qidx);
+        const oidx = parseInt(option.dataset.oidx);
+        const mcq = mcqs[qidx];
+        const parentItem = document.getElementById(`mcq-${qidx}`);
+        const allOptions = parentItem.querySelectorAll('.mcq-option');
+        const feedbackEl = document.getElementById(`mcq-fb-${qidx}`);
+
+        if (parentItem.dataset.answered === 'correct') return;
+
+        allOptions.forEach(opt => opt.classList.remove('selected', 'correct', 'incorrect'));
+        option.classList.add('selected');
+
+        if (oidx === mcq.correct) {
+          option.classList.add('correct');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '✅ Correct! ' + mcq.feedback;
+          feedbackEl.className = 'mcq-feedback show correct-fb';
+          parentItem.dataset.answered = 'correct';
+        } else {
+          option.classList.add('incorrect');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '❌ Not quite. Try again!';
+          feedbackEl.className = 'mcq-feedback show incorrect-fb';
+          setTimeout(() => {
+            if (feedbackEl.classList.contains('incorrect-fb')) {
+              feedbackEl.classList.remove('show');
+            }
+          }, 1500);
+        }
+      });
+
+      // ================= RENDER CRQs =================
+      const crqContainer = document.getElementById('crqContainer');
+      let crqHtml = '';
+      crqs.forEach((item, idx) => {
+        crqHtml += `
+          <div class="crq-item" id="crq-${idx}">
+            <div class="crq-question">${idx + 1}. ${item.q}</div>
+            <div class="crq-hint">💡 Hint: ${item.hint}</div>
+            <textarea class="crq-textarea" id="crq-ta-${idx}" placeholder="Write your answer here..."></textarea>
+            <div class="crq-actions">
+              <button class="btn btn-primary" data-crq-check="${idx}">Check Answer</button>
+              <button class="btn btn-secondary" data-crq-clear="${idx}">Clear</button>
+            </div>
+            <div class="crq-feedback" id="crq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      crqContainer.innerHTML = crqHtml;
+
+      crqContainer.addEventListener('click', (e) => {
+        const checkBtn = e.target.closest('[data-crq-check]');
+        const clearBtn = e.target.closest('[data-crq-clear]');
+
+        if (checkBtn) {
+          const idx = parseInt(checkBtn.dataset.crqCheck);
+          const textarea = document.getElementById(`crq-ta-${idx}`);
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          const answer = textarea.value.trim().toLowerCase();
+          const crq = crqs[idx];
+
+          if (answer.length < 10) {
+            feedback.textContent = '⚠️ Please write a more complete answer (at least a sentence or two).';
+            feedback.className = 'crq-feedback show partial';
+            return;
+          }
+
+          const matched = crq.keywords.filter(kw => answer.includes(kw));
+          const ratio = matched.length / crq.keywords.length;
+
+          if (ratio >= 0.35) {
+            feedback.innerHTML = `✅ <strong>Good answer!</strong> You covered key ideas.
+
+<em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show good';
+          } else {
+            feedback.innerHTML = `📝 <strong>Partially correct.</strong> You mentioned some ideas. Try to include more key concepts.
+
+<em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show partial';
+          }
+        }
+
+        if (clearBtn) {
+          const idx = parseInt(clearBtn.dataset.crqClear);
+          document.getElementById(`crq-ta-${idx}`).value = '';
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          feedback.className = 'crq-feedback';
+          feedback.textContent = '';
+        }
+      });
+
+      // ================= RENDER ERQ =================
+      const erqContainer = document.getElementById('erqContainer');
+      erqContainer.innerHTML = `
+        <div class="erq-item">
+          <div class="erq-marks">${erq.marks}</div>
+          <div class="erq-question">${erq.q}</div>
+          <textarea class="erq-textarea" id="erq-ta" placeholder="Write your detailed answer here. Identify four standards and explain what Mr. Imran should do..."></textarea>
+          <div class="erq-actions">
+            <button class="btn btn-primary" id="erqCheck">Check Answer</button>
+            <button class="btn btn-secondary" id="erqClear">Clear</button>
+          </div>
+          <div class="erq-feedback" id="erq-fb"></div>
+        </div>
+      `;
+
+      document.getElementById('erqCheck').addEventListener('click', () => {
+        const ta = document.getElementById('erq-ta');
+        const fb = document.getElementById('erq-fb');
+        const answer = ta.value.trim().toLowerCase();
+
+        if (answer.length < 50) {
+          fb.textContent = '⚠️ Please write a more detailed answer. Identify and explain at least four standards.';
+          fb.className = 'erq-feedback show partial';
+          return;
+        }
+
+        const standardKeywords = ['standard 4', 'instructional planning', 'standard 5', 'assessment', 'standard 8', 'collaboration', 'standard 9', 'professional development', 'code of conduct', 'standard 6', 'learning environment'];
+        const found = standardKeywords.filter(k => answer.includes(k));
+
+        if (found.length >= 3) {
+          fb.innerHTML = `✅ <strong>Excellent effort!</strong> You identified multiple standards. Compare your answer with the model below.
+
+<em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show model';
+        } else if (found.length >= 1) {
+          fb.innerHTML = `📝 <strong>Good start!</strong> You mentioned some standards. Try to identify and explain at least four standards clearly.
+
+<em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        } else {
+          fb.innerHTML = `⚠️ Make sure to identify four NPSTP standards and explain what Mr. Imran is doing wrong and what he should do instead.
+
+<em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        }
+      });
+
+      document.getElementById('erqClear').addEventListener('click', () => {
+        document.getElementById('erq-ta').value = '';
+        const fb = document.getElementById('erq-fb');
+        fb.className = 'erq-feedback';
+        fb.textContent = '';
+      });
+
+      // ================= QUIZ TABS =================
+      const tabs = document.querySelectorAll('.quiz-tab');
+      const panels = document.querySelectorAll('.quiz-panel');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          panels.forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(tab.dataset.panel).classList.add('active');
+        });
+      });
+
+      // Initial count
+      countDisplay.textContent = allSearchables.length + ' items';
+
+    })();
+  </script>
+</body>
+</html>

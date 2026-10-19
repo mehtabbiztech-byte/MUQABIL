@@ -1,5 +1,6 @@
 import { StudyNote, StudySubject } from '../types';
 import { MCQS_DATA } from './mcqsData';
+import { FOUNDATIONS_OF_EDUCATION_SUBJECT } from './foundationsOfEducationNotes';
 import { METHODS_OF_TEACHING_SUBJECT } from './methodsOfTeachingNotes';
 
 export const STUDY_NOTES_DATA: StudyNote[] = [
@@ -173,6 +174,7 @@ export const STUDY_CURRICULUM: StudySubject[] = [
     }] }],
   },
   METHODS_OF_TEACHING_SUBJECT,
+  FOUNDATIONS_OF_EDUCATION_SUBJECT,
 ];
 
 void STUDY_NOTES_DATA;

@@ -59,6 +59,7 @@ export const METHODS_OF_TEACHING_TOPICS: LicenseTopicNote[] = [
     topicNumber: '1',
     title: "Bloom's Taxonomy of Educational Objectives",
     readTime: '10 min read',
+    htmlNotesPath: 'notes/methods-of-teaching/blooms-taxonomy-of-educational-objectives.html',
     summary:
       "Bloom's Taxonomy is a hierarchical classification system arranging educational learning objectives from simple recall to complex synthesis. Developed by Benjamin Bloom in 1956 and revised by Lorin Anderson & David Krathwohl in 2001, it establishes three learning domains: Cognitive (mental skills), Affective (feelings and values), and Psychomotor (physical and manual dexterity). Teaching must move beyond rote recall (LOTS) toward higher-order critical thinking (HOTS), while maintaining strict constructive alignment between curriculum objectives, classroom activities, and exam assessment.",
     highYieldAlert:
@@ -189,6 +190,7 @@ export const METHODS_OF_TEACHING_TOPICS: LicenseTopicNote[] = [
     topicNumber: '2',
     title: 'Cooperative Learning Strategies',
     readTime: '9 min read',
+    htmlNotesPath: 'notes/methods-of-teaching/cooperative-learning-strategies.html',
     summary:
       'Cooperative learning organizes students into structured small groups to accomplish shared learning goals. Distinct from ordinary group work, it relies on structured positive interdependence and individual accountability. Every member has a designated role or unique topic piece to master and teach, ensuring no student dominates while others free-ride. The teacher functions as an active facilitator and coach rather than a transmission lecturer, fostering critical thinking, inclusion, social communication, and deep conceptual mastery.',
     highYieldAlert:
@@ -561,6 +563,7 @@ export const METHODS_OF_TEACHING_TOPICS: LicenseTopicNote[] = [
     topicNumber: '5',
     title: 'National Professional Standards for Teachers in Pakistan (NPSTP)',
     readTime: '10 min read',
+    htmlNotesPath: 'notes/methods-of-teaching/national-professional-standards-for-teachers-in-pakistan.html',
     summary:
       'The National Professional Standards for Teachers in Pakistan (NPSTP) provide a standardized national benchmark describing what competent educators must know, value, and practice. Developed in 2009 by the Policy and Planning Wing of the Ministry of Education with USAID support under the National Education Policy 2009, they guide teacher education accreditation, recruitment, performance appraisal, promotion, and continuous professional development (CPD). Each of the 10 standards is evaluated across three pillars: Knowledge, Dispositions, and Performances.',
     highYieldAlert:
@@ -711,6 +714,7 @@ export const METHODS_OF_TEACHING_TOPICS: LicenseTopicNote[] = [
     topicNumber: '6',
     title: 'Teacher-Centred and Student-Centred Approaches',
     readTime: '8 min read',
+    htmlNotesPath: 'notes/methods-of-teaching/teacher-centred-and-student-centred-approaches.html',
     summary:
       'Teacher-centred and student-centred approaches are two ends of an instructional spectrum, and high-performing classrooms strategically blend them. In a teacher-centred approach, the instructor acts as the primary expert and transmitter who directs the pace, content, and activities, while students predominantly receive information (direct instruction, expository lecturing, modeling). In a student-centred approach, the teacher acts as a facilitator and guide, while learners construct meaning through inquiry, collaborative discussion, hands-on projects, and problem-solving. Effective educators balance direct instruction for foundational concepts with student-centred inquiry for higher-order reasoning.',
     highYieldAlert:
@@ -822,6 +826,324 @@ export const METHODS_OF_TEACHING_TOPICS: LicenseTopicNote[] = [
   },
 ];
 
+export const FOUNDATIONS_OF_EDUCATION_TOPICS: LicenseTopicNote[] = [
+  {
+    id: 'foundations-ideological',
+    topicNumber: '1',
+    title: 'Ideological Foundations of Education',
+    readTime: '9 min read',
+    htmlNotesPath: 'notes/foundations-of-education/ideological-foundations-of-education.html',
+    summary:
+      "The ideological foundation determines the vision, ethos, values, and ultimate purpose of education in a society, aligning educational practice with the community's core beliefs and philosophy. Without it, an educational system lacks direction, purpose, and cultural relevance. Its core components are the core belief system, national identity, moral and ethical character, and social cohesion, and its main functions are goal setting, curriculum design, teaching methodology, and policy formulation. In Pakistan, the ideological foundation of education is explicitly rooted in Islamic ideology and the ideology of Pakistan, as emphasised in the National Education Policy of 1979.",
+    highYieldAlert:
+      "STS High-Yield: Pakistan's ideological foundation of education is rooted in Islamic ideology and the ideology of Pakistan. The National Education Policy of 1979 stressed loyalty to Islam, character in accordance with the Quran and Sunnah, awareness of the universal Muslim Ummah, and knowledge of the Pakistan Movement's ideological foundations — and curricula/textbooks are reviewed to promote national cohesiveness and Islamic ideology.",
+    concepts: [
+      {
+        conceptTitle: 'Core Components & Themes',
+        explanation:
+          'The four building blocks that give an education system its values and identity.',
+        keyTerms: [
+          {
+            term: 'Core Belief System',
+            definition:
+              'Incorporates religious, ethical, philosophical, and cultural values that guide human life and social structure (e.g., an Islamic society prioritizing Tawhid and moral accountability).',
+          },
+          {
+            term: 'National Identity',
+            definition:
+              'Fosters patriotism, unity, civic responsibility, and respect for cultural heritage (e.g., teaching the Pakistan Movement and the ideology of Pakistan).',
+          },
+          {
+            term: 'Moral & Ethical Character',
+            definition:
+              'Shapes individual personality, moral discernment, integrity, and self-discipline (e.g., character education programs emphasizing honesty and responsibility).',
+          },
+          {
+            term: 'Social Cohesion',
+            definition:
+              'Promotes social justice, tolerance, equality, and mutual respect among diverse groups (e.g., inclusive curricula representing all ethnic and religious communities).',
+          },
+        ],
+      },
+      {
+        conceptTitle: 'Main Functions of Ideological Foundations',
+        explanation: 'How ideology is translated into educational practice.',
+        keyTerms: [
+          {
+            term: 'Goal Setting',
+            definition:
+              'Defines the overarching aims of the education system — character building, civic duty, spiritual development.',
+          },
+          {
+            term: 'Curriculum Design',
+            definition:
+              'Determines what subjects, historical narratives, literature, and value-based content are prioritized — the curriculum is never neutral.',
+          },
+          {
+            term: 'Teaching Methodology',
+            definition:
+              'Guides pedagogical approaches to instill discipline, critical thinking, or moral reflection.',
+          },
+          {
+            term: 'Policy Formulation',
+            definition:
+              'Serves as the benchmark for educational reforms, standards, and national goals — from teacher standards to textbook approval.',
+          },
+        ],
+      },
+      {
+        conceptTitle: 'Major Philosophical & Ideological Streams',
+        explanation: 'The lenses through which societies answer what education is for.',
+        keyTerms: [
+          {
+            term: 'Idealism',
+            definition:
+              'Emphasizes spiritual, moral, and intellectual development through truth, beauty, and goodness.',
+          },
+          {
+            term: 'Realism',
+            definition:
+              'Focuses on objective truth, empirical knowledge, scientific inquiry, and practical understanding of the physical world.',
+          },
+          {
+            term: 'Pragmatism / Progressivism',
+            definition:
+              'Focuses on learning by doing, adaptability, problem-solving, and democratically oriented education.',
+          },
+          {
+            term: 'Religious / Cultural Ideologies',
+            definition:
+              'Focus on holistic development guided by sacred texts, spiritual values, and historical continuity (e.g., Islamic, Christian, or Eastern frameworks).',
+          },
+        ],
+      },
+      {
+        conceptTitle: 'Ideological Foundations in the Pakistani Context',
+        explanation:
+          'Rooted in Islamic ideology and the ideology of Pakistan, particularly emphasized in the National Education Policy of 1979.',
+        bulletPoints: [
+          'Islamic Ideology: education aims to develop character, conduct, and motivation in accordance with the Quran and Sunnah.',
+          'National Identity: fostering deep loyalty to Pakistan and a consciousness of spiritual and ideological identity.',
+          'Universal Ummah: creating awareness that Pakistani students are part of the universal Muslim Ummah and should contribute to its welfare.',
+          'Pakistan Movement: producing citizens fully conversant with the Pakistan Movement, its ideological foundations, history, and culture.',
+          'Curriculum Review: mechanisms to review curricula and textbooks so they promote national cohesiveness, integration, and Islamic ideology.',
+          'Moral & Social Values: textbooks emphasize virtues like tolerance, charity, and acceptance of non-Muslims through stories from Islamic history.',
+        ],
+      },
+    ],
+    frequentExamQuestions: [
+      {
+        question: 'Explain the four core components of ideological foundations of education and why each matters.',
+        answer:
+          'The four components are the Core Belief System (religious, ethical, and cultural values that guide life), National Identity (patriotism, unity, and respect for heritage), Moral & Ethical Character (personality, integrity, and self-discipline), and Social Cohesion (justice, tolerance, and mutual respect among diverse groups). Together they give the education system its direction, identity, and social purpose.',
+      },
+      {
+        question: 'Describe the four main functions of ideological foundations in education.',
+        answer:
+          'Goal Setting defines overarching aims such as character building and civic duty; Curriculum Design determines which subjects, historical narratives, and values are prioritized; Teaching Methodology guides pedagogical approaches that instill discipline, critical thinking, or moral reflection; Policy Formulation serves as the benchmark for educational reforms, standards, and national goals.',
+      },
+      {
+        question: 'Compare Idealism and Realism as philosophical streams of educational ideology.',
+        answer:
+          'Idealism emphasizes spiritual, moral, and intellectual development through truth, beauty, and goodness, treating reality as mental or spiritual. Realism focuses on objective truth, empirical knowledge, scientific inquiry, and the physical world. Idealism shapes education around values and ideals, while Realism shapes it around observation and evidence.',
+      },
+      {
+        question:
+          'How has the ideological foundation of education in Pakistan been shaped by Islamic ideology and the Pakistan Movement?',
+        answer:
+          'Pakistan has consistently rooted education in Islamic ideology and the ideology of Pakistan. The National Education Policy of 1979 emphasized loyalty to Islam, character in accordance with the Quran and Sunnah, awareness of the universal Muslim Ummah, knowledge of the Pakistan Movement, and curriculum/textbook review for national cohesiveness and Islamic ideology.',
+      },
+    ],
+    quickQuiz: [
+      {
+        id: 'quiz-ide-1',
+        question:
+          'Why is the ideological foundation considered the primary pillar of any educational system?',
+        options: [
+          'It determines the budget of schools',
+          'It determines the vision, ethos, values, and ultimate purpose of education',
+          'It decides the number of teachers hired',
+          'It replaces the need for a curriculum',
+        ],
+        correctIndex: 1,
+        explanation:
+          "The ideological foundation determines the vision, ethos, values, and ultimate purpose of education, aligning practice with the community's core beliefs.",
+      },
+      {
+        id: 'quiz-ide-2',
+        question:
+          'Which philosophical stream emphasizes spiritual, moral, and intellectual development through truth, beauty, and goodness?',
+        options: ['Realism', 'Pragmatism', 'Idealism', 'Progressivism'],
+        correctIndex: 2,
+        explanation:
+          'Idealism emphasizes spiritual, moral, and intellectual development through truth, beauty, and goodness.',
+      },
+      {
+        id: 'quiz-ide-3',
+        question:
+          'According to the 1979 National Education Policy, one aim of education in Pakistan is to create awareness that students are part of:',
+        options: [
+          'A global secular community',
+          'The universal Muslim Ummah',
+          'A purely provincial identity',
+          'A Western educational tradition',
+        ],
+        correctIndex: 1,
+        explanation:
+          'The policy aimed to create awareness that Pakistani students are part of the universal Muslim Ummah and should contribute to its welfare.',
+      },
+    ],
+    examDistractorTraps: [
+      'Trap: Treating Pragmatism as focused on spiritual ideals — that is Idealism; Pragmatism/Progressivism emphasizes learning by doing and problem-solving.',
+      'Trap: Attributing the universal Ummah and Quran & Sunnah character aims to the National Education Policy 2009 — these were stressed in the 1979 policy.',
+      'Trap: Thinking the ideological foundation only selects curriculum content; it also sets goals, guides teaching methodology, and benchmarks policy formulation.',
+      'Trap: Confusing Moral & Ethical Character (individual integrity and self-discipline) with Social Cohesion (justice, tolerance, and mutual respect among groups).',
+    ],
+  },
+  {
+    id: 'foundations-philosophical',
+    topicNumber: '2',
+    title: 'Philosophical Foundations of Education',
+    readTime: '9 min read',
+    htmlNotesPath: 'notes/foundations-of-education/philosophical-foundations-of-education.html',
+    summary:
+      'Philosophy forms the foundational logic and intellectual structure of education. While ideological foundations supply the values and vision of a specific society, philosophical foundations examine the nature of reality, knowledge, and value — addressing what should be taught, how we know what is true, and what is worth knowing. The three core branches are Metaphysics, Epistemology, and Axiology; the four major schools are Idealism, Realism, Pragmatism/Experimentalism, and Existentialism. The philosophical foundation serves as the framework for every decision in an educational system, shaping curriculum, instruction, assessment, and the overall role of the school in human development.',
+    highYieldAlert:
+      'STS High-Yield: Match each school to its thinkers — Idealism (Plato, Kant, Hegel), Realism (Aristotle, Francis Bacon, John Locke), Pragmatism/Experimentalism (John Dewey, Charles Sanders Peirce, William James), Existentialism (Jean-Paul Sartre, Søren Kierkegaard, Friedrich Nietzsche) — and each branch to its question: Metaphysics "What is real?", Epistemology "How do we know what is true?", Axiology "What is good, right, or beautiful?"',
+    concepts: [
+      {
+        conceptTitle: 'Core Branches of Philosophy in Education',
+        explanation: 'The three lenses through which philosophy shapes schooling.',
+        keyTerms: [
+          {
+            term: 'Metaphysics — What is real?',
+            definition:
+              'Examines the nature of reality and existence; determines curriculum content — whether we teach physical science, spiritual concepts, or both.',
+          },
+          {
+            term: 'Epistemology — How do we know what is true?',
+            definition:
+              'Examines the nature, sources, and limits of knowledge; guides teaching and learning methods — lecture, inquiry, observation, or deduction.',
+          },
+          {
+            term: 'Axiology — What is good, right, or beautiful?',
+            definition:
+              'Examines values and ethics; shapes character education, moral reasoning, aesthetics, and school culture.',
+          },
+        ],
+      },
+      {
+        conceptTitle: 'Major Schools of Educational Philosophy',
+        explanation: 'Four schools, each with its own view of reality, thinkers, and methods.',
+        keyTerms: [
+          {
+            term: 'Idealism (Plato, Immanuel Kant, Hegel)',
+            definition:
+              'Reality is grounded in ideas, mind, and spirit. Focuses on character development, wisdom, and eternal truths via classics, philosophy, humanities, and history taught through the Socratic method and lecture.',
+          },
+          {
+            term: 'Realism (Aristotle, Francis Bacon, John Locke)',
+            definition:
+              'Reality exists independently of human minds and is governed by physical laws. Focuses on understanding the physical world through systematic observation and logic, taught through demonstration, experiment, and direct instruction.',
+          },
+          {
+            term: 'Pragmatism / Experimentalism (John Dewey, Charles Sanders Peirce, William James)',
+            definition:
+              'Truth and reality are dynamic, changing with practical experience and problem-solving. Education is life itself; project-based learning, hands-on tasks, integrated subjects, and collaborative problem-solving.',
+          },
+          {
+            term: 'Existentialism (Jean-Paul Sartre, Søren Kierkegaard, Friedrich Nietzsche)',
+            definition:
+              'Reality is defined by individual existence, free will, and personal responsibility. Helps students discover their unique identity through arts, literature, humanities, and self-directed study, with open discussion, creative expression, and self-reflection.',
+          },
+        ],
+      },
+      {
+        conceptTitle: 'Impact on Key Educational Dimensions',
+        explanation: 'Philosophy shapes every decision — curriculum, instruction, assessment, and the school’s role.',
+        bulletPoints: [
+          'Purpose: transmit timeless truths (Idealism), master real-world facts (Realism), solve practical problems (Pragmatism), or foster self-actualization (Existentialism).',
+          "Teacher's role: moral authority/model (Idealism), subject-matter expert (Realism), facilitator/guide (Pragmatism), or provocative mentor (Existentialism).",
+          "Learner's role: from a passive absorber of universal principles to an active, self-directed inquirer shaping their own learning path.",
+        ],
+      },
+    ],
+    comparisonTable: {
+      title: 'Schools at a Glance',
+      headers: ['Feature', 'Idealism', 'Realism', 'Pragmatism', 'Existentialism'],
+      rows: [
+        ['Reality', 'Ideas & spirit', 'Physical world', 'Dynamic experience', 'Individual existence'],
+        ['Purpose', 'Eternal truths', 'Master real-world facts', 'Solve practical problems', 'Self-actualization'],
+        ["Teacher's role", 'Moral authority / model', 'Subject-matter expert', 'Facilitator / guide', 'Provocative mentor'],
+        ["Learner's role", 'Absorber of universal principles', 'Observer of facts', 'Active problem-solver', 'Self-directed inquirer'],
+        ['Method', 'Socratic, lecture', 'Demonstration, experiment', 'Project, hands-on', 'Discussion, self-reflection'],
+      ],
+    },
+    frequentExamQuestions: [
+      {
+        question: 'Explain the three core branches of philosophy and how each applies to education.',
+        answer:
+          'Metaphysics asks "What is real?" and determines curriculum content (physical science, spiritual concepts, or both). Epistemology asks "How do we know what is true?" and guides teaching and learning methods (lecture, inquiry, observation, deduction). Axiology asks "What is good, right, or beautiful?" and shapes character education, moral reasoning, aesthetics, and school culture.',
+      },
+      {
+        question: 'Compare Idealism and Pragmatism as educational philosophies, including their key thinkers and methods.',
+        answer:
+          'Idealism (Plato, Kant, Hegel) holds that reality is grounded in ideas and spirit; it aims at character development and eternal truths and uses classics, philosophy, and history taught via the Socratic method and lecture. Pragmatism (Dewey, Peirce, James) holds that truth is dynamic and practical; education is life itself and democratic and student-centered, using project-based learning, hands-on tasks, integrated subjects, and collaborative problem-solving.',
+      },
+      {
+        question:
+          'How does philosophical foundation shape the purpose of education, the teacher’s role, and the learner’s role?',
+        answer:
+          'Purpose ranges from transmitting timeless truths (Idealism) and mastering real-world facts (Realism) to solving practical problems (Pragmatism) and fostering self-actualization (Existentialism). The teacher is a moral authority/model, subject-matter expert, facilitator/guide, or provocative mentor respectively. The learner moves from a passive absorber of universal principles to an active, self-directed inquirer.',
+      },
+      {
+        question:
+          'Describe Existentialism as an educational philosophy — its core view, key thinkers, and how it shapes curriculum and method.',
+        answer:
+          'Its core view is that reality is defined by individual existence, free will, and personal responsibility. Key thinkers are Jean-Paul Sartre, Søren Kierkegaard, and Friedrich Nietzsche. It helps students discover their unique identity, choices, and personal values; its curriculum includes arts, literature, humanities, and self-directed study, taught through open discussion, creative expression, and self-reflection.',
+      },
+    ],
+    quickQuiz: [
+      {
+        id: 'quiz-phi-1',
+        question:
+          "Which branch of philosophy asks 'What is real?' and determines curriculum content?",
+        options: ['Epistemology', 'Axiology', 'Metaphysics', 'Logic'],
+        correctIndex: 2,
+        explanation:
+          'Metaphysics examines the nature of reality and determines curriculum content — e.g., whether to teach physical science, spiritual concepts, or both.',
+      },
+      {
+        id: 'quiz-phi-2',
+        question:
+          'Which philosophy holds that reality is grounded in ideas, mind, and spirit?',
+        options: ['Realism', 'Pragmatism', 'Idealism', 'Existentialism'],
+        correctIndex: 2,
+        explanation:
+          'Idealism (Plato, Kant, Hegel) holds that reality is grounded in ideas, mind, and spirit rather than material objects.',
+      },
+      {
+        id: 'quiz-phi-3',
+        question: 'Who are key thinkers associated with Realism?',
+        options: [
+          'Plato, Kant, Hegel',
+          'Aristotle, Francis Bacon, John Locke',
+          'Dewey, Peirce, James',
+          'Sartre, Kierkegaard, Nietzsche',
+        ],
+        correctIndex: 1,
+        explanation: 'Realism is associated with Aristotle, Francis Bacon, and John Locke.',
+      },
+    ],
+    examDistractorTraps: [
+      'Trap: Mixing up the branches — Metaphysics = reality/curriculum content; Epistemology = knowledge/teaching methods; Axiology = values/character and school culture.',
+      'Trap: Attributing Dewey, Peirce, or James to Idealism — they are Pragmatism/Experimentalism thinkers.',
+      'Trap: Giving the teacher the "subject-matter expert" role under Idealism — that is Realism; Idealism casts the teacher as moral authority/model.',
+      'Trap: Treating Existentialism as focused on external authority; it centers individual existence, free will, and personal responsibility.',
+    ],
+  },
+];
+
 export const TEACHING_LICENSE_PARTS: LicensePartModule[] = [
   {
     id: 'steda-part-2-methods-of-teaching',
@@ -840,8 +1162,24 @@ export const TEACHING_LICENSE_PARTS: LicensePartModule[] = [
     topics: METHODS_OF_TEACHING_TOPICS,
   },
   {
-    id: 'steda-part-2-child-development',
+    id: 'steda-part-2-foundations-of-education',
     partNumber: 7,
+    partCategory: 'Part II: Pedagogical Content Knowledge (50%)',
+    subjectName: 'Foundations of Education',
+    weightage: '10 MCQs · 10 Marks',
+    marks: 10,
+    targetLevel: 'Elementary (BPS-16) & Secondary (BPS-17)',
+    iconName: 'Compass',
+    themeColor: 'from-teal-600 to-cyan-700',
+    badgeBg: 'bg-teal-500/10',
+    badgeText: 'text-teal-600 dark:text-teal-400',
+    description:
+      'Ideological, philosophical, sociological, psychological, and historical foundations of education — the vision, values, and social purposes that direct curriculum and pedagogy, including Pakistan’s Islamic ideological framework (National Education Policy 1979) and the major philosophical streams (Idealism, Realism, Naturalism, Pragmatism, Islamic philosophy).',
+    topics: FOUNDATIONS_OF_EDUCATION_TOPICS,
+  },
+  {
+    id: 'steda-part-2-child-development',
+    partNumber: 8,
     partCategory: 'Part II: Pedagogical Content Knowledge (50%)',
     subjectName: 'Child Development & Educational Psychology',
     weightage: '10 MCQs · 10 Marks',
@@ -857,7 +1195,7 @@ export const TEACHING_LICENSE_PARTS: LicensePartModule[] = [
   },
   {
     id: 'steda-part-2-classroom-management',
-    partNumber: 8,
+    partNumber: 9,
     partCategory: 'Part II: Pedagogical Content Knowledge (50%)',
     subjectName: 'Classroom Management',
     weightage: '10 MCQs · 10 Marks',
@@ -873,7 +1211,7 @@ export const TEACHING_LICENSE_PARTS: LicensePartModule[] = [
   },
   {
     id: 'steda-part-2-classroom-assessment',
-    partNumber: 9,
+    partNumber: 10,
     partCategory: 'Part II: Pedagogical Content Knowledge (50%)',
     subjectName: 'Classroom Assessment & Evaluation',
     weightage: '10 MCQs · 10 Marks',
@@ -889,7 +1227,7 @@ export const TEACHING_LICENSE_PARTS: LicensePartModule[] = [
   },
   {
     id: 'steda-part-2-school-community',
-    partNumber: 10,
+    partNumber: 11,
     partCategory: 'Part II: Pedagogical Content Knowledge (50%)',
     subjectName: 'School, Community & Teacher',
     weightage: '10 MCQs · 10 Marks',

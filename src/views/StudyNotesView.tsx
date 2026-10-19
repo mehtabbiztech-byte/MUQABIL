@@ -37,6 +37,7 @@ import {
 import { FullScreenInteractiveNoteReader } from '../components/FullScreenInteractiveNoteReader';
 import { HtmlStudyLessonReader } from '../components/HtmlStudyLessonReader';
 import { exportStudyLessonToPdf, exportMcqsToExcel } from '../lib/exportUtils';
+import { STUDY_PLANNER_TASK_HANDOFF_KEY, type PlannerTaskHandoff } from '../lib/studyPlanner';
 
 const panel = 'rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 sm:p-7';
 const button = 'rounded-xl px-4 py-2 bg-emerald-700 text-white font-semibold hover:bg-emerald-800 disabled:opacity-40';
@@ -324,7 +325,28 @@ function LessonReader({
 export const StudyNotesView: React.FC = () => {
   const { lessons: cmsLessons } = useCmsContent();
 
+  const [plannerHandoff, setPlannerHandoff] = useState<PlannerTaskHandoff | null>(() => {
+    try {
+      const serialized = sessionStorage.getItem(STUDY_PLANNER_TASK_HANDOFF_KEY);
+      if (!serialized) return null;
+      sessionStorage.removeItem(STUDY_PLANNER_TASK_HANDOFF_KEY);
+      const value = JSON.parse(serialized) as Partial<PlannerTaskHandoff>;
+      return typeof value.subtopic === 'string' && value.subtopic.trim()
+        ? { planId: typeof value.planId === 'string' ? value.planId : '', ...(typeof value.subjectSlug === 'string' ? { subjectSlug: value.subjectSlug } : {}), subtopic: value.subtopic.slice(0, 180) }
+        : null;
+    } catch {
+      sessionStorage.removeItem(STUDY_PLANNER_TASK_HANDOFF_KEY);
+      return null;
+    }
+  });
+
   const [mode, setMode] = useState<StudyNotesMode>(() => {
+    if (plannerHandoff?.subjectSlug === 'pedagogy') return 'teaching-license';
+    if (plannerHandoff?.subjectSlug === 'mathematics') return 'mathematics';
+    if (plannerHandoff?.subjectSlug === 'everyday-science') return 'science';
+    if (plannerHandoff?.subjectSlug === 'pakistan-studies' || plannerHandoff?.subjectSlug === 'pakistan-affairs') return 'social-studies';
+    if (plannerHandoff?.subjectSlug === 'english') return 'english';
+    if (plannerHandoff?.subjectSlug === 'urdu' || plannerHandoff?.subjectSlug === 'sindhi') return 'urdu-sindhi';
     if (sessionStorage.getItem('matb_open_teaching_license')) {
       sessionStorage.removeItem('matb_open_teaching_license');
       return 'teaching-license';
@@ -333,10 +355,10 @@ export const StudyNotesView: React.FC = () => {
       sessionStorage.removeItem('matb_open_stbb_science');
       return 'stbb';
     }
-    return 'mathematics';
+    return plannerHandoff?.subtopic ? 'advanced' : 'mathematics';
   });
 
-  const [topicQuery, setTopicQuery] = useState('');
+  const [topicQuery, setTopicQuery] = useState(() => plannerHandoff?.subtopic ?? '');
   const [subjectId, setSubjectId] = useState('all');
   const [lessonId, setLessonId] = useState<string | null>(null);
 
@@ -392,6 +414,16 @@ export const StudyNotesView: React.FC = () => {
 
   return (
     <main className="max-w-7xl mx-auto px-4 py-8 text-slate-900 dark:text-slate-100 space-y-6">
+      {plannerHandoff?.subtopic && (
+        <aside role="status" className="flex flex-col justify-between gap-3 rounded-2xl border border-sky-200 bg-sky-50 p-4 dark:border-sky-900 dark:bg-sky-950/30 sm:flex-row sm:items-center">
+          <div>
+            <p className="text-xs font-black uppercase tracking-wide text-sky-800 dark:text-sky-200">Planner task focus</p>
+            <p className="mt-1 text-sm font-extrabold text-slate-900 dark:text-white">{plannerHandoff.subtopic}</p>
+            <p className="mt-1 text-xs text-slate-600 dark:text-slate-300">The lesson library is filtered to this topic where matching material is available. If no exact result appears, clear the filter and explore related notes.</p>
+          </div>
+          <button type="button" onClick={() => { setPlannerHandoff(null); setTopicQuery(''); }} className="shrink-0 rounded-xl border border-sky-300 bg-white px-3 py-2 text-xs font-extrabold text-sky-800 hover:bg-sky-100 dark:border-sky-800 dark:bg-slate-900 dark:text-sky-200">Clear topic filter</button>
+        </aside>
+      )}
       {/* FULL-SCREEN INTERACTIVE NOTES READER MODAL */}
       {fullScreenTopic && currentPedagogicalSubject && (
         <FullScreenInteractiveNoteReader

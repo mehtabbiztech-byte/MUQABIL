@@ -2,7 +2,8 @@ import {
   db, 
   doc, 
   getDoc, 
-  setDoc, 
+  setDoc,
+  deleteDoc,
   updateDoc, 
   collection, 
   getDocs, 
@@ -12,6 +13,60 @@ import {
 } from './firebase';
 import { UserProfile, QuizAttempt } from '../types';
 import { validateQuizAttempt } from './validation';
+import { sanitizeStoredStudyPlan, type StudyPlannerCollection, type StoredStudyPlan } from './studyPlanner';
+
+const SAFE_STUDY_PLAN_ID = /^[A-Za-z0-9_-]{1,150}$/;
+
+/** Loads the signed-in user's private planner documents. Firestore rules enforce ownership. */
+export async function getStudyPlannerPlansFromDb(userId: string): Promise<StudyPlannerCollection> {
+  if (!userId) return { activePlanId: null, plans: [] };
+  try {
+    const plansCol = collection(db, 'users', userId, 'study_plans');
+    const snapshot = await getDocs(plansCol);
+    const plans = snapshot.docs.flatMap((document) => {
+      const data = document.data();
+      if (data.userId !== userId || !SAFE_STUDY_PLAN_ID.test(document.id)) return [];
+      const plan = sanitizeStoredStudyPlan(data.plan);
+      return plan && plan.id === document.id ? [plan] : [];
+    });
+    return { activePlanId: null, plans };
+  } catch (error) {
+    console.error('Error loading private study plans:', error);
+    throw error;
+  }
+}
+
+/** Saves one validated planner record under the authenticated user's private subcollection. */
+export async function saveStudyPlannerPlanToDb(userId: string, value: StoredStudyPlan): Promise<boolean> {
+  if (!userId || !SAFE_STUDY_PLAN_ID.test(value.id)) return false;
+  const plan = sanitizeStoredStudyPlan(value);
+  if (!plan || plan.id !== value.id) return false;
+  try {
+    const serialized = JSON.stringify(plan);
+    if (serialized.length > 900_000) return false;
+    await setDoc(doc(db, 'users', userId, 'study_plans', plan.id), {
+      userId,
+      plan,
+      updatedAt: new Date().toISOString(),
+    });
+    return true;
+  } catch (error) {
+    console.error('Error saving private study plan:', error);
+    return false;
+  }
+}
+
+/** Deletes one plan from the signed-in user's private subcollection. */
+export async function deleteStudyPlannerPlanFromDb(userId: string, planId: string): Promise<boolean> {
+  if (!userId || !SAFE_STUDY_PLAN_ID.test(planId)) return false;
+  try {
+    await deleteDoc(doc(db, 'users', userId, 'study_plans', planId));
+    return true;
+  } catch (error) {
+    console.error('Error deleting private study plan:', error);
+    return false;
+  }
+}
 
 /**
  * Fetches user profile from Firestore.

@@ -107,6 +107,43 @@ service cloud.firestore {
         allow update: if false;
         allow delete: if isOwner(userId);
       }
+
+      // Private study plans are explicitly opt-in synced and scoped to the owner.
+      match /study_plans/{planId} {
+        allow read: if isOwner(userId);
+        allow create, update: if isOwner(userId)
+          && request.resource.data.keys().hasOnly(['userId', 'plan', 'updatedAt'])
+          && request.resource.data.userId == userId
+          && request.resource.data.updatedAt is string
+          && request.resource.data.plan is map
+          && request.resource.data.plan.id == planId
+          && request.resource.data.plan.keys().hasOnly([
+            'id', 'generatedAt', 'updatedAt', 'startDate', 'form',
+            'completedTaskIds', 'completedTaskDates', 'completedTopicIds',
+            'completedSubtopicIds', 'plannedTopicIds', 'mockAttempts',
+            'aiPersonalizationRequested', 'aiPlanStatus', 'aiPlanAdvice'
+          ])
+          && request.resource.data.plan.form is map
+          && request.resource.data.plan.form.keys().hasOnly([
+            'organizationId', 'positionId', 'customPosition', 'subjectSlugs',
+            'preparationMode', 'currentLevel', 'examDate', 'dailyStudyMinutes',
+            'targetScore', 'weakAreas'
+          ])
+          && request.resource.data.plan.form.subjectSlugs is list
+          && request.resource.data.plan.form.subjectSlugs.size() <= 60
+          && request.resource.data.plan.form.weakAreas is list
+          && request.resource.data.plan.form.weakAreas.size() <= 30
+          && request.resource.data.plan.completedTaskIds is list
+          && request.resource.data.plan.completedTaskIds.size() <= 10000
+          && request.resource.data.plan.completedSubtopicIds is list
+          && request.resource.data.plan.completedSubtopicIds.size() <= 10000
+          && request.resource.data.plan.mockAttempts is list
+          && request.resource.data.plan.mockAttempts.size() <= 500
+          && (!('completedTaskDates' in request.resource.data.plan)
+            || (request.resource.data.plan.completedTaskDates is map
+              && request.resource.data.plan.completedTaskDates.keys().size() <= 10000));
+        allow delete: if isOwner(userId);
+      }
     }
   }
 }

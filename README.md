@@ -24,11 +24,13 @@ npm run dev
 
 ## Prepare for the Future — Smart Study Planner
 
-Open **Prepare for the Future** from the main navigation or the home-page hero to create a personalised study roadmap. Select an organization and position, map the available MUQABIL syllabus topics, then set your preparation mode, current level, exam date, daily study time, target score and weak areas. Position choices load dynamically; custom positions are supported.
+Open **Prepare for the Future** from the main navigation or home-page hero. Choose an organization and position, then configure study mode, current level, fixed exam date, daily time, target score and weak areas. Position choices load dynamically and custom positions are supported.
 
-The planner builds phased daily targets, spaced revision and weekly mock-test reminders, and includes a syllabus checklist, local task tracking, mock-score log, readiness estimate, streaks and badges. STS positions link to the matching existing syllabus record where one is available. Other mappings use MUQABIL's existing subject bank and are study aids, not substitutes for the current official notice.
+Where a position links to a published STS record, the planner uses its listed topics and section percentages and carries those weights into the schedule. Other selected subjects use MUQABIL's topic bank; these mappings are study aids, not substitutes for the latest official notice. Every mapped topic gets a topic-level task. A coverage/time check warns when the available days and daily budget cannot fit the syllabus; in that case all topics remain visible in the roadmap, with overloaded days called out instead of being silently dropped.
 
-Plans and progress are stored in the current browser. Optional Gemini personalisation is an explicit opt-in at plan generation; only the selected exam and syllabus details needed for that request are sent, and the local roadmap still works if AI is unavailable. The AI Mentor button opens Gemini chat with a contextual prompt prefilled; it is not sent until the learner chooses to send it. Readiness is a practice-progress indicator, not a predicted result or official score.
+The roadmap includes learn/notes/MCQ tasks, spaced review, weekly timed quizzes, a syllabus checklist and progress history. Completing a planned mock opens a real MUQABIL quiz; its result and subject-level accuracy return to the matching plan and shift future work toward weak performance. Rebalancing preserves completed work and leaves the exam date unchanged; an expired date must be edited explicitly. Manual score entry is also available.
+
+Multiple plans are saved locally. **Export & Print** can download a full JSON backup and restore it later, or export schedule tasks to an `.ics` calendar file (calendar applications can then provide their own reminders; MUQABIL does not send push notifications). Account cloud sync is optional, off by default, and requires sign-in; records are private to the signed-in user under the `users/{uid}/study_plans` Firestore subcollection. Deploy the matching `firestore.rules` to enable it. If the network or rules are unavailable, local storage and JSON backup remain available. Optional Gemini personalisation is a separate opt-in at plan generation; only the selected exam/syllabus details needed for that request are sent. The AI Mentor's contextual prompt is not sent until the learner chooses to send it. Readiness is a study-progress indicator, not a predicted result or official score.
 
 ## Verification
 
@@ -51,9 +53,9 @@ The Vercel project uses:
 - Output directory: `dist`
 - Install command: `npm ci`
 
-The health endpoint is available at `/api/health`.
+Production is <https://muqabil-test.vercel.app>. The health endpoint is `/api/health`.
 
-GitHub Pages is published by `.github/workflows/pages.yml` to <https://mehtabbiztech-byte.github.io/MUQABIL/>. Vite builds that site with a `/MUQABIL/` base path (`GITHUB_ACTIONS=true`), while Vercel and local development build for `/`.
+GitHub Pages is published by `.github/workflows/pages.yml` to <https://mehtabbiztech-byte.github.io/MUQABIL/>. Vite builds that site with a `/MUQABIL/` base path (`GITHUB_ACTIONS=true`), while Vercel and local development build for `/`. Do not add a `*.vercel.app` CNAME — those hostnames belong to Vercel, and GitHub Pages would redirect github.io at a domain it cannot serve.
 
 Enabling Pages is a one-time repository-administration step that only a repository owner can perform, because a workflow token can deploy to a Pages site but can never create one (see [actions/configure-pages#40](https://github.com/actions/configure-pages/issues/40)):
 

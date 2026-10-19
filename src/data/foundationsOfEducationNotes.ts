@@ -69,6 +69,47 @@ export const FOUNDATIONS_OF_EDUCATION_LESSONS: StudyLesson[] = [
     ],
     'notes/foundations-of-education/ideological-foundations-of-education.html',
   ),
+  lesson(
+    'foundations-philosophical',
+    'Philosophical Foundations of Education',
+    '9 min read',
+    'Philosophy forms the foundational logic and intellectual structure of education. While ideological foundations supply the values and vision of a specific society, philosophical foundations examine the nature of reality, knowledge, and value — addressing what should be taught, how we know what is true, and what is worth knowing. Its three core branches are Metaphysics (what is real — it determines curriculum content), Epistemology (how we know what is true — it guides teaching and learning methods), and Axiology (what is good, right, or beautiful — it shapes character education and school culture). The four major schools are Idealism (Plato, Kant, Hegel), Realism (Aristotle, Bacon, Locke), Pragmatism/Experimentalism (Dewey, Peirce, James), and Existentialism (Sartre, Kierkegaard, Nietzsche). The philosophical foundation serves as the framework for every decision in an educational system — shaping curriculum, instruction, assessment, and the school’s role in human development.',
+    [
+      'Metaphysics asks "What is real?" and decides whether a curriculum includes physical science only, or also spiritual/metaphysical concepts.',
+      'Epistemology asks "How do we know what is true?" and guides whether teachers use lecture, inquiry, observation, or deduction.',
+      'Axiology asks "What is good, right, or beautiful?" and shapes character education, moral reasoning, aesthetics, and school culture.',
+      'Idealism (Plato, Kant, Hegel): reality is grounded in ideas, mind, and spirit; character development, wisdom, and eternal truths via classics, philosophy, humanities, and history taught through the Socratic method and lecture.',
+      'Realism (Aristotle, Francis Bacon, John Locke): reality exists independently of human minds; understanding the physical world through systematic observation and logic, with demonstration, experiment, and direct instruction.',
+      'Pragmatism/Experimentalism (Dewey, Peirce, James): truth is dynamic and practical; education is life itself, with project-based learning, hands-on tasks, integrated subjects, and collaborative problem-solving.',
+      'Existentialism (Sartre, Kierkegaard, Nietzsche): reality is defined by individual existence, free will, and personal responsibility; students discover their unique identity through arts, literature, humanities, and self-directed study.',
+      'Teacher roles span moral authority/model (Idealism), subject-matter expert (Realism), facilitator/guide (Pragmatism), and provocative mentor (Existentialism); learner roles move from passive absorber of universal principles to active, self-directed inquirer.',
+    ],
+    [
+      'A curriculum that includes both physical science and spiritual concepts reflects a metaphysical decision about what is real.',
+      'Choosing inquiry and observation over pure lecture reflects an epistemological decision about how knowledge is gained.',
+      'Character education programs and inclusive school culture grow out of axiological commitments about what is good and beautiful.',
+      'Project-based, hands-on tasks with integrated subjects exemplify Pragmatist education in action.',
+    ],
+    [
+      {
+        prompt: 'Explain the three core branches of philosophy and how each applies to education.',
+        answer: 'Metaphysics asks "What is real?" and determines curriculum content (physical science, spiritual concepts, or both). Epistemology asks "How do we know what is true?" and guides teaching and learning methods (lecture, inquiry, observation, deduction). Axiology asks "What is good, right, or beautiful?" and shapes character education, moral reasoning, aesthetics, and school culture.',
+      },
+      {
+        prompt: 'Compare Idealism and Pragmatism as educational philosophies, including their key thinkers and methods.',
+        answer: 'Idealism (Plato, Kant, Hegel) holds that reality is grounded in ideas and spirit; it aims at character development and eternal truths and uses classics, philosophy, and history taught via the Socratic method and lecture. Pragmatism (Dewey, Peirce, James) holds that truth is dynamic and practical; education is life itself and democratic and student-centered, using project-based learning, hands-on tasks, integrated subjects, and collaborative problem-solving.',
+      },
+      {
+        prompt: 'How does philosophical foundation shape the purpose of education, the teacher’s role, and the learner’s role?',
+        answer: 'Purpose ranges from transmitting timeless truths (Idealism) and mastering real-world facts (Realism) to solving practical problems (Pragmatism) and fostering self-actualization (Existentialism). The teacher is a moral authority/model, subject-matter expert, facilitator/guide, or provocative mentor respectively. The learner moves from a passive absorber of universal principles to an active, self-directed inquirer shaping their own learning path.',
+      },
+      {
+        prompt: 'Describe Existentialism as an educational philosophy — its core view, key thinkers, and how it shapes curriculum and method.',
+        answer: 'Existentialism’s core view is that reality is defined by individual existence, free will, and personal responsibility. Key thinkers are Jean-Paul Sartre, Søren Kierkegaard, and Friedrich Nietzsche. It helps students discover their unique identity, choices, and personal values; its curriculum includes arts, literature, humanities, and self-directed study, taught through open discussion, creative expression, and self-reflection.',
+      },
+    ],
+    'notes/foundations-of-education/philosophical-foundations-of-education.html',
+  ),
 ];
 
 export const FOUNDATIONS_OF_EDUCATION_SUBJECT: StudySubject = {

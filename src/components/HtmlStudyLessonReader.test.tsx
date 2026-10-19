@@ -60,6 +60,13 @@ const documents = [
     grids: ['componentsGrid', 'functionsGrid', 'philosophyGrid'],
     crqs: 4,
   },
+  {
+    lessonId: 'foundations-philosophical',
+    path: 'notes/foundations-of-education/philosophical-foundations-of-education.html',
+    heading: 'Philosophical Foundations of Education',
+    grids: ['branchesGrid', 'schoolsGrid', 'impactGrid'],
+    crqs: 4,
+  },
 ];
 
 const allHtmlLessons = [...METHODS_OF_TEACHING_LESSONS, ...FOUNDATIONS_OF_EDUCATION_LESSONS];
@@ -199,6 +206,22 @@ test('ideological foundations notes preserve the components, functions, philosop
     'Teaching Methodology', 'Policy Formulation', 'Idealism', 'Realism', 'Pragmatism / Progressivism',
     'Religious / Cultural Ideologies', 'universal Muslim Ummah', 'National Education Policy of 1979',
     'Key Takeaway', 'A newly established private school in Pakistan']) {
+    assert.ok(html.includes(text), text);
+  }
+});
+
+test('philosophical foundations notes preserve the branches, schools, comparison table and situation-based prompt', () => {
+  const html = readFileSync(path.join(process.cwd(), 'public/notes/foundations-of-education/philosophical-foundations-of-education.html'), 'utf8');
+  assert.equal((html.match(/class="branch-card /g) || []).length, 3);
+  assert.equal((html.match(/class="school-card /g) || []).length, 4);
+  assert.equal((html.match(/class="impact-card"/g) || []).length, 3);
+  assert.equal((html.match(/class="table-wrapper"/g) || []).length, 1);
+  assert.equal((html.match(/class="takeaway-card"/g) || []).length, 1);
+  for (const text of ['Philosophical Foundations of Education', 'Metaphysics', 'Epistemology', 'Axiology',
+    'What is real?', 'How do we know what is true?', 'What is good, right, or beautiful?',
+    'Idealism', 'Realism', 'Pragmatism / Experimentalism', 'Existentialism',
+    'Plato', 'Aristotle', 'John Dewey', 'Jean-Paul Sartre', 'Schools at a Glance',
+    'Provocative mentor', 'Key Takeaway', 'A secondary school in Pakistan']) {
     assert.ok(html.includes(text), text);
   }
 });

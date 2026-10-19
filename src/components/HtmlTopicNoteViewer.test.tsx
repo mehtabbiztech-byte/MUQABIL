@@ -43,6 +43,11 @@ const hubDocuments = [
     path: 'notes/foundations-of-education/ideological-foundations-of-education.html',
     crqs: 4,
   },
+  {
+    topicId: 'foundations-philosophical',
+    path: 'notes/foundations-of-education/philosophical-foundations-of-education.html',
+    crqs: 4,
+  },
 ];
 
 const allHubTopics = [...METHODS_OF_TEACHING_TOPICS, ...FOUNDATIONS_OF_EDUCATION_TOPICS];

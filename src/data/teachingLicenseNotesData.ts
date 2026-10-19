@@ -1000,6 +1000,148 @@ export const FOUNDATIONS_OF_EDUCATION_TOPICS: LicenseTopicNote[] = [
       'Trap: Confusing Moral & Ethical Character (individual integrity and self-discipline) with Social Cohesion (justice, tolerance, and mutual respect among groups).',
     ],
   },
+  {
+    id: 'foundations-philosophical',
+    topicNumber: '2',
+    title: 'Philosophical Foundations of Education',
+    readTime: '9 min read',
+    htmlNotesPath: 'notes/foundations-of-education/philosophical-foundations-of-education.html',
+    summary:
+      'Philosophy forms the foundational logic and intellectual structure of education. While ideological foundations supply the values and vision of a specific society, philosophical foundations examine the nature of reality, knowledge, and value — addressing what should be taught, how we know what is true, and what is worth knowing. The three core branches are Metaphysics, Epistemology, and Axiology; the four major schools are Idealism, Realism, Pragmatism/Experimentalism, and Existentialism. The philosophical foundation serves as the framework for every decision in an educational system, shaping curriculum, instruction, assessment, and the overall role of the school in human development.',
+    highYieldAlert:
+      'STS High-Yield: Match each school to its thinkers — Idealism (Plato, Kant, Hegel), Realism (Aristotle, Francis Bacon, John Locke), Pragmatism/Experimentalism (John Dewey, Charles Sanders Peirce, William James), Existentialism (Jean-Paul Sartre, Søren Kierkegaard, Friedrich Nietzsche) — and each branch to its question: Metaphysics "What is real?", Epistemology "How do we know what is true?", Axiology "What is good, right, or beautiful?"',
+    concepts: [
+      {
+        conceptTitle: 'Core Branches of Philosophy in Education',
+        explanation: 'The three lenses through which philosophy shapes schooling.',
+        keyTerms: [
+          {
+            term: 'Metaphysics — What is real?',
+            definition:
+              'Examines the nature of reality and existence; determines curriculum content — whether we teach physical science, spiritual concepts, or both.',
+          },
+          {
+            term: 'Epistemology — How do we know what is true?',
+            definition:
+              'Examines the nature, sources, and limits of knowledge; guides teaching and learning methods — lecture, inquiry, observation, or deduction.',
+          },
+          {
+            term: 'Axiology — What is good, right, or beautiful?',
+            definition:
+              'Examines values and ethics; shapes character education, moral reasoning, aesthetics, and school culture.',
+          },
+        ],
+      },
+      {
+        conceptTitle: 'Major Schools of Educational Philosophy',
+        explanation: 'Four schools, each with its own view of reality, thinkers, and methods.',
+        keyTerms: [
+          {
+            term: 'Idealism (Plato, Immanuel Kant, Hegel)',
+            definition:
+              'Reality is grounded in ideas, mind, and spirit. Focuses on character development, wisdom, and eternal truths via classics, philosophy, humanities, and history taught through the Socratic method and lecture.',
+          },
+          {
+            term: 'Realism (Aristotle, Francis Bacon, John Locke)',
+            definition:
+              'Reality exists independently of human minds and is governed by physical laws. Focuses on understanding the physical world through systematic observation and logic, taught through demonstration, experiment, and direct instruction.',
+          },
+          {
+            term: 'Pragmatism / Experimentalism (John Dewey, Charles Sanders Peirce, William James)',
+            definition:
+              'Truth and reality are dynamic, changing with practical experience and problem-solving. Education is life itself; project-based learning, hands-on tasks, integrated subjects, and collaborative problem-solving.',
+          },
+          {
+            term: 'Existentialism (Jean-Paul Sartre, Søren Kierkegaard, Friedrich Nietzsche)',
+            definition:
+              'Reality is defined by individual existence, free will, and personal responsibility. Helps students discover their unique identity through arts, literature, humanities, and self-directed study, with open discussion, creative expression, and self-reflection.',
+          },
+        ],
+      },
+      {
+        conceptTitle: 'Impact on Key Educational Dimensions',
+        explanation: 'Philosophy shapes every decision — curriculum, instruction, assessment, and the school’s role.',
+        bulletPoints: [
+          'Purpose: transmit timeless truths (Idealism), master real-world facts (Realism), solve practical problems (Pragmatism), or foster self-actualization (Existentialism).',
+          "Teacher's role: moral authority/model (Idealism), subject-matter expert (Realism), facilitator/guide (Pragmatism), or provocative mentor (Existentialism).",
+          "Learner's role: from a passive absorber of universal principles to an active, self-directed inquirer shaping their own learning path.",
+        ],
+      },
+    ],
+    comparisonTable: {
+      title: 'Schools at a Glance',
+      headers: ['Feature', 'Idealism', 'Realism', 'Pragmatism', 'Existentialism'],
+      rows: [
+        ['Reality', 'Ideas & spirit', 'Physical world', 'Dynamic experience', 'Individual existence'],
+        ['Purpose', 'Eternal truths', 'Master real-world facts', 'Solve practical problems', 'Self-actualization'],
+        ["Teacher's role", 'Moral authority / model', 'Subject-matter expert', 'Facilitator / guide', 'Provocative mentor'],
+        ["Learner's role", 'Absorber of universal principles', 'Observer of facts', 'Active problem-solver', 'Self-directed inquirer'],
+        ['Method', 'Socratic, lecture', 'Demonstration, experiment', 'Project, hands-on', 'Discussion, self-reflection'],
+      ],
+    },
+    frequentExamQuestions: [
+      {
+        question: 'Explain the three core branches of philosophy and how each applies to education.',
+        answer:
+          'Metaphysics asks "What is real?" and determines curriculum content (physical science, spiritual concepts, or both). Epistemology asks "How do we know what is true?" and guides teaching and learning methods (lecture, inquiry, observation, deduction). Axiology asks "What is good, right, or beautiful?" and shapes character education, moral reasoning, aesthetics, and school culture.',
+      },
+      {
+        question: 'Compare Idealism and Pragmatism as educational philosophies, including their key thinkers and methods.',
+        answer:
+          'Idealism (Plato, Kant, Hegel) holds that reality is grounded in ideas and spirit; it aims at character development and eternal truths and uses classics, philosophy, and history taught via the Socratic method and lecture. Pragmatism (Dewey, Peirce, James) holds that truth is dynamic and practical; education is life itself and democratic and student-centered, using project-based learning, hands-on tasks, integrated subjects, and collaborative problem-solving.',
+      },
+      {
+        question:
+          'How does philosophical foundation shape the purpose of education, the teacher’s role, and the learner’s role?',
+        answer:
+          'Purpose ranges from transmitting timeless truths (Idealism) and mastering real-world facts (Realism) to solving practical problems (Pragmatism) and fostering self-actualization (Existentialism). The teacher is a moral authority/model, subject-matter expert, facilitator/guide, or provocative mentor respectively. The learner moves from a passive absorber of universal principles to an active, self-directed inquirer.',
+      },
+      {
+        question:
+          'Describe Existentialism as an educational philosophy — its core view, key thinkers, and how it shapes curriculum and method.',
+        answer:
+          'Its core view is that reality is defined by individual existence, free will, and personal responsibility. Key thinkers are Jean-Paul Sartre, Søren Kierkegaard, and Friedrich Nietzsche. It helps students discover their unique identity, choices, and personal values; its curriculum includes arts, literature, humanities, and self-directed study, taught through open discussion, creative expression, and self-reflection.',
+      },
+    ],
+    quickQuiz: [
+      {
+        id: 'quiz-phi-1',
+        question:
+          "Which branch of philosophy asks 'What is real?' and determines curriculum content?",
+        options: ['Epistemology', 'Axiology', 'Metaphysics', 'Logic'],
+        correctIndex: 2,
+        explanation:
+          'Metaphysics examines the nature of reality and determines curriculum content — e.g., whether to teach physical science, spiritual concepts, or both.',
+      },
+      {
+        id: 'quiz-phi-2',
+        question:
+          'Which philosophy holds that reality is grounded in ideas, mind, and spirit?',
+        options: ['Realism', 'Pragmatism', 'Idealism', 'Existentialism'],
+        correctIndex: 2,
+        explanation:
+          'Idealism (Plato, Kant, Hegel) holds that reality is grounded in ideas, mind, and spirit rather than material objects.',
+      },
+      {
+        id: 'quiz-phi-3',
+        question: 'Who are key thinkers associated with Realism?',
+        options: [
+          'Plato, Kant, Hegel',
+          'Aristotle, Francis Bacon, John Locke',
+          'Dewey, Peirce, James',
+          'Sartre, Kierkegaard, Nietzsche',
+        ],
+        correctIndex: 1,
+        explanation: 'Realism is associated with Aristotle, Francis Bacon, and John Locke.',
+      },
+    ],
+    examDistractorTraps: [
+      'Trap: Mixing up the branches — Metaphysics = reality/curriculum content; Epistemology = knowledge/teaching methods; Axiology = values/character and school culture.',
+      'Trap: Attributing Dewey, Peirce, or James to Idealism — they are Pragmatism/Experimentalism thinkers.',
+      'Trap: Giving the teacher the "subject-matter expert" role under Idealism — that is Realism; Idealism casts the teacher as moral authority/model.',
+      'Trap: Treating Existentialism as focused on external authority; it centers individual existence, free will, and personal responsibility.',
+    ],
+  },
 ];
 
 export const TEACHING_LICENSE_PARTS: LicensePartModule[] = [

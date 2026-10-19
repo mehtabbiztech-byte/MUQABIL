@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Philosophical Foundations of Education · Foundations of Education</title>
+  <style>
+    /* ---------- GLOBAL ---------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+      color: #1e2b3c;
+    }
+    .main-wrapper { max-width: 1100px; width: 100%; }
+
+    /* ---------- HEADER ---------- */
+    .header-card {
+      background: white;
+      border-radius: 2rem 2rem 1.5rem 1.5rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      padding: 2rem 2rem 1.5rem 2rem;
+      margin-bottom: 1.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: transform 0.2s;
+    }
+    .header-card:hover { transform: scale(1.002); }
+    .badge {
+      display: inline-block;
+      background: #2a4b7c;
+      color: #f0f7ff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+      line-height: 1.25;
+    }
+    .subhead {
+      font-size: 1.05rem;
+      color: #2f5277;
+      font-weight: 400;
+      border-left: 5px solid #8bb3e0;
+      padding-left: 1.2rem;
+      margin: 1rem 0 0.2rem 0;
+      font-style: italic;
+    }
+    .intro-text {
+      background: #e6f0fc;
+      padding: 1rem 1.4rem;
+      border-radius: 1.2rem;
+      margin-top: 1.4rem;
+      font-size: 0.98rem;
+      color: #1d3a5c;
+      border-left: 5px solid #3b6ea5;
+    }
+
+    /* ---------- SECTION TITLE ---------- */
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #0e2a47;
+      margin: 2.2rem 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section-title .line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #8bb3e0, transparent);
+      border-radius: 2px;
+    }
+
+    /* ---------- CARDS GRID ---------- */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ---------- BRANCH CARDS ---------- */
+    .branch-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.4rem 1.4rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      transition: all 0.25s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .branch-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      opacity: 0.85;
+      transition: height 0.2s;
+    }
+    .branch-card.metaphysics::before { background: linear-gradient(90deg, #2a4b7c, #5a8ec9); }
+    .branch-card.epistemology::before { background: linear-gradient(90deg, #2e7d4f, #6fc98a); }
+    .branch-card.axiology::before { background: linear-gradient(90deg, #c94f7c, #e88bb0); }
+    .branch-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 28px -16px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .branch-card:hover::before { height: 10px; }
+    .branch-icon {
+      font-size: 2rem;
+      line-height: 1;
+      background: #e9f0fa;
+      width: 54px;
+      height: 54px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #1b3c61;
+      margin-bottom: 0.8rem;
+      transition: background 0.2s;
+    }
+    .branch-card:hover .branch-icon { background: #d3e3f8; }
+    .branch-title {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #0e2a47;
+      margin-bottom: 0.3rem;
+    }
+    .branch-question {
+      font-size: 0.88rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-bottom: 0.6rem;
+    }
+    .branch-desc {
+      font-size: 0.92rem;
+      color: #274e73;
+      line-height: 1.55;
+      margin-bottom: 0.7rem;
+      flex: 1;
+    }
+    .branch-app {
+      background: #f6faff;
+      border-radius: 0.9rem;
+      padding: 0.7rem 0.9rem;
+      font-size: 0.86rem;
+      color: #183c5e;
+      border-left: 4px solid #3b7bb5;
+    }
+
+    /* ---------- PHILOSOPHY SCHOOL CARDS ---------- */
+    .school-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.5rem 1.4rem 1.5rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      transition: all 0.25s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .school-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 7px;
+      opacity: 0.9;
+      transition: height 0.2s;
+    }
+    .school-card.idealism::before { background: linear-gradient(90deg, #6a4c9c, #b39ddb); }
+    .school-card.realism::before { background: linear-gradient(90deg, #2e7d4f, #81c784); }
+    .school-card.pragmatism::before { background: linear-gradient(90deg, #e0a800, #ffd54f); }
+    .school-card.existentialism::before { background: linear-gradient(90deg, #b03a5b, #e88bb0); }
+    .school-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 28px -16px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .school-card:hover::before { height: 12px; }
+    .school-header {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.7rem;
+    }
+    .school-icon {
+      font-size: 2rem;
+      line-height: 1;
+      background: #e9f0fa;
+      width: 54px;
+      height: 54px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #1b3c61;
+      transition: background 0.2s;
+    }
+    .school-card:hover .school-icon { background: #d3e3f8; }
+    .school-name {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: #0e2a47;
+      line-height: 1.25;
+    }
+    .school-sub {
+      font-size: 0.83rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-top: 0.1rem;
+    }
+    .school-section {
+      margin-bottom: 0.7rem;
+    }
+    .school-section-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #1a4b7a;
+      background: #d7e6fa;
+      padding: 0.12rem 0.75rem;
+      border-radius: 30px;
+      display: inline-block;
+      margin-bottom: 0.4rem;
+    }
+    .school-section-title.green { color: #1b6e3e; background: #d4f0e0; }
+    .school-section-title.amber { color: #7a4e14; background: #fdeed8; }
+    .school-section-title.pink { color: #8a3a55; background: #fce4ec; }
+    .school-text {
+      font-size: 0.9rem;
+      color: #274e73;
+      line-height: 1.55;
+    }
+    .thinker-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.2rem;
+    }
+    .thinker-tag {
+      background: #eef4fb;
+      color: #1b4670;
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 0.22rem 0.75rem;
+      border-radius: 30px;
+      border: 1px solid #d0e0f0;
+    }
+    .method-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.3rem;
+    }
+    .method-tag {
+      background: #f6faff;
+      color: #183c5e;
+      font-size: 0.76rem;
+      font-weight: 500;
+      padding: 0.22rem 0.75rem;
+      border-radius: 30px;
+      border: 1px solid #c9ddf5;
+    }
+
+    /* ---------- COMPARISON TABLE ---------- */
+    .table-wrapper {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.4rem 1.4rem 1.2rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      border: 1px solid #e3ecf7;
+      overflow-x: auto;
+      margin-bottom: 0.5rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.88rem;
+      min-width: 640px;
+    }
+    thead th {
+      text-align: left;
+      padding: 0.8rem 0.9rem;
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: white;
+      background: #0e2a47;
+    }
+    thead th:first-child {
+      border-radius: 1rem 0 0 0;
+      background: #2a4b7c;
+      min-width: 110px;
+    }
+    thead th:last-child { border-radius: 0 1rem 0 0; }
+    tbody td {
+      padding: 0.7rem 0.9rem;
+      border-bottom: 1px solid #e8f0f9;
+      color: #1e3c5a;
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: #f6faff; }
+    tbody td:first-child {
+      font-weight: 700;
+      color: #0e2a47;
+      background: #f3f8fd;
+      white-space: nowrap;
+    }
+    tbody tr:hover td:first-child { background: #eaf3fc; }
+
+    /* ---------- IMPACT CARDS ---------- */
+    .impact-card {
+      background: white;
+      border-radius: 1.4rem;
+      padding: 1.3rem 1.4rem;
+      box-shadow: 0 8px 18px -10px rgba(20, 40, 70, 0.16);
+      border: 1px solid #e3ecf7;
+      transition: all 0.22s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .impact-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(180deg, #3f7cb0, #8bb3e0);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .impact-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 24px -14px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .impact-card:hover::before { opacity: 1; }
+    .impact-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+    }
+    .impact-desc {
+      font-size: 0.89rem;
+      color: #274e73;
+      line-height: 1.55;
+    }
+
+    /* ---------- TAKEAWAY ---------- */
+    .takeaway-card {
+      background: #0e2a47;
+      color: white;
+      border-radius: 1.6rem;
+      padding: 1.6rem 2rem;
+      margin: 1.2rem 0 0.5rem 0;
+      font-size: 1rem;
+      line-height: 1.65;
+      box-shadow: 0 14px 26px -12px #0e2a47;
+      border-left: 6px solid #8bb3e0;
+    }
+    .takeaway-card strong { color: #b8d4f0; }
+
+    /* ---------- SEARCH & COUNT ---------- */
+    .filter-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 60px;
+      box-shadow: 0 8px 18px -8px rgba(0, 27, 45, 0.1);
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 40px;
+      padding: 0.3rem 0.3rem 0.3rem 1.2rem;
+      flex: 2;
+      min-width: 240px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      border: 1px solid #ccdcee;
+    }
+    .search-box span { font-size: 1.1rem; margin-right: 0.5rem; color: #4e6b8a; }
+    .search-box input {
+      border: none;
+      padding: 0.7rem 0.2rem;
+      width: 100%;
+      font-size: 0.95rem;
+      outline: none;
+      background: transparent;
+      color: #0c253b;
+    }
+    .search-box input::placeholder { color: #879eb6; font-weight: 300; }
+    .count-pill {
+      background: #0e2a47;
+      color: white;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ---------- QUIZ SECTION ---------- */
+    .quiz-section { margin-top: 2.5rem; }
+    .quiz-header {
+      background: #0e2a47;
+      border-radius: 2rem 2rem 0 0;
+      padding: 1.5rem 2rem;
+      color: white;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .quiz-header h2 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.3px; }
+    .quiz-header .quiz-badge {
+      background: #8bb3e0;
+      color: #0e2a47;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .quiz-body {
+      background: white;
+      border-radius: 0 0 2rem 2rem;
+      padding: 2rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      border: 1px solid #e3ecf7;
+      border-top: none;
+    }
+    .quiz-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #e3ecf7;
+      padding-bottom: 1rem;
+    }
+    .quiz-tab {
+      background: #f0f5fd;
+      border: 1px solid #d0e0f0;
+      color: #1b4670;
+      padding: 0.5rem 1.3rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .quiz-tab:hover { background: #e0ecfc; border-color: #a0c0e0; }
+    .quiz-tab.active { background: #0e2a47; color: white; border-color: #0e2a47; }
+    .quiz-panel { display: none; }
+    .quiz-panel.active { display: block; }
+    .section-label {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.2rem;
+    }
+
+    /* MCQ */
+    .mcq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+      transition: background 0.2s;
+    }
+    .mcq-item:hover { background: #f0f7fe; }
+    .mcq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.8rem;
+      line-height: 1.5;
+    }
+    .mcq-options { display: flex; flex-direction: column; gap: 0.5rem; }
+    .mcq-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 0.8rem;
+      background: white;
+      border: 1.5px solid #d9e8fc;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+    }
+    .mcq-option:hover { border-color: #8bb3e0; background: #eef6ff; }
+    .mcq-option.selected { border-color: #3b7bb5; background: #e4f0fe; font-weight: 500; }
+    .mcq-option.correct { border-color: #2e9b5e; background: #e6f7ee; font-weight: 600; }
+    .mcq-option.incorrect { border-color: #d45a5a; background: #fdeaea; font-weight: 500; }
+    .mcq-option .option-letter {
+      font-weight: 700;
+      color: #2a4b7c;
+      min-width: 1.4rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .mcq-option.correct .option-letter { color: #1b7a44; }
+    .mcq-option.incorrect .option-letter { color: #b03030; }
+    .mcq-feedback {
+      margin-top: 0.7rem;
+      font-size: 0.88rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: 0.8rem;
+      display: none;
+      font-weight: 500;
+    }
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.correct-fb {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .mcq-feedback.incorrect-fb {
+      background: #fdeaea;
+      color: #9e2a2a;
+      border-left: 4px solid #d45a5a;
+    }
+
+    /* CRQ / ERQ shared */
+    .crq-item, .erq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+    }
+    .erq-item { border: 2px solid #8bb3e0; background: #f5faff; }
+    .crq-question, .erq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+    .erq-question { font-size: 1.05rem; font-weight: 700; }
+    .erq-marks {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      margin-bottom: 0.8rem;
+    }
+    .crq-hint {
+      font-size: 0.85rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-bottom: 0.7rem;
+    }
+    .crq-textarea, .erq-textarea {
+      width: 100%;
+      border: 1.5px solid #d9e8fc;
+      border-radius: 0.9rem;
+      padding: 0.8rem 1rem;
+      font-family: inherit;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+      resize: vertical;
+      transition: border-color 0.2s;
+      background: white;
+    }
+    .crq-textarea { min-height: 90px; }
+    .erq-textarea { min-height: 160px; }
+    .crq-textarea:focus, .erq-textarea:focus {
+      outline: none;
+      border-color: #3b7bb5;
+      box-shadow: 0 0 0 3px rgba(59, 123, 181, 0.12);
+    }
+    .crq-actions, .erq-actions {
+      display: flex;
+      gap: 0.7rem;
+      margin-top: 0.7rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 0.55rem 1.4rem;
+      border-radius: 40px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      font-family: inherit;
+    }
+    .btn-primary { background: #0e2a47; color: white; }
+    .btn-primary:hover { background: #1a4170; transform: translateY(-1px); }
+    .btn-secondary { background: #e9f0fa; color: #1b4670; border: 1px solid #c0d8f0; }
+    .btn-secondary:hover { background: #d8e6f8; }
+    .crq-feedback, .erq-feedback {
+      margin-top: 0.8rem;
+      padding: 0.8rem 1rem;
+      border-radius: 0.9rem;
+      font-size: 0.9rem;
+      display: none;
+      line-height: 1.6;
+    }
+    .crq-feedback.show, .erq-feedback.show { display: block; }
+    .crq-feedback.good, .erq-feedback.good {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .crq-feedback.partial, .erq-feedback.partial {
+      background: #fff8e6;
+      color: #8a6d1f;
+      border-left: 4px solid #e0a800;
+    }
+    .erq-feedback.model {
+      background: #e6f0fc;
+      color: #1a3e62;
+      border-left: 5px solid #3b7bb5;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 600px) {
+      .header-card { padding: 1.5rem 1.2rem; }
+      h1 { font-size: 1.7rem; }
+      .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: 2rem;
+        padding: 1rem;
+      }
+      .search-box { width: 100%; }
+      .count-pill { text-align: center; padding: 0.5rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .quiz-body { padding: 1.2rem; }
+      .quiz-header { padding: 1.2rem; }
+      .quiz-header h2 { font-size: 1.3rem; }
+      .mcq-item, .crq-item, .erq-item { padding: 1rem; }
+      .quiz-tab { font-size: 0.8rem; padding: 0.4rem 1rem; }
+      .takeaway-card { padding: 1.3rem 1.2rem; }
+    }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #dfe9f5; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: #94b0d1; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6d8fb4; }
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem 1rem;
+      background: #ffffffc9;
+      border-radius: 2rem;
+      font-size: 1.1rem;
+      color: #4b6888;
+      border: 2px dashed #b8cee8;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-wrapper">
+
+    <!-- HEADER -->
+    <div class="header-card">
+      <div class="badge">🏛️ Foundations of Education</div>
+      <h1>Philosophical Foundations of Education</h1>
+      <div class="subhead">The framework for every decision in an educational system</div>
+      <div class="intro-text">
+        <strong>💡 Why philosophy matters:</strong> Philosophy forms the foundational logic and intellectual structure of education. While ideological foundations supply the values and vision of a specific society, philosophical foundations examine the nature of reality, knowledge, and value — addressing fundamental questions such as <em>What should be taught?</em>, <em>How do we know what is true?</em>, and <em>What is worth knowing?</em>
+      </div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="filter-section">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="Search branches, schools, thinkers, methods..." autocomplete="off">
+      </div>
+      <div class="count-pill" id="countDisplay">25+ items</div>
+    </div>
+
+    <!-- CORE BRANCHES -->
+    <div class="section-title">
+      🌳 Core Branches of Philosophy in Education
+      <span class="line"></span>
+    </div>
+
+    <div class="cards-grid" id="branchesGrid">
+      <div class="branch-card metaphysics" data-searchable="metaphysics nature of reality what is real curriculum content physical science spiritual metaphysical concepts">
+        <div class="branch-icon">🌌</div>
+        <div class="branch-title">Metaphysics</div>
+        <div class="branch-question">Core question: What is real?</div>
+        <div class="branch-desc">
+          Examines the nature of reality and existence. In education, it determines curriculum content — whether we teach physical science, spiritual concepts, or both.
+        </div>
+        <div class="branch-app"><strong>Educational application:</strong> Decides whether a curriculum includes physical science only, or also spiritual/metaphysical concepts.</div>
+      </div>
+      <div class="branch-card epistemology" data-searchable="epistemology nature of knowledge how do we know true teaching learning methods lecture inquiry observation deduction">
+        <div class="branch-icon">🔍</div>
+        <div class="branch-title">Epistemology</div>
+        <div class="branch-question">Core question: How do we know what is true?</div>
+        <div class="branch-desc">
+          Examines the nature, sources, and limits of knowledge. In education, it guides teaching and learning methods — lecture, inquiry, observation, or deduction.
+        </div>
+        <div class="branch-app"><strong>Educational application:</strong> Guides whether teachers use lecture, inquiry, observation, or deduction as primary methods.</div>
+      </div>
+      <div class="branch-card axiology" data-searchable="axiology values ethics what is good right beautiful character education moral reasoning aesthetics school culture">
+        <div class="branch-icon">💎</div>
+        <div class="branch-title">Axiology</div>
+        <div class="branch-question">Core question: What is good, right, or beautiful?</div>
+        <div class="branch-desc">
+          Examines values and ethics — what is good, right, and beautiful. In education, it shapes character education, moral reasoning, aesthetics, and school culture.
+        </div>
+        <div class="branch-app"><strong>Educational application:</strong> Shapes character education, moral reasoning, aesthetics, and school culture.</div>
+      </div>
+    </div>
+
+    <!-- MAJOR SCHOOLS -->
+    <div class="section-title">
+      🏫 Major Schools of Educational Philosophy
+      <span class="line"></span>
+    </div>
+
+    <div class="cards-grid" id="schoolsGrid">
+      <!-- IDEALISM -->
+      <div class="school-card idealism" data-searchable="idealism plato immanuel kant hegel reality ideas mind spirit character development wisdom eternal truths classics philosophy humanities history socratic method lecture">
+        <div class="school-header">
+          <div class="school-icon">✨</div>
+          <div>
+            <div class="school-name">Idealism</div>
+            <div class="school-sub">Reality is grounded in ideas &amp; spirit</div>
+          </div>
+        </div>
+        <div class="school-section">
+          <div class="school-section-title">Core view</div>
+          <div class="school-text">Reality is grounded in <strong>ideas, mind, and spirit</strong> rather than material objects.</div>
+        </div>
+        <div class="school-section">
+          <div class="school-section-title">Key thinkers</div>
+          <div class="thinker-tags">
+            <span class="thinker-tag">Plato</span>
+            <span class="thinker-tag">Immanuel Kant</span>
+            <span class="thinker-tag">Hegel</span>
+          </div>
+        </div>
+        <div class="school-section">
+          <div class="school-section-title green">Role in education</div>
+          <div class="school-text">Focuses on <strong>character development, wisdom, and eternal truths</strong>.</div>
+        </div>
+        <div class="school-section">
+          <div class="school-section-title amber">Curriculum &amp; method</div>
+          <div class="school-text">Classics, philosophy, humanities, and history — taught via the Socratic method and lecture.</div>
+          <div class="method-tags">
+            <span class="method-tag">Socratic method</span>
+            <span class="method-tag">Lecture</span>
+            <span class="method-tag">Classics</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- REALISM -->
+      <div class="school-card realism" data-searchable="realism aristotle francis bacon john locke reality exists independently physical laws understanding physical world systematic observation logic physical sciences mathematics logic standardized facts demonstration experiment direct instruction">
+        <div class="school-header">
+          <div class="school-icon">🔬</div>
+          <div>
+            <div class="school-name">Realism</div>
+            <div class="school-sub">Reality exists independently of the mind</div>
+          </div>
+        </div>
+        <div class="school-section">
+          <div class="school-section-title">Core view</div>
+          <div class="school-text">Reality exists <strong>independently of human minds</strong> and is governed by physical laws.</div>
+        </div>
+        <div class="school-section">
+          <div class="school-section-title">Key thinkers</div>
+          <div class="thinker-tags">
+            <span class="thinker-tag">Aristotle</span>
+            <span class="thinker-tag">Francis Bacon</span>
+            <span class="thinker-tag">John Locke</span>
+          </div>
+        </div>
+        <div class="school-section">
+          <div class="school-section-title green">Role in education</div>
+          <div class="school-text">Focuses on <strong>understanding the physical world</strong> through systematic observation and logic.</div>
+        </div>
+        <div class="school-section">
+          <div class="school-section-title amber">Curriculum &amp; method</div>
+          <div class="school-text">Physical sciences, mathematics, logic, and standardized facts — taught through demonstration, experiment, and direct instruction.</div>
+          <div class="method-tags">
+            <span class="method-tag">Demonstration</span>
+            <span class="method-tag">Experiment</span>
+            <span class="method-tag">Direct instruction</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRAGMATISM -->
+      <div class="school-card pragmatism" data-searchable="pragmatism experimentalism john dewey charles sanders peirce william james truth reality dynamic practical experience problem-solving education is life democratic student-centered project-based learning hands-on integrated subjects collaborative">
+        <div class="school-header">
+          <div class="school-icon">🔧</div>
+          <div>
+            <div class="school-name">Pragmatism / Experimentalism</div>
+            <div class="school-sub">Truth is dynamic &amp; practical</div>
+          </div>
+        </div>
+        <div class="school-section">
+          <div class="school-section-title">Core view</div>
+          <div class="school-text">Truth and reality are <strong>dynamic</strong>, constantly changing based on practical experience and problem-solving.</div>
+        </div>
+        <div class="school-section">
+          <div class="school-section-title">Key thinkers</div>
+          <div class="thinker-tags">
+            <span class="thinker-tag">John Dewey</span>
+            <span class="thinker-tag">Charles Sanders Peirce</span>
+            <span class="thinker-tag">William James</span>
+          </div>
+        </div>
+        <div class="school-section">
+          <div class="school-section-title green">Role in education</div>
+          <div class="school-text">Education is <strong>life itself</strong>, not merely preparation for life; emphasis on democratic, student-centered learning.</div>
+        </div>
+        <div class="school-section">
+          <div class="school-section-title amber">Curriculum &amp; method</div>
+          <div class="school-text">Project-based learning, hands-on tasks, integrated subjects, and collaborative problem-solving.</div>
+          <div class="method-tags">
+            <span class="method-tag">Project-based</span>
+            <span class="method-tag">Hands-on</span>
+            <span class="method-tag">Collaborative</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXISTENTIALISM -->
+      <div class="school-card existentialism" data-searchable="existentialism jean-paul sartre soreen kierkegaard friedrich nietzsche individual existence free will personal responsibility discover unique identity choices values arts literature humanities self-directed study open discussion creative expression self-reflection">
+        <div class="school-header">
+          <div class="school-icon">🎭</div>
+          <div>
+            <div class="school-name">Existentialism</div>
+            <div class="school-sub">Existence precedes essence</div>
+          </div>
+        </div>
+        <div class="school-section">
+          <div class="school-section-title">Core view</div>
+          <div class="school-text">Reality is defined by <strong>individual existence, free will, and personal responsibility</strong>.</div>
+        </div>
+        <div class="school-section">
+          <div class="school-section-title">Key thinkers</div>
+          <div class="thinker-tags">
+            <span class="thinker-tag">Jean-Paul Sartre</span>
+            <span class="thinker-tag">Søren Kierkegaard</span>
+            <span class="thinker-tag">Friedrich Nietzsche</span>
+          </div>
+        </div>
+        <div class="school-section">
+          <div class="school-section-title green">Role in education</div>
+          <div class="school-text">Helps students <strong>discover their unique identity</strong>, choices, and personal values.</div>
+        </div>
+        <div class="school-section">
+          <div class="school-section-title amber">Curriculum &amp; method</div>
+          <div class="school-text">Arts, literature, humanities, and self-directed study — taught through open discussion, creative expression, and self-reflection.</div>
+          <div class="method-tags">
+            <span class="method-tag">Open discussion</span>
+            <span class="method-tag">Creative expression</span>
+            <span class="method-tag">Self-reflection</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPARISON TABLE -->
+    <div class="section-title">
+      📊 Schools at a Glance
+      <span class="line"></span>
+    </div>
+
+    <div class="table-wrapper" data-searchable="comparison table idealism realism pragmatism existentialism reality ideas physical world dynamic individual purpose eternal truths master facts solve problems self-actualization teacher moral authority subject expert facilitator provocative mentor learner passive active self-directed">
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Idealism</th>
+            <th>Realism</th>
+            <th>Pragmatism</th>
+            <th>Existentialism</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Reality</td>
+            <td>Ideas &amp; spirit</td>
+            <td>Physical world</td>
+            <td>Dynamic experience</td>
+            <td>Individual existence</td>
+          </tr>
+          <tr>
+            <td>Purpose</td>
+            <td>Eternal truths</td>
+            <td>Master real-world facts</td>
+            <td>Solve practical problems</td>
+            <td>Self-actualization</td>
+          </tr>
+          <tr>
+            <td>Teacher's role</td>
+            <td>Moral authority / model</td>
+            <td>Subject-matter expert</td>
+            <td>Facilitator / guide</td>
+            <td>Provocative mentor</td>
+          </tr>
+          <tr>
+            <td>Learner's role</td>
+            <td>Absorber of universal principles</td>
+            <td>Observer of facts</td>
+            <td>Active problem-solver</td>
+            <td>Self-directed inquirer</td>
+          </tr>
+          <tr>
+            <td>Method</td>
+            <td>Socratic, lecture</td>
+            <td>Demonstration, experiment</td>
+            <td>Project, hands-on</td>
+            <td>Discussion, self-reflection</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- IMPACT ON EDUCATIONAL DIMENSIONS -->
+    <div class="section-title">
+      🎯 Impact on Key Educational Dimensions
+      <span class="line"></span>
+    </div>
+
+    <div class="cards-grid" id="impactGrid">
+      <div class="impact-card" data-searchable="purpose of education defines schooling aims transmit timeless truths idealism master real-world facts realism solve practical problems pragmatism foster self-actualization existentialism">
+        <div class="impact-title">🎯 Purpose of Education</div>
+        <div class="impact-desc">
+          Defines whether schooling aims to <strong>transmit timeless truths</strong> (Idealism), <strong>master real-world facts</strong> (Realism), <strong>solve practical problems</strong> (Pragmatism), or <strong>foster self-actualization</strong> (Existentialism).
+        </div>
+      </div>
+      <div class="impact-card" data-searchable="teacher's role moral authority model idealism subject-matter expert realism facilitator guide pragmatism provocative mentor existentialism">
+        <div class="impact-title">🧑‍🏫 Teacher's Role</div>
+        <div class="impact-desc">
+          Ranges from a <strong>moral authority/model</strong> (Idealism) and <strong>subject-matter expert</strong> (Realism) to a <strong>facilitator/guide</strong> (Pragmatism) or a <strong>provocative mentor</strong> (Existentialism).
+        </div>
+      </div>
+      <div class="impact-card" data-searchable="learner's role passive absorber universal principles active self-directed inquirer shaping own learning path">
+        <div class="impact-title">🧑‍🎓 Learner's Role</div>
+        <div class="impact-desc">
+          Ranges from a <strong>passive absorber of universal principles</strong> to an <strong>active, self-directed inquirer</strong> shaping their own learning path.
+        </div>
+      </div>
+    </div>
+
+    <!-- KEY TAKEAWAY -->
+    <div class="takeaway-card">
+      <strong>🔑 Key Takeaway:</strong> The philosophical foundation serves as the framework for every decision in an educational system — shaping the curriculum, instruction, assessment, and the overall role of the school in human development.
+    </div>
+
+    <!-- ================= QUIZ SECTION ================= -->
+    <div class="quiz-section">
+      <div class="quiz-header">
+        <h2>📝 Practice Quiz</h2>
+        <span class="quiz-badge">Test Your Knowledge</span>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-tabs">
+          <button class="quiz-tab active" data-panel="mcqPanel">🔘 10 MCQs</button>
+          <button class="quiz-tab" data-panel="crqPanel">✍️ 4 CRQs</button>
+          <button class="quiz-tab" data-panel="erqPanel">📄 1 ERQ</button>
+        </div>
+
+        <div class="quiz-panel active" id="mcqPanel">
+          <span class="section-label">Multiple Choice Questions</span>
+          <div id="mcqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="crqPanel">
+          <span class="section-label">Constructed Response Questions</span>
+          <div id="crqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="erqPanel">
+          <span class="section-label">Extended Response Question (Situation-Based)</span>
+          <div id="erqContainer"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      // ================= SEARCH FILTER =================
+      const searchInput = document.getElementById('searchInput');
+      const countDisplay = document.getElementById('countDisplay');
+      const allSearchables = document.querySelectorAll('[data-searchable]');
+      const cardParents = new Map();
+      allSearchables.forEach(card => cardParents.set(card, card.parentNode));
+
+      function applySearch(query) {
+        const q = query.trim().toLowerCase();
+        let visibleCount = 0;
+        allSearchables.forEach(card => {
+          const searchText = (card.dataset.searchable || '').toLowerCase() + ' ' + card.textContent.toLowerCase();
+          const matches = q === '' || searchText.includes(q);
+          if (matches) {
+            visibleCount++;
+            if (!card.parentNode) cardParents.get(card).appendChild(card);
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        countDisplay.textContent = visibleCount + ' item' + (visibleCount !== 1 ? 's' : '');
+      }
+
+      let debounceTimer;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => applySearch(e.target.value), 180);
+      });
+      searchInput.addEventListener('search', (e) => { if (e.target.value === '') applySearch(''); });
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchInput.value !== '') { searchInput.value = ''; applySearch(''); }
+      });
+
+      // ================= QUIZ DATA =================
+      const mcqs = [
+        {
+          q: "What is the main purpose of philosophical foundations in education?",
+          options: [
+            "To decide school budgets",
+            "To examine the nature of reality, knowledge, and value",
+            "To train teachers in classroom management",
+            "To replace the national curriculum"
+          ],
+          correct: 1,
+          feedback: "Philosophical foundations examine the nature of reality, knowledge, and value — addressing questions like what should be taught and what is worth knowing."
+        },
+        {
+          q: "Which branch of philosophy asks 'What is real?' and determines curriculum content?",
+          options: ["Epistemology", "Axiology", "Metaphysics", "Logic"],
+          correct: 2,
+          feedback: "Metaphysics examines the nature of reality and determines curriculum content — e.g., whether to teach physical science, spiritual concepts, or both."
+        },
+        {
+          q: "Which branch guides teaching and learning methods by asking 'How do we know what is true?'",
+          options: ["Metaphysics", "Epistemology", "Axiology", "Aesthetics"],
+          correct: 1,
+          feedback: "Epistemology examines the nature of knowledge and guides teaching and learning methods — lecture, inquiry, observation, or deduction."
+        },
+        {
+          q: "Which branch shapes character education, moral reasoning, and school culture?",
+          options: ["Metaphysics", "Epistemology", "Axiology", "Ontology"],
+          correct: 2,
+          feedback: "Axiology examines values and ethics — what is good, right, and beautiful — and shapes character education, moral reasoning, aesthetics, and school culture."
+        },
+        {
+          q: "Which philosophy holds that reality is grounded in ideas, mind, and spirit?",
+          options: ["Realism", "Pragmatism", "Idealism", "Existentialism"],
+          correct: 2,
+          feedback: "Idealism (Plato, Kant, Hegel) holds that reality is grounded in ideas, mind, and spirit rather than material objects."
+        },
+        {
+          q: "Which philosophy emphasizes learning by doing, problem-solving, and democratic education?",
+          options: ["Idealism", "Realism", "Pragmatism / Experimentalism", "Existentialism"],
+          correct: 2,
+          feedback: "Pragmatism/Experimentalism (Dewey, Peirce, James) emphasizes learning by doing, problem-solving, and democratic, student-centered learning."
+        },
+        {
+          q: "Who are key thinkers associated with Realism?",
+          options: [
+            "Plato, Kant, Hegel",
+            "Aristotle, Francis Bacon, John Locke",
+            "Dewey, Peirce, James",
+            "Sartre, Kierkegaard, Nietzsche"
+          ],
+          correct: 1,
+          feedback: "Realism is associated with Aristotle, Francis Bacon, and John Locke."
+        },
+        {
+          q: "Which philosophy focuses on helping students discover their unique identity and personal values?",
+          options: ["Idealism", "Realism", "Pragmatism", "Existentialism"],
+          correct: 3,
+          feedback: "Existentialism (Sartre, Kierkegaard, Nietzsche) focuses on individual existence, free will, and helping students discover their unique identity and values."
+        },
+        {
+          q: "In Realism, what is the teacher's primary role?",
+          options: [
+            "Moral authority and model",
+            "Subject-matter expert",
+            "Facilitator and guide",
+            "Provocative mentor"
+          ],
+          correct: 1,
+          feedback: "In Realism, the teacher is a subject-matter expert who focuses on understanding the physical world through observation and logic."
+        },
+        {
+          q: "What is the key takeaway about philosophical foundations?",
+          options: [
+            "They only matter for university education",
+            "They serve as the framework for every decision in an educational system",
+            "They are less important than ideological foundations",
+            "They only affect assessment methods"
+          ],
+          correct: 1,
+          feedback: "The philosophical foundation serves as the framework for every decision in an educational system — shaping curriculum, instruction, assessment, and the school's role in human development."
+        }
+      ];
+
+      const crqs = [
+        {
+          q: "Explain the three core branches of philosophy and how each applies to education.",
+          hint: "Metaphysics, Epistemology, Axiology — and their educational applications.",
+          keywords: ["metaphysics", "reality", "curriculum", "epistemology", "knowledge", "true", "teaching", "methods", "axiology", "values", "ethics", "character", "moral", "culture"],
+          model: "The three core branches are: (1) Metaphysics — asks 'What is real?' and determines curriculum content, e.g., whether to teach physical science, spiritual concepts, or both. (2) Epistemology — asks 'How do we know what is true?' and guides teaching and learning methods, e.g., lecture, inquiry, observation, or deduction. (3) Axiology — asks 'What is good, right, or beautiful?' and shapes character education, moral reasoning, aesthetics, and school culture."
+        },
+        {
+          q: "Compare Idealism and Pragmatism as educational philosophies, including their key thinkers and methods.",
+          hint: "Focus on what each considers real, the teacher's role, and the methods used.",
+          keywords: ["idealism", "ideas", "spirit", "plato", "kant", "hegel", "socratic", "lecture", "eternal truths", "pragmatism", "dewey", "peirce", "james", "learning by doing", "project", "hands-on", "democratic"],
+          model: "Idealism (Plato, Kant, Hegel) holds that reality is grounded in ideas and spirit; its role is character development and eternal truths; it uses classics, philosophy, and history taught via the Socratic method and lecture. Pragmatism (Dewey, Peirce, James) holds that truth is dynamic and practical; education is life itself and is democratic and student-centered; it uses project-based learning, hands-on tasks, integrated subjects, and collaborative problem-solving."
+        },
+        {
+          q: "How does philosophical foundation shape the purpose of education, the teacher's role, and the learner's role? Give examples from different schools.",
+          hint: "Show how Idealism, Realism, Pragmatism, and Existentialism differ on these three dimensions.",
+          keywords: ["purpose", "timeless truths", "facts", "problems", "self-actualization", "teacher", "moral authority", "expert", "facilitator", "mentor", "learner", "passive", "active", "self-directed"],
+          model: "Purpose: Idealism aims to transmit timeless truths; Realism to master real-world facts; Pragmatism to solve practical problems; Existentialism to foster self-actualization. Teacher's role: a moral authority/model (Idealism), subject-matter expert (Realism), facilitator/guide (Pragmatism), or provocative mentor (Existentialism). Learner's role: from a passive absorber of universal principles to an active, self-directed inquirer shaping their own learning path."
+        },
+        {
+          q: "Describe Existentialism as an educational philosophy — its core view, key thinkers, and how it shapes curriculum and method.",
+          hint: "Focus on individual existence, free will, personal responsibility, and self-discovery.",
+          keywords: ["existentialism", "sartre", "kierkegaard", "nietzsche", "individual existence", "free will", "personal responsibility", "identity", "choices", "values", "arts", "literature", "humanities", "discussion", "creative", "self-reflection"],
+          model: "Existentialism's core view is that reality is defined by individual existence, free will, and personal responsibility. Key thinkers are Jean-Paul Sartre, Søren Kierkegaard, and Friedrich Nietzsche. Its role in education is to help students discover their unique identity, choices, and personal values. The curriculum includes arts, literature, humanities, and self-directed study, taught through open discussion, creative expression, and self-reflection."
+        }
+      ];
+
+      const erq = {
+        q: `A secondary school in Pakistan is redesigning its educational approach. The principal wants the school to be known for producing students who are "deep thinkers with strong character." However, the current teaching is mostly lecture-based and focused on memorizing facts for exams.
+
+Using the four major schools of educational philosophy (Idealism, Realism, Pragmatism, Existentialism), advise the principal on how the school could redesign its curriculum, teaching methods, and assessment to achieve this goal. Choose TWO philosophical schools and explain how each would shape specific decisions.`,
+        marks: "10 marks",
+        model: `
+          <strong>Model Answer (key points):</strong>
+
+
+          <strong>1. Idealism (for character and wisdom):</strong> If the school chooses Idealism, it would focus on character development, wisdom, and eternal truths. The curriculum would include classics, philosophy, humanities, and history. Teaching would use the Socratic method and lecture to draw out universal principles. Assessment would focus on reflective essays, oral reasoning, and moral discussion rather than only factual recall.
+
+
+          <strong>2. Pragmatism (for deep, practical thinking):</strong> If the school chooses Pragmatism, it would focus on learning by doing and democratic, student-centered learning. The curriculum would be integrated and project-based. Teaching would use hands-on tasks, collaborative problem-solving, and real-world problems. Assessment would include projects, portfolios, and performance tasks rather than only exams.
+
+
+          <em>Note: Realism could be used for a strong factual foundation (observation, experiment, direct instruction), and Existentialism could be used for self-discovery (open discussion, creative expression, self-reflection). The key is that philosophy shapes every decision — curriculum, method, and assessment.</em>
+        `
+      };
+
+      // ================= RENDER MCQs =================
+      const mcqContainer = document.getElementById('mcqContainer');
+      let mcqHtml = '';
+      mcqs.forEach((item, idx) => {
+        const letters = ['A', 'B', 'C', 'D'];
+        let optionsHtml = '';
+        item.options.forEach((opt, oi) => {
+          optionsHtml += `
+            <div class="mcq-option" data-qidx="${idx}" data-oidx="${oi}">
+              <span class="option-letter">${letters[oi]}</span>
+              <span>${opt}</span>
+            </div>
+          `;
+        });
+        mcqHtml += `
+          <div class="mcq-item" id="mcq-${idx}">
+            <div class="mcq-question">${idx + 1}. ${item.q}</div>
+            <div class="mcq-options">${optionsHtml}</div>
+            <div class="mcq-feedback" id="mcq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      mcqContainer.innerHTML = mcqHtml;
+
+      mcqContainer.addEventListener('click', (e) => {
+        const option = e.target.closest('.mcq-option');
+        if (!option) return;
+        const qidx = parseInt(option.dataset.qidx);
+        const oidx = parseInt(option.dataset.oidx);
+        const mcq = mcqs[qidx];
+        const parentItem = document.getElementById(`mcq-${qidx}`);
+        const allOptions = parentItem.querySelectorAll('.mcq-option');
+        const feedbackEl = document.getElementById(`mcq-fb-${qidx}`);
+        if (parentItem.dataset.answered === 'correct') return;
+        allOptions.forEach(opt => opt.classList.remove('selected', 'correct', 'incorrect'));
+        option.classList.add('selected');
+        if (oidx === mcq.correct) {
+          option.classList.add('correct');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '✅ Correct! ' + mcq.feedback;
+          feedbackEl.className = 'mcq-feedback show correct-fb';
+          parentItem.dataset.answered = 'correct';
+        } else {
+          option.classList.add('incorrect');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '❌ Not quite. Try again!';
+          feedbackEl.className = 'mcq-feedback show incorrect-fb';
+          setTimeout(() => {
+            if (feedbackEl.classList.contains('incorrect-fb')) {
+              feedbackEl.classList.remove('show');
+            }
+          }, 1500);
+        }
+      });
+
+      // ================= RENDER CRQs =================
+      const crqContainer = document.getElementById('crqContainer');
+      let crqHtml = '';
+      crqs.forEach((item, idx) => {
+        crqHtml += `
+          <div class="crq-item" id="crq-${idx}">
+            <div class="crq-question">${idx + 1}. ${item.q}</div>
+            <div class="crq-hint">💡 Hint: ${item.hint}</div>
+            <textarea class="crq-textarea" id="crq-ta-${idx}" placeholder="Write your answer here..."></textarea>
+            <div class="crq-actions">
+              <button class="btn btn-primary" data-crq-check="${idx}">Check Answer</button>
+              <button class="btn btn-secondary" data-crq-clear="${idx}">Clear</button>
+            </div>
+            <div class="crq-feedback" id="crq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      crqContainer.innerHTML = crqHtml;
+
+      crqContainer.addEventListener('click', (e) => {
+        const checkBtn = e.target.closest('[data-crq-check]');
+        const clearBtn = e.target.closest('[data-crq-clear]');
+        if (checkBtn) {
+          const idx = parseInt(checkBtn.dataset.crqCheck);
+          const textarea = document.getElementById(`crq-ta-${idx}`);
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          const answer = textarea.value.trim().toLowerCase();
+          const crq = crqs[idx];
+          if (answer.length < 10) {
+            feedback.textContent = '⚠️ Please write a more complete answer (at least a sentence or two).';
+            feedback.className = 'crq-feedback show partial';
+            return;
+          }
+          const matched = crq.keywords.filter(kw => answer.includes(kw));
+          const ratio = matched.length / crq.keywords.length;
+          if (ratio >= 0.35) {
+            feedback.innerHTML = `✅ <strong>Good answer!</strong> You covered key ideas.
+
+<em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show good';
+          } else {
+            feedback.innerHTML = `📝 <strong>Partially correct.</strong> You mentioned some ideas. Try to include more key concepts.
+
+<em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show partial';
+          }
+        }
+        if (clearBtn) {
+          const idx = parseInt(clearBtn.dataset.crqClear);
+          document.getElementById(`crq-ta-${idx}`).value = '';
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          feedback.className = 'crq-feedback';
+          feedback.textContent = '';
+        }
+      });
+
+      // ================= RENDER ERQ =================
+      const erqContainer = document.getElementById('erqContainer');
+      erqContainer.innerHTML = `
+        <div class="erq-item">
+          <div class="erq-marks">${erq.marks}</div>
+          <div class="erq-question">${erq.q}</div>
+          <textarea class="erq-textarea" id="erq-ta" placeholder="Write your detailed answer here. Choose two philosophical schools and explain how each would shape curriculum, method, and assessment..."></textarea>
+          <div class="erq-actions">
+            <button class="btn btn-primary" id="erqCheck">Check Answer</button>
+            <button class="btn btn-secondary" id="erqClear">Clear</button>
+          </div>
+          <div class="erq-feedback" id="erq-fb"></div>
+        </div>
+      `;
+
+      document.getElementById('erqCheck').addEventListener('click', () => {
+        const ta = document.getElementById('erq-ta');
+        const fb = document.getElementById('erq-fb');
+        const answer = ta.value.trim().toLowerCase();
+        if (answer.length < 50) {
+          fb.textContent = '⚠️ Please write a more detailed answer. Choose two schools and explain their implications.';
+          fb.className = 'erq-feedback show partial';
+          return;
+        }
+        const keywords = ['idealism', 'realism', 'pragmatism', 'existentialism', 'curriculum', 'method', 'assessment', 'socratic', 'project', 'hands-on', 'character', 'wisdom', 'facts', 'self-directed'];
+        const found = keywords.filter(k => answer.includes(k));
+        if (found.length >= 3) {
+          fb.innerHTML = `✅ <strong>Excellent effort!</strong> You applied philosophical schools to practical school decisions. Compare your answer with the model below.
+
+<em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show model';
+        } else if (found.length >= 1) {
+          fb.innerHTML = `📝 <strong>Good start!</strong> Try to choose two specific schools and explain how each shapes curriculum, method, and assessment.
+
+<em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        } else {
+          fb.innerHTML = `⚠️ Make sure to choose two philosophical schools and explain their implications for curriculum, teaching methods, and assessment.
+
+<em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        }
+      });
+
+      document.getElementById('erqClear').addEventListener('click', () => {
+        document.getElementById('erq-ta').value = '';
+        const fb = document.getElementById('erq-fb');
+        fb.className = 'erq-feedback';
+        fb.textContent = '';
+      });
+
+      // ================= QUIZ TABS =================
+      const tabs = document.querySelectorAll('.quiz-tab');
+      const panels = document.querySelectorAll('.quiz-panel');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          panels.forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(tab.dataset.panel).classList.add('active');
+        });
+      });
+
+      // Initial count
+      countDisplay.textContent = allSearchables.length + ' items';
+    })();
+  </script>
+</body>
+</html>

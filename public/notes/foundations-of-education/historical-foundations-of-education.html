@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Historical Foundations of Education · Foundations of Education</title>
+  <style>
+    /* ---------- GLOBAL ---------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+      color: #1e2b3c;
+    }
+    .main-wrapper { max-width: 1100px; width: 100%; }
+
+    /* ---------- HEADER ---------- */
+    .header-card {
+      background: white;
+      border-radius: 2rem 2rem 1.5rem 1.5rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      padding: 2rem 2rem 1.5rem 2rem;
+      margin-bottom: 1.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: transform 0.2s;
+    }
+    .header-card:hover { transform: scale(1.002); }
+    .badge {
+      display: inline-block;
+      background: #2a4b7c;
+      color: #f0f7ff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+      line-height: 1.25;
+    }
+    .subhead {
+      font-size: 1.05rem;
+      color: #2f5277;
+      font-weight: 400;
+      border-left: 5px solid #8bb3e0;
+      padding-left: 1.2rem;
+      margin: 1rem 0 0.2rem 0;
+      font-style: italic;
+    }
+    .intro-text {
+      background: #e6f0fc;
+      padding: 1rem 1.4rem;
+      border-radius: 1.2rem;
+      margin-top: 1.4rem;
+      font-size: 0.98rem;
+      color: #1d3a5c;
+      border-left: 5px solid #3b6ea5;
+    }
+
+    /* ---------- SECTION TITLE ---------- */
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #0e2a47;
+      margin: 2.2rem 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section-title .line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #8bb3e0, transparent);
+      border-radius: 2px;
+    }
+
+    /* ---------- TIMELINE ---------- */
+    .timeline-wrapper {
+      background: white;
+      border-radius: 1.8rem;
+      padding: 1.6rem 1.5rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      border: 1px solid #e3ecf7;
+      margin-bottom: 0.5rem;
+      overflow-x: auto;
+    }
+    .timeline {
+      display: flex;
+      gap: 0;
+      min-width: 900px;
+      align-items: stretch;
+    }
+    .timeline-era {
+      flex: 1;
+      text-align: center;
+      position: relative;
+      padding: 0 0.3rem;
+    }
+    .era-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: white;
+      background: #0e2a47;
+      padding: 0.35rem 0.4rem;
+      border-radius: 8px 8px 0 0;
+      line-height: 1.25;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .era-label.ancient { background: #6a4c9c; }
+    .era-label.classical { background: #2a4b7c; }
+    .era-label.medieval { background: #2e7d4f; }
+    .era-label.renaissance { background: #c94f7c; }
+    .era-label.industrial { background: #d4933a; }
+    .era-label.modern { background: #3b7bb5; }
+
+    .era-body {
+      background: #f9fcff;
+      border: 1px solid #e3ecf7;
+      border-top: none;
+      border-radius: 0 0 12px 12px;
+      padding: 0.8rem 0.5rem;
+      font-size: 0.78rem;
+      color: #274e73;
+      line-height: 1.45;
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .timeline-era:hover .era-body {
+      background: #eef6ff;
+      border-color: #b8d0e9;
+    }
+    .era-arrow {
+      display: flex;
+      align-items: center;
+      color: #8bb3e0;
+      font-size: 1.2rem;
+      font-weight: 700;
+      padding: 0 0.1rem;
+      min-height: 130px;
+    }
+
+    /* ---------- ERA DETAIL CARDS ---------- */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+    .era-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.4rem 1.4rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      transition: all 0.25s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .era-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      opacity: 0.9;
+      transition: height 0.2s;
+    }
+    .era-card.ancient::before { background: linear-gradient(90deg, #6a4c9c, #b39ddb); }
+    .era-card.classical::before { background: linear-gradient(90deg, #2a4b7c, #5a8ec9); }
+    .era-card.medieval::before { background: linear-gradient(90deg, #2e7d4f, #81c784); }
+    .era-card.renaissance::before { background: linear-gradient(90deg, #c94f7c, #e88bb0); }
+    .era-card.industrial::before { background: linear-gradient(90deg, #d4933a, #e8c08b); }
+    .era-card.modern::before { background: linear-gradient(90deg, #3b7bb5, #8bb3e0); }
+    .era-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 28px -16px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .era-card:hover::before { height: 10px; }
+    .era-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.7rem;
+    }
+    .era-card-icon {
+      font-size: 1.8rem;
+      line-height: 1;
+      background: #e9f0fa;
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #1b3c61;
+      transition: background 0.2s;
+    }
+    .era-card:hover .era-card-icon { background: #d3e3f8; }
+    .era-card-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #0e2a47;
+      line-height: 1.3;
+    }
+    .era-card-period {
+      font-size: 0.8rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-top: 0.1rem;
+    }
+    .era-card-focus {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #1b4670;
+      background: #eef4fb;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      display: inline-block;
+      margin-bottom: 0.7rem;
+      border: 1px solid #d0e0f0;
+    }
+    .era-points {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .era-points li {
+      padding: 0.35rem 0 0.35rem 1.5rem;
+      position: relative;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: #1e3c5a;
+    }
+    .era-points li::before {
+      content: '◆';
+      position: absolute;
+      left: 0;
+      color: #3b7bb5;
+      font-size: 0.7rem;
+      top: 0.55rem;
+    }
+    .era-thinkers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.7rem;
+    }
+    .thinker-tag {
+      background: #f6faff;
+      color: #183c5e;
+      font-size: 0.74rem;
+      font-weight: 500;
+      padding: 0.2rem 0.7rem;
+      border-radius: 30px;
+      border: 1px solid #c9ddf5;
+    }
+
+    /* ---------- CORE LESSONS ---------- */
+    .lesson-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .lesson-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.3rem 1.4rem;
+      box-shadow: 0 8px 18px -10px rgba(20, 40, 70, 0.16);
+      border: 1px solid #e3ecf7;
+      transition: all 0.22s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .lesson-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(180deg, #3f7cb0, #8bb3e0);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .lesson-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 24px -14px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .lesson-card:hover::before { opacity: 1; }
+    .lesson-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+    }
+    .lesson-desc {
+      font-size: 0.9rem;
+      color: #274e73;
+      line-height: 1.55;
+    }
+
+    /* ---------- SUMMARY MATRIX ---------- */
+    .matrix-wrapper {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.4rem 1.4rem 1.2rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      border: 1px solid #e3ecf7;
+      overflow-x: auto;
+      margin-bottom: 0.5rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.88rem;
+      min-width: 480px;
+    }
+    thead th {
+      text-align: left;
+      padding: 0.8rem 0.9rem;
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: white;
+      background: #0e2a47;
+    }
+    thead th:first-child {
+      border-radius: 1rem 0 0 0;
+      background: #6a4c9c;
+    }
+    thead th:nth-child(2) { background: #2a4b7c; }
+    thead th:last-child {
+      border-radius: 0 1rem 0 0;
+      background: #d4933a;
+    }
+    tbody td {
+      padding: 0.7rem 0.9rem;
+      border-bottom: 1px solid #e8f0f9;
+      color: #1e3c5a;
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: #f6faff; }
+    tbody td:first-child {
+      font-weight: 700;
+      color: #0e2a47;
+      background: #f3f8fd;
+    }
+    tbody tr:hover td:first-child { background: #eaf3fc; }
+
+    /* ---------- TAKEAWAY ---------- */
+    .takeaway-card {
+      background: #0e2a47;
+      color: white;
+      border-radius: 1.6rem;
+      padding: 1.6rem 2rem;
+      margin: 1.2rem 0 0.5rem 0;
+      font-size: 1rem;
+      line-height: 1.65;
+      box-shadow: 0 14px 26px -12px #0e2a47;
+      border-left: 6px solid #8bb3e0;
+    }
+    .takeaway-card strong { color: #b8d4f0; }
+
+    /* ---------- SEARCH & COUNT ---------- */
+    .filter-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 60px;
+      box-shadow: 0 8px 18px -8px rgba(0, 27, 45, 0.1);
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 40px;
+      padding: 0.3rem 0.3rem 0.3rem 1.2rem;
+      flex: 2;
+      min-width: 240px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      border: 1px solid #ccdcee;
+    }
+    .search-box span { font-size: 1.1rem; margin-right: 0.5rem; color: #4e6b8a; }
+    .search-box input {
+      border: none;
+      padding: 0.7rem 0.2rem;
+      width: 100%;
+      font-size: 0.95rem;
+      outline: none;
+      background: transparent;
+      color: #0c253b;
+    }
+    .search-box input::placeholder { color: #879eb6; font-weight: 300; }
+    .count-pill {
+      background: #0e2a47;
+      color: white;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ---------- QUIZ SECTION ---------- */
+    .quiz-section { margin-top: 2.5rem; }
+    .quiz-header {
+      background: #0e2a47;
+      border-radius: 2rem 2rem 0 0;
+      padding: 1.5rem 2rem;
+      color: white;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .quiz-header h2 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.3px; }
+    .quiz-header .quiz-badge {
+      background: #8bb3e0;
+      color: #0e2a47;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .quiz-body {
+      background: white;
+      border-radius: 0 0 2rem 2rem;
+      padding: 2rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      border: 1px solid #e3ecf7;
+      border-top: none;
+    }
+    .quiz-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #e3ecf7;
+      padding-bottom: 1rem;
+    }
+    .quiz-tab {
+      background: #f0f5fd;
+      border: 1px solid #d0e0f0;
+      color: #1b4670;
+      padding: 0.5rem 1.3rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .quiz-tab:hover { background: #e0ecfc; border-color: #a0c0e0; }
+    .quiz-tab.active { background: #0e2a47; color: white; border-color: #0e2a47; }
+    .quiz-panel { display: none; }
+    .quiz-panel.active { display: block; }
+    .section-label {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.2rem;
+    }
+
+    /* MCQ */
+    .mcq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+      transition: background 0.2s;
+    }
+    .mcq-item:hover { background: #f0f7fe; }
+    .mcq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.8rem;
+      line-height: 1.5;
+    }
+    .mcq-options { display: flex; flex-direction: column; gap: 0.5rem; }
+    .mcq-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 0.8rem;
+      background: white;
+      border: 1.5px solid #d9e8fc;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+    }
+    .mcq-option:hover { border-color: #8bb3e0; background: #eef6ff; }
+    .mcq-option.selected { border-color: #3b7bb5; background: #e4f0fe; font-weight: 500; }
+    .mcq-option.correct { border-color: #2e9b5e; background: #e6f7ee; font-weight: 600; }
+    .mcq-option.incorrect { border-color: #d45a5a; background: #fdeaea; font-weight: 500; }
+    .mcq-option .option-letter {
+      font-weight: 700;
+      color: #2a4b7c;
+      min-width: 1.4rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .mcq-option.correct .option-letter { color: #1b7a44; }
+    .mcq-option.incorrect .option-letter { color: #b03030; }
+    .mcq-feedback {
+      margin-top: 0.7rem;
+      font-size: 0.88rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: 0.8rem;
+      display: none;
+      font-weight: 500;
+    }
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.correct-fb {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .mcq-feedback.incorrect-fb {
+      background: #fdeaea;
+      color: #9e2a2a;
+      border-left: 4px solid #d45a5a;
+    }
+
+    /* CRQ / ERQ shared */
+    .crq-item, .erq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+    }
+    .erq-item { border: 2px solid #8bb3e0; background: #f5faff; }
+    .crq-question, .erq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+    .erq-question { font-size: 1.05rem; font-weight: 700; }
+    .erq-marks {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      margin-bottom: 0.8rem;
+    }
+    .crq-hint {
+      font-size: 0.85rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-bottom: 0.7rem;
+    }
+    .crq-textarea, .erq-textarea {
+      width: 100%;
+      border: 1.5px solid #d9e8fc;
+      border-radius: 0.9rem;
+      padding: 0.8rem 1rem;
+      font-family: inherit;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+      resize: vertical;
+      transition: border-color 0.2s;
+      background: white;
+    }
+    .crq-textarea { min-height: 90px; }
+    .erq-textarea { min-height: 160px; }
+    .crq-textarea:focus, .erq-textarea:focus {
+      outline: none;
+      border-color: #3b7bb5;
+      box-shadow: 0 0 0 3px rgba(59, 123, 181, 0.12);
+    }
+    .crq-actions, .erq-actions {
+      display: flex;
+      gap: 0.7rem;
+      margin-top: 0.7rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 0.55rem 1.4rem;
+      border-radius: 40px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      font-family: inherit;
+    }
+    .btn-primary { background: #0e2a47; color: white; }
+    .btn-primary:hover { background: #1a4170; transform: translateY(-1px); }
+    .btn-secondary { background: #e9f0fa; color: #1b4670; border: 1px solid #c0d8f0; }
+    .btn-secondary:hover { background: #d8e6f8; }
+    .crq-feedback, .erq-feedback {
+      margin-top: 0.8rem;
+      padding: 0.8rem 1rem;
+      border-radius: 0.9rem;
+      font-size: 0.9rem;
+      display: none;
+      line-height: 1.6;
+    }
+    .crq-feedback.show, .erq-feedback.show { display: block; }
+    .crq-feedback.good, .erq-feedback.good {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .crq-feedback.partial, .erq-feedback.partial {
+      background: #fff8e6;
+      color: #8a6d1f;
+      border-left: 4px solid #e0a800;
+    }
+    .erq-feedback.model {
+      background: #e6f0fc;
+      color: #1a3e62;
+      border-left: 5px solid #3b7bb5;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 600px) {
+      .header-card { padding: 1.5rem 1.2rem; }
+      h1 { font-size: 1.7rem; }
+      .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: 2rem;
+        padding: 1rem;
+      }
+      .search-box { width: 100%; }
+      .count-pill { text-align: center; padding: 0.5rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .quiz-body { padding: 1.2rem; }
+      .quiz-header { padding: 1.2rem; }
+      .quiz-header h2 { font-size: 1.3rem; }
+      .mcq-item, .crq-item, .erq-item { padding: 1rem; }
+      .quiz-tab { font-size: 0.8rem; padding: 0.4rem 1rem; }
+      .takeaway-card { padding: 1.3rem 1.2rem; }
+      .timeline-wrapper { padding: 1rem 0.8rem; }
+    }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #dfe9f5; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: #94b0d1; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6d8fb4; }
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem 1rem;
+      background: #ffffffc9;
+      border-radius: 2rem;
+      font-size: 1.1rem;
+      color: #4b6888;
+      border: 2px dashed #b8cee8;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-wrapper">
+
+    <!-- HEADER -->
+    <div class="header-card">
+      <div class="badge">🏛️ Foundations of Education</div>
+      <h1>Historical Foundations of Education</h1>
+      <div class="subhead">How educational systems evolved — and why it matters today</div>
+      <div class="intro-text">
+        <strong>💡 Why history matters:</strong> The historical foundation examines how educational systems, philosophies, and institutions have evolved across time. By understanding historical developments, educators gain insight into <em>why</em> current systems are structured the way they are, how past ideas continue to influence modern practices, and what mistakes or successes can guide future educational reform.
+      </div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="filter-section">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="Search eras, thinkers, contributions..." autocomplete="off">
+      </div>
+      <div class="count-pill" id="countDisplay">20+ items</div>
+    </div>
+
+    <!-- TIMELINE -->
+    <div class="section-title">
+      🕰️ Timeline of Historical Eras in Education
+      <span class="line"></span>
+    </div>
+
+    <div class="timeline-wrapper">
+      <div class="timeline">
+        <div class="timeline-era">
+          <div class="era-label ancient">Ancient Civilizations</div>
+          <div class="era-body">Oral tradition &amp; religious texts</div>
+        </div>
+        <div class="era-arrow">➜</div>
+        <div class="timeline-era">
+          <div class="era-label classical">Classical Greece &amp; Rome</div>
+          <div class="era-body">Socratic method, citizenship, liberal arts</div>
+        </div>
+        <div class="era-arrow">➜</div>
+        <div class="timeline-era">
+          <div class="era-label medieval">Medieval Period</div>
+          <div class="era-body">Monastic &amp; cathedral schools</div>
+        </div>
+        <div class="era-arrow">➜</div>
+        <div class="timeline-era">
+          <div class="era-label renaissance">Renaissance &amp; Enlightenment</div>
+          <div class="era-body">Humanism, scientific inquiry, individual empowerment</div>
+        </div>
+        <div class="era-arrow">➜</div>
+        <div class="timeline-era">
+          <div class="era-label industrial">Industrial Era</div>
+          <div class="era-body">Mass schooling, standardized curriculum</div>
+        </div>
+        <div class="era-arrow">➜</div>
+        <div class="timeline-era">
+          <div class="era-label modern">Modern &amp; Digital Era</div>
+          <div class="era-body">Technologically driven, inclusive, globalized</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ERA DETAILS -->
+    <div class="section-title">
+      📚 Key Eras and Their Educational Contributions
+      <span class="line"></span>
+    </div>
+
+    <div class="cards-grid" id="erasGrid">
+      <!-- ANCIENT -->
+      <div class="era-card ancient" data-searchable="ancient civilizations preservation religious traditions moral order governance survival skills india vedic buddhist spiritual enlightenment oral recitation vedas guru-disciple gurukul holistic character china confucianism civil service examinations moral ethics respect elders state stability scholarly meritocracy egypt mesopotamia scribal education mathematics astronomy record-keeping hieroglyphics cuneiform">
+        <div class="era-card-header">
+          <div class="era-card-icon">🏺</div>
+          <div>
+            <div class="era-card-title">Ancient Civilizations</div>
+            <div class="era-card-period">~3000 BCE – 500 BCE</div>
+          </div>
+        </div>
+        <div class="era-card-focus">Focus: Preservation of traditions, moral order, governance</div>
+        <ul class="era-points">
+          <li><strong>Ancient India:</strong> Spiritual enlightenment, oral recitation (Vedas), Guru-disciple tradition (Gurukul), holistic character building.</li>
+          <li><strong>Ancient China:</strong> Civil service examinations, moral ethics, respect for elders, scholarly meritocracy.</li>
+          <li><strong>Egypt &amp; Mesopotamia:</strong> Scribal education, mathematics, astronomy, hieroglyphics/cuneiform.</li>
+        </ul>
+      </div>
+
+      <!-- CLASSICAL -->
+      <div class="era-card classical" data-searchable="classical antiquity greece rome athens liberal education whole person mind body spirit democratic citizenship sparta military agoge socrates socratic dialogue plato academy philosopher-king aristotle lyceum empirical observation logic rome practical administration law rhetoric civic duty quintilian teacher training">
+        <div class="era-card-header">
+          <div class="era-card-icon">🏛️</div>
+          <div>
+            <div class="era-card-title">Classical Antiquity</div>
+            <div class="era-card-period">Greece &amp; Rome · ~500 BCE – 500 CE</div>
+          </div>
+        </div>
+        <div class="era-card-focus">Focus: Liberal education, citizenship, rhetoric</div>
+        <ul class="era-points">
+          <li><strong>Athens:</strong> Liberal education — whole person (mind, body, spirit) for democratic citizenship.</li>
+          <li><strong>Sparta:</strong> Military-focused, state-controlled training (Agoge).</li>
+          <li><strong>Rome:</strong> Practical administration, law, rhetoric, and civic duty.</li>
+        </ul>
+        <div class="era-thinkers">
+          <span class="thinker-tag">Socrates</span>
+          <span class="thinker-tag">Plato</span>
+          <span class="thinker-tag">Aristotle</span>
+          <span class="thinker-tag">Quintilian</span>
+        </div>
+      </div>
+
+      <!-- MEDIEVAL -->
+      <div class="era-card medieval" data-searchable="medieval period western europe christian church monastic cathedral schools trivium grammar rhetoric logic quadrivium arithmetic geometry music astronomy early universities bologna paris oxford islamic golden age madrasahs libraries translation centers house of wisdom baghdad greek philosophy science mathematics medicine islamic ethics al-farabi ibn sina avicenna ibn khaldun al-ghazali">
+        <div class="era-card-header">
+          <div class="era-card-icon">⛪</div>
+          <div>
+            <div class="era-card-title">Medieval Period &amp; Islamic Golden Age</div>
+            <div class="era-card-period">~500 CE – 1400 CE</div>
+          </div>
+        </div>
+        <div class="era-card-focus">Focus: Religious education, preservation of knowledge</div>
+        <ul class="era-points">
+          <li><strong>Western Europe:</strong> Church-controlled monastic and cathedral schools; Trivium (Grammar, Rhetoric, Logic) and Quadrivium (Arithmetic, Geometry, Music, Astronomy); early universities (Bologna, Paris, Oxford).</li>
+          <li><strong>Islamic Golden Age:</strong> Madrasahs, libraries, translation centers (House of Wisdom); synthesized Greek philosophy, science, and medicine with Islamic ethics.</li>
+        </ul>
+        <div class="era-thinkers">
+          <span class="thinker-tag">Al-Farabi</span>
+          <span class="thinker-tag">Ibn Sina</span>
+          <span class="thinker-tag">Ibn Khaldun</span>
+          <span class="thinker-tag">Al-Ghazali</span>
+        </div>
+      </div>
+
+      <!-- RENAISSANCE -->
+      <div class="era-card renaissance" data-searchable="renaissance reformation scientific revolution humanism classical literature arts critical thinking dignity human potential erasmus petrarch martin luther universal literacy vernacular language public education francis bacon rene descartes scientific method empiricism systematic observation">
+        <div class="era-card-header">
+          <div class="era-card-icon">🎨</div>
+          <div>
+            <div class="era-card-title">Renaissance, Reformation &amp; Scientific Revolution</div>
+            <div class="era-card-period">~1400 – 1700</div>
+          </div>
+        </div>
+        <div class="era-card-focus">Focus: Humanism, scientific inquiry, individual empowerment</div>
+        <ul class="era-points">
+          <li><strong>Renaissance Humanism:</strong> Classical literature, arts, critical thinking, dignity of human potential.</li>
+          <li><strong>Reformation:</strong> Universal literacy so every individual could read sacred texts in their vernacular — foundation for public education.</li>
+          <li><strong>Scientific Revolution:</strong> Scientific method, empiricism, systematic observation.</li>
+        </ul>
+        <div class="era-thinkers">
+          <span class="thinker-tag">Erasmus</span>
+          <span class="thinker-tag">Petrarch</span>
+          <span class="thinker-tag">Martin Luther</span>
+          <span class="thinker-tag">Francis Bacon</span>
+          <span class="thinker-tag">René Descartes</span>
+        </div>
+      </div>
+
+      <!-- INDUSTRIAL -->
+      <div class="era-card industrial" data-searchable="enlightenment industrial era birth modern schooling john locke tabula rasa blank slate sensory experience jean-jacques rousseau naturalism emile natural development experience pestalozzi froebel child-centered primary education hands-on object lessons kindergarten prussian system industrialization compulsory age-graded factory-model schooling obedient disciplined literate industrial workforce horace mann common school movement taxpayer-funded universal public education">
+        <div class="era-card-header">
+          <div class="era-card-icon">🏭</div>
+          <div>
+            <div class="era-card-title">Enlightenment &amp; Industrial Era</div>
+            <div class="era-card-period">~1700 – 1900</div>
+          </div>
+        </div>
+        <div class="era-card-focus">Focus: Mass schooling, standardized curriculum</div>
+        <ul class="era-points">
+          <li><strong>John Locke:</strong> Tabula Rasa (blank slate); knowledge through sensory experience.</li>
+          <li><strong>Rousseau:</strong> Naturalism — children learn through natural development and experience.</li>
+          <li><strong>Pestalozzi &amp; Froebel:</strong> Child-centered primary education, hands-on lessons, Kindergarten.</li>
+          <li><strong>Prussian System:</strong> Compulsory, age-graded, factory-model schooling for an industrial workforce.</li>
+          <li><strong>Horace Mann:</strong> Common School Movement — taxpayer-funded, universal public education.</li>
+        </ul>
+        <div class="era-thinkers">
+          <span class="thinker-tag">Locke</span>
+          <span class="thinker-tag">Rousseau</span>
+          <span class="thinker-tag">Pestalozzi</span>
+          <span class="thinker-tag">Froebel</span>
+          <span class="thinker-tag">Horace Mann</span>
+        </div>
+      </div>
+
+      <!-- MODERN -->
+      <div class="era-card modern" data-searchable="modern digital era technologically driven inclusive globalized online learning educational technology lifelong learning equity access global citizenship">
+        <div class="era-card-header">
+          <div class="era-card-icon">💻</div>
+          <div>
+            <div class="era-card-title">Modern &amp; Digital Era</div>
+            <div class="era-card-period">~1900 – Present</div>
+          </div>
+        </div>
+        <div class="era-card-focus">Focus: Technology, inclusion, globalization</div>
+        <ul class="era-points">
+          <li>Technologically driven learning — online platforms, digital resources, and educational technology.</li>
+          <li>Inclusive education — universal access regardless of gender, class, or ability.</li>
+          <li>Globalized education — cross-cultural exchange, lifelong learning, and global citizenship.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CORE LESSONS -->
+    <div class="section-title">
+      💡 Core Lessons from Educational History
+      <span class="line"></span>
+    </div>
+
+    <div class="lesson-grid" id="lessonsGrid">
+      <div class="lesson-card" data-searchable="evolution of purpose education religious preservation civic leadership industrial efficiency individual self-actualization global innovation">
+        <div class="lesson-title">🎯 Evolution of Purpose</div>
+        <div class="lesson-desc">Education evolved from <strong>religious preservation</strong> → <strong>civic leadership</strong> → <strong>industrial efficiency</strong> → <strong>individual self-actualization and global innovation</strong>.</div>
+      </div>
+      <div class="lesson-card" data-searchable="access inclusion elite privilege royalty clergy men universal human right gender social class race">
+        <div class="lesson-title">🌍 Access &amp; Inclusion</div>
+        <div class="lesson-desc">Shifted from an <strong>elite privilege</strong> reserved for royalty, clergy, or men to a <strong>universal human right</strong> regardless of gender, social class, or race.</div>
+      </div>
+      <div class="lesson-card" data-searchable="pedagogical shift rigid rote memorization corporal punishment active student-centered psychologically sound learning">
+        <div class="lesson-title">📖 Pedagogical Shift</div>
+        <div class="lesson-desc">Transitioned from rigid <strong>rote memorization</strong> and corporal punishment toward <strong>active, student-centered, and psychologically sound learning</strong>.</div>
+      </div>
+    </div>
+
+    <!-- SUMMARY MATRIX -->
+    <div class="section-title">
+      📊 Summary Matrix
+      <span class="line"></span>
+    </div>
+
+    <div class="matrix-wrapper" data-searchable="summary matrix ancient era religious texts oral traditions character ethics scribal moral training classical middle liberal education socratic inquiry trivium quadrivium university foundations modern industrial universal public age-graded classes scientific curriculum technology equity">
+      <table>
+        <thead>
+          <tr>
+            <th>Ancient Era</th>
+            <th>Classical / Medieval</th>
+            <th>Modern Industrial</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Religious texts</td>
+            <td>Liberal Education</td>
+            <td>Universal / Public</td>
+          </tr>
+          <tr>
+            <td>Oral traditions</td>
+            <td>Socratic inquiry</td>
+            <td>Age-graded classes</td>
+          </tr>
+          <tr>
+            <td>Character &amp; Ethics</td>
+            <td>Trivium &amp; Quadrivium</td>
+            <td>Scientific curriculum</td>
+          </tr>
+          <tr>
+            <td>Scribal / Moral training</td>
+            <td>University foundations</td>
+            <td>Technology &amp; Equity</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- KEY TAKEAWAY -->
+    <div class="takeaway-card">
+      <strong>🔑 Key Takeaway:</strong> Educational history is not just a list of dates — it is a story of expanding access, evolving purpose, and improving pedagogy. Understanding this story helps educators see that today's schools are not accidental; they are the product of centuries of struggle, innovation, and reform. The past provides both warnings and inspiration for the future.
+    </div>
+
+    <!-- ================= QUIZ SECTION ================= -->
+    <div class="quiz-section">
+      <div class="quiz-header">
+        <h2>📝 Practice Quiz</h2>
+        <span class="quiz-badge">Test Your Knowledge</span>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-tabs">
+          <button class="quiz-tab active" data-panel="mcqPanel">🔘 10 MCQs</button>
+          <button class="quiz-tab" data-panel="crqPanel">✍️ 4 CRQs</button>
+          <button class="quiz-tab" data-panel="erqPanel">📄 1 ERQ</button>
+        </div>
+
+        <div class="quiz-panel active" id="mcqPanel">
+          <span class="section-label">Multiple Choice Questions</span>
+          <div id="mcqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="crqPanel">
+          <span class="section-label">Constructed Response Questions</span>
+          <div id="crqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="erqPanel">
+          <span class="section-label">Extended Response Question (Situation-Based)</span>
+          <div id="erqContainer"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      // ================= SEARCH FILTER =================
+      const searchInput = document.getElementById('searchInput');
+      const countDisplay = document.getElementById('countDisplay');
+      const allSearchables = document.querySelectorAll('[data-searchable]');
+      const cardParents = new Map();
+      allSearchables.forEach(card => cardParents.set(card, card.parentNode));
+
+      function applySearch(query) {
+        const q = query.trim().toLowerCase();
+        let visibleCount = 0;
+        allSearchables.forEach(card => {
+          const searchText = (card.dataset.searchable || '').toLowerCase() + ' ' + card.textContent.toLowerCase();
+          const matches = q === '' || searchText.includes(q);
+          if (matches) {
+            visibleCount++;
+            if (!card.parentNode) cardParents.get(card).appendChild(card);
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        countDisplay.textContent = visibleCount + ' item' + (visibleCount !== 1 ? 's' : '');
+      }
+
+      let debounceTimer;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => applySearch(e.target.value), 180);
+      });
+      searchInput.addEventListener('search', (e) => { if (e.target.value === '') applySearch(''); });
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchInput.value !== '') { searchInput.value = ''; applySearch(''); }
+      });
+
+      // ================= QUIZ DATA =================
+      const mcqs = [
+        {
+          q: "Which era focused on preserving religious traditions, moral order, and survival skills?",
+          options: ["Classical Antiquity", "Ancient Civilizations", "Industrial Era", "Modern Era"],
+          correct: 1,
+          feedback: "Ancient Civilizations focused on preservation of religious traditions, moral order, governance, and survival skills."
+        },
+        {
+          q: "The idea of 'Liberal Education' — educating the whole person for democratic citizenship — originated in:",
+          options: ["Sparta", "Athens", "Rome", "Medieval Europe"],
+          correct: 1,
+          feedback: "Athens developed the idea of Liberal Education — educating the whole person (mind, body, and spirit) for active democratic citizenship."
+        },
+        {
+          q: "Which key thinker is associated with the Socratic method of questioning?",
+          options: ["Aristotle", "Plato", "Socrates", "Quintilian"],
+          correct: 2,
+          feedback: "Socrates is known for the Socratic method — learning through questioning and dialogue."
+        },
+        {
+          q: "What were the Trivium and Quadrivium?",
+          options: [
+            "Two types of ancient weapons",
+            "The core curriculum of medieval universities (Grammar, Rhetoric, Logic and Arithmetic, Geometry, Music, Astronomy)",
+            "Two Roman emperors",
+            "The two branches of the Prussian school system"
+          ],
+          correct: 1,
+          feedback: "The Trivium (Grammar, Rhetoric, Logic) and Quadrivium (Arithmetic, Geometry, Music, Astronomy) formed the core curriculum of medieval education."
+        },
+        {
+          q: "Which Islamic Golden Age thinker is known for a sociological view of education and history?",
+          options: ["Al-Farabi", "Ibn Sina", "Ibn Khaldun", "Al-Ghazali"],
+          correct: 2,
+          feedback: "Ibn Khaldun is known for his sociological view of education and history."
+        },
+        {
+          q: "Martin Luther advocated for universal literacy primarily because:",
+          options: [
+            "He wanted everyone to become a scientist",
+            "He wanted every individual to read sacred texts in their vernacular language",
+            "He wanted to abolish schools",
+            "He wanted only the clergy to be literate"
+          ],
+          correct: 1,
+          feedback: "Luther advocated universal literacy so every individual could read sacred texts in their vernacular language — laying the foundation for public education."
+        },
+        {
+          q: "John Locke's concept of 'Tabula Rasa' means:",
+          options: [
+            "Children are born with innate knowledge",
+            "The mind is a blank slate; knowledge comes through sensory experience",
+            "Only the rich can learn",
+            "Learning is impossible without punishment"
+          ],
+          correct: 1,
+          feedback: "Tabula Rasa means 'blank slate' — Locke argued that knowledge comes through sensory experience, not innate ideas."
+        },
+        {
+          q: "The Prussian System of schooling was designed primarily to:",
+          options: [
+            "Create philosophers and artists",
+            "Create an obedient, disciplined, and literate industrial workforce",
+            "Educate only the royalty",
+            "Promote religious education exclusively"
+          ],
+          correct: 1,
+          feedback: "The Prussian System introduced compulsory, age-graded, factory-model schooling to create an obedient, disciplined, and literate industrial workforce."
+        },
+        {
+          q: "Who championed the Common School Movement in the USA?",
+          options: ["John Dewey", "Horace Mann", "Jean-Jacques Rousseau", "Friedrich Froebel"],
+          correct: 1,
+          feedback: "Horace Mann championed the Common School Movement, establishing taxpayer-funded, universal public education in the USA."
+        },
+        {
+          q: "According to the 'Core Lessons from Educational History', how did access to education change over time?",
+          options: [
+            "It remained an elite privilege",
+            "It shifted from an elite privilege to a universal human right",
+            "It became more restricted over time",
+            "It was always universal"
+          ],
+          correct: 1,
+          feedback: "Access shifted from an elite privilege reserved for royalty, clergy, or men to a universal human right regardless of gender, social class, or race."
+        }
+      ];
+
+      const crqs = [
+        {
+          q: "Explain the educational contributions of Ancient Greece (Athens and Sparta) and Ancient Rome.",
+          hint: "Athens = liberal education; Sparta = military training; Rome = practical administration and law.",
+          keywords: ["athens", "liberal education", "whole person", "democratic citizenship", "sparta", "military", "agoge", "discipline", "rome", "practical", "administration", "law", "rhetoric", "civic duty", "quintilian"],
+          model: "Ancient Greece contributed two contrasting models: Athens developed Liberal Education — educating the whole person (mind, body, spirit) for democratic citizenship — while Sparta focused on military training and state-controlled discipline (Agoge). Ancient Rome adopted Greek models but added a focus on practical administration, law, rhetoric, and civic duty. Quintilian contributed a systematic, child-centered approach to rhetoric and teacher training."
+        },
+        {
+          q: "Describe the educational contributions of the Islamic Golden Age.",
+          hint: "Madrasahs, House of Wisdom, synthesis of Greek and Islamic knowledge, key thinkers.",
+          keywords: ["islamic golden age", "madrasahs", "libraries", "translation centers", "house of wisdom", "baghdad", "greek philosophy", "science", "mathematics", "medicine", "islamic ethics", "al-farabi", "ibn sina", "ibn khaldun", "al-ghazali"],
+          model: "The Islamic Golden Age (8th–14th century) established madrasahs, libraries, and translation centers such as the House of Wisdom in Baghdad. Scholars synthesized Greek philosophy, science, mathematics, and medicine with Islamic ethics. Key thinkers include Al-Farabi, Ibn Sina (Avicenna), Ibn Khaldun (sociological view of education and history), and Al-Ghazali."
+        },
+        {
+          q: "How did the Renaissance, Reformation, and Scientific Revolution change education?",
+          hint: "Humanism, universal literacy, scientific method.",
+          keywords: ["renaissance", "humanism", "classical literature", "arts", "critical thinking", "dignity", "reformation", "martin luther", "universal literacy", "vernacular", "public education", "scientific revolution", "scientific method", "empiricism", "observation", "bacon", "descartes"],
+          model: "The Renaissance shifted focus back to classical literature, arts, critical thinking, and the dignity of human potential. The Reformation, led by Martin Luther, advocated universal literacy so every individual could read sacred texts in their vernacular language, laying the foundation for public education. The Scientific Revolution introduced the scientific method, empiricism, and systematic observation into educational theory."
+        },
+        {
+          q: "What are the three core lessons from educational history? Explain each.",
+          hint: "Evolution of purpose, access and inclusion, pedagogical shift.",
+          keywords: ["evolution of purpose", "religious preservation", "civic leadership", "industrial efficiency", "self-actualization", "access", "inclusion", "elite privilege", "universal human right", "pedagogical shift", "rote memorization", "corporal punishment", "student-centered"],
+          model: "Three core lessons: (1) Evolution of Purpose — education evolved from religious preservation → civic leadership → industrial efficiency → individual self-actualization and global innovation. (2) Access & Inclusion — education shifted from an elite privilege reserved for royalty, clergy, or men to a universal human right regardless of gender, social class, or race. (3) Pedagogical Shift — education transitioned from rigid rote memorization and corporal punishment toward active, student-centered, and psychologically sound learning."
+        }
+      ];
+
+      const erq = {
+        q: `A school principal in Pakistan is planning a staff workshop on the history of education. She wants teachers to understand that today's classrooms are the product of centuries of change — and that many current debates (rote learning vs. active learning, elite vs. universal access, religious vs. secular aims) have deep historical roots.
+
+Using the Historical Foundations of Education, explain how education has evolved through at least THREE major eras. For each era, describe one key educational idea or practice and explain how it still influences education today.`,
+        marks: "10 marks",
+        model: `
+          <strong>Model Answer (key points):</strong><br><br>
+          <strong>1. Classical Antiquity (Greece &amp; Rome):</strong> Athens developed Liberal Education — educating the whole person for democratic citizenship — while Rome emphasized practical administration, law, and rhetoric. Influence today: the idea that schools should develop well-rounded citizens, not just workers, still shapes debates about the purpose of education.<br><br>
+          <strong>2. Medieval Period &amp; Islamic Golden Age:</strong> Western Europe established the Trivium and Quadrivium and early universities; the Islamic Golden Age built madrasahs, libraries, and the House of Wisdom, synthesizing Greek and Islamic knowledge. Influence today: the structure of universities, the value of preserving and translating knowledge, and the integration of ethics with science all have medieval roots.<br><br>
+          <strong>3. Industrial Era:</strong> The Prussian System introduced compulsory, age-graded, factory-model schooling for an industrial workforce; Horace Mann championed taxpayer-funded public schools. Influence today: age-graded classrooms, standardized curricula, and the debate over whether schools should serve economic needs or individual development all trace back to this era.<br><br>
+          <em>Note: Any three eras with valid ideas and connections to the present are acceptable. The key is showing that history explains why schools are the way they are.</em>
+        `
+      };
+
+      // ================= RENDER MCQs =================
+      const mcqContainer = document.getElementById('mcqContainer');
+      let mcqHtml = '';
+      mcqs.forEach((item, idx) => {
+        const letters = ['A', 'B', 'C', 'D'];
+        let optionsHtml = '';
+        item.options.forEach((opt, oi) => {
+          optionsHtml += `
+            <div class="mcq-option" data-qidx="${idx}" data-oidx="${oi}">
+              <span class="option-letter">${letters[oi]}</span>
+              <span>${opt}</span>
+            </div>
+          `;
+        });
+        mcqHtml += `
+          <div class="mcq-item" id="mcq-${idx}">
+            <div class="mcq-question">${idx + 1}. ${item.q}</div>
+            <div class="mcq-options">${optionsHtml}</div>
+            <div class="mcq-feedback" id="mcq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      mcqContainer.innerHTML = mcqHtml;
+
+      mcqContainer.addEventListener('click', (e) => {
+        const option = e.target.closest('.mcq-option');
+        if (!option) return;
+        const qidx = parseInt(option.dataset.qidx);
+        const oidx = parseInt(option.dataset.oidx);
+        const mcq = mcqs[qidx];
+        const parentItem = document.getElementById(`mcq-${qidx}`);
+        const allOptions = parentItem.querySelectorAll('.mcq-option');
+        const feedbackEl = document.getElementById(`mcq-fb-${qidx}`);
+        if (parentItem.dataset.answered === 'correct') return;
+        allOptions.forEach(opt => opt.classList.remove('selected', 'correct', 'incorrect'));
+        option.classList.add('selected');
+        if (oidx === mcq.correct) {
+          option.classList.add('correct');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '✅ Correct! ' + mcq.feedback;
+          feedbackEl.className = 'mcq-feedback show correct-fb';
+          parentItem.dataset.answered = 'correct';
+        } else {
+          option.classList.add('incorrect');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '❌ Not quite. Try again!';
+          feedbackEl.className = 'mcq-feedback show incorrect-fb';
+          setTimeout(() => {
+            if (feedbackEl.classList.contains('incorrect-fb')) {
+              feedbackEl.classList.remove('show');
+            }
+          }, 1500);
+        }
+      });
+
+      // ================= RENDER CRQs =================
+      const crqContainer = document.getElementById('crqContainer');
+      let crqHtml = '';
+      crqs.forEach((item, idx) => {
+        crqHtml += `
+          <div class="crq-item" id="crq-${idx}">
+            <div class="crq-question">${idx + 1}. ${item.q}</div>
+            <div class="crq-hint">💡 Hint: ${item.hint}</div>
+            <textarea class="crq-textarea" id="crq-ta-${idx}" placeholder="Write your answer here..."></textarea>
+            <div class="crq-actions">
+              <button class="btn btn-primary" data-crq-check="${idx}">Check Answer</button>
+              <button class="btn btn-secondary" data-crq-clear="${idx}">Clear</button>
+            </div>
+            <div class="crq-feedback" id="crq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      crqContainer.innerHTML = crqHtml;
+
+      crqContainer.addEventListener('click', (e) => {
+        const checkBtn = e.target.closest('[data-crq-check]');
+        const clearBtn = e.target.closest('[data-crq-clear]');
+        if (checkBtn) {
+          const idx = parseInt(checkBtn.dataset.crqCheck);
+          const textarea = document.getElementById(`crq-ta-${idx}`);
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          const answer = textarea.value.trim().toLowerCase();
+          const crq = crqs[idx];
+          if (answer.length < 10) {
+            feedback.textContent = '⚠️ Please write a more complete answer (at least a sentence or two).';
+            feedback.className = 'crq-feedback show partial';
+            return;
+          }
+          const matched = crq.keywords.filter(kw => answer.includes(kw));
+          const ratio = matched.length / crq.keywords.length;
+          if (ratio >= 0.35) {
+            feedback.innerHTML = `✅ <strong>Good answer!</strong> You covered key ideas.<br><br><em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show good';
+          } else {
+            feedback.innerHTML = `📝 <strong>Partially correct.</strong> You mentioned some ideas. Try to include more key concepts.<br><br><em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show partial';
+          }
+        }
+        if (clearBtn) {
+          const idx = parseInt(clearBtn.dataset.crqClear);
+          document.getElementById(`crq-ta-${idx}`).value = '';
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          feedback.className = 'crq-feedback';
+          feedback.textContent = '';
+        }
+      });
+
+      // ================= RENDER ERQ =================
+      const erqContainer = document.getElementById('erqContainer');
+      erqContainer.innerHTML = `
+        <div class="erq-item">
+          <div class="erq-marks">${erq.marks}</div>
+          <div class="erq-question">${erq.q}</div>
+          <textarea class="erq-textarea" id="erq-ta" placeholder="Write your detailed answer here. Describe at least three eras and their influence on education today..."></textarea>
+          <div class="erq-actions">
+            <button class="btn btn-primary" id="erqCheck">Check Answer</button>
+            <button class="btn btn-secondary" id="erqClear">Clear</button>
+          </div>
+          <div class="erq-feedback" id="erq-fb"></div>
+        </div>
+      `;
+
+      document.getElementById('erqCheck').addEventListener('click', () => {
+        const ta = document.getElementById('erq-ta');
+        const fb = document.getElementById('erq-fb');
+        const answer = ta.value.trim().toLowerCase();
+        if (answer.length < 50) {
+          fb.textContent = '⚠️ Please write a more detailed answer. Describe at least three eras and their influence on education today.';
+          fb.className = 'erq-feedback show partial';
+          return;
+        }
+        const keywords = ['ancient', 'classical', 'greece', 'rome', 'medieval', 'islamic golden age', 'renaissance', 'reformation', 'industrial', 'prussian', 'horace mann', 'liberal education', 'trivium', 'madrasah', 'public education', 'factory-model', 'age-graded'];
+        const found = keywords.filter(k => answer.includes(k));
+        if (found.length >= 3) {
+          fb.innerHTML = `✅ <strong>Excellent effort!</strong> You connected historical eras to modern education. Compare your answer with the model below.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show model';
+        } else if (found.length >= 1) {
+          fb.innerHTML = `📝 <strong>Good start!</strong> Try to describe at least three specific eras and explain how each still influences education today.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        } else {
+          fb.innerHTML = `⚠️ Make sure to describe at least three historical eras and connect their ideas to modern education.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        }
+      });
+
+      document.getElementById('erqClear').addEventListener('click', () => {
+        document.getElementById('erq-ta').value = '';
+        const fb = document.getElementById('erq-fb');
+        fb.className = 'erq-feedback';
+        fb.textContent = '';
+      });
+
+      // ================= QUIZ TABS =================
+      const tabs = document.querySelectorAll('.quiz-tab');
+      const panels = document.querySelectorAll('.quiz-panel');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          panels.forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(tab.dataset.panel).classList.add('active');
+        });
+      });
+
+      // Initial count
+      countDisplay.textContent = allSearchables.length + ' items';
+    })();
+  </script>
+</body>
+</html>

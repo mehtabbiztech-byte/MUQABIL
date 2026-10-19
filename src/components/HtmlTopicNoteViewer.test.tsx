@@ -5,7 +5,11 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { HtmlTopicNoteViewer } from './HtmlTopicNoteViewer';
-import { FOUNDATIONS_OF_EDUCATION_TOPICS, METHODS_OF_TEACHING_TOPICS } from '../data/teachingLicenseNotesData';
+import {
+  CHILD_DEVELOPMENT_TOPICS,
+  FOUNDATIONS_OF_EDUCATION_TOPICS,
+  METHODS_OF_TEACHING_TOPICS,
+} from '../data/teachingLicenseNotesData';
 
 const hubDocuments = [
   {
@@ -48,9 +52,48 @@ const hubDocuments = [
     path: 'notes/foundations-of-education/philosophical-foundations-of-education.html',
     crqs: 4,
   },
+  {
+    topicId: 'foundations-sociological',
+    path: 'notes/foundations-of-education/sociological-foundations-of-education.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'foundations-psychological',
+    path: 'notes/foundations-of-education/psychological-foundations-of-education.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'foundations-historical',
+    path: 'notes/foundations-of-education/historical-foundations-of-education.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'child-dev-major-theories',
+    path: 'notes/child-development/major-theories-and-domains-of-child-development.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'child-dev-developmental-stages',
+    path: 'notes/child-development/characteristics-of-various-developmental-stages-according-to-various-theorists.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'child-dev-factors-influencing-learning',
+    path: 'notes/child-development/factors-influencing-the-learning-process-of-a-child.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'child-dev-individual-differences-special-needs',
+    path: 'notes/child-development/individual-differences-between-students-and-children-with-special-needs.html',
+    crqs: 4,
+  },
 ];
 
-const allHubTopics = [...METHODS_OF_TEACHING_TOPICS, ...FOUNDATIONS_OF_EDUCATION_TOPICS];
+const allHubTopics = [
+  ...METHODS_OF_TEACHING_TOPICS,
+  ...FOUNDATIONS_OF_EDUCATION_TOPICS,
+  ...CHILD_DEVELOPMENT_TOPICS,
+];
 
 test('Master Notes Hub attaches supplied HTML to matching topics across modules', () => {
   const htmlTopics = allHubTopics.filter((topic) => topic.htmlNotesPath);
@@ -66,6 +109,8 @@ test('Master Notes Hub attaches supplied HTML to matching topics across modules'
   assert.equal(METHODS_OF_TEACHING_TOPICS.length, 6);
   assert.equal(METHODS_OF_TEACHING_TOPICS.filter((topic) => topic.htmlNotesPath).length, 6);
   assert.ok(FOUNDATIONS_OF_EDUCATION_TOPICS.length >= 1);
+  assert.equal(CHILD_DEVELOPMENT_TOPICS.length, 4);
+  assert.equal(CHILD_DEVELOPMENT_TOPICS.filter((topic) => topic.htmlNotesPath).length, 4);
   assert.equal(htmlTopics.length, hubDocuments.length);
   // Topics without a supplied document stay on the generated note body.
   assert.ok(allHubTopics

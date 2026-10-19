@@ -110,6 +110,127 @@ export const FOUNDATIONS_OF_EDUCATION_LESSONS: StudyLesson[] = [
     ],
     'notes/foundations-of-education/philosophical-foundations-of-education.html',
   ),
+  lesson(
+    'foundations-sociological',
+    'Sociological Foundations of Education',
+    '9 min read',
+    'The sociological foundation views education as a vital social institution that shapes, and is shaped by, society. It examines how schools socialize individuals, influence social mobility, reproduce or challenge social stratification, and transmit cultural capital. Core functions include manifest functions (cultural transmission, secondary socialization, economic and workforce sorting, social cohesion) and latent functions (peer networking, custodial supervision, creation of generation gaps). Major sociological perspectives include Functionalism (Durkheim, Parsons — education maintains social stability and consensus), Conflict Theory (Marx, Bourdieu — education reproduces class inequality and preserves elite privilege through cultural capital and hidden curricula), and Symbolic Interactionism (Mead, Cooley — face-to-face classroom interactions, labeling, and self-fulfilling prophecies). Crucially, educational equity focuses on distributing resources based on learner need to overcome historical and socio-economic disparities, rather than merely treating unequal starting points with identical resources (equality).',
+    [
+      'Manifest functions: Cultural transmission, secondary socialization, workforce sorting, and social integration/cohesion.',
+      'Latent functions: Peer network formation, custodial childcare, generation gap creation, and status maintenance.',
+      'Functionalism (Durkheim, Parsons): Education maintains social stability, social consensus, and workforce allocation through meritocracy.',
+      'Conflict Theory (Marx, Bourdieu): Education reproduces social inequalities and class hierarchies; cultural capital advantages higher-status families.',
+      'Symbolic Interactionism (Mead, Cooley): Examines micro-level classroom dynamics, teacher labeling, expectations, and self-fulfilling prophecies.',
+      'Hidden Curriculum: Implicit, unwritten social norms transmitted in schools (punctuality, respect for hierarchy, conformity, competition).',
+      'Equality vs. Equity: Equality provides identical resources; equity distributes differentiated resources based on learner need to achieve fair outcomes.',
+      'Social Mobility: Education is a primary vehicle for vertical upward social mobility through skills and recognized credentials.',
+    ],
+    [
+      'A school teaching democratic values and national identity serves manifest cultural transmission.',
+      'A teacher holding high expectations for all students counteracts negative labeling and self-fulfilling prophecies.',
+      'Providing targeted remedial tutoring and free textbooks to low-income students is an equity intervention.',
+      'Unwritten classroom expectations about punctuality and raising hands represent the hidden curriculum.',
+    ],
+    [
+      {
+        prompt: 'Explain the difference between manifest and latent functions of education with two examples of each.',
+        answer: 'Manifest functions are explicit, intended outcomes such as cultural transmission (passing down national values and knowledge) and skill sorting (preparing students for careers). Latent functions are unintended, implicit outcomes such as peer network formation and custodial youth supervision while parents work.',
+      },
+      {
+        prompt: 'Compare Functionalism and Conflict Theory regarding the role of education in society.',
+        answer: 'Functionalism (Durkheim, Parsons) sees education as maintaining social stability, consensus, and meritocratic sorting for the collective good. Conflict Theory (Marx, Bourdieu) argues that education reproduces social inequality, legitimizes privilege, and transmits elite cultural capital through biased curricula and resources.',
+      },
+      {
+        prompt: 'What is the "hidden curriculum" and what implicit lessons does it teach?',
+        answer: 'The hidden curriculum refers to the informal, unwritten social lessons taught in schools beyond official textbooks, including punctuality, deference to authority, competition, and adherence to institutional routines.',
+      },
+      {
+        prompt: 'Distinguish between educational equality and educational equity with a classroom example.',
+        answer: 'Equality provides every student with identical resources regardless of background. Equity distributes resources based on individual student needs so all learners can achieve success — for example, providing extra bilingual support and tailored learning aids to disadvantaged learners.',
+      },
+    ],
+    'notes/foundations-of-education/sociological-foundations-of-education.html',
+  ),
+  lesson(
+    'foundations-psychological',
+    'Psychological Foundations of Education',
+    '9 min read',
+    'Educational psychology provides the scientific understanding of how learning takes place, how human beings develop across cognitive, physical, and socio-emotional domains, and how motivation influences achievement. The four major learning theories each provide indispensable pedagogical tools: Behaviorism (Pavlov, Watson, Skinner) focuses on observable behavior shaped by stimuli, conditioning, drills, and reinforcement; Cognitivism (Piaget, Bruner, Gagné) examines internal information processing, sensory/working/long-term memory structures, chunking, and schemas; Constructivism (Piaget, Vygotsky) posits that learners actively construct knowledge through experiential inquiry, scaffolding, and interaction within the Zone of Proximal Development (ZPD); and Humanism (Maslow, Rogers) addresses holistic personal growth, affective needs, emotional safety, and self-actualization. Developmental stages (Piaget\'s preoperational, concrete operational, and formal operational) guide age-appropriate curriculum design, while Gardner\'s Multiple Intelligences and motivation theory (intrinsic vs extrinsic) drive differentiated, inclusive instruction.',
+    [
+      'Four core learning theories: Behaviorism (reinforcement/habits), Cognitivism (mental schemas/information processing), Constructivism (active discovery/ZPD), Humanism (emotional needs/self-actualization).',
+      'Information Processing Model: Sensory memory → working memory (limited capacity) → long-term memory (schemas).',
+      'Vygotsky\'s Zone of Proximal Development (ZPD) & Scaffolding: Learning occurs in the zone between independent performance and guided assistance.',
+      'Piaget\'s Developmental Stages: Preoperational (2–7 yrs, symbolic/egocentric), Concrete Operational (7–11 yrs, logical concrete reasoning), Formal Operational (12+ yrs, abstract hypothetical thinking).',
+      'Maslow\'s Hierarchy of Needs: Physiological and emotional safety needs must be satisfied before higher-order cognitive learning flourishes.',
+      'Motivation: Intrinsic motivation (curiosity, autonomy, mastery) promotes lifelong retention; extrinsic motivation (grades, rewards) shapes immediate behavior.',
+      'Multiple Intelligences (Gardner): 8 distinct modalities requiring multi-sensory, differentiated instructional strategies.',
+    ],
+    [
+      'Using immediate positive praise and behavior charts draws upon Skinner\'s operant conditioning.',
+      'Using mind maps, graphic organizers, and concept chunking leverages cognitive information processing.',
+      'Pairing a struggling reader with a stronger peer for scaffolded reading applies Vygotsky\'s ZPD.',
+      'Ensuring a child has had a meal and feels safe in class before demanding complex math honors Maslow\'s hierarchy.',
+    ],
+    [
+      {
+        prompt: 'Compare Behaviorism and Constructivism in their view of the learner and classroom instruction.',
+        answer: 'Behaviorism views the learner as responding to external stimuli and reinforcement, emphasizing direct instruction, drills, and measurable behavior changes. Constructivism views the learner as an active constructor of knowledge, emphasizing inquiry, hands-on discovery, collaborative dialogue, and scaffolding.',
+      },
+      {
+        prompt: 'Explain Vygotsky’s Zone of Proximal Development (ZPD) and the role of scaffolding.',
+        answer: 'ZPD is the difference between what a student can do independently and what they can achieve with guidance from a teacher or more capable peer. Scaffolding is the temporary support structure (prompts, modeling, hints) provided in the ZPD that is gradually faded as competence grows.',
+      },
+      {
+        prompt: 'How does Piaget’s distinction between Concrete and Formal Operational stages guide secondary teaching?',
+        answer: 'Concrete operational learners (ages 7–11) require tangible objects, manipulatives, and real-world examples to think logically. Formal operational learners (ages 12+) can handle abstract hypotheses, algebraic symbols, deductive proofs, and metacognitive reflection without needing concrete physical props.',
+      },
+      {
+        prompt: 'Why must teachers address Maslow’s deficiency needs before expecting deep academic achievement?',
+        answer: 'According to Maslow, lower-level physiological (food, rest) and psychological needs (safety, belonging, self-esteem) take precedence. If a student feels anxious, threatened, or hungry, cognitive resources are hijacked by survival instincts, inhibiting higher-level problem solving and retention.',
+      },
+    ],
+    'notes/foundations-of-education/psychological-foundations-of-education.html',
+  ),
+  lesson(
+    'foundations-historical',
+    'Historical Foundations of Education',
+    '9 min read',
+    'The historical foundation traces the evolution of educational systems, philosophical currents, institutions, and policies over time. It reveals that contemporary school practices — such as age-grading, compulsory attendance, standardized testing, and liberal arts curricula — are not accidental, but the outcomes of historical struggles and social transformations. Ancient Civilizations (India, China, Egypt, Mesopotamia) focused on religious preservation, scribal record-keeping, and moral ethics. Classical Antiquity (Athens and Rome) birthed liberal education for democratic citizenship, the Socratic method of dialogue, rhetoric, and civic duty, contrasted with Spartan military training. The Medieval Era and Islamic Golden Age synthesized classical scholarship with religious ethics, establishing early universities (Bologna, Paris, Oxford) and renowned research academies/libraries (House of Wisdom in Baghdad, Ibn Sina, Al-Farabi, Ibn Khaldun). The Renaissance, Reformation, and Scientific Revolution brought humanism, universal vernacular literacy (Martin Luther), and empirical science (Bacon, Descartes). The Industrial Era established the Prussian factory model of compulsory age-graded schooling and Horace Mann\'s Common School Movement. Three overarching historical lessons emerge: the evolution of educational purpose from religious preservation to global innovation; the shift in access from elite privilege to universal human right; and the pedagogical shift from rote memorization and corporal punishment to student-centered, psychologically informed learning.',
+    [
+      'Ancient Civilizations: Preserving religious texts, moral order, Gurukul guru-disciple tradition in India, Confucian civil service exams in China, scribal training in Egypt/Mesopotamia.',
+      'Classical Greece & Rome: Athenian liberal education of the whole person, Socratic questioning, Plato’s Academy, Aristotle’s empirical logic, and Roman rhetoric/civic training (Quintilian).',
+      'Medieval & Islamic Golden Age: Trivium (Grammar, Rhetoric, Logic) and Quadrivium (Arithmetic, Geometry, Music, Astronomy); madrasahs, House of Wisdom, translation centers, Ibn Sina, Ibn Khaldun.',
+      'Renaissance & Reformation: Humanism, individual potential, Martin Luther’s universal literacy in the vernacular language, and the scientific revolution’s empiricism (Bacon, Descartes).',
+      'Industrial Era: John Locke’s Tabula Rasa, Rousseau’s naturalism, Froebel’s Kindergarten, the Prussian age-graded factory schooling model, and Horace Mann’s Common School Movement.',
+      'Modern & Digital Era: Universal inclusion, digital learning technologies, global citizenship, and lifelong learning.',
+      'Three Core Lessons: Purpose evolved from dogma to self-actualization; access transformed from elite privilege to human right; pedagogy transitioned from rote coercion to student-centered inquiry.',
+    ],
+    [
+      'Using the Socratic method in modern literature or ethics discussions links directly to Classical Athens.',
+      'Organizing schools by age cohorts and fixed bell periods is a direct legacy of the 19th-century Prussian industrial schooling model.',
+      'Taxpayer-funded free primary education in Pakistan and worldwide traces directly to Horace Mann’s Common School Movement and the Reformation.',
+      'Integrating science with character and ethical values builds upon the scholastic traditions of the Islamic Golden Age.',
+    ],
+    [
+      {
+        prompt: 'How did ancient Athenian education differ from Spartan training, and which influenced modern liberal education?',
+        answer: 'Athens emphasized liberal education — cultivating the whole person (intellect, aesthetic appreciation, physical fitness, and civic virtues) for active democratic participation. Sparta focused narrowly on military discipline and state obedience (Agoge). Athenian ideals laid the groundwork for modern liberal arts and democratic education.',
+      },
+      {
+        prompt: 'Describe the educational significance of the Trivium and Quadrivium in medieval schooling.',
+        answer: 'The Trivium (Grammar, Rhetoric, Logic) formed the foundation of communication and reasoning, while the Quadrivium (Arithmetic, Geometry, Music, Astronomy) taught mathematical and cosmic principles. Together they comprised the seven liberal arts that structured higher learning and university faculties.',
+      },
+      {
+        prompt: 'What was the Prussian model of education and what features persist in modern schools?',
+        answer: 'The Prussian model introduced state-controlled, compulsory, tax-funded schooling characterized by age-graded classes, standardized curricula, strict timetables, and teacher-led direct instruction. Features persisting today include age cohorts, standardized periods/bells, national syllabi, and uniform graduation metrics.',
+      },
+      {
+        prompt: 'Explain the three core overarching lessons that history teaches modern educators.',
+        answer: '1. Evolution of Purpose: Education transitioned from religious preservation and elite governance toward civic empowerment, economic productivity, and holistic personal actualization. 2. Access and Inclusion: Education transformed from an elite patriarchal privilege into a universal human right. 3. Pedagogical Shift: Teaching advanced from punitive rote memorization toward empathetic, student-centered, evidence-based pedagogy.',
+      },
+    ],
+    'notes/foundations-of-education/historical-foundations-of-education.html',
+  ),
 ];
 
 export const FOUNDATIONS_OF_EDUCATION_SUBJECT: StudySubject = {

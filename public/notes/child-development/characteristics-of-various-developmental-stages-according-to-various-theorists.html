@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Developmental Stages &amp; Theorists · Child Development</title>
+  <style>
+    /* ---------- GLOBAL ---------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+      color: #1e2b3c;
+    }
+    .main-wrapper { max-width: 1100px; width: 100%; }
+
+    /* ---------- HEADER ---------- */
+    .header-card {
+      background: white;
+      border-radius: 2rem 2rem 1.5rem 1.5rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      padding: 2rem 2rem 1.5rem 2rem;
+      margin-bottom: 1.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: transform 0.2s;
+    }
+    .header-card:hover { transform: scale(1.002); }
+    .badge {
+      display: inline-block;
+      background: #2a4b7c;
+      color: #f0f7ff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+      line-height: 1.25;
+    }
+    .subhead {
+      font-size: 1.05rem;
+      color: #2f5277;
+      font-weight: 400;
+      border-left: 5px solid #8bb3e0;
+      padding-left: 1.2rem;
+      margin: 1rem 0 0.2rem 0;
+      font-style: italic;
+    }
+    .intro-text {
+      background: #e6f0fc;
+      padding: 1rem 1.4rem;
+      border-radius: 1.2rem;
+      margin-top: 1.4rem;
+      font-size: 0.98rem;
+      color: #1d3a5c;
+      border-left: 5px solid #3b6ea5;
+    }
+
+    /* ---------- SECTION TITLE ---------- */
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #0e2a47;
+      margin: 2.2rem 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section-title .line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #8bb3e0, transparent);
+      border-radius: 2px;
+    }
+
+    /* ---------- DOMAIN CARDS ---------- */
+    .domain-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .domain-card {
+      background: white;
+      border-radius: 1.4rem;
+      padding: 1.2rem 1rem 1.1rem 1rem;
+      box-shadow: 0 8px 18px -10px rgba(20, 40, 70, 0.16);
+      transition: all 0.22s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+    .domain-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      opacity: 0.85;
+    }
+    .domain-card.physical::before { background: linear-gradient(90deg, #2e7d4f, #81c784); }
+    .domain-card.cognitive::before { background: linear-gradient(90deg, #2a4b7c, #5a8ec9); }
+    .domain-card.language::before { background: linear-gradient(90deg, #6a4c9c, #b39ddb); }
+    .domain-card.emotional::before { background: linear-gradient(90deg, #c94f7c, #e88bb0); }
+    .domain-card.social::before { background: linear-gradient(90deg, #d4933a, #e8c08b); }
+    .domain-card.moral::before { background: linear-gradient(90deg, #3b7bb5, #8bb3e0); }
+    .domain-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 24px -14px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .domain-icon { font-size: 1.8rem; margin-bottom: 0.4rem; }
+    .domain-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #0e2a47;
+      margin-bottom: 0.2rem;
+    }
+    .domain-desc {
+      font-size: 0.8rem;
+      color: #4e6b8a;
+      line-height: 1.4;
+    }
+
+    /* ---------- THEORIST CARDS ---------- */
+    .theorist-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.5rem 1.4rem 1.5rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      transition: all 0.25s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1.2rem;
+    }
+    .theorist-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      opacity: 0.9;
+      transition: height 0.2s;
+    }
+    .theorist-card.piaget::before { background: linear-gradient(90deg, #2a4b7c, #5a8ec9); }
+    .theorist-card.vygotsky::before { background: linear-gradient(90deg, #2e7d4f, #81c784); }
+    .theorist-card.erikson::before { background: linear-gradient(90deg, #6a4c9c, #b39ddb); }
+    .theorist-card.freud::before { background: linear-gradient(90deg, #b03a5b, #e88bb0); }
+    .theorist-card.kohlberg::before { background: linear-gradient(90deg, #d4933a, #e8c08b); }
+    .theorist-card.bowlby::before { background: linear-gradient(90deg, #c94f7c, #e88bb0); }
+    .theorist-card.bandura::before { background: linear-gradient(90deg, #3b7bb5, #8bb3e0); }
+    .theorist-card.skinner::before { background: linear-gradient(90deg, #4a7a5c, #8bc09a); }
+    .theorist-card.gesell::before { background: linear-gradient(90deg, #7a6a3c, #d4c08b); }
+    .theorist-card.havighurst::before { background: linear-gradient(90deg, #5a4a7a, #b39ddb); }
+    .theorist-card.bronfenbrenner::before { background: linear-gradient(90deg, #2a6a6a, #7ac0c0); }
+    .theorist-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 22px 28px -16px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .theorist-card:hover::before { height: 10px; }
+    .theorist-header {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.8rem;
+    }
+    .theorist-icon {
+      font-size: 1.8rem;
+      line-height: 1;
+      background: #e9f0fa;
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #1b3c61;
+      transition: background 0.2s;
+    }
+    .theorist-card:hover .theorist-icon { background: #d3e3f8; }
+    .theorist-name {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #0e2a47;
+      line-height: 1.25;
+    }
+    .theorist-sub {
+      font-size: 0.82rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-top: 0.1rem;
+    }
+    .theorist-section {
+      margin-bottom: 0.7rem;
+    }
+    .theorist-section-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #1a4b7a;
+      background: #d7e6fa;
+      padding: 0.1rem 0.7rem;
+      border-radius: 30px;
+      display: inline-block;
+      margin-bottom: 0.4rem;
+    }
+    .theorist-section-title.green { color: #1b6e3e; background: #d4f0e0; }
+    .theorist-section-title.amber { color: #7a4e14; background: #fdeed8; }
+    .theorist-section-title.pink { color: #8a3a55; background: #fce4ec; }
+    .theorist-text {
+      font-size: 0.88rem;
+      color: #274e73;
+      line-height: 1.55;
+    }
+    .stage-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+      margin-top: 0.2rem;
+    }
+    .stage-table th {
+      text-align: left;
+      padding: 0.4rem 0.5rem;
+      font-weight: 700;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      color: white;
+      background: #0e2a47;
+    }
+    .stage-table th:first-child { border-radius: 0.6rem 0 0 0; }
+    .stage-table th:last-child { border-radius: 0 0.6rem 0 0; }
+    .stage-table td {
+      padding: 0.45rem 0.5rem;
+      border-bottom: 1px solid #e8f0f9;
+      color: #1e3c5a;
+      vertical-align: top;
+      line-height: 1.45;
+    }
+    .stage-table tr:last-child td { border-bottom: none; }
+    .stage-table tr:hover td { background: #f6faff; }
+    .stage-table td:first-child {
+      font-weight: 600;
+      color: #0e2a47;
+      white-space: nowrap;
+    }
+    .exam-tag {
+      background: #fff8e6;
+      color: #7a5a14;
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 0.25rem 0.8rem;
+      border-radius: 30px;
+      border: 1px solid #f0e0b0;
+      display: inline-block;
+      margin-top: 0.4rem;
+    }
+
+    /* ---------- OTHER THEORISTS GRID ---------- */
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .mini-card {
+      background: white;
+      border-radius: 1.3rem;
+      padding: 1.1rem 1.2rem;
+      box-shadow: 0 6px 14px -8px rgba(20, 40, 70, 0.14);
+      border: 1px solid #e3ecf7;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .mini-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, #3f7cb0, #8bb3e0);
+      opacity: 0.7;
+    }
+    .mini-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 20px -12px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .mini-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #0e2a47;
+      margin-bottom: 0.2rem;
+    }
+    .mini-theory {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #1b4670;
+      margin-bottom: 0.3rem;
+    }
+    .mini-desc {
+      font-size: 0.84rem;
+      color: #274e73;
+      line-height: 1.45;
+    }
+
+    /* ---------- COMPARISON TABLE ---------- */
+    .matrix-wrapper {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.4rem 1.4rem 1.2rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      border: 1px solid #e3ecf7;
+      overflow-x: auto;
+      margin-bottom: 0.5rem;
+    }
+    .comp-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.84rem;
+      min-width: 700px;
+    }
+    .comp-table thead th {
+      text-align: left;
+      padding: 0.7rem 0.8rem;
+      font-weight: 700;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      color: white;
+      background: #0e2a47;
+    }
+    .comp-table thead th:first-child {
+      border-radius: 0.8rem 0 0 0;
+      background: #2a4b7c;
+    }
+    .comp-table thead th:last-child { border-radius: 0 0.8rem 0 0; }
+    .comp-table tbody td {
+      padding: 0.6rem 0.8rem;
+      border-bottom: 1px solid #e8f0f9;
+      color: #1e3c5a;
+      vertical-align: top;
+      line-height: 1.45;
+      font-size: 0.82rem;
+    }
+    .comp-table tbody tr:last-child td { border-bottom: none; }
+    .comp-table tbody tr:hover td { background: #f6faff; }
+    .comp-table tbody td:first-child {
+      font-weight: 700;
+      color: #0e2a47;
+      background: #f3f8fd;
+      white-space: nowrap;
+    }
+    .comp-table tbody tr:hover td:first-child { background: #eaf3fc; }
+
+    /* ---------- AGE STAGE CARDS ---------- */
+    .age-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    .age-card {
+      background: white;
+      border-radius: 1.4rem;
+      padding: 1.2rem 1.3rem;
+      box-shadow: 0 8px 18px -10px rgba(20, 40, 70, 0.16);
+      border: 1px solid #e3ecf7;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .age-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      opacity: 0.85;
+    }
+    .age-card.infancy::before { background: linear-gradient(90deg, #6a4c9c, #b39ddb); }
+    .age-card.early::before { background: linear-gradient(90deg, #2e7d4f, #81c784); }
+    .age-card.middle::before { background: linear-gradient(90deg, #2a4b7c, #5a8ec9); }
+    .age-card.adolescence::before { background: linear-gradient(90deg, #c94f7c, #e88bb0); }
+    .age-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 24px -14px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .age-name {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.15rem;
+    }
+    .age-range {
+      font-size: 0.8rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-bottom: 0.6rem;
+    }
+    .age-points {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      flex: 1;
+    }
+    .age-points li {
+      padding: 0.25rem 0 0.25rem 1.3rem;
+      position: relative;
+      font-size: 0.85rem;
+      line-height: 1.45;
+      color: #1e3c5a;
+    }
+    .age-points li::before {
+      content: '◆';
+      position: absolute;
+      left: 0;
+      color: #3b7bb5;
+      font-size: 0.65rem;
+      top: 0.45rem;
+    }
+    .age-theorists {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-top: 0.6rem;
+    }
+    .age-tag {
+      background: #f6faff;
+      color: #183c5e;
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 0.18rem 0.65rem;
+      border-radius: 30px;
+      border: 1px solid #c9ddf5;
+    }
+
+    /* ---------- EXAM FACTS ---------- */
+    .exam-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 0.8rem;
+      margin-bottom: 0.5rem;
+    }
+    .exam-fact {
+      background: white;
+      border-radius: 1rem;
+      padding: 0.8rem 1rem;
+      box-shadow: 0 4px 10px -6px rgba(20, 40, 70, 0.12);
+      border: 1px solid #e3ecf7;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all 0.2s;
+    }
+    .exam-fact:hover {
+      transform: translateY(-2px);
+      border-color: #b8d0e9;
+      box-shadow: 0 8px 16px -10px #1e3f5e;
+    }
+    .exam-clue {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #1e3c5a;
+      flex: 1;
+    }
+    .exam-answer {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #0e2a47;
+      background: #eef4fb;
+      padding: 0.2rem 0.7rem;
+      border-radius: 30px;
+      border: 1px solid #d0e0f0;
+      white-space: nowrap;
+    }
+
+    /* ---------- TAKEAWAY ---------- */
+    .takeaway-card {
+      background: #0e2a47;
+      color: white;
+      border-radius: 1.6rem;
+      padding: 1.6rem 2rem;
+      margin: 1.2rem 0 0.5rem 0;
+      font-size: 1rem;
+      line-height: 1.65;
+      box-shadow: 0 14px 26px -12px #0e2a47;
+      border-left: 6px solid #8bb3e0;
+    }
+    .takeaway-card strong { color: #b8d4f0; }
+
+    /* ---------- SEARCH & COUNT ---------- */
+    .filter-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 60px;
+      box-shadow: 0 8px 18px -8px rgba(0, 27, 45, 0.1);
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 40px;
+      padding: 0.3rem 0.3rem 0.3rem 1.2rem;
+      flex: 2;
+      min-width: 240px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      border: 1px solid #ccdcee;
+    }
+    .search-box span { font-size: 1.1rem; margin-right: 0.5rem; color: #4e6b8a; }
+    .search-box input {
+      border: none;
+      padding: 0.7rem 0.2rem;
+      width: 100%;
+      font-size: 0.95rem;
+      outline: none;
+      background: transparent;
+      color: #0c253b;
+    }
+    .search-box input::placeholder { color: #879eb6; font-weight: 300; }
+    .count-pill {
+      background: #0e2a47;
+      color: white;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ---------- QUIZ SECTION ---------- */
+    .quiz-section { margin-top: 2.5rem; }
+    .quiz-header {
+      background: #0e2a47;
+      border-radius: 2rem 2rem 0 0;
+      padding: 1.5rem 2rem;
+      color: white;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .quiz-header h2 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.3px; }
+    .quiz-header .quiz-badge {
+      background: #8bb3e0;
+      color: #0e2a47;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .quiz-body {
+      background: white;
+      border-radius: 0 0 2rem 2rem;
+      padding: 2rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      border: 1px solid #e3ecf7;
+      border-top: none;
+    }
+    .quiz-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #e3ecf7;
+      padding-bottom: 1rem;
+    }
+    .quiz-tab {
+      background: #f0f5fd;
+      border: 1px solid #d0e0f0;
+      color: #1b4670;
+      padding: 0.5rem 1.3rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .quiz-tab:hover { background: #e0ecfc; border-color: #a0c0e0; }
+    .quiz-tab.active { background: #0e2a47; color: white; border-color: #0e2a47; }
+    .quiz-panel { display: none; }
+    .quiz-panel.active { display: block; }
+    .section-label {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.2rem;
+    }
+
+    /* MCQ */
+    .mcq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+      transition: background 0.2s;
+    }
+    .mcq-item:hover { background: #f0f7fe; }
+    .mcq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.8rem;
+      line-height: 1.5;
+    }
+    .mcq-options { display: flex; flex-direction: column; gap: 0.5rem; }
+    .mcq-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 0.8rem;
+      background: white;
+      border: 1.5px solid #d9e8fc;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+    }
+    .mcq-option:hover { border-color: #8bb3e0; background: #eef6ff; }
+    .mcq-option.selected { border-color: #3b7bb5; background: #e4f0fe; font-weight: 500; }
+    .mcq-option.correct { border-color: #2e9b5e; background: #e6f7ee; font-weight: 600; }
+    .mcq-option.incorrect { border-color: #d45a5a; background: #fdeaea; font-weight: 500; }
+    .mcq-option .option-letter {
+      font-weight: 700;
+      color: #2a4b7c;
+      min-width: 1.4rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .mcq-option.correct .option-letter { color: #1b7a44; }
+    .mcq-option.incorrect .option-letter { color: #b03030; }
+    .mcq-feedback {
+      margin-top: 0.7rem;
+      font-size: 0.88rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: 0.8rem;
+      display: none;
+      font-weight: 500;
+    }
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.correct-fb {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .mcq-feedback.incorrect-fb {
+      background: #fdeaea;
+      color: #9e2a2a;
+      border-left: 4px solid #d45a5a;
+    }
+
+    /* CRQ / ERQ shared */
+    .crq-item, .erq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+    }
+    .erq-item { border: 2px solid #8bb3e0; background: #f5faff; }
+    .crq-question, .erq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+    .erq-question { font-size: 1.05rem; font-weight: 700; }
+    .erq-marks {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      margin-bottom: 0.8rem;
+    }
+    .crq-hint {
+      font-size: 0.85rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-bottom: 0.7rem;
+    }
+    .crq-textarea, .erq-textarea {
+      width: 100%;
+      border: 1.5px solid #d9e8fc;
+      border-radius: 0.9rem;
+      padding: 0.8rem 1rem;
+      font-family: inherit;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+      resize: vertical;
+      transition: border-color 0.2s;
+      background: white;
+    }
+    .crq-textarea { min-height: 90px; }
+    .erq-textarea { min-height: 160px; }
+    .crq-textarea:focus, .erq-textarea:focus {
+      outline: none;
+      border-color: #3b7bb5;
+      box-shadow: 0 0 0 3px rgba(59, 123, 181, 0.12);
+    }
+    .crq-actions, .erq-actions {
+      display: flex;
+      gap: 0.7rem;
+      margin-top: 0.7rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 0.55rem 1.4rem;
+      border-radius: 40px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      font-family: inherit;
+    }
+    .btn-primary { background: #0e2a47; color: white; }
+    .btn-primary:hover { background: #1a4170; transform: translateY(-1px); }
+    .btn-secondary { background: #e9f0fa; color: #1b4670; border: 1px solid #c0d8f0; }
+    .btn-secondary:hover { background: #d8e6f8; }
+    .crq-feedback, .erq-feedback {
+      margin-top: 0.8rem;
+      padding: 0.8rem 1rem;
+      border-radius: 0.9rem;
+      font-size: 0.9rem;
+      display: none;
+      line-height: 1.6;
+    }
+    .crq-feedback.show, .erq-feedback.show { display: block; }
+    .crq-feedback.good, .erq-feedback.good {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .crq-feedback.partial, .erq-feedback.partial {
+      background: #fff8e6;
+      color: #8a6d1f;
+      border-left: 4px solid #e0a800;
+    }
+    .erq-feedback.model {
+      background: #e6f0fc;
+      color: #1a3e62;
+      border-left: 5px solid #3b7bb5;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 600px) {
+      .header-card { padding: 1.5rem 1.2rem; }
+      h1 { font-size: 1.6rem; }
+      .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: 2rem;
+        padding: 1rem;
+      }
+      .search-box { width: 100%; }
+      .count-pill { text-align: center; padding: 0.5rem; }
+      .domain-row { grid-template-columns: repeat(2, 1fr); }
+      .quiz-body { padding: 1.2rem; }
+      .quiz-header { padding: 1.2rem; }
+      .quiz-header h2 { font-size: 1.3rem; }
+      .mcq-item, .crq-item, .erq-item { padding: 1rem; }
+      .quiz-tab { font-size: 0.8rem; padding: 0.4rem 1rem; }
+      .takeaway-card { padding: 1.3rem 1.2rem; }
+    }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #dfe9f5; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: #94b0d1; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6d8fb4; }
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem 1rem;
+      background: #ffffffc9;
+      border-radius: 2rem;
+      font-size: 1.1rem;
+      color: #4b6888;
+      border: 2px dashed #b8cee8;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-wrapper">
+
+    <!-- HEADER -->
+    <div class="header-card">
+      <div class="badge">🧒 Child Development</div>
+      <h1>Characteristics of Various Developmental Stages According to Various Theorists</h1>
+      <div class="subhead">A complete study guide for teacher recruitment tests, SIBA Teaching License Test, and other competitive exams</div>
+      <div class="intro-text">
+        <strong>💡 Overview:</strong> Child development is the continuous process of physical, cognitive, emotional, social, moral, and language changes from conception through adolescence into adulthood. Development is generally orderly, but the rate and timing differ among individuals. Both heredity and environment influence development.
+      </div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="filter-section">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="Search theorists, stages, concepts, exam facts..." autocomplete="off">
+      </div>
+      <div class="count-pill" id="countDisplay">40+ items</div>
+    </div>
+
+    <!-- DOMAINS -->
+    <div class="section-title">
+      🧩 Major Domains of Development
+      <span class="line"></span>
+    </div>
+
+    <div class="domain-row" id="domainsGrid">
+      <div class="domain-card physical" data-searchable="physical domain body growth motor skills walking running handwriting">
+        <div class="domain-icon">🏃</div>
+        <div class="domain-name">Physical</div>
+        <div class="domain-desc">Body growth &amp; motor skills</div>
+      </div>
+      <div class="domain-card cognitive" data-searchable="cognitive domain thinking memory reasoning problem-solving puzzle">
+        <div class="domain-icon">🧠</div>
+        <div class="domain-name">Cognitive</div>
+        <div class="domain-desc">Thinking, memory, reasoning</div>
+      </div>
+      <div class="domain-card language" data-searchable="language domain understanding using language speaking sentences">
+        <div class="domain-icon">💬</div>
+        <div class="domain-name">Language</div>
+        <div class="domain-desc">Understanding &amp; using language</div>
+      </div>
+      <div class="domain-card emotional" data-searchable="emotional domain recognizing regulating emotions managing anger">
+        <div class="domain-icon">❤️</div>
+        <div class="domain-name">Emotional</div>
+        <div class="domain-desc">Recognizing &amp; regulating emotions</div>
+      </div>
+      <div class="domain-card social" data-searchable="social domain interacting others sharing cooperation">
+        <div class="domain-icon">🤝</div>
+        <div class="domain-name">Social</div>
+        <div class="domain-desc">Interacting with others</div>
+      </div>
+      <div class="domain-card moral" data-searchable="moral domain understanding right wrong following rules fairly">
+        <div class="domain-icon">⚖️</div>
+        <div class="domain-name">Moral</div>
+        <div class="domain-desc">Understanding right &amp; wrong</div>
+      </div>
+    </div>
+
+    <!-- MAJOR THEORISTS -->
+    <div class="section-title">
+      🏫 Major Developmental Theorists &amp; Their Stages
+      <span class="line"></span>
+    </div>
+
+    <div id="theoristsGrid">
+      <!-- PIAGET -->
+      <div class="theorist-card piaget" data-searchable="piaget cognitive development stages sensorimotor preoperational concrete operational formal operational schemas assimilation accommodation equilibration object permanence conservation egocentrism reversibility active learning">
+        <div class="theorist-header">
+          <div class="theorist-icon">🧩</div>
+          <div>
+            <div class="theorist-name">Jean Piaget — Cognitive Development</div>
+            <div class="theorist-sub">How children think and learn · 1896–1980</div>
+          </div>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title">Key ideas</div>
+          <div class="theorist-text">Children are active learners who construct knowledge through interaction with their environment. Keywords: schemas, assimilation, accommodation, equilibration.</div>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title green">Four stages</div>
+          <table class="stage-table">
+            <thead><tr><th>Stage</th><th>Age</th><th>Key features</th></tr></thead>
+            <tbody>
+              <tr><td>Sensorimotor</td><td>0–2 yrs</td><td>Learning through senses &amp; actions; object permanence; early imitation</td></tr>
+              <tr><td>Preoperational</td><td>2–7 yrs</td><td>Language &amp; symbolic thinking; egocentrism; centration; no conservation</td></tr>
+              <tr><td>Concrete Operational</td><td>7–11 yrs</td><td>Logical thinking about concrete objects; conservation; classification; reversibility</td></tr>
+              <tr><td>Formal Operational</td><td>11+ yrs</td><td>Abstract &amp; hypothetical reasoning; systematic problem-solving; testing hypotheses</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title amber">Classroom application</div>
+          <div class="theorist-text">Use hands-on activities, concrete materials, discovery learning, and age-appropriate tasks. Move gradually from concrete to abstract.</div>
+        </div>
+        <div class="exam-tag">📌 Exam tip: Piaget = cognitive development; Vygotsky = social interaction &amp; scaffolding.</div>
+      </div>
+
+      <!-- VYGOTSKY -->
+      <div class="theorist-card vygotsky" data-searchable="vygotsky sociocultural theory zpd zone of proximal development scaffolding mko more knowledgeable other private speech social interaction cultural tools collaborative learning">
+        <div class="theorist-header">
+          <div class="theorist-icon">👥</div>
+          <div>
+            <div class="theorist-name">Lev Vygotsky — Sociocultural Theory</div>
+            <div class="theorist-sub">Social interaction and language · 1896–1934</div>
+          </div>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title">Key ideas</div>
+          <div class="theorist-text">Cognitive development is strongly influenced by social interaction, culture, language, and guidance from more knowledgeable people.</div>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title green">Major concepts</div>
+          <table class="stage-table">
+            <thead><tr><th>Concept</th><th>Explanation</th></tr></thead>
+            <tbody>
+              <tr><td>ZPD</td><td>Gap between independent performance and performance with guidance</td></tr>
+              <tr><td>MKO</td><td>More Knowledgeable Other — teacher, parent, or capable peer</td></tr>
+              <tr><td>Scaffolding</td><td>Temporary support gradually reduced as competence improves</td></tr>
+              <tr><td>Private speech</td><td>Self-directed speech that guides actions</td></tr>
+              <tr><td>Cultural tools</td><td>Language, symbols, writing used in learning</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title amber">Classroom application</div>
+          <div class="theorist-text">Encourage group work, peer teaching, guided practice, dialogue, and questions that help learners progress beyond what they can do alone.</div>
+        </div>
+        <div class="exam-tag">📌 Exam tip: ZPD and social interaction are central to Vygotsky, not Piaget.</div>
+      </div>
+
+      <!-- ERIKSON -->
+      <div class="theorist-card erikson" data-searchable="erikson psychosocial development eight stages trust mistrust autonomy shame doubt initiative guilt industry inferiority identity role confusion intimacy isolation generativity stagnation integrity despair lifespan">
+        <div class="theorist-header">
+          <div class="theorist-icon">🔄</div>
+          <div>
+            <div class="theorist-name">Erik Erikson — Psychosocial Development</div>
+            <div class="theorist-sub">Eight stages across the lifespan · 1902–1994</div>
+          </div>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title">Key ideas</div>
+          <div class="theorist-text">Each stage involves a central social or emotional challenge (crisis) that influences personality development.</div>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title green">Eight stages</div>
+          <table class="stage-table">
+            <thead><tr><th>Age</th><th>Stage / conflict</th><th>Characteristic</th></tr></thead>
+            <tbody>
+              <tr><td>Birth–1</td><td>Trust vs. Mistrust</td><td>Trust develops with reliable care</td></tr>
+              <tr><td>1–3</td><td>Autonomy vs. Shame/Doubt</td><td>Independence and self-control</td></tr>
+              <tr><td>3–6</td><td>Initiative vs. Guilt</td><td>Explores, plans actions</td></tr>
+              <tr><td>6–12</td><td>Industry vs. Inferiority</td><td>Competence through schoolwork</td></tr>
+              <tr><td>12–18</td><td>Identity vs. Role Confusion</td><td>Explores identity and values</td></tr>
+              <tr><td>Young adult</td><td>Intimacy vs. Isolation</td><td>Close committed relationships</td></tr>
+              <tr><td>Middle adult</td><td>Generativity vs. Stagnation</td><td>Contributing to next generation</td></tr>
+              <tr><td>Late adult</td><td>Integrity vs. Despair</td><td>Reflecting with acceptance or regret</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title amber">Educational importance</div>
+          <div class="theorist-text">Build trust, give safe choices, encourage initiative, recognize effort, and support adolescent identity exploration.</div>
+        </div>
+        <div class="exam-tag">📌 Exam tip: Industry vs. Inferiority = school age; Identity vs. Role Confusion = adolescence.</div>
+      </div>
+
+      <!-- FREUD -->
+      <div class="theorist-card freud" data-searchable="freud psychosexual development oral anal phallic latency genital unconscious libido fixation five stages">
+        <div class="theorist-header">
+          <div class="theorist-icon">🧠</div>
+          <div>
+            <div class="theorist-name">Sigmund Freud — Psychosexual Development</div>
+            <div class="theorist-sub">Unconscious drives and personality · 1856–1939</div>
+          </div>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title">Key ideas</div>
+          <div class="theorist-text">Early personality development is influenced by unconscious processes and psychosexual stages. Historically influential, though many claims lack modern scientific support.</div>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title green">Five stages</div>
+          <table class="stage-table">
+            <thead><tr><th>Stage</th><th>Age</th><th>Focus</th></tr></thead>
+            <tbody>
+              <tr><td>Oral</td><td>0–1</td><td>Mouth; sucking and feeding</td></tr>
+              <tr><td>Anal</td><td>1–3</td><td>Elimination and toilet training</td></tr>
+              <tr><td>Phallic</td><td>3–6</td><td>Genital awareness; identification with parents</td></tr>
+              <tr><td>Latency</td><td>6–puberty</td><td>Impulses dormant; social/academic interests</td></tr>
+              <tr><td>Genital</td><td>Puberty+</td><td>Mature sexual interests and relationships</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title amber">Fixation</div>
+          <div class="theorist-text">Unresolved conflict at a stage may influence later personality.</div>
+        </div>
+        <div class="exam-tag">📌 Exam tip: Freud = psychosexual; Erikson = psychosocial (more social &amp; lifespan).</div>
+      </div>
+
+      <!-- KOHLBERG -->
+      <div class="theorist-card kohlberg" data-searchable="kohlberg moral development pre-conventional conventional post-conventional obedience punishment individualism exchange good interpersonal relationships law order social contract universal ethical principles heinz dilemma">
+        <div class="theorist-header">
+          <div class="theorist-icon">⚖️</div>
+          <div>
+            <div class="theorist-name">Lawrence Kohlberg — Moral Development</div>
+            <div class="theorist-sub">Reasoning about right and wrong · 1927–1987</div>
+          </div>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title">Key ideas</div>
+          <div class="theorist-text">Moral reasoning develops through 3 levels and 6 stages, from self-interest to universal ethical principles.</div>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title green">Three levels &amp; six stages</div>
+          <table class="stage-table">
+            <thead><tr><th>Level</th><th>Stage</th><th>Characteristics</th></tr></thead>
+            <tbody>
+              <tr><td>Pre-conventional</td><td>1. Obedience &amp; punishment</td><td>Judges by punishment or avoidance</td></tr>
+              <tr><td></td><td>2. Individualism &amp; exchange</td><td>Personal benefit and fair exchange</td></tr>
+              <tr><td>Conventional</td><td>3. Good interpersonal relationships</td><td>Seeks approval; wants to be seen as good</td></tr>
+              <tr><td></td><td>4. Law and order</td><td>Values rules, duty, social order</td></tr>
+              <tr><td>Post-conventional</td><td>5. Social contract</td><td>Laws protect rights and may need reform</td></tr>
+              <tr><td></td><td>6. Universal ethical principles</td><td>Justice and human dignity</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title amber">Classroom application</div>
+          <div class="theorist-text">Discuss moral dilemmas, fairness, honesty, responsibility, and the reasons behind rules rather than relying only on punishment.</div>
+        </div>
+        <div class="exam-tag">📌 Exam tip: Kohlberg describes moral reasoning, not necessarily behavior in every situation.</div>
+      </div>
+
+      <!-- BOWLBY -->
+      <div class="theorist-card bowlby" data-searchable="bowlby attachment theory caregiver secure base separation secure insecure avoidant resistant ambivalent disorganized strange situation ainsworth">
+        <div class="theorist-header">
+          <div class="theorist-icon">🤱</div>
+          <div>
+            <div class="theorist-name">John Bowlby — Attachment Theory</div>
+            <div class="theorist-sub">Emotional bonds with caregivers · 1907–1990</div>
+          </div>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title">Key ideas</div>
+          <div class="theorist-text">Early emotional bonds between children and caregivers are crucial. Secure relationships provide a foundation for exploration and emotional regulation.</div>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title green">Attachment patterns (Ainsworth)</div>
+          <table class="stage-table">
+            <thead><tr><th>Pattern</th><th>Characteristics</th></tr></thead>
+            <tbody>
+              <tr><td>Secure</td><td>Uses caregiver as secure base; seeks comfort; soothed by reunion</td></tr>
+              <tr><td>Insecure-avoidant</td><td>Avoids or minimizes contact on reunion</td></tr>
+              <tr><td>Insecure-resistant/ambivalent</td><td>Seeks contact but resists comfort; remains distressed</td></tr>
+              <tr><td>Disorganized</td><td>Contradictory, confused behavior in stressful situations</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title amber">Classroom application</div>
+          <div class="theorist-text">Provide a safe, predictable environment, respond sensitively to needs, and help children build trust and confidence.</div>
+        </div>
+        <div class="exam-tag">📌 Exam tip: Bowlby = attachment theory; Ainsworth = Strange Situation procedure.</div>
+      </div>
+
+      <!-- BANDURA -->
+      <div class="theorist-card bandura" data-searchable="bandura social learning theory observation imitation modeling vicarious reinforcement self-efficacy reciprocal determinism bobo doll attention retention reproduction motivation">
+        <div class="theorist-header">
+          <div class="theorist-icon">👀</div>
+          <div>
+            <div class="theorist-name">Albert Bandura — Social Learning Theory</div>
+            <div class="theorist-sub">Observation and imitation · 1925–2021</div>
+          </div>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title">Key ideas</div>
+          <div class="theorist-text">Children learn many behaviors by observing and imitating others, even without direct reward.</div>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title green">Four processes of observational learning</div>
+          <ul class="theory-points" style="list-style:none;padding:0;">
+            <li style="padding:0.3rem 0 0.3rem 1.5rem;position:relative;font-size:0.86rem;color:#1e3c5a;line-height:1.45;"><span style="position:absolute;left:0;color:#3b7bb5;">◆</span><strong>Attention:</strong> Notices the model's behavior.</li>
+            <li style="padding:0.3rem 0 0.3rem 1.5rem;position:relative;font-size:0.86rem;color:#1e3c5a;line-height:1.45;"><span style="position:absolute;left:0;color:#3b7bb5;">◆</span><strong>Retention:</strong> Remembers what was observed.</li>
+            <li style="padding:0.3rem 0 0.3rem 1.5rem;position:relative;font-size:0.86rem;color:#1e3c5a;line-height:1.45;"><span style="position:absolute;left:0;color:#3b7bb5;">◆</span><strong>Reproduction:</strong> Attempts to perform the behavior.</li>
+            <li style="padding:0.3rem 0 0.3rem 1.5rem;position:relative;font-size:0.86rem;color:#1e3c5a;line-height:1.45;"><span style="position:absolute;left:0;color:#3b7bb5;">◆</span><strong>Motivation:</strong> Has a reason to reproduce the behavior.</li>
+          </ul>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title amber">Important concepts</div>
+          <div class="theorist-text">Modeling · Vicarious reinforcement · Self-efficacy · Reciprocal determinism.</div>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title green">Classroom application</div>
+          <div class="theorist-text">Model respectful conduct, demonstrate problem-solving, and provide positive examples.</div>
+        </div>
+        <div class="exam-tag">📌 Exam tip: Bandura = observational learning &amp; Bobo doll experiment.</div>
+      </div>
+
+      <!-- SKINNER -->
+      <div class="theorist-card skinner" data-searchable="skinner operant conditioning reinforcement punishment positive negative shaping extinction schedules of reinforcement">
+        <div class="theorist-header">
+          <div class="theorist-icon">🔔</div>
+          <div>
+            <div class="theorist-name">B. F. Skinner — Operant Conditioning</div>
+            <div class="theorist-sub">Reinforcement and punishment · 1904–1990</div>
+          </div>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title">Key ideas</div>
+          <div class="theorist-text">Consequences influence the likelihood of behavior occurring again.</div>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title green">Four types of consequences</div>
+          <table class="stage-table">
+            <thead><tr><th>Concept</th><th>Meaning</th><th>Effect</th></tr></thead>
+            <tbody>
+              <tr><td>Positive reinforcement</td><td>Add desirable consequence</td><td>Increase behavior</td></tr>
+              <tr><td>Negative reinforcement</td><td>Remove unpleasant condition</td><td>Increase behavior</td></tr>
+              <tr><td>Positive punishment</td><td>Add unpleasant consequence</td><td>Reduce behavior</td></tr>
+              <tr><td>Negative punishment</td><td>Remove desirable privilege</td><td>Reduce behavior</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title amber">Other concepts</div>
+          <div class="theorist-text">Shaping · Extinction · Schedules of reinforcement.</div>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title green">Classroom application</div>
+          <div class="theorist-text">Set clear expectations, reinforce desired behaviors, give timely feedback, and use fair, proportionate consequences.</div>
+        </div>
+        <div class="exam-tag">📌 Exam tip: Skinner = operant conditioning; Pavlov = classical conditioning.</div>
+      </div>
+
+      <!-- GESELL -->
+      <div class="theorist-card gesell" data-searchable="gesell maturational theory biological maturation developmental milestones readiness individual differences sequence head control sitting walking">
+        <div class="theorist-header">
+          <div class="theorist-icon">🌱</div>
+          <div>
+            <div class="theorist-name">Arnold Gesell — Maturational Theory</div>
+            <div class="theorist-sub">Biological maturation · 1880–1961</div>
+          </div>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title">Key ideas</div>
+          <div class="theorist-text">Development follows a broadly predictable sequence influenced by biological maturation. Children may reach milestones at different ages.</div>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title green">Main characteristics</div>
+          <ul class="theory-points" style="list-style:none;padding:0;">
+            <li style="padding:0.3rem 0 0.3rem 1.5rem;position:relative;font-size:0.86rem;color:#1e3c5a;line-height:1.45;"><span style="position:absolute;left:0;color:#3b7bb5;">◆</span>Predictable sequence of development.</li>
+            <li style="padding:0.3rem 0 0.3rem 1.5rem;position:relative;font-size:0.86rem;color:#1e3c5a;line-height:1.45;"><span style="position:absolute;left:0;color:#3b7bb5;">◆</span>Biological maturation influences readiness.</li>
+            <li style="padding:0.3rem 0 0.3rem 1.5rem;position:relative;font-size:0.86rem;color:#1e3c5a;line-height:1.45;"><span style="position:absolute;left:0;color:#3b7bb5;">◆</span>Children reach milestones at different ages.</li>
+            <li style="padding:0.3rem 0 0.3rem 1.5rem;position:relative;font-size:0.86rem;color:#1e3c5a;line-height:1.45;"><span style="position:absolute;left:0;color:#3b7bb5;">◆</span>Physical/neurological development interacts with experience.</li>
+          </ul>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title amber">Classroom application</div>
+          <div class="theorist-text">Consider developmental readiness, avoid forcing skills before a learner is ready, and recognize individual differences.</div>
+        </div>
+        <div class="exam-tag">📌 Exam tip: Gesell = maturation &amp; developmental readiness.</div>
+      </div>
+
+      <!-- HAVIGHURST -->
+      <div class="theorist-card havighurst" data-searchable="havighurst developmental tasks early childhood middle childhood adolescence early adulthood middle adulthood later adulthood physical maturation personal values social expectations">
+        <div class="theorist-header">
+          <div class="theorist-icon">📋</div>
+          <div>
+            <div class="theorist-name">Robert Havighurst — Developmental Tasks</div>
+            <div class="theorist-sub">Age-related social and personal tasks</div>
+          </div>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title">Key ideas</div>
+          <div class="theorist-text">Each period of life involves developmental tasks influenced by physical maturation, personal values, and social expectations.</div>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title green">Developmental tasks by period</div>
+          <table class="stage-table">
+            <thead><tr><th>Period</th><th>Typical tasks</th></tr></thead>
+            <tbody>
+              <tr><td>Early childhood</td><td>Walking, talking, basic concepts, right/wrong</td></tr>
+              <tr><td>Middle childhood</td><td>Physical skills, friendships, reading/writing, conscience</td></tr>
+              <tr><td>Adolescence</td><td>Mature peer relationships, emotional independence, preparing for work, forming values</td></tr>
+              <tr><td>Early adulthood</td><td>Intimate relationships, career, independent life</td></tr>
+              <tr><td>Middle adulthood</td><td>Supporting family, occupational responsibilities, contributing to society</td></tr>
+              <tr><td>Later adulthood</td><td>Adjusting to retirement, physical changes, changing roles</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title amber">Classroom application</div>
+          <div class="theorist-text">Design learning experiences that support age-appropriate skills, social relationships, independence, and responsibility.</div>
+        </div>
+        <div class="exam-tag">📌 Exam tip: Havighurst = developmental tasks, not Piaget's stages of thinking.</div>
+      </div>
+
+      <!-- BRONFENBRENNER -->
+      <div class="theorist-card bronfenbrenner" data-searchable="bronfenbrenner ecological systems theory microsystem mesosystem exosystem macrosystem chronosystem family school community culture transitions">
+        <div class="theorist-header">
+          <div class="theorist-icon">🌐</div>
+          <div>
+            <div class="theorist-name">Urie Bronfenbrenner — Ecological Systems Theory</div>
+            <div class="theorist-sub">Influence of family, school, and society</div>
+          </div>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title">Key ideas</div>
+          <div class="theorist-text">Development is influenced by interacting environmental systems, from immediate family relationships to wider social and cultural conditions.</div>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title green">Five systems</div>
+          <table class="stage-table">
+            <thead><tr><th>System</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td>Microsystem</td><td>Family, teachers, classmates — direct daily experiences</td></tr>
+              <tr><td>Mesosystem</td><td>Connections between home, school, and community</td></tr>
+              <tr><td>Exosystem</td><td>Indirect influences, e.g., parent's workplace</td></tr>
+              <tr><td>Macrosystem</td><td>Culture, social values, laws, economic conditions</td></tr>
+              <tr><td>Chronosystem</td><td>Changes over time — life transitions, historical events</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="theorist-section">
+          <div class="theorist-section-title amber">Classroom application</div>
+          <div class="theorist-text">Understand that academic performance is influenced by family circumstances, school culture, community resources, and changes over time.</div>
+        </div>
+        <div class="exam-tag">📌 Exam tip: Bronfenbrenner = ecological systems theory.</div>
+      </div>
+    </div>
+
+    <!-- OTHER THEORISTS -->
+    <div class="section-title">
+      📚 Other Important Theorists
+      <span class="line"></span>
+    </div>
+
+    <div class="mini-grid" id="otherGrid">
+      <div class="mini-card" data-searchable="watson behaviorism observable behavior environmental learning">
+        <div class="mini-name">John B. Watson</div>
+        <div class="mini-theory">Behaviorism</div>
+        <div class="mini-desc">Emphasized observable behavior and environmental learning.</div>
+      </div>
+      <div class="mini-card" data-searchable="pavlov classical conditioning association between stimuli">
+        <div class="mini-name">Ivan Pavlov</div>
+        <div class="mini-theory">Classical Conditioning</div>
+        <div class="mini-desc">Learning through association between stimuli.</div>
+      </div>
+      <div class="mini-card" data-searchable="thorndike connectionism law of effect satisfying consequences strengthened">
+        <div class="mini-name">Edward Thorndike</div>
+        <div class="mini-theory">Connectionism / Law of Effect</div>
+        <div class="mini-desc">Responses followed by satisfying consequences tend to be strengthened.</div>
+      </div>
+      <div class="mini-card" data-searchable="bruner discovery learning learners actively construct understanding">
+        <div class="mini-name">Jerome Bruner</div>
+        <div class="mini-theory">Discovery Learning</div>
+        <div class="mini-desc">Learners actively construct understanding.</div>
+      </div>
+      <div class="mini-card" data-searchable="ausubel meaningful verbal learning new information connects existing knowledge">
+        <div class="mini-name">David Ausubel</div>
+        <div class="mini-theory">Meaningful Verbal Learning</div>
+        <div class="mini-desc">New information connects to existing knowledge.</div>
+      </div>
+      <div class="mini-card" data-searchable="bloom taxonomy educational objectives levels">
+        <div class="mini-name">Benjamin Bloom</div>
+        <div class="mini-theory">Taxonomy of Educational Objectives</div>
+        <div class="mini-desc">Learning objectives organized into levels.</div>
+      </div>
+      <div class="mini-card" data-searchable="gardner multiple intelligences different forms intellectual strengths">
+        <div class="mini-name">Howard Gardner</div>
+        <div class="mini-theory">Multiple Intelligences</div>
+        <div class="mini-desc">Proposed different forms of intellectual strengths.</div>
+      </div>
+      <div class="mini-card" data-searchable="chomsky language acquisition theory innate contribution language development">
+        <div class="mini-name">Noam Chomsky</div>
+        <div class="mini-theory">Language Acquisition Theory</div>
+        <div class="mini-desc">Emphasized an innate contribution to language development.</div>
+      </div>
+      <div class="mini-card" data-searchable="montessori prepared environments independence self-directed activity">
+        <div class="mini-name">Maria Montessori</div>
+        <div class="mini-theory">Montessori Approach</div>
+        <div class="mini-desc">Prepared environments, independence, self-directed activity.</div>
+      </div>
+      <div class="mini-card" data-searchable="dewey progressive education learning by doing reflective experience">
+        <div class="mini-name">John Dewey</div>
+        <div class="mini-theory">Progressive Education</div>
+        <div class="mini-desc">Learning by doing and reflective experience.</div>
+      </div>
+    </div>
+
+    <!-- COMPARISON TABLE -->
+    <div class="section-title">
+      📊 Comparative Table: Piaget, Vygotsky, Erikson, Freud, Kohlberg
+      <span class="line"></span>
+    </div>
+
+    <div class="matrix-wrapper" data-searchable="comparison table piaget vygotsky erikson freud kohlberg focus stages key concept environment lifespan classroom connection">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Piaget</th>
+            <th>Vygotsky</th>
+            <th>Erikson</th>
+            <th>Freud</th>
+            <th>Kohlberg</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Main focus</td><td>Cognitive development</td><td>Social &amp; cultural learning</td><td>Psychosocial development</td><td>Psychosexual development</td><td>Moral reasoning</td></tr>
+          <tr><td>Major stages</td><td>4</td><td>No fixed universal sequence</td><td>8</td><td>5</td><td>6 (3 levels)</td></tr>
+          <tr><td>Key concept</td><td>Conservation &amp; schemas</td><td>ZPD &amp; scaffolding</td><td>Psychosocial crises</td><td>Unconscious drives</td><td>Moral judgment</td></tr>
+          <tr><td>Role of environment</td><td>Active exploration</td><td>Social interaction &amp; culture</td><td>Social relationships</td><td>Early experiences</td><td>Social experiences &amp; moral reasoning</td></tr>
+          <tr><td>Lifespan</td><td>Through formal operations</td><td>Guided participation</td><td>Entire lifespan</td><td>Childhood → adulthood</td><td>Childhood onward</td></tr>
+          <tr><td>Classroom connection</td><td>Hands-on discovery</td><td>Guided &amp; collaborative learning</td><td>Support competence &amp; identity</td><td>Historical theory of personality</td><td>Moral dilemma discussions</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- AGE STAGES -->
+    <div class="section-title">
+      👶 Characteristics of Children at Different Age Levels
+      <span class="line"></span>
+    </div>
+
+    <div class="age-grid" id="ageGrid">
+      <div class="age-card infancy" data-searchable="infancy birth 2 years rapid physical sensory development attachment familiar caregivers exploration touch sight sound movement early communication object permanence piaget erikson bowlby">
+        <div class="age-name">Infancy</div>
+        <div class="age-range">Birth–2 years</div>
+        <ul class="age-points">
+          <li>Rapid physical and sensory development</li>
+          <li>Attachment to familiar caregivers</li>
+          <li>Exploration through touch, sight, sound, movement</li>
+          <li>Early communication and object permanence</li>
+        </ul>
+        <div class="age-theorists">
+          <span class="age-tag">Piaget</span>
+          <span class="age-tag">Erikson</span>
+          <span class="age-tag">Bowlby</span>
+        </div>
+      </div>
+      <div class="age-card early" data-searchable="early childhood 2-6 years rapid vocabulary imaginative play growing independence self-control egocentric thinking limited logical reasoning learning through play imitation exploration piaget erikson freud vygotsky">
+        <div class="age-name">Early Childhood</div>
+        <div class="age-range">2–6 years</div>
+        <ul class="age-points">
+          <li>Rapid vocabulary development and imaginative play</li>
+          <li>Growing independence and self-control</li>
+          <li>Egocentric thinking and limited logical reasoning</li>
+          <li>Learning through play, imitation, exploration</li>
+        </ul>
+        <div class="age-theorists">
+          <span class="age-tag">Piaget</span>
+          <span class="age-tag">Erikson</span>
+          <span class="age-tag">Freud</span>
+          <span class="age-tag">Vygotsky</span>
+        </div>
+      </div>
+      <div class="age-card middle" data-searchable="middle childhood 6-11 years increasing logical thinking concrete situations improved memory attention academic skills friendships cooperation rule awareness competence achievement self-confidence piaget erikson kohlberg bandura">
+        <div class="age-name">Middle Childhood</div>
+        <div class="age-range">6–11 years</div>
+        <ul class="age-points">
+          <li>Increasing logical thinking about concrete situations</li>
+          <li>Improved memory, attention, academic skills</li>
+          <li>Friendships, cooperation, rule awareness</li>
+          <li>Competence and achievement influence self-confidence</li>
+        </ul>
+        <div class="age-theorists">
+          <span class="age-tag">Piaget</span>
+          <span class="age-tag">Erikson</span>
+          <span class="age-tag">Kohlberg</span>
+          <span class="age-tag">Bandura</span>
+        </div>
+      </div>
+      <div class="age-card adolescence" data-searchable="adolescence 12-18 years puberty physical changes abstract reasoning independent thought identity exploration peer influence values judgment emotional regulation erikson piaget kohlberg">
+        <div class="age-name">Adolescence</div>
+        <div class="age-range">12–18 years</div>
+        <ul class="age-points">
+          <li>Puberty and major physical changes</li>
+          <li>Increasing abstract reasoning and independent thought</li>
+          <li>Identity exploration and stronger peer influence</li>
+          <li>Developing values, judgment, emotional regulation</li>
+        </ul>
+        <div class="age-theorists">
+          <span class="age-tag">Erikson</span>
+          <span class="age-tag">Piaget</span>
+          <span class="age-tag">Kohlberg</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXAM FACTS -->
+    <div class="section-title">
+      📌 Most Important Examination Facts
+      <span class="line"></span>
+    </div>
+
+    <div class="exam-grid" id="examGrid">
+      <div class="exam-fact"><span class="exam-clue">Object permanence</span><span class="exam-answer">Piaget</span></div>
+      <div class="exam-fact"><span class="exam-clue">Conservation</span><span class="exam-answer">Piaget</span></div>
+      <div class="exam-fact"><span class="exam-clue">Assimilation &amp; accommodation</span><span class="exam-answer">Piaget</span></div>
+      <div class="exam-fact"><span class="exam-clue">Zone of Proximal Development</span><span class="exam-answer">Vygotsky</span></div>
+      <div class="exam-fact"><span class="exam-clue">Scaffolding</span><span class="exam-answer">Vygotsky</span></div>
+      <div class="exam-fact"><span class="exam-clue">Trust vs. Mistrust</span><span class="exam-answer">Erikson</span></div>
+      <div class="exam-fact"><span class="exam-clue">Industry vs. Inferiority</span><span class="exam-answer">Erikson</span></div>
+      <div class="exam-fact"><span class="exam-clue">Identity vs. Role Confusion</span><span class="exam-answer">Erikson</span></div>
+      <div class="exam-fact"><span class="exam-clue">Oral, Anal, Phallic</span><span class="exam-answer">Freud</span></div>
+      <div class="exam-fact"><span class="exam-clue">Pre-conventional, Conventional, Post-conventional</span><span class="exam-answer">Kohlberg</span></div>
+      <div class="exam-fact"><span class="exam-clue">Strange Situation</span><span class="exam-answer">Ainsworth</span></div>
+      <div class="exam-fact"><span class="exam-clue">Secure base &amp; attachment</span><span class="exam-answer">Bowlby</span></div>
+      <div class="exam-fact"><span class="exam-clue">Bobo doll experiment</span><span class="exam-answer">Bandura</span></div>
+      <div class="exam-fact"><span class="exam-clue">Modeling &amp; observational learning</span><span class="exam-answer">Bandura</span></div>
+      <div class="exam-fact"><span class="exam-clue">Operant conditioning</span><span class="exam-answer">Skinner</span></div>
+      <div class="exam-fact"><span class="exam-clue">Classical conditioning</span><span class="exam-answer">Pavlov</span></div>
+      <div class="exam-fact"><span class="exam-clue">Law of Effect</span><span class="exam-answer">Thorndike</span></div>
+      <div class="exam-fact"><span class="exam-clue">Maturation &amp; readiness</span><span class="exam-answer">Gesell</span></div>
+      <div class="exam-fact"><span class="exam-clue">Developmental tasks</span><span class="exam-answer">Havighurst</span></div>
+      <div class="exam-fact"><span class="exam-clue">Ecological systems</span><span class="exam-answer">Bronfenbrenner</span></div>
+      <div class="exam-fact"><span class="exam-clue">Discovery learning</span><span class="exam-answer">Bruner</span></div>
+      <div class="exam-fact"><span class="exam-clue">Multiple intelligences</span><span class="exam-answer">Gardner</span></div>
+    </div>
+
+    <!-- KEY TAKEAWAY -->
+    <div class="takeaway-card">
+      <strong>🔑 Key Takeaway:</strong> Stage theories are frameworks for understanding development, not diagnostic checklists. Age ranges overlap, and children develop at different rates. Effective educators use these theories to match instruction to the learner's developmental level, while always remembering the individual child in front of them.
+    </div>
+
+    <!-- ================= QUIZ SECTION ================= -->
+    <div class="quiz-section">
+      <div class="quiz-header">
+        <h2>📝 Practice Quiz</h2>
+        <span class="quiz-badge">Test Your Knowledge</span>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-tabs">
+          <button class="quiz-tab active" data-panel="mcqPanel">🔘 10 MCQs</button>
+          <button class="quiz-tab" data-panel="crqPanel">✍️ 4 CRQs</button>
+          <button class="quiz-tab" data-panel="erqPanel">📄 1 ERQ</button>
+        </div>
+
+        <div class="quiz-panel active" id="mcqPanel">
+          <span class="section-label">Multiple Choice Questions</span>
+          <div id="mcqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="crqPanel">
+          <span class="section-label">Constructed Response Questions</span>
+          <div id="crqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="erqPanel">
+          <span class="section-label">Extended Response Question (Situation-Based)</span>
+          <div id="erqContainer"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      // ================= SEARCH FILTER =================
+      const searchInput = document.getElementById('searchInput');
+      const countDisplay = document.getElementById('countDisplay');
+      const allSearchables = document.querySelectorAll('[data-searchable]');
+      const cardParents = new Map();
+      allSearchables.forEach(card => cardParents.set(card, card.parentNode));
+
+      function applySearch(query) {
+        const q = query.trim().toLowerCase();
+        let visibleCount = 0;
+        allSearchables.forEach(card => {
+          const searchText = (card.dataset.searchable || '').toLowerCase() + ' ' + card.textContent.toLowerCase();
+          const matches = q === '' || searchText.includes(q);
+          if (matches) {
+            visibleCount++;
+            if (!card.parentNode) cardParents.get(card).appendChild(card);
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        countDisplay.textContent = visibleCount + ' item' + (visibleCount !== 1 ? 's' : '');
+      }
+
+      let debounceTimer;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => applySearch(e.target.value), 180);
+      });
+      searchInput.addEventListener('search', (e) => { if (e.target.value === '') applySearch(''); });
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchInput.value !== '') { searchInput.value = ''; applySearch(''); }
+      });
+
+      // ================= QUIZ DATA =================
+      const mcqs = [
+        {
+          q: "Which Piagetian concept refers to understanding that objects continue to exist even when out of sight?",
+          options: ["Conservation", "Egocentrism", "Object permanence", "Reversibility"],
+          correct: 2,
+          feedback: "Object permanence is the understanding that objects exist even when they cannot be seen, heard, or touched. It develops during the sensorimotor stage."
+        },
+        {
+          q: "The Zone of Proximal Development (ZPD) is associated with which theorist?",
+          options: ["Piaget", "Vygotsky", "Erikson", "Kohlberg"],
+          correct: 1,
+          feedback: "Vygotsky's sociocultural theory introduced the ZPD — the gap between what a learner can do independently and what they can do with guidance."
+        },
+        {
+          q: "Industry vs. Inferiority is the psychosocial crisis of which age group?",
+          options: ["Birth–1 year", "1–3 years", "6–12 years", "12–18 years"],
+          correct: 2,
+          feedback: "Industry vs. Inferiority (6–12 years) is the school-age stage, where children develop competence through schoolwork and achievement."
+        },
+        {
+          q: "According to Freud, unresolved conflict at a stage may lead to:",
+          options: ["Secure attachment", "Fixation", "Conservation", "Scaffolding"],
+          correct: 1,
+          feedback: "In Freud's theory, unresolved conflict at a psychosexual stage may result in fixation that can influence later personality."
+        },
+        {
+          q: "Kohlberg's Stage 4 ('Law and Order') belongs to which level of moral reasoning?",
+          options: ["Pre-conventional", "Conventional", "Post-conventional", "Universal ethical"],
+          correct: 1,
+          feedback: "Stage 4 (Law and Order) is part of the Conventional level, where individuals value rules, duty, and social order."
+        },
+        {
+          q: "Who is associated with the Strange Situation procedure used to study attachment?",
+          options: ["Bowlby", "Ainsworth", "Bandura", "Harlow"],
+          correct: 1,
+          feedback: "Mary Ainsworth's research, particularly the Strange Situation procedure, helped identify attachment patterns."
+        },
+        {
+          q: "Which of the following is NOT one of Bandura's four processes of observational learning?",
+          options: ["Attention", "Retention", "Reinforcement", "Motivation"],
+          correct: 2,
+          feedback: "Bandura's four processes are Attention, Retention, Reproduction, and Motivation. Reinforcement is a related concept but not one of the four processes."
+        },
+        {
+          q: "In operant conditioning, negative reinforcement involves:",
+          options: [
+            "Adding an unpleasant consequence to reduce behavior",
+            "Removing a desirable privilege to reduce behavior",
+            "Removing an unpleasant condition to increase behavior",
+            "Adding a desirable consequence to increase behavior"
+          ],
+          correct: 2,
+          feedback: "Negative reinforcement means removing an unpleasant condition to increase the likelihood of a behavior. 'Negative' means removing, and 'reinforcement' means increasing behavior."
+        },
+        {
+          q: "Arnold Gesell's maturational theory emphasizes:",
+          options: [
+            "Social interaction and culture",
+            "Biological maturation and readiness",
+            "Unconscious drives",
+            "Moral reasoning"
+          ],
+          correct: 1,
+          feedback: "Gesell emphasized biological maturation and developmental readiness — abilities emerge in a predictable sequence as the nervous system matures."
+        },
+        {
+          q: "Bronfenbrenner's ecological systems theory includes which system that involves changes over time, such as life transitions?",
+          options: ["Microsystem", "Mesosystem", "Exosystem", "Chronosystem"],
+          correct: 3,
+          feedback: "The chronosystem involves changes over time, including life transitions and historical events that affect development."
+        }
+      ];
+
+      const crqs = [
+        {
+          q: "Explain Piaget's four stages of cognitive development with the key features of each.",
+          hint: "Sensorimotor, Preoperational, Concrete Operational, Formal Operational.",
+          keywords: ["sensorimotor", "object permanence", "preoperational", "egocentrism", "conservation", "concrete operational", "logical", "formal operational", "abstract", "hypothetical"],
+          model: "Piaget's four stages: (1) Sensorimotor (0–2 years) — learning through senses and actions; object permanence develops. (2) Preoperational (2–7 years) — language and symbolic thinking; egocentrism; difficulty with conservation. (3) Concrete Operational (7–11 years) — logical thinking about concrete objects; conservation and reversibility. (4) Formal Operational (11+ years) — abstract and hypothetical reasoning; systematic problem-solving."
+        },
+        {
+          q: "Explain Vygotsky's ZPD and scaffolding with an example.",
+          hint: "ZPD = gap between independent and supported performance; scaffolding = temporary support.",
+          keywords: ["zpd", "zone of proximal development", "gap", "independent", "guidance", "mko", "scaffolding", "temporary", "gradually removed", "example"],
+          model: "The Zone of Proximal Development (ZPD) is the gap between what a learner can do independently and what they can do with guidance from a more knowledgeable other (MKO). Scaffolding is the temporary support provided within the ZPD — such as hints or demonstrations — that is gradually removed as the learner gains competence. Example: a teacher demonstrates a math method, then lets the student try alone, providing hints only when needed."
+        },
+        {
+          q: "Describe Erikson's first five psychosocial stages and their approximate ages.",
+          hint: "Trust vs. Mistrust, Autonomy vs. Shame/Doubt, Initiative vs. Guilt, Industry vs. Inferiority, Identity vs. Role Confusion.",
+          keywords: ["trust", "mistrust", "autonomy", "shame", "doubt", "initiative", "guilt", "industry", "inferiority", "identity", "role confusion", "birth", "1-3", "3-6", "6-12", "12-18"],
+          model: "Erikson's first five stages: (1) Trust vs. Mistrust (birth–1 year) — trust develops with reliable care. (2) Autonomy vs. Shame and Doubt (1–3 years) — independence and self-control. (3) Initiative vs. Guilt (3–6 years) — exploring and planning actions. (4) Industry vs. Inferiority (6–12 years) — competence through schoolwork. (5) Identity vs. Role Confusion (12–18 years) — exploring personal identity and values."
+        },
+        {
+          q: "Distinguish between Skinner's operant conditioning and Pavlov's classical conditioning.",
+          hint: "Classical = association between stimuli; Operant = consequences shape behavior.",
+          keywords: ["classical conditioning", "pavlov", "association", "stimulus", "neutral", "operant conditioning", "skinner", "reinforcement", "punishment", "consequences", "behavior"],
+          model: "Classical conditioning (Pavlov) involves learning by pairing a naturally occurring stimulus with a previously neutral stimulus — learning through association. Operant conditioning (Skinner) involves learning through consequences — reinforcement increases behavior and punishment decreases it. Classical conditioning focuses on involuntary responses; operant conditioning focuses on voluntary behaviors shaped by consequences."
+        }
+      ];
+
+      const erq = {
+        q: `Ms. Saima teaches Grade 5 (children aged 10–11 years). She observes:
+• Most students can solve problems with concrete objects but struggle with abstract word problems.
+• They learn best when she demonstrates a skill first and then lets them practice with a partner.
+• One student, Ahmed, is very anxious and clings to his older sister who also attends the school.
+• Some students follow rules only to avoid punishment, while others follow them because they believe rules keep everyone safe.
+
+Using the developmental theorists you have studied, explain what is happening and propose FOUR strategies Ms. Saima could use. For each strategy, identify the theorist it draws from and explain why it would help.`,
+        marks: "10 marks",
+        model: `
+          <strong>Model Answer (key points):</strong><br><br>
+          <strong>1. Piaget — Concrete Operational Stage:</strong> The students are in the Concrete Operational stage (7–11 years), so they think logically about concrete objects but struggle with abstract concepts. Strategy: Use concrete manipulatives and visual aids to bridge the gap to abstract word problems.<br><br>
+          <strong>2. Vygotsky — ZPD &amp; Scaffolding:</strong> Students learn best with guidance and peer support. Strategy: Demonstrate the skill first (modeling), then use peer tutoring and guided practice, gradually removing scaffolds as students gain confidence.<br><br>
+          <strong>3. Bowlby — Attachment Theory:</strong> Ahmed shows signs of insecure attachment and anxiety. Strategy: Provide a warm, predictable classroom environment — greet him warmly, assign a buddy, and create a secure base so he feels safe to explore and learn.<br><br>
+          <strong>4. Kohlberg — Moral Development:</strong> Some students are at Stage 1 (punishment avoidance) while others are at Stage 4 (law and order). Strategy: Discuss the reasons behind rules and use moral dilemmas to help students move toward higher moral reasoning, rather than relying only on punishment.<br><br>
+          <em>Note: Bandura's modeling and Erikson's Industry vs. Inferiority could also be mentioned — modeling demonstrates desired behaviors, and recognizing effort builds competence.</em>
+        `
+      };
+
+      // ================= RENDER MCQs =================
+      const mcqContainer = document.getElementById('mcqContainer');
+      let mcqHtml = '';
+      mcqs.forEach((item, idx) => {
+        const letters = ['A', 'B', 'C', 'D'];
+        let optionsHtml = '';
+        item.options.forEach((opt, oi) => {
+          optionsHtml += `
+            <div class="mcq-option" data-qidx="${idx}" data-oidx="${oi}">
+              <span class="option-letter">${letters[oi]}</span>
+              <span>${opt}</span>
+            </div>
+          `;
+        });
+        mcqHtml += `
+          <div class="mcq-item" id="mcq-${idx}">
+            <div class="mcq-question">${idx + 1}. ${item.q}</div>
+            <div class="mcq-options">${optionsHtml}</div>
+            <div class="mcq-feedback" id="mcq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      mcqContainer.innerHTML = mcqHtml;
+
+      mcqContainer.addEventListener('click', (e) => {
+        const option = e.target.closest('.mcq-option');
+        if (!option) return;
+        const qidx = parseInt(option.dataset.qidx);
+        const oidx = parseInt(option.dataset.oidx);
+        const mcq = mcqs[qidx];
+        const parentItem = document.getElementById(`mcq-${qidx}`);
+        const allOptions = parentItem.querySelectorAll('.mcq-option');
+        const feedbackEl = document.getElementById(`mcq-fb-${qidx}`);
+        if (parentItem.dataset.answered === 'correct') return;
+        allOptions.forEach(opt => opt.classList.remove('selected', 'correct', 'incorrect'));
+        option.classList.add('selected');
+        if (oidx === mcq.correct) {
+          option.classList.add('correct');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '✅ Correct! ' + mcq.feedback;
+          feedbackEl.className = 'mcq-feedback show correct-fb';
+          parentItem.dataset.answered = 'correct';
+        } else {
+          option.classList.add('incorrect');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '❌ Not quite. Try again!';
+          feedbackEl.className = 'mcq-feedback show incorrect-fb';
+          setTimeout(() => {
+            if (feedbackEl.classList.contains('incorrect-fb')) {
+              feedbackEl.classList.remove('show');
+            }
+          }, 1500);
+        }
+      });
+
+      // ================= RENDER CRQs =================
+      const crqContainer = document.getElementById('crqContainer');
+      let crqHtml = '';
+      crqs.forEach((item, idx) => {
+        crqHtml += `
+          <div class="crq-item" id="crq-${idx}">
+            <div class="crq-question">${idx + 1}. ${item.q}</div>
+            <div class="crq-hint">💡 Hint: ${item.hint}</div>
+            <textarea class="crq-textarea" id="crq-ta-${idx}" placeholder="Write your answer here..."></textarea>
+            <div class="crq-actions">
+              <button class="btn btn-primary" data-crq-check="${idx}">Check Answer</button>
+              <button class="btn btn-secondary" data-crq-clear="${idx}">Clear</button>
+            </div>
+            <div class="crq-feedback" id="crq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      crqContainer.innerHTML = crqHtml;
+
+      crqContainer.addEventListener('click', (e) => {
+        const checkBtn = e.target.closest('[data-crq-check]');
+        const clearBtn = e.target.closest('[data-crq-clear]');
+        if (checkBtn) {
+          const idx = parseInt(checkBtn.dataset.crqCheck);
+          const textarea = document.getElementById(`crq-ta-${idx}`);
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          const answer = textarea.value.trim().toLowerCase();
+          const crq = crqs[idx];
+          if (answer.length < 10) {
+            feedback.textContent = '⚠️ Please write a more complete answer (at least a sentence or two).';
+            feedback.className = 'crq-feedback show partial';
+            return;
+          }
+          const matched = crq.keywords.filter(kw => answer.includes(kw));
+          const ratio = matched.length / crq.keywords.length;
+          if (ratio >= 0.35) {
+            feedback.innerHTML = `✅ <strong>Good answer!</strong> You covered key ideas.<br><br><em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show good';
+          } else {
+            feedback.innerHTML = `📝 <strong>Partially correct.</strong> You mentioned some ideas. Try to include more key concepts.<br><br><em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show partial';
+          }
+        }
+        if (clearBtn) {
+          const idx = parseInt(clearBtn.dataset.crqClear);
+          document.getElementById(`crq-ta-${idx}`).value = '';
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          feedback.className = 'crq-feedback';
+          feedback.textContent = '';
+        }
+      });
+
+      // ================= RENDER ERQ =================
+      const erqContainer = document.getElementById('erqContainer');
+      erqContainer.innerHTML = `
+        <div class="erq-item">
+          <div class="erq-marks">${erq.marks}</div>
+          <div class="erq-question">${erq.q}</div>
+          <textarea class="erq-textarea" id="erq-ta" placeholder="Write your detailed answer here. Propose four strategies and link each to a theorist..."></textarea>
+          <div class="erq-actions">
+            <button class="btn btn-primary" id="erqCheck">Check Answer</button>
+            <button class="btn btn-secondary" id="erqClear">Clear</button>
+          </div>
+          <div class="erq-feedback" id="erq-fb"></div>
+        </div>
+      `;
+
+      document.getElementById('erqCheck').addEventListener('click', () => {
+        const ta = document.getElementById('erq-ta');
+        const fb = document.getElementById('erq-fb');
+        const answer = ta.value.trim().toLowerCase();
+        if (answer.length < 50) {
+          fb.textContent = '⚠️ Please write a more detailed answer. Propose four strategies and link each to a theorist.';
+          fb.className = 'erq-feedback show partial';
+          return;
+        }
+        const keywords = ['piaget', 'concrete operational', 'vygotsky', 'zpd', 'scaffolding', 'bowlby', 'attachment', 'secure base', 'kohlberg', 'moral', 'punishment', 'bandura', 'modeling', 'erikson', 'industry'];
+        const found = keywords.filter(k => answer.includes(k));
+        if (found.length >= 3) {
+          fb.innerHTML = `✅ <strong>Excellent effort!</strong> You connected the situation to multiple developmental theorists. Compare your answer with the model below.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show model';
+        } else if (found.length >= 1) {
+          fb.innerHTML = `📝 <strong>Good start!</strong> Try to explicitly link each of the four strategies to a specific theorist.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        } else {
+          fb.innerHTML = `⚠️ Make sure to propose four strategies and identify the theorist behind each one.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        }
+      });
+
+      document.getElementById('erqClear').addEventListener('click', () => {
+        document.getElementById('erq-ta').value = '';
+        const fb = document.getElementById('erq-fb');
+        fb.className = 'erq-feedback';
+        fb.textContent = '';
+      });
+
+      // ================= QUIZ TABS =================
+      const tabs = document.querySelectorAll('.quiz-tab');
+      const panels = document.querySelectorAll('.quiz-panel');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          panels.forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(tab.dataset.panel).classList.add('active');
+        });
+      });
+
+      // Initial count
+      countDisplay.textContent = allSearchables.length + ' items';
+    })();
+  </script>
+</body>
+</html>

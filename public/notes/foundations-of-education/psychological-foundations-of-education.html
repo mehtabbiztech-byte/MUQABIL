@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Psychological Foundations of Education · Foundations of Education</title>
+  <style>
+    /* ---------- GLOBAL ---------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+      color: #1e2b3c;
+    }
+    .main-wrapper { max-width: 1100px; width: 100%; }
+
+    /* ---------- HEADER ---------- */
+    .header-card {
+      background: white;
+      border-radius: 2rem 2rem 1.5rem 1.5rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      padding: 2rem 2rem 1.5rem 2rem;
+      margin-bottom: 1.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: transform 0.2s;
+    }
+    .header-card:hover { transform: scale(1.002); }
+    .badge {
+      display: inline-block;
+      background: #2a4b7c;
+      color: #f0f7ff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+      line-height: 1.25;
+    }
+    .subhead {
+      font-size: 1.05rem;
+      color: #2f5277;
+      font-weight: 400;
+      border-left: 5px solid #8bb3e0;
+      padding-left: 1.2rem;
+      margin: 1rem 0 0.2rem 0;
+      font-style: italic;
+    }
+    .intro-text {
+      background: #e6f0fc;
+      padding: 1rem 1.4rem;
+      border-radius: 1.2rem;
+      margin-top: 1.4rem;
+      font-size: 0.98rem;
+      color: #1d3a5c;
+      border-left: 5px solid #3b6ea5;
+    }
+
+    /* ---------- SECTION TITLE ---------- */
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #0e2a47;
+      margin: 2.2rem 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section-title .line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #8bb3e0, transparent);
+      border-radius: 2px;
+    }
+
+    /* ---------- DOMAIN CARDS (new layout: horizontal row) ---------- */
+    .domain-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .domain-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.4rem 1.3rem 1.3rem 1.3rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      transition: all 0.25s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+    .domain-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, #3f7cb0, #8bb3e0);
+      opacity: 0.85;
+      transition: height 0.2s;
+    }
+    .domain-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 28px -16px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .domain-card:hover::before { height: 9px; }
+    .domain-icon {
+      font-size: 2.2rem;
+      line-height: 1;
+      background: #e9f0fa;
+      width: 60px;
+      height: 60px;
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 0.7rem auto;
+      color: #1b3c61;
+      transition: background 0.2s;
+    }
+    .domain-card:hover .domain-icon { background: #d3e3f8; }
+    .domain-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #0e2a47;
+      margin-bottom: 0.3rem;
+    }
+    .domain-desc {
+      font-size: 0.88rem;
+      color: #274e73;
+      line-height: 1.5;
+    }
+
+    /* ---------- THEORY CARDS (new layout: accordion-style detail) ---------- */
+    .theory-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.5rem 1.4rem 1.5rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      transition: all 0.25s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1.2rem;
+    }
+    .theory-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      opacity: 0.9;
+      transition: height 0.2s;
+    }
+    .theory-card.behaviorism::before { background: linear-gradient(90deg, #b03a5b, #e88bb0); }
+    .theory-card.cognitivism::before { background: linear-gradient(90deg, #2a4b7c, #5a8ec9); }
+    .theory-card.constructivism::before { background: linear-gradient(90deg, #2e7d4f, #81c784); }
+    .theory-card.humanism::before { background: linear-gradient(90deg, #e0a800, #ffd54f); }
+    .theory-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 22px 28px -16px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .theory-card:hover::before { height: 11px; }
+    .theory-header {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-bottom: 0.9rem;
+    }
+    .theory-icon {
+      font-size: 2rem;
+      line-height: 1;
+      background: #e9f0fa;
+      width: 56px;
+      height: 56px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #1b3c61;
+      transition: background 0.2s;
+    }
+    .theory-card:hover .theory-icon { background: #d3e3f8; }
+    .theory-name {
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #0e2a47;
+      line-height: 1.25;
+    }
+    .theory-sub {
+      font-size: 0.84rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-top: 0.1rem;
+    }
+    .theory-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 0.4rem;
+    }
+    .theory-block {
+      background: #f9fcff;
+      border-radius: 1rem;
+      padding: 0.9rem 1rem;
+      border: 1px solid #e3ecf7;
+    }
+    .theory-block.full {
+      grid-column: 1 / -1;
+    }
+    .theory-block-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #1a4b7a;
+      background: #d7e6fa;
+      padding: 0.12rem 0.75rem;
+      border-radius: 30px;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+    .theory-block-title.green { color: #1b6e3e; background: #d4f0e0; }
+    .theory-block-title.amber { color: #7a4e14; background: #fdeed8; }
+    .theory-block-title.pink { color: #8a3a55; background: #fce4ec; }
+    .theory-block-text {
+      font-size: 0.9rem;
+      color: #274e73;
+      line-height: 1.55;
+    }
+    .theory-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.3rem;
+    }
+    .theory-tag {
+      background: #eef4fb;
+      color: #1b4670;
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 0.2rem 0.75rem;
+      border-radius: 30px;
+      border: 1px solid #d0e0f0;
+    }
+
+    /* ---------- DEVELOPMENT TABLE (new layout: stage cards) ---------- */
+    .stage-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .stage-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.3rem 1.4rem;
+      box-shadow: 0 8px 18px -10px rgba(20, 40, 70, 0.16);
+      border: 1px solid #e3ecf7;
+      transition: all 0.22s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .stage-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(180deg, #3f7cb0, #8bb3e0);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .stage-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 24px -14px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .stage-card:hover::before { opacity: 1; }
+    .stage-name {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #0e2a47;
+      margin-bottom: 0.2rem;
+    }
+    .stage-age {
+      font-size: 0.83rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-bottom: 0.6rem;
+    }
+    .stage-cognitive {
+      font-size: 0.88rem;
+      color: #274e73;
+      line-height: 1.5;
+      margin-bottom: 0.4rem;
+    }
+    .stage-cognitive strong { color: #1b4670; }
+    .stage-needs {
+      background: #f6faff;
+      border-radius: 0.8rem;
+      padding: 0.6rem 0.8rem;
+      font-size: 0.85rem;
+      color: #183c5e;
+      border-left: 4px solid #3b7bb5;
+      margin-top: auto;
+    }
+
+    /* ---------- FACTOR CARDS (new layout: compact) ---------- */
+    .factor-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .factor-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.3rem 1.4rem;
+      box-shadow: 0 8px 18px -10px rgba(20, 40, 70, 0.16);
+      border: 1px solid #e3ecf7;
+      transition: all 0.22s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .factor-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(180deg, #3f7cb0, #8bb3e0);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .factor-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 24px -14px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .factor-card:hover::before { opacity: 1; }
+    .factor-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+    }
+    .factor-desc {
+      font-size: 0.9rem;
+      color: #274e73;
+      line-height: 1.55;
+      margin-bottom: 0.5rem;
+    }
+    .factor-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: auto;
+    }
+    .factor-tag {
+      background: #eef4fb;
+      color: #1b4670;
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 0.2rem 0.75rem;
+      border-radius: 30px;
+      border: 1px solid #d0e0f0;
+    }
+
+    /* ---------- SUMMARY MATRIX ---------- */
+    .matrix-wrapper {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.4rem 1.4rem 1.2rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      border: 1px solid #e3ecf7;
+      overflow-x: auto;
+      margin-bottom: 0.5rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.88rem;
+      min-width: 480px;
+    }
+    thead th {
+      text-align: left;
+      padding: 0.8rem 0.9rem;
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: white;
+      background: #0e2a47;
+    }
+    thead th:first-child {
+      border-radius: 1rem 0 0 0;
+      background: #2a4b7c;
+    }
+    thead th:last-child { border-radius: 0 1rem 0 0; }
+    tbody td {
+      padding: 0.7rem 0.9rem;
+      border-bottom: 1px solid #e8f0f9;
+      color: #1e3c5a;
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: #f6faff; }
+    tbody td:first-child {
+      font-weight: 700;
+      color: #0e2a47;
+      background: #f3f8fd;
+    }
+    tbody tr:hover td:first-child { background: #eaf3fc; }
+
+    /* ---------- TAKEAWAY ---------- */
+    .takeaway-card {
+      background: #0e2a47;
+      color: white;
+      border-radius: 1.6rem;
+      padding: 1.6rem 2rem;
+      margin: 1.2rem 0 0.5rem 0;
+      font-size: 1rem;
+      line-height: 1.65;
+      box-shadow: 0 14px 26px -12px #0e2a47;
+      border-left: 6px solid #8bb3e0;
+    }
+    .takeaway-card strong { color: #b8d4f0; }
+
+    /* ---------- SEARCH & COUNT ---------- */
+    .filter-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 60px;
+      box-shadow: 0 8px 18px -8px rgba(0, 27, 45, 0.1);
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 40px;
+      padding: 0.3rem 0.3rem 0.3rem 1.2rem;
+      flex: 2;
+      min-width: 240px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      border: 1px solid #ccdcee;
+    }
+    .search-box span { font-size: 1.1rem; margin-right: 0.5rem; color: #4e6b8a; }
+    .search-box input {
+      border: none;
+      padding: 0.7rem 0.2rem;
+      width: 100%;
+      font-size: 0.95rem;
+      outline: none;
+      background: transparent;
+      color: #0c253b;
+    }
+    .search-box input::placeholder { color: #879eb6; font-weight: 300; }
+    .count-pill {
+      background: #0e2a47;
+      color: white;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ---------- QUIZ SECTION ---------- */
+    .quiz-section { margin-top: 2.5rem; }
+    .quiz-header {
+      background: #0e2a47;
+      border-radius: 2rem 2rem 0 0;
+      padding: 1.5rem 2rem;
+      color: white;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .quiz-header h2 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.3px; }
+    .quiz-header .quiz-badge {
+      background: #8bb3e0;
+      color: #0e2a47;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .quiz-body {
+      background: white;
+      border-radius: 0 0 2rem 2rem;
+      padding: 2rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      border: 1px solid #e3ecf7;
+      border-top: none;
+    }
+    .quiz-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #e3ecf7;
+      padding-bottom: 1rem;
+    }
+    .quiz-tab {
+      background: #f0f5fd;
+      border: 1px solid #d0e0f0;
+      color: #1b4670;
+      padding: 0.5rem 1.3rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .quiz-tab:hover { background: #e0ecfc; border-color: #a0c0e0; }
+    .quiz-tab.active { background: #0e2a47; color: white; border-color: #0e2a47; }
+    .quiz-panel { display: none; }
+    .quiz-panel.active { display: block; }
+    .section-label {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.2rem;
+    }
+
+    /* MCQ */
+    .mcq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+      transition: background 0.2s;
+    }
+    .mcq-item:hover { background: #f0f7fe; }
+    .mcq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.8rem;
+      line-height: 1.5;
+    }
+    .mcq-options { display: flex; flex-direction: column; gap: 0.5rem; }
+    .mcq-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 0.8rem;
+      background: white;
+      border: 1.5px solid #d9e8fc;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+    }
+    .mcq-option:hover { border-color: #8bb3e0; background: #eef6ff; }
+    .mcq-option.selected { border-color: #3b7bb5; background: #e4f0fe; font-weight: 500; }
+    .mcq-option.correct { border-color: #2e9b5e; background: #e6f7ee; font-weight: 600; }
+    .mcq-option.incorrect { border-color: #d45a5a; background: #fdeaea; font-weight: 500; }
+    .mcq-option .option-letter {
+      font-weight: 700;
+      color: #2a4b7c;
+      min-width: 1.4rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .mcq-option.correct .option-letter { color: #1b7a44; }
+    .mcq-option.incorrect .option-letter { color: #b03030; }
+    .mcq-feedback {
+      margin-top: 0.7rem;
+      font-size: 0.88rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: 0.8rem;
+      display: none;
+      font-weight: 500;
+    }
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.correct-fb {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .mcq-feedback.incorrect-fb {
+      background: #fdeaea;
+      color: #9e2a2a;
+      border-left: 4px solid #d45a5a;
+    }
+
+    /* CRQ / ERQ shared */
+    .crq-item, .erq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+    }
+    .erq-item { border: 2px solid #8bb3e0; background: #f5faff; }
+    .crq-question, .erq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+    .erq-question { font-size: 1.05rem; font-weight: 700; }
+    .erq-marks {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      margin-bottom: 0.8rem;
+    }
+    .crq-hint {
+      font-size: 0.85rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-bottom: 0.7rem;
+    }
+    .crq-textarea, .erq-textarea {
+      width: 100%;
+      border: 1.5px solid #d9e8fc;
+      border-radius: 0.9rem;
+      padding: 0.8rem 1rem;
+      font-family: inherit;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+      resize: vertical;
+      transition: border-color 0.2s;
+      background: white;
+    }
+    .crq-textarea { min-height: 90px; }
+    .erq-textarea { min-height: 160px; }
+    .crq-textarea:focus, .erq-textarea:focus {
+      outline: none;
+      border-color: #3b7bb5;
+      box-shadow: 0 0 0 3px rgba(59, 123, 181, 0.12);
+    }
+    .crq-actions, .erq-actions {
+      display: flex;
+      gap: 0.7rem;
+      margin-top: 0.7rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 0.55rem 1.4rem;
+      border-radius: 40px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      font-family: inherit;
+    }
+    .btn-primary { background: #0e2a47; color: white; }
+    .btn-primary:hover { background: #1a4170; transform: translateY(-1px); }
+    .btn-secondary { background: #e9f0fa; color: #1b4670; border: 1px solid #c0d8f0; }
+    .btn-secondary:hover { background: #d8e6f8; }
+    .crq-feedback, .erq-feedback {
+      margin-top: 0.8rem;
+      padding: 0.8rem 1rem;
+      border-radius: 0.9rem;
+      font-size: 0.9rem;
+      display: none;
+      line-height: 1.6;
+    }
+    .crq-feedback.show, .erq-feedback.show { display: block; }
+    .crq-feedback.good, .erq-feedback.good {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .crq-feedback.partial, .erq-feedback.partial {
+      background: #fff8e6;
+      color: #8a6d1f;
+      border-left: 4px solid #e0a800;
+    }
+    .erq-feedback.model {
+      background: #e6f0fc;
+      color: #1a3e62;
+      border-left: 5px solid #3b7bb5;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 700px) {
+      .theory-body { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .header-card { padding: 1.5rem 1.2rem; }
+      h1 { font-size: 1.7rem; }
+      .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: 2rem;
+        padding: 1rem;
+      }
+      .search-box { width: 100%; }
+      .count-pill { text-align: center; padding: 0.5rem; }
+      .quiz-body { padding: 1.2rem; }
+      .quiz-header { padding: 1.2rem; }
+      .quiz-header h2 { font-size: 1.3rem; }
+      .mcq-item, .crq-item, .erq-item { padding: 1rem; }
+      .quiz-tab { font-size: 0.8rem; padding: 0.4rem 1rem; }
+      .takeaway-card { padding: 1.3rem 1.2rem; }
+    }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #dfe9f5; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: #94b0d1; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6d8fb4; }
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem 1rem;
+      background: #ffffffc9;
+      border-radius: 2rem;
+      font-size: 1.1rem;
+      color: #4b6888;
+      border: 2px dashed #b8cee8;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-wrapper">
+
+    <!-- HEADER -->
+    <div class="header-card">
+      <div class="badge">🏛️ Foundations of Education</div>
+      <h1>Psychological Foundations of Education</h1>
+      <div class="subhead">Understanding how humans learn, develop, and stay motivated</div>
+      <div class="intro-text">
+        <strong>💡 Big Picture:</strong> While philosophy and sociology tell us <em>what</em> to teach and <em>why</em> we educate, educational psychology provides the scientific understanding of <em>how</em> learning takes place — allowing educators to design age-appropriate, efficient, and effective learning environments.
+      </div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="filter-section">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="Search theories, domains, stages, factors..." autocomplete="off">
+      </div>
+      <div class="count-pill" id="countDisplay">20+ items</div>
+    </div>
+
+    <!-- CORE DOMAINS -->
+    <div class="section-title">
+      🧩 Core Domains of Educational Psychology
+      <span class="line"></span>
+    </div>
+
+    <div class="domain-row" id="domainsGrid">
+      <div class="domain-card" data-searchable="human development physical cognitive social emotional stages growth maturity milestones">
+        <div class="domain-icon">🌱</div>
+        <div class="domain-name">Human Development</div>
+        <div class="domain-desc">Physical, cognitive, social, and emotional growth — how learners mature over time.</div>
+      </div>
+      <div class="domain-card" data-searchable="learning theories how information is processed behaviorism cognitivism constructivism humanism">
+        <div class="domain-icon">🧠</div>
+        <div class="domain-name">Learning Theories</div>
+        <div class="domain-desc">How information is processed, stored, and retrieved — the mechanisms of learning.</div>
+      </div>
+      <div class="domain-card" data-searchable="individual differences intelligence learning styles motivation inclusive education SEN">
+        <div class="domain-icon">🎯</div>
+        <div class="domain-name">Individual Differences</div>
+        <div class="domain-desc">Intelligence, learning styles, motivation, and special educational needs.</div>
+      </div>
+    </div>
+
+    <!-- MAJOR THEORIES -->
+    <div class="section-title">
+      🏫 Major Theories of Learning
+      <span class="line"></span>
+    </div>
+
+    <div id="theoriesGrid">
+      <!-- BEHAVIORISM -->
+      <div class="theory-card behaviorism" data-searchable="behaviorism watson skinner pavlov observable behavior external stimuli conditioning reinforcement classical conditioning operant conditioning rewards punishment routine direct instruction practice drills feedback">
+        <div class="theory-header">
+          <div class="theory-icon">🔔</div>
+          <div>
+            <div class="theory-name">Behaviorism</div>
+            <div class="theory-sub">Learning = observable change in behavior</div>
+          </div>
+        </div>
+        <div class="theory-body">
+          <div class="theory-block">
+            <div class="theory-block-title">Core view</div>
+            <div class="theory-block-text">Learning is a change in <strong>observable behavior</strong> caused by external stimuli, conditioning, and reinforcement.</div>
+          </div>
+          <div class="theory-block">
+            <div class="theory-block-title pink">Key thinkers</div>
+            <div class="theory-tags">
+              <span class="theory-tag">Watson</span>
+              <span class="theory-tag">Skinner</span>
+              <span class="theory-tag">Pavlov</span>
+            </div>
+          </div>
+          <div class="theory-block">
+            <div class="theory-block-title">Key mechanisms</div>
+            <div class="theory-block-text">
+              <strong>Classical Conditioning (Pavlov):</strong> Learning through association.<br>
+              <strong>Operant Conditioning (Skinner):</strong> Learning through rewards and consequences.
+            </div>
+          </div>
+          <div class="theory-block">
+            <div class="theory-block-title green">Classroom application</div>
+            <div class="theory-block-text">Routine formation, direct instruction, reward systems, practice drills, and immediate feedback.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COGNITIVISM -->
+      <div class="theory-card cognitivism" data-searchable="cognitivism piaget bruner gagne internal mental process information received organized stored retrieved brain information processing model sensory memory working memory long-term memory schemas mind mapping chunking advance organizers graphic organizers scaffolded teaching">
+        <div class="theory-header">
+          <div class="theory-icon">💻</div>
+          <div>
+            <div class="theory-name">Cognitivism</div>
+            <div class="theory-sub">Learning = internal mental processing</div>
+          </div>
+        </div>
+        <div class="theory-body">
+          <div class="theory-block">
+            <div class="theory-block-title">Core view</div>
+            <div class="theory-block-text">Learning is an <strong>internal mental process</strong> involving how information is received, organized, stored, and retrieved by the brain.</div>
+          </div>
+          <div class="theory-block">
+            <div class="theory-block-title">Key thinkers</div>
+            <div class="theory-tags">
+              <span class="theory-tag">Piaget</span>
+              <span class="theory-tag">Bruner</span>
+              <span class="theory-tag">Gagné</span>
+            </div>
+          </div>
+          <div class="theory-block">
+            <div class="theory-block-title">Key mechanisms</div>
+            <div class="theory-block-text">
+              <strong>Information Processing Model:</strong> Sensory memory → Working memory → Long-term memory.<br>
+              <strong>Schemas:</strong> Mental structures used to organize knowledge.
+            </div>
+          </div>
+          <div class="theory-block">
+            <div class="theory-block-title green">Classroom application</div>
+            <div class="theory-block-text">Mind mapping, chunking information, advance organizers, graphic organizers, and scaffolded teaching.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONSTRUCTIVISM -->
+      <div class="theory-card constructivism" data-searchable="constructivism vygotsky piaget von glasersfeld learners actively build understanding prior knowledge cognitive constructivism social constructivism stages sensorimotor preoperational concrete operational formal operational zone of proximal development zpd scaffolding inquiry-based problem-solving group discussions hands-on peer tutoring">
+        <div class="theory-header">
+          <div class="theory-icon">🏗️</div>
+          <div>
+            <div class="theory-name">Constructivism</div>
+            <div class="theory-sub">Learning = actively building understanding</div>
+          </div>
+        </div>
+        <div class="theory-body">
+          <div class="theory-block">
+            <div class="theory-block-title">Core view</div>
+            <div class="theory-block-text">Learners <strong>actively build their own understanding</strong> by linking new experiences to prior knowledge.</div>
+          </div>
+          <div class="theory-block">
+            <div class="theory-block-title green">Key thinkers</div>
+            <div class="theory-tags">
+              <span class="theory-tag">Vygotsky</span>
+              <span class="theory-tag">Piaget</span>
+              <span class="theory-tag">von Glasersfeld</span>
+            </div>
+          </div>
+          <div class="theory-block">
+            <div class="theory-block-title">Key concepts</div>
+            <div class="theory-block-text">
+              <strong>Cognitive Constructivism (Piaget):</strong> Stages of cognitive development.<br>
+              <strong>Social Constructivism (Vygotsky):</strong> ZPD and Scaffolding.
+            </div>
+          </div>
+          <div class="theory-block">
+            <div class="theory-block-title green">Classroom application</div>
+            <div class="theory-block-text">Inquiry-based learning, problem-solving, group discussions, hands-on experimentation, and peer tutoring.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HUMANISM -->
+      <div class="theory-card humanism" data-searchable="humanism rogers maslow personal holistic self-actualization personal growth emotional well-being hierarchy of needs physiological safety student-centered choices supportive culture self-esteem self-evaluation emotional safety">
+        <div class="theory-header">
+          <div class="theory-icon">💖</div>
+          <div>
+            <div class="theory-name">Humanism</div>
+            <div class="theory-sub">Learning = personal growth &amp; self-actualization</div>
+          </div>
+        </div>
+        <div class="theory-body">
+          <div class="theory-block">
+            <div class="theory-block-title">Core view</div>
+            <div class="theory-block-text">Learning is a <strong>personal, holistic process</strong> aimed at self-actualization, personal growth, and emotional well-being.</div>
+          </div>
+          <div class="theory-block">
+            <div class="theory-block-title amber">Key thinkers</div>
+            <div class="theory-tags">
+              <span class="theory-tag">Rogers</span>
+              <span class="theory-tag">Maslow</span>
+            </div>
+          </div>
+          <div class="theory-block">
+            <div class="theory-block-title">Key concept</div>
+            <div class="theory-block-text"><strong>Maslow's Hierarchy of Needs:</strong> Basic physiological and safety needs must be met before higher-level cognitive learning can occur.</div>
+          </div>
+          <div class="theory-block">
+            <div class="theory-block-title green">Classroom application</div>
+            <div class="theory-block-text">Student-centered learning choices, supportive classroom culture, focus on self-esteem, self-evaluation, and emotional safety.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEVELOPMENT STAGES -->
+    <div class="section-title">
+      📈 Human Growth and Development Stages
+      <span class="line"></span>
+    </div>
+
+    <div class="stage-grid" id="stagesGrid">
+      <div class="stage-card" data-searchable="early childhood 2-7 years preoperational symbolic thought egocentrism language development play-based multi-sensory basic social interactions">
+        <div class="stage-name">Early Childhood</div>
+        <div class="stage-age">2–7 years</div>
+        <div class="stage-cognitive"><strong>Piaget:</strong> Preoperational — symbolic thought, egocentrism, language development.</div>
+        <div class="stage-needs">💡 Educational needs: Play-based learning, multi-sensory materials, basic social interactions.</div>
+      </div>
+      <div class="stage-card" data-searchable="middle childhood 7-11 years concrete operational logical thinking concrete objects conservation hands-on experiments structured group tasks clear logical rules">
+        <div class="stage-name">Middle Childhood</div>
+        <div class="stage-age">7–11 years</div>
+        <div class="stage-cognitive"><strong>Piaget:</strong> Concrete Operational — logical thinking about concrete objects, conservation.</div>
+        <div class="stage-needs">💡 Educational needs: Hands-on experiments, structured group tasks, clear logical rules.</div>
+      </div>
+      <div class="stage-card" data-searchable="adolescence 12+ years formal operational abstract reasoning hypothetical thinking meta-cognition critical analysis debate self-directed research career planning">
+        <div class="stage-name">Adolescence</div>
+        <div class="stage-age">12+ years</div>
+        <div class="stage-cognitive"><strong>Piaget:</strong> Formal Operational — abstract reasoning, hypothetical thinking, metacognition.</div>
+        <div class="stage-needs">💡 Educational needs: Critical analysis, debate, self-directed research, career planning.</div>
+      </div>
+    </div>
+
+    <!-- KEY FACTORS -->
+    <div class="section-title">
+      🔑 Key Factors Influencing Learning
+      <span class="line"></span>
+    </div>
+
+    <div class="factor-grid" id="factorsGrid">
+      <div class="factor-card" data-searchable="motivation intrinsic internal curiosity passion personal satisfaction extrinsic external rewards grades recognition avoiding negative consequences">
+        <div class="factor-title">🔥 Motivation</div>
+        <div class="factor-desc">
+          <strong>Intrinsic Motivation:</strong> Learning driven by internal curiosity, passion, and personal satisfaction.<br><br>
+          <strong>Extrinsic Motivation:</strong> Learning driven by external rewards, grades, recognition, or avoiding negative consequences.
+        </div>
+        <div class="factor-tags">
+          <span class="factor-tag">Intrinsic</span>
+          <span class="factor-tag">Extrinsic</span>
+        </div>
+      </div>
+      <div class="factor-card" data-searchable="individual differences learning styles multiple intelligences howard gardner linguistic logical-mathematical spatial musical bodily-kinesthetic interpersonal intrapersonal naturalistic inclusive education differentiating instruction SEN special educational needs">
+        <div class="factor-title">🎨 Individual Differences &amp; Learning Styles</div>
+        <div class="factor-desc">
+          <strong>Multiple Intelligences (Gardner):</strong> Students possess different types of intelligence — Linguistic, Logical-Mathematical, Spatial, Musical, Bodily-Kinesthetic, Interpersonal, Intrapersonal, Naturalistic.<br><br>
+          <strong>Inclusive Education:</strong> Differentiating instruction to support diverse abilities, learning differences, and special educational needs (SEN).
+        </div>
+        <div class="factor-tags">
+          <span class="factor-tag">Gardner</span>
+          <span class="factor-tag">Multiple intelligences</span>
+          <span class="factor-tag">SEN</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUMMARY MATRIX -->
+    <div class="section-title">
+      📊 Summary Matrix
+      <span class="line"></span>
+    </div>
+
+    <div class="matrix-wrapper" data-searchable="summary matrix learning theories behaviorism habit cognitivism mind constructivism build humanism self development cognitive stages social interaction scaffolding zpd emotional maturity motivation intrinsic extrinsic multiple intelligences individual pace styles">
+      <table>
+        <thead>
+          <tr>
+            <th>Learning Theories</th>
+            <th>Development</th>
+            <th>Motivation &amp; Difference</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Behaviorism (Habit)</td>
+            <td>Cognitive Stages</td>
+            <td>Intrinsic vs. Extrinsic</td>
+          </tr>
+          <tr>
+            <td>Cognitivism (Mind)</td>
+            <td>Social Interaction</td>
+            <td>Multiple Intelligences</td>
+          </tr>
+          <tr>
+            <td>Constructivism (Build)</td>
+            <td>Scaffolding &amp; ZPD</td>
+            <td>Individual Pace &amp; Styles</td>
+          </tr>
+          <tr>
+            <td>Humanism (Self)</td>
+            <td>Emotional Maturity</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- KEY TAKEAWAY -->
+    <div class="takeaway-card">
+      <strong>🔑 Key Takeaway:</strong> Educational psychology gives teachers the scientific tools to match instruction to how students actually learn. No single theory explains everything — effective teachers draw from behaviorism for routines, cognitivism for memory, constructivism for deep understanding, and humanism for motivation and well-being.
+    </div>
+
+    <!-- ================= QUIZ SECTION ================= -->
+    <div class="quiz-section">
+      <div class="quiz-header">
+        <h2>📝 Practice Quiz</h2>
+        <span class="quiz-badge">Test Your Knowledge</span>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-tabs">
+          <button class="quiz-tab active" data-panel="mcqPanel">🔘 10 MCQs</button>
+          <button class="quiz-tab" data-panel="crqPanel">✍️ 4 CRQs</button>
+          <button class="quiz-tab" data-panel="erqPanel">📄 1 ERQ</button>
+        </div>
+
+        <div class="quiz-panel active" id="mcqPanel">
+          <span class="section-label">Multiple Choice Questions</span>
+          <div id="mcqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="crqPanel">
+          <span class="section-label">Constructed Response Questions</span>
+          <div id="crqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="erqPanel">
+          <span class="section-label">Extended Response Question (Situation-Based)</span>
+          <div id="erqContainer"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      // ================= SEARCH FILTER =================
+      const searchInput = document.getElementById('searchInput');
+      const countDisplay = document.getElementById('countDisplay');
+      const allSearchables = document.querySelectorAll('[data-searchable]');
+      const cardParents = new Map();
+      allSearchables.forEach(card => cardParents.set(card, card.parentNode));
+
+      function applySearch(query) {
+        const q = query.trim().toLowerCase();
+        let visibleCount = 0;
+        allSearchables.forEach(card => {
+          const searchText = (card.dataset.searchable || '').toLowerCase() + ' ' + card.textContent.toLowerCase();
+          const matches = q === '' || searchText.includes(q);
+          if (matches) {
+            visibleCount++;
+            if (!card.parentNode) cardParents.get(card).appendChild(card);
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        countDisplay.textContent = visibleCount + ' item' + (visibleCount !== 1 ? 's' : '');
+      }
+
+      let debounceTimer;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => applySearch(e.target.value), 180);
+      });
+      searchInput.addEventListener('search', (e) => { if (e.target.value === '') applySearch(''); });
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchInput.value !== '') { searchInput.value = ''; applySearch(''); }
+      });
+
+      // ================= QUIZ DATA =================
+      const mcqs = [
+        {
+          q: "What is the main focus of the psychological foundation of education?",
+          options: [
+            "The history of education",
+            "How humans learn, develop, retain information, and stay motivated",
+            "The economic cost of schooling",
+            "The architecture of school buildings"
+          ],
+          correct: 1,
+          feedback: "The psychological foundation explores how humans learn, develop, retain information, and stay motivated."
+        },
+        {
+          q: "Which learning theory views learning as a change in observable behavior caused by external stimuli?",
+          options: ["Cognitivism", "Constructivism", "Behaviorism", "Humanism"],
+          correct: 2,
+          feedback: "Behaviorism (Watson, Skinner, Pavlov) views learning as a change in observable behavior caused by external stimuli, conditioning, and reinforcement."
+        },
+        {
+          q: "Which theory emphasizes internal mental processes like memory, schemas, and information processing?",
+          options: ["Behaviorism", "Cognitivism", "Humanism", "Constructivism"],
+          correct: 1,
+          feedback: "Cognitivism (Piaget, Bruner, Gagné) views learning as an internal mental process involving how information is received, organized, stored, and retrieved."
+        },
+        {
+          q: "What is the Zone of Proximal Development (ZPD) associated with?",
+          options: ["Pavlov's classical conditioning", "Vygotsky's social constructivism", "Maslow's hierarchy of needs", "Skinner's operant conditioning"],
+          correct: 1,
+          feedback: "The ZPD is a key concept in Vygotsky's social constructivism — learning occurs through interaction with peers and mentors within the ZPD using scaffolding."
+        },
+        {
+          q: "In Maslow's hierarchy, what must be met before higher-level cognitive learning can occur?",
+          options: [
+            "Social status and recognition",
+            "Basic physiological and safety needs",
+            "Self-actualization",
+            "Academic achievement"
+          ],
+          correct: 1,
+          feedback: "Maslow's hierarchy states that basic physiological and safety needs must be met before higher-level cognitive learning can occur."
+        },
+        {
+          q: "Which of the following is a key mechanism in Cognitivism?",
+          options: [
+            "Classical conditioning",
+            "Operant conditioning",
+            "Information Processing Model (sensory → working → long-term memory)",
+            "Unconditional positive regard"
+          ],
+          correct: 2,
+          feedback: "Cognitivism's key mechanisms include the Information Processing Model (sensory memory → working memory → long-term memory) and schemas."
+        },
+        {
+          q: "According to Piaget, which stage involves abstract reasoning and hypothetical thinking?",
+          options: [
+            "Preoperational",
+            "Concrete Operational",
+            "Formal Operational",
+            "Sensorimotor"
+          ],
+          correct: 2,
+          feedback: "The Formal Operational stage (12+ years) involves abstract reasoning, hypothetical thinking, and metacognition."
+        },
+        {
+          q: "What is the difference between intrinsic and extrinsic motivation?",
+          options: [
+            "Intrinsic is external; extrinsic is internal",
+            "Intrinsic comes from internal curiosity; extrinsic comes from external rewards",
+            "They are the same thing",
+            "Intrinsic is for children; extrinsic is for adults"
+          ],
+          correct: 1,
+          feedback: "Intrinsic motivation is driven by internal curiosity, passion, and personal satisfaction. Extrinsic motivation is driven by external rewards, grades, or avoiding negative consequences."
+        },
+        {
+          q: "Who proposed the theory of Multiple Intelligences?",
+          options: ["B.F. Skinner", "Howard Gardner", "Jean Piaget", "Abraham Maslow"],
+          correct: 1,
+          feedback: "Howard Gardner proposed Multiple Intelligences, recognizing that students possess different types of intelligence (linguistic, logical-mathematical, spatial, musical, etc.)."
+        },
+        {
+          q: "Which teaching application is most associated with Constructivism?",
+          options: [
+            "Practice drills and reward systems",
+            "Mind mapping and chunking",
+            "Inquiry-based learning and hands-on experimentation",
+            "Student-centered learning choices"
+          ],
+          correct: 2,
+          feedback: "Constructivism's classroom applications include inquiry-based learning, problem-solving, group discussions, hands-on experimentation, and peer tutoring."
+        }
+      ];
+
+      const crqs = [
+        {
+          q: "Compare Behaviorism and Constructivism as learning theories, including their core views, key thinkers, and classroom applications.",
+          hint: "Behaviorism = observable behavior; Constructivism = actively building understanding.",
+          keywords: ["behaviorism", "observable", "stimuli", "conditioning", "reinforcement", "watson", "skinner", "pavlov", "constructivism", "actively build", "prior knowledge", "vygotsky", "piaget", "inquiry", "hands-on", "group discussions"],
+          model: "Behaviorism (Watson, Skinner, Pavlov) views learning as a change in observable behavior caused by external stimuli, conditioning, and reinforcement. Its classroom applications include routine formation, direct instruction, reward systems, and practice drills. Constructivism (Vygotsky, Piaget, von Glasersfeld) views learning as actively building understanding by linking new experiences to prior knowledge. Its classroom applications include inquiry-based learning, problem-solving, group discussions, hands-on experimentation, and peer tutoring."
+        },
+        {
+          q: "Explain Piaget's stages of cognitive development and how each stage informs teaching strategies.",
+          hint: "Preoperational (2–7), Concrete Operational (7–11), Formal Operational (12+).",
+          keywords: ["preoperational", "symbolic", "egocentrism", "play-based", "concrete operational", "logical", "hands-on", "formal operational", "abstract", "hypothetical", "metacognition", "critical analysis", "debate"],
+          model: "Piaget's stages: (1) Preoperational (2–7 years) — symbolic thought, egocentrism, language development; teaching should use play-based learning and multi-sensory materials. (2) Concrete Operational (7–11 years) — logical thinking about concrete objects, conservation; teaching should use hands-on experiments and structured group tasks. (3) Formal Operational (12+ years) — abstract reasoning, hypothetical thinking, metacognition; teaching should use critical analysis, debate, and self-directed research."
+        },
+        {
+          q: "What is the Zone of Proximal Development (ZPD) and how does scaffolding support learning within it?",
+          hint: "ZPD = the gap between what a learner can do alone and with help; scaffolding = temporary support.",
+          keywords: ["zone of proximal development", "zpd", "vygotsky", "gap", "alone", "with help", "scaffolding", "temporary", "support", "guidance", "gradually removed", "peer", "mentor"],
+          model: "The Zone of Proximal Development (ZPD), a concept from Vygotsky's social constructivism, is the gap between what a learner can do independently and what they can achieve with guidance from a more knowledgeable peer or mentor. Scaffolding is the temporary support given within the ZPD — such as hints, prompts, or modeling — that is gradually removed as the learner gains competence and can perform the task independently."
+        },
+        {
+          q: "Explain the difference between intrinsic and extrinsic motivation, and give one classroom example of how a teacher can support each.",
+          hint: "Intrinsic = internal curiosity; Extrinsic = external rewards.",
+          keywords: ["intrinsic", "internal", "curiosity", "passion", "personal satisfaction", "extrinsic", "external", "rewards", "grades", "recognition", "example", "choice", "praise", "feedback"],
+          model: "Intrinsic motivation comes from internal curiosity, passion, and personal satisfaction. Extrinsic motivation comes from external rewards, grades, recognition, or avoiding negative consequences. A teacher can support intrinsic motivation by offering student choice and connecting content to students' interests. A teacher can support extrinsic motivation by using a reward system, praise, or clear feedback on progress."
+        }
+      ];
+
+      const erq = {
+        q: `Ms. Ayesha teaches Grade 7. She notices that her students:
+• Lose focus quickly and need constant reminders about rules and routines.
+• Struggle to remember information from one week to the next.
+• Rarely participate in discussions and seem afraid of giving wrong answers.
+• Come from very different backgrounds — some are strong readers, others struggle, and one student has a learning disability.
+
+Using the psychological foundations of education, propose FOUR specific strategies Ms. Ayesha could use to address these issues. For each strategy, identify the learning theory or concept it draws from and explain why it would help.`,
+        marks: "10 marks",
+        model: `
+          <strong>Model Answer (key points):</strong><br><br>
+          <strong>1. Behaviorism — Routine and Reward Systems:</strong> Ms. Ayesha can use clear routines, immediate feedback, and a simple reward system (e.g., points for following procedures). This addresses the issue of students losing focus and needing reminders, because behaviorism holds that reinforcement shapes observable behavior.<br><br>
+          <strong>2. Cognitivism — Chunking and Graphic Organizers:</strong> She can break information into smaller chunks and use mind maps or graphic organizers. This addresses the memory issue, because cognitivism explains that working memory is limited, and organizing information helps move it into long-term memory.<br><br>
+          <strong>3. Constructivism — Think-Pair-Share and Group Discussions:</strong> She can use think-pair-share and small-group discussions before whole-class sharing. This addresses the fear of wrong answers, because social constructivism (Vygotsky) shows that peer interaction within the ZPD builds confidence and understanding.<br><br>
+          <strong>4. Humanism / Individual Differences — Student Choice and Differentiation:</strong> She can offer choices in tasks and differentiate instruction for the student with a learning disability (e.g., extra time, visual aids, peer tutoring). This addresses diverse backgrounds, because humanism emphasizes emotional safety and self-esteem, and Gardner's multiple intelligences remind us that students learn differently.<br><br>
+          <em>Note: Any valid combination of theory + strategy + explanation is acceptable. The key is linking the strategy to the psychological concept.</em>
+        `
+      };
+
+      // ================= RENDER MCQs =================
+      const mcqContainer = document.getElementById('mcqContainer');
+      let mcqHtml = '';
+      mcqs.forEach((item, idx) => {
+        const letters = ['A', 'B', 'C', 'D'];
+        let optionsHtml = '';
+        item.options.forEach((opt, oi) => {
+          optionsHtml += `
+            <div class="mcq-option" data-qidx="${idx}" data-oidx="${oi}">
+              <span class="option-letter">${letters[oi]}</span>
+              <span>${opt}</span>
+            </div>
+          `;
+        });
+        mcqHtml += `
+          <div class="mcq-item" id="mcq-${idx}">
+            <div class="mcq-question">${idx + 1}. ${item.q}</div>
+            <div class="mcq-options">${optionsHtml}</div>
+            <div class="mcq-feedback" id="mcq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      mcqContainer.innerHTML = mcqHtml;
+
+      mcqContainer.addEventListener('click', (e) => {
+        const option = e.target.closest('.mcq-option');
+        if (!option) return;
+        const qidx = parseInt(option.dataset.qidx);
+        const oidx = parseInt(option.dataset.oidx);
+        const mcq = mcqs[qidx];
+        const parentItem = document.getElementById(`mcq-${qidx}`);
+        const allOptions = parentItem.querySelectorAll('.mcq-option');
+        const feedbackEl = document.getElementById(`mcq-fb-${qidx}`);
+        if (parentItem.dataset.answered === 'correct') return;
+        allOptions.forEach(opt => opt.classList.remove('selected', 'correct', 'incorrect'));
+        option.classList.add('selected');
+        if (oidx === mcq.correct) {
+          option.classList.add('correct');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '✅ Correct! ' + mcq.feedback;
+          feedbackEl.className = 'mcq-feedback show correct-fb';
+          parentItem.dataset.answered = 'correct';
+        } else {
+          option.classList.add('incorrect');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '❌ Not quite. Try again!';
+          feedbackEl.className = 'mcq-feedback show incorrect-fb';
+          setTimeout(() => {
+            if (feedbackEl.classList.contains('incorrect-fb')) {
+              feedbackEl.classList.remove('show');
+            }
+          }, 1500);
+        }
+      });
+
+      // ================= RENDER CRQs =================
+      const crqContainer = document.getElementById('crqContainer');
+      let crqHtml = '';
+      crqs.forEach((item, idx) => {
+        crqHtml += `
+          <div class="crq-item" id="crq-${idx}">
+            <div class="crq-question">${idx + 1}. ${item.q}</div>
+            <div class="crq-hint">💡 Hint: ${item.hint}</div>
+            <textarea class="crq-textarea" id="crq-ta-${idx}" placeholder="Write your answer here..."></textarea>
+            <div class="crq-actions">
+              <button class="btn btn-primary" data-crq-check="${idx}">Check Answer</button>
+              <button class="btn btn-secondary" data-crq-clear="${idx}">Clear</button>
+            </div>
+            <div class="crq-feedback" id="crq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      crqContainer.innerHTML = crqHtml;
+
+      crqContainer.addEventListener('click', (e) => {
+        const checkBtn = e.target.closest('[data-crq-check]');
+        const clearBtn = e.target.closest('[data-crq-clear]');
+        if (checkBtn) {
+          const idx = parseInt(checkBtn.dataset.crqCheck);
+          const textarea = document.getElementById(`crq-ta-${idx}`);
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          const answer = textarea.value.trim().toLowerCase();
+          const crq = crqs[idx];
+          if (answer.length < 10) {
+            feedback.textContent = '⚠️ Please write a more complete answer (at least a sentence or two).';
+            feedback.className = 'crq-feedback show partial';
+            return;
+          }
+          const matched = crq.keywords.filter(kw => answer.includes(kw));
+          const ratio = matched.length / crq.keywords.length;
+          if (ratio >= 0.35) {
+            feedback.innerHTML = `✅ <strong>Good answer!</strong> You covered key ideas.<br><br><em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show good';
+          } else {
+            feedback.innerHTML = `📝 <strong>Partially correct.</strong> You mentioned some ideas. Try to include more key concepts.<br><br><em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show partial';
+          }
+        }
+        if (clearBtn) {
+          const idx = parseInt(clearBtn.dataset.crqClear);
+          document.getElementById(`crq-ta-${idx}`).value = '';
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          feedback.className = 'crq-feedback';
+          feedback.textContent = '';
+        }
+      });
+
+      // ================= RENDER ERQ =================
+      const erqContainer = document.getElementById('erqContainer');
+      erqContainer.innerHTML = `
+        <div class="erq-item">
+          <div class="erq-marks">${erq.marks}</div>
+          <div class="erq-question">${erq.q}</div>
+          <textarea class="erq-textarea" id="erq-ta" placeholder="Write your detailed answer here. Propose four strategies and link each to a learning theory or concept..."></textarea>
+          <div class="erq-actions">
+            <button class="btn btn-primary" id="erqCheck">Check Answer</button>
+            <button class="btn btn-secondary" id="erqClear">Clear</button>
+          </div>
+          <div class="erq-feedback" id="erq-fb"></div>
+        </div>
+      `;
+
+      document.getElementById('erqCheck').addEventListener('click', () => {
+        const ta = document.getElementById('erq-ta');
+        const fb = document.getElementById('erq-fb');
+        const answer = ta.value.trim().toLowerCase();
+        if (answer.length < 50) {
+          fb.textContent = '⚠️ Please write a more detailed answer. Propose four strategies and link each to a theory.';
+          fb.className = 'erq-feedback show partial';
+          return;
+        }
+        const keywords = ['behaviorism', 'cognitivism', 'constructivism', 'humanism', 'routine', 'reward', 'chunking', 'graphic organizer', 'think-pair-share', 'group discussion', 'zpd', 'scaffolding', 'choice', 'differentiation', 'multiple intelligences', 'maslow'];
+        const found = keywords.filter(k => answer.includes(k));
+        if (found.length >= 3) {
+          fb.innerHTML = `✅ <strong>Excellent effort!</strong> You connected specific strategies to psychological theories. Compare your answer with the model below.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show model';
+        } else if (found.length >= 1) {
+          fb.innerHTML = `📝 <strong>Good start!</strong> Try to explicitly link each of the four strategies to a learning theory or concept.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        } else {
+          fb.innerHTML = `⚠️ Make sure to propose four strategies and identify the learning theory or concept behind each one.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        }
+      });
+
+      document.getElementById('erqClear').addEventListener('click', () => {
+        document.getElementById('erq-ta').value = '';
+        const fb = document.getElementById('erq-fb');
+        fb.className = 'erq-feedback';
+        fb.textContent = '';
+      });
+
+      // ================= QUIZ TABS =================
+      const tabs = document.querySelectorAll('.quiz-tab');
+      const panels = document.querySelectorAll('.quiz-panel');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          panels.forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(tab.dataset.panel).classList.add('active');
+        });
+      });
+
+      // Initial count
+      countDisplay.textContent = allSearchables.length + ' items';
+    })();
+  </script>
+</body>
+</html>

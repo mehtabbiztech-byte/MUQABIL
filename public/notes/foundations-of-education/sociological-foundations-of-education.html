@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sociological Foundations of Education · Foundations of Education</title>
+  <style>
+    /* ---------- GLOBAL ---------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+      color: #1e2b3c;
+    }
+    .main-wrapper { max-width: 1100px; width: 100%; }
+
+    /* ---------- HEADER ---------- */
+    .header-card {
+      background: white;
+      border-radius: 2rem 2rem 1.5rem 1.5rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      padding: 2rem 2rem 1.5rem 2rem;
+      margin-bottom: 1.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: transform 0.2s;
+    }
+    .header-card:hover { transform: scale(1.002); }
+    .badge {
+      display: inline-block;
+      background: #2a4b7c;
+      color: #f0f7ff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+      line-height: 1.25;
+    }
+    .subhead {
+      font-size: 1.05rem;
+      color: #2f5277;
+      font-weight: 400;
+      border-left: 5px solid #8bb3e0;
+      padding-left: 1.2rem;
+      margin: 1rem 0 0.2rem 0;
+      font-style: italic;
+    }
+    .intro-text {
+      background: #e6f0fc;
+      padding: 1rem 1.4rem;
+      border-radius: 1.2rem;
+      margin-top: 1.4rem;
+      font-size: 0.98rem;
+      color: #1d3a5c;
+      border-left: 5px solid #3b6ea5;
+    }
+
+    /* ---------- SECTION TITLE ---------- */
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #0e2a47;
+      margin: 2.2rem 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section-title .line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #8bb3e0, transparent);
+      border-radius: 2px;
+    }
+
+    /* ---------- CARDS GRID ---------- */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ---------- FUNCTION CARDS ---------- */
+    .func-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.4rem 1.4rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      transition: all 0.25s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .func-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      opacity: 0.85;
+      transition: height 0.2s;
+    }
+    .func-card.manifest::before { background: linear-gradient(90deg, #2a4b7c, #5a8ec9); }
+    .func-card.latent::before { background: linear-gradient(90deg, #6a4c9c, #b39ddb); }
+    .func-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 28px -16px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .func-card:hover::before { height: 10px; }
+    .func-icon {
+      font-size: 2rem;
+      line-height: 1;
+      background: #e9f0fa;
+      width: 54px;
+      height: 54px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #1b3c61;
+      margin-bottom: 0.8rem;
+      transition: background 0.2s;
+    }
+    .func-card:hover .func-icon { background: #d3e3f8; }
+    .func-title {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #0e2a47;
+      margin-bottom: 0.3rem;
+    }
+    .func-sub {
+      font-size: 0.83rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-bottom: 0.7rem;
+    }
+    .func-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .func-list li {
+      padding: 0.35rem 0 0.35rem 1.5rem;
+      position: relative;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #1e3c5a;
+    }
+    .func-list li::before {
+      content: '◆';
+      position: absolute;
+      left: 0;
+      color: #3b7bb5;
+      font-size: 0.7rem;
+      top: 0.55rem;
+    }
+
+    /* ---------- PERSPECTIVE CARDS ---------- */
+    .persp-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.5rem 1.4rem 1.5rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      transition: all 0.25s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .persp-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 7px;
+      opacity: 0.9;
+      transition: height 0.2s;
+    }
+    .persp-card.functionalism::before { background: linear-gradient(90deg, #2e7d4f, #81c784); }
+    .persp-card.conflict::before { background: linear-gradient(90deg, #b03a5b, #e88bb0); }
+    .persp-card.symbolic::before { background: linear-gradient(90deg, #e0a800, #ffd54f); }
+    .persp-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 28px -16px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .persp-card:hover::before { height: 12px; }
+    .persp-header {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.7rem;
+    }
+    .persp-icon {
+      font-size: 2rem;
+      line-height: 1;
+      background: #e9f0fa;
+      width: 54px;
+      height: 54px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #1b3c61;
+      transition: background 0.2s;
+    }
+    .persp-card:hover .persp-icon { background: #d3e3f8; }
+    .persp-name {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #0e2a47;
+      line-height: 1.25;
+    }
+    .persp-sub {
+      font-size: 0.83rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-top: 0.1rem;
+    }
+    .persp-section {
+      margin-bottom: 0.7rem;
+    }
+    .persp-section-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #1a4b7a;
+      background: #d7e6fa;
+      padding: 0.12rem 0.75rem;
+      border-radius: 30px;
+      display: inline-block;
+      margin-bottom: 0.4rem;
+    }
+    .persp-section-title.green { color: #1b6e3e; background: #d4f0e0; }
+    .persp-section-title.pink { color: #8a3a55; background: #fce4ec; }
+    .persp-section-title.amber { color: #7a4e14; background: #fdeed8; }
+    .persp-text {
+      font-size: 0.9rem;
+      color: #274e73;
+      line-height: 1.55;
+    }
+    .thinker-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.2rem;
+    }
+    .thinker-tag {
+      background: #eef4fb;
+      color: #1b4670;
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 0.22rem 0.75rem;
+      border-radius: 30px;
+      border: 1px solid #d0e0f0;
+    }
+
+    /* ---------- CONCEPT CARDS ---------- */
+    .concept-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.4rem 1.4rem 1.3rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      transition: all 0.25s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .concept-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(180deg, #3f7cb0, #8bb3e0);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .concept-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 24px -14px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .concept-card:hover::before { opacity: 1; }
+    .concept-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+    }
+    .concept-desc {
+      font-size: 0.9rem;
+      color: #274e73;
+      line-height: 1.55;
+      margin-bottom: 0.5rem;
+    }
+    .concept-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: auto;
+    }
+    .concept-tag {
+      background: #f6faff;
+      color: #183c5e;
+      font-size: 0.76rem;
+      font-weight: 500;
+      padding: 0.22rem 0.75rem;
+      border-radius: 30px;
+      border: 1px solid #c9ddf5;
+    }
+
+    /* ---------- EQUITY VS EQUALITY ---------- */
+    .eq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .eq-card {
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.5rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.12);
+      border: 1px solid;
+      display: flex;
+      flex-direction: column;
+    }
+    .eq-card.equality {
+      background: #f0f7ff;
+      border-color: #b8d0e9;
+    }
+    .eq-card.equity {
+      background: #f0faf4;
+      border-color: #b8e0c8;
+    }
+    .eq-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.7rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .eq-card.equality h3 { color: #1b4670; }
+    .eq-card.equity h3 { color: #1b6e3e; }
+    .eq-card p {
+      font-size: 0.92rem;
+      color: #1e3c5a;
+      line-height: 1.6;
+    }
+    .eq-card .eq-icon {
+      font-size: 1.4rem;
+      margin-right: 0.3rem;
+    }
+
+    /* ---------- MOBILITY CARD ---------- */
+    .mobility-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.6rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      border: 1px solid #e3ecf7;
+      border-left: 6px solid #2e7d4f;
+      margin-bottom: 0.5rem;
+    }
+    .mobility-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #0e2a47;
+      margin-bottom: 0.6rem;
+    }
+    .mobility-card p {
+      font-size: 0.94rem;
+      color: #274e73;
+      line-height: 1.65;
+    }
+
+    /* ---------- SUMMARY MATRIX ---------- */
+    .matrix-wrapper {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.4rem 1.4rem 1.2rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      border: 1px solid #e3ecf7;
+      overflow-x: auto;
+      margin-bottom: 0.5rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.88rem;
+      min-width: 480px;
+    }
+    thead th {
+      text-align: left;
+      padding: 0.8rem 0.9rem;
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: white;
+      background: #0e2a47;
+    }
+    thead th:first-child {
+      border-radius: 1rem 0 0 0;
+      background: #2a4b7c;
+    }
+    thead th:last-child { border-radius: 0 1rem 0 0; }
+    tbody td {
+      padding: 0.7rem 0.9rem;
+      border-bottom: 1px solid #e8f0f9;
+      color: #1e3c5a;
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: #f6faff; }
+    tbody td:first-child {
+      font-weight: 700;
+      color: #0e2a47;
+      background: #f3f8fd;
+    }
+    tbody tr:hover td:first-child { background: #eaf3fc; }
+
+    /* ---------- TAKEAWAY ---------- */
+    .takeaway-card {
+      background: #0e2a47;
+      color: white;
+      border-radius: 1.6rem;
+      padding: 1.6rem 2rem;
+      margin: 1.2rem 0 0.5rem 0;
+      font-size: 1rem;
+      line-height: 1.65;
+      box-shadow: 0 14px 26px -12px #0e2a47;
+      border-left: 6px solid #8bb3e0;
+    }
+    .takeaway-card strong { color: #b8d4f0; }
+
+    /* ---------- SEARCH & COUNT ---------- */
+    .filter-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 60px;
+      box-shadow: 0 8px 18px -8px rgba(0, 27, 45, 0.1);
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 40px;
+      padding: 0.3rem 0.3rem 0.3rem 1.2rem;
+      flex: 2;
+      min-width: 240px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      border: 1px solid #ccdcee;
+    }
+    .search-box span { font-size: 1.1rem; margin-right: 0.5rem; color: #4e6b8a; }
+    .search-box input {
+      border: none;
+      padding: 0.7rem 0.2rem;
+      width: 100%;
+      font-size: 0.95rem;
+      outline: none;
+      background: transparent;
+      color: #0c253b;
+    }
+    .search-box input::placeholder { color: #879eb6; font-weight: 300; }
+    .count-pill {
+      background: #0e2a47;
+      color: white;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ---------- QUIZ SECTION ---------- */
+    .quiz-section { margin-top: 2.5rem; }
+    .quiz-header {
+      background: #0e2a47;
+      border-radius: 2rem 2rem 0 0;
+      padding: 1.5rem 2rem;
+      color: white;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .quiz-header h2 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.3px; }
+    .quiz-header .quiz-badge {
+      background: #8bb3e0;
+      color: #0e2a47;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .quiz-body {
+      background: white;
+      border-radius: 0 0 2rem 2rem;
+      padding: 2rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      border: 1px solid #e3ecf7;
+      border-top: none;
+    }
+    .quiz-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #e3ecf7;
+      padding-bottom: 1rem;
+    }
+    .quiz-tab {
+      background: #f0f5fd;
+      border: 1px solid #d0e0f0;
+      color: #1b4670;
+      padding: 0.5rem 1.3rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .quiz-tab:hover { background: #e0ecfc; border-color: #a0c0e0; }
+    .quiz-tab.active { background: #0e2a47; color: white; border-color: #0e2a47; }
+    .quiz-panel { display: none; }
+    .quiz-panel.active { display: block; }
+    .section-label {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.2rem;
+    }
+
+    /* MCQ */
+    .mcq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+      transition: background 0.2s;
+    }
+    .mcq-item:hover { background: #f0f7fe; }
+    .mcq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.8rem;
+      line-height: 1.5;
+    }
+    .mcq-options { display: flex; flex-direction: column; gap: 0.5rem; }
+    .mcq-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 0.8rem;
+      background: white;
+      border: 1.5px solid #d9e8fc;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+    }
+    .mcq-option:hover { border-color: #8bb3e0; background: #eef6ff; }
+    .mcq-option.selected { border-color: #3b7bb5; background: #e4f0fe; font-weight: 500; }
+    .mcq-option.correct { border-color: #2e9b5e; background: #e6f7ee; font-weight: 600; }
+    .mcq-option.incorrect { border-color: #d45a5a; background: #fdeaea; font-weight: 500; }
+    .mcq-option .option-letter {
+      font-weight: 700;
+      color: #2a4b7c;
+      min-width: 1.4rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .mcq-option.correct .option-letter { color: #1b7a44; }
+    .mcq-option.incorrect .option-letter { color: #b03030; }
+    .mcq-feedback {
+      margin-top: 0.7rem;
+      font-size: 0.88rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: 0.8rem;
+      display: none;
+      font-weight: 500;
+    }
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.correct-fb {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .mcq-feedback.incorrect-fb {
+      background: #fdeaea;
+      color: #9e2a2a;
+      border-left: 4px solid #d45a5a;
+    }
+
+    /* CRQ / ERQ shared */
+    .crq-item, .erq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+    }
+    .erq-item { border: 2px solid #8bb3e0; background: #f5faff; }
+    .crq-question, .erq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+    .erq-question { font-size: 1.05rem; font-weight: 700; }
+    .erq-marks {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      margin-bottom: 0.8rem;
+    }
+    .crq-hint {
+      font-size: 0.85rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-bottom: 0.7rem;
+    }
+    .crq-textarea, .erq-textarea {
+      width: 100%;
+      border: 1.5px solid #d9e8fc;
+      border-radius: 0.9rem;
+      padding: 0.8rem 1rem;
+      font-family: inherit;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+      resize: vertical;
+      transition: border-color 0.2s;
+      background: white;
+    }
+    .crq-textarea { min-height: 90px; }
+    .erq-textarea { min-height: 160px; }
+    .crq-textarea:focus, .erq-textarea:focus {
+      outline: none;
+      border-color: #3b7bb5;
+      box-shadow: 0 0 0 3px rgba(59, 123, 181, 0.12);
+    }
+    .crq-actions, .erq-actions {
+      display: flex;
+      gap: 0.7rem;
+      margin-top: 0.7rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 0.55rem 1.4rem;
+      border-radius: 40px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      font-family: inherit;
+    }
+    .btn-primary { background: #0e2a47; color: white; }
+    .btn-primary:hover { background: #1a4170; transform: translateY(-1px); }
+    .btn-secondary { background: #e9f0fa; color: #1b4670; border: 1px solid #c0d8f0; }
+    .btn-secondary:hover { background: #d8e6f8; }
+    .crq-feedback, .erq-feedback {
+      margin-top: 0.8rem;
+      padding: 0.8rem 1rem;
+      border-radius: 0.9rem;
+      font-size: 0.9rem;
+      display: none;
+      line-height: 1.6;
+    }
+    .crq-feedback.show, .erq-feedback.show { display: block; }
+    .crq-feedback.good, .erq-feedback.good {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .crq-feedback.partial, .erq-feedback.partial {
+      background: #fff8e6;
+      color: #8a6d1f;
+      border-left: 4px solid #e0a800;
+    }
+    .erq-feedback.model {
+      background: #e6f0fc;
+      color: #1a3e62;
+      border-left: 5px solid #3b7bb5;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 700px) {
+      .eq-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .header-card { padding: 1.5rem 1.2rem; }
+      h1 { font-size: 1.7rem; }
+      .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: 2rem;
+        padding: 1rem;
+      }
+      .search-box { width: 100%; }
+      .count-pill { text-align: center; padding: 0.5rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .quiz-body { padding: 1.2rem; }
+      .quiz-header { padding: 1.2rem; }
+      .quiz-header h2 { font-size: 1.3rem; }
+      .mcq-item, .crq-item, .erq-item { padding: 1rem; }
+      .quiz-tab { font-size: 0.8rem; padding: 0.4rem 1rem; }
+      .takeaway-card { padding: 1.3rem 1.2rem; }
+      .mobility-card { padding: 1.2rem 1.2rem; }
+    }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #dfe9f5; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: #94b0d1; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6d8fb4; }
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem 1rem;
+      background: #ffffffc9;
+      border-radius: 2rem;
+      font-size: 1.1rem;
+      color: #4b6888;
+      border: 2px dashed #b8cee8;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-wrapper">
+
+    <!-- HEADER -->
+    <div class="header-card">
+      <div class="badge">🏛️ Foundations of Education</div>
+      <h1>Sociological Foundations of Education</h1>
+      <div class="subhead">Education as a social institution that shapes — and is shaped by — society</div>
+      <div class="intro-text">
+        <strong>💡 Big Picture:</strong> The sociological foundation views education as a vital social institution. It examines the dynamic relationship between education, social structures, cultural institutions, and human relationships — addressing questions like <em>How do schools socialize individuals?</em>, <em>How does education influence social mobility?</em>, and <em>How can education drive equality and social change?</em>
+      </div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="filter-section">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="Search functions, perspectives, concepts..." autocomplete="off">
+      </div>
+      <div class="count-pill" id="countDisplay">25+ items</div>
+    </div>
+
+    <!-- CORE FUNCTIONS -->
+    <div class="section-title">
+      ⚙️ Core Functions of Education in Society
+      <span class="line"></span>
+    </div>
+
+    <div class="cards-grid" id="functionsGrid">
+      <!-- MANIFEST -->
+      <div class="func-card manifest" data-searchable="manifest functions explicit intended direct goals cultural transmission socialization skill preparation career sorting civic political innovation knowledge">
+        <div class="func-icon">🎯</div>
+        <div class="func-title">Manifest Functions</div>
+        <div class="func-sub">Explicit / intended / direct goals</div>
+        <ul class="func-list">
+          <li><strong>Cultural Transmission:</strong> Passing down shared values, customs, language, norms, and traditions from one generation to the next.</li>
+          <li><strong>Socialization:</strong> Teaching individuals how to interact, obey laws, respect authority, and collaborate within wider society (secondary socialization).</li>
+          <li><strong>Social &amp; Economic Sorting:</strong> Classifying and training individuals based on talent, interest, and merit to fulfill necessary professional roles in the labor market.</li>
+          <li><strong>Social Integration &amp; Cohesion:</strong> Unifying diverse cultural, ethnic, and socio-economic groups through a standardized curriculum and shared national values.</li>
+        </ul>
+      </div>
+      <!-- LATENT -->
+      <div class="func-card latent" data-searchable="latent functions implicit unintended secondary outcomes peer network formation youth care supervision generation gap creation maintenance social status">
+        <div class="func-icon">🌙</div>
+        <div class="func-title">Latent Functions</div>
+        <div class="func-sub">Implicit / unintended / secondary outcomes</div>
+        <ul class="func-list">
+          <li><strong>Peer Network Formation:</strong> Schools create social networks and friendships that extend beyond the classroom.</li>
+          <li><strong>Youth Care &amp; Supervision:</strong> Schools provide a safe place for children while parents work.</li>
+          <li><strong>Generation Gap Creation:</strong> Schools can widen the gap between generations by transmitting new values.</li>
+          <li><strong>Maintenance of Social Status:</strong> Schools can preserve existing social hierarchies rather than change them.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SOCIOLOGICAL PERSPECTIVES -->
+    <div class="section-title">
+      🧠 Major Sociological Perspectives on Education
+      <span class="line"></span>
+    </div>
+
+    <div class="cards-grid" id="perspectivesGrid">
+      <!-- FUNCTIONALISM -->
+      <div class="persp-card functionalism" data-searchable="functionalism durkheim parsons society system interdependent parts education maintains social stability consensus prepares individuals social roles fills workforce needs meritocracy harmony order shared values">
+        <div class="persp-header">
+          <div class="persp-icon">⚖️</div>
+          <div>
+            <div class="persp-name">Functionalism</div>
+            <div class="persp-sub">Society as a system of interdependent parts</div>
+          </div>
+        </div>
+        <div class="persp-section">
+          <div class="persp-section-title">Core view</div>
+          <div class="persp-text">Society is a system of interdependent parts; education maintains social stability and consensus.</div>
+        </div>
+        <div class="persp-section">
+          <div class="persp-section-title">Key thinkers</div>
+          <div class="thinker-tags">
+            <span class="thinker-tag">Durkheim</span>
+            <span class="thinker-tag">Parsons</span>
+          </div>
+        </div>
+        <div class="persp-section">
+          <div class="persp-section-title green">Role of schools</div>
+          <div class="persp-text">Prepares individuals for social roles and fills workforce needs through meritocracy.</div>
+        </div>
+        <div class="persp-section">
+          <div class="persp-section-title amber">Focus / critique</div>
+          <div class="persp-text">Emphasizes harmony, order, and shared values.</div>
+        </div>
+      </div>
+
+      <!-- CONFLICT THEORY -->
+      <div class="persp-card conflict" data-searchable="conflict theory marx bourdieu society driven competition resources education reproduces social inequality class hierarchies reinforces privilege hidden curricula standardized testing unequal funding inequality social reproduction cultural capital gaps">
+        <div class="persp-header">
+          <div class="persp-icon">⚔️</div>
+          <div>
+            <div class="persp-name">Conflict Theory</div>
+            <div class="persp-sub">Society driven by competition for resources</div>
+          </div>
+        </div>
+        <div class="persp-section">
+          <div class="persp-section-title">Core view</div>
+          <div class="persp-text">Society is driven by competition for resources; education reproduces social inequality and class hierarchies.</div>
+        </div>
+        <div class="persp-section">
+          <div class="persp-section-title">Key thinkers</div>
+          <div class="thinker-tags">
+            <span class="thinker-tag">Marx</span>
+            <span class="thinker-tag">Bourdieu</span>
+          </div>
+        </div>
+        <div class="persp-section">
+          <div class="persp-section-title pink">Role of schools</div>
+          <div class="persp-text">Reinforces privilege through hidden curricula, standardized testing, and unequal funding.</div>
+        </div>
+        <div class="persp-section">
+          <div class="persp-section-title amber">Focus / critique</div>
+          <div class="persp-text">Exposes inequality, social reproduction, and cultural capital gaps.</div>
+        </div>
+      </div>
+
+      <!-- SYMBOLIC INTERACTIONISM -->
+      <div class="persp-card symbolic" data-searchable="symbolic interactionism mead cooley society constructed daily face-to-face interactions symbols shared meanings shapes individual self-concept academic identity teacher expectations peer labeling classroom dynamics teacher-student relationships self-fulfilling prophecies">
+        <div class="persp-header">
+          <div class="persp-icon">💬</div>
+          <div>
+            <div class="persp-name">Symbolic Interactionism</div>
+            <div class="persp-sub">Society constructed through daily interactions</div>
+          </div>
+        </div>
+        <div class="persp-section">
+          <div class="persp-section-title">Core view</div>
+          <div class="persp-text">Society is constructed through daily face-to-face interactions, symbols, and shared meanings.</div>
+        </div>
+        <div class="persp-section">
+          <div class="persp-section-title">Key thinkers</div>
+          <div class="thinker-tags">
+            <span class="thinker-tag">Mead</span>
+            <span class="thinker-tag">Cooley</span>
+          </div>
+        </div>
+        <div class="persp-section">
+          <div class="persp-section-title green">Role of schools</div>
+          <div class="persp-text">Shapes individual self-concept and academic identity through teacher expectations and peer labeling.</div>
+        </div>
+        <div class="persp-section">
+          <div class="persp-section-title amber">Focus / critique</div>
+          <div class="persp-text">Focuses on classroom dynamics, teacher-student relationships, and self-fulfilling prophecies.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KEY CONCEPTS -->
+    <div class="section-title">
+      🔑 Key Sociological Concepts in Education
+      <span class="line"></span>
+    </div>
+
+    <div class="cards-grid" id="conceptsGrid">
+      <div class="concept-card" data-searchable="hidden curriculum official textbooks lesson plans implicit unwritten social lessons punctuality discipline respect hierarchy conformity competition">
+        <div class="concept-title">📚 The "Hidden Curriculum"</div>
+        <div class="concept-desc">
+          Beyond official textbooks and lesson plans, schools transmit implicit, unwritten social lessons: punctuality and discipline, respect for hierarchy, conformity and competition.
+        </div>
+        <div class="concept-tags">
+          <span class="concept-tag">Punctuality</span>
+          <span class="concept-tag">Respect for hierarchy</span>
+          <span class="concept-tag">Conformity</span>
+          <span class="concept-tag">Competition</span>
+        </div>
+      </div>
+      <div class="concept-card" data-searchable="social reproduction cultural capital pierre bourdieu non-financial assets speech patterns etiquette cultural background family networks higher-status families advantage educational institutions replicate social class structures generations">
+        <div class="concept-title">🔄 Social Reproduction &amp; Cultural Capital</div>
+        <div class="concept-desc">
+          <strong>Cultural Capital (Bourdieu):</strong> Non-financial assets (speech patterns, etiquette, cultural background, family networks) passed down by higher-status families that give children an advantage.<br><br>
+          <strong>Social Reproduction:</strong> Schools unintentionally replicate existing social class structures across generations.
+        </div>
+        <div class="concept-tags">
+          <span class="concept-tag">Bourdieu</span>
+          <span class="concept-tag">Cultural capital</span>
+          <span class="concept-tag">Social reproduction</span>
+        </div>
+      </div>
+      <div class="concept-card" data-searchable="social mobility vertical social mobility lower socio-economic backgrounds improve status academic achievement skill mastery professional credentials primary drivers">
+        <div class="concept-title">📈 Social Mobility</div>
+        <div class="concept-desc">
+          Education acts as one of the primary drivers of vertical social mobility — enabling individuals from lower socio-economic backgrounds to improve their socio-economic status through academic achievement, skill mastery, and professional credentials.
+        </div>
+        <div class="concept-tags">
+          <span class="concept-tag">Vertical mobility</span>
+          <span class="concept-tag">Academic achievement</span>
+          <span class="concept-tag">Credentials</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EQUITY VS EQUALITY -->
+    <div class="section-title">
+      ⚖️ Educational Equity vs. Equality
+      <span class="line"></span>
+    </div>
+
+    <div class="eq-grid" id="eqGrid">
+      <div class="eq-card equality" data-searchable="equality giving every student exact same resources tools identical">
+        <h3><span class="eq-icon">🟰</span> Equality</h3>
+        <p>Giving every student the <strong>exact same resources and tools</strong>. It treats everyone identically, regardless of starting point.</p>
+      </div>
+      <div class="eq-card equity" data-searchable="equity distributing resources individual needs equal opportunities outcomes all learners addressing disparities socio-economic background geographic location urban rural gender marginalized communities">
+        <h3><span class="eq-icon">⚖️</span> Equity</h3>
+        <p>Distributing resources <strong>based on individual needs</strong> to ensure equal opportunities and outcomes for all learners. It addresses disparities related to socio-economic background, geographic location (urban vs. rural), gender equity, and marginalized communities.</p>
+      </div>
+    </div>
+
+    <!-- SUMMARY MATRIX -->
+    <div class="section-title">
+      📊 Summary Matrix
+      <span class="line"></span>
+    </div>
+
+    <div class="matrix-wrapper" data-searchable="summary matrix primary purpose socialization meritocratic selection workforce sorting socio-cultural role transmission cultural norms social cohesion civic citizenship equity progress social mobility closing equity gaps addressing disparities engine social change">
+      <table>
+        <thead>
+          <tr>
+            <th>Primary Purpose</th>
+            <th>Socio-Cultural Role</th>
+            <th>Equity &amp; Progress</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Socialization</td>
+            <td>Transmission of cultural norms</td>
+            <td>Social mobility</td>
+          </tr>
+          <tr>
+            <td>Meritocratic selection</td>
+            <td>Social cohesion</td>
+            <td>Closing equity gaps</td>
+          </tr>
+          <tr>
+            <td>Workforce sorting</td>
+            <td>Civic citizenship</td>
+            <td>Addressing disparities</td>
+          </tr>
+          <tr>
+            <td>—</td>
+            <td>—</td>
+            <td>Engine for social change</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- KEY TAKEAWAY -->
+    <div class="takeaway-card">
+      <strong>🔑 Key Takeaway:</strong> The sociological foundation reveals that education is never neutral — it both mirrors and shapes society. Schools can reproduce inequality (Conflict Theory) or promote mobility (Functionalism), and everyday interactions (Symbolic Interactionism) determine whether students feel labeled or capable. Understanding these dynamics is essential for building a more equitable educational system.
+    </div>
+
+    <!-- ================= QUIZ SECTION ================= -->
+    <div class="quiz-section">
+      <div class="quiz-header">
+        <h2>📝 Practice Quiz</h2>
+        <span class="quiz-badge">Test Your Knowledge</span>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-tabs">
+          <button class="quiz-tab active" data-panel="mcqPanel">🔘 10 MCQs</button>
+          <button class="quiz-tab" data-panel="crqPanel">✍️ 4 CRQs</button>
+          <button class="quiz-tab" data-panel="erqPanel">📄 1 ERQ</button>
+        </div>
+
+        <div class="quiz-panel active" id="mcqPanel">
+          <span class="section-label">Multiple Choice Questions</span>
+          <div id="mcqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="crqPanel">
+          <span class="section-label">Constructed Response Questions</span>
+          <div id="crqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="erqPanel">
+          <span class="section-label">Extended Response Question (Situation-Based)</span>
+          <div id="erqContainer"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      // ================= SEARCH FILTER =================
+      const searchInput = document.getElementById('searchInput');
+      const countDisplay = document.getElementById('countDisplay');
+      const allSearchables = document.querySelectorAll('[data-searchable]');
+      const cardParents = new Map();
+      allSearchables.forEach(card => cardParents.set(card, card.parentNode));
+
+      function applySearch(query) {
+        const q = query.trim().toLowerCase();
+        let visibleCount = 0;
+        allSearchables.forEach(card => {
+          const searchText = (card.dataset.searchable || '').toLowerCase() + ' ' + card.textContent.toLowerCase();
+          const matches = q === '' || searchText.includes(q);
+          if (matches) {
+            visibleCount++;
+            if (!card.parentNode) cardParents.get(card).appendChild(card);
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        countDisplay.textContent = visibleCount + ' item' + (visibleCount !== 1 ? 's' : '');
+      }
+
+      let debounceTimer;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => applySearch(e.target.value), 180);
+      });
+      searchInput.addEventListener('search', (e) => { if (e.target.value === '') applySearch(''); });
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchInput.value !== '') { searchInput.value = ''; applySearch(''); }
+      });
+
+      // ================= QUIZ DATA =================
+      const mcqs = [
+        {
+          q: "What does the sociological foundation of education examine?",
+          options: [
+            "Only classroom management techniques",
+            "The relationship between education, social structures, and human relationships",
+            "The biology of learning",
+            "The history of school buildings"
+          ],
+          correct: 1,
+          feedback: "The sociological foundation examines the dynamic relationship between education, social structures, cultural institutions, and human relationships."
+        },
+        {
+          q: "Which of the following is a manifest function of education?",
+          options: [
+            "Peer network formation",
+            "Youth care and supervision",
+            "Cultural transmission and socialization",
+            "Generation gap creation"
+          ],
+          correct: 2,
+          feedback: "Cultural transmission and socialization are manifest (explicit, intended) functions. Peer networks, youth care, and generation gaps are latent functions."
+        },
+        {
+          q: "Which of the following is a latent function of education?",
+          options: [
+            "Social integration and cohesion",
+            "Skill preparation and career sorting",
+            "Peer network formation",
+            "Civic and political socialization"
+          ],
+          correct: 2,
+          feedback: "Peer network formation is a latent (implicit, unintended) function of education."
+        },
+        {
+          q: "Which sociological perspective emphasizes that education maintains social stability and consensus?",
+          options: ["Conflict Theory", "Symbolic Interactionism", "Functionalism", "Feminism"],
+          correct: 2,
+          feedback: "Functionalism (Durkheim, Parsons) views society as a system of interdependent parts, and education maintains stability and consensus."
+        },
+        {
+          q: "Which perspective argues that education reproduces social inequality and class hierarchies?",
+          options: ["Functionalism", "Conflict Theory", "Symbolic Interactionism", "Behaviorism"],
+          correct: 1,
+          feedback: "Conflict Theory (Marx, Bourdieu) argues that education reproduces social inequality and reinforces privilege."
+        },
+        {
+          q: "Which perspective focuses on teacher expectations and self-fulfilling prophecies?",
+          options: ["Functionalism", "Conflict Theory", "Symbolic Interactionism", "Structuralism"],
+          correct: 2,
+          feedback: "Symbolic Interactionism (Mead, Cooley) focuses on classroom dynamics, teacher-student relationships, and self-fulfilling prophecies."
+        },
+        {
+          q: "What is the 'hidden curriculum'?",
+          options: [
+            "The official textbook content",
+            "Implicit, unwritten social lessons taught in schools",
+            "A secret exam paper",
+            "A government policy document"
+          ],
+          correct: 1,
+          feedback: "The hidden curriculum refers to implicit, unwritten social lessons like punctuality, respect for hierarchy, conformity, and competition."
+        },
+        {
+          q: "According to Pierre Bourdieu, what is 'cultural capital'?",
+          options: [
+            "Money saved for school fees",
+            "Non-financial assets like speech patterns, etiquette, and family networks that give children an advantage",
+            "The number of books in a school library",
+            "Government funding for schools"
+          ],
+          correct: 1,
+          feedback: "Cultural capital refers to non-financial assets (speech patterns, etiquette, cultural background, family networks) passed down by higher-status families."
+        },
+        {
+          q: "What is the difference between equality and equity in education?",
+          options: [
+            "They mean the same thing",
+            "Equality gives everyone the same resources; equity distributes resources based on individual needs",
+            "Equality is for rich students; equity is for poor students",
+            "Equity gives everyone the same resources; equality distributes based on needs"
+          ],
+          correct: 1,
+          feedback: "Equality means giving every student the exact same resources. Equity means distributing resources based on individual needs to ensure equal opportunities and outcomes for all."
+        },
+        {
+          q: "How does education contribute to social mobility?",
+          options: [
+            "By keeping everyone in the same social class",
+            "By enabling individuals from lower socio-economic backgrounds to improve their status through achievement and credentials",
+            "By reducing the number of schools",
+            "By eliminating all assessments"
+          ],
+          correct: 1,
+          feedback: "Education acts as a primary driver of vertical social mobility, enabling individuals from lower backgrounds to improve their socio-economic status through academic achievement and credentials."
+        }
+      ];
+
+      const crqs = [
+        {
+          q: "Explain the difference between manifest and latent functions of education, giving two examples of each.",
+          hint: "Manifest = intended/explicit; Latent = unintended/implicit.",
+          keywords: ["manifest", "intended", "explicit", "cultural transmission", "socialization", "career sorting", "civic", "latent", "unintended", "implicit", "peer network", "youth care", "generation gap", "social status"],
+          model: "Manifest functions are the intended, explicit goals of education — e.g., cultural transmission (passing down values and traditions) and socialization (teaching students to interact and obey laws). Latent functions are unintended, secondary outcomes — e.g., peer network formation (creating friendships) and youth care and supervision (providing a safe place while parents work)."
+        },
+        {
+          q: "Compare Functionalism and Conflict Theory as sociological perspectives on education.",
+          hint: "Functionalism emphasizes stability and meritocracy; Conflict Theory emphasizes inequality and reproduction.",
+          keywords: ["functionalism", "durkheim", "parsons", "stability", "consensus", "meritocracy", "social roles", "conflict theory", "marx", "bourdieu", "inequality", "reproduction", "privilege", "hidden curriculum", "cultural capital"],
+          model: "Functionalism (Durkheim, Parsons) views society as a system of interdependent parts; education maintains social stability and consensus, prepares individuals for social roles, and fills workforce needs through meritocracy. Conflict Theory (Marx, Bourdieu) views society as driven by competition for resources; education reproduces social inequality and class hierarchies, reinforcing privilege through hidden curricula, standardized testing, and unequal funding."
+        },
+        {
+          q: "Explain the 'hidden curriculum' and give three examples of what it teaches.",
+          hint: "Think about unwritten social lessons schools transmit beyond official textbooks.",
+          keywords: ["hidden curriculum", "implicit", "unwritten", "social lessons", "punctuality", "discipline", "respect for hierarchy", "authority", "conformity", "competition"],
+          model: "The hidden curriculum refers to the implicit, unwritten social lessons that schools transmit beyond official textbooks and lesson plans. Three examples: (1) Punctuality and discipline — adhering to schedules, bell rings, and deadlines. (2) Respect for hierarchy — following instructions from authority figures. (3) Conformity and competition — balancing individual performance against peer grading systems."
+        },
+        {
+          q: "What is cultural capital (Bourdieu) and how does it relate to social reproduction?",
+          hint: "Focus on non-financial assets and how schools unintentionally replicate class structures.",
+          keywords: ["cultural capital", "bourdieu", "non-financial", "speech patterns", "etiquette", "cultural background", "family networks", "higher-status", "advantage", "social reproduction", "replicate", "social class", "generations"],
+          model: "Cultural capital (Bourdieu) refers to non-financial assets — such as speech patterns, etiquette, cultural background, and family networks — passed down by higher-status families that give children an advantage in educational institutions. Social reproduction is the process through which schools unintentionally replicate existing social class structures across generations, often because the education system values the cultural capital of dominant groups."
+        }
+      ];
+
+      const erq = {
+        q: `A government school in a rural area of Pakistan serves students from very poor families. Most students fail the standardized national exam because they lack textbooks, internet access, and quiet study space at home. Meanwhile, a private school in the same city — serving wealthy families — has well-equipped labs, trained teachers, and small class sizes.
+
+Using the sociological perspectives and concepts you have learned, explain what is happening in this situation. Specifically:
+• Identify which sociological perspective best explains this inequality and why.
+• Explain how cultural capital and social reproduction are at work.
+• Suggest TWO ways education could promote equity (not just equality) for the rural students.`,
+        marks: "10 marks",
+        model: `
+          <strong>Model Answer (key points):</strong><br><br>
+          <strong>1. Perspective — Conflict Theory:</strong> Conflict Theory (Marx, Bourdieu) best explains this inequality. It argues that education reproduces social inequality and class hierarchies. The private school reinforces privilege through better resources, trained teachers, and small classes, while the rural school is under-resourced. The system is not neutral — it favors those with existing advantages.<br><br>
+          <strong>2. Cultural Capital &amp; Social Reproduction:</strong> The wealthy students possess cultural capital — speech patterns, etiquette, family networks, and familiarity with academic norms — that gives them an advantage. The rural students lack this capital. This leads to social reproduction: schools unintentionally replicate existing class structures across generations, so the rich stay rich and the poor stay poor.<br><br>
+          <strong>3. Two ways to promote equity:</strong> (1) Provide targeted resources to rural schools — free textbooks, internet access, libraries, and extra tutoring — distributing resources based on need (equity, not equality). (2) Train and deploy qualified teachers to rural areas with incentives, and reduce class sizes so students get adequate attention. Other valid answers: scholarships, community study centers, or curriculum that values local knowledge.<br><br>
+          <em>Note: Symbolic Interactionism could also be mentioned — if teachers expect rural students to fail, self-fulfilling prophecies may worsen outcomes.</em>
+        `
+      };
+
+      // ================= RENDER MCQs =================
+      const mcqContainer = document.getElementById('mcqContainer');
+      let mcqHtml = '';
+      mcqs.forEach((item, idx) => {
+        const letters = ['A', 'B', 'C', 'D'];
+        let optionsHtml = '';
+        item.options.forEach((opt, oi) => {
+          optionsHtml += `
+            <div class="mcq-option" data-qidx="${idx}" data-oidx="${oi}">
+              <span class="option-letter">${letters[oi]}</span>
+              <span>${opt}</span>
+            </div>
+          `;
+        });
+        mcqHtml += `
+          <div class="mcq-item" id="mcq-${idx}">
+            <div class="mcq-question">${idx + 1}. ${item.q}</div>
+            <div class="mcq-options">${optionsHtml}</div>
+            <div class="mcq-feedback" id="mcq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      mcqContainer.innerHTML = mcqHtml;
+
+      mcqContainer.addEventListener('click', (e) => {
+        const option = e.target.closest('.mcq-option');
+        if (!option) return;
+        const qidx = parseInt(option.dataset.qidx);
+        const oidx = parseInt(option.dataset.oidx);
+        const mcq = mcqs[qidx];
+        const parentItem = document.getElementById(`mcq-${qidx}`);
+        const allOptions = parentItem.querySelectorAll('.mcq-option');
+        const feedbackEl = document.getElementById(`mcq-fb-${qidx}`);
+        if (parentItem.dataset.answered === 'correct') return;
+        allOptions.forEach(opt => opt.classList.remove('selected', 'correct', 'incorrect'));
+        option.classList.add('selected');
+        if (oidx === mcq.correct) {
+          option.classList.add('correct');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '✅ Correct! ' + mcq.feedback;
+          feedbackEl.className = 'mcq-feedback show correct-fb';
+          parentItem.dataset.answered = 'correct';
+        } else {
+          option.classList.add('incorrect');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '❌ Not quite. Try again!';
+          feedbackEl.className = 'mcq-feedback show incorrect-fb';
+          setTimeout(() => {
+            if (feedbackEl.classList.contains('incorrect-fb')) {
+              feedbackEl.classList.remove('show');
+            }
+          }, 1500);
+        }
+      });
+
+      // ================= RENDER CRQs =================
+      const crqContainer = document.getElementById('crqContainer');
+      let crqHtml = '';
+      crqs.forEach((item, idx) => {
+        crqHtml += `
+          <div class="crq-item" id="crq-${idx}">
+            <div class="crq-question">${idx + 1}. ${item.q}</div>
+            <div class="crq-hint">💡 Hint: ${item.hint}</div>
+            <textarea class="crq-textarea" id="crq-ta-${idx}" placeholder="Write your answer here..."></textarea>
+            <div class="crq-actions">
+              <button class="btn btn-primary" data-crq-check="${idx}">Check Answer</button>
+              <button class="btn btn-secondary" data-crq-clear="${idx}">Clear</button>
+            </div>
+            <div class="crq-feedback" id="crq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      crqContainer.innerHTML = crqHtml;
+
+      crqContainer.addEventListener('click', (e) => {
+        const checkBtn = e.target.closest('[data-crq-check]');
+        const clearBtn = e.target.closest('[data-crq-clear]');
+        if (checkBtn) {
+          const idx = parseInt(checkBtn.dataset.crqCheck);
+          const textarea = document.getElementById(`crq-ta-${idx}`);
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          const answer = textarea.value.trim().toLowerCase();
+          const crq = crqs[idx];
+          if (answer.length < 10) {
+            feedback.textContent = '⚠️ Please write a more complete answer (at least a sentence or two).';
+            feedback.className = 'crq-feedback show partial';
+            return;
+          }
+          const matched = crq.keywords.filter(kw => answer.includes(kw));
+          const ratio = matched.length / crq.keywords.length;
+          if (ratio >= 0.35) {
+            feedback.innerHTML = `✅ <strong>Good answer!</strong> You covered key ideas.<br><br><em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show good';
+          } else {
+            feedback.innerHTML = `📝 <strong>Partially correct.</strong> You mentioned some ideas. Try to include more key concepts.<br><br><em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show partial';
+          }
+        }
+        if (clearBtn) {
+          const idx = parseInt(clearBtn.dataset.crqClear);
+          document.getElementById(`crq-ta-${idx}`).value = '';
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          feedback.className = 'crq-feedback';
+          feedback.textContent = '';
+        }
+      });
+
+      // ================= RENDER ERQ =================
+      const erqContainer = document.getElementById('erqContainer');
+      erqContainer.innerHTML = `
+        <div class="erq-item">
+          <div class="erq-marks">${erq.marks}</div>
+          <div class="erq-question">${erq.q}</div>
+          <textarea class="erq-textarea" id="erq-ta" placeholder="Write your detailed answer here. Identify the perspective, explain cultural capital and social reproduction, and suggest two equity measures..."></textarea>
+          <div class="erq-actions">
+            <button class="btn btn-primary" id="erqCheck">Check Answer</button>
+            <button class="btn btn-secondary" id="erqClear">Clear</button>
+          </div>
+          <div class="erq-feedback" id="erq-fb"></div>
+        </div>
+      `;
+
+      document.getElementById('erqCheck').addEventListener('click', () => {
+        const ta = document.getElementById('erq-ta');
+        const fb = document.getElementById('erq-fb');
+        const answer = ta.value.trim().toLowerCase();
+        if (answer.length < 50) {
+          fb.textContent = '⚠️ Please write a more detailed answer. Address all three parts of the question.';
+          fb.className = 'erq-feedback show partial';
+          return;
+        }
+        const keywords = ['conflict theory', 'cultural capital', 'social reproduction', 'equity', 'equality', 'resources', 'inequality', 'bourdieu', 'marx', 'rural', 'need', 'tutoring', 'teachers', 'scholarship'];
+        const found = keywords.filter(k => answer.includes(k));
+        if (found.length >= 3) {
+          fb.innerHTML = `✅ <strong>Excellent effort!</strong> You connected the situation to sociological theory and concepts. Compare your answer with the model below.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show model';
+        } else if (found.length >= 1) {
+          fb.innerHTML = `📝 <strong>Good start!</strong> Try to explicitly name the perspective, explain cultural capital and social reproduction, and suggest two equity measures.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        } else {
+          fb.innerHTML = `⚠️ Make sure to address all three parts: identify the perspective, explain cultural capital and social reproduction, and suggest two equity measures.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        }
+      });
+
+      document.getElementById('erqClear').addEventListener('click', () => {
+        document.getElementById('erq-ta').value = '';
+        const fb = document.getElementById('erq-fb');
+        fb.className = 'erq-feedback';
+        fb.textContent = '';
+      });
+
+      // ================= QUIZ TABS =================
+      const tabs = document.querySelectorAll('.quiz-tab');
+      const panels = document.querySelectorAll('.quiz-panel');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          panels.forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(tab.dataset.panel).classList.add('active');
+        });
+      });
+
+      // Initial count
+      countDisplay.textContent = allSearchables.length + ' items';
+    })();
+  </script>
+</body>
+</html>

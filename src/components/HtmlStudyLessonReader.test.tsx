@@ -8,6 +8,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { HtmlStudyLessonReader } from './HtmlStudyLessonReader';
 import { FOUNDATIONS_OF_EDUCATION_LESSONS, FOUNDATIONS_OF_EDUCATION_SUBJECT } from '../data/foundationsOfEducationNotes';
 import { METHODS_OF_TEACHING_LESSONS, METHODS_OF_TEACHING_SUBJECT } from '../data/methodsOfTeachingNotes';
+import { CHILD_DEVELOPMENT_LESSONS, CHILD_DEVELOPMENT_SUBJECT } from '../data/childDevelopmentNotes';
 import { STUDY_CURRICULUM } from '../data/studyNotesData';
 
 const documents = [
@@ -67,14 +68,72 @@ const documents = [
     grids: ['branchesGrid', 'schoolsGrid', 'impactGrid'],
     crqs: 4,
   },
+  {
+    lessonId: 'foundations-sociological',
+    path: 'notes/foundations-of-education/sociological-foundations-of-education.html',
+    heading: 'Sociological Foundations of Education',
+    grids: ['functionsGrid', 'perspectivesGrid', 'conceptsGrid', 'eqGrid'],
+    crqs: 4,
+  },
+  {
+    lessonId: 'foundations-psychological',
+    path: 'notes/foundations-of-education/psychological-foundations-of-education.html',
+    heading: 'Psychological Foundations of Education',
+    grids: ['domainsGrid', 'theoriesGrid', 'stagesGrid', 'factorsGrid'],
+    crqs: 4,
+  },
+  {
+    lessonId: 'foundations-historical',
+    path: 'notes/foundations-of-education/historical-foundations-of-education.html',
+    heading: 'Historical Foundations of Education',
+    grids: ['erasGrid', 'lessonsGrid'],
+    crqs: 4,
+  },
+  {
+    lessonId: 'child-dev-major-theories',
+    path: 'notes/child-development/major-theories-and-domains-of-child-development.html',
+    heading: 'Major Theories &amp; Domains of Child Development',
+    grids: ['domainsGrid', 'theoriesGrid'],
+    crqs: 4,
+  },
+  {
+    lessonId: 'child-dev-developmental-stages',
+    path: 'notes/child-development/characteristics-of-various-developmental-stages-according-to-various-theorists.html',
+    heading: 'Characteristics of Various Developmental Stages According to Various Theorists',
+    grids: ['domainsGrid', 'theoristsGrid', 'otherGrid', 'ageGrid', 'examGrid'],
+    crqs: 4,
+  },
+  {
+    lessonId: 'child-dev-factors-influencing-learning',
+    path: 'notes/child-development/factors-influencing-the-learning-process-of-a-child.html',
+    heading: 'Factors Influencing the Learning Process of a Child',
+    grids: ['factorsGrid', 'termsGrid'],
+    crqs: 4,
+  },
+  {
+    lessonId: 'child-dev-individual-differences-special-needs',
+    path: 'notes/child-development/individual-differences-between-students-and-children-with-special-needs.html',
+    heading: 'Individual Differences Between Students &amp; Children with Special Needs',
+    grids: ['typesGrid', 'needsGrid', 'examGrid'],
+    crqs: 4,
+  },
 ];
 
-const allHtmlLessons = [...METHODS_OF_TEACHING_LESSONS, ...FOUNDATIONS_OF_EDUCATION_LESSONS];
+const allHtmlLessons = [
+  ...METHODS_OF_TEACHING_LESSONS,
+  ...FOUNDATIONS_OF_EDUCATION_LESSONS,
+  ...CHILD_DEVELOPMENT_LESSONS,
+];
 
 test('supplied HTML documents are attached to matching topics without duplicating lessons', () => {
   assert.equal(METHODS_OF_TEACHING_LESSONS.length, 6);
   assert.ok(FOUNDATIONS_OF_EDUCATION_LESSONS.length >= 1);
-  const curriculumLessons = [METHODS_OF_TEACHING_SUBJECT, FOUNDATIONS_OF_EDUCATION_SUBJECT].flatMap((item) => {
+  assert.equal(CHILD_DEVELOPMENT_LESSONS.length, 4);
+  const curriculumLessons = [
+    METHODS_OF_TEACHING_SUBJECT,
+    FOUNDATIONS_OF_EDUCATION_SUBJECT,
+    CHILD_DEVELOPMENT_SUBJECT,
+  ].flatMap((item) => {
     const subject = STUDY_CURRICULUM.find((entry) => entry.id === item.id)!;
     return subject.chapters.flatMap(chapter => chapter.topics.flatMap(topic => topic.lessons));
   });

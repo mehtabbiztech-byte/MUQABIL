@@ -1142,6 +1142,718 @@ export const FOUNDATIONS_OF_EDUCATION_TOPICS: LicenseTopicNote[] = [
       'Trap: Treating Existentialism as focused on external authority; it centers individual existence, free will, and personal responsibility.',
     ],
   },
+  {
+    id: 'foundations-sociological',
+    topicNumber: '3',
+    title: 'Sociological Foundations of Education',
+    readTime: '9 min read',
+    htmlNotesPath: 'notes/foundations-of-education/sociological-foundations-of-education.html',
+    summary:
+      'The sociological foundation views education as a vital social institution that shapes, and is shaped by, society. It examines how schools socialize individuals, influence social mobility, reproduce or challenge social stratification, and transmit cultural capital. Core functions include manifest functions (cultural transmission, secondary socialization, economic and workforce sorting, social cohesion) and latent functions (peer networking, custodial supervision, creation of generation gaps). Major sociological perspectives include Functionalism (Durkheim, Parsons — education maintains social stability and consensus), Conflict Theory (Marx, Bourdieu — education reproduces class inequality and preserves elite privilege through cultural capital and hidden curricula), and Symbolic Interactionism (Mead, Cooley — face-to-face classroom interactions, labeling, and self-fulfilling prophecies). Crucially, educational equity focuses on distributing resources based on learner need to overcome historical and socio-economic disparities, rather than merely treating unequal starting points with identical resources (equality).',
+    highYieldAlert:
+      'STS High-Yield: Distinguish between manifest functions (intended: cultural transmission, socialization, workforce sorting) and latent functions (unintended: peer networks, childcare, generation gap); match theories: Functionalism (Durkheim/Parsons: consensus & meritocracy) vs Conflict Theory (Marx/Bourdieu: inequality reproduction & cultural capital) vs Symbolic Interactionism (Mead/Cooley: labeling & self-fulfilling prophecy); and remember Equity = needs-based resources vs Equality = identical resources.',
+    concepts: [
+      {
+        conceptTitle: 'Core Functions of Education in Society',
+        explanation: 'Manifest (explicit) vs Latent (implicit/unintended) societal outcomes.',
+        keyTerms: [
+          {
+            term: 'Manifest Functions',
+            definition:
+              'Explicit, intended goals: Cultural Transmission (passing down values/norms), Socialization (learning laws/rules), Social & Economic Sorting (allocating careers by merit), and Social Integration/Cohesion (unifying diverse groups).',
+          },
+          {
+            term: 'Latent Functions',
+            definition:
+              'Implicit, unintended outcomes: Peer network formation, youth custodial supervision while guardians work, generation gap creation, and status hierarchy maintenance.',
+          },
+        ],
+      },
+      {
+        conceptTitle: 'Major Sociological Perspectives',
+        explanation: 'The three theoretical paradigms that explain the social role of schools.',
+        keyTerms: [
+          {
+            term: 'Functionalism (Durkheim, Parsons)',
+            definition:
+              'Views society as an interdependent system where education maintains stability, social consensus, and meritocratic occupational allocation.',
+          },
+          {
+            term: 'Conflict Theory (Marx, Bourdieu)',
+            definition:
+              'Views education as reproducing social inequality, class stratification, and elite privilege through cultural capital and unequal institutional resources.',
+          },
+          {
+            term: 'Symbolic Interactionism (Mead, Cooley)',
+            definition:
+              'Focuses on micro-level classroom interactions, teacher expectations, student labeling, and self-fulfilling prophecies.',
+          },
+        ],
+      },
+      {
+        conceptTitle: 'Key Sociological Mechanisms',
+        explanation: 'Structures that mediate school outcomes.',
+        keyTerms: [
+          {
+            term: 'Hidden Curriculum',
+            definition:
+              'Implicit, unwritten norms taught in schools: punctuality, deference to authority, competition, and adherence to bureaucratic routines.',
+          },
+          {
+            term: 'Cultural Capital (Bourdieu)',
+            definition:
+              'Non-financial assets (speech styles, etiquette, cultural background, family networks) passed down by higher-status families that confer school advantages.',
+          },
+          {
+            term: 'Educational Equity vs. Equality',
+            definition:
+              'Equality gives every student identical resources regardless of starting position; Equity allocates resources according to individual student need to ensure fair, equal outcomes.',
+          },
+        ],
+      },
+    ],
+    frequentExamQuestions: [
+      {
+        question: 'Explain the difference between manifest and latent functions of education with two examples of each.',
+        answer:
+          'Manifest functions are explicit and intentional — such as cultural transmission (passing down national history and values) and economic sorting (preparing students for careers). Latent functions are secondary and unintended — such as peer network formation and providing daytime childcare for working parents.',
+      },
+      {
+        question: 'Compare Functionalism and Conflict Theory regarding the role of schooling in society.',
+        answer:
+          'Functionalism (Durkheim, Parsons) asserts that schooling creates harmony, social integration, and meritocracy. Conflict Theory (Marx, Bourdieu) argues that schooling preserves power differentials, legitimizes socio-economic inequality, and favors students possessing dominant cultural capital.',
+      },
+      {
+        question: 'What is the "hidden curriculum" and what implicit behaviors does it reinforce?',
+        answer:
+          'The hidden curriculum consists of unwritten institutional lessons transmitted through classroom norms, such as punctuality, compliance with authority, competition for rank, and respect for social hierarchy.',
+      },
+      {
+        question: 'Distinguish between educational equality and educational equity with a practical example.',
+        answer:
+          'Equality provides identical resources (e.g. giving every student the same textbook). Equity provides resources based on specific learner needs (e.g. providing assistive technology or remedial tutoring to disadvantaged students so all can succeed).',
+      },
+    ],
+    quickQuiz: [
+      {
+        id: 'quiz-soc-1',
+        question: 'Which of the following is considered a latent function of schooling?',
+        options: [
+          'Cultural transmission',
+          'Peer network formation and childcare',
+          'Vocational workforce sorting',
+          'Civic knowledge instruction',
+        ],
+        correctIndex: 1,
+        explanation:
+          'Peer network formation and custodial childcare are latent (unintended/secondary) functions of schools.',
+      },
+      {
+        id: 'quiz-soc-2',
+        question: 'Which perspective argues that schools reproduce social class inequality and reward cultural capital?',
+        options: ['Functionalism', 'Conflict Theory', 'Symbolic Interactionism', 'Behaviorism'],
+        correctIndex: 1,
+        explanation:
+          'Conflict Theory (Karl Marx, Pierre Bourdieu) argues that schooling reproduces class inequality and advantages those with dominant cultural capital.',
+      },
+      {
+        id: 'quiz-soc-3',
+        question: 'What does "educational equity" mean compared to "equality"?',
+        options: [
+          'Giving every single student the exact same materials',
+          'Distributing resources according to individual student need for fair outcomes',
+          'Lowering standards for all learners',
+          'Privatizing underperforming schools',
+        ],
+        correctIndex: 1,
+        explanation:
+          'Equity means differentiating resource distribution based on learner need so that all students achieve equal opportunity and success.',
+      },
+    ],
+    examDistractorTraps: [
+      'Trap: Conflating Equality and Equity — equality gives identical inputs, equity gives differentiated inputs based on need for fair outcomes.',
+      'Trap: Labeling cultural transmission as a latent function — it is an explicit, intentional manifest function.',
+      'Trap: Attributing teacher-expectancy self-fulfilling prophecies to Conflict Theory; that micro-level phenomenon is analyzed by Symbolic Interactionism.',
+    ],
+  },
+  {
+    id: 'foundations-psychological',
+    topicNumber: '4',
+    title: 'Psychological Foundations of Education',
+    readTime: '9 min read',
+    htmlNotesPath: 'notes/foundations-of-education/psychological-foundations-of-education.html',
+    summary:
+      'Educational psychology provides the scientific understanding of how learning takes place, how human beings develop across cognitive, physical, and socio-emotional domains, and how motivation influences achievement. The four major learning theories each provide indispensable pedagogical tools: Behaviorism (Pavlov, Watson, Skinner) focuses on observable behavior shaped by stimuli, conditioning, drills, and reinforcement; Cognitivism (Piaget, Bruner, Gagné) examines internal information processing, sensory/working/long-term memory structures, chunking, and schemas; Constructivism (Piaget, Vygotsky) posits that learners actively construct knowledge through experiential inquiry, scaffolding, and interaction within the Zone of Proximal Development (ZPD); and Humanism (Maslow, Rogers) addresses holistic personal growth, affective needs, emotional safety, and self-actualization. Developmental stages (Piaget\'s preoperational, concrete operational, and formal operational) guide age-appropriate curriculum design, while Gardner\'s Multiple Intelligences and motivation theory (intrinsic vs extrinsic) drive differentiated, inclusive instruction.',
+    highYieldAlert:
+      'STS High-Yield: Match theories to thinkers: Behaviorism (Skinner/Pavlov/Watson — conditioning/reinforcement), Cognitivism (Piaget/Bruner/Gagné — memory models/schemas), Constructivism (Vygotsky ZPD/scaffolding; Piaget active construction), Humanism (Maslow hierarchy/Rogers); know Piaget stages: Preoperational (2-7 yrs), Concrete (7-11 yrs), Formal (12+ yrs); and recognize that Maslow deficiency needs must be met before higher learning occurs.',
+    concepts: [
+      {
+        conceptTitle: 'Major Learning Theories in Education',
+        explanation: 'Four psychological paradigms explaining how learning happens.',
+        keyTerms: [
+          {
+            term: 'Behaviorism (Pavlov, Watson, Skinner)',
+            definition:
+              'Learning is an observable change in behavior resulting from external stimuli, classical/operant conditioning, practice drills, and immediate positive reinforcement.',
+          },
+          {
+            term: 'Cognitivism (Piaget, Bruner, Gagné)',
+            definition:
+              'Learning is an internal mental process of encoding, organizing, storing, and retrieving information using sensory, working, and long-term memory schemas.',
+          },
+          {
+            term: 'Constructivism (Piaget, Vygotsky)',
+            definition:
+              'Learners actively construct their own knowledge through experience, inquiry, and social collaboration within the Zone of Proximal Development (ZPD) with scaffolding.',
+          },
+          {
+            term: 'Humanism (Maslow, Rogers)',
+            definition:
+              'Learning is a holistic, person-centered process driven by emotional security, self-esteem, unconditional positive regard, and self-actualization.',
+          },
+        ],
+      },
+      {
+        conceptTitle: 'Developmental Stages & Cognitive Growth',
+        explanation: 'Piaget’s stages of cognitive development.',
+        keyTerms: [
+          {
+            term: 'Preoperational Stage (Ages 2–7)',
+            definition:
+              'Symbolic thinking, rapid language acquisition, egocentric worldview; requires sensory manipulatives and play-based activities.',
+          },
+          {
+            term: 'Concrete Operational Stage (Ages 7–11)',
+            definition:
+              'Logical thinking about tangible, concrete objects; mastery of conservation, seriation, and classification using hands-on experiments.',
+          },
+          {
+            term: 'Formal Operational Stage (Ages 12+)',
+            definition:
+              'Abstract logic, hypothetical-deductive reasoning, metacognition, and systematic problem solving.',
+          },
+        ],
+      },
+      {
+        conceptTitle: 'Motivation & Individual Differences',
+        explanation: 'Factors driving student engagement and diversity.',
+        keyTerms: [
+          {
+            term: 'Intrinsic vs Extrinsic Motivation',
+            definition:
+              'Intrinsic motivation stems from internal curiosity and joy of mastery; extrinsic motivation is driven by grades, praise, tokens, or avoiding sanctions.',
+          },
+          {
+            term: 'Multiple Intelligences (Howard Gardner)',
+            definition:
+              'Eight distinct modalities of intelligence (Linguistic, Logical-Mathematical, Spatial, Musical, Bodily-Kinesthetic, Interpersonal, Intrapersonal, Naturalistic) supporting differentiated instruction.',
+          },
+        ],
+      },
+    ],
+    frequentExamQuestions: [
+      {
+        question: 'Compare Behaviorism and Constructivism in their view of instruction and classroom roles.',
+        answer:
+          'Behaviorism treats the learner as a responder to stimuli, using direct instruction, reinforcement, and repetitive drill. Constructivism views the learner as an active investigator, using inquiry-based tasks, peer collaboration, and scaffolded problem-solving.',
+      },
+      {
+        question: 'Explain Vygotsky’s Zone of Proximal Development (ZPD) and how scaffolding operates within it.',
+        answer:
+          'The ZPD is the distance between what a child can do independently and what they can achieve with guidance. Scaffolding consists of temporary teacher or peer prompts, cues, and models that are systematically faded as learner mastery increases.',
+      },
+      {
+        question: 'What instructional shift must occur between Piaget’s Concrete and Formal Operational stages?',
+        answer:
+          'Concrete operational students need physical manipulatives, visual aids, and concrete demonstrations. Formal operational students can manipulate hypothetical propositions, symbolic formulas, and abstract philosophical questions.',
+      },
+      {
+        question: 'How does Maslow’s Hierarchy of Needs influence classroom readiness to learn?',
+        answer:
+          'Lower deficiency needs (physiological safety, nutrition, feeling emotionally welcome) take neurological precedence. If a student is hungry, fearful, or humiliated, cognitive processing is impaired and higher-order learning cannot occur.',
+      },
+    ],
+    quickQuiz: [
+      {
+        id: 'quiz-psy-1',
+        question: 'According to Vygotsky, the gap between what a learner can do independently and with guidance is called:',
+        options: ['Schema equilibrium', 'Zone of Proximal Development (ZPD)', 'Operant conditioning', 'Information processing window'],
+        correctIndex: 1,
+        explanation:
+          'The Zone of Proximal Development (ZPD) is the range between independent capability and assisted achievement.',
+      },
+      {
+        id: 'quiz-psy-2',
+        question: 'Which learning theory emphasizes internal memory structures, chunking, and schemas?',
+        options: ['Behaviorism', 'Cognitivism', 'Humanism', 'Existentialism'],
+        correctIndex: 1,
+        explanation:
+          'Cognitivism focuses on internal mental operations: information processing, sensory/working/long-term memory, and cognitive schemas.',
+      },
+      {
+        id: 'quiz-psy-3',
+        question: 'Who proposed the theory of Multiple Intelligences?',
+        options: ['B.F. Skinner', 'Howard Gardner', 'Jean Piaget', 'Abraham Maslow'],
+        correctIndex: 1,
+        explanation:
+          'Howard Gardner developed the theory of Multiple Intelligences, identifying at least 8 distinct modalities.',
+      },
+    ],
+    examDistractorTraps: [
+      'Trap: Crediting Piaget with the Zone of Proximal Development — ZPD and scaffolding belong to Lev Vygotsky’s social constructivism.',
+      'Trap: Assuming extrinsic rewards always improve learning — over-reliance on extrinsic rewards can undermine intrinsic curiosity (overjustification effect).',
+      'Trap: Believing Formal Operational thinking begins in early childhood — Piaget identified formal abstract reasoning starting around age 12.',
+    ],
+  },
+  {
+    id: 'foundations-historical',
+    topicNumber: '5',
+    title: 'Historical Foundations of Education',
+    readTime: '9 min read',
+    htmlNotesPath: 'notes/foundations-of-education/historical-foundations-of-education.html',
+    summary:
+      'The historical foundation traces the evolution of educational systems, philosophical currents, institutions, and policies over time. It reveals that contemporary school practices — such as age-grading, compulsory attendance, standardized testing, and liberal arts curricula — are not accidental, but the outcomes of historical struggles and social transformations. Ancient Civilizations (India, China, Egypt, Mesopotamia) focused on religious preservation, scribal record-keeping, and moral ethics. Classical Antiquity (Athens and Rome) birthed liberal education for democratic citizenship, the Socratic method of dialogue, rhetoric, and civic duty, contrasted with Spartan military training. The Medieval Era and Islamic Golden Age synthesized classical scholarship with religious ethics, establishing early universities (Bologna, Paris, Oxford) and renowned research academies/libraries (House of Wisdom in Baghdad, Ibn Sina, Al-Farabi, Ibn Khaldun). The Renaissance, Reformation, and Scientific Revolution brought humanism, universal vernacular literacy (Martin Luther), and empirical science (Bacon, Descartes). The Industrial Era established the Prussian factory model of compulsory age-graded schooling and Horace Mann\'s Common School Movement. Three overarching historical lessons emerge: the evolution of educational purpose from religious preservation to global innovation; the shift in access from elite privilege to universal human right; and the pedagogical shift from rote memorization and corporal punishment to student-centered, psychologically informed learning.',
+    highYieldAlert:
+      'STS High-Yield: Know the key historical milestones: Ancient era (moral order/religious texts/scribes); Classical Athens (Liberal Education for citizenship & Socratic method); Medieval (Trivium & Quadrivium liberal arts; Islamic Golden Age House of Wisdom, Ibn Sina, Ibn Khaldun); Reformation (Martin Luther: universal vernacular literacy); Industrial Era (Prussian age-graded compulsory schooling; Horace Mann: Common School Movement); and the 3 Core Lessons (Purpose, Access, Pedagogy).',
+    concepts: [
+      {
+        conceptTitle: 'Ancient & Classical Eras in Education',
+        explanation: 'The roots of formal instruction, citizenship, and scholarship.',
+        keyTerms: [
+          {
+            term: 'Ancient Civilizations',
+            definition:
+              'India (Gurukul oral Vedic traditions and character formation), China (Confucian civil service exams and meritocracy), Egypt & Mesopotamia (scribal administration, mathematics, astronomy).',
+          },
+          {
+            term: 'Classical Antiquity (Greece & Rome)',
+            definition:
+              'Athens: Liberal education educating the whole person (mind, body, spirit) for democratic citizenship, Socratic dialogue; Sparta: military Agoge; Rome: law, administration, rhetoric, and Quintilian’s teacher training.',
+          },
+        ],
+      },
+      {
+        conceptTitle: 'Medieval & Early Modern Eras',
+        explanation: 'Institutional universities and scientific revolution.',
+        keyTerms: [
+          {
+            term: 'Medieval & Islamic Golden Age',
+            definition:
+              'Western Europe: Trivium (Grammar, Rhetoric, Logic) + Quadrivium (Arithmetic, Geometry, Music, Astronomy), early universities (Bologna, Oxford); Islamic Golden Age: House of Wisdom, madrasahs, translating Greek science, Ibn Sina, Ibn Khaldun.',
+          },
+          {
+            term: 'Renaissance, Reformation & Scientific Revolution',
+            definition:
+              'Humanist focus on classical arts; Martin Luther’s call for universal literacy so common citizens could read vernacular scriptures; Bacon and Descartes introducing empiricism and the scientific method.',
+          },
+        ],
+      },
+      {
+        conceptTitle: 'Industrial Era & Modern Schooling',
+        explanation: 'The creation of public, universal, standardized mass education.',
+        keyTerms: [
+          {
+            term: 'Prussian Factory Model of Schooling',
+            definition:
+              'Introduced compulsory attendance, standardized age-graded classrooms, uniform curricula, and bells to produce a disciplined, literate industrial population.',
+          },
+          {
+            term: 'Horace Mann & Common School Movement',
+            definition:
+              '19th-century American reform establishing taxpayer-funded, universal, non-sectarian public schools open to all social classes.',
+          },
+          {
+            term: 'Three Core Lessons of Educational History',
+            definition:
+              '1. Purpose evolved from religious dogma to holistic self-actualization; 2. Access shifted from elite privilege to a universal human right; 3. Pedagogy shifted from punitive rote drill to student-centered inquiry.',
+          },
+        ],
+      },
+    ],
+    frequentExamQuestions: [
+      {
+        question: 'Explain how Athenian liberal education differed from the Spartan educational model.',
+        answer:
+          'Athens focused on cultivating the whole person (intellectual inquiry, physical prowess, aesthetic appreciation, and civic participation) for democratic governance. Sparta focused on the Agoge — a state-run, rigorous military training regimen enforcing strict discipline and martial obedience.',
+      },
+      {
+        question: 'What were the Trivium and Quadrivium in medieval education?',
+        answer:
+          'The Trivium consisted of the language arts: Grammar, Rhetoric, and Logic. The Quadrivium comprised the mathematical arts: Arithmetic, Geometry, Music, and Astronomy. Together they made up the seven liberal arts.',
+      },
+      {
+        question: 'Why was Martin Luther’s advocacy for vernacular literacy a watershed moment for public education?',
+        answer:
+          'By demanding that every Christian be able to read scriptures in their own native language, Martin Luther laid the philosophical and moral justification for state-supported, universal public schooling for boys and girls alike.',
+      },
+      {
+        question: 'Summarize the three core lessons learned from educational history.',
+        answer:
+          '1. Evolution of Purpose: Education transitioned from religious preservation and elite leadership toward workforce efficiency, individual empowerment, and global problem solving. 2. Access: Schooling transformed from an exclusive privilege into a universal human right. 3. Pedagogy: Methods evolved from harsh rote drill and corporal punishment into empathetic, student-centered, scientifically validated instruction.',
+      },
+    ],
+    quickQuiz: [
+      {
+        id: 'quiz-hist-1',
+        question: 'The concept of "Liberal Education" for democratic citizenship originated in:',
+        options: ['Ancient Sparta', 'Classical Athens', 'Ancient Egypt', 'Prussia'],
+        correctIndex: 1,
+        explanation:
+          'Athens established the ideal of Liberal Education — educating the whole person for democratic citizenship.',
+      },
+      {
+        id: 'quiz-hist-2',
+        question: 'Which curriculum formed the core of medieval higher education?',
+        options: [
+          'STEM and Vocational studies',
+          'The Trivium and Quadrivium',
+          'Only military tactics',
+          'Exclusively theological scripture without logic',
+        ],
+        correctIndex: 1,
+        explanation:
+          'The Trivium (Grammar, Rhetoric, Logic) and Quadrivium (Arithmetic, Geometry, Music, Astronomy) formed the core curriculum.',
+      },
+      {
+        id: 'quiz-hist-3',
+        question: 'Who championed the Common School Movement for universal, taxpayer-funded education?',
+        options: ['John Dewey', 'Horace Mann', 'Friedrich Froebel', 'Jean-Jacques Rousseau'],
+        correctIndex: 1,
+        explanation:
+          'Horace Mann was the pioneer of the Common School Movement in the 19th century.',
+      },
+    ],
+    examDistractorTraps: [
+      'Trap: Conflating Athens with Sparta — Athens emphasized liberal education of the whole person, while Sparta focused strictly on military drill (Agoge).',
+      'Trap: Believing the Prussian model was invented for creative inquiry — it was designed for mass, factory-like discipline and industrial workforce efficiency.',
+      'Trap: Thinking the Trivium contained arithmetic — Arithmetic, Geometry, Music, and Astronomy belong to the Quadrivium.',
+    ],
+  },
+];
+
+export const CHILD_DEVELOPMENT_TOPICS: LicenseTopicNote[] = [
+  {
+    id: 'child-dev-major-theories',
+    topicNumber: '1',
+    title: 'Major Theories & Domains of Child Development',
+    readTime: '10 min read',
+    htmlNotesPath: 'notes/child-development/major-theories-and-domains-of-child-development.html',
+    summary:
+      'Child development spans five interdependent domains: physical, cognitive, social-emotional, language, and moral. Key developmental theories explain learner growth: Jean Piaget (Cognitive Constructivism, four stages, schemas, assimilation, accommodation, equilibration), Lev Vygotsky (Socio-Cultural Theory, ZPD, MKO, Scaffolding, private speech), Erik Erikson (Psychosocial Stages, eight crises), Lawrence Kohlberg (Moral Development, three levels), and Urie Bronfenbrenner (Bioecological Systems: micro, meso, exo, macro, chrono). Effective pedagogy aligns instructional tasks with developmental readiness.',
+    highYieldAlert:
+      'STS High-Yield: Vygotsky’s Zone of Proximal Development (ZPD) and scaffolding are among the most frequently tested concepts in STEDA pedagogy exams. Differentiate clearly: Piaget emphasizes internal stage readiness and cognitive equilibration, whereas Vygotsky emphasizes cultural tools, social mediation, and the More Knowledgeable Other (MKO).',
+    concepts: [
+      {
+        conceptTitle: 'Five Interdependent Developmental Domains',
+        explanation: 'Holistic child development requires nurturing all five domains in unison.',
+        keyTerms: [
+          {
+            term: 'Physical Domain',
+            definition: 'Gross motor (running, jumping) and fine motor (writing, cutting) coordination, physical growth, and brain development.',
+          },
+          {
+            term: 'Cognitive Domain',
+            definition: 'Intellectual processes: memory, reasoning, problem solving, concept formation, and metacognition.',
+          },
+          {
+            term: 'Social-Emotional Domain',
+            definition: 'Self-awareness, emotional self-regulation, empathy, relationship building, and interpersonal conflict resolution.',
+          },
+          {
+            term: 'Language & Moral Domains',
+            definition: 'Receptive and expressive communication paired with internalizing ethical principles, justice, and social responsibility.',
+          },
+        ],
+      },
+      {
+        conceptTitle: 'Piaget vs. Vygotsky: Constructivist Paradigms',
+        explanation: 'The fundamental theoretical contrast between cognitive constructivism and socio-cultural constructivism.',
+        keyTerms: [
+          {
+            term: 'Piaget’s Equilibration',
+            definition: 'Drive to resolve cognitive disequilibrium between current schemas and novel environmental stimuli via assimilation and accommodation.',
+          },
+          {
+            term: 'Vygotsky’s ZPD & Scaffolding',
+            definition: 'The fertile learning zone between unassisted mastery and guided potential; temporary support provided by an MKO and progressively withdrawn.',
+          },
+        ],
+      },
+      {
+        conceptTitle: 'Erikson & Kohlberg: Psychosocial & Moral Trajectories',
+        explanation: 'Personality and moral maturation throughout the school-age years.',
+        keyTerms: [
+          {
+            term: 'Industry vs. Inferiority',
+            definition: 'Erikson’s elementary stage (ages 6-12) where school children must experience competence and recognition for effort to avoid inferiority.',
+          },
+          {
+            term: 'Conventional Morality',
+            definition: 'Kohlberg’s middle childhood/adolescence level centered on social approval ("good boy/nice girl") and maintaining social order/laws.',
+          },
+        ],
+      },
+    ],
+    quickQuiz: [
+      {
+        id: 'quiz-cd-1',
+        question: 'According to Lev Vygotsky, the distance between what a child can achieve alone and with teacher guidance is called:',
+        options: ['Cognitive Schema', 'Zone of Proximal Development (ZPD)', 'Equilibration Vector', 'Autonomous Stage'],
+        correctIndex: 1,
+        explanation: 'Vygotsky defined the Zone of Proximal Development (ZPD) as the difference between actual developmental level and potential level under adult guidance.',
+      },
+      {
+        id: 'quiz-cd-2',
+        question: 'When a child modifies an existing schema to incorporate new conflicting information, Piaget termed this process:',
+        options: ['Assimilation', 'Centration', 'Accommodation', 'Object Permanence'],
+        correctIndex: 2,
+        explanation: 'Accommodation occurs when existing mental structures (schemas) are altered or new schemas created to adapt to new environmental information.',
+      },
+      {
+        id: 'quiz-cd-3',
+        question: 'Erik Erikson’s psychosocial stage corresponding to the elementary school years (ages 6 to 12) is:',
+        options: ['Trust vs. Mistrust', 'Autonomy vs. Shame', 'Industry vs. Inferiority', 'Identity vs. Role Confusion'],
+        correctIndex: 2,
+        explanation: 'Elementary school-age children navigate Industry vs. Inferiority, striving to develop academic competence, diligence, and confidence.',
+      },
+    ],
+    examDistractorTraps: [
+      'Trap: Confusing Assimilation and Accommodation — Assimilation fits new info into existing schemas without altering them; Accommodation modifies the schema.',
+      'Trap: Assuming Vygotsky believed children learn only from teachers — an MKO (More Knowledgeable Other) can be a capable peer, computer software, or coach.',
+    ],
+  },
+  {
+    id: 'child-dev-developmental-stages',
+    topicNumber: '2',
+    title: 'Characteristics of Various Developmental Stages According to Various Theorists',
+    readTime: '12 min read',
+    htmlNotesPath: 'notes/child-development/characteristics-of-various-developmental-stages-according-to-various-theorists.html',
+    summary:
+      'Human development unfolds through sequential stages: Infancy (0-2y, sensorimotor, object permanence, trust vs. mistrust), Early Childhood (2-6y, preoperational, egocentrism, animism, centration, initiative vs. guilt), Middle Childhood (6-12y, concrete operational, conservation, reversibility, seriation, industry vs. inferiority), and Adolescence (12-18y, formal operational, hypothetical reasoning, identity vs. role confusion, imaginary audience, personal fable). Developmental principles include the Cephalocaudal trend (head to toe) and Proximodistal trend (center outward).',
+    highYieldAlert:
+      'STS High-Yield: Conservation (understanding that quantity remains identical despite shape transformations) emerges in Piaget’s Concrete Operational stage (ages 7-11), NEVER in the Preoperational stage. Preoperational children are constrained by centration and irreversibility.',
+    concepts: [
+      {
+        conceptTitle: 'Piaget’s Four Cognitive Stages',
+        explanation: 'Sequential, qualitative shifts in children’s mental capacities.',
+        keyTerms: [
+          {
+            term: 'Sensorimotor (0-2y)',
+            definition: 'Learning through senses and motor reflexes; hallmark achievement is Object Permanence (knowing things exist when hidden).',
+          },
+          {
+            term: 'Preoperational (2-7y)',
+            definition: 'Symbolic play and language explosion; limited by Egocentrism (cannot adopt another’s perspective) and Centration.',
+          },
+          {
+            term: 'Concrete Operational (7-11y)',
+            definition: 'Logical reasoning applied to tangible objects; masters Conservation, Reversibility, Classification, and Seriation.',
+          },
+          {
+            term: 'Formal Operational (11y+)',
+            definition: 'Abstract, hypothetical-deductive reasoning, scientific testing, and propositional logic.',
+          },
+        ],
+      },
+      {
+        conceptTitle: 'Adolescent Egocentrism & Developmental Direction',
+        explanation: 'Cognitive phenomena specific to puberty and teenage identity formation.',
+        keyTerms: [
+          {
+            term: 'Imaginary Audience',
+            definition: 'David Elkind’s concept that adolescents believe everyone around them is hyper-focused on their appearance and behavior.',
+          },
+          {
+            term: 'Personal Fable',
+            definition: 'An adolescent’s belief in their utter uniqueness and invulnerability ("no one understands me", "harm won’t touch me").',
+          },
+          {
+            term: 'Cephalocaudal & Proximodistal',
+            definition: 'Physical growth patterns: Cephalocaudal moves from head downwards; Proximodistal moves from core torso outwards to fingertips.',
+          },
+        ],
+      },
+    ],
+    quickQuiz: [
+      {
+        id: 'quiz-ds-1',
+        question: 'A child who understands that pouring water into a narrower glass does not increase the amount has mastered:',
+        options: ['Object permanence', 'Conservation', 'Animism', 'Centration'],
+        correctIndex: 1,
+        explanation: 'Conservation is the cognitive ability to recognize that quantity, volume, or mass remains constant despite perceptual transformations.',
+      },
+      {
+        id: 'quiz-ds-2',
+        question: 'According to Piaget, the inability of a preschooler to view a situation from another person’s perspective is called:',
+        options: ['Centration', 'Egocentrism', 'Irreversibility', 'Personal fable'],
+        correctIndex: 1,
+        explanation: 'Preoperational egocentrism refers to the cognitive limitation wherein young children assume everyone sees and thinks exactly as they do.',
+      },
+      {
+        id: 'quiz-ds-3',
+        question: 'David Elkind described a teenager’s belief that all classmates are constantly scrutinizing their clothes as the:',
+        options: ['Looking-glass self', 'Imaginary audience', 'Personal fable', 'Social contract'],
+        correctIndex: 1,
+        explanation: 'The imaginary audience is the belief that one is always on stage and center of everyone else’s attention.',
+      },
+    ],
+    examDistractorTraps: [
+      'Trap: Thinking Piaget’s "egocentrism" means selfish or arrogant; in cognitive development, it strictly means an inability to mentally take another’s perspective.',
+      'Trap: Assuming Cephalocaudal development means core-to-fingers; Cephalocaudal is strictly head-to-toe (Proximodistal is center-to-periphery).',
+    ],
+  },
+  {
+    id: 'child-dev-factors-influencing-learning',
+    topicNumber: '3',
+    title: 'Factors Influencing the Learning Process of a Child',
+    readTime: '10 min read',
+    htmlNotesPath: 'notes/child-development/factors-influencing-the-learning-process-of-a-child.html',
+    summary:
+      'Learning is governed by multiple interconnected factor clusters: Psychological (intelligence, self-efficacy, intrinsic vs. extrinsic motivation), Biological & Physical (Arnold Gesell’s maturation theory, nutrition, sleep, sensory faculties), Environmental & School (lighting, noise, resources, classroom climate), Teacher & Pedagogical (feedback, expectations / Pygmalion effect, methods), and Family & Social (SES, language, peer influence). Abraham Maslow’s Hierarchy of Needs establishes that physiological and safety needs must be fulfilled before cognitive and aesthetic learning can occur.',
+    highYieldAlert:
+      'STS High-Yield: Under Maslow’s Hierarchy of Needs, a child cannot concentrate on cognitive learning (school lessons) if deficiency needs (hunger, illness, lack of safety, emotional trauma) are unaddressed. Maslow explains why school meal programs and positive classroom safety directly boost test scores.',
+    concepts: [
+      {
+        conceptTitle: 'Psychological Factors & Motivation Dynamics',
+        explanation: 'Internal drivers that determine engagement, depth of processing, and persistence.',
+        keyTerms: [
+          {
+            term: 'Intrinsic Motivation',
+            definition: 'Engaging in learning out of inherent interest, curiosity, and satisfaction; yields higher persistence and conceptual retention.',
+          },
+          {
+            term: 'Extrinsic Motivation',
+            definition: 'Engagement driven by external incentives (grades, prizes, social praise, punishment avoidance); effective for initiating behavior.',
+          },
+          {
+            term: 'Self-Efficacy (Bandura)',
+            definition: 'A learner’s personal belief in their capability to execute courses of action required to attain designated performances.',
+          },
+        ],
+      },
+      {
+        conceptTitle: 'Maslow’s Hierarchy & Maturation Theory',
+        explanation: 'Biological and developmental preconditions for educational achievement.',
+        keyTerms: [
+          {
+            term: 'Deficiency Needs (Maslow)',
+            definition: 'Physiological (food, rest), Safety (physical and psychological security), and Belonging/Love; must be satisfied before growth needs.',
+          },
+          {
+            term: 'Maturation (Arnold Gesell)',
+            definition: 'Internally driven biological timetable; pedagogical attempts to force complex skills prior to neurological readiness produce stress and failure.',
+          },
+          {
+            term: 'Pygmalion Effect',
+            definition: 'The phenomenon whereby higher teacher expectations lead to measurably improved student performance.',
+          },
+        ],
+      },
+    ],
+    quickQuiz: [
+      {
+        id: 'quiz-fl-1',
+        question: 'Under Abraham Maslow’s hierarchy of needs, which level must be satisfied before a student can engage in cognitive learning?',
+        options: ['Self-actualization', 'Esteem needs', 'Physiological and safety needs', 'Aesthetic appreciation'],
+        correctIndex: 2,
+        explanation: 'Basic physiological needs (food, hydration, sleep) and safety needs must be met before energy can be directed toward higher cognitive tasks.',
+      },
+      {
+        id: 'quiz-fl-2',
+        question: 'The theorist most closely associated with the concept of biological maturation as the prerequisite for learning readiness is:',
+        options: ['Arnold Gesell', 'B.F. Skinner', 'Ivan Pavlov', 'John Dewey'],
+        correctIndex: 0,
+        explanation: 'Arnold Gesell formulated the maturation theory, arguing that biological growth patterns dictate readiness for developmental milestones.',
+      },
+      {
+        id: 'quiz-fl-3',
+        question: 'Which is an environmental factor influencing classroom learning?',
+        options: ['Student IQ', 'Acoustic noise and classroom ventilation', 'Intrinsic curiosity', 'Working memory span'],
+        correctIndex: 1,
+        explanation: 'Noise levels, ventilation, lighting, and seating arrangements are external environmental factors affecting attention and learning.',
+      },
+    ],
+    examDistractorTraps: [
+      'Trap: Assuming extrinsic rewards always improve learning; excessive tangible rewards for already intrinsically interesting tasks can cause the "overjustification effect".',
+      'Trap: Treating learning as solely an intellectual process; emotional safety, nutrition, and home language interact directly with cognitive processing.',
+    ],
+  },
+  {
+    id: 'child-dev-individual-differences-special-needs',
+    topicNumber: '4',
+    title: 'Individual Differences Between Students & Children with Special Needs',
+    readTime: '10 min read',
+    htmlNotesPath: 'notes/child-development/individual-differences-between-students-and-children-with-special-needs.html',
+    summary:
+      'Individual differences encompass natural variations among all students in intelligence, learning style, personality, and pace. Special Educational Needs (SEN) refer to documented sensory, cognitive, or physical conditions (Visual/Hearing impairment, Physical disability, Intellectual disability, Dyslexia, ADHD, Autism Spectrum, Gifted/Talented) requiring specialized support. Teachers employ Carol Ann Tomlinson’s Differentiated Instruction (modifying Content, Process, Product, Environment) and Universal Design for Learning (UDL: Representation, Action/Expression, Engagement). The guiding principle is Equity (giving each child what they need to succeed) rather than mere uniform Equality.',
+    highYieldAlert:
+      'STS High-Yield: Distinguish Equality from Equity. Equality gives every student identical inputs (which maintains disadvantage for learners with disabilities); Equity tailors accommodations, assistive devices, and pacing so every learner achieves genuine equal opportunity.',
+    concepts: [
+      {
+        conceptTitle: 'Differentiated Instruction (Carol Ann Tomlinson)',
+        explanation: 'Systematic pedagogical approach to responsive teaching.',
+        keyTerms: [
+          {
+            term: 'Differentiating Content',
+            definition: 'Varying how students access information (e.g., leveled readers, audiobooks, visual charts, bilingual vocabulary banks).',
+          },
+          {
+            term: 'Differentiating Process',
+            definition: 'Varying sense-making activities (e.g., tiered tasks, graphic organizers, learning centers, flexible grouping).',
+          },
+          {
+            term: 'Differentiating Product',
+            definition: 'Offering varied assessment formats (e.g., oral presentation, written report, concept model, multimedia demonstration).',
+          },
+        ],
+      },
+      {
+        conceptTitle: 'Universal Design for Learning (UDL) & Accommodations',
+        explanation: 'Proactive inclusive design for classroom diversity.',
+        keyTerms: [
+          {
+            term: 'UDL Three Pillars',
+            definition: 'Multiple means of Representation (input), Multiple means of Action & Expression (output), and Multiple means of Engagement (motivation).',
+          },
+          {
+            term: 'Individualized Education Plan (IEP)',
+            definition: 'A collaborative, customized educational roadmap detailing present levels, SMART goals, accommodations, and related support services.',
+          },
+          {
+            term: 'Equality vs. Equity',
+            definition: 'Equality = identical treatment; Equity = differentiated support and accommodations tailored to each learner’s specific barriers.',
+          },
+        ],
+      },
+    ],
+    quickQuiz: [
+      {
+        id: 'quiz-id-1',
+        question: 'Which educational pioneer is known for the model of Differentiating Instruction by content, process, product, and environment?',
+        options: ['Carol Ann Tomlinson', 'Maria Montessori', 'John Dewey', 'Benjamin Bloom'],
+        correctIndex: 0,
+        explanation: 'Carol Ann Tomlinson is the foremost authority on differentiated instruction in mixed-ability classrooms.',
+      },
+      {
+        id: 'quiz-id-2',
+        question: 'A student who struggles specifically with phonological decoding, word recognition, and spelling most likely has:',
+        options: ['Dyscalculia', 'Dyslexia', 'Dyspraxia', 'ADHD'],
+        correctIndex: 1,
+        explanation: 'Dyslexia is a specific neurodevelopmental learning disability characterized by difficulties with accurate/fluent word reading and spelling.',
+      },
+      {
+        id: 'quiz-id-3',
+        question: 'Providing large-print exam sheets and 20 minutes extra time to a student with low vision is an example of:',
+        options: ['Unfair privilege', 'Educational Equity', 'Strict Equality', 'Punitive grading'],
+        correctIndex: 1,
+        explanation: 'Educational equity provides targeted accommodations to overcome functional barriers, granting equal opportunity to demonstrate knowledge.',
+      },
+    ],
+    examDistractorTraps: [
+      'Trap: Conflating Individual Differences with Disabilities — every child exhibits individual differences (pace, personality, interest); only a subset have diagnostic SEN.',
+      'Trap: Thinking gifted students require "more worksheets"; gifted learners require qualitative enrichment, higher-order inquiry, and depth, not repetitive quantity.',
+    ],
+  },
 ];
 
 export const TEACHING_LICENSE_PARTS: LicensePartModule[] = [
@@ -1191,7 +1903,7 @@ export const TEACHING_LICENSE_PARTS: LicensePartModule[] = [
     badgeText: 'text-purple-600 dark:text-purple-400',
     description:
       'Cognitive, physical, and socio-emotional development stages (Piaget, Vygotsky, Erikson, Kohlberg), learning theories, motivation, and inclusive education strategies.',
-    topics: [],
+    topics: CHILD_DEVELOPMENT_TOPICS,
   },
   {
     id: 'steda-part-2-classroom-management',

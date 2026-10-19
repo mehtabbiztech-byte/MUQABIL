@@ -22,12 +22,37 @@
     <div id="root"></div>
     <script>
       if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-          const serviceWorkerUrl = new URL("sw.js", document.baseURI);
-          navigator.serviceWorker.register(serviceWorkerUrl).catch((error) => {
-            console.warn("MUQABIL offline support could not be enabled.", error);
+        const hostname = window.location.hostname;
+        const isDev = hostname === "localhost" ||
+                      hostname === "127.0.0.1" ||
+                      hostname.includes("ais-") ||
+                      hostname.endsWith(".run.app") ||
+                      hostname.includes("e2b.app") ||
+                      window.location.port === "3000";
+
+        if (isDev) {
+          navigator.serviceWorker.getRegistrations().then((registrations) => {
+            for (const registration of registrations) {
+              registration.unregister();
+            }
           });
-        });
+          if ("caches" in window) {
+            caches.keys().then((keys) => {
+              for (const key of keys) {
+                if (key.startsWith("muqabil-shell-")) {
+                  caches.delete(key);
+                }
+              }
+            });
+          }
+        } else {
+          window.addEventListener("load", () => {
+            const serviceWorkerUrl = new URL("sw.js", document.baseURI);
+            navigator.serviceWorker.register(serviceWorkerUrl).catch((error) => {
+              console.warn("MUQABIL offline support could not be enabled.", error);
+            });
+          });
+        }
       }
     </script>
     <script type="module" src="/src/main.tsx"></script>

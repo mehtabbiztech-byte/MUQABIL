@@ -1,4 +1,4 @@
-const CACHE_NAME = 'muqabil-shell-v2';
+const CACHE_NAME = 'muqabil-shell-v3';
 const BASE_URL = new URL('./', self.registration.scope).toString();
 const APP_SHELL = [BASE_URL, new URL('manifest.webmanifest', BASE_URL).toString(), new URL('muqabil-icon.svg', BASE_URL).toString()];
 
@@ -32,8 +32,25 @@ self.addEventListener('fetch', (event) => {
   const request = event.request;
   const url = new URL(request.url);
 
-  // Do not intercept requests outside this deployment or any API traffic.
-  if (request.method !== 'GET' || url.origin !== self.location.origin || !url.pathname.startsWith(new URL(BASE_URL).pathname) || url.pathname.includes('/api/')) {
+  // Do not intercept non-GET, external, API, dev tools, or source module requests
+  if (
+    request.method !== 'GET' ||
+    url.origin !== self.location.origin ||
+    !url.pathname.startsWith(new URL(BASE_URL).pathname) ||
+    url.pathname.includes('/api/') ||
+    url.pathname.startsWith('/src/') ||
+    url.pathname.startsWith('/node_modules/') ||
+    url.pathname.includes('/@') ||
+    url.pathname.endsWith('.ts') ||
+    url.pathname.endsWith('.tsx') ||
+    url.pathname.endsWith('.jsx') ||
+    url.hostname === 'localhost' ||
+    url.hostname === '127.0.0.1' ||
+    url.hostname.includes('ais-') ||
+    url.hostname.endsWith('.run.app') ||
+    url.hostname.includes('e2b.app') ||
+    url.port === '3000'
+  ) {
     return;
   }
 

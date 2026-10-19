@@ -35,6 +35,7 @@ import {
   PedagogicalSubjectTopic
 } from '../data/pedagogicalSubjectsData';
 import { FullScreenInteractiveNoteReader } from '../components/FullScreenInteractiveNoteReader';
+import { HtmlStudyLessonReader } from '../components/HtmlStudyLessonReader';
 import { exportStudyLessonToPdf, exportMcqsToExcel } from '../lib/exportUtils';
 
 const panel = 'rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 sm:p-7';
@@ -75,6 +76,10 @@ function LessonReader({
   const kids = lesson.audience === 'kids';
   const related = PAST_PAPERS_DATA.filter((p) => p.mcqs.some((q) => lesson.relatedQuestionIds.includes(q.id)));
   const isPedagogyNote = lesson.id.includes('instructional-approaches') || lesson.id.includes('ped') || lesson.id.includes('tlt');
+
+  if (lesson.htmlNotesPath) {
+    return <HtmlStudyLessonReader lesson={{ ...lesson, htmlNotesPath: lesson.htmlNotesPath }} onBack={onBack} />;
+  }
 
   return (
     <article className="space-y-5 animate-in fade-in duration-150">
@@ -891,7 +896,7 @@ export const StudyNotesView: React.FC = () => {
                                       >
                                         <span className="font-bold block">{lesson?.title}</span>
                                         <span className="block text-sm text-slate-500 mt-2">
-                                          {lesson?.readTime} · {lesson?.mcqs?.length ?? 0} MCQs
+                                          {lesson?.readTime} · {lesson.htmlNotesPath ? 'Interactive HTML & practice quiz' : `${lesson?.mcqs?.length ?? 0} MCQs`}
                                         </span>
                                         <span className="block mt-3 text-emerald-700 dark:text-emerald-400 font-semibold">
                                           Open lesson →

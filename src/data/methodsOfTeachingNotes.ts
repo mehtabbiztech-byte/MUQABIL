@@ -13,11 +13,13 @@ const lesson = (
   importantPoints: string[],
   examples: string[],
   practice: { prompt: string; answer: string }[],
+  htmlNotesPath?: string,
 ): StudyLesson => ({
   id,
   title,
   audience: 'advanced',
   readTime,
+  ...(htmlNotesPath ? { htmlNotesPath } : {}),
   explanation,
   importantPoints,
   examples,
@@ -105,6 +107,7 @@ export const METHODS_OF_TEACHING_LESSONS: StudyLesson[] = [
       { prompt: 'Differentiate convergent and divergent questions.', answer: 'Convergent questions usually seek facts or one correct answer; divergent questions invite analysis, evaluation, creativity, and multiple defensible responses.' },
       { prompt: 'How can a teacher deepen one-word answers?', answer: 'Use probing questions, wait time, Think-Pair-Share, and Bounce / Pass-the-Mic to ask for evidence, reasoning, clarification, or another student’s response.' },
     ],
+    'notes/methods-of-teaching/effective-questioning-strategies.html',
   ),
   lesson(
     'methods-instructional-approaches',
@@ -133,6 +136,7 @@ export const METHODS_OF_TEACHING_LESSONS: StudyLesson[] = [
       { prompt: 'What is Scaffolded Instruction?', answer: 'It breaks complex learning into smaller manageable parts, provides support, and gradually increases difficulty as learners gain mastery.' },
       { prompt: 'Choose three methods and explain why they are effective.', answer: 'Valid choices include Flipped Learning, Gamification, Collaborative Learning, Inquiry-Based Learning, Differentiated Instruction, and others when each is supported with a description and classroom example.' },
     ],
+    'notes/methods-of-teaching/instructional-approaches-and-strategies.html',
   ),
   lesson(
     'methods-npstp-pakistan',

@@ -131,6 +131,9 @@ jobs:
         uses: actions/upload-pages-artifact@v5
         with:
           path: './dist'
+          # v4+ excludes dotfiles by default; keep shipping dist/.nojekyll
+          # (copied from public/.nojekyll) so Pages never Jekyll-processes the bundle.
+          include-hidden-files: true
       - name: Deploy to GitHub Pages
         if: steps.pages_check.outputs.enabled == 'true'
         id: deployment

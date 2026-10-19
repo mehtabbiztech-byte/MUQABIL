@@ -240,7 +240,7 @@ export const TechnicalDetailsModal: React.FC<TechnicalDetailsModalProps> = ({ is
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="w-3.5 h-3.5 text-blue-500 shrink-0 mt-0.5" />
-                      <span><strong>@google/genai 2.22.0:</strong> Official Google GenAI SDK interfacing with Gemini 2.5 Flash server-side.</span>
+                      <span><strong>@google/genai 2.30.0:</strong> Official Google GenAI SDK interfacing with Gemini 2.5 Flash server-side.</span>
                     </li>
                   </ul>
                 </div>

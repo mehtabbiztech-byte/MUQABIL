@@ -59,6 +59,7 @@ export const METHODS_OF_TEACHING_TOPICS: LicenseTopicNote[] = [
     topicNumber: '1',
     title: "Bloom's Taxonomy of Educational Objectives",
     readTime: '10 min read',
+    htmlNotesPath: 'notes/methods-of-teaching/blooms-taxonomy-of-educational-objectives.html',
     summary:
       "Bloom's Taxonomy is a hierarchical classification system arranging educational learning objectives from simple recall to complex synthesis. Developed by Benjamin Bloom in 1956 and revised by Lorin Anderson & David Krathwohl in 2001, it establishes three learning domains: Cognitive (mental skills), Affective (feelings and values), and Psychomotor (physical and manual dexterity). Teaching must move beyond rote recall (LOTS) toward higher-order critical thinking (HOTS), while maintaining strict constructive alignment between curriculum objectives, classroom activities, and exam assessment.",
     highYieldAlert:

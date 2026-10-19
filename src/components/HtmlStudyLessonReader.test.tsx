@@ -31,6 +31,13 @@ const documents = [
     grids: ['approachGrid', 'theoryGrid'],
     crqs: 4,
   },
+  {
+    lessonId: 'methods-blooms-taxonomy',
+    file: 'blooms-taxonomy-of-educational-objectives.html',
+    heading: "Bloom's Taxonomy of Educational Objectives",
+    grids: ['factsGrid', 'domainGrid', 'levelGrid', 'lotshotGrid', 'knowledgeGrid', 'affectiveGrid', 'useGrid', 'prosconsGrid'],
+    crqs: 4,
+  },
 ];
 
 test('supplied HTML documents are attached to matching topics without duplicating lessons', () => {
@@ -42,7 +49,7 @@ test('supplied HTML documents are attached to matching topics without duplicatin
     assert.equal(matching.length, 1);
     assert.equal(matching[0].htmlNotesPath, `notes/methods-of-teaching/${document.file}`);
   }
-  // Do not attach an unrelated HTML document to Bloom's or other pending topics.
+  // Topics without a supplied document stay on the structured reader.
   assert.ok(METHODS_OF_TEACHING_LESSONS
     .filter(item => !documents.some(document => document.lessonId === item.id))
     .every(item => !item.htmlNotesPath));
@@ -109,6 +116,19 @@ test('teacher/student-centred notes preserve the spectrum, approach cards, compa
     'Key Differences at a Glance', 'Theoretical Roots', 'A Balanced View',
     'Expert &amp; transmitter', 'Facilitator &amp; guide', 'zone of proximal development',
     'Think-Pair-Share', 'Mr. Khan teaches Grade 9 mathematics']) {
+    assert.ok(html.includes(text), text);
+  }
+});
+
+test("Bloom's notes preserve the ladder, domains, knowledge dimension and situation-based prompt", () => {
+  const html = readFileSync(path.join(process.cwd(), 'public/notes/methods-of-teaching/blooms-taxonomy-of-educational-objectives.html'), 'utf8');
+  assert.equal((html.match(/class="info-card"/g) || []).length, 3);
+  assert.equal((html.match(/class="domain-card /g) || []).length, 3);
+  assert.equal((html.match(/class="level-card"/g) || []).length, 6);
+  for (const text of ["Bloom's Taxonomy of Educational Objectives", 'Original 1956 (lowest → highest)',
+    'Revised 2001 (lowest → highest)', 'Create ⬅ top', 'The Affective Domain (Krathwohl, 1964)',
+    'Really Useful Aids Always Enhance Creativity', 'Perception', 'Origination',
+    'Ms. Sana is a Grade 6 science teacher']) {
     assert.ok(html.includes(text), text);
   }
 });

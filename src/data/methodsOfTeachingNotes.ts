@@ -55,6 +55,7 @@ export const METHODS_OF_TEACHING_LESSONS: StudyLesson[] = [
       { prompt: 'Differentiate between LOTS and HOTS.', answer: 'LOTS focuses on recalling, understanding, and applying information; HOTS develops analysis, evaluation, and creation. Effective teaching begins with foundations and progresses toward deeper thinking.' },
       { prompt: 'A Grade 6 assessment asks only for the stages of the water cycle. What is missing?', answer: 'The question tests only Remember. Add Understand, Apply, Analyse, Evaluate, and Create questions so the assessment measures deeper learning.' },
     ],
+    'notes/methods-of-teaching/blooms-taxonomy-of-educational-objectives.html',
   ),
   lesson(
     'methods-cooperative-learning',

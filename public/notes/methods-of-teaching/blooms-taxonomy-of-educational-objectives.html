@@ -1,0 +1,2214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bloom's Taxonomy of Educational Objectives · Methods of Teaching</title>
+  <style>
+    /* ---------- GLOBAL ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+      color: #1e2b3c;
+    }
+
+    .main-wrapper {
+      max-width: 1100px;
+      width: 100%;
+    }
+
+    /* ---------- HEADER ---------- */
+    .header-card {
+      background: white;
+      border-radius: 2rem 2rem 1.5rem 1.5rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      padding: 2rem 2rem 1.5rem 2rem;
+      margin-bottom: 1.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: transform 0.2s;
+    }
+
+    .header-card:hover {
+      transform: scale(1.002);
+    }
+
+    .badge {
+      display: inline-block;
+      background: #2a4b7c;
+      color: #f0f7ff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+      line-height: 1.25;
+    }
+
+    .subhead {
+      font-size: 1.05rem;
+      color: #2f5277;
+      font-weight: 400;
+      border-left: 5px solid #8bb3e0;
+      padding-left: 1.2rem;
+      margin: 1rem 0 0.2rem 0;
+      font-style: italic;
+    }
+
+    .intro-text {
+      background: #e6f0fc;
+      padding: 1rem 1.4rem;
+      border-radius: 1.2rem;
+      margin-top: 1.4rem;
+      font-size: 0.98rem;
+      color: #1d3a5c;
+      border-left: 5px solid #3b6ea5;
+    }
+
+    /* ---------- SECTION TITLE ---------- */
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #0e2a47;
+      margin: 2.2rem 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-title .line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #8bb3e0, transparent);
+      border-radius: 2px;
+    }
+
+    /* ---------- CARD GRID ---------- */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .info-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.4rem 1.4rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      transition: all 0.25s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .info-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, #3f7cb0, #8bb3e0, #b8d4f0);
+      opacity: 0.75;
+      transition: height 0.2s;
+    }
+
+    .info-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 28px -16px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+
+    .info-card:hover::before {
+      height: 10px;
+      opacity: 1;
+    }
+
+    .card-icon-lg {
+      font-size: 2rem;
+      line-height: 1;
+      background: #e9f0fa;
+      width: 54px;
+      height: 54px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #1b3c61;
+      margin-bottom: 0.8rem;
+      transition: background 0.2s;
+    }
+
+    .info-card:hover .card-icon-lg {
+      background: #d3e3f8;
+    }
+
+    .card-title-md {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #0e2a47;
+      letter-spacing: -0.3px;
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-desc-sm {
+      font-size: 0.93rem;
+      color: #274e73;
+      line-height: 1.6;
+      opacity: 0.94;
+      flex: 1;
+    }
+
+    /* ---------- DOMAIN CARDS ---------- */
+    .domain-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.4rem 1.4rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      transition: all 0.25s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .domain-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      opacity: 0.8;
+      transition: height 0.2s;
+    }
+
+    .domain-card.cognitive::before { background: linear-gradient(90deg, #3f7cb0, #8bb3e0); }
+    .domain-card.affective::before { background: linear-gradient(90deg, #c94f7c, #e88bb0); }
+    .domain-card.psychomotor::before { background: linear-gradient(90deg, #d4933a, #e8c08b); }
+
+    .domain-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 28px -16px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+
+    .domain-card:hover::before { height: 10px; }
+
+    .domain-icon {
+      font-size: 2.4rem;
+      line-height: 1;
+      background: #e9f0fa;
+      width: 64px;
+      height: 64px;
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 0.8rem auto;
+      color: #1b3c61;
+      transition: background 0.2s;
+    }
+
+    .domain-card:hover .domain-icon { background: #d3e3f8; }
+
+    .domain-title {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #0e2a47;
+      margin-bottom: 0.3rem;
+    }
+
+    .domain-sub {
+      font-size: 0.85rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-bottom: 0.7rem;
+    }
+
+    .domain-desc {
+      font-size: 0.92rem;
+      color: #274e73;
+      line-height: 1.55;
+      margin-bottom: 0.6rem;
+    }
+
+    .domain-focus {
+      display: inline-block;
+      background: #eef4fb;
+      color: #1b4670;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      border: 1px solid #d0e0f0;
+    }
+
+    /* ---------- LEVEL LADDER ---------- */
+    .ladder-wrapper {
+      background: white;
+      border-radius: 1.8rem;
+      padding: 1.6rem 1.5rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      border: 1px solid #e3ecf7;
+      margin-bottom: 0.5rem;
+    }
+
+    .ladder-head {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+      align-items: center;
+    }
+
+    .ladder-col-title {
+      flex: 1;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      min-width: 140px;
+    }
+
+    .ladder-col-title.original {
+      background: #eef4fb;
+      color: #1b4670;
+      border: 1px solid #c0d8f0;
+    }
+
+    .ladder-col-title.revised {
+      background: #0e2a47;
+      color: white;
+    }
+
+    .ladder-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .ladder-col {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .ladder-step {
+      border-radius: 1rem;
+      padding: 0.75rem 1rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ladder-step:hover {
+      transform: translateX(4px);
+    }
+
+    .ladder-step .step-num {
+      font-size: 0.7rem;
+      font-weight: 800;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: white;
+    }
+
+    .step-original {
+      background: #f3f8fd;
+      border: 1px solid #d0e0f0;
+      color: #1e3c5a;
+    }
+
+    .step-original .step-num { background: #7a9cc0; }
+
+    .step-revised {
+      background: #eef7f2;
+      border: 1px solid #b8e0c8;
+      color: #1b4a33;
+    }
+
+    .step-revised .step-num { background: #3fa86a; }
+
+    .step-revised.top {
+      background: #0e2a47;
+      border: 1px solid #0e2a47;
+      color: white;
+      font-weight: 700;
+    }
+
+    .step-revised.top .step-num { background: #8bb3e0; color: #0e2a47; }
+
+    .ladder-note {
+      margin-top: 1.2rem;
+      background: #f6faff;
+      border-radius: 1rem;
+      padding: 0.9rem 1.1rem;
+      font-size: 0.88rem;
+      color: #1e3c5a;
+      border-left: 5px solid #3b7bb5;
+    }
+
+    .ladder-note strong { color: #0e2a47; }
+
+    /* ---------- LEVEL DETAIL CARDS ---------- */
+    .level-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.3rem 1.4rem;
+      box-shadow: 0 8px 18px -10px rgba(20, 40, 70, 0.16);
+      transition: all 0.22s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .level-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 26px -14px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+
+    .level-head {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .level-badge {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: white;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .level-name {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #0e2a47;
+    }
+
+    .level-verbs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .verb-tag {
+      background: #eef4fb;
+      color: #1b4670;
+      font-size: 0.73rem;
+      font-weight: 500;
+      padding: 0.18rem 0.65rem;
+      border-radius: 30px;
+      border: 1px solid #d0e0f0;
+    }
+
+    .level-example {
+      background: #f6faff;
+      border-radius: 0.9rem;
+      padding: 0.6rem 0.9rem;
+      font-size: 0.86rem;
+      color: #183c5e;
+      border-left: 4px solid #3b7bb5;
+      margin-top: auto;
+    }
+
+    .level-example strong { color: #0e2a47; }
+
+    /* ---------- LOTS / HOTS ---------- */
+    .lotshot-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .lotshot-card {
+      border-radius: 1.6rem;
+      padding: 1.4rem 1.5rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.14);
+      border: 1px solid;
+    }
+
+    .lotshot-card.lots {
+      background: #f0f7ff;
+      border-color: #b8d0e9;
+    }
+
+    .lotshot-card.hots {
+      background: #f0faf4;
+      border-color: #b8e0c8;
+    }
+
+    .lotshot-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.7rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .lotshot-card.lots h3 { color: #1b4670; }
+    .lotshot-card.hots h3 { color: #1b6e3e; }
+
+    .lotshot-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .lotshot-list li {
+      padding: 0.45rem 0 0.45rem 1.7rem;
+      position: relative;
+      font-size: 0.92rem;
+      color: #1e3c5a;
+      font-weight: 500;
+    }
+
+    .lotshot-card.lots .lotshot-list li::before {
+      content: '📘';
+      position: absolute;
+      left: 0;
+    }
+
+    .lotshot-card.hots .lotshot-list li::before {
+      content: '🚀';
+      position: absolute;
+      left: 0;
+    }
+
+    .lotshot-note {
+      margin-top: 0.8rem;
+      font-size: 0.86rem;
+      font-style: italic;
+      color: #4e6b8a;
+      line-height: 1.5;
+    }
+
+    /* ---------- KNOWLEDGE DIMENSION ---------- */
+    .know-item {
+      background: white;
+      border-radius: 1.4rem;
+      padding: 1.2rem 1.3rem;
+      box-shadow: 0 8px 18px -10px rgba(20, 40, 70, 0.15);
+      border: 1px solid #e3ecf7;
+      transition: all 0.22s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .know-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(180deg, #3f7cb0, #8bb3e0);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .know-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 24px -14px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+
+    .know-item:hover::before { opacity: 1; }
+
+    .know-name {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #0e2a47;
+      margin-bottom: 0.3rem;
+    }
+
+    .know-desc {
+      font-size: 0.9rem;
+      color: #274e73;
+      line-height: 1.55;
+      margin-bottom: 0.5rem;
+    }
+
+    .know-example {
+      background: #f6faff;
+      border-radius: 0.8rem;
+      padding: 0.5rem 0.8rem;
+      font-size: 0.84rem;
+      color: #183c5e;
+      border-left: 4px solid #3b7bb5;
+      margin-top: auto;
+    }
+
+    /* ---------- AFFECTIVE LEVELS ---------- */
+    .affective-step {
+      background: white;
+      border-radius: 1.2rem;
+      padding: 1rem 1.3rem;
+      box-shadow: 0 6px 14px -8px rgba(20, 40, 70, 0.14);
+      border: 1px solid #e3ecf7;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .affective-step::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(180deg, #c94f7c, #e88bb0);
+      opacity: 0.7;
+    }
+
+    .affective-step:hover {
+      transform: translateX(4px);
+      box-shadow: 0 12px 20px -12px #1e3f5e;
+      border-color: #e8c0d4;
+    }
+
+    .affective-num {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: white;
+      background: #c94f7c;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+
+    .affective-name {
+      font-weight: 700;
+      font-size: 0.98rem;
+      color: #0e2a47;
+      margin-bottom: 0.15rem;
+    }
+
+    .affective-desc {
+      font-size: 0.88rem;
+      color: #274e73;
+      line-height: 1.5;
+    }
+
+    /* ---------- PSYCHOMOTOR ---------- */
+    .psycho-wrapper {
+      background: white;
+      border-radius: 1.8rem;
+      padding: 1.5rem 1.5rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      border: 1px solid #e3ecf7;
+      margin-bottom: 0.5rem;
+    }
+
+    .psycho-steps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.8rem 0;
+    }
+
+    .psycho-step {
+      background: #fff8ee;
+      border: 1px solid #e8c08b;
+      color: #7a4e14;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.35rem 0.9rem;
+      border-radius: 30px;
+      transition: all 0.2s;
+    }
+
+    .psycho-step:hover {
+      background: #fdeed8;
+      transform: translateY(-2px);
+    }
+
+    .psycho-example {
+      background: #f6faff;
+      border-radius: 1rem;
+      padding: 0.9rem 1.1rem;
+      font-size: 0.88rem;
+      color: #1e3c5a;
+      border-left: 5px solid #d4933a;
+      line-height: 1.55;
+    }
+
+    .psycho-example strong { color: #0e2a47; }
+
+    /* ---------- USE IN TEACHING ---------- */
+    .use-item {
+      background: white;
+      border-radius: 1.4rem;
+      padding: 1.2rem 1.3rem;
+      box-shadow: 0 8px 18px -10px rgba(20, 40, 70, 0.15);
+      border: 1px solid #e3ecf7;
+      transition: all 0.22s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .use-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(180deg, #3f7cb0, #8bb3e0);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .use-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 24px -14px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+
+    .use-item:hover::before { opacity: 1; }
+
+    .use-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+    }
+
+    .use-desc {
+      font-size: 0.89rem;
+      color: #274e73;
+      line-height: 1.55;
+    }
+
+    .weak-vs-better {
+      margin-top: 0.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .weak, .better {
+      border-radius: 0.7rem;
+      padding: 0.45rem 0.8rem;
+      font-size: 0.83rem;
+      line-height: 1.45;
+    }
+
+    .weak {
+      background: #fdf6f6;
+      border-left: 4px solid #d45a5a;
+      color: #7a2a2a;
+    }
+
+    .better {
+      background: #f0faf4;
+      border-left: 4px solid #2e9b5e;
+      color: #1b5e35;
+    }
+
+    .weak strong, .better strong {
+      font-weight: 700;
+    }
+
+    /* ---------- WATER CYCLE TABLE ---------- */
+    .table-wrapper {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.4rem 1.4rem 1.2rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      border: 1px solid #e3ecf7;
+      overflow-x: auto;
+      margin-bottom: 0.5rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.91rem;
+      min-width: 480px;
+    }
+
+    thead th {
+      text-align: left;
+      padding: 0.85rem 1rem;
+      font-weight: 700;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: white;
+      background: #0e2a47;
+    }
+
+    thead th:first-child {
+      border-radius: 1rem 0 0 0;
+      background: #2a4b7c;
+    }
+
+    thead th:last-child {
+      border-radius: 0 1rem 0 0;
+    }
+
+    tbody td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #e8f0f9;
+      color: #1e3c5a;
+      vertical-align: top;
+      font-size: 0.9rem;
+    }
+
+    tbody tr:last-child td { border-bottom: none; }
+
+    tbody tr:hover td { background: #f6faff; }
+
+    tbody td:first-child {
+      font-weight: 700;
+      color: #0e2a47;
+      background: #f3f8fd;
+      white-space: nowrap;
+    }
+
+    tbody tr:hover td:first-child { background: #eaf3fc; }
+
+    /* ---------- ADVANTAGES / CRITICISMS ---------- */
+    .proscons-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .pros-card, .cons-card {
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.5rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.12);
+      border: 1px solid;
+    }
+
+    .pros-card {
+      background: #f0faf4;
+      border-color: #b8e0c8;
+    }
+
+    .cons-card {
+      background: #fdf6f6;
+      border-color: #e8c8c8;
+    }
+
+    .pros-card h3, .cons-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .pros-card h3 { color: #1b6e3e; }
+    .cons-card h3 { color: #a83535; }
+
+    .pros-card ul, .cons-card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .pros-card li, .cons-card li {
+      padding: 0.45rem 0 0.45rem 1.7rem;
+      position: relative;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #1e3c5a;
+    }
+
+    .pros-card li::before {
+      content: '✔';
+      position: absolute;
+      left: 0;
+      color: #2e9b5e;
+      font-weight: 700;
+    }
+
+    .cons-card li::before {
+      content: '✘';
+      position: absolute;
+      left: 0;
+      color: #d45a5a;
+      font-weight: 700;
+    }
+
+    /* ---------- MEMORY TIP ---------- */
+    .memory-card {
+      background: linear-gradient(135deg, #0e2a47 0%, #1a4170 100%);
+      color: white;
+      border-radius: 1.6rem;
+      padding: 1.7rem 2rem;
+      margin: 1.2rem 0 0.5rem 0;
+      font-size: 1rem;
+      line-height: 1.6;
+      box-shadow: 0 14px 26px -12px #0e2a47;
+      border-left: 6px solid #8bb3e0;
+      text-align: center;
+    }
+
+    .memory-card .mnemonic {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #b8d4f0;
+      margin-bottom: 0.6rem;
+      line-height: 1.35;
+    }
+
+    .memory-card .mnemonic-map {
+      font-size: 0.92rem;
+      color: #d4e6fa;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+    }
+
+    /* ---------- SEARCH & COUNT ---------- */
+    .filter-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 60px;
+      box-shadow: 0 8px 18px -8px rgba(0, 27, 45, 0.1);
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 40px;
+      padding: 0.3rem 0.3rem 0.3rem 1.2rem;
+      flex: 2;
+      min-width: 240px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      border: 1px solid #ccdcee;
+    }
+
+    .search-box span {
+      font-size: 1.1rem;
+      margin-right: 0.5rem;
+      color: #4e6b8a;
+    }
+
+    .search-box input {
+      border: none;
+      padding: 0.7rem 0.2rem;
+      width: 100%;
+      font-size: 0.95rem;
+      outline: none;
+      background: transparent;
+      color: #0c253b;
+    }
+
+    .search-box input::placeholder {
+      color: #879eb6;
+      font-weight: 300;
+    }
+
+    .count-pill {
+      background: #0e2a47;
+      color: white;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ---------- QUIZ SECTION ---------- */
+    .quiz-section {
+      margin-top: 2.5rem;
+    }
+
+    .quiz-header {
+      background: #0e2a47;
+      border-radius: 2rem 2rem 0 0;
+      padding: 1.5rem 2rem;
+      color: white;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .quiz-header h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .quiz-header .quiz-badge {
+      background: #8bb3e0;
+      color: #0e2a47;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .quiz-body {
+      background: white;
+      border-radius: 0 0 2rem 2rem;
+      padding: 2rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      border: 1px solid #e3ecf7;
+      border-top: none;
+    }
+
+    .quiz-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #e3ecf7;
+      padding-bottom: 1rem;
+    }
+
+    .quiz-tab {
+      background: #f0f5fd;
+      border: 1px solid #d0e0f0;
+      color: #1b4670;
+      padding: 0.5rem 1.3rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .quiz-tab:hover {
+      background: #e0ecfc;
+      border-color: #a0c0e0;
+    }
+
+    .quiz-tab.active {
+      background: #0e2a47;
+      color: white;
+      border-color: #0e2a47;
+    }
+
+    .quiz-panel {
+      display: none;
+    }
+
+    .quiz-panel.active {
+      display: block;
+    }
+
+    .section-label {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.2rem;
+    }
+
+    /* MCQ */
+    .mcq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+      transition: background 0.2s;
+    }
+
+    .mcq-item:hover {
+      background: #f0f7fe;
+    }
+
+    .mcq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.8rem;
+      line-height: 1.5;
+    }
+
+    .mcq-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .mcq-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 0.8rem;
+      background: white;
+      border: 1.5px solid #d9e8fc;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+    }
+
+    .mcq-option:hover {
+      border-color: #8bb3e0;
+      background: #eef6ff;
+    }
+
+    .mcq-option.selected {
+      border-color: #3b7bb5;
+      background: #e4f0fe;
+      font-weight: 500;
+    }
+
+    .mcq-option.correct {
+      border-color: #2e9b5e;
+      background: #e6f7ee;
+      font-weight: 600;
+    }
+
+    .mcq-option.incorrect {
+      border-color: #d45a5a;
+      background: #fdeaea;
+      font-weight: 500;
+    }
+
+    .mcq-option .option-letter {
+      font-weight: 700;
+      color: #2a4b7c;
+      min-width: 1.4rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .mcq-option.correct .option-letter { color: #1b7a44; }
+    .mcq-option.incorrect .option-letter { color: #b03030; }
+
+    .mcq-feedback {
+      margin-top: 0.7rem;
+      font-size: 0.88rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: 0.8rem;
+      display: none;
+      font-weight: 500;
+    }
+
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.correct-fb {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .mcq-feedback.incorrect-fb {
+      background: #fdeaea;
+      color: #9e2a2a;
+      border-left: 4px solid #d45a5a;
+    }
+
+    /* CRQ / ERQ shared */
+    .crq-item, .erq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+    }
+
+    .erq-item {
+      border: 2px solid #8bb3e0;
+      background: #f5faff;
+    }
+
+    .crq-question, .erq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+
+    .erq-question {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .erq-marks {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      margin-bottom: 0.8rem;
+    }
+
+    .crq-hint {
+      font-size: 0.85rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-bottom: 0.7rem;
+    }
+
+    .crq-textarea, .erq-textarea {
+      width: 100%;
+      border: 1.5px solid #d9e8fc;
+      border-radius: 0.9rem;
+      padding: 0.8rem 1rem;
+      font-family: inherit;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+      resize: vertical;
+      transition: border-color 0.2s;
+      background: white;
+    }
+
+    .crq-textarea { min-height: 90px; }
+    .erq-textarea { min-height: 160px; }
+
+    .crq-textarea:focus, .erq-textarea:focus {
+      outline: none;
+      border-color: #3b7bb5;
+      box-shadow: 0 0 0 3px rgba(59, 123, 181, 0.12);
+    }
+
+    .crq-actions, .erq-actions {
+      display: flex;
+      gap: 0.7rem;
+      margin-top: 0.7rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.55rem 1.4rem;
+      border-radius: 40px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: #0e2a47;
+      color: white;
+    }
+    .btn-primary:hover {
+      background: #1a4170;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #e9f0fa;
+      color: #1b4670;
+      border: 1px solid #c0d8f0;
+    }
+    .btn-secondary:hover { background: #d8e6f8; }
+
+    .crq-feedback, .erq-feedback {
+      margin-top: 0.8rem;
+      padding: 0.8rem 1rem;
+      border-radius: 0.9rem;
+      font-size: 0.9rem;
+      display: none;
+      line-height: 1.6;
+    }
+
+    .crq-feedback.show, .erq-feedback.show { display: block; }
+
+    .crq-feedback.good, .erq-feedback.good {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+
+    .crq-feedback.partial, .erq-feedback.partial {
+      background: #fff8e6;
+      color: #8a6d1f;
+      border-left: 4px solid #e0a800;
+    }
+
+    .erq-feedback.model {
+      background: #e6f0fc;
+      color: #1a3e62;
+      border-left: 5px solid #3b7bb5;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 700px) {
+      .lotshot-grid { grid-template-columns: 1fr; }
+      .proscons-grid { grid-template-columns: 1fr; }
+      .ladder-cols { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .header-card { padding: 1.5rem 1.2rem; }
+      h1 { font-size: 1.7rem; }
+      .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: 2rem;
+        padding: 1rem;
+      }
+      .search-box { width: 100%; }
+      .count-pill { text-align: center; padding: 0.5rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .quiz-body { padding: 1.2rem; }
+      .quiz-header { padding: 1.2rem; }
+      .quiz-header h2 { font-size: 1.3rem; }
+      .mcq-item, .crq-item, .erq-item { padding: 1rem; }
+      .quiz-tab { font-size: 0.8rem; padding: 0.4rem 1rem; }
+      .memory-card { padding: 1.3rem 1.2rem; }
+      .memory-card .mnemonic { font-size: 1.1rem; }
+    }
+
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #dfe9f5; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: #94b0d1; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6d8fb4; }
+
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem 1rem;
+      background: #ffffffc9;
+      border-radius: 2rem;
+      font-size: 1.1rem;
+      color: #4b6888;
+      border: 2px dashed #b8cee8;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-wrapper">
+
+    <!-- HEADER -->
+    <div class="header-card">
+      <div class="badge">🎯 Methods of Teaching</div>
+      <h1>Bloom's Taxonomy of Educational Objectives</h1>
+      <div class="subhead">A ladder of learning — from simple recall to creative thinking</div>
+      <div class="intro-text">
+        <strong>💡 What is it?</strong> Bloom's Taxonomy is a classification system that arranges learning objectives from simple to complex. It helps teachers decide <em>what</em> students should learn and <em>how deeply</em> they should learn it. Developed by Benjamin Bloom and colleagues (1956) and revised by Anderson &amp; Krathwohl (2001).
+      </div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="filter-section">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="Search levels, domains, verbs, examples..." autocomplete="off">
+      </div>
+      <div class="count-pill" id="countDisplay">30+ items</div>
+    </div>
+
+    <!-- WHY IMPORTANT + FACTS -->
+    <div class="section-title">
+      🌟 Why It Matters &amp; Key Facts
+      <span class="line"></span>
+    </div>
+
+    <div class="cards-grid" id="factsGrid">
+      <div class="info-card" data-searchable="helps teachers write clear learning objectives memorisation thinking skills planning lessons activities tests assessment matches taught grow knowledge creativity">
+        <div class="card-icon-lg">📝</div>
+        <div class="card-title-md">Why It's Important</div>
+        <div class="card-desc-sm">
+          Helps teachers write clear objectives · Moves teaching from memorisation to thinking skills · Helps plan lessons, activities, and tests · Makes assessment match what was taught · Shows students how to grow from knowledge to creativity.
+        </div>
+      </div>
+      <div class="info-card" data-searchable="benjamin bloom university of chicago 1956 taxonomy of educational objectives revised 2001 lorin anderson david krathwohl">
+        <div class="card-icon-lg">📅</div>
+        <div class="card-title-md">Origins &amp; Revision</div>
+        <div class="card-desc-sm">
+          <strong>Developed by:</strong> Benjamin Bloom &amp; team, University of Chicago.
+
+          <strong>Published:</strong> 1956, <em>Taxonomy of Educational Objectives</em>.
+
+          <strong>Revised:</strong> 2001, by Lorin Anderson &amp; David Krathwohl.
+        </div>
+      </div>
+      <div class="info-card" data-searchable="three domains cognitive affective psychomotor head heart hands mental skills feelings attitudes physical skills">
+        <div class="card-icon-lg">🧠</div>
+        <div class="card-title-md">Three Domains of Learning</div>
+        <div class="card-desc-sm">
+          <strong>Cognitive</strong> – mental skills ("head")
+
+          <strong>Affective</strong> – feelings &amp; attitudes ("heart")
+
+          <strong>Psychomotor</strong> – physical skills ("hands")
+
+          The <strong>cognitive domain</strong> is the most widely used.
+        </div>
+      </div>
+    </div>
+
+    <!-- DOMAINS -->
+    <div class="section-title">
+      🎯 The Three Domains
+      <span class="line"></span>
+    </div>
+
+    <div class="cards-grid" id="domainGrid">
+      <div class="domain-card cognitive" data-searchable="cognitive domain mental skills knowledge thinking head bloom">
+        <div class="domain-icon">🧠</div>
+        <div class="domain-title">Cognitive</div>
+        <div class="domain-sub">Mental skills</div>
+        <div class="domain-desc">Knowledge and thinking — the "head" domain. This is the most widely used domain in teaching.</div>
+        <div class="domain-focus">Head · Knowledge · Thinking</div>
+      </div>
+      <div class="domain-card affective" data-searchable="affective domain feelings attitudes values emotions interests heart krathwohl 1964">
+        <div class="domain-icon">❤️</div>
+        <div class="domain-title">Affective</div>
+        <div class="domain-sub">Feelings &amp; attitudes</div>
+        <div class="domain-desc">Values, emotions, and interests — the "heart" domain. Developed further by Krathwohl (1964).</div>
+        <div class="domain-focus">Heart · Values · Emotions</div>
+      </div>
+      <div class="domain-card psychomotor" data-searchable="psychomotor domain physical skills movement practical hands simpson 1972 dave 1970">
+        <div class="domain-icon">🤲</div>
+        <div class="domain-title">Psychomotor</div>
+        <div class="domain-sub">Physical skills</div>
+        <div class="domain-desc">Movement and practical skills — the "hands" domain. Completed later by Simpson (1972) and Dave (1970).</div>
+        <div class="domain-focus">Hands · Movement · Practical</div>
+      </div>
+    </div>
+
+    <!-- LADDER: ORIGINAL VS REVISED -->
+    <div class="section-title">
+      🪜 Original vs Revised (Cognitive Domain)
+      <span class="line"></span>
+    </div>
+
+    <div class="ladder-wrapper" data-searchable="original 1956 knowledge comprehension application analysis synthesis evaluation revised 2001 remember understand apply analyse evaluate create nouns verbs knowledge remember synthesis create moved top">
+      <div class="ladder-head">
+        <div class="ladder-col-title original">📜 Original 1956 (lowest → highest)</div>
+        <div class="ladder-col-title revised">✨ Revised 2001 (lowest → highest)</div>
+      </div>
+      <div class="ladder-cols">
+        <div class="ladder-col">
+          <div class="ladder-step step-original"><span class="step-num">1</span> Knowledge</div>
+          <div class="ladder-step step-original"><span class="step-num">2</span> Comprehension</div>
+          <div class="ladder-step step-original"><span class="step-num">3</span> Application</div>
+          <div class="ladder-step step-original"><span class="step-num">4</span> Analysis</div>
+          <div class="ladder-step step-original"><span class="step-num">5</span> Synthesis</div>
+          <div class="ladder-step step-original"><span class="step-num">6</span> Evaluation</div>
+        </div>
+        <div class="ladder-col">
+          <div class="ladder-step step-revised"><span class="step-num">1</span> Remember</div>
+          <div class="ladder-step step-revised"><span class="step-num">2</span> Understand</div>
+          <div class="ladder-step step-revised"><span class="step-num">3</span> Apply</div>
+          <div class="ladder-step step-revised"><span class="step-num">4</span> Analyse</div>
+          <div class="ladder-step step-revised"><span class="step-num">5</span> Evaluate</div>
+          <div class="ladder-step step-revised top"><span class="step-num">6</span> Create ⬅ top</div>
+        </div>
+      </div>
+      <div class="ladder-note">
+        <strong>Main changes:</strong> Nouns → verbs (learning is an activity) · "Knowledge" → "Remember" · "Synthesis" → "Create" · "Create" moved to the <strong>top</strong>, above "Evaluate."
+      </div>
+    </div>
+
+    <!-- LEVEL DETAILS -->
+    <div class="section-title">
+      🔍 Explanation of Each Level (Revised)
+      <span class="line"></span>
+    </div>
+
+    <div class="cards-grid" id="levelGrid">
+      <!-- Remember -->
+      <div class="level-card" data-searchable="remember recall facts basic information memory define list name recall state label repeat">
+        <div class="level-head">
+          <div class="level-badge" style="background:#7a9cc0;">1</div>
+          <div class="level-name">Remember</div>
+        </div>
+        <div class="level-verbs">
+          <span class="verb-tag">define</span><span class="verb-tag">list</span><span class="verb-tag">name</span>
+          <span class="verb-tag">recall</span><span class="verb-tag">state</span><span class="verb-tag">label</span><span class="verb-tag">repeat</span>
+        </div>
+        <div class="level-example"><strong>Example:</strong> List the four seasons of the year.</div>
+      </div>
+      <!-- Understand -->
+      <div class="level-card" data-searchable="understand explain ideas own words describe summarise classify compare give examples">
+        <div class="level-head">
+          <div class="level-badge" style="background:#5a8ec9;">2</div>
+          <div class="level-name">Understand</div>
+        </div>
+        <div class="level-verbs">
+          <span class="verb-tag">explain</span><span class="verb-tag">describe</span><span class="verb-tag">summarise</span>
+          <span class="verb-tag">classify</span><span class="verb-tag">compare</span><span class="verb-tag">give examples</span>
+        </div>
+        <div class="level-example"><strong>Example:</strong> Explain why the seasons change.</div>
+      </div>
+      <!-- Apply -->
+      <div class="level-card" data-searchable="apply use knowledge new real situation solve demonstrate calculate show perform">
+        <div class="level-head">
+          <div class="level-badge" style="background:#3fa86a;">3</div>
+          <div class="level-name">Apply</div>
+        </div>
+        <div class="level-verbs">
+          <span class="verb-tag">use</span><span class="verb-tag">solve</span><span class="verb-tag">demonstrate</span>
+          <span class="verb-tag">calculate</span><span class="verb-tag">show</span><span class="verb-tag">perform</span>
+        </div>
+        <div class="level-example"><strong>Example:</strong> Use the formula for area to find the area of your classroom floor.</div>
+      </div>
+      <!-- Analyse -->
+      <div class="level-card" data-searchable="analyse analyze break information parts relate compare contrast examine organise differentiate find causes">
+        <div class="level-head">
+          <div class="level-badge" style="background:#e0a800;">4</div>
+          <div class="level-name">Analyse</div>
+        </div>
+        <div class="level-verbs">
+          <span class="verb-tag">compare</span><span class="verb-tag">contrast</span><span class="verb-tag">examine</span>
+          <span class="verb-tag">organise</span><span class="verb-tag">differentiate</span><span class="verb-tag">find causes</span>
+        </div>
+        <div class="level-example"><strong>Example:</strong> Examine the causes of the decline in student attendance.</div>
+      </div>
+      <!-- Evaluate -->
+      <div class="level-card" data-searchable="evaluate judge defend decision criteria evidence justify criticise recommend argue assess">
+        <div class="level-head">
+          <div class="level-badge" style="background:#d4933a;">5</div>
+          <div class="level-name">Evaluate</div>
+        </div>
+        <div class="level-verbs">
+          <span class="verb-tag">judge</span><span class="verb-tag">justify</span><span class="verb-tag">criticise</span>
+          <span class="verb-tag">recommend</span><span class="verb-tag">argue</span><span class="verb-tag">assess</span>
+        </div>
+        <div class="level-example"><strong>Example:</strong> Judge which method of saving water is most effective, and give reasons.</div>
+      </div>
+      <!-- Create -->
+      <div class="level-card" data-searchable="create put ideas together make something new original design invent compose plan produce construct">
+        <div class="level-head">
+          <div class="level-badge" style="background:#0e2a47;">6</div>
+          <div class="level-name">Create</div>
+        </div>
+        <div class="level-verbs">
+          <span class="verb-tag">design</span><span class="verb-tag">invent</span><span class="verb-tag">compose</span>
+          <span class="verb-tag">plan</span><span class="verb-tag">produce</span><span class="verb-tag">construct</span>
+        </div>
+        <div class="level-example"><strong>Example:</strong> Design a poster campaign to promote clean drinking water.</div>
+      </div>
+    </div>
+
+    <!-- LOTS vs HOTS -->
+    <div class="section-title">
+      ⚖️ Lower-Order vs Higher-Order Thinking
+      <span class="line"></span>
+    </div>
+
+    <div class="lotshot-grid" id="lotshotGrid">
+      <div class="lotshot-card lots" data-searchable="lower-order thinking skills lots remember understand apply sometimes counted here">
+        <h3>📘 LOTS — Lower-Order Thinking Skills</h3>
+        <ul class="lotshot-list">
+          <li>Remember</li>
+          <li>Understand</li>
+          <li>Apply (sometimes counted here)</li>
+        </ul>
+        <div class="lotshot-note">Good teaching <strong>begins</strong> with LOTS but should not stop there.</div>
+      </div>
+      <div class="lotshot-card hots" data-searchable="higher-order thinking skills hots analyse evaluate create">
+        <h3>🚀 HOTS — Higher-Order Thinking Skills</h3>
+        <ul class="lotshot-list">
+          <li>Analyse</li>
+          <li>Evaluate</li>
+          <li>Create</li>
+        </ul>
+        <div class="lotshot-note">Teaching should <strong>move students toward HOTS</strong> for deeper learning.</div>
+      </div>
+    </div>
+
+    <!-- KNOWLEDGE DIMENSION -->
+    <div class="section-title">
+      📚 Revised Taxonomy: The Knowledge Dimension
+      <span class="line"></span>
+    </div>
+
+    <div class="cards-grid" id="knowledgeGrid">
+      <div class="know-item" data-searchable="factual basic facts terms names dates">
+        <div class="know-name">📌 Factual</div>
+        <div class="know-desc">Basic facts and terms — the building blocks of knowledge.</div>
+        <div class="know-example">Examples: names, dates, vocabulary</div>
+      </div>
+      <div class="know-item" data-searchable="conceptual ideas categories theories what democracy means">
+        <div class="know-name">💡 Conceptual</div>
+        <div class="know-desc">Ideas, categories, and theories — how facts relate to each other.</div>
+        <div class="know-example">Example: what democracy means</div>
+      </div>
+      <div class="know-item" data-searchable="procedural how to do something steps science experiment">
+        <div class="know-name">🔧 Procedural</div>
+        <div class="know-desc">How to do something — methods, steps, and techniques.</div>
+        <div class="know-example">Example: steps of a science experiment</div>
+      </div>
+      <div class="know-item" data-searchable="metacognitive awareness own thinking learning best study method">
+        <div class="know-name">🧭 Metacognitive</div>
+        <div class="know-desc">Awareness of your own thinking and learning — knowing how you learn best.</div>
+        <div class="know-example">Example: knowing your best study method</div>
+      </div>
+    </div>
+
+    <!-- AFFECTIVE DOMAIN -->
+    <div class="section-title">
+      ❤️ The Affective Domain (Krathwohl, 1964)
+      <span class="line"></span>
+    </div>
+
+    <div class="cards-grid" id="affectiveGrid">
+      <div class="affective-step" data-searchable="receiving willing to listen pay attention">
+        <div class="affective-num">1</div>
+        <div>
+          <div class="affective-name">Receiving</div>
+          <div class="affective-desc">Being willing to listen or pay attention.</div>
+        </div>
+      </div>
+      <div class="affective-step" data-searchable="responding actively taking part">
+        <div class="affective-num">2</div>
+        <div>
+          <div class="affective-name">Responding</div>
+          <div class="affective-desc">Actively taking part.</div>
+        </div>
+      </div>
+      <div class="affective-step" data-searchable="valuing seeing worth in something">
+        <div class="affective-num">3</div>
+        <div>
+          <div class="affective-name">Valuing</div>
+          <div class="affective-desc">Seeing worth in something.</div>
+        </div>
+      </div>
+      <div class="affective-step" data-searchable="organising building personal value system">
+        <div class="affective-num">4</div>
+        <div>
+          <div class="affective-name">Organising</div>
+          <div class="affective-desc">Building a personal value system.</div>
+        </div>
+      </div>
+      <div class="affective-step" data-searchable="characterising acting consistently on values">
+        <div class="affective-num">5</div>
+        <div>
+          <div class="affective-name">Characterising</div>
+          <div class="affective-desc">Acting consistently on those values.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ladder-note" style="margin-bottom:0.5rem;" data-searchable="affective example student listens to talk on honesty receiving discusses responding believes it matters valuing compares with other values organising always acts honestly characterising">
+      <strong>📖 Example:</strong> A student listens to a talk on honesty (<em>receiving</em>), discusses it (<em>responding</em>), believes it matters (<em>valuing</em>), compares it with other values (<em>organising</em>), and always acts honestly (<em>characterising</em>).
+    </div>
+
+    <!-- PSYCHOMOTOR DOMAIN -->
+    <div class="section-title">
+      🤲 The Psychomotor Domain
+      <span class="line"></span>
+    </div>
+
+    <div class="psycho-wrapper" data-searchable="psychomotor physical practical skills bloom did not complete simpson 1972 dave 1970 perception set guided response mechanism complex overt response adaptation origination learning to write">
+      <p style="font-size:0.94rem;color:#274e73;margin-bottom:0.3rem;">
+        This domain deals with <strong>physical and practical skills</strong>. Bloom's team did not complete it. Later, <strong>Simpson (1972)</strong> and <strong>Dave (1970)</strong> developed it.
+      </p>
+      <div class="psycho-steps">
+        <span class="psycho-step">Perception</span>
+        <span class="psycho-step">Set</span>
+        <span class="psycho-step">Guided Response</span>
+        <span class="psycho-step">Mechanism</span>
+        <span class="psycho-step">Complex Overt Response</span>
+        <span class="psycho-step">Adaptation</span>
+        <span class="psycho-step">Origination</span>
+      </div>
+      <div class="psycho-example">
+        <strong>📖 Example — Learning to write:</strong> watching a model → copying strokes with help → practising until smooth → developing a personal handwriting style.
+      </div>
+    </div>
+
+    <!-- HOW TEACHERS USE IT -->
+    <div class="section-title">
+      🧑‍🏫 How Teachers Use Bloom's Taxonomy
+      <span class="line"></span>
+    </div>
+
+    <div class="cards-grid" id="useGrid">
+      <div class="use-item" data-searchable="writing objectives measurable verbs weak students will know about photosynthesis better explain process">
+        <div class="use-title">✍️ Writing Objectives</div>
+        <div class="use-desc">Use measurable verbs to make objectives clear and assessable.</div>
+        <div class="weak-vs-better">
+          <div class="weak"><strong>Weak:</strong> "Students will know about photosynthesis."</div>
+          <div class="better"><strong>Better:</strong> "Students will explain the process of photosynthesis."</div>
+        </div>
+      </div>
+      <div class="use-item" data-searchable="planning lessons include activities different levels">
+        <div class="use-title">📅 Planning Lessons</div>
+        <div class="use-desc">Include activities at <strong>different levels</strong> — don't stay only at Remember and Understand.</div>
+      </div>
+      <div class="use-item" data-searchable="designing assessment mix easy medium challenging questions">
+        <div class="use-title">📊 Designing Assessment</div>
+        <div class="use-desc">Mix <strong>easy, medium, and challenging</strong> questions so all levels are tested.</div>
+      </div>
+      <div class="use-item" data-searchable="questioning in class ask questions all levels not only what questions">
+        <div class="use-title">❓ Questioning in Class</div>
+        <div class="use-desc">Ask questions from <strong>all levels</strong>, not only "what" questions.</div>
+      </div>
+      <div class="use-item" data-searchable="differentiation struggling learners support lower levels challenge advanced learners higher levels">
+        <div class="use-title">🎯 Differentiation</div>
+        <div class="use-desc">Give struggling learners support at <strong>lower levels</strong> and challenge advanced learners with <strong>higher levels</strong>.</div>
+      </div>
+    </div>
+
+    <!-- WATER CYCLE TABLE -->
+    <div class="section-title">
+      💧 Sample Questions on One Topic: "Water Cycle"
+      <span class="line"></span>
+    </div>
+
+    <div class="table-wrapper" data-searchable="water cycle sample questions remember stages understand clouds formed apply diagram rain analyse evaporation stopped evaluate pollution wastage create model">
+      <table>
+        <thead>
+          <tr>
+            <th>Level</th>
+            <th>Sample Question</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Remember</td><td>What are the stages of the water cycle?</td></tr>
+          <tr><td>Understand</td><td>Explain how clouds are formed.</td></tr>
+          <tr><td>Apply</td><td>Use a diagram to show how rain forms in your area.</td></tr>
+          <tr><td>Analyse</td><td>What would happen if evaporation stopped?</td></tr>
+          <tr><td>Evaluate</td><td>Which is a bigger threat to our water supply: pollution or wastage? Why?</td></tr>
+          <tr><td>Create</td><td>Design a model that shows the water cycle.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ADVANTAGES & CRITICISMS -->
+    <div class="section-title">
+      ⚖️ Advantages &amp; Criticisms
+      <span class="line"></span>
+    </div>
+
+    <div class="proscons-grid" id="prosconsGrid">
+      <div class="pros-card" data-searchable="advantages simple clear widely accepted deep learning critical thinking align objectives teaching assessment all subjects grade levels">
+        <h3>✅ Advantages</h3>
+        <ul>
+          <li>Simple, clear, and widely accepted</li>
+          <li>Encourages deep learning and critical thinking</li>
+          <li>Helps align objectives, teaching, and assessment</li>
+          <li>Useful for all subjects and grade levels</li>
+        </ul>
+      </div>
+      <div class="cons-card" data-searchable="criticisms limitations learning not strictly step-by-step students may create before mastering levels overlap hard to place task culture context emotions verbs describe explain fit more than one level">
+        <h3>⚠️ Criticisms &amp; Limitations</h3>
+        <ul>
+          <li>Learning is not always strictly step-by-step — students may create before fully mastering earlier levels</li>
+          <li>Levels can overlap, so it is sometimes hard to place a task in one level</li>
+          <li>Focuses mainly on thinking and may ignore culture, context, and emotions</li>
+          <li>Verbs like "describe" or "explain" can fit more than one level depending on the task</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- MEMORY TIP -->
+    <div class="memory-card" data-searchable="memory tip really useful aids always enhance creativity remember understand apply analyse evaluate create">
+      <div class="mnemonic">"Really Useful Aids Always Enhance Creativity"</div>
+      <div class="mnemonic-map">
+        <strong>R</strong>emember → <strong>U</strong>nderstand → <strong>A</strong>pply → <strong>A</strong>nalyse → <strong>E</strong>valuate → <strong>C</strong>reate
+      </div>
+    </div>
+
+    <!-- ================= QUIZ SECTION ================= -->
+    <div class="quiz-section">
+      <div class="quiz-header">
+        <h2>📝 Practice Quiz</h2>
+        <span class="quiz-badge">Test Your Knowledge</span>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-tabs">
+          <button class="quiz-tab active" data-panel="mcqPanel">🔘 10 MCQs</button>
+          <button class="quiz-tab" data-panel="crqPanel">✍️ 4 CRQs</button>
+          <button class="quiz-tab" data-panel="erqPanel">📄 1 ERQ</button>
+        </div>
+
+        <!-- MCQ PANEL -->
+        <div class="quiz-panel active" id="mcqPanel">
+          <span class="section-label">Multiple Choice Questions</span>
+          <div id="mcqContainer"></div>
+        </div>
+
+        <!-- CRQ PANEL -->
+        <div class="quiz-panel" id="crqPanel">
+          <span class="section-label">Constructed Response Questions</span>
+          <div id="crqContainer"></div>
+        </div>
+
+        <!-- ERQ PANEL -->
+        <div class="quiz-panel" id="erqPanel">
+          <span class="section-label">Extended Response Question (Situation-Based)</span>
+          <div id="erqContainer"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      // ================= SEARCH FILTER =================
+      const searchInput = document.getElementById('searchInput');
+      const countDisplay = document.getElementById('countDisplay');
+
+      // All searchable elements across the page
+      const allSearchables = document.querySelectorAll('[data-searchable]');
+      const cardParents = new Map();
+      allSearchables.forEach(card => cardParents.set(card, card.parentNode));
+
+      function applySearch(query) {
+        const q = query.trim().toLowerCase();
+        let visibleCount = 0;
+
+        allSearchables.forEach(card => {
+          const searchText = (card.dataset.searchable || '').toLowerCase() + ' ' + card.textContent.toLowerCase();
+          const matches = q === '' || searchText.includes(q);
+          if (matches) {
+            visibleCount++;
+            if (!card.parentNode) cardParents.get(card).appendChild(card);
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        countDisplay.textContent = visibleCount + ' item' + (visibleCount !== 1 ? 's' : '');
+      }
+
+      let debounceTimer;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => applySearch(e.target.value), 180);
+      });
+
+      searchInput.addEventListener('search', (e) => {
+        if (e.target.value === '') applySearch('');
+      });
+
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchInput.value !== '') {
+          searchInput.value = '';
+          applySearch('');
+        }
+      });
+
+      // ================= QUIZ DATA =================
+      const mcqs = [
+        {
+          q: "What is Bloom's Taxonomy?",
+          options: [
+            "A list of teaching methods",
+            "A classification system that arranges learning objectives from simple to complex",
+            "A type of assessment tool",
+            "A classroom management strategy"
+          ],
+          correct: 1,
+          feedback: "Bloom's Taxonomy is a classification system that arranges learning objectives from simple to complex, helping teachers decide what and how deeply students should learn."
+        },
+        {
+          q: "Who developed Bloom's Taxonomy and when was it published?",
+          options: [
+            "Anderson & Krathwohl, 2001",
+            "Benjamin Bloom and team, 1956",
+            "Simpson, 1972",
+            "Vygotsky, 1934"
+          ],
+          correct: 1,
+          feedback: "Benjamin Bloom and a team of educational psychologists at the University of Chicago published it in 1956 in 'Taxonomy of Educational Objectives'."
+        },
+        {
+          q: "Which three domains of learning did Bloom's team identify?",
+          options: [
+            "Visual, Auditory, Kinesthetic",
+            "Cognitive, Affective, Psychomotor",
+            "Concrete, Abstract, Reflective",
+            "Verbal, Logical, Spatial"
+          ],
+          correct: 1,
+          feedback: "The three domains are Cognitive (mental/head), Affective (feelings/heart), and Psychomotor (physical/hands)."
+        },
+        {
+          q: "In the revised 2001 taxonomy, which level is at the TOP?",
+          options: ["Evaluate", "Synthesis", "Create", "Analyse"],
+          correct: 2,
+          feedback: "In the revised version, 'Create' moved to the top, above 'Evaluate'. In the original, 'Evaluation' was at the top."
+        },
+        {
+          q: "What was 'Knowledge' renamed to in the 2001 revision?",
+          options: ["Understand", "Remember", "Apply", "Comprehend"],
+          correct: 1,
+          feedback: "'Knowledge' became 'Remember' in the revised version, and nouns were changed to verbs."
+        },
+        {
+          q: "Which of these is a verb for the 'Apply' level?",
+          options: ["list", "explain", "solve", "judge"],
+          correct: 2,
+          feedback: "'Solve' is an Apply-level verb. 'List' is Remember, 'explain' is Understand, and 'judge' is Evaluate."
+        },
+        {
+          q: "Which levels are considered Higher-Order Thinking Skills (HOTS)?",
+          options: [
+            "Remember, Understand, Apply",
+            "Analyse, Evaluate, Create",
+            "Understand, Apply, Analyse",
+            "Remember, Understand, Create"
+          ],
+          correct: 1,
+          feedback: "HOTS are Analyse, Evaluate, and Create. LOTS are Remember and Understand (with Apply sometimes counted in either group)."
+        },
+        {
+          q: "What is 'metacognitive' knowledge in the revised taxonomy?",
+          options: [
+            "Basic facts and terms",
+            "How to do something step by step",
+            "Awareness of your own thinking and learning",
+            "Ideas, categories, and theories"
+          ],
+          correct: 2,
+          feedback: "Metacognitive knowledge is awareness of your own thinking and learning — e.g., knowing your best study method."
+        },
+        {
+          q: "Which domain deals with attitudes, values, and feelings?",
+          options: ["Cognitive", "Psychomotor", "Affective", "Behavioural"],
+          correct: 2,
+          feedback: "The Affective domain (Krathwohl, 1964) deals with attitudes, values, and feelings — the 'heart' domain."
+        },
+        {
+          q: "What is the memory tip for the revised Bloom's levels?",
+          options: [
+            "Keep It Simple and Smart",
+            "Really Useful Aids Always Enhance Creativity",
+            "Read, Understand, Apply, Analyse, Evaluate, Create",
+            "Learning Always Brings Excellent Results"
+          ],
+          correct: 1,
+          feedback: "'Really Useful Aids Always Enhance Creativity' maps to Remember → Understand → Apply → Analyse → Evaluate → Create."
+        }
+      ];
+
+      const crqs = [
+        {
+          q: "Explain the main changes made in the 2001 revision of Bloom's Taxonomy.",
+          hint: "Think about nouns vs verbs, renamed levels, and which level moved to the top.",
+          keywords: ["nouns", "verbs", "action", "knowledge", "remember", "synthesis", "create", "moved", "top", "evaluate", "2001", "anderson", "krathwohl"],
+          model: "The 2001 revision (by Anderson & Krathwohl) made three main changes: (1) Nouns were changed to verbs (action words) because learning is an activity. (2) 'Knowledge' became 'Remember' and 'Synthesis' became 'Create'. (3) 'Create' moved to the top of the hierarchy, above 'Evaluate'."
+        },
+        {
+          q: "Describe the difference between Lower-Order Thinking Skills (LOTS) and Higher-Order Thinking Skills (HOTS), and explain why teaching should move toward HOTS.",
+          hint: "Name the levels in each group and think about depth of learning.",
+          keywords: ["lots", "lower-order", "remember", "understand", "apply", "hots", "higher-order", "analyse", "evaluate", "create", "deep", "critical thinking", "memorisation"],
+          model: "LOTS (Lower-Order Thinking Skills) include Remember, Understand, and sometimes Apply — these focus on recall and basic comprehension. HOTS (Higher-Order Thinking Skills) include Analyse, Evaluate, and Create — these require deeper thinking, judgment, and original production. Teaching should begin with LOTS but move toward HOTS because HOTS develops critical thinking, problem-solving, and deeper, longer-lasting understanding rather than just memorisation."
+        },
+        {
+          q: "Explain the four types of knowledge in the revised taxonomy's Knowledge Dimension, giving one example of each.",
+          hint: "Factual, Conceptual, Procedural, Metacognitive.",
+          keywords: ["factual", "facts", "terms", "conceptual", "ideas", "theories", "procedural", "how to", "steps", "metacognitive", "awareness", "thinking", "learning"],
+          model: "The four types of knowledge are: (1) Factual — basic facts and terms, e.g., names and dates. (2) Conceptual — ideas, categories, and theories, e.g., what democracy means. (3) Procedural — how to do something, e.g., steps of a science experiment. (4) Metacognitive — awareness of your own thinking and learning, e.g., knowing your best study method."
+        },
+        {
+          q: "How can teachers use Bloom's Taxonomy in their daily practice? Give at least FOUR practical uses.",
+          hint: "Think about objectives, lesson planning, assessment, questioning, and differentiation.",
+          keywords: ["objectives", "measurable verbs", "lesson planning", "activities", "different levels", "assessment", "mix", "questioning", "all levels", "differentiation", "support", "challenge"],
+          model: "Teachers can use Bloom's Taxonomy in at least four ways: (1) Writing objectives with measurable verbs, e.g., 'Students will explain...' instead of 'Students will know...'. (2) Planning lessons with activities at different levels, not just Remember and Understand. (3) Designing assessments that mix easy, medium, and challenging questions across levels. (4) Asking questions from all levels in class, not only 'what' questions. (5) Differentiating by giving struggling learners support at lower levels and challenging advanced learners with higher levels."
+        }
+      ];
+
+      const erq = {
+        q: `Ms. Sana is a Grade 6 science teacher. She has just finished teaching a unit on the water cycle. For her end-of-unit assessment, she plans to give only one type of question: "What are the stages of the water cycle?"
+
+Her head teacher observes that this assessment does not challenge students to think deeply and does not show whether they truly understand the topic.
+
+Based on Bloom's Taxonomy, explain what is wrong with Ms. Sana's assessment and describe FOUR improved questions she could ask — one each from the Understand, Apply, Analyse, and Create levels. For each question, explain what thinking skill it develops.`,
+        marks: "10 marks",
+        model: `
+          <strong>Model Answer (key points):</strong>
+
+
+          <strong>What's wrong:</strong> Ms. Sana's question "What are the stages of the water cycle?" is only a <em>Remember</em> level question. It tests simple recall, not understanding or deeper thinking. It does not show whether students can apply, analyse, evaluate, or create with their knowledge.
+
+
+          <strong>1. Understand level:</strong> "Explain how clouds are formed." — This develops the ability to explain ideas in one's own words rather than just listing stages.
+
+
+          <strong>2. Apply level:</strong> "Use a diagram to show how rain forms in your area." — This develops the ability to use knowledge in a new, real-world situation.
+
+
+          <strong>3. Analyse level:</strong> "What would happen if evaporation stopped? Explain the effects." — This develops the ability to break information into parts, examine relationships, and find causes and consequences.
+
+
+          <strong>4. Create level:</strong> "Design a model or poster that shows the water cycle and explain your design choices." — This develops the ability to put ideas together to make something new and original.
+
+
+          <em>Note: An Evaluate question such as "Which is a bigger threat to our water supply: pollution or wastage? Why?" is also a strong addition — it develops judgment based on criteria and evidence.</em>
+        `
+      };
+
+      // ================= RENDER MCQs =================
+      const mcqContainer = document.getElementById('mcqContainer');
+      let mcqHtml = '';
+      mcqs.forEach((item, idx) => {
+        const letters = ['A', 'B', 'C', 'D'];
+        let optionsHtml = '';
+        item.options.forEach((opt, oi) => {
+          optionsHtml += `
+            <div class="mcq-option" data-qidx="${idx}" data-oidx="${oi}">
+              <span class="option-letter">${letters[oi]}</span>
+              <span>${opt}</span>
+            </div>
+          `;
+        });
+        mcqHtml += `
+          <div class="mcq-item" id="mcq-${idx}">
+            <div class="mcq-question">${idx + 1}. ${item.q}</div>
+            <div class="mcq-options">${optionsHtml}</div>
+            <div class="mcq-feedback" id="mcq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      mcqContainer.innerHTML = mcqHtml;
+
+      mcqContainer.addEventListener('click', (e) => {
+        const option = e.target.closest('.mcq-option');
+        if (!option) return;
+        const qidx = parseInt(option.dataset.qidx);
+        const oidx = parseInt(option.dataset.oidx);
+        const mcq = mcqs[qidx];
+        const parentItem = document.getElementById(`mcq-${qidx}`);
+        const allOptions = parentItem.querySelectorAll('.mcq-option');
+        const feedbackEl = document.getElementById(`mcq-fb-${qidx}`);
+
+        if (parentItem.dataset.answered === 'correct') return;
+
+        allOptions.forEach(opt => opt.classList.remove('selected', 'correct', 'incorrect'));
+        option.classList.add('selected');
+
+        if (oidx === mcq.correct) {
+          option.classList.add('correct');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '✅ Correct! ' + mcq.feedback;
+          feedbackEl.className = 'mcq-feedback show correct-fb';
+          parentItem.dataset.answered = 'correct';
+        } else {
+          option.classList.add('incorrect');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '❌ Not quite. Try again!';
+          feedbackEl.className = 'mcq-feedback show incorrect-fb';
+          setTimeout(() => {
+            if (feedbackEl.classList.contains('incorrect-fb')) {
+              feedbackEl.classList.remove('show');
+            }
+          }, 1500);
+        }
+      });
+
+      // ================= RENDER CRQs =================
+      const crqContainer = document.getElementById('crqContainer');
+      let crqHtml = '';
+      crqs.forEach((item, idx) => {
+        crqHtml += `
+          <div class="crq-item" id="crq-${idx}">
+            <div class="crq-question">${idx + 1}. ${item.q}</div>
+            <div class="crq-hint">💡 Hint: ${item.hint}</div>
+            <textarea class="crq-textarea" id="crq-ta-${idx}" placeholder="Write your answer here..."></textarea>
+            <div class="crq-actions">
+              <button class="btn btn-primary" data-crq-check="${idx}">Check Answer</button>
+              <button class="btn btn-secondary" data-crq-clear="${idx}">Clear</button>
+            </div>
+            <div class="crq-feedback" id="crq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      crqContainer.innerHTML = crqHtml;
+
+      crqContainer.addEventListener('click', (e) => {
+        const checkBtn = e.target.closest('[data-crq-check]');
+        const clearBtn = e.target.closest('[data-crq-clear]');
+
+        if (checkBtn) {
+          const idx = parseInt(checkBtn.dataset.crqCheck);
+          const textarea = document.getElementById(`crq-ta-${idx}`);
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          const answer = textarea.value.trim().toLowerCase();
+          const crq = crqs[idx];
+
+          if (answer.length < 10) {
+            feedback.textContent = '⚠️ Please write a more complete answer (at least a sentence or two).';
+            feedback.className = 'crq-feedback show partial';
+            return;
+          }
+
+          const matched = crq.keywords.filter(kw => answer.includes(kw));
+          const ratio = matched.length / crq.keywords.length;
+
+          if (ratio >= 0.35) {
+            feedback.innerHTML = `✅ <strong>Good answer!</strong> You covered key ideas.
+
+<em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show good';
+          } else {
+            feedback.innerHTML = `📝 <strong>Partially correct.</strong> You mentioned some ideas. Try to include more key concepts.
+
+<em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show partial';
+          }
+        }
+
+        if (clearBtn) {
+          const idx = parseInt(clearBtn.dataset.crqClear);
+          document.getElementById(`crq-ta-${idx}`).value = '';
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          feedback.className = 'crq-feedback';
+          feedback.textContent = '';
+        }
+      });
+
+      // ================= RENDER ERQ =================
+      const erqContainer = document.getElementById('erqContainer');
+      erqContainer.innerHTML = `
+        <div class="erq-item">
+          <div class="erq-marks">${erq.marks}</div>
+          <div class="erq-question">${erq.q}</div>
+          <textarea class="erq-textarea" id="erq-ta" placeholder="Write your detailed answer here. Explain the problem and describe four improved questions..."></textarea>
+          <div class="erq-actions">
+            <button class="btn btn-primary" id="erqCheck">Check Answer</button>
+            <button class="btn btn-secondary" id="erqClear">Clear</button>
+          </div>
+          <div class="erq-feedback" id="erq-fb"></div>
+        </div>
+      `;
+
+      document.getElementById('erqCheck').addEventListener('click', () => {
+        const ta = document.getElementById('erq-ta');
+        const fb = document.getElementById('erq-fb');
+        const answer = ta.value.trim().toLowerCase();
+
+        if (answer.length < 50) {
+          fb.textContent = '⚠️ Please write a more detailed answer. Explain the problem and describe at least four improved questions.';
+          fb.className = 'erq-feedback show partial';
+          return;
+        }
+
+        const levelKeywords = ['understand', 'apply', 'analyse', 'analyze', 'create', 'evaluate', 'remember', 'explain', 'design', 'model', 'diagram', 'what would happen'];
+        const found = levelKeywords.filter(k => answer.includes(k));
+
+        if (found.length >= 3) {
+          fb.innerHTML = `✅ <strong>Excellent effort!</strong> You identified the problem and discussed multiple levels. Compare your answer with the model below.
+
+<em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show model';
+        } else if (found.length >= 1) {
+          fb.innerHTML = `📝 <strong>Good start!</strong> Try to include questions from at least four different Bloom's levels (Understand, Apply, Analyse, Create).
+
+<em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        } else {
+          fb.innerHTML = `⚠️ Make sure to explain the problem and describe four improved questions using Bloom's levels.
+
+<em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        }
+      });
+
+      document.getElementById('erqClear').addEventListener('click', () => {
+        document.getElementById('erq-ta').value = '';
+        const fb = document.getElementById('erq-fb');
+        fb.className = 'erq-feedback';
+        fb.textContent = '';
+      });
+
+      // ================= QUIZ TABS =================
+      const tabs = document.querySelectorAll('.quiz-tab');
+      const panels = document.querySelectorAll('.quiz-panel');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          panels.forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(tab.dataset.panel).classList.add('active');
+        });
+      });
+
+      // Initial count
+      countDisplay.textContent = allSearchables.length + ' items';
+
+    })();
+  </script>
+</body>
+</html>

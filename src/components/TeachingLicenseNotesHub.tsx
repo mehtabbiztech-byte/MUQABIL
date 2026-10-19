@@ -53,6 +53,7 @@ import {
 import { useApp } from '../context/AppContext';
 import { StudyLesson, MCQ } from '../types';
 import { exportStudyLessonToPdf, exportMcqsToExcel } from '../lib/exportUtils';
+import { HtmlTopicNoteViewer } from './HtmlTopicNoteViewer';
 import { InteractivePartsOfSpeechExplorer } from './InteractivePartsOfSpeechExplorer';
 import { InteractiveTensesExplorer } from './InteractiveTensesExplorer';
 import { InteractiveVoiceExplorer } from './InteractiveVoiceExplorer';
@@ -230,6 +231,10 @@ export const TeachingLicenseNotesHub: React.FC<TeachingLicenseNotesHubProps> = (
     }
     return null;
   }, [currentPart, selectedTopicId]);
+
+  // Topics backed by a supplied standalone HTML note use that document as the
+  // reader body so its original design, search, and quizzes stay intact.
+  const hasHtmlNotes = Boolean(currentTopic?.htmlNotesPath);
 
   // Total topics count & mastered count
   const allTopics = useMemo(() => {
@@ -995,6 +1000,12 @@ PREPARED VIA MEHTAB STS IBA PREP
                                   </div>
 
                                   <div className="flex items-center gap-1 shrink-0 ml-1.5">
+                                    {t.htmlNotesPath && (
+                                      <Sparkles
+                                        aria-label="Interactive HTML note"
+                                        className={`w-3 h-3 ${isTopicActive ? 'text-amber-300' : 'text-purple-500'}`}
+                                      />
+                                    )}
                                     {isStarred && (
                                       <Star className={`w-3 h-3 ${isTopicActive ? 'text-amber-300 fill-amber-300' : 'text-amber-500 fill-amber-500'}`} />
                                     )}
@@ -1066,12 +1077,14 @@ PREPARED VIA MEHTAB STS IBA PREP
           ) : (
             <>
               {/* Top Reading Progress Bar */}
-              <div className="w-full h-1 bg-slate-100 dark:bg-slate-800 rounded-t-3xl overflow-hidden">
-                <div
-                  className="h-full bg-gradient-to-r from-purple-500 to-indigo-600 transition-all duration-150"
-                  style={{ width: `${readingProgress}%` }}
-                />
-              </div>
+              {!hasHtmlNotes && (
+                <div className="w-full h-1 bg-slate-100 dark:bg-slate-800 rounded-t-3xl overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-purple-500 to-indigo-600 transition-all duration-150"
+                    style={{ width: `${readingProgress}%` }}
+                  />
+                </div>
+              )}
 
               <div className="p-5 sm:p-8 space-y-6 sm:space-y-8">
             {/* Breadcrumbs & Reader Toolbar Container */}
@@ -1100,20 +1113,24 @@ PREPARED VIA MEHTAB STS IBA PREP
                 {/* Reader Controls Toolbar */}
                 <div className="flex flex-wrap items-center gap-1.5 self-start md:self-auto bg-slate-50 dark:bg-slate-800/80 p-1.5 rounded-2xl border border-slate-200/80 dark:border-slate-700/60 shadow-2xs">
                   {/* Active Recall / Self-Test Toggle */}
-                  <button
-                    onClick={() => setIsActiveRecall(!isActiveRecall)}
-                    title={isActiveRecall ? 'Turn off Active Recall Mode' : 'Turn on Active Recall Mode (masks answers for self-testing)'}
-                    className={`px-3 py-1.5 rounded-xl border text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
-                      isActiveRecall
-                        ? 'bg-purple-600 text-white border-purple-600 shadow-xs'
-                        : 'border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300'
-                    }`}
-                  >
-                    {isActiveRecall ? <EyeOff className="w-3.5 h-3.5 text-amber-300" /> : <Eye className="w-3.5 h-3.5 text-purple-600" />}
-                    <span className="hidden sm:inline">{isActiveRecall ? 'Recall Mode' : 'Self-Test'}</span>
-                  </button>
+                  {!hasHtmlNotes && (
+                    <button
+                      onClick={() => setIsActiveRecall(!isActiveRecall)}
+                      title={isActiveRecall ? 'Turn off Active Recall Mode' : 'Turn on Active Recall Mode (masks answers for self-testing)'}
+                      className={`px-3 py-1.5 rounded-xl border text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
+                        isActiveRecall
+                          ? 'bg-purple-600 text-white border-purple-600 shadow-xs'
+                          : 'border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300'
+                      }`}
+                    >
+                      {isActiveRecall ? <EyeOff className="w-3.5 h-3.5 text-amber-300" /> : <Eye className="w-3.5 h-3.5 text-purple-600" />}
+                      <span className="hidden sm:inline">{isActiveRecall ? 'Recall Mode' : 'Self-Test'}</span>
+                    </button>
+                  )}
 
                   {/* Text-To-Speech with Speed Selector */}
+                  {!hasHtmlNotes && (
+                    <>
                   <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden bg-white dark:bg-slate-800">
                     <button
                       onClick={() => handleToggleSpeech(speechRate)}
@@ -1160,6 +1177,8 @@ PREPARED VIA MEHTAB STS IBA PREP
                       </button>
                     ))}
                   </div>
+                    </>
+                  )}
 
                   {/* Star / Bookmark */}
                   <button
@@ -1183,6 +1202,8 @@ PREPARED VIA MEHTAB STS IBA PREP
                     {isFocusMode ? <Minimize2 className="w-4 h-4 text-purple-600" /> : <Maximize2 className="w-4 h-4" />}
                   </button>
 
+                  {!hasHtmlNotes && (
+                    <>
                   {/* Download Topic Note as PDF */}
                   <button
                     onClick={handleDownloadTopicPdf}
@@ -1222,6 +1243,8 @@ PREPARED VIA MEHTAB STS IBA PREP
                   >
                     {copied ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
                   </button>
+                    </>
+                  )}
 
                   {/* Mark as Mastered */}
                   <button
@@ -1259,6 +1282,7 @@ PREPARED VIA MEHTAB STS IBA PREP
                           : 'bg-slate-50 dark:bg-slate-800/80 hover:bg-purple-50 dark:hover:bg-purple-950/40 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800'
                       }`}
                     >
+                      {t.htmlNotesPath && <Sparkles className="w-3 h-3 text-amber-400" aria-label="Interactive HTML note" />}
                       {isStarred && <Star className="w-3 h-3 text-amber-400 fill-amber-400" />}
                       {isDone ? (
                         <CheckCircle2 className={`w-3.5 h-3.5 ${active ? 'text-emerald-300' : 'text-emerald-500'}`} />
@@ -1272,6 +1296,17 @@ PREPARED VIA MEHTAB STS IBA PREP
               </div>
 
               {/* Sticky Table of Contents Jump Nav & In-Note Search */}
+              {hasHtmlNotes ? (
+                <div className="flex flex-col gap-2 border-t border-slate-100 pt-3 dark:border-slate-800 sm:flex-row sm:items-center sm:justify-between">
+                  <p className="flex items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-300">
+                    <Sparkles className="h-3.5 w-3.5 text-purple-600 dark:text-purple-400" />
+                    Supplied HTML note: original design, search and quiz tabs are preserved.
+                  </p>
+                  <span className="inline-flex w-fit items-center gap-1.5 rounded-lg bg-purple-100/70 px-2.5 py-1 text-[11px] font-bold text-purple-800 dark:bg-purple-950/40 dark:text-purple-200">
+                    Interactive · 10 MCQs · CRQs · ERQ
+                  </span>
+                </div>
+              ) : (
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 pt-2 border-t border-slate-100 dark:border-slate-800">
                 <div className="flex flex-wrap items-center gap-1.5 text-xs">
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mr-1">
@@ -1403,10 +1438,18 @@ PREPARED VIA MEHTAB STS IBA PREP
                   )}
                 </div>
               </div>
+              )}
             </div>
 
             {/* Note Article Body */}
             <article ref={noteArticleRef} className={`space-y-6 sm:space-y-8 ${fontClass}`}>
+              {hasHtmlNotes ? (
+                <HtmlTopicNoteViewer
+                  title={currentTopic.title}
+                  htmlNotesPath={currentTopic.htmlNotesPath!}
+                />
+              ) : (
+                <>
               {/* Topic Title Header */}
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div className="space-y-1">
@@ -1808,6 +1851,8 @@ PREPARED VIA MEHTAB STS IBA PREP
                     );
                   })}
                 </div>
+              )}
+                </>
               )}
 
               {/* Bottom Pagination & Progress Controls */}

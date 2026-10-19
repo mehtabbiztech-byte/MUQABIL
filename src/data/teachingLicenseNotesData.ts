@@ -24,6 +24,8 @@ export interface LicenseTopicNote {
   topicNumber: string;
   title: string;
   readTime: string;
+  /** Supplied standalone HTML note that replaces the generated note body. */
+  htmlNotesPath?: string;
   summary: string;
   highYieldAlert: string;
   concepts: ConceptBlock[];
@@ -321,6 +323,7 @@ export const METHODS_OF_TEACHING_TOPICS: LicenseTopicNote[] = [
     topicNumber: '3',
     title: 'Effective Questioning Strategies in Teaching',
     readTime: '7 min read',
+    htmlNotesPath: 'notes/methods-of-teaching/effective-questioning-strategies.html',
     summary:
       'Questioning is one of the most powerful pedagogical tools available to educators to engage students, stimulate critical thinking, assess understanding, and make thinking visible. Lower-order or convergent questions focus on factual recall and single correct answers. Higher-order or divergent questions encourage analysis, evaluation, and creative thinking. Probing questions ask learners to clarify, justify, or expand an answer. Effective questioning incorporates Mary Budd Rowe’s wait time rule, equitable participation, structured peer discussion, and redirection of responses to classmates.',
     highYieldAlert:
@@ -442,6 +445,7 @@ export const METHODS_OF_TEACHING_TOPICS: LicenseTopicNote[] = [
     topicNumber: '4',
     title: 'Instructional Approaches and Strategies',
     readTime: '12 min read',
+    htmlNotesPath: 'notes/methods-of-teaching/instructional-approaches-and-strategies.html',
     summary:
       'Instructional approaches and strategies govern how educators organize the learning environment, deliver curriculum, engage students, and scaffold conceptual mastery. These range from direct, expository instruction to student-centred inquiry models. Key approaches include Lecture-Based Instruction, Active Learning, Project-Based Learning (PBL), Flipped Learning, Collaborative Learning, Differentiated Instruction, Scaffolded Instruction, Gamification, Formative Assessment, Inquiry-Based Learning (5E Cycle), Modeling, and Chunking. Master teachers blend and adapt these approaches based on learning goals, learner readiness, and resource availability.',
     highYieldAlert:

@@ -323,7 +323,7 @@ export function generateTechnicalPdf(): string {
     ['Iconography', 'Lucide React 1.45.0 (600+ high-resolution, lightweight SVG vector icons)'],
     ['Animations & Layouts', 'Motion / Framer Motion 13.2.0 (Spring animations, tab switches, modal fades)'],
     ['Gamification & FX', 'Canvas Confetti 1.9.4 (Particle physics celebration on quiz completion)'],
-    ['AI Generation SDK', '@google/genai 2.22.0 (Official Google GenAI SDK for Gemini 2.5 Flash)']
+    ['AI Generation SDK', '@google/genai 2.30.0 (Official Google GenAI SDK for Gemini 2.5 Flash)']
   ];
   y = drawKeyValueTable(y, clientLibs, 50);
   y += 2;

@@ -32,6 +32,15 @@ import {
   STUDY_ORGANIZATIONS,
   STUDY_PLANNER_STORAGE_KEY,
   STUDY_PLANS_STORAGE_KEY,
+  calculateMeritProjection,
+  loadVaultMistakes,
+  saveVaultMistakes,
+  appendVaultMistake,
+  reviewVaultCard,
+  getVaultStats,
+  getTopicHighYieldSprint,
+  type PlannerProgress,
+  type StoredStudyPlan,
   type StudyPlannerForm,
 } from './studyPlanner';
 
@@ -341,4 +350,125 @@ test('popular exam presets, rebalancer and text export work smoothly', () => {
   assert.match(calendar, /BEGIN:VCALENDAR/);
   assert.match(calendar, /SUMMARY:/);
 });
+
+test('merit rank & score projection engine calculates realistic ranges, cutoffs and recommendations', () => {
+  const baseForm = formWith({ examDate: '2026-10-20', targetScore: 'merit' });
+  const plan = createStudyPlanRecord(baseForm, new Date(`${fixedToday}T12:00:00Z`));
+  const schedule = generateStudySchedule(plan.form, fixedToday);
+  const progress = getPlannerProgress(plan, schedule, fixedToday);
+
+  const projection = calculateMeritProjection(plan, progress);
+  assert.ok(projection.projectedMedian >= 20 && projection.projectedMedian <= 96);
+  assert.ok(projection.projectedMinScore <= projection.projectedMedian);
+  assert.ok(projection.projectedMaxScore >= projection.projectedMedian);
+  assert.ok(projection.passingLikelihood >= 1 && projection.passingLikelihood <= 99);
+  assert.ok(projection.meritRankLikelihood >= 1 && projection.meritRankLikelihood <= 98);
+  assert.ok(typeof projection.tier === 'string');
+  assert.ok(typeof projection.tierLabel === 'string');
+  assert.ok(Array.isArray(projection.recommendations));
+  assert.ok(projection.recommendations.length > 0);
+
+  // Test with mock attempts and coverage
+  const highMockPlan: StoredStudyPlan = {
+    ...plan,
+    mockAttempts: [
+      { id: 'mock-1', date: fixedToday, score: 85, total: 100, recordedAt: `${fixedToday}T12:00:00Z` },
+      { id: 'mock-2', date: fixedToday, score: 90, total: 100, recordedAt: `${fixedToday}T12:00:00Z` },
+    ],
+  };
+  const highProgress: PlannerProgress = {
+    ...progress,
+    syllabusCoveragePercent: 80,
+    taskCompletionPercent: 75,
+  };
+  const highProjection = calculateMeritProjection(highMockPlan, highProgress);
+  assert.ok(highProjection.projectedMedian > projection.projectedMedian, 'higher mock scores boost projected median');
+  assert.ok(highProjection.passingLikelihood >= 80, 'high performers have high passing likelihood');
+});
+
+test('memory vault SM-2 spaced repetition, review ratings, stats and deduplication work correctly', () => {
+  const store = new Map<string, string>();
+  const mockStorage = {
+    getItem: (key: string) => store.get(key) ?? null,
+    setItem: (key: string, val: string) => store.set(key, val),
+  };
+
+  const initialItems = loadVaultMistakes(mockStorage);
+  assert.equal(initialItems.length, 0);
+
+  const added = appendVaultMistake(mockStorage, {
+    planId: 'plan-123',
+    questionId: 'q-sindh-barrage',
+    question: 'Which barrage is located closest to the Arabian Sea in Sindh?',
+    options: ['Guddu Barrage', 'Sukkur Barrage', 'Kotri Barrage', 'Taunsa Barrage'],
+    correctIndex: 2,
+    userSelected: 1,
+    explanation: 'Kotri Barrage is southernmost and nearest to the Arabian Sea.',
+    subjectSlug: 'pakistan-studies',
+    subtopic: 'Geography of Sindh',
+    reason: 'distractor',
+  }, fixedToday);
+  assert.ok(added);
+
+  const vault = loadVaultMistakes(mockStorage);
+  assert.equal(vault.length, 1);
+  assert.equal(vault[0].status, 'learning');
+  assert.equal(vault[0].intervalDays, 1);
+  assert.equal(vault[0].repetitionCount, 0);
+
+  // Deduplication check
+  appendVaultMistake(mockStorage, {
+    planId: 'plan-123',
+    questionId: 'q-sindh-barrage',
+    question: 'Which barrage is located closest to the Arabian Sea in Sindh?',
+    options: ['Guddu', 'Sukkur', 'Kotri', 'Taunsa'],
+    correctIndex: 2,
+    userSelected: 0,
+    explanation: 'Kotri Barrage is southernmost.',
+    subjectSlug: 'pakistan-studies',
+  }, fixedToday);
+  const vaultAfterDedup = loadVaultMistakes(mockStorage);
+  assert.equal(vaultAfterDedup.length, 1, 'duplicate questions in same plan update rather than duplicating');
+  assert.equal(vaultAfterDedup[0].userSelected, 0);
+
+  // Stats calculation
+  const stats = getVaultStats(vaultAfterDedup, fixedToday);
+  assert.equal(stats.totalCards, 1);
+  assert.equal(stats.dueCards, 1);
+  assert.equal(stats.learningCards, 1);
+  assert.equal(stats.masteredCards, 0);
+
+  // Review card with 'good'
+  const reviewed = reviewVaultCard(mockStorage, vaultAfterDedup[0].id, 'good', fixedToday);
+  assert.ok(reviewed);
+
+  const vaultAfterReview = loadVaultMistakes(mockStorage);
+  assert.equal(vaultAfterReview[0].repetitionCount, 1);
+  assert.ok(vaultAfterReview[0].intervalDays >= 1);
+  assert.notEqual(vaultAfterReview[0].nextReviewDate, fixedToday, 'reviewed card date moves into the future');
+
+  // Review card with 'again'
+  reviewVaultCard(mockStorage, vaultAfterReview[0].id, 'again', fixedToday);
+  const vaultAfterReset = loadVaultMistakes(mockStorage);
+  assert.equal(vaultAfterReset[0].repetitionCount, 0, 'again rating resets repetition count');
+  assert.equal(vaultAfterReset[0].intervalDays, 1);
+  assert.equal(vaultAfterReset[0].nextReviewDate, '2026-10-12', 'rescheduled for next day on again rating');
+});
+
+test('high-yield topic sprint delivers key formulas, traps and flashcards for Pakistani exams', () => {
+  const gkSprint = getTopicHighYieldSprint('general-knowledge', 'Rivers and Barrages of Sindh');
+  assert.ok(gkSprint.keyFormulasAndRules.length > 0);
+  assert.ok(gkSprint.examDistractorTrap.length > 0);
+  assert.ok(gkSprint.quickRecallCards.length > 0);
+  assert.ok(gkSprint.quickRecallCards.every((f) => Boolean(f.prompt && f.answer)));
+
+  const englishSprint = getTopicHighYieldSprint('english', 'Subject-Verb Agreement');
+  assert.ok(englishSprint.keyFormulasAndRules.length > 0);
+  assert.ok(englishSprint.examDistractorTrap.length > 0);
+
+  const mathSprint = getTopicHighYieldSprint('mathematics', 'Percentages and Profit/Loss');
+  assert.ok(mathSprint.keyFormulasAndRules.length > 0);
+  assert.ok(mathSprint.examDistractorTrap.length > 0);
+});
+
 

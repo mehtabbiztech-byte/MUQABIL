@@ -1581,11 +1581,12 @@ export const appendVaultMistake = (
     subtopic?: string;
     reason?: MistakeReason;
   },
+  todayDate?: string,
 ): boolean => {
   if (!storage) return false;
   const existing = loadVaultMistakes(storage);
   const now = new Date();
-  const today = toLocalDateString(now);
+  const today = todayDate || toLocalDateString(now);
 
   const duplicate = existing.find(
     (ex) =>

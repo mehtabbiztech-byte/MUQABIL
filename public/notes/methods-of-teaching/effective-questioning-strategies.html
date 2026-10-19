@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Effective Questioning Strategies in Teaching</title>
+  <style>
+    /* ---------- GLOBAL ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+      color: #1e2b3c;
+    }
+
+    .main-wrapper {
+      max-width: 1100px;
+      width: 100%;
+    }
+
+    /* ---------- HEADER ---------- */
+    .header-card {
+      background: white;
+      border-radius: 2rem 2rem 1.5rem 1.5rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      padding: 2rem 2rem 1.5rem 2rem;
+      margin-bottom: 1.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: transform 0.2s;
+    }
+
+    .header-card:hover {
+      transform: scale(1.002);
+    }
+
+    .badge {
+      display: inline-block;
+      background: #2a4b7c;
+      color: #f0f7ff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+      line-height: 1.25;
+    }
+
+    .subhead {
+      font-size: 1.05rem;
+      color: #2f5277;
+      font-weight: 400;
+      border-left: 5px solid #8bb3e0;
+      padding-left: 1.2rem;
+      margin: 1rem 0 0.2rem 0;
+      font-style: italic;
+    }
+
+    .intro-text {
+      background: #e6f0fc;
+      padding: 1rem 1.4rem;
+      border-radius: 1.2rem;
+      margin-top: 1.4rem;
+      font-size: 0.98rem;
+      color: #1d3a5c;
+      border-left: 5px solid #3b6ea5;
+    }
+
+    /* ---------- SECTION TITLE ---------- */
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #0e2a47;
+      margin: 2.2rem 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-title .line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #8bb3e0, transparent);
+      border-radius: 2px;
+    }
+
+    /* ---------- CARD GRID (general) ---------- */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .info-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.4rem 1.4rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      transition: all 0.25s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .info-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, #3f7cb0, #8bb3e0, #b8d4f0);
+      opacity: 0.75;
+      transition: height 0.2s;
+    }
+
+    .info-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 28px -16px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+
+    .info-card:hover::before {
+      height: 10px;
+      opacity: 1;
+    }
+
+    .card-icon-lg {
+      font-size: 2rem;
+      line-height: 1;
+      background: #e9f0fa;
+      width: 54px;
+      height: 54px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #1b3c61;
+      margin-bottom: 0.8rem;
+      transition: background 0.2s;
+    }
+
+    .info-card:hover .card-icon-lg {
+      background: #d3e3f8;
+    }
+
+    .card-title-md {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #0e2a47;
+      letter-spacing: -0.3px;
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-desc-sm {
+      font-size: 0.93rem;
+      color: #274e73;
+      line-height: 1.6;
+      opacity: 0.94;
+      flex: 1;
+    }
+
+    /* ---------- STRATEGY CARDS ---------- */
+    .strategy-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.5rem 1.4rem 1.5rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      transition: all 0.25s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .strategy-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, #3f7cb0, #8bb3e0, #b8d4f0);
+      opacity: 0.75;
+      transition: height 0.2s;
+    }
+
+    .strategy-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 28px -16px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+
+    .strategy-card:hover::before {
+      height: 10px;
+      opacity: 1;
+    }
+
+    .strategy-num {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: white;
+      background: #0e2a47;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.6rem;
+    }
+
+    .strategy-title {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+    }
+
+    .strategy-concept {
+      font-size: 0.91rem;
+      color: #274e73;
+      margin-bottom: 0.8rem;
+      line-height: 1.55;
+    }
+
+    .impact-block {
+      background: #f6faff;
+      border-radius: 1rem;
+      padding: 0.8rem 1rem;
+      margin-top: auto;
+      border-left: 5px solid #3b7bb5;
+      font-size: 0.88rem;
+      color: #183c5e;
+      box-shadow: inset 0 0 0 1px #d9e8fc;
+      transition: background 0.2s;
+    }
+
+    .strategy-card:hover .impact-block {
+      background: #ecf4fe;
+    }
+
+    .impact-label {
+      display: inline-block;
+      font-weight: 700;
+      color: #1a4b7a;
+      font-size: 0.7rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+      background: #d7e6fa;
+      padding: 0.1rem 0.7rem;
+      border-radius: 30px;
+    }
+
+    /* ---------- DO / DON'T ---------- */
+    .dodont-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .do-card, .dont-card {
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.5rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.12);
+      border: 1px solid;
+    }
+
+    .do-card {
+      background: #f0faf4;
+      border-color: #b8e0c8;
+    }
+
+    .dont-card {
+      background: #fdf6f6;
+      border-color: #e8c8c8;
+    }
+
+    .do-card h3, .dont-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .do-card h3 { color: #1b6e3e; }
+    .dont-card h3 { color: #a83535; }
+
+    .do-card ul, .dont-card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .do-card li, .dont-card li {
+      padding: 0.45rem 0 0.45rem 1.7rem;
+      position: relative;
+      font-size: 0.92rem;
+      line-height: 1.55;
+      color: #1e3c5a;
+    }
+
+    .do-card li::before {
+      content: '✔';
+      position: absolute;
+      left: 0;
+      color: #2e9b5e;
+      font-weight: 700;
+    }
+
+    .dont-card li::before {
+      content: '✘';
+      position: absolute;
+      left: 0;
+      color: #d45a5a;
+      font-weight: 700;
+    }
+
+    /* ---------- KEY TAKEAWAY ---------- */
+    .takeaway-card {
+      background: #0e2a47;
+      color: white;
+      border-radius: 1.6rem;
+      padding: 1.6rem 2rem;
+      margin: 1.5rem 0 0.5rem 0;
+      font-size: 1rem;
+      line-height: 1.6;
+      box-shadow: 0 14px 26px -12px #0e2a47;
+      border-left: 6px solid #8bb3e0;
+    }
+
+    .takeaway-card strong {
+      color: #b8d4f0;
+    }
+
+    /* ---------- SEARCH & COUNT ---------- */
+    .filter-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 60px;
+      box-shadow: 0 8px 18px -8px rgba(0, 27, 45, 0.1);
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 40px;
+      padding: 0.3rem 0.3rem 0.3rem 1.2rem;
+      flex: 2;
+      min-width: 240px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      border: 1px solid #ccdcee;
+    }
+
+    .search-box span {
+      font-size: 1.1rem;
+      margin-right: 0.5rem;
+      color: #4e6b8a;
+    }
+
+    .search-box input {
+      border: none;
+      padding: 0.7rem 0.2rem;
+      width: 100%;
+      font-size: 0.95rem;
+      outline: none;
+      background: transparent;
+      color: #0c253b;
+    }
+
+    .search-box input::placeholder {
+      color: #879eb6;
+      font-weight: 300;
+    }
+
+    .count-pill {
+      background: #0e2a47;
+      color: white;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ---------- QUIZ SECTION ---------- */
+    .quiz-section {
+      margin-top: 2.5rem;
+    }
+
+    .quiz-header {
+      background: #0e2a47;
+      border-radius: 2rem 2rem 0 0;
+      padding: 1.5rem 2rem;
+      color: white;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .quiz-header h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .quiz-header .quiz-badge {
+      background: #8bb3e0;
+      color: #0e2a47;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .quiz-body {
+      background: white;
+      border-radius: 0 0 2rem 2rem;
+      padding: 2rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      border: 1px solid #e3ecf7;
+      border-top: none;
+    }
+
+    .quiz-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #e3ecf7;
+      padding-bottom: 1rem;
+    }
+
+    .quiz-tab {
+      background: #f0f5fd;
+      border: 1px solid #d0e0f0;
+      color: #1b4670;
+      padding: 0.5rem 1.3rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .quiz-tab:hover {
+      background: #e0ecfc;
+      border-color: #a0c0e0;
+    }
+
+    .quiz-tab.active {
+      background: #0e2a47;
+      color: white;
+      border-color: #0e2a47;
+    }
+
+    .quiz-panel {
+      display: none;
+    }
+
+    .quiz-panel.active {
+      display: block;
+    }
+
+    .section-label {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.2rem;
+    }
+
+    /* MCQ */
+    .mcq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+      transition: background 0.2s;
+    }
+
+    .mcq-item:hover {
+      background: #f0f7fe;
+    }
+
+    .mcq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.8rem;
+      line-height: 1.5;
+    }
+
+    .mcq-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .mcq-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 0.8rem;
+      background: white;
+      border: 1.5px solid #d9e8fc;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+    }
+
+    .mcq-option:hover {
+      border-color: #8bb3e0;
+      background: #eef6ff;
+    }
+
+    .mcq-option.selected {
+      border-color: #3b7bb5;
+      background: #e4f0fe;
+      font-weight: 500;
+    }
+
+    .mcq-option.correct {
+      border-color: #2e9b5e;
+      background: #e6f7ee;
+      font-weight: 600;
+    }
+
+    .mcq-option.incorrect {
+      border-color: #d45a5a;
+      background: #fdeaea;
+      font-weight: 500;
+    }
+
+    .mcq-option .option-letter {
+      font-weight: 700;
+      color: #2a4b7c;
+      min-width: 1.4rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .mcq-option.correct .option-letter { color: #1b7a44; }
+    .mcq-option.incorrect .option-letter { color: #b03030; }
+
+    .mcq-feedback {
+      margin-top: 0.7rem;
+      font-size: 0.88rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: 0.8rem;
+      display: none;
+      font-weight: 500;
+    }
+
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.correct-fb {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .mcq-feedback.incorrect-fb {
+      background: #fdeaea;
+      color: #9e2a2a;
+      border-left: 4px solid #d45a5a;
+    }
+
+    /* CRQ / ERQ shared */
+    .crq-item, .erq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+    }
+
+    .erq-item {
+      border: 2px solid #8bb3e0;
+      background: #f5faff;
+    }
+
+    .crq-question, .erq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+
+    .erq-question {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .erq-marks {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      margin-bottom: 0.8rem;
+    }
+
+    .crq-hint {
+      font-size: 0.85rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-bottom: 0.7rem;
+    }
+
+    .crq-textarea, .erq-textarea {
+      width: 100%;
+      border: 1.5px solid #d9e8fc;
+      border-radius: 0.9rem;
+      padding: 0.8rem 1rem;
+      font-family: inherit;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+      resize: vertical;
+      transition: border-color 0.2s;
+      background: white;
+    }
+
+    .crq-textarea { min-height: 90px; }
+    .erq-textarea { min-height: 160px; }
+
+    .crq-textarea:focus, .erq-textarea:focus {
+      outline: none;
+      border-color: #3b7bb5;
+      box-shadow: 0 0 0 3px rgba(59, 123, 181, 0.12);
+    }
+
+    .crq-actions, .erq-actions {
+      display: flex;
+      gap: 0.7rem;
+      margin-top: 0.7rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.55rem 1.4rem;
+      border-radius: 40px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: #0e2a47;
+      color: white;
+    }
+    .btn-primary:hover {
+      background: #1a4170;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #e9f0fa;
+      color: #1b4670;
+      border: 1px solid #c0d8f0;
+    }
+    .btn-secondary:hover { background: #d8e6f8; }
+
+    .crq-feedback, .erq-feedback {
+      margin-top: 0.8rem;
+      padding: 0.8rem 1rem;
+      border-radius: 0.9rem;
+      font-size: 0.9rem;
+      display: none;
+      line-height: 1.6;
+    }
+
+    .crq-feedback.show, .erq-feedback.show { display: block; }
+
+    .crq-feedback.good, .erq-feedback.good {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+
+    .crq-feedback.partial, .erq-feedback.partial {
+      background: #fff8e6;
+      color: #8a6d1f;
+      border-left: 4px solid #e0a800;
+    }
+
+    .erq-feedback.model {
+      background: #e6f0fc;
+      color: #1a3e62;
+      border-left: 5px solid #3b7bb5;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 700px) {
+      .dodont-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .header-card { padding: 1.5rem 1.2rem; }
+      h1 { font-size: 1.7rem; }
+      .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: 2rem;
+        padding: 1rem;
+      }
+      .search-box { width: 100%; }
+      .count-pill { text-align: center; padding: 0.5rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .quiz-body { padding: 1.2rem; }
+      .quiz-header { padding: 1.2rem; }
+      .quiz-header h2 { font-size: 1.3rem; }
+      .mcq-item, .crq-item, .erq-item { padding: 1rem; }
+      .quiz-tab { font-size: 0.8rem; padding: 0.4rem 1rem; }
+    }
+
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #dfe9f5; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: #94b0d1; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6d8fb4; }
+
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem 1rem;
+      background: #ffffffc9;
+      border-radius: 2rem;
+      font-size: 1.1rem;
+      color: #4b6888;
+      border: 2px dashed #b8cee8;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-wrapper">
+
+    <!-- HEADER -->
+    <div class="header-card">
+      <div class="badge">🎓 Pedagogy Series</div>
+      <h1>Effective Questioning Strategies in Teaching</h1>
+      <div class="subhead">The art of asking questions that make thinking visible</div>
+      <div class="intro-text">
+        <strong>💬 Why questioning matters:</strong> Questioning is one of the most powerful pedagogical tools in education. Effective questioning actively engages students, stimulates critical thinking, assesses understanding, and fosters a collaborative learning environment.
+      </div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="filter-section">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="Search strategies, types, or examples..." autocomplete="off">
+      </div>
+      <div class="count-pill" id="countDisplay">4 strategies</div>
+    </div>
+
+    <!-- KEY TYPES OF QUESTIONS -->
+    <div class="section-title">
+      🧩 Key Types of Questions
+      <span class="line"></span>
+    </div>
+
+    <div class="cards-grid" id="typesGrid">
+      <div class="info-card" data-searchable="lower-order convergent questions facts recall single correct answer baseline understanding">
+        <div class="card-icon-lg">📌</div>
+        <div class="card-title-md">Lower-Order (Convergent) Questions</div>
+        <div class="card-desc-sm">
+          Focus on facts, recall, and single correct answers.
+
+          <em>Example: "What is the capital of France?"</em>
+
+          Useful for checking baseline understanding.
+        </div>
+      </div>
+      <div class="info-card" data-searchable="higher-order divergent questions evaluation analysis creative thinking bloom's taxonomy">
+        <div class="card-icon-lg">🚀</div>
+        <div class="card-title-md">Higher-Order (Divergent) Questions</div>
+        <div class="card-desc-sm">
+          Encourage evaluation, analysis, and creative thinking.
+
+          <em>Example: "How might history be different if...?"</em>
+
+          Promotes deeper cognitive engagement.
+        </div>
+      </div>
+      <div class="info-card" data-searchable="probing questions clarify justify expand initial answer evidence">
+        <div class="card-icon-lg">🔍</div>
+        <div class="card-title-md">Probing Questions</div>
+        <div class="card-desc-sm">
+          Help students clarify, justify, or expand on an initial answer.
+
+          <em>Example: "What evidence supports your answer?"</em>
+
+          Pushes thinking further.
+        </div>
+      </div>
+    </div>
+
+    <!-- CORE STRATEGIES -->
+    <div class="section-title">
+      ⚙️ Core Strategies for Implementation
+      <span class="line"></span>
+    </div>
+
+    <div class="cards-grid" id="strategiesGrid">
+      <!-- Strategy 1 -->
+      <div class="strategy-card" data-searchable="wait time 3 5 seconds pause after asking question before calling student response length participation depth">
+        <div class="strategy-num">1</div>
+        <div class="strategy-title">Wait Time (3–5 Seconds)</div>
+        <div class="strategy-concept">
+          Pause for 3 to 5 seconds after asking a question and before calling on a student.
+        </div>
+        <div class="impact-block">
+          <div class="impact-label">💥 Impact</div>
+          Dramatically increases response length, student participation, and the depth of student thinking.
+        </div>
+      </div>
+      <!-- Strategy 2 -->
+      <div class="strategy-card" data-searchable="cold calling equity ask question first pause then select student volunteers equal participation attentive">
+        <div class="strategy-num">2</div>
+        <div class="strategy-title">Cold Calling &amp; Equity</div>
+        <div class="strategy-concept">
+          Ask the question first, pause, and then select a student to answer rather than relying only on volunteers.
+        </div>
+        <div class="impact-block">
+          <div class="impact-label">💥 Impact</div>
+          Keeps all students attentive and ensures equal participation across the classroom.
+        </div>
+      </div>
+      <!-- Strategy 3 -->
+      <div class="strategy-card" data-searchable="think pair share think individually pair up discuss share class anxiety confidence reserved learners">
+        <div class="strategy-num">3</div>
+        <div class="strategy-title">Think-Pair-Share</div>
+        <div class="strategy-concept">
+          Ask a question, give students time to <strong>Think</strong> individually, <strong>Pair</strong> up to discuss ideas, and then <strong>Share</strong> with the class.
+        </div>
+        <div class="impact-block">
+          <div class="impact-label">💥 Impact</div>
+          Reduces anxiety and increases confidence, especially for reserved learners.
+        </div>
+      </div>
+      <!-- Strategy 4 -->
+      <div class="strategy-card" data-searchable="bounce pass the mic student to student interaction redirect answers other students agree explain">
+        <div class="strategy-num">4</div>
+        <div class="strategy-title">Bounce / Pass-the-Mic</div>
+        <div class="strategy-concept">
+          Instead of validating every response immediately, redirect answers to other students (e.g., "Sarah, do you agree with Alex's explanation? Why or why not?").
+        </div>
+        <div class="impact-block">
+          <div class="impact-label">💥 Impact</div>
+          Shifts the classroom dynamic from teacher-centered to student-centered discussion.
+        </div>
+      </div>
+    </div>
+
+    <!-- BEST PRACTICES DO / DON'T -->
+    <div class="section-title">
+      ✅ Best Practices for Teachers
+      <span class="line"></span>
+    </div>
+
+    <div class="dodont-grid">
+      <div class="do-card">
+        <h3>👍 Do's</h3>
+        <ul>
+          <li>Plan key questions in lesson prep.</li>
+          <li>Praise process and effort, not just correctness.</li>
+          <li>Distribute questions across the whole room.</li>
+        </ul>
+      </div>
+      <div class="dont-card">
+        <h3>👎 Don'ts</h3>
+        <ul>
+          <li>Don't ask rapid-fire questions without pause.</li>
+          <li>Don't reject incorrect answers outright; treat them as learning opportunities.</li>
+          <li>Don't answer your own questions immediately.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- KEY TAKEAWAY -->
+    <div class="takeaway-card">
+      <strong>🔑 Key Takeaway:</strong> Effective questioning isn't just about getting the right answer — it's about driving the learning process and making thinking visible.
+    </div>
+
+    <!-- ================= QUIZ SECTION ================= -->
+    <div class="quiz-section">
+      <div class="quiz-header">
+        <h2>📝 Practice Quiz</h2>
+        <span class="quiz-badge">Test Your Knowledge</span>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-tabs">
+          <button class="quiz-tab active" data-panel="mcqPanel">🔘 10 MCQs</button>
+          <button class="quiz-tab" data-panel="crqPanel">✍️ 4 CRQs</button>
+          <button class="quiz-tab" data-panel="erqPanel">📄 1 ERQ</button>
+        </div>
+
+        <!-- MCQ PANEL -->
+        <div class="quiz-panel active" id="mcqPanel">
+          <span class="section-label">Multiple Choice Questions</span>
+          <div id="mcqContainer"></div>
+        </div>
+
+        <!-- CRQ PANEL -->
+        <div class="quiz-panel" id="crqPanel">
+          <span class="section-label">Constructed Response Questions</span>
+          <div id="crqContainer"></div>
+        </div>
+
+        <!-- ERQ PANEL -->
+        <div class="quiz-panel" id="erqPanel">
+          <span class="section-label">Extended Response Question (Situation-Based)</span>
+          <div id="erqContainer"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      // ================= SEARCH FILTER FOR STATIC CARDS =================
+      const searchInput = document.getElementById('searchInput');
+      const countDisplay = document.getElementById('countDisplay');
+      const typesGrid = document.getElementById('typesGrid');
+      const strategiesGrid = document.getElementById('strategiesGrid');
+
+      // Collect all searchable cards from both grids
+      const allCards = [
+        ...typesGrid.querySelectorAll('[data-searchable]'),
+        ...strategiesGrid.querySelectorAll('[data-searchable]')
+      ];
+
+      // Store original parent for each card
+      const cardParents = new Map();
+      allCards.forEach(card => cardParents.set(card, card.parentNode));
+
+      function applySearch(query) {
+        const q = query.trim().toLowerCase();
+        let visibleCount = 0;
+
+        allCards.forEach(card => {
+          const searchText = (card.dataset.searchable || '').toLowerCase() + ' ' + card.textContent.toLowerCase();
+          const matches = q === '' || searchText.includes(q);
+          if (matches) {
+            visibleCount++;
+            // Put back in original parent if removed
+            if (!card.parentNode) {
+              cardParents.get(card).appendChild(card);
+            }
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        // Show "no results" in types grid if nothing visible in it
+        const typesVisible = [...typesGrid.querySelectorAll('[data-searchable]')].filter(c => c.style.display !== 'none').length;
+        const strategiesVisible = [...strategiesGrid.querySelectorAll('[data-searchable]')].filter(c => c.style.display !== 'none').length;
+
+        // Remove old no-results
+        document.querySelectorAll('.no-results').forEach(el => el.remove());
+
+        if (typesVisible === 0) {
+          const msg = document.createElement('div');
+          msg.className = 'no-results';
+          msg.textContent = '🔎 No question types match your search.';
+          typesGrid.appendChild(msg);
+        }
+        if (strategiesVisible === 0) {
+          const msg = document.createElement('div');
+          msg.className = 'no-results';
+          msg.textContent = '🔎 No strategies match your search.';
+          strategiesGrid.appendChild(msg);
+        }
+
+        // Update count (only cards, not the no-results messages)
+        const totalVisible = visibleCount;
+        countDisplay.textContent = totalVisible + ' item' + (totalVisible !== 1 ? 's' : '');
+      }
+
+      let debounceTimer;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => applySearch(e.target.value), 180);
+      });
+
+      searchInput.addEventListener('search', (e) => {
+        if (e.target.value === '') applySearch('');
+      });
+
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchInput.value !== '') {
+          searchInput.value = '';
+          applySearch('');
+        }
+      });
+
+      // ================= QUIZ DATA =================
+
+      // ---------- 10 MCQs ----------
+      const mcqs = [
+        {
+          q: "What is the recommended wait time after asking a question?",
+          options: ["1–2 seconds", "3–5 seconds", "10–15 seconds", "No wait time needed"],
+          correct: 1,
+          feedback: "Research shows 3–5 seconds of wait time dramatically increases response length, participation, and depth of thinking."
+        },
+        {
+          q: "Which type of question focuses on facts, recall, and single correct answers?",
+          options: ["Higher-Order Questions", "Probing Questions", "Lower-Order (Convergent) Questions", "Divergent Questions"],
+          correct: 2,
+          feedback: "Lower-Order (Convergent) questions check baseline understanding and have one correct answer."
+        },
+        {
+          q: "In Cold Calling, when should the teacher select the student to answer?",
+          options: [
+            "Before asking the question",
+            "After asking the question and pausing",
+            "Only when students raise their hands",
+            "At the end of the lesson"
+          ],
+          correct: 1,
+          feedback: "Ask the question first, pause, then select a student. This keeps everyone attentive and ensures equity."
+        },
+        {
+          q: "What is the correct order of steps in Think-Pair-Share?",
+          options: [
+            "Share → Pair → Think",
+            "Pair → Think → Share",
+            "Think → Pair → Share",
+            "Think → Share → Pair"
+          ],
+          correct: 2,
+          feedback: "Students first Think individually, then Pair up to discuss, and finally Share with the class."
+        },
+        {
+          q: "Which strategy shifts the classroom from teacher-centered to student-centered discussion?",
+          options: ["Wait Time", "Cold Calling", "Think-Pair-Share", "Bounce / Pass-the-Mic"],
+          correct: 3,
+          feedback: "Bounce/Pass-the-Mic redirects answers to other students, creating student-to-student interaction and discussion."
+        },
+        {
+          q: "A probing question is used to:",
+          options: [
+            "Test basic recall of facts",
+            "Help students clarify, justify, or expand on an answer",
+            "Give students a break from thinking",
+            "Provide the correct answer quickly"
+          ],
+          correct: 1,
+          feedback: "Probing questions push students to clarify, justify, or expand on their initial answers (e.g., 'What evidence supports your answer?')."
+        },
+        {
+          q: "Which of these is a 'Don't' in effective questioning?",
+          options: [
+            "Planning key questions in lesson prep",
+            "Praising process and effort",
+            "Answering your own questions immediately",
+            "Distributing questions across the room"
+          ],
+          correct: 2,
+          feedback: "Don't answer your own questions immediately — give students time to think and respond."
+        },
+        {
+          q: "Higher-Order (Divergent) questions encourage:",
+          options: [
+            "Memorization of facts",
+            "Evaluation, analysis, and creative thinking",
+            "Single correct answers",
+            "Rapid-fire responses"
+          ],
+          correct: 1,
+          feedback: "Higher-Order questions promote evaluation, analysis, and creative thinking — e.g., 'How might history be different if...?'"
+        },
+        {
+          q: "What is the main benefit of Think-Pair-Share for reserved learners?",
+          options: [
+            "It lets them avoid answering",
+            "It reduces anxiety and increases confidence",
+            "It gives them extra homework",
+            "It tests their memory"
+          ],
+          correct: 1,
+          feedback: "Think-Pair-Share reduces anxiety because students rehearse their ideas with a partner before sharing with the class."
+        },
+        {
+          q: "Effective questioning is ultimately about:",
+          options: [
+            "Getting the right answer quickly",
+            "Making thinking visible and driving the learning process",
+            "Keeping students quiet",
+            "Finishing the syllabus faster"
+          ],
+          correct: 1,
+          feedback: "The key takeaway: effective questioning isn't just about the right answer — it's about driving learning and making thinking visible."
+        }
+      ];
+
+      // ---------- 4 CRQs ----------
+      const crqs = [
+        {
+          q: "Explain what 'wait time' is and why it is important in effective questioning.",
+          hint: "Think about the 3–5 second pause and its effects on students.",
+          keywords: ["wait", "3", "5", "pause", "seconds", "response", "participation", "thinking", "depth", "length"],
+          model: "Wait time is pausing for 3 to 5 seconds after asking a question and before calling on a student. It is important because it dramatically increases response length, student participation, and the depth of student thinking."
+        },
+        {
+          q: "Describe the Think-Pair-Share strategy and explain how it benefits reserved learners.",
+          hint: "Break down the three steps and think about confidence.",
+          keywords: ["think", "pair", "share", "individually", "discuss", "class", "anxiety", "confidence", "reserved", "rehearse"],
+          model: "Think-Pair-Share asks students to Think individually about a question, Pair up to discuss ideas, and then Share with the class. It benefits reserved learners by reducing anxiety and increasing confidence — they rehearse their ideas with a partner before sharing with everyone."
+        },
+        {
+          q: "Differentiate between Lower-Order (Convergent) and Higher-Order (Divergent) questions, giving one example of each.",
+          hint: "Focus on the level of thinking required and the number of correct answers.",
+          keywords: ["lower", "convergent", "facts", "recall", "single", "higher", "divergent", "evaluation", "analysis", "creative", "example"],
+          model: "Lower-Order (Convergent) questions focus on facts, recall, and single correct answers — e.g., 'What is the capital of France?' Higher-Order (Divergent) questions encourage evaluation, analysis, and creative thinking — e.g., 'How might history be different if...?'"
+        },
+        {
+          q: "What is Cold Calling, and how does it promote equity in the classroom?",
+          hint: "Think about when the student is selected and who gets to participate.",
+          keywords: ["cold calling", "question first", "pause", "select", "student", "volunteers", "equity", "attentive", "equal", "participation"],
+          model: "Cold Calling means asking the question first, pausing, and then selecting a student to answer rather than relying only on volunteers. It promotes equity by keeping all students attentive and ensuring equal participation across the classroom, not just from those who raise their hands."
+        }
+      ];
+
+      // ---------- 1 ERQ (Situation-Based) ----------
+      const erq = {
+        q: `Mr. Ahmed is teaching a Grade 8 science lesson about climate change. He notices that only three students (who always raise their hands) are answering all his questions, while the rest of the class stays silent. He also finds that his students give very short, one-word answers and rarely explain their thinking.
+
+Based on the Effective Questioning Strategies you have studied, describe FOUR specific strategies Mr. Ahmed could use to improve student participation and deepen thinking in his classroom. For each strategy, explain what he should do and why it would help in this situation.`,
+        marks: "10 marks",
+        model: `
+          <strong>Model Answer (key points):</strong>
+
+
+          <strong>1. Cold Calling &amp; Equity:</strong> Mr. Ahmed should ask the question first, pause, then select a student — not just the volunteers. This keeps all students attentive and ensures equal participation, solving the problem of only three students answering.
+
+
+          <strong>2. Wait Time (3–5 seconds):</strong> After asking a question, he should pause for 3–5 seconds before calling on anyone. This increases response length and depth, addressing the issue of short, one-word answers.
+
+
+          <strong>3. Think-Pair-Share:</strong> He can ask a question, let students think individually, discuss with a partner, then share with the class. This reduces anxiety for silent students and builds confidence, encouraging broader participation.
+
+
+          <strong>4. Probing Questions:</strong> When students give short answers, Mr. Ahmed should ask follow-up questions like "What evidence supports your answer?" or "Can you explain why?" This pushes students to clarify and expand their thinking.
+
+
+          <em>Note: Bounce/Pass-the-Mic is also a valid strategy — redirecting answers to other students to create student-centered discussion.</em>
+        `
+      };
+
+      // ================= RENDER MCQs =================
+      const mcqContainer = document.getElementById('mcqContainer');
+      let mcqHtml = '';
+      mcqs.forEach((item, idx) => {
+        const letters = ['A', 'B', 'C', 'D'];
+        let optionsHtml = '';
+        item.options.forEach((opt, oi) => {
+          optionsHtml += `
+            <div class="mcq-option" data-qidx="${idx}" data-oidx="${oi}">
+              <span class="option-letter">${letters[oi]}</span>
+              <span>${opt}</span>
+            </div>
+          `;
+        });
+        mcqHtml += `
+          <div class="mcq-item" id="mcq-${idx}">
+            <div class="mcq-question">${idx + 1}. ${item.q}</div>
+            <div class="mcq-options">${optionsHtml}</div>
+            <div class="mcq-feedback" id="mcq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      mcqContainer.innerHTML = mcqHtml;
+
+      // MCQ click handling
+      mcqContainer.addEventListener('click', (e) => {
+        const option = e.target.closest('.mcq-option');
+        if (!option) return;
+        const qidx = parseInt(option.dataset.qidx);
+        const oidx = parseInt(option.dataset.oidx);
+        const mcq = mcqs[qidx];
+        const parentItem = document.getElementById(`mcq-${qidx}`);
+        const allOptions = parentItem.querySelectorAll('.mcq-option');
+        const feedbackEl = document.getElementById(`mcq-fb-${qidx}`);
+
+        if (parentItem.dataset.answered === 'correct') return;
+
+        allOptions.forEach(opt => opt.classList.remove('selected', 'correct', 'incorrect'));
+        option.classList.add('selected');
+
+        if (oidx === mcq.correct) {
+          option.classList.add('correct');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '✅ Correct! ' + mcq.feedback;
+          feedbackEl.className = 'mcq-feedback show correct-fb';
+          parentItem.dataset.answered = 'correct';
+        } else {
+          option.classList.add('incorrect');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '❌ Not quite. Try again!';
+          feedbackEl.className = 'mcq-feedback show incorrect-fb';
+          setTimeout(() => {
+            if (feedbackEl.classList.contains('incorrect-fb')) {
+              feedbackEl.classList.remove('show');
+            }
+          }, 1500);
+        }
+      });
+
+      // ================= RENDER CRQs =================
+      const crqContainer = document.getElementById('crqContainer');
+      let crqHtml = '';
+      crqs.forEach((item, idx) => {
+        crqHtml += `
+          <div class="crq-item" id="crq-${idx}">
+            <div class="crq-question">${idx + 1}. ${item.q}</div>
+            <div class="crq-hint">💡 Hint: ${item.hint}</div>
+            <textarea class="crq-textarea" id="crq-ta-${idx}" placeholder="Write your answer here..."></textarea>
+            <div class="crq-actions">
+              <button class="btn btn-primary" data-crq-check="${idx}">Check Answer</button>
+              <button class="btn btn-secondary" data-crq-clear="${idx}">Clear</button>
+            </div>
+            <div class="crq-feedback" id="crq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      crqContainer.innerHTML = crqHtml;
+
+      crqContainer.addEventListener('click', (e) => {
+        const checkBtn = e.target.closest('[data-crq-check]');
+        const clearBtn = e.target.closest('[data-crq-clear]');
+
+        if (checkBtn) {
+          const idx = parseInt(checkBtn.dataset.crqCheck);
+          const textarea = document.getElementById(`crq-ta-${idx}`);
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          const answer = textarea.value.trim().toLowerCase();
+          const crq = crqs[idx];
+
+          if (answer.length < 10) {
+            feedback.textContent = '⚠️ Please write a more complete answer (at least a sentence or two).';
+            feedback.className = 'crq-feedback show partial';
+            return;
+          }
+
+          const matched = crq.keywords.filter(kw => answer.includes(kw));
+          const ratio = matched.length / crq.keywords.length;
+
+          if (ratio >= 0.4) {
+            feedback.innerHTML = `✅ <strong>Good answer!</strong> You covered key ideas.
+
+<em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show good';
+          } else {
+            feedback.innerHTML = `📝 <strong>Partially correct.</strong> You mentioned some ideas. Try to include more key concepts.
+
+<em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show partial';
+          }
+        }
+
+        if (clearBtn) {
+          const idx = parseInt(clearBtn.dataset.crqClear);
+          document.getElementById(`crq-ta-${idx}`).value = '';
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          feedback.className = 'crq-feedback';
+          feedback.textContent = '';
+        }
+      });
+
+      // ================= RENDER ERQ =================
+      const erqContainer = document.getElementById('erqContainer');
+      erqContainer.innerHTML = `
+        <div class="erq-item">
+          <div class="erq-marks">${erq.marks}</div>
+          <div class="erq-question">${erq.q}</div>
+          <textarea class="erq-textarea" id="erq-ta" placeholder="Write your detailed answer here. Describe four strategies with explanations..."></textarea>
+          <div class="erq-actions">
+            <button class="btn btn-primary" id="erqCheck">Check Answer</button>
+            <button class="btn btn-secondary" id="erqClear">Clear</button>
+          </div>
+          <div class="erq-feedback" id="erq-fb"></div>
+        </div>
+      `;
+
+      document.getElementById('erqCheck').addEventListener('click', () => {
+        const ta = document.getElementById('erq-ta');
+        const fb = document.getElementById('erq-fb');
+        const answer = ta.value.trim().toLowerCase();
+
+        if (answer.length < 50) {
+          fb.textContent = '⚠️ Please write a more detailed answer. Describe at least four strategies.';
+          fb.className = 'erq-feedback show partial';
+          return;
+        }
+
+        const strategyKeywords = ['wait time', 'cold calling', 'think-pair-share', 'think pair share', 'bounce', 'pass-the-mic', 'probing', 'higher-order', 'lower-order', 'equity'];
+        const found = strategyKeywords.filter(k => answer.includes(k));
+
+        if (found.length >= 3) {
+          fb.innerHTML = `✅ <strong>Excellent effort!</strong> You discussed ${found.length} strategies. Compare your answer with the model below.
+
+<em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show model';
+        } else if (found.length >= 1) {
+          fb.innerHTML = `📝 <strong>Good start!</strong> You mentioned ${found.length} strategy(ies). Try to describe at least four strategies with explanations.
+
+<em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        } else {
+          fb.innerHTML = `⚠️ It seems you haven't named specific strategies. Make sure to describe four strategies from the topic.
+
+<em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        }
+      });
+
+      document.getElementById('erqClear').addEventListener('click', () => {
+        document.getElementById('erq-ta').value = '';
+        const fb = document.getElementById('erq-fb');
+        fb.className = 'erq-feedback';
+        fb.textContent = '';
+      });
+
+      // ================= QUIZ TABS =================
+      const tabs = document.querySelectorAll('.quiz-tab');
+      const panels = document.querySelectorAll('.quiz-panel');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          panels.forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(tab.dataset.panel).classList.add('active');
+        });
+      });
+
+      // ================= INITIAL COUNT =================
+      countDisplay.textContent = allCards.length + ' items';
+
+    })();
+  </script>
+</body>
+</html>

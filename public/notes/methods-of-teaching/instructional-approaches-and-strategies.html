@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Methods of Teaching · Foundations of Education</title>
+  <style>
+    /* Original supplied design, isolated from the app in its own document. */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif; background: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%); min-height: 100vh; display: flex; justify-content: center; padding: 2rem 1rem; line-height: 1.6; color: #1e2b3c; }
+    .main-wrapper { max-width: 1100px; width: 100%; }
+    .header-card { background: white; border-radius: 2rem 2rem 1.5rem 1.5rem; box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15); padding: 2rem 2rem 1.5rem 2rem; margin-bottom: 1.8rem; border: 1px solid rgba(255, 255, 255, 0.6); backdrop-filter: blur(4px); transition: transform 0.2s; }
+    .header-card:hover { transform: scale(1.002); }
+    .badge { display: inline-block; background: #2a4b7c; color: #f0f7ff; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px; padding: 0.3rem 1rem; border-radius: 40px; text-transform: uppercase; margin-bottom: 1rem; }
+    h1 { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.02em; color: #0e2a47; margin-bottom: 0.4rem; line-height: 1.2; }
+    .subhead { font-size: 1.1rem; color: #2f5277; font-weight: 400; border-left: 5px solid #8bb3e0; padding-left: 1.2rem; margin: 1rem 0 0.2rem 0; font-style: italic; }
+    .intro-text { background: #e6f0fc; padding: 1rem 1.4rem; border-radius: 1.2rem; margin-top: 1.4rem; font-size: 0.98rem; color: #1d3a5c; border-left: 5px solid #3b6ea5; }
+    .filter-section { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; margin-bottom: 1.8rem; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(8px); padding: 0.8rem 1.5rem; border-radius: 60px; box-shadow: 0 8px 18px -8px rgba(0, 27, 45, 0.1); }
+    .search-box { display: flex; align-items: center; background: white; border-radius: 40px; padding: 0.3rem 0.3rem 0.3rem 1.2rem; flex: 2; min-width: 240px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02); border: 1px solid #ccdcee; }
+    .search-box span { font-size: 1.1rem; margin-right: 0.5rem; color: #4e6b8a; }
+    .search-box input { border: none; padding: 0.7rem 0.2rem; width: 100%; font-size: 0.95rem; outline: none; background: transparent; color: #0c253b; }
+    .search-box input::placeholder { color: #879eb6; font-weight: 300; }
+    .count-pill { background: #0e2a47; color: white; padding: 0.4rem 1.2rem; border-radius: 30px; font-size: 0.85rem; font-weight: 600; white-space: nowrap; letter-spacing: 0.2px; }
+    .methods-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+    .method-card { background: white; border-radius: 1.6rem; padding: 1.6rem 1.4rem 1.4rem 1.4rem; box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18); transition: all 0.25s ease; border: 1px solid #e3ecf7; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+    .method-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, #3f7cb0, #8bb3e0, #b8d4f0); opacity: 0.7; transition: height 0.2s; }
+    .method-card:hover { transform: translateY(-5px); box-shadow: 0 22px 28px -16px #1e3f5e; border-color: #b8d0e9; }
+    .method-card:hover::before { height: 10px; opacity: 1; }
+    .card-header { display: flex; align-items: flex-start; gap: 0.7rem; margin-bottom: 0.8rem; }
+    .card-icon { font-size: 1.9rem; line-height: 1; background: #e9f0fa; width: 48px; height: 48px; border-radius: 18px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #1b3c61; transition: background 0.2s; }
+    .method-card:hover .card-icon { background: #d3e3f8; }
+    .card-title { font-weight: 700; font-size: 1.25rem; color: #0e2a47; letter-spacing: -0.3px; line-height: 1.3; margin-top: 0.1rem; }
+    .card-desc { font-size: 0.94rem; color: #274e73; margin-bottom: 0.9rem; line-height: 1.6; opacity: 0.92; }
+    .example-block { background: #f6faff; border-radius: 1rem; padding: 0.9rem 1rem; margin-top: auto; border-left: 5px solid #3b7bb5; font-size: 0.9rem; color: #183c5e; box-shadow: inset 0 0 0 1px #d9e8fc; transition: background 0.2s; }
+    .method-card:hover .example-block { background: #ecf4fe; }
+    .example-label { display: inline-block; font-weight: 700; color: #1a4b7a; font-size: 0.73rem; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 0.35rem; background: #d7e6fa; padding: 0.1rem 0.7rem; border-radius: 30px; }
+    .example-text { font-weight: 400; line-height: 1.5; color: #1f3e60; }
+    .quiz-section { margin-top: 2.5rem; }
+    .quiz-header { background: #0e2a47; border-radius: 2rem 2rem 0 0; padding: 1.5rem 2rem; color: white; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; }
+    .quiz-header h2 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.3px; }
+    .quiz-header .quiz-badge { background: #8bb3e0; color: #0e2a47; padding: 0.3rem 1.2rem; border-radius: 40px; font-size: 0.85rem; font-weight: 700; }
+    .quiz-body { background: white; border-radius: 0 0 2rem 2rem; padding: 2rem; box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15); border: 1px solid #e3ecf7; border-top: none; }
+    .quiz-tabs { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2rem; border-bottom: 2px solid #e3ecf7; padding-bottom: 1rem; }
+    .quiz-tab { background: #f0f5fd; border: 1px solid #d0e0f0; color: #1b4670; padding: 0.5rem 1.3rem; border-radius: 40px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .quiz-tab:hover { background: #e0ecfc; border-color: #a0c0e0; }
+    .quiz-tab.active { background: #0e2a47; color: white; border-color: #0e2a47; }
+    .quiz-panel { display: none; }
+    .quiz-panel.active { display: block; }
+    .section-label { display: inline-block; background: #0e2a47; color: white; padding: 0.3rem 1rem; border-radius: 40px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1.2rem; }
+    .mcq-item { background: #f9fcff; border-radius: 1.2rem; padding: 1.3rem 1.5rem; margin-bottom: 1.2rem; border: 1px solid #d9e8fc; transition: background 0.2s; }
+    .mcq-item:hover { background: #f0f7fe; }
+    .mcq-question { font-weight: 600; font-size: 1rem; color: #0e2a47; margin-bottom: 0.8rem; line-height: 1.5; }
+    .mcq-options { display: flex; flex-direction: column; gap: 0.5rem; }
+    .mcq-option { display: flex; align-items: flex-start; gap: 0.6rem; padding: 0.6rem 0.9rem; border-radius: 0.8rem; background: white; border: 1.5px solid #d9e8fc; cursor: pointer; transition: all 0.2s; font-size: 0.93rem; color: #1e3c5a; }
+    .mcq-option:hover { border-color: #8bb3e0; background: #eef6ff; }
+    .mcq-option.selected { border-color: #3b7bb5; background: #e4f0fe; font-weight: 500; }
+    .mcq-option.correct { border-color: #2e9b5e; background: #e6f7ee; font-weight: 600; }
+    .mcq-option.incorrect { border-color: #d45a5a; background: #fdeaea; font-weight: 500; }
+    .mcq-option .option-letter { font-weight: 700; color: #2a4b7c; min-width: 1.4rem; text-align: center; flex-shrink: 0; }
+    .mcq-option.correct .option-letter { color: #1b7a44; }
+    .mcq-option.incorrect .option-letter { color: #b03030; }
+    .mcq-feedback { margin-top: 0.7rem; font-size: 0.88rem; padding: 0.5rem 0.9rem; border-radius: 0.8rem; display: none; font-weight: 500; }
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.correct-fb { background: #e6f7ee; color: #1b6e3e; border-left: 4px solid #2e9b5e; }
+    .mcq-feedback.incorrect-fb { background: #fdeaea; color: #9e2a2a; border-left: 4px solid #d45a5a; }
+    .crq-item { background: #f9fcff; border-radius: 1.2rem; padding: 1.3rem 1.5rem; margin-bottom: 1.2rem; border: 1px solid #d9e8fc; }
+    .crq-question { font-weight: 600; font-size: 1rem; color: #0e2a47; margin-bottom: 0.5rem; line-height: 1.5; }
+    .crq-hint { font-size: 0.85rem; color: #4e6b8a; font-style: italic; margin-bottom: 0.7rem; }
+    .crq-textarea { width: 100%; min-height: 90px; border: 1.5px solid #d9e8fc; border-radius: 0.9rem; padding: 0.8rem 1rem; font-family: inherit; font-size: 0.93rem; color: #1e3c5a; resize: vertical; transition: border-color 0.2s; background: white; }
+    .crq-textarea:focus { outline: none; border-color: #3b7bb5; box-shadow: 0 0 0 3px rgba(59, 123, 181, 0.12); }
+    .crq-actions { display: flex; gap: 0.7rem; margin-top: 0.7rem; flex-wrap: wrap; }
+    .btn { padding: 0.55rem 1.4rem; border-radius: 40px; font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: all 0.2s; border: none; font-family: inherit; }
+    .btn-primary { background: #0e2a47; color: white; }
+    .btn-primary:hover { background: #1a4170; transform: translateY(-1px); }
+    .btn-secondary { background: #e9f0fa; color: #1b4670; border: 1px solid #c0d8f0; }
+    .btn-secondary:hover { background: #d8e6f8; }
+    .crq-feedback { margin-top: 0.8rem; padding: 0.8rem 1rem; border-radius: 0.9rem; font-size: 0.9rem; display: none; }
+    .crq-feedback.show { display: block; }
+    .crq-feedback.good { background: #e6f7ee; color: #1b6e3e; border-left: 4px solid #2e9b5e; }
+    .crq-feedback.partial { background: #fff8e6; color: #8a6d1f; border-left: 4px solid #e0a800; }
+    .erq-item { background: #f9fcff; border-radius: 1.2rem; padding: 1.5rem 1.5rem; margin-bottom: 1.2rem; border: 2px solid #8bb3e0; }
+    .erq-question { font-weight: 700; font-size: 1.05rem; color: #0e2a47; margin-bottom: 0.6rem; line-height: 1.5; }
+    .erq-marks { display: inline-block; background: #0e2a47; color: white; font-size: 0.75rem; font-weight: 700; padding: 0.2rem 0.9rem; border-radius: 40px; margin-bottom: 0.8rem; }
+    .erq-textarea { width: 100%; min-height: 160px; border: 1.5px solid #d9e8fc; border-radius: 0.9rem; padding: 0.9rem 1rem; font-family: inherit; font-size: 0.93rem; color: #1e3c5a; resize: vertical; transition: border-color 0.2s; background: white; }
+    .erq-textarea:focus { outline: none; border-color: #3b7bb5; box-shadow: 0 0 0 3px rgba(59, 123, 181, 0.12); }
+    .erq-feedback { margin-top: 1rem; padding: 1rem 1.2rem; border-radius: 0.9rem; font-size: 0.9rem; display: none; line-height: 1.6; }
+    .erq-feedback.show { display: block; }
+    .erq-feedback.model { background: #e6f0fc; color: #1a3e62; border-left: 5px solid #3b7bb5; }
+    .erq-feedback.model strong { color: #0e2a47; }
+    .footnote-card { background: #ffffffd9; backdrop-filter: blur(8px); border-radius: 1.5rem; padding: 1.8rem 2rem; margin-top: 1.2rem; border: 1px solid #d6e5f5; box-shadow: 0 10px 25px -12px rgba(0, 20, 40, 0.2); color: #1e3c5a; font-size: 0.96rem; }
+    .footnote-card strong { color: #0a2844; font-weight: 700; background: #e5effa; padding: 0.1rem 0.4rem; border-radius: 6px; }
+    .no-results { grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; background: #ffffffc9; border-radius: 2rem; font-size: 1.1rem; color: #4b6888; border: 2px dashed #b8cee8; font-weight: 500; }
+    @media (max-width: 600px) {
+      .header-card { padding: 1.5rem 1.2rem; }
+      h1 { font-size: 1.8rem; }
+      .filter-section { flex-direction: column; align-items: stretch; border-radius: 2rem; padding: 1rem; }
+      .search-box { width: 100%; }
+      .count-pill { text-align: center; padding: 0.5rem; }
+      .methods-grid { grid-template-columns: 1fr; }
+      .quiz-body { padding: 1.2rem; }
+      .quiz-header { padding: 1.2rem; }
+      .quiz-header h2 { font-size: 1.3rem; }
+      .mcq-item, .crq-item, .erq-item { padding: 1rem; }
+      .quiz-tab { font-size: 0.8rem; padding: 0.4rem 1rem; }
+    }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #dfe9f5; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: #94b0d1; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6d8fb4; }
+  </style>
+</head>
+<body>
+  <div class="main-wrapper">
+    <div class="header-card">
+      <div class="badge">📘 Foundations of Education</div>
+      <h1>Methods of Teaching</h1>
+      <div class="subhead">Instructional approaches & strategies</div>
+      <div class="intro-text">
+        <strong>🧠 What are instructional approaches?</strong> They are methods and techniques used by educators to facilitate effective teaching and learning. They engage learners, convey information, and promote understanding & retention. They vary based on subject, age, and learning goals.
+      </div>
+    </div>
+    <div class="filter-section">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="Search methods or examples... (e.g., 'flipped', 'game', 'inquiry')" autocomplete="off">
+      </div>
+      <div class="count-pill" id="countDisplay">14 methods</div>
+    </div>
+    <div class="methods-grid" id="methodsGrid"></div>
+    <div class="footnote-card">
+      <strong>💡 Effective educators</strong> often combine and adapt these instructional approaches to meet specific student needs and course goals. The choice depends on subject matter, learners’ age & prior knowledge, and desired learning outcomes.
+    </div>
+    <div class="quiz-section">
+      <div class="quiz-header">
+        <h2>📝 Practice Quiz</h2>
+        <span class="quiz-badge">Test Your Knowledge</span>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-tabs">
+          <button class="quiz-tab active" data-panel="mcqPanel">🔘 10 MCQs</button>
+          <button class="quiz-tab" data-panel="crqPanel">✍️ 5 CRQs</button>
+          <button class="quiz-tab" data-panel="erqPanel">📄 1 ERQ</button>
+        </div>
+        <div class="quiz-panel active" id="mcqPanel">
+          <span class="section-label">Multiple Choice Questions</span>
+          <div id="mcqContainer"></div>
+        </div>
+        <div class="quiz-panel" id="crqPanel">
+          <span class="section-label">Constructed Response Questions</span>
+          <div id="crqContainer"></div>
+        </div>
+        <div class="quiz-panel" id="erqPanel">
+          <span class="section-label">Extended Response Question</span>
+          <div id="erqContainer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function() {
+      const methodsData = [
+        {
+          title: "Lecture-Based Instruction",
+          desc: "Traditional approach where instructors deliver content through spoken explanations and presentations. Often used for foundational knowledge in math, science, history.",
+          example: "A history teacher gives a 20-minute talk about World War II causes while students take notes.",
+          icon: "📖"
+        },
+        {
+          title: "Active Learning",
+          desc: "Emphasizes student participation. Group discussions, problem-solving, hands-on experiments encourage learners to interact with material actively.",
+          example: "In a chemistry class, students mix chemicals in small groups to observe reactions instead of just reading about them.",
+          icon: "⚡"
+        },
+        {
+          title: "Project-Based Learning (PBL)",
+          desc: "Student-centered approach where learners work on extended projects to investigate and solve real-world problems. Fosters critical thinking, collaboration, and creativity.",
+          example: "Students design a plan to reduce plastic waste in their school, then present it to the principal.",
+          icon: "🏗️"
+        },
+        {
+          title: "Flipped Learning",
+          desc: "Students access course content (lectures, readings) outside of class. Class time is used for interactive activities, discussions, and application.",
+          example: "Students watch a video on grammar rules at home, then in class they write and edit essays together.",
+          icon: "🔄"
+        },
+        {
+          title: "Collaborative Learning",
+          desc: "Promotes group work and cooperation. Encourages peer teaching, shared problem-solving, and exchange of diverse perspectives.",
+          example: "A math teacher assigns small groups to solve a set of problems; each member explains a different step to the group.",
+          icon: "🤝"
+        },
+        {
+          title: "Differentiated Instruction",
+          desc: "Educators tailor teaching methods to accommodate diverse learning styles, abilities, and needs in one classroom. Not all learners progress at same pace.",
+          example: "During a reading lesson, some students get audio books, others read alone, and advanced readers get extra challenge questions.",
+          icon: "🧩"
+        },
+        {
+          title: "Technology-Enhanced Learning",
+          desc: "Using educational technology tools like online platforms, interactive simulations, and virtual reality to deliver and reinforce content.",
+          example: "A geography class uses Google Earth to virtually tour the Amazon rainforest and track deforestation.",
+          icon: "💻"
+        },
+        {
+          title: "Scaffolded Instruction",
+          desc: "Breaking complex topics into smaller, manageable chunks and gradually increasing difficulty as students gain mastery. Supports learners step by step.",
+          example: "In writing, students first learn to write a strong sentence, then a paragraph, and finally a full essay with support at each stage.",
+          icon: "🪜"
+        },
+        {
+          title: "Gamification & Game-Based Learning",
+          desc: "Incorporating game elements and mechanics into learning to make it engaging and enjoyable while achieving educational objectives.",
+          example: "A vocabulary lesson uses Kahoot! where students earn points for correct answers and compete on a leaderboard.",
+          icon: "🎮"
+        },
+        {
+          title: "Assessment for Learning (Formative)",
+          desc: "Using ongoing assessments and feedback to monitor progress and adjust instruction. Helps identify where learners need additional support.",
+          example: "A teacher uses exit tickets at the end of class to see who understood the lesson and who needs extra help.",
+          icon: "📋"
+        },
+        {
+          title: "Inquiry-Based Learning",
+          desc: "Encouraging students to ask questions, investigate, and explore topics independently. Fosters curiosity and deeper understanding.",
+          example: "Students observe a plant growing and ask 'What makes it grow?' then design experiments to find answers.",
+          icon: "❓"
+        },
+        {
+          title: "Experiential Learning",
+          desc: "Learning by doing. Involves hands-on experiences, field trips, internships, and real-world application of knowledge.",
+          example: "Biology students visit a local wetland to collect water samples and test for pollution levels.",
+          icon: "🌍"
+        },
+        {
+          title: "Modeling",
+          desc: "Educators demonstrate the desired knowledge or skill, showing learners how to perform a task correctly. Learners then imitate the model.",
+          example: "A PE teacher demonstrates a perfect basketball free throw, then students practice the same technique.",
+          icon: "🎭"
+        },
+        {
+          title: "Chunking",
+          desc: "Breaking down large amounts of information into smaller, digestible chunks. Aids information processing and memory retention by reducing cognitive load.",
+          example: "When teaching a long poem, the teacher divides it into 4-line stanzas and helps students memorize one at a time.",
+          icon: "🔹"
+        }
+      ];
+      const grid = document.getElementById('methodsGrid');
+      const searchInput = document.getElementById('searchInput');
+      const countDisplay = document.getElementById('countDisplay');
+      function renderCards(filterText = '') {
+        const query = filterText.trim().toLowerCase();
+        const filtered = methodsData.filter(m =>
+          m.title.toLowerCase().includes(query) ||
+          m.desc.toLowerCase().includes(query) ||
+          m.example.toLowerCase().includes(query)
+        );
+        countDisplay.textContent = `${filtered.length} method${filtered.length !== 1 ? 's' : ''}`;
+        if (filtered.length === 0) {
+          grid.innerHTML = `<div class="no-results">🔎 No methods match your search. Try a different keyword.</div>`;
+          return;
+        }
+        let cardsHtml = '';
+        filtered.forEach(m => {
+          cardsHtml += `
+            <div class="method-card">
+              <div class="card-header">
+                <div class="card-icon">${m.icon}</div>
+                <div class="card-title">${m.title}</div>
+              </div>
+              <div class="card-desc">${m.desc}</div>
+              <div class="example-block">
+                <div class="example-label">📌 example</div>
+                <div class="example-text">${m.example}</div>
+              </div>
+            </div>
+          `;
+        });
+        grid.innerHTML = cardsHtml;
+      }
+      renderCards();
+      let debounceTimer;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => { renderCards(e.target.value); }, 180);
+      });
+      searchInput.addEventListener('search', (e) => {
+        if (e.target.value === '') renderCards('');
+      });
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchInput.value !== '') {
+          searchInput.value = '';
+          renderCards('');
+        }
+      });
+      const mcqs = [
+        {
+          q: "Which teaching method involves students accessing course content at home and using class time for interactive activities?",
+          options: ["Lecture-Based Instruction", "Flipped Learning", "Modeling", "Chunking"],
+          correct: 1,
+          feedback: "Flipped Learning reverses the traditional model: content is delivered outside class, and class time is for practice and discussion."
+        },
+        {
+          q: "A teacher divides a long poem into 4-line stanzas to help students memorize it. Which method is being used?",
+          options: ["Scaffolded Instruction", "Chunking", "Gamification", "Inquiry-Based Learning"],
+          correct: 1,
+          feedback: "Chunking breaks large information into smaller, manageable pieces to reduce cognitive load and aid memory."
+        },
+        {
+          q: "Which approach emphasizes student participation through group discussions, problem-solving, and hands-on experiments?",
+          options: ["Lecture-Based Instruction", "Active Learning", "Modeling", "Differentiated Instruction"],
+          correct: 1,
+          feedback: "Active Learning engages students directly with the material through participation rather than passive listening."
+        },
+        {
+          q: "In Project-Based Learning (PBL), students primarily:",
+          options: ["Listen to lectures and take notes", "Work on extended projects solving real-world problems", "Compete on leaderboards for points", "Watch videos at home and discuss in class"],
+          correct: 1,
+          feedback: "PBL is student-centered and involves extended projects that investigate and solve real-world problems."
+        },
+        {
+          q: "A PE teacher demonstrates a perfect basketball free throw, then students practice the same technique. This is an example of:",
+          options: ["Modeling", "Chunking", "Flipped Learning", "Collaborative Learning"],
+          correct: 0,
+          feedback: "Modeling involves demonstrating the desired skill so learners can imitate and acquire it."
+        },
+        {
+          q: "Using exit tickets at the end of class to see who understood the lesson is an example of:",
+          options: ["Summative Assessment", "Assessment for Learning (Formative)", "Gamification", "Experiential Learning"],
+          correct: 1,
+          feedback: "Formative assessment (Assessment for Learning) uses ongoing feedback to monitor progress and adjust instruction."
+        },
+        {
+          q: "Which method involves students working in small groups where each member explains a different step to the group?",
+          options: ["Lecture-Based Instruction", "Collaborative Learning", "Modeling", "Chunking"],
+          correct: 1,
+          feedback: "Collaborative Learning promotes group work, peer teaching, and shared problem-solving."
+        },
+        {
+          q: "A geography class uses Google Earth to virtually tour the Amazon rainforest. This is an example of:",
+          options: ["Technology-Enhanced Learning", "Inquiry-Based Learning", "Experiential Learning", "Differentiated Instruction"],
+          correct: 0,
+          feedback: "Technology-Enhanced Learning uses digital tools like simulations and virtual tours to deliver content."
+        },
+        {
+          q: "Students observe a plant and ask 'What makes it grow?' then design experiments to find answers. This is:",
+          options: ["Inquiry-Based Learning", "Chunking", "Modeling", "Gamification"],
+          correct: 0,
+          feedback: "Inquiry-Based Learning encourages students to ask questions, investigate, and explore independently."
+        },
+        {
+          q: "In Differentiated Instruction, educators primarily:",
+          options: ["Use the same method for all students", "Tailor teaching to diverse learning styles, abilities, and needs", "Focus only on advanced students", "Replace all lectures with games"],
+          correct: 1,
+          feedback: "Differentiated Instruction recognizes that learners progress at different paces and in different ways, so teaching is tailored accordingly."
+        }
+      ];
+      const crqs = [
+        {
+          q: "Explain the difference between Flipped Learning and traditional Lecture-Based Instruction.",
+          hint: "Think about where content is delivered and what happens during class time.",
+          keywords: ["flipped", "home", "outside", "class time", "lecture", "traditional", "interactive", "activities", "content"],
+          model: "In traditional Lecture-Based Instruction, the teacher delivers content during class through spoken explanations. In Flipped Learning, students access content (videos, readings) at home, and class time is used for interactive activities, discussions, and application of the material."
+        },
+        {
+          q: "Describe what Chunking is and give one example of how a teacher might use it.",
+          hint: "Focus on breaking large information into smaller parts.",
+          keywords: ["chunk", "smaller", "break", "information", "memory", "cognitive", "example", "poem", "stanza", "steps"],
+          model: "Chunking is breaking down large amounts of information into smaller, more digestible chunks to aid processing and memory retention. For example, a teacher might divide a long poem into 4-line stanzas and help students memorize one stanza at a time."
+        },
+        {
+          q: "What is Scaffolded Instruction? How does it support learners?",
+          hint: "Think about gradual release and support.",
+          keywords: ["scaffold", "support", "gradual", "step", "chunk", "difficulty", "mastery", "complex", "smaller", "independent"],
+          model: "Scaffolded Instruction breaks complex topics into smaller, manageable chunks and gradually increases difficulty as students gain mastery. It supports learners by providing step-by-step guidance and reducing support as they become more independent."
+        },
+        {
+          q: "Give two examples of how technology can be used to enhance learning in the classroom.",
+          hint: "Consider tools like simulations, virtual tours, or online platforms.",
+          keywords: ["technology", "online", "simulation", "virtual", "google earth", "kahoot", "platform", "digital", "tool", "interactive"],
+          model: "Two examples: (1) A geography class uses Google Earth to virtually tour the Amazon rainforest and track deforestation. (2) A vocabulary lesson uses Kahoot! where students earn points for correct answers and compete on a leaderboard."
+        },
+        {
+          q: "Explain the difference between Formative Assessment and summative assessment in your own words.",
+          hint: "Formative is ongoing; summative is at the end.",
+          keywords: ["formative", "ongoing", "feedback", "monitor", "adjust", "summative", "end", "final", "test", "grade"],
+          model: "Formative assessment (Assessment for Learning) is ongoing and uses feedback to monitor student progress and adjust instruction. Summative assessment happens at the end of a unit to evaluate what students have learned, often for grading purposes."
+        }
+      ];
+      const erq = {
+        q: "Choose any THREE methods of teaching from the list. For each method, describe what it is, give a classroom example, and explain why it is effective for student learning.",
+        marks: "10 marks",
+        model: `
+          <strong>Model Answer (key points):</strong>
+
+
+          <strong>1. Flipped Learning:</strong> Students access content at home and use class time for interactive activities. Example: Students watch a grammar video at home, then write and edit essays in class. Effective because it maximizes class time for active practice and teacher support.
+
+
+          <strong>2. Gamification & Game-Based Learning:</strong> Incorporating game elements into learning. Example: Using Kahoot! for vocabulary where students earn points on a leaderboard. Effective because it increases engagement, motivation, and enjoyment while achieving learning objectives.
+
+
+          <strong>3. Collaborative Learning:</strong> Promotes group work and cooperation. Example: Math groups where each member explains a different step. Effective because it encourages peer teaching, shared problem-solving, and exposure to diverse perspectives.
+
+
+          <em>Note: Any three valid methods with description, example, and explanation of effectiveness are acceptable.</em>
+        `
+      };
+      const mcqContainer = document.getElementById('mcqContainer');
+      let mcqHtml = '';
+      mcqs.forEach((item, idx) => {
+        const letters = ['A', 'B', 'C', 'D'];
+        let optionsHtml = '';
+        item.options.forEach((opt, oi) => {
+          optionsHtml += `
+            <div class="mcq-option" data-qidx="${idx}" data-oidx="${oi}">
+              <span class="option-letter">${letters[oi]}</span>
+              <span>${opt}</span>
+            </div>
+          `;
+        });
+        mcqHtml += `
+          <div class="mcq-item" id="mcq-${idx}">
+            <div class="mcq-question">${idx + 1}. ${item.q}</div>
+            <div class="mcq-options">${optionsHtml}</div>
+            <div class="mcq-feedback" id="mcq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      mcqContainer.innerHTML = mcqHtml;
+      mcqContainer.addEventListener('click', (e) => {
+        const option = e.target.closest('.mcq-option');
+        if (!option) return;
+        const qidx = parseInt(option.dataset.qidx);
+        const oidx = parseInt(option.dataset.oidx);
+        const mcq = mcqs[qidx];
+        const parentItem = document.getElementById(`mcq-${qidx}`);
+        const allOptions = parentItem.querySelectorAll('.mcq-option');
+        const feedbackEl = document.getElementById(`mcq-fb-${qidx}`);
+        if (parentItem.dataset.answered === 'correct') return;
+        allOptions.forEach(opt => { opt.classList.remove('selected', 'correct', 'incorrect'); });
+        option.classList.add('selected');
+        if (oidx === mcq.correct) {
+          option.classList.add('correct');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '✅ Correct! ' + mcq.feedback;
+          feedbackEl.className = 'mcq-feedback show correct-fb';
+          parentItem.dataset.answered = 'correct';
+        } else {
+          option.classList.add('incorrect');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '❌ Not quite. Try again!';
+          feedbackEl.className = 'mcq-feedback show incorrect-fb';
+          setTimeout(() => {
+            if (feedbackEl.classList.contains('incorrect-fb')) feedbackEl.classList.remove('show');
+          }, 1500);
+        }
+      });
+      const crqContainer = document.getElementById('crqContainer');
+      let crqHtml = '';
+      crqs.forEach((item, idx) => {
+        crqHtml += `
+          <div class="crq-item" id="crq-${idx}">
+            <div class="crq-question">${idx + 1}. ${item.q}</div>
+            <div class="crq-hint">💡 Hint: ${item.hint}</div>
+            <textarea class="crq-textarea" id="crq-ta-${idx}" placeholder="Write your answer here..."></textarea>
+            <div class="crq-actions">
+              <button class="btn btn-primary" data-crq-check="${idx}">Check Answer</button>
+              <button class="btn btn-secondary" data-crq-clear="${idx}">Clear</button>
+            </div>
+            <div class="crq-feedback" id="crq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      crqContainer.innerHTML = crqHtml;
+      crqContainer.addEventListener('click', (e) => {
+        const checkBtn = e.target.closest('[data-crq-check]');
+        const clearBtn = e.target.closest('[data-crq-clear]');
+        if (checkBtn) {
+          const idx = parseInt(checkBtn.dataset.crqCheck);
+          const textarea = document.getElementById(`crq-ta-${idx}`);
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          const answer = textarea.value.trim().toLowerCase();
+          const crq = crqs[idx];
+          if (answer.length < 10) {
+            feedback.textContent = '⚠️ Please write a more complete answer (at least a sentence or two).';
+            feedback.className = 'crq-feedback show partial';
+            return;
+          }
+          const matched = crq.keywords.filter(kw => answer.includes(kw));
+          const ratio = matched.length / crq.keywords.length;
+          if (ratio >= 0.4) {
+            feedback.innerHTML = `✅ <strong>Good answer!</strong> You covered key ideas.
+
+<em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show good';
+          } else {
+            feedback.innerHTML = `📝 <strong>Partially correct.</strong> You mentioned some ideas. Try to include more key concepts.
+
+<em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show partial';
+          }
+        }
+        if (clearBtn) {
+          const idx = parseInt(clearBtn.dataset.crqClear);
+          const textarea = document.getElementById(`crq-ta-${idx}`);
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          textarea.value = '';
+          feedback.className = 'crq-feedback';
+          feedback.textContent = '';
+        }
+      });
+      const erqContainer = document.getElementById('erqContainer');
+      erqContainer.innerHTML = `
+        <div class="erq-item">
+          <div class="erq-marks">${erq.marks}</div>
+          <div class="erq-question">${erq.q}</div>
+          <textarea class="erq-textarea" id="erq-ta" placeholder="Write your detailed answer here (aim for 3-4 paragraphs)..."></textarea>
+          <div class="crq-actions">
+            <button class="btn btn-primary" id="erqCheck">Check Answer</button>
+            <button class="btn btn-secondary" id="erqClear">Clear</button>
+          </div>
+          <div class="erq-feedback" id="erq-fb"></div>
+        </div>
+      `;
+      document.getElementById('erqCheck').addEventListener('click', () => {
+        const ta = document.getElementById('erq-ta');
+        const fb = document.getElementById('erq-fb');
+        const answer = ta.value.trim().toLowerCase();
+        if (answer.length < 50) {
+          fb.textContent = '⚠️ Please write a more detailed answer. Aim for at least 3-4 paragraphs.';
+          fb.className = 'erq-feedback show partial';
+          return;
+        }
+        const methodNames = ['lecture', 'active learning', 'project', 'flipped', 'collaborative', 'differentiated', 'technology', 'scaffold', 'gamification', 'assessment', 'inquiry', 'experiential', 'modeling', 'chunking'];
+        const found = methodNames.filter(m => answer.includes(m));
+        if (found.length >= 3) {
+          fb.innerHTML = `✅ <strong>Excellent effort!</strong> You discussed ${found.length} methods. Compare your answer with the model below.
+
+<em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show model';
+        } else if (found.length >= 1) {
+          fb.innerHTML = `📝 <strong>Good start!</strong> You mentioned ${found.length} method(s). Try to discuss at least three methods with examples and explanations.
+
+<em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        } else {
+          fb.innerHTML = `⚠️ It seems you haven't named specific methods. Make sure to choose and describe three methods from the list.
+
+<em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        }
+      });
+      document.getElementById('erqClear').addEventListener('click', () => {
+        document.getElementById('erq-ta').value = '';
+        const fb = document.getElementById('erq-fb');
+        fb.className = 'erq-feedback';
+        fb.textContent = '';
+      });
+      const tabs = document.querySelectorAll('.quiz-tab');
+      const panels = document.querySelectorAll('.quiz-panel');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          panels.forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          const panelId = tab.dataset.panel;
+          document.getElementById(panelId).classList.add('active');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

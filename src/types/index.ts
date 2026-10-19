@@ -216,6 +216,8 @@ export interface StudyLesson {
   title: string;
   audience: 'kids' | 'advanced';
   readTime: string;
+  /** Repository-local HTML document rendered in isolation to retain its original design. */
+  htmlNotesPath?: string;
   explanation: string;
   examples: string[];
   importantPoints: string[];

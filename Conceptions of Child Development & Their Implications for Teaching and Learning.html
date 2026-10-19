@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conceptions of Child Development · Child Development</title>
+  <style>
+    /* ---------- GLOBAL ---------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+      color: #1e2b3c;
+    }
+    .main-wrapper { max-width: 1100px; width: 100%; }
+
+    /* ---------- HEADER ---------- */
+    .header-card {
+      background: white;
+      border-radius: 2rem 2rem 1.5rem 1.5rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      padding: 2rem 2rem 1.5rem 2rem;
+      margin-bottom: 1.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: transform 0.2s;
+    }
+    .header-card:hover { transform: scale(1.002); }
+    .badge {
+      display: inline-block;
+      background: #2a4b7c;
+      color: #f0f7ff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+      line-height: 1.25;
+    }
+    .subhead {
+      font-size: 1.05rem;
+      color: #2f5277;
+      font-weight: 400;
+      border-left: 5px solid #8bb3e0;
+      padding-left: 1.2rem;
+      margin: 1rem 0 0.2rem 0;
+      font-style: italic;
+    }
+    .intro-text {
+      background: #e6f0fc;
+      padding: 1rem 1.4rem;
+      border-radius: 1.2rem;
+      margin-top: 1.4rem;
+      font-size: 0.98rem;
+      color: #1d3a5c;
+      border-left: 5px solid #3b6ea5;
+    }
+
+    /* ---------- SECTION TITLE ---------- */
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #0e2a47;
+      margin: 2.2rem 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section-title .line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #8bb3e0, transparent);
+      border-radius: 2px;
+    }
+
+    /* ---------- CONCEPTION CARDS ---------- */
+    .conception-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    .conception-card {
+      background: white;
+      border-radius: 1.4rem;
+      padding: 1.3rem 1.3rem;
+      box-shadow: 0 7px 16px -9px rgba(20, 40, 70, 0.15);
+      border: 1px solid #e3ecf7;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .conception-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      opacity: 0.75;
+      transition: opacity 0.2s;
+    }
+    .conception-card.continuous::before { background: linear-gradient(180deg, #2a4b7c, #5a8ec9); }
+    .conception-card.sequential::before { background: linear-gradient(180deg, #2e7d4f, #81c784); }
+    .conception-card.individual::before { background: linear-gradient(180deg, #d4933a, #e8c08b); }
+    .conception-card.holistic::before { background: linear-gradient(180deg, #6a4c9c, #b39ddb); }
+    .conception-card.nature::before { background: linear-gradient(180deg, #c94f7c, #e88bb0); }
+    .conception-card.active::before { background: linear-gradient(180deg, #3b7bb5, #8bb3e0); }
+    .conception-card.readiness::before { background: linear-gradient(180deg, #4a7a5c, #8bc09a); }
+    .conception-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 22px -13px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .conception-card:hover::before { opacity: 1; }
+    .conception-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.5rem;
+    }
+    .conception-icon {
+      font-size: 1.5rem;
+      background: #e9f0fa;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    .conception-card:hover .conception-icon { background: #d3e3f8; }
+    .conception-name {
+      font-weight: 700;
+      font-size: 0.98rem;
+      color: #0e2a47;
+      line-height: 1.3;
+    }
+    .conception-desc {
+      font-size: 0.87rem;
+      color: #274e73;
+      line-height: 1.55;
+    }
+
+    /* ---------- TABLE ---------- */
+    .matrix-wrapper {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.4rem 1.4rem 1.2rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      border: 1px solid #e3ecf7;
+      overflow-x: auto;
+      margin-bottom: 0.5rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.88rem;
+      min-width: 480px;
+    }
+    thead th {
+      text-align: left;
+      padding: 0.8rem 0.9rem;
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: white;
+      background: #0e2a47;
+    }
+    thead th:first-child {
+      border-radius: 1rem 0 0 0;
+      background: #2a4b7c;
+    }
+    thead th:last-child { border-radius: 0 1rem 0 0; }
+    tbody td {
+      padding: 0.7rem 0.9rem;
+      border-bottom: 1px solid #e8f0f9;
+      color: #1e3c5a;
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: #f6faff; }
+    tbody td:first-child {
+      font-weight: 700;
+      color: #0e2a47;
+      background: #f3f8fd;
+      white-space: nowrap;
+    }
+    tbody tr:hover td:first-child { background: #eaf3fc; }
+
+    /* ---------- EXAM CONCEPTS ---------- */
+    .exam-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 0.7rem;
+      margin-bottom: 0.5rem;
+    }
+    .exam-fact {
+      background: white;
+      border-radius: 0.9rem;
+      padding: 0.7rem 0.9rem;
+      box-shadow: 0 4px 10px -6px rgba(20, 40, 70, 0.12);
+      border: 1px solid #e3ecf7;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all 0.2s;
+    }
+    .exam-fact:hover {
+      transform: translateY(-2px);
+      border-color: #b8d0e9;
+    }
+    .exam-clue {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #1e3c5a;
+      flex: 1;
+    }
+    .exam-answer {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #0e2a47;
+      background: #eef4fb;
+      padding: 0.15rem 0.65rem;
+      border-radius: 30px;
+      border: 1px solid #d0e0f0;
+      white-space: nowrap;
+    }
+
+    /* ---------- TAKEAWAY ---------- */
+    .takeaway-card {
+      background: #0e2a47;
+      color: white;
+      border-radius: 1.6rem;
+      padding: 1.6rem 2rem;
+      margin: 1.2rem 0 0.5rem 0;
+      font-size: 1rem;
+      line-height: 1.65;
+      box-shadow: 0 14px 26px -12px #0e2a47;
+      border-left: 6px solid #8bb3e0;
+    }
+    .takeaway-card strong { color: #b8d4f0; }
+
+    /* ---------- SEARCH & COUNT ---------- */
+    .filter-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 60px;
+      box-shadow: 0 8px 18px -8px rgba(0, 27, 45, 0.1);
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 40px;
+      padding: 0.3rem 0.3rem 0.3rem 1.2rem;
+      flex: 2;
+      min-width: 240px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      border: 1px solid #ccdcee;
+    }
+    .search-box span { font-size: 1.1rem; margin-right: 0.5rem; color: #4e6b8a; }
+    .search-box input {
+      border: none;
+      padding: 0.7rem 0.2rem;
+      width: 100%;
+      font-size: 0.95rem;
+      outline: none;
+      background: transparent;
+      color: #0c253b;
+    }
+    .search-box input::placeholder { color: #879eb6; font-weight: 300; }
+    .count-pill {
+      background: #0e2a47;
+      color: white;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ---------- QUIZ SECTION ---------- */
+    .quiz-section { margin-top: 2.5rem; }
+    .quiz-header {
+      background: #0e2a47;
+      border-radius: 2rem 2rem 0 0;
+      padding: 1.5rem 2rem;
+      color: white;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .quiz-header h2 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.3px; }
+    .quiz-header .quiz-badge {
+      background: #8bb3e0;
+      color: #0e2a47;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .quiz-body {
+      background: white;
+      border-radius: 0 0 2rem 2rem;
+      padding: 2rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      border: 1px solid #e3ecf7;
+      border-top: none;
+    }
+    .quiz-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #e3ecf7;
+      padding-bottom: 1rem;
+    }
+    .quiz-tab {
+      background: #f0f5fd;
+      border: 1px solid #d0e0f0;
+      color: #1b4670;
+      padding: 0.5rem 1.3rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .quiz-tab:hover { background: #e0ecfc; border-color: #a0c0e0; }
+    .quiz-tab.active { background: #0e2a47; color: white; border-color: #0e2a47; }
+    .quiz-panel { display: none; }
+    .quiz-panel.active { display: block; }
+    .section-label {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.2rem;
+    }
+
+    /* MCQ */
+    .mcq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+      transition: background 0.2s;
+    }
+    .mcq-item:hover { background: #f0f7fe; }
+    .mcq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.8rem;
+      line-height: 1.5;
+    }
+    .mcq-options { display: flex; flex-direction: column; gap: 0.5rem; }
+    .mcq-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 0.8rem;
+      background: white;
+      border: 1.5px solid #d9e8fc;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+    }
+    .mcq-option:hover { border-color: #8bb3e0; background: #eef6ff; }
+    .mcq-option.selected { border-color: #3b7bb5; background: #e4f0fe; font-weight: 500; }
+    .mcq-option.correct { border-color: #2e9b5e; background: #e6f7ee; font-weight: 600; }
+    .mcq-option.incorrect { border-color: #d45a5a; background: #fdeaea; font-weight: 500; }
+    .mcq-option .option-letter {
+      font-weight: 700;
+      color: #2a4b7c;
+      min-width: 1.4rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .mcq-option.correct .option-letter { color: #1b7a44; }
+    .mcq-option.incorrect .option-letter { color: #b03030; }
+    .mcq-feedback {
+      margin-top: 0.7rem;
+      font-size: 0.88rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: 0.8rem;
+      display: none;
+      font-weight: 500;
+    }
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.correct-fb {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .mcq-feedback.incorrect-fb {
+      background: #fdeaea;
+      color: #9e2a2a;
+      border-left: 4px solid #d45a5a;
+    }
+
+    /* CRQ / ERQ shared */
+    .crq-item, .erq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+    }
+    .erq-item { border: 2px solid #8bb3e0; background: #f5faff; }
+    .crq-question, .erq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+    .erq-question { font-size: 1.05rem; font-weight: 700; }
+    .erq-marks {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      margin-bottom: 0.8rem;
+    }
+    .crq-hint {
+      font-size: 0.85rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-bottom: 0.7rem;
+    }
+    .crq-textarea, .erq-textarea {
+      width: 100%;
+      border: 1.5px solid #d9e8fc;
+      border-radius: 0.9rem;
+      padding: 0.8rem 1rem;
+      font-family: inherit;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+      resize: vertical;
+      transition: border-color 0.2s;
+      background: white;
+    }
+    .crq-textarea { min-height: 90px; }
+    .erq-textarea { min-height: 160px; }
+    .crq-textarea:focus, .erq-textarea:focus {
+      outline: none;
+      border-color: #3b7bb5;
+      box-shadow: 0 0 0 3px rgba(59, 123, 181, 0.12);
+    }
+    .crq-actions, .erq-actions {
+      display: flex;
+      gap: 0.7rem;
+      margin-top: 0.7rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 0.55rem 1.4rem;
+      border-radius: 40px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      font-family: inherit;
+    }
+    .btn-primary { background: #0e2a47; color: white; }
+    .btn-primary:hover { background: #1a4170; transform: translateY(-1px); }
+    .btn-secondary { background: #e9f0fa; color: #1b4670; border: 1px solid #c0d8f0; }
+    .btn-secondary:hover { background: #d8e6f8; }
+    .crq-feedback, .erq-feedback {
+      margin-top: 0.8rem;
+      padding: 0.8rem 1rem;
+      border-radius: 0.9rem;
+      font-size: 0.9rem;
+      display: none;
+      line-height: 1.6;
+    }
+    .crq-feedback.show, .erq-feedback.show { display: block; }
+    .crq-feedback.good, .erq-feedback.good {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .crq-feedback.partial, .erq-feedback.partial {
+      background: #fff8e6;
+      color: #8a6d1f;
+      border-left: 4px solid #e0a800;
+    }
+    .erq-feedback.model {
+      background: #e6f0fc;
+      color: #1a3e62;
+      border-left: 5px solid #3b7bb5;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 600px) {
+      .header-card { padding: 1.5rem 1.2rem; }
+      h1 { font-size: 1.6rem; }
+      .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: 2rem;
+        padding: 1rem;
+      }
+      .search-box { width: 100%; }
+      .count-pill { text-align: center; padding: 0.5rem; }
+      .quiz-body { padding: 1.2rem; }
+      .quiz-header { padding: 1.2rem; }
+      .quiz-header h2 { font-size: 1.3rem; }
+      .mcq-item, .crq-item, .erq-item { padding: 1rem; }
+      .quiz-tab { font-size: 0.8rem; padding: 0.4rem 1rem; }
+      .takeaway-card { padding: 1.3rem 1.2rem; }
+    }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #dfe9f5; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: #94b0d1; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6d8fb4; }
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem 1rem;
+      background: #ffffffc9;
+      border-radius: 2rem;
+      font-size: 1.1rem;
+      color: #4b6888;
+      border: 2px dashed #b8cee8;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-wrapper">
+
+    <!-- HEADER -->
+    <div class="header-card">
+      <div class="badge">🧒 Child Development</div>
+      <h1>Conceptions of Child Development &amp; Their Implications for Teaching and Learning</h1>
+      <div class="subhead">How our understanding of development shapes classroom practice</div>
+      <div class="intro-text">
+        <strong>💡 What is child development?</strong> Child development is the continuous process of physical, cognitive, emotional, social, and language changes that occur from birth through childhood and adolescence. Development is influenced by both heredity (nature) and environment (nurture).
+      </div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="filter-section">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="Search conceptions, theorists, implications..." autocomplete="off">
+      </div>
+      <div class="count-pill" id="countDisplay">25+ items</div>
+    </div>
+
+    <!-- MAJOR CONCEPTIONS -->
+    <div class="section-title">
+      🧩 Major Conceptions of Child Development
+      <span class="line"></span>
+    </div>
+
+    <div class="conception-grid" id="conceptionsGrid">
+      <div class="conception-card continuous" data-searchable="continuous process development takes place gradually over time">
+        <div class="conception-header">
+          <div class="conception-icon">📈</div>
+          <div class="conception-name">Continuous Process</div>
+        </div>
+        <div class="conception-desc">Development takes place gradually over time.</div>
+      </div>
+      <div class="conception-card sequential" data-searchable="sequential process developmental stages orderly sequence">
+        <div class="conception-header">
+          <div class="conception-icon">🪜</div>
+          <div class="conception-name">Sequential Process</div>
+        </div>
+        <div class="conception-desc">Children generally pass through developmental stages in an orderly sequence.</div>
+      </div>
+      <div class="conception-card individual" data-searchable="individual differences every child develops different rate">
+        <div class="conception-header">
+          <div class="conception-icon">🎨</div>
+          <div class="conception-name">Individual Differences</div>
+        </div>
+        <div class="conception-desc">Every child develops at a different rate.</div>
+      </div>
+      <div class="conception-card holistic" data-searchable="holistic process physical mental emotional social development interconnected">
+        <div class="conception-header">
+          <div class="conception-icon">🔗</div>
+          <div class="conception-name">Holistic Process</div>
+        </div>
+        <div class="conception-desc">Physical, mental, emotional, and social development are interconnected.</div>
+      </div>
+      <div class="conception-card nature" data-searchable="nature nurture genetic factors environmental experiences heredity environment">
+        <div class="conception-header">
+          <div class="conception-icon">🌱</div>
+          <div class="conception-name">Nature and Nurture</div>
+        </div>
+        <div class="conception-desc">Development is shaped by genetic factors and environmental experiences.</div>
+      </div>
+      <div class="conception-card active" data-searchable="active learning children learn exploration interaction experience">
+        <div class="conception-header">
+          <div class="conception-icon">🙌</div>
+          <div class="conception-name">Active Learning</div>
+        </div>
+        <div class="conception-desc">Children learn through exploration, interaction, and experience.</div>
+      </div>
+      <div class="conception-card readiness" data-searchable="developmental readiness learn skills effectively when ready">
+        <div class="conception-header">
+          <div class="conception-icon">⏰</div>
+          <div class="conception-name">Developmental Readiness</div>
+        </div>
+        <div class="conception-desc">Children learn certain skills more effectively when they are ready for them.</div>
+      </div>
+    </div>
+
+    <!-- THEORISTS -->
+    <div class="section-title">
+      🧑‍🏫 Major Psychologists and Their Theories
+      <span class="line"></span>
+    </div>
+
+    <div class="matrix-wrapper" data-searchable="psychologists theories piaget cognitive development vygotsky sociocultural zpd erikson psychosocial kohlberg moral bowlby attachment skinner operant conditioning bandura social learning">
+      <table>
+        <thead>
+          <tr>
+            <th>Psychologist</th>
+            <th>Theory / Contribution</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Jean Piaget</td><td>Cognitive Development Theory</td></tr>
+          <tr><td>Lev Vygotsky</td><td>Sociocultural Theory; Zone of Proximal Development (ZPD)</td></tr>
+          <tr><td>Erik Erikson</td><td>Psychosocial Development Theory</td></tr>
+          <tr><td>Lawrence Kohlberg</td><td>Moral Development Theory</td></tr>
+          <tr><td>John Bowlby</td><td>Attachment Theory</td></tr>
+          <tr><td>B. F. Skinner</td><td>Operant Conditioning</td></tr>
+          <tr><td>Albert Bandura</td><td>Social Learning Theory</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- IMPLICATIONS -->
+    <div class="section-title">
+      🎯 Implications for Teaching and Learning
+      <span class="line"></span>
+    </div>
+
+    <div class="intro-text" style="margin-bottom:1rem;background:#f0faf4;border-left-color:#2e7d4f;">
+      <strong>What does "implications" mean?</strong> It refers to how knowledge of child development influences teaching methods and classroom practices.
+    </div>
+
+    <div class="matrix-wrapper" data-searchable="implications teaching learning readiness individual differences active learning social interaction motivation emotional development holistic assessment learning environment">
+      <table>
+        <thead>
+          <tr>
+            <th>Principle</th>
+            <th>Implication for Teachers</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Developmental Readiness</td><td>Teach according to students' age and developmental level.</td></tr>
+          <tr><td>Individual Differences</td><td>Adapt teaching to different abilities and learning speeds.</td></tr>
+          <tr><td>Active Learning</td><td>Use activities, experiments, projects, and problem-solving.</td></tr>
+          <tr><td>Social Interaction</td><td>Encourage group work, discussion, and peer learning.</td></tr>
+          <tr><td>Motivation</td><td>Use encouragement, meaningful tasks, and constructive feedback.</td></tr>
+          <tr><td>Emotional Development</td><td>Create a safe, supportive, and respectful classroom.</td></tr>
+          <tr><td>Holistic Development</td><td>Support physical, intellectual, social, and emotional growth.</td></tr>
+          <tr><td>Assessment</td><td>Use continuous assessment to identify progress and learning difficulties.</td></tr>
+          <tr><td>Learning Environment</td><td>Provide suitable resources and opportunities for exploration.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- EXAM CONCEPTS -->
+    <div class="section-title">
+      📌 Important Exam Concepts
+      <span class="line"></span>
+    </div>
+
+    <div class="exam-grid" id="examGrid">
+      <div class="exam-fact"><span class="exam-clue">Children actively construct knowledge through cognitive stages</span><span class="exam-answer">Piaget</span></div>
+      <div class="exam-fact"><span class="exam-clue">Learning supported by social interaction, language, and guidance</span><span class="exam-answer">Vygotsky</span></div>
+      <div class="exam-fact"><span class="exam-clue">Temporary support that helps a learner complete a task</span><span class="exam-answer">Scaffolding</span></div>
+      <div class="exam-fact"><span class="exam-clue">Gap between independent performance and supported performance</span><span class="exam-answer">ZPD</span></div>
+      <div class="exam-fact"><span class="exam-clue">Social and emotional development through psychosocial stages</span><span class="exam-answer">Erikson</span></div>
+      <div class="exam-fact"><span class="exam-clue">Children learn by observing and imitating others</span><span class="exam-answer">Bandura</span></div>
+      <div class="exam-fact"><span class="exam-clue">Reinforcement influences behaviour and learning</span><span class="exam-answer">Skinner</span></div>
+    </div>
+
+    <!-- KEY TAKEAWAY -->
+    <div class="takeaway-card">
+      <strong>🔑 Key Takeaway:</strong> Understanding child development helps teachers select age-appropriate teaching methods, respect individual differences, identify learning needs, and create an inclusive environment where every child can learn effectively.
+    </div>
+
+    <!-- ================= QUIZ SECTION ================= -->
+    <div class="quiz-section">
+      <div class="quiz-header">
+        <h2>📝 Practice Quiz</h2>
+        <span class="quiz-badge">Test Your Knowledge</span>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-tabs">
+          <button class="quiz-tab active" data-panel="mcqPanel">🔘 10 MCQs</button>
+          <button class="quiz-tab" data-panel="crqPanel">✍️ 4 CRQs</button>
+          <button class="quiz-tab" data-panel="erqPanel">📄 1 ERQ</button>
+        </div>
+
+        <div class="quiz-panel active" id="mcqPanel">
+          <span class="section-label">Multiple Choice Questions</span>
+          <div id="mcqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="crqPanel">
+          <span class="section-label">Constructed Response Questions</span>
+          <div id="crqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="erqPanel">
+          <span class="section-label">Extended Response Question (Situation-Based)</span>
+          <div id="erqContainer"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      // ================= SEARCH FILTER =================
+      const searchInput = document.getElementById('searchInput');
+      const countDisplay = document.getElementById('countDisplay');
+      const allSearchables = document.querySelectorAll('[data-searchable]');
+      const cardParents = new Map();
+      allSearchables.forEach(card => cardParents.set(card, card.parentNode));
+
+      function applySearch(query) {
+        const q = query.trim().toLowerCase();
+        let visibleCount = 0;
+        allSearchables.forEach(card => {
+          const searchText = (card.dataset.searchable || '').toLowerCase() + ' ' + card.textContent.toLowerCase();
+          const matches = q === '' || searchText.includes(q);
+          if (matches) {
+            visibleCount++;
+            if (!card.parentNode) cardParents.get(card).appendChild(card);
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        countDisplay.textContent = visibleCount + ' item' + (visibleCount !== 1 ? 's' : '');
+      }
+
+      let debounceTimer;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => applySearch(e.target.value), 180);
+      });
+      searchInput.addEventListener('search', (e) => { if (e.target.value === '') applySearch(''); });
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchInput.value !== '') { searchInput.value = ''; applySearch(''); }
+      });
+
+      // ================= QUIZ DATA =================
+      const mcqs = [
+        {
+          q: "What is child development?",
+          options: [
+            "Only physical growth",
+            "The continuous process of physical, cognitive, emotional, social, and language changes from birth through adolescence",
+            "Only cognitive changes",
+            "A process that stops at age 5"
+          ],
+          correct: 1,
+          feedback: "Child development is the continuous process of physical, cognitive, emotional, social, and language changes from birth through childhood and adolescence."
+        },
+        {
+          q: "Which conception of development states that development takes place gradually over time?",
+          options: ["Sequential Process", "Continuous Process", "Holistic Process", "Developmental Readiness"],
+          correct: 1,
+          feedback: "The Continuous Process conception states that development takes place gradually over time."
+        },
+        {
+          q: "The idea that physical, mental, emotional, and social development are interconnected is called:",
+          options: ["Individual Differences", "Holistic Process", "Nature and Nurture", "Active Learning"],
+          correct: 1,
+          feedback: "The Holistic Process conception states that physical, mental, emotional, and social development are interconnected."
+        },
+        {
+          q: "Which theorist is associated with the Zone of Proximal Development (ZPD)?",
+          options: ["Piaget", "Vygotsky", "Erikson", "Skinner"],
+          correct: 1,
+          feedback: "Lev Vygotsky's sociocultural theory introduced the Zone of Proximal Development (ZPD)."
+        },
+        {
+          q: "What is scaffolding?",
+          options: [
+            "Permanent support given to all students",
+            "Temporary support that helps a learner complete a task",
+            "A type of assessment",
+            "A physical classroom structure"
+          ],
+          correct: 1,
+          feedback: "Scaffolding is temporary support that helps a learner complete a task — gradually removed as competence improves."
+        },
+        {
+          q: "Which theorist emphasized that children learn by observing and imitating others?",
+          options: ["Piaget", "Skinner", "Bandura", "Kohlberg"],
+          correct: 2,
+          feedback: "Albert Bandura's social learning theory emphasizes that children learn by observing and imitating others."
+        },
+        {
+          q: "According to the implications for teaching, what should teachers do regarding individual differences?",
+          options: [
+            "Teach all students the same way",
+            "Adapt teaching to different abilities and learning speeds",
+            "Ignore differences",
+            "Only teach advanced students"
+          ],
+          correct: 1,
+          feedback: "Teachers should adapt teaching to different abilities and learning speeds — this is a key implication of individual differences."
+        },
+        {
+          q: "Which theorist is associated with psychosocial development across the lifespan?",
+          options: ["Piaget", "Erikson", "Vygotsky", "Bowlby"],
+          correct: 1,
+          feedback: "Erik Erikson's psychosocial development theory describes stages of social and emotional development across the lifespan."
+        },
+        {
+          q: "What does the conception of 'Nature and Nurture' mean?",
+          options: [
+            "Only genetics matter",
+            "Only environment matters",
+            "Development is shaped by both genetic factors and environmental experiences",
+            "Development is random"
+          ],
+          correct: 2,
+          feedback: "Nature and Nurture means development is shaped by both genetic (nature) and environmental (nurture) factors."
+        },
+        {
+          q: "Which of the following is a key takeaway from the topic?",
+          options: [
+            "Understanding child development helps teachers select age-appropriate methods and create inclusive environments",
+            "All children develop at the same rate",
+            "Only cognitive development matters",
+            "Teachers should ignore developmental theories"
+          ],
+          correct: 0,
+          feedback: "Understanding child development helps teachers select age-appropriate teaching methods, respect individual differences, identify learning needs, and create an inclusive environment."
+        }
+      ];
+
+      const crqs = [
+        {
+          q: "List and explain any FIVE major conceptions of child development.",
+          hint: "Continuous, sequential, individual differences, holistic, nature/nurture, active learning, readiness.",
+          keywords: ["continuous", "gradually", "sequential", "orderly", "individual differences", "different rate", "holistic", "interconnected", "nature", "nurture", "active learning", "readiness"],
+          model: "Five conceptions: (1) Continuous Process — development takes place gradually over time. (2) Sequential Process — children pass through developmental stages in an orderly sequence. (3) Individual Differences — every child develops at a different rate. (4) Holistic Process — physical, mental, emotional, and social development are interconnected. (5) Nature and Nurture — development is shaped by both genetic factors and environmental experiences. (Active Learning and Developmental Readiness are also valid answers.)"
+        },
+        {
+          q: "Explain the Zone of Proximal Development (ZPD) and scaffolding, and their implications for teaching.",
+          hint: "ZPD = gap between independent and supported performance; scaffolding = temporary support.",
+          keywords: ["zpd", "zone of proximal development", "vygotsky", "gap", "independent", "guidance", "scaffolding", "temporary support", "gradually removed", "social interaction", "peer learning"],
+          model: "The Zone of Proximal Development (ZPD), from Vygotsky's sociocultural theory, is the gap between what a learner can do independently and what they can do with guidance. Scaffolding is the temporary support provided within the ZPD — such as hints, modeling, or prompts — that is gradually removed as competence improves. For teaching, this implies using guided practice, peer learning, group work, and gradually releasing responsibility to students."
+        },
+        {
+          q: "Describe three implications of child development for teaching and learning, explaining what each means for the teacher.",
+          hint: "Readiness, individual differences, active learning, social interaction, motivation, emotional development, holistic development.",
+          keywords: ["readiness", "age", "developmental level", "individual differences", "adapt", "abilities", "learning speeds", "active learning", "activities", "experiments", "social interaction", "group work", "motivation", "feedback", "emotional", "safe", "inclusive"],
+          model: "Three implications: (1) Developmental Readiness — teach according to students' age and developmental level, not pushing skills they are not ready for. (2) Individual Differences — adapt teaching to different abilities and learning speeds using differentiated instruction. (3) Active Learning — use activities, experiments, projects, and problem-solving so students learn by doing rather than only listening. (Other valid answers: social interaction, motivation, emotional development, holistic development, assessment, learning environment.)"
+        },
+        {
+          q: "Match each theorist to their contribution: Piaget, Vygotsky, Erikson, Kohlberg, Bowlby, Skinner, Bandura.",
+          hint: "Cognitive development, sociocultural/ZPD, psychosocial, moral development, attachment, operant conditioning, social learning.",
+          keywords: ["piaget", "cognitive development", "vygotsky", "sociocultural", "zpd", "erikson", "psychosocial", "kohlberg", "moral", "bowlby", "attachment", "skinner", "operant conditioning", "bandura", "social learning", "observing"],
+          model: "Jean Piaget — Cognitive Development Theory. Lev Vygotsky — Sociocultural Theory and Zone of Proximal Development (ZPD). Erik Erikson — Psychosocial Development Theory. Lawrence Kohlberg — Moral Development Theory. John Bowlby — Attachment Theory. B. F. Skinner — Operant Conditioning. Albert Bandura — Social Learning Theory."
+        }
+      ];
+
+      const erq = {
+        q: `Mr. Hassan teaches Grade 2 (children aged 7–8 years). He has been teaching all students the same way — mostly through lecture and textbook work. He notices that:
+• Some students finish quickly and get bored, while others struggle to keep up.
+• Students rarely participate in discussions and seem passive.
+• One student often cries when he makes mistakes and seems afraid to try.
+• The classroom is dull with few learning materials.
+
+Using the conceptions of child development and their implications for teaching, explain what Mr. Hassan should change. Propose FOUR specific strategies he could use. For each strategy, identify the conception or principle it draws from and explain why it would help.`,
+        marks: "10 marks",
+        model: `
+          <strong>Model Answer (key points):</strong><br><br>
+          <strong>1. Individual Differences:</strong> Mr. Hassan should adapt teaching to different abilities and learning speeds — providing extra practice for slower learners and enrichment for fast finishers. This addresses the conception that every child develops at a different rate.<br><br>
+          <strong>2. Active Learning:</strong> He should use activities, experiments, projects, and problem-solving instead of only lecture. This addresses the conception that children learn through exploration, interaction, and experience — and will reduce student passivity.<br><br>
+          <strong>3. Emotional Development:</strong> He should create a safe, supportive, and respectful classroom where mistakes are normalised. This addresses the child who cries when making mistakes — emotional security supports exploration and persistence.<br><br>
+          <strong>4. Learning Environment:</strong> He should provide suitable resources and opportunities for exploration — charts, manipulatives, learning corners. This addresses the dull classroom and supports active, hands-on learning.<br><br>
+          <em>Note: Social interaction (group work, peer learning) and developmental readiness (age-appropriate methods) are also valid strategies. The key is linking each strategy to a conception or principle from the topic.</em>
+        `
+      };
+
+      // ================= RENDER MCQs =================
+      const mcqContainer = document.getElementById('mcqContainer');
+      let mcqHtml = '';
+      mcqs.forEach((item, idx) => {
+        const letters = ['A', 'B', 'C', 'D'];
+        let optionsHtml = '';
+        item.options.forEach((opt, oi) => {
+          optionsHtml += `
+            <div class="mcq-option" data-qidx="${idx}" data-oidx="${oi}">
+              <span class="option-letter">${letters[oi]}</span>
+              <span>${opt}</span>
+            </div>
+          `;
+        });
+        mcqHtml += `
+          <div class="mcq-item" id="mcq-${idx}">
+            <div class="mcq-question">${idx + 1}. ${item.q}</div>
+            <div class="mcq-options">${optionsHtml}</div>
+            <div class="mcq-feedback" id="mcq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      mcqContainer.innerHTML = mcqHtml;
+
+      mcqContainer.addEventListener('click', (e) => {
+        const option = e.target.closest('.mcq-option');
+        if (!option) return;
+        const qidx = parseInt(option.dataset.qidx);
+        const oidx = parseInt(option.dataset.oidx);
+        const mcq = mcqs[qidx];
+        const parentItem = document.getElementById(`mcq-${qidx}`);
+        const allOptions = parentItem.querySelectorAll('.mcq-option');
+        const feedbackEl = document.getElementById(`mcq-fb-${qidx}`);
+        if (parentItem.dataset.answered === 'correct') return;
+        allOptions.forEach(opt => opt.classList.remove('selected', 'correct', 'incorrect'));
+        option.classList.add('selected');
+        if (oidx === mcq.correct) {
+          option.classList.add('correct');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '✅ Correct! ' + mcq.feedback;
+          feedbackEl.className = 'mcq-feedback show correct-fb';
+          parentItem.dataset.answered = 'correct';
+        } else {
+          option.classList.add('incorrect');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '❌ Not quite. Try again!';
+          feedbackEl.className = 'mcq-feedback show incorrect-fb';
+          setTimeout(() => {
+            if (feedbackEl.classList.contains('incorrect-fb')) {
+              feedbackEl.classList.remove('show');
+            }
+          }, 1500);
+        }
+      });
+
+      // ================= RENDER CRQs =================
+      const crqContainer = document.getElementById('crqContainer');
+      let crqHtml = '';
+      crqs.forEach((item, idx) => {
+        crqHtml += `
+          <div class="crq-item" id="crq-${idx}">
+            <div class="crq-question">${idx + 1}. ${item.q}</div>
+            <div class="crq-hint">💡 Hint: ${item.hint}</div>
+            <textarea class="crq-textarea" id="crq-ta-${idx}" placeholder="Write your answer here..."></textarea>
+            <div class="crq-actions">
+              <button class="btn btn-primary" data-crq-check="${idx}">Check Answer</button>
+              <button class="btn btn-secondary" data-crq-clear="${idx}">Clear</button>
+            </div>
+            <div class="crq-feedback" id="crq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      crqContainer.innerHTML = crqHtml;
+
+      crqContainer.addEventListener('click', (e) => {
+        const checkBtn = e.target.closest('[data-crq-check]');
+        const clearBtn = e.target.closest('[data-crq-clear]');
+        if (checkBtn) {
+          const idx = parseInt(checkBtn.dataset.crqCheck);
+          const textarea = document.getElementById(`crq-ta-${idx}`);
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          const answer = textarea.value.trim().toLowerCase();
+          const crq = crqs[idx];
+          if (answer.length < 10) {
+            feedback.textContent = '⚠️ Please write a more complete answer (at least a sentence or two).';
+            feedback.className = 'crq-feedback show partial';
+            return;
+          }
+          const matched = crq.keywords.filter(kw => answer.includes(kw));
+          const ratio = matched.length / crq.keywords.length;
+          if (ratio >= 0.35) {
+            feedback.innerHTML = `✅ <strong>Good answer!</strong> You covered key ideas.<br><br><em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show good';
+          } else {
+            feedback.innerHTML = `📝 <strong>Partially correct.</strong> You mentioned some ideas. Try to include more key concepts.<br><br><em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show partial';
+          }
+        }
+        if (clearBtn) {
+          const idx = parseInt(clearBtn.dataset.crqClear);
+          document.getElementById(`crq-ta-${idx}`).value = '';
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          feedback.className = 'crq-feedback';
+          feedback.textContent = '';
+        }
+      });
+
+      // ================= RENDER ERQ =================
+      const erqContainer = document.getElementById('erqContainer');
+      erqContainer.innerHTML = `
+        <div class="erq-item">
+          <div class="erq-marks">${erq.marks}</div>
+          <div class="erq-question">${erq.q}</div>
+          <textarea class="erq-textarea" id="erq-ta" placeholder="Write your detailed answer here. Propose four strategies and link each to a conception or principle..."></textarea>
+          <div class="erq-actions">
+            <button class="btn btn-primary" id="erqCheck">Check Answer</button>
+            <button class="btn btn-secondary" id="erqClear">Clear</button>
+          </div>
+          <div class="erq-feedback" id="erq-fb"></div>
+        </div>
+      `;
+
+      document.getElementById('erqCheck').addEventListener('click', () => {
+        const ta = document.getElementById('erq-ta');
+        const fb = document.getElementById('erq-fb');
+        const answer = ta.value.trim().toLowerCase();
+        if (answer.length < 50) {
+          fb.textContent = '⚠️ Please write a more detailed answer. Propose four strategies and link each to a conception or principle.';
+          fb.className = 'erq-feedback show partial';
+          return;
+        }
+        const keywords = ['individual differences', 'active learning', 'emotional', 'safe', 'learning environment', 'resources', 'social interaction', 'group work', 'readiness', 'age-appropriate', 'holistic'];
+        const found = keywords.filter(k => answer.includes(k));
+        if (found.length >= 3) {
+          fb.innerHTML = `✅ <strong>Excellent effort!</strong> You linked strategies to specific conceptions and principles. Compare your answer with the model below.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show model';
+        } else if (found.length >= 1) {
+          fb.innerHTML = `📝 <strong>Good start!</strong> Try to explicitly link each of the four strategies to a conception or principle from the topic.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        } else {
+          fb.innerHTML = `⚠️ Make sure to propose four strategies and identify the conception or principle each one draws from.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        }
+      });
+
+      document.getElementById('erqClear').addEventListener('click', () => {
+        document.getElementById('erq-ta').value = '';
+        const fb = document.getElementById('erq-fb');
+        fb.className = 'erq-feedback';
+        fb.textContent = '';
+      });
+
+      // ================= QUIZ TABS =================
+      const tabs = document.querySelectorAll('.quiz-tab');
+      const panels = document.querySelectorAll('.quiz-panel');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          panels.forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(tab.dataset.panel).classList.add('active');
+        });
+      });
+
+      // Initial count
+      countDisplay.textContent = allSearchables.length + ' items';
+    })();
+  </script>
+</body>
+</html>

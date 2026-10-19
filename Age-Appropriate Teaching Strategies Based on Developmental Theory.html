@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Age-Appropriate Teaching Strategies · Child Development</title>
+  <style>
+    /* ---------- GLOBAL ---------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+      color: #1e2b3c;
+    }
+    .main-wrapper { max-width: 1100px; width: 100%; }
+
+    /* ---------- HEADER ---------- */
+    .header-card {
+      background: white;
+      border-radius: 2rem 2rem 1.5rem 1.5rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      padding: 2rem 2rem 1.5rem 2rem;
+      margin-bottom: 1.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: transform 0.2s;
+    }
+    .header-card:hover { transform: scale(1.002); }
+    .badge {
+      display: inline-block;
+      background: #2a4b7c;
+      color: #f0f7ff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+      line-height: 1.25;
+    }
+    .subhead {
+      font-size: 1.05rem;
+      color: #2f5277;
+      font-weight: 400;
+      border-left: 5px solid #8bb3e0;
+      padding-left: 1.2rem;
+      margin: 1rem 0 0.2rem 0;
+      font-style: italic;
+    }
+    .intro-text {
+      background: #e6f0fc;
+      padding: 1rem 1.4rem;
+      border-radius: 1.2rem;
+      margin-top: 1.4rem;
+      font-size: 0.98rem;
+      color: #1d3a5c;
+      border-left: 5px solid #3b6ea5;
+    }
+
+    /* ---------- SECTION TITLE ---------- */
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #0e2a47;
+      margin: 2.2rem 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section-title .line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #8bb3e0, transparent);
+      border-radius: 2px;
+    }
+
+    /* ---------- AGE BAND CARDS ---------- */
+    .age-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .age-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.4rem 1.4rem 1.3rem 1.4rem;
+      box-shadow: 0 8px 18px -10px rgba(20, 40, 70, 0.16);
+      transition: all 0.22s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .age-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      opacity: 0.9;
+      transition: height 0.2s;
+    }
+    .age-card.infancy::before { background: linear-gradient(90deg, #6a4c9c, #b39ddb); }
+    .age-card.early::before { background: linear-gradient(90deg, #2e7d4f, #81c784); }
+    .age-card.middle::before { background: linear-gradient(90deg, #2a4b7c, #5a8ec9); }
+    .age-card.adolescence::before { background: linear-gradient(90deg, #c94f7c, #e88bb0); }
+    .age-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 24px -14px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .age-card:hover::before { height: 10px; }
+    .age-header {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.6rem;
+    }
+    .age-icon {
+      font-size: 1.7rem;
+      background: #e9f0fa;
+      width: 46px;
+      height: 46px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    .age-card:hover .age-icon { background: #d3e3f8; }
+    .age-name {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #0e2a47;
+      line-height: 1.3;
+    }
+    .age-range {
+      font-size: 0.8rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-top: 0.1rem;
+    }
+    .age-section-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #1a4b7a;
+      background: #d7e6fa;
+      padding: 0.1rem 0.65rem;
+      border-radius: 30px;
+      display: inline-block;
+      margin-bottom: 0.35rem;
+      margin-top: 0.3rem;
+    }
+    .age-section-label.green { color: #1b6e3e; background: #d4f0e0; }
+    .age-char {
+      font-size: 0.87rem;
+      color: #274e73;
+      line-height: 1.5;
+      margin-bottom: 0.5rem;
+    }
+    .age-strategies {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      margin-top: auto;
+    }
+    .age-strategies li {
+      padding: 0.3rem 0 0.3rem 1.4rem;
+      position: relative;
+      font-size: 0.86rem;
+      line-height: 1.45;
+      color: #1e3c5a;
+    }
+    .age-strategies li::before {
+      content: '✔';
+      position: absolute;
+      left: 0;
+      color: #2e9b5e;
+      font-weight: 700;
+      font-size: 0.8rem;
+      top: 0.35rem;
+    }
+
+    /* ---------- TABLE ---------- */
+    .matrix-wrapper {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.4rem 1.4rem 1.2rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      border: 1px solid #e3ecf7;
+      overflow-x: auto;
+      margin-bottom: 0.5rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.88rem;
+      min-width: 480px;
+    }
+    thead th {
+      text-align: left;
+      padding: 0.8rem 0.9rem;
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: white;
+      background: #0e2a47;
+    }
+    thead th:first-child {
+      border-radius: 1rem 0 0 0;
+      background: #2a4b7c;
+    }
+    thead th:last-child { border-radius: 0 1rem 0 0; }
+    tbody td {
+      padding: 0.7rem 0.9rem;
+      border-bottom: 1px solid #e8f0f9;
+      color: #1e3c5a;
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: #f6faff; }
+    tbody td:first-child {
+      font-weight: 700;
+      color: #0e2a47;
+      background: #f3f8fd;
+      white-space: nowrap;
+    }
+    tbody tr:hover td:first-child { background: #eaf3fc; }
+
+    /* ---------- PRINCIPLES ---------- */
+    .principle-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .principle-card {
+      background: white;
+      border-radius: 1.3rem;
+      padding: 1.1rem 1.2rem;
+      box-shadow: 0 6px 14px -8px rgba(20, 40, 70, 0.14);
+      border: 1px solid #e3ecf7;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+    }
+    .principle-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, #3f7cb0, #8bb3e0);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .principle-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 20px -12px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .principle-card:hover::before { opacity: 1; }
+    .principle-num {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: white;
+      background: #0e2a47;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .principle-body {
+      display: flex;
+      flex-direction: column;
+    }
+    .principle-name {
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: #0e2a47;
+      margin-bottom: 0.2rem;
+    }
+    .principle-desc {
+      font-size: 0.84rem;
+      color: #274e73;
+      line-height: 1.5;
+    }
+
+    /* ---------- EXAM FACTS ---------- */
+    .exam-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 0.7rem;
+      margin-bottom: 0.5rem;
+    }
+    .exam-fact {
+      background: white;
+      border-radius: 0.9rem;
+      padding: 0.7rem 0.9rem;
+      box-shadow: 0 4px 10px -6px rgba(20, 40, 70, 0.12);
+      border: 1px solid #e3ecf7;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all 0.2s;
+    }
+    .exam-fact:hover {
+      transform: translateY(-2px);
+      border-color: #b8d0e9;
+    }
+    .exam-clue {
+      font-size: 0.79rem;
+      font-weight: 600;
+      color: #1e3c5a;
+      flex: 1;
+    }
+    .exam-answer {
+      font-size: 0.77rem;
+      font-weight: 700;
+      color: #0e2a47;
+      background: #eef4fb;
+      padding: 0.15rem 0.6rem;
+      border-radius: 30px;
+      border: 1px solid #d0e0f0;
+      white-space: nowrap;
+    }
+
+    /* ---------- TAKEAWAY ---------- */
+    .takeaway-card {
+      background: #0e2a47;
+      color: white;
+      border-radius: 1.6rem;
+      padding: 1.6rem 2rem;
+      margin: 1.2rem 0 0.5rem 0;
+      font-size: 1rem;
+      line-height: 1.65;
+      box-shadow: 0 14px 26px -12px #0e2a47;
+      border-left: 6px solid #8bb3e0;
+    }
+    .takeaway-card strong { color: #b8d4f0; }
+
+    /* ---------- SEARCH & COUNT ---------- */
+    .filter-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 60px;
+      box-shadow: 0 8px 18px -8px rgba(0, 27, 45, 0.1);
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 40px;
+      padding: 0.3rem 0.3rem 0.3rem 1.2rem;
+      flex: 2;
+      min-width: 240px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      border: 1px solid #ccdcee;
+    }
+    .search-box span { font-size: 1.1rem; margin-right: 0.5rem; color: #4e6b8a; }
+    .search-box input {
+      border: none;
+      padding: 0.7rem 0.2rem;
+      width: 100%;
+      font-size: 0.95rem;
+      outline: none;
+      background: transparent;
+      color: #0c253b;
+    }
+    .search-box input::placeholder { color: #879eb6; font-weight: 300; }
+    .count-pill {
+      background: #0e2a47;
+      color: white;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ---------- QUIZ SECTION ---------- */
+    .quiz-section { margin-top: 2.5rem; }
+    .quiz-header {
+      background: #0e2a47;
+      border-radius: 2rem 2rem 0 0;
+      padding: 1.5rem 2rem;
+      color: white;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .quiz-header h2 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.3px; }
+    .quiz-header .quiz-badge {
+      background: #8bb3e0;
+      color: #0e2a47;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .quiz-body {
+      background: white;
+      border-radius: 0 0 2rem 2rem;
+      padding: 2rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      border: 1px solid #e3ecf7;
+      border-top: none;
+    }
+    .quiz-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #e3ecf7;
+      padding-bottom: 1rem;
+    }
+    .quiz-tab {
+      background: #f0f5fd;
+      border: 1px solid #d0e0f0;
+      color: #1b4670;
+      padding: 0.5rem 1.3rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .quiz-tab:hover { background: #e0ecfc; border-color: #a0c0e0; }
+    .quiz-tab.active { background: #0e2a47; color: white; border-color: #0e2a47; }
+    .quiz-panel { display: none; }
+    .quiz-panel.active { display: block; }
+    .section-label {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.2rem;
+    }
+
+    /* MCQ */
+    .mcq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+      transition: background 0.2s;
+    }
+    .mcq-item:hover { background: #f0f7fe; }
+    .mcq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.8rem;
+      line-height: 1.5;
+    }
+    .mcq-options { display: flex; flex-direction: column; gap: 0.5rem; }
+    .mcq-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 0.8rem;
+      background: white;
+      border: 1.5px solid #d9e8fc;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+    }
+    .mcq-option:hover { border-color: #8bb3e0; background: #eef6ff; }
+    .mcq-option.selected { border-color: #3b7bb5; background: #e4f0fe; font-weight: 500; }
+    .mcq-option.correct { border-color: #2e9b5e; background: #e6f7ee; font-weight: 600; }
+    .mcq-option.incorrect { border-color: #d45a5a; background: #fdeaea; font-weight: 500; }
+    .mcq-option .option-letter {
+      font-weight: 700;
+      color: #2a4b7c;
+      min-width: 1.4rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .mcq-option.correct .option-letter { color: #1b7a44; }
+    .mcq-option.incorrect .option-letter { color: #b03030; }
+    .mcq-feedback {
+      margin-top: 0.7rem;
+      font-size: 0.88rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: 0.8rem;
+      display: none;
+      font-weight: 500;
+    }
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.correct-fb {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .mcq-feedback.incorrect-fb {
+      background: #fdeaea;
+      color: #9e2a2a;
+      border-left: 4px solid #d45a5a;
+    }
+
+    /* CRQ / ERQ shared */
+    .crq-item, .erq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+    }
+    .erq-item { border: 2px solid #8bb3e0; background: #f5faff; }
+    .crq-question, .erq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+    .erq-question { font-size: 1.05rem; font-weight: 700; }
+    .erq-marks {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      margin-bottom: 0.8rem;
+    }
+    .crq-hint {
+      font-size: 0.85rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-bottom: 0.7rem;
+    }
+    .crq-textarea, .erq-textarea {
+      width: 100%;
+      border: 1.5px solid #d9e8fc;
+      border-radius: 0.9rem;
+      padding: 0.8rem 1rem;
+      font-family: inherit;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+      resize: vertical;
+      transition: border-color 0.2s;
+      background: white;
+    }
+    .crq-textarea { min-height: 90px; }
+    .erq-textarea { min-height: 160px; }
+    .crq-textarea:focus, .erq-textarea:focus {
+      outline: none;
+      border-color: #3b7bb5;
+      box-shadow: 0 0 0 3px rgba(59, 123, 181, 0.12);
+    }
+    .crq-actions, .erq-actions {
+      display: flex;
+      gap: 0.7rem;
+      margin-top: 0.7rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 0.55rem 1.4rem;
+      border-radius: 40px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      font-family: inherit;
+    }
+    .btn-primary { background: #0e2a47; color: white; }
+    .btn-primary:hover { background: #1a4170; transform: translateY(-1px); }
+    .btn-secondary { background: #e9f0fa; color: #1b4670; border: 1px solid #c0d8f0; }
+    .btn-secondary:hover { background: #d8e6f8; }
+    .crq-feedback, .erq-feedback {
+      margin-top: 0.8rem;
+      padding: 0.8rem 1rem;
+      border-radius: 0.9rem;
+      font-size: 0.9rem;
+      display: none;
+      line-height: 1.6;
+    }
+    .crq-feedback.show, .erq-feedback.show { display: block; }
+    .crq-feedback.good, .erq-feedback.good {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .crq-feedback.partial, .erq-feedback.partial {
+      background: #fff8e6;
+      color: #8a6d1f;
+      border-left: 4px solid #e0a800;
+    }
+    .erq-feedback.model {
+      background: #e6f0fc;
+      color: #1a3e62;
+      border-left: 5px solid #3b7bb5;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 600px) {
+      .header-card { padding: 1.5rem 1.2rem; }
+      h1 { font-size: 1.6rem; }
+      .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: 2rem;
+        padding: 1rem;
+      }
+      .search-box { width: 100%; }
+      .count-pill { text-align: center; padding: 0.5rem; }
+      .quiz-body { padding: 1.2rem; }
+      .quiz-header { padding: 1.2rem; }
+      .quiz-header h2 { font-size: 1.3rem; }
+      .mcq-item, .crq-item, .erq-item { padding: 1rem; }
+      .quiz-tab { font-size: 0.8rem; padding: 0.4rem 1rem; }
+      .takeaway-card { padding: 1.3rem 1.2rem; }
+    }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #dfe9f5; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: #94b0d1; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6d8fb4; }
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem 1rem;
+      background: #ffffffc9;
+      border-radius: 2rem;
+      font-size: 1.1rem;
+      color: #4b6888;
+      border: 2px dashed #b8cee8;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-wrapper">
+
+    <!-- HEADER -->
+    <div class="header-card">
+      <div class="badge">🧒 Child Development</div>
+      <h1>Age-Appropriate Teaching Strategies Based on Developmental Theory</h1>
+      <div class="subhead">Matching teaching methods to how children actually grow and think</div>
+      <div class="intro-text">
+        <strong>💡 What are age-appropriate teaching strategies?</strong> They are teaching methods selected according to children's age, developmental stage, abilities, interests, and learning needs. The right strategy at the right time makes learning effective — the wrong strategy creates frustration or boredom.
+      </div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="filter-section">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="Search age groups, strategies, theorists..." autocomplete="off">
+      </div>
+      <div class="count-pill" id="countDisplay">25+ items</div>
+    </div>
+
+    <!-- AGE BANDS -->
+    <div class="section-title">
+      👶 Teaching Strategies by Age &amp; Development
+      <span class="line"></span>
+    </div>
+
+    <div class="intro-text" style="margin-bottom:1rem;background:#fff8e6;border-left-color:#e0a800;">
+      <strong>Note:</strong> These age ranges are approximate. Children develop at different rates — always consider the individual child.
+    </div>
+
+    <div class="age-grid" id="ageGrid">
+      <!-- Infancy -->
+      <div class="age-card infancy" data-searchable="infancy 0-2 years sensory exploration rapid physical development play sensory activities imitation caregiver interaction">
+        <div class="age-header">
+          <div class="age-icon">👶</div>
+          <div>
+            <div class="age-name">Infancy</div>
+            <div class="age-range">0–2 years</div>
+          </div>
+        </div>
+        <div class="age-section-label">Developmental characteristics</div>
+        <div class="age-char">Sensory exploration and rapid physical development.</div>
+        <div class="age-section-label green">Appropriate strategies</div>
+        <ul class="age-strategies">
+          <li>Play and sensory activities</li>
+          <li>Imitation games</li>
+          <li>Caregiver interaction</li>
+        </ul>
+      </div>
+
+      <!-- Early Childhood -->
+      <div class="age-card early" data-searchable="early childhood 2-6 years language development imagination symbolic thinking play-based learning storytelling songs pictures hands-on activities">
+        <div class="age-header">
+          <div class="age-icon">🧸</div>
+          <div>
+            <div class="age-name">Early Childhood</div>
+            <div class="age-range">2–6 years</div>
+          </div>
+        </div>
+        <div class="age-section-label">Developmental characteristics</div>
+        <div class="age-char">Language development, imagination, and symbolic thinking.</div>
+        <div class="age-section-label green">Appropriate strategies</div>
+        <ul class="age-strategies">
+          <li>Play-based learning</li>
+          <li>Storytelling, songs, and pictures</li>
+          <li>Hands-on activities</li>
+        </ul>
+      </div>
+
+      <!-- Middle Childhood -->
+      <div class="age-card middle" data-searchable="middle childhood 7-11 years logical thinking concrete objects experiences demonstrations experiments manipulatives group activities practical examples">
+        <div class="age-header">
+          <div class="age-icon">🎒</div>
+          <div>
+            <div class="age-name">Middle Childhood</div>
+            <div class="age-range">7–11 years</div>
+          </div>
+        </div>
+        <div class="age-section-label">Developmental characteristics</div>
+        <div class="age-char">Logical thinking about concrete objects and experiences.</div>
+        <div class="age-section-label green">Appropriate strategies</div>
+        <ul class="age-strategies">
+          <li>Demonstrations and experiments</li>
+          <li>Manipulatives and practical examples</li>
+          <li>Group activities</li>
+        </ul>
+      </div>
+
+      <!-- Adolescence -->
+      <div class="age-card adolescence" data-searchable="adolescence 12-18 years abstract thinking reasoning identity development debates problem-solving projects independent learning critical-thinking tasks">
+        <div class="age-header">
+          <div class="age-icon">🧑‍🎓</div>
+          <div>
+            <div class="age-name">Adolescence</div>
+            <div class="age-range">12–18 years</div>
+          </div>
+        </div>
+        <div class="age-section-label">Developmental characteristics</div>
+        <div class="age-char">Increasing abstract thinking, reasoning, and identity development.</div>
+        <div class="age-section-label green">Appropriate strategies</div>
+        <ul class="age-strategies">
+          <li>Debates and problem-solving</li>
+          <li>Projects and independent learning</li>
+          <li>Critical-thinking tasks</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- THEORISTS & IMPLICATIONS -->
+    <div class="section-title">
+      🧑‍🏫 Major Developmental Theories and Teaching Strategies
+      <span class="line"></span>
+    </div>
+
+    <div class="matrix-wrapper" data-searchable="theories teaching strategies piaget cognitive development vygotsky sociocultural scaffolding peer collaboration erikson psychosocial confidence independence achievement skinner operant conditioning reinforcement feedback bandura social learning demonstrate model brunerg discovery learning exploration questioning">
+      <table>
+        <thead>
+          <tr>
+            <th>Psychologist</th>
+            <th>Theory</th>
+            <th>Teaching Implication</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Jean Piaget</td><td>Cognitive Development</td><td>Match activities to the child's stage of thinking.</td></tr>
+          <tr><td>Lev Vygotsky</td><td>Sociocultural Theory</td><td>Use guided learning, scaffolding, and peer collaboration.</td></tr>
+          <tr><td>Erik Erikson</td><td>Psychosocial Development</td><td>Build confidence, independence, and a sense of achievement.</td></tr>
+          <tr><td>B. F. Skinner</td><td>Operant Conditioning</td><td>Use reinforcement and constructive feedback to encourage learning.</td></tr>
+          <tr><td>Albert Bandura</td><td>Social Learning Theory</td><td>Demonstrate positive behaviour and model skills.</td></tr>
+          <tr><td>Jerome Bruner</td><td>Discovery Learning</td><td>Encourage exploration, questioning, and discovery.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PIAGET STAGES -->
+    <div class="section-title">
+      🪜 Piaget's Stages: Teaching Strategies for Exams
+      <span class="line"></span>
+    </div>
+
+    <div class="matrix-wrapper" data-searchable="piaget stages sensorimotor preoperational concrete operational formal operational ages teaching strategy sensory exploration pictures stories play objects experiments abstract concepts debate">
+      <table>
+        <thead>
+          <tr>
+            <th>Stage</th>
+            <th>Age</th>
+            <th>Teaching Strategy</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Sensorimotor</td><td>0–2 years</td><td>Sensory exploration and physical interaction</td></tr>
+          <tr><td>Preoperational</td><td>2–7 years</td><td>Pictures, stories, play, and concrete examples</td></tr>
+          <tr><td>Concrete Operational</td><td>7–11 years</td><td>Objects, experiments, classification, and logical activities</td></tr>
+          <tr><td>Formal Operational</td><td>11+ years</td><td>Abstract concepts, hypotheses, debate, and critical thinking</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PRINCIPLES -->
+    <div class="section-title">
+      ⚙️ Principles of Effective Age-Appropriate Teaching
+      <span class="line"></span>
+    </div>
+
+    <div class="principle-grid" id="principlesGrid">
+      <div class="principle-card" data-searchable="readiness teach concepts developmentally prepared">
+        <div class="principle-num">1</div>
+        <div class="principle-body">
+          <div class="principle-name">Readiness</div>
+          <div class="principle-desc">Teach concepts when learners are developmentally prepared.</div>
+        </div>
+      </div>
+      <div class="principle-card" data-searchable="learning by doing practical interactive experiences">
+        <div class="principle-num">2</div>
+        <div class="principle-body">
+          <div class="principle-name">Learning by Doing</div>
+          <div class="principle-desc">Provide practical and interactive experiences.</div>
+        </div>
+      </div>
+      <div class="principle-card" data-searchable="individual differences adapt teaching abilities learning speeds">
+        <div class="principle-num">3</div>
+        <div class="principle-body">
+          <div class="principle-name">Individual Differences</div>
+          <div class="principle-desc">Adapt teaching to different abilities and learning speeds.</div>
+        </div>
+      </div>
+      <div class="principle-card" data-searchable="scaffolding support gradually reduce competence">
+        <div class="principle-num">4</div>
+        <div class="principle-body">
+          <div class="principle-name">Scaffolding</div>
+          <div class="principle-desc">Give support and gradually reduce it as competence develops.</div>
+        </div>
+      </div>
+      <div class="principle-card" data-searchable="positive reinforcement recognize effort progress appropriate behaviour">
+        <div class="principle-num">5</div>
+        <div class="principle-body">
+          <div class="principle-name">Positive Reinforcement</div>
+          <div class="principle-desc">Recognize effort, progress, and appropriate behaviour.</div>
+        </div>
+      </div>
+      <div class="principle-card" data-searchable="inclusive teaching accessible activities resources all learners">
+        <div class="principle-num">6</div>
+        <div class="principle-body">
+          <div class="principle-name">Inclusive Teaching</div>
+          <div class="principle-desc">Provide accessible activities and resources for all learners.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUICK REVISION -->
+    <div class="section-title">
+      ⚡ Quick Revision for Tests
+      <span class="line"></span>
+    </div>
+
+    <div class="exam-grid" id="examGrid">
+      <div class="exam-fact"><span class="exam-clue">Proposed cognitive development stages</span><span class="exam-answer">Jean Piaget</span></div>
+      <div class="exam-fact"><span class="exam-clue">Introduced the Zone of Proximal Development</span><span class="exam-answer">Lev Vygotsky</span></div>
+      <div class="exam-fact"><span class="exam-clue">Associated with operant conditioning</span><span class="exam-answer">B. F. Skinner</span></div>
+      <div class="exam-fact"><span class="exam-clue">Emphasized learning by observation</span><span class="exam-answer">Albert Bandura</span></div>
+      <div class="exam-fact"><span class="exam-clue">Associated with discovery learning</span><span class="exam-answer">Jerome Bruner</span></div>
+      <div class="exam-fact"><span class="exam-clue">Especially suitable for young children</span><span class="exam-answer">Play-based learning</span></div>
+      <div class="exam-fact"><span class="exam-clue">Supports adolescents' higher-order thinking</span><span class="exam-answer">Debate, inquiry, problem-solving</span></div>
+    </div>
+
+    <!-- KEY TAKEAWAY -->
+    <div class="takeaway-card">
+      <strong>🔑 Key Takeaway:</strong> Effective teachers match teaching strategies to learners' developmental stages while considering individual needs, prior knowledge, and learning differences. The right strategy at the right time turns potential into progress.
+    </div>
+
+    <!-- ================= QUIZ SECTION ================= -->
+    <div class="quiz-section">
+      <div class="quiz-header">
+        <h2>📝 Practice Quiz</h2>
+        <span class="quiz-badge">Test Your Knowledge</span>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-tabs">
+          <button class="quiz-tab active" data-panel="mcqPanel">🔘 10 MCQs</button>
+          <button class="quiz-tab" data-panel="crqPanel">✍️ 4 CRQs</button>
+          <button class="quiz-tab" data-panel="erqPanel">📄 1 ERQ</button>
+        </div>
+
+        <div class="quiz-panel active" id="mcqPanel">
+          <span class="section-label">Multiple Choice Questions</span>
+          <div id="mcqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="crqPanel">
+          <span class="section-label">Constructed Response Questions</span>
+          <div id="crqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="erqPanel">
+          <span class="section-label">Extended Response Question (Situation-Based)</span>
+          <div id="erqContainer"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      // ================= SEARCH FILTER =================
+      const searchInput = document.getElementById('searchInput');
+      const countDisplay = document.getElementById('countDisplay');
+      const allSearchables = document.querySelectorAll('[data-searchable]');
+      const cardParents = new Map();
+      allSearchables.forEach(card => cardParents.set(card, card.parentNode));
+
+      function applySearch(query) {
+        const q = query.trim().toLowerCase();
+        let visibleCount = 0;
+        allSearchables.forEach(card => {
+          const searchText = (card.dataset.searchable || '').toLowerCase() + ' ' + card.textContent.toLowerCase();
+          const matches = q === '' || searchText.includes(q);
+          if (matches) {
+            visibleCount++;
+            if (!card.parentNode) cardParents.get(card).appendChild(card);
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        countDisplay.textContent = visibleCount + ' item' + (visibleCount !== 1 ? 's' : '');
+      }
+
+      let debounceTimer;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => applySearch(e.target.value), 180);
+      });
+      searchInput.addEventListener('search', (e) => { if (e.target.value === '') applySearch(''); });
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchInput.value !== '') { searchInput.value = ''; applySearch(''); }
+      });
+
+      // ================= QUIZ DATA =================
+      const mcqs = [
+        {
+          q: "What are age-appropriate teaching strategies?",
+          options: [
+            "Teaching all students the same way",
+            "Teaching methods selected according to children's age, developmental stage, abilities, interests, and learning needs",
+            "Only using textbooks",
+            "Only using play"
+          ],
+          correct: 1,
+          feedback: "Age-appropriate teaching strategies are methods selected according to children's age, developmental stage, abilities, interests, and learning needs."
+        },
+        {
+          q: "Which strategies are most appropriate for infancy (0–2 years)?",
+          options: [
+            "Debates and critical thinking",
+            "Play, sensory activities, imitation, and caregiver interaction",
+            "Independent research projects",
+            "Abstract concepts and hypotheses"
+          ],
+          correct: 1,
+          feedback: "For infancy, the appropriate strategies are play, sensory activities, imitation, and caregiver interaction, matching sensory exploration and rapid physical development."
+        },
+        {
+          q: "Play-based learning, storytelling, songs, and hands-on activities are most suitable for which age group?",
+          options: ["0–2 years", "2–6 years", "7–11 years", "12–18 years"],
+          correct: 1,
+          feedback: "These strategies suit early childhood (2–6 years), when language development, imagination, and symbolic thinking are developing."
+        },
+        {
+          q: "According to Piaget, what teaching strategy suits the Concrete Operational stage (7–11 years)?",
+          options: [
+            "Sensory exploration only",
+            "Objects, experiments, classification, and logical activities",
+            "Abstract debates",
+            "Only stories and pictures"
+          ],
+          correct: 1,
+          feedback: "In the Concrete Operational stage, children think logically about concrete objects — so objects, experiments, classification, and logical activities are appropriate."
+        },
+        {
+          q: "Which theorist emphasized using guided learning, scaffolding, and peer collaboration?",
+          options: ["Piaget", "Vygotsky", "Skinner", "Bruner"],
+          correct: 1,
+          feedback: "Vygotsky's sociocultural theory implies using guided learning, scaffolding, and peer collaboration."
+        },
+        {
+          q: "Which strategy is especially suitable for adolescents' higher-order thinking?",
+          options: [
+            "Sensory activities",
+            "Play-based learning",
+            "Debate, inquiry, and problem-solving",
+            "Rote memorization"
+          ],
+          correct: 2,
+          feedback: "Adolescents develop abstract thinking and reasoning, so debate, inquiry, and problem-solving support their higher-order thinking."
+        },
+        {
+          q: "Who is associated with discovery learning?",
+          options: ["Piaget", "Vygotsky", "Skinner", "Jerome Bruner"],
+          correct: 3,
+          feedback: "Jerome Bruner is associated with discovery learning — encouraging exploration, questioning, and discovery."
+        },
+        {
+          q: "What does the principle of 'scaffolding' mean?",
+          options: [
+            "Giving permanent support",
+            "Giving support and gradually reducing it as competence develops",
+            "Never helping students",
+            "Only using group work"
+          ],
+          correct: 1,
+          feedback: "Scaffolding means giving support and gradually reducing it as competence develops — temporary support that fades as the learner becomes independent."
+        },
+        {
+          q: "Which theorist emphasized demonstrating positive behaviour and modeling skills?",
+          options: ["Skinner", "Bandura", "Piaget", "Erikson"],
+          correct: 1,
+          feedback: "Albert Bandura's social learning theory implies demonstrating positive behaviour and modeling skills."
+        },
+        {
+          q: "What is the key takeaway of age-appropriate teaching?",
+          options: [
+            "Use the same strategy for all ages",
+            "Match teaching strategies to learners' developmental stages while considering individual needs",
+            "Only use play-based learning",
+            "Ignore developmental stages"
+          ],
+          correct: 1,
+          feedback: "Effective teachers match teaching strategies to learners' developmental stages while considering individual needs, prior knowledge, and learning differences."
+        }
+      ];
+
+      const crqs = [
+        {
+          q: "Explain age-appropriate teaching strategies and describe appropriate strategies for TWO age groups.",
+          hint: "Choose from infancy, early childhood, middle childhood, or adolescence.",
+          keywords: ["age-appropriate", "age", "developmental stage", "abilities", "interests", "needs", "infancy", "sensory", "play", "early childhood", "storytelling", "middle childhood", "manipulatives", "adolescence", "debate", "problem-solving"],
+          model: "Age-appropriate teaching strategies are teaching methods selected according to children's age, developmental stage, abilities, interests, and learning needs. Two examples: (1) Early childhood (2–6 years) — play-based learning, storytelling, songs, pictures, and hands-on activities, matching language development and symbolic thinking. (2) Adolescence (12–18 years) — debates, problem-solving, projects, independent learning, and critical-thinking tasks, matching increasing abstract thinking and identity development."
+        },
+        {
+          q: "Describe Piaget's four stages of cognitive development and the teaching strategy appropriate for each stage.",
+          hint: "Sensorimotor, Preoperational, Concrete Operational, Formal Operational.",
+          keywords: ["sensorimotor", "sensory exploration", "physical interaction", "preoperational", "pictures", "stories", "play", "concrete operational", "objects", "experiments", "formal operational", "abstract", "debate", "critical thinking"],
+          model: "Piaget's four stages and teaching strategies: (1) Sensorimotor (0–2 years) — sensory exploration and physical interaction. (2) Preoperational (2–7 years) — pictures, stories, play, and concrete examples. (3) Concrete Operational (7–11 years) — objects, experiments, classification, and logical activities. (4) Formal Operational (11+ years) — abstract concepts, hypotheses, debate, and critical thinking."
+        },
+        {
+          q: "Explain how three developmental theorists' ideas translate into teaching strategies.",
+          hint: "Choose from Piaget, Vygotsky, Erikson, Skinner, Bandura, Bruner.",
+          keywords: ["piaget", "stage", "match activities", "vygotsky", "scaffolding", "peer collaboration", "erikson", "confidence", "independence", "skinner", "reinforcement", "bandura", "modeling", "bruner", "discovery"],
+          model: "Three examples: (1) Piaget — match activities to the child's stage of thinking, using concrete materials for concrete thinkers and abstract tasks for formal thinkers. (2) Vygotsky — use guided learning, scaffolding, and peer collaboration within the ZPD. (3) Skinner — use reinforcement and constructive feedback to encourage learning. (Bandura's modeling, Erikson's confidence-building, and Bruner's discovery learning are also valid.)"
+        },
+        {
+          q: "List and explain the six principles of effective age-appropriate teaching.",
+          hint: "Readiness, learning by doing, individual differences, scaffolding, positive reinforcement, inclusive teaching.",
+          keywords: ["readiness", "developmentally prepared", "learning by doing", "practical", "interactive", "individual differences", "abilities", "speeds", "scaffolding", "gradually reduce", "positive reinforcement", "effort", "inclusive", "accessible"],
+          model: "Six principles: (1) Readiness — teach concepts when learners are developmentally prepared. (2) Learning by Doing — provide practical and interactive experiences. (3) Individual Differences — adapt teaching to different abilities and learning speeds. (4) Scaffolding — give support and gradually reduce it as competence develops. (5) Positive Reinforcement — recognize effort, progress, and appropriate behaviour. (6) Inclusive Teaching — provide accessible activities and resources for all learners."
+        }
+      ];
+
+      const erq = {
+        q: `Ms. Zara teaches a combined class and must plan lessons for three different age groups in the same school:
+• A group of 4-year-olds (early childhood)
+• A group of 9-year-olds (middle childhood)
+• A group of 15-year-olds (adolescence)
+
+Using age-appropriate teaching strategies based on developmental theory, describe how Ms. Zara's approach should differ for each group. For each group, identify the developmental characteristics and TWO appropriate teaching strategies, explaining why they suit that age.`,
+        marks: "10 marks",
+        model: `
+          <strong>Model Answer (key points):</strong><br><br>
+          <strong>1. 4-year-olds (Early Childhood, 2–6 years):</strong> Developmental characteristics — language development, imagination, symbolic thinking. Strategies: (a) Play-based learning — children learn through play, which matches their imaginative and symbolic thinking. (b) Storytelling, songs, and pictures — these support language development and engage young learners concretely.<br><br>
+          <strong>2. 9-year-olds (Middle Childhood, 7–11 years):</strong> Developmental characteristics — logical thinking about concrete objects and experiences. Strategies: (a) Demonstrations and experiments — these let children see and manipulate concrete materials, matching their concrete logical thinking. (b) Manipulatives and practical examples — hands-on objects help them understand concepts they cannot yet grasp abstractly.<br><br>
+          <strong>3. 15-year-olds (Adolescence, 12–18 years):</strong> Developmental characteristics — increasing abstract thinking, reasoning, and identity development. Strategies: (a) Debates and problem-solving — these engage abstract reasoning and let adolescents test ideas. (b) Projects and independent learning — these support identity development and autonomy, giving adolescents meaningful responsibility.<br><br>
+          <em>Note: Any two valid strategies per group with clear justification are acceptable. The key is linking each strategy to the developmental characteristics of that age group.</em>
+        `
+      };
+
+      // ================= RENDER MCQs =================
+      const mcqContainer = document.getElementById('mcqContainer');
+      let mcqHtml = '';
+      mcqs.forEach((item, idx) => {
+        const letters = ['A', 'B', 'C', 'D'];
+        let optionsHtml = '';
+        item.options.forEach((opt, oi) => {
+          optionsHtml += `
+            <div class="mcq-option" data-qidx="${idx}" data-oidx="${oi}">
+              <span class="option-letter">${letters[oi]}</span>
+              <span>${opt}</span>
+            </div>
+          `;
+        });
+        mcqHtml += `
+          <div class="mcq-item" id="mcq-${idx}">
+            <div class="mcq-question">${idx + 1}. ${item.q}</div>
+            <div class="mcq-options">${optionsHtml}</div>
+            <div class="mcq-feedback" id="mcq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      mcqContainer.innerHTML = mcqHtml;
+
+      mcqContainer.addEventListener('click', (e) => {
+        const option = e.target.closest('.mcq-option');
+        if (!option) return;
+        const qidx = parseInt(option.dataset.qidx);
+        const oidx = parseInt(option.dataset.oidx);
+        const mcq = mcqs[qidx];
+        const parentItem = document.getElementById(`mcq-${qidx}`);
+        const allOptions = parentItem.querySelectorAll('.mcq-option');
+        const feedbackEl = document.getElementById(`mcq-fb-${qidx}`);
+        if (parentItem.dataset.answered === 'correct') return;
+        allOptions.forEach(opt => opt.classList.remove('selected', 'correct', 'incorrect'));
+        option.classList.add('selected');
+        if (oidx === mcq.correct) {
+          option.classList.add('correct');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '✅ Correct! ' + mcq.feedback;
+          feedbackEl.className = 'mcq-feedback show correct-fb';
+          parentItem.dataset.answered = 'correct';
+        } else {
+          option.classList.add('incorrect');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '❌ Not quite. Try again!';
+          feedbackEl.className = 'mcq-feedback show incorrect-fb';
+          setTimeout(() => {
+            if (feedbackEl.classList.contains('incorrect-fb')) {
+              feedbackEl.classList.remove('show');
+            }
+          }, 1500);
+        }
+      });
+
+      // ================= RENDER CRQs =================
+      const crqContainer = document.getElementById('crqContainer');
+      let crqHtml = '';
+      crqs.forEach((item, idx) => {
+        crqHtml += `
+          <div class="crq-item" id="crq-${idx}">
+            <div class="crq-question">${idx + 1}. ${item.q}</div>
+            <div class="crq-hint">💡 Hint: ${item.hint}</div>
+            <textarea class="crq-textarea" id="crq-ta-${idx}" placeholder="Write your answer here..."></textarea>
+            <div class="crq-actions">
+              <button class="btn btn-primary" data-crq-check="${idx}">Check Answer</button>
+              <button class="btn btn-secondary" data-crq-clear="${idx}">Clear</button>
+            </div>
+            <div class="crq-feedback" id="crq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      crqContainer.innerHTML = crqHtml;
+
+      crqContainer.addEventListener('click', (e) => {
+        const checkBtn = e.target.closest('[data-crq-check]');
+        const clearBtn = e.target.closest('[data-crq-clear]');
+        if (checkBtn) {
+          const idx = parseInt(checkBtn.dataset.crqCheck);
+          const textarea = document.getElementById(`crq-ta-${idx}`);
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          const answer = textarea.value.trim().toLowerCase();
+          const crq = crqs[idx];
+          if (answer.length < 10) {
+            feedback.textContent = '⚠️ Please write a more complete answer (at least a sentence or two).';
+            feedback.className = 'crq-feedback show partial';
+            return;
+          }
+          const matched = crq.keywords.filter(kw => answer.includes(kw));
+          const ratio = matched.length / crq.keywords.length;
+          if (ratio >= 0.35) {
+            feedback.innerHTML = `✅ <strong>Good answer!</strong> You covered key ideas.<br><br><em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show good';
+          } else {
+            feedback.innerHTML = `📝 <strong>Partially correct.</strong> You mentioned some ideas. Try to include more key concepts.<br><br><em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show partial';
+          }
+        }
+        if (clearBtn) {
+          const idx = parseInt(clearBtn.dataset.crqClear);
+          document.getElementById(`crq-ta-${idx}`).value = '';
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          feedback.className = 'crq-feedback';
+          feedback.textContent = '';
+        }
+      });
+
+      // ================= RENDER ERQ =================
+      const erqContainer = document.getElementById('erqContainer');
+      erqContainer.innerHTML = `
+        <div class="erq-item">
+          <div class="erq-marks">${erq.marks}</div>
+          <div class="erq-question">${erq.q}</div>
+          <textarea class="erq-textarea" id="erq-ta" placeholder="Write your detailed answer here. Describe strategies for each of the three age groups..."></textarea>
+          <div class="erq-actions">
+            <button class="btn btn-primary" id="erqCheck">Check Answer</button>
+            <button class="btn btn-secondary" id="erqClear">Clear</button>
+          </div>
+          <div class="erq-feedback" id="erq-fb"></div>
+        </div>
+      `;
+
+      document.getElementById('erqCheck').addEventListener('click', () => {
+        const ta = document.getElementById('erq-ta');
+        const fb = document.getElementById('erq-fb');
+        const answer = ta.value.trim().toLowerCase();
+        if (answer.length < 50) {
+          fb.textContent = '⚠️ Please write a more detailed answer. Describe strategies for each of the three age groups.';
+          fb.className = 'erq-feedback show partial';
+          return;
+        }
+        const keywords = ['play-based', 'storytelling', 'sensory', 'imagination', 'concrete', 'experiments', 'manipulatives', 'abstract', 'debate', 'problem-solving', 'projects', 'independent', 'identity', 'reasoning'];
+        const found = keywords.filter(k => answer.includes(k));
+        if (found.length >= 3) {
+          fb.innerHTML = `✅ <strong>Excellent effort!</strong> You differentiated strategies for the three age groups. Compare your answer with the model below.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show model';
+        } else if (found.length >= 1) {
+          fb.innerHTML = `📝 <strong>Good start!</strong> Try to explicitly identify developmental characteristics and link each strategy to the age group.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        } else {
+          fb.innerHTML = `⚠️ Make sure to describe strategies for each of the three age groups and explain why they suit that age.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        }
+      });
+
+      document.getElementById('erqClear').addEventListener('click', () => {
+        document.getElementById('erq-ta').value = '';
+        const fb = document.getElementById('erq-fb');
+        fb.className = 'erq-feedback';
+        fb.textContent = '';
+      });
+
+      // ================= QUIZ TABS =================
+      const tabs = document.querySelectorAll('.quiz-tab');
+      const panels = document.querySelectorAll('.quiz-panel');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          panels.forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(tab.dataset.panel).classList.add('active');
+        });
+      });
+
+      // Initial count
+      countDisplay.textContent = allSearchables.length + ' items';
+    })();
+  </script>
+</body>
+</html>

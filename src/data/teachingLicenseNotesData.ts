@@ -711,6 +711,7 @@ export const METHODS_OF_TEACHING_TOPICS: LicenseTopicNote[] = [
     topicNumber: '6',
     title: 'Teacher-Centred and Student-Centred Approaches',
     readTime: '8 min read',
+    htmlNotesPath: 'notes/methods-of-teaching/teacher-centred-and-student-centred-approaches.html',
     summary:
       'Teacher-centred and student-centred approaches are two ends of an instructional spectrum, and high-performing classrooms strategically blend them. In a teacher-centred approach, the instructor acts as the primary expert and transmitter who directs the pace, content, and activities, while students predominantly receive information (direct instruction, expository lecturing, modeling). In a student-centred approach, the teacher acts as a facilitator and guide, while learners construct meaning through inquiry, collaborative discussion, hands-on projects, and problem-solving. Effective educators balance direct instruction for foundational concepts with student-centred inquiry for higher-order reasoning.',
     highYieldAlert:

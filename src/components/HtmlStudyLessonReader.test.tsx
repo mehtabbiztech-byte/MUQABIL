@@ -24,6 +24,13 @@ const documents = [
     grids: ['typesGrid', 'strategiesGrid'],
     crqs: 4,
   },
+  {
+    lessonId: 'methods-teacher-student-centred',
+    file: 'teacher-centred-and-student-centred-approaches.html',
+    heading: 'Teacher-centred &amp; Student-centred Approaches',
+    grids: ['approachGrid', 'theoryGrid'],
+    crqs: 4,
+  },
 ];
 
 test('supplied HTML documents are attached to matching topics without duplicating lessons', () => {
@@ -90,6 +97,18 @@ test('questioning notes preserve all original teaching cards, best practices and
   for (const text of ['Lower-Order (Convergent)', 'Higher-Order (Divergent)', 'Probing Questions',
     'Wait Time (3–5 Seconds)', 'Cold Calling &amp; Equity', 'Think-Pair-Share', 'Bounce / Pass-the-Mic',
     'Best Practices for Teachers', 'Key Takeaway', 'Mr. Ahmed is teaching a Grade 8 science lesson about climate change.']) {
+    assert.ok(html.includes(text), text);
+  }
+});
+
+test('teacher/student-centred notes preserve the spectrum, approach cards, comparison table and situation-based prompt', () => {
+  const html = readFileSync(path.join(process.cwd(), 'public/notes/methods-of-teaching/teacher-centred-and-student-centred-approaches.html'), 'utf8');
+  assert.equal((html.match(/class="approach-card /g) || []).length, 2);
+  assert.equal((html.match(/class="theory-card /g) || []).length, 2);
+  for (const text of ['Teacher-centred &amp; Student-centred Approaches', 'Two ends of a spectrum',
+    'Key Differences at a Glance', 'Theoretical Roots', 'A Balanced View',
+    'Expert &amp; transmitter', 'Facilitator &amp; guide', 'zone of proximal development',
+    'Think-Pair-Share', 'Mr. Khan teaches Grade 9 mathematics']) {
     assert.ok(html.includes(text), text);
   }
 });

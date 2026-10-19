@@ -185,6 +185,7 @@ export const METHODS_OF_TEACHING_LESSONS: StudyLesson[] = [
       { prompt: 'Why is a balanced approach often most effective?', answer: 'Different objectives and contexts need different levels of explanation, modelling, practice, inquiry, and collaboration. Blending methods preserves clarity while building active thinking.' },
       { prompt: 'Suggest four practical strategies for a large lecture-based mathematics class.', answer: 'Use short explanations followed by Think-Pair-Share, peer problem-solving, worked-example modelling followed by guided and independent practice, and exit tickets or quick formative checks.' },
     ],
+    'notes/methods-of-teaching/teacher-centred-and-student-centred-approaches.html',
   ),
 ];
 

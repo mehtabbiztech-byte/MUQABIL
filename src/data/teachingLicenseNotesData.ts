@@ -826,6 +826,182 @@ export const METHODS_OF_TEACHING_TOPICS: LicenseTopicNote[] = [
   },
 ];
 
+export const FOUNDATIONS_OF_EDUCATION_TOPICS: LicenseTopicNote[] = [
+  {
+    id: 'foundations-ideological',
+    topicNumber: '1',
+    title: 'Ideological Foundations of Education',
+    readTime: '9 min read',
+    htmlNotesPath: 'notes/foundations-of-education/ideological-foundations-of-education.html',
+    summary:
+      "The ideological foundation determines the vision, ethos, values, and ultimate purpose of education in a society, aligning educational practice with the community's core beliefs and philosophy. Without it, an educational system lacks direction, purpose, and cultural relevance. Its core components are the core belief system, national identity, moral and ethical character, and social cohesion, and its main functions are goal setting, curriculum design, teaching methodology, and policy formulation. In Pakistan, the ideological foundation of education is explicitly rooted in Islamic ideology and the ideology of Pakistan, as emphasised in the National Education Policy of 1979.",
+    highYieldAlert:
+      "STS High-Yield: Pakistan's ideological foundation of education is rooted in Islamic ideology and the ideology of Pakistan. The National Education Policy of 1979 stressed loyalty to Islam, character in accordance with the Quran and Sunnah, awareness of the universal Muslim Ummah, and knowledge of the Pakistan Movement's ideological foundations — and curricula/textbooks are reviewed to promote national cohesiveness and Islamic ideology.",
+    concepts: [
+      {
+        conceptTitle: 'Core Components & Themes',
+        explanation:
+          'The four building blocks that give an education system its values and identity.',
+        keyTerms: [
+          {
+            term: 'Core Belief System',
+            definition:
+              'Incorporates religious, ethical, philosophical, and cultural values that guide human life and social structure (e.g., an Islamic society prioritizing Tawhid and moral accountability).',
+          },
+          {
+            term: 'National Identity',
+            definition:
+              'Fosters patriotism, unity, civic responsibility, and respect for cultural heritage (e.g., teaching the Pakistan Movement and the ideology of Pakistan).',
+          },
+          {
+            term: 'Moral & Ethical Character',
+            definition:
+              'Shapes individual personality, moral discernment, integrity, and self-discipline (e.g., character education programs emphasizing honesty and responsibility).',
+          },
+          {
+            term: 'Social Cohesion',
+            definition:
+              'Promotes social justice, tolerance, equality, and mutual respect among diverse groups (e.g., inclusive curricula representing all ethnic and religious communities).',
+          },
+        ],
+      },
+      {
+        conceptTitle: 'Main Functions of Ideological Foundations',
+        explanation: 'How ideology is translated into educational practice.',
+        keyTerms: [
+          {
+            term: 'Goal Setting',
+            definition:
+              'Defines the overarching aims of the education system — character building, civic duty, spiritual development.',
+          },
+          {
+            term: 'Curriculum Design',
+            definition:
+              'Determines what subjects, historical narratives, literature, and value-based content are prioritized — the curriculum is never neutral.',
+          },
+          {
+            term: 'Teaching Methodology',
+            definition:
+              'Guides pedagogical approaches to instill discipline, critical thinking, or moral reflection.',
+          },
+          {
+            term: 'Policy Formulation',
+            definition:
+              'Serves as the benchmark for educational reforms, standards, and national goals — from teacher standards to textbook approval.',
+          },
+        ],
+      },
+      {
+        conceptTitle: 'Major Philosophical & Ideological Streams',
+        explanation: 'The lenses through which societies answer what education is for.',
+        keyTerms: [
+          {
+            term: 'Idealism',
+            definition:
+              'Emphasizes spiritual, moral, and intellectual development through truth, beauty, and goodness.',
+          },
+          {
+            term: 'Realism',
+            definition:
+              'Focuses on objective truth, empirical knowledge, scientific inquiry, and practical understanding of the physical world.',
+          },
+          {
+            term: 'Pragmatism / Progressivism',
+            definition:
+              'Focuses on learning by doing, adaptability, problem-solving, and democratically oriented education.',
+          },
+          {
+            term: 'Religious / Cultural Ideologies',
+            definition:
+              'Focus on holistic development guided by sacred texts, spiritual values, and historical continuity (e.g., Islamic, Christian, or Eastern frameworks).',
+          },
+        ],
+      },
+      {
+        conceptTitle: 'Ideological Foundations in the Pakistani Context',
+        explanation:
+          'Rooted in Islamic ideology and the ideology of Pakistan, particularly emphasized in the National Education Policy of 1979.',
+        bulletPoints: [
+          'Islamic Ideology: education aims to develop character, conduct, and motivation in accordance with the Quran and Sunnah.',
+          'National Identity: fostering deep loyalty to Pakistan and a consciousness of spiritual and ideological identity.',
+          'Universal Ummah: creating awareness that Pakistani students are part of the universal Muslim Ummah and should contribute to its welfare.',
+          'Pakistan Movement: producing citizens fully conversant with the Pakistan Movement, its ideological foundations, history, and culture.',
+          'Curriculum Review: mechanisms to review curricula and textbooks so they promote national cohesiveness, integration, and Islamic ideology.',
+          'Moral & Social Values: textbooks emphasize virtues like tolerance, charity, and acceptance of non-Muslims through stories from Islamic history.',
+        ],
+      },
+    ],
+    frequentExamQuestions: [
+      {
+        question: 'Explain the four core components of ideological foundations of education and why each matters.',
+        answer:
+          'The four components are the Core Belief System (religious, ethical, and cultural values that guide life), National Identity (patriotism, unity, and respect for heritage), Moral & Ethical Character (personality, integrity, and self-discipline), and Social Cohesion (justice, tolerance, and mutual respect among diverse groups). Together they give the education system its direction, identity, and social purpose.',
+      },
+      {
+        question: 'Describe the four main functions of ideological foundations in education.',
+        answer:
+          'Goal Setting defines overarching aims such as character building and civic duty; Curriculum Design determines which subjects, historical narratives, and values are prioritized; Teaching Methodology guides pedagogical approaches that instill discipline, critical thinking, or moral reflection; Policy Formulation serves as the benchmark for educational reforms, standards, and national goals.',
+      },
+      {
+        question: 'Compare Idealism and Realism as philosophical streams of educational ideology.',
+        answer:
+          'Idealism emphasizes spiritual, moral, and intellectual development through truth, beauty, and goodness, treating reality as mental or spiritual. Realism focuses on objective truth, empirical knowledge, scientific inquiry, and the physical world. Idealism shapes education around values and ideals, while Realism shapes it around observation and evidence.',
+      },
+      {
+        question:
+          'How has the ideological foundation of education in Pakistan been shaped by Islamic ideology and the Pakistan Movement?',
+        answer:
+          'Pakistan has consistently rooted education in Islamic ideology and the ideology of Pakistan. The National Education Policy of 1979 emphasized loyalty to Islam, character in accordance with the Quran and Sunnah, awareness of the universal Muslim Ummah, knowledge of the Pakistan Movement, and curriculum/textbook review for national cohesiveness and Islamic ideology.',
+      },
+    ],
+    quickQuiz: [
+      {
+        id: 'quiz-ide-1',
+        question:
+          'Why is the ideological foundation considered the primary pillar of any educational system?',
+        options: [
+          'It determines the budget of schools',
+          'It determines the vision, ethos, values, and ultimate purpose of education',
+          'It decides the number of teachers hired',
+          'It replaces the need for a curriculum',
+        ],
+        correctIndex: 1,
+        explanation:
+          "The ideological foundation determines the vision, ethos, values, and ultimate purpose of education, aligning practice with the community's core beliefs.",
+      },
+      {
+        id: 'quiz-ide-2',
+        question:
+          'Which philosophical stream emphasizes spiritual, moral, and intellectual development through truth, beauty, and goodness?',
+        options: ['Realism', 'Pragmatism', 'Idealism', 'Progressivism'],
+        correctIndex: 2,
+        explanation:
+          'Idealism emphasizes spiritual, moral, and intellectual development through truth, beauty, and goodness.',
+      },
+      {
+        id: 'quiz-ide-3',
+        question:
+          'According to the 1979 National Education Policy, one aim of education in Pakistan is to create awareness that students are part of:',
+        options: [
+          'A global secular community',
+          'The universal Muslim Ummah',
+          'A purely provincial identity',
+          'A Western educational tradition',
+        ],
+        correctIndex: 1,
+        explanation:
+          'The policy aimed to create awareness that Pakistani students are part of the universal Muslim Ummah and should contribute to its welfare.',
+      },
+    ],
+    examDistractorTraps: [
+      'Trap: Treating Pragmatism as focused on spiritual ideals — that is Idealism; Pragmatism/Progressivism emphasizes learning by doing and problem-solving.',
+      'Trap: Attributing the universal Ummah and Quran & Sunnah character aims to the National Education Policy 2009 — these were stressed in the 1979 policy.',
+      'Trap: Thinking the ideological foundation only selects curriculum content; it also sets goals, guides teaching methodology, and benchmarks policy formulation.',
+      'Trap: Confusing Moral & Ethical Character (individual integrity and self-discipline) with Social Cohesion (justice, tolerance, and mutual respect among groups).',
+    ],
+  },
+];
+
 export const TEACHING_LICENSE_PARTS: LicensePartModule[] = [
   {
     id: 'steda-part-2-methods-of-teaching',
@@ -844,8 +1020,24 @@ export const TEACHING_LICENSE_PARTS: LicensePartModule[] = [
     topics: METHODS_OF_TEACHING_TOPICS,
   },
   {
-    id: 'steda-part-2-child-development',
+    id: 'steda-part-2-foundations-of-education',
     partNumber: 7,
+    partCategory: 'Part II: Pedagogical Content Knowledge (50%)',
+    subjectName: 'Foundations of Education',
+    weightage: '10 MCQs · 10 Marks',
+    marks: 10,
+    targetLevel: 'Elementary (BPS-16) & Secondary (BPS-17)',
+    iconName: 'Compass',
+    themeColor: 'from-teal-600 to-cyan-700',
+    badgeBg: 'bg-teal-500/10',
+    badgeText: 'text-teal-600 dark:text-teal-400',
+    description:
+      'Ideological, philosophical, sociological, psychological, and historical foundations of education — the vision, values, and social purposes that direct curriculum and pedagogy, including Pakistan’s Islamic ideological framework (National Education Policy 1979) and the major philosophical streams (Idealism, Realism, Naturalism, Pragmatism, Islamic philosophy).',
+    topics: FOUNDATIONS_OF_EDUCATION_TOPICS,
+  },
+  {
+    id: 'steda-part-2-child-development',
+    partNumber: 8,
     partCategory: 'Part II: Pedagogical Content Knowledge (50%)',
     subjectName: 'Child Development & Educational Psychology',
     weightage: '10 MCQs · 10 Marks',
@@ -861,7 +1053,7 @@ export const TEACHING_LICENSE_PARTS: LicensePartModule[] = [
   },
   {
     id: 'steda-part-2-classroom-management',
-    partNumber: 8,
+    partNumber: 9,
     partCategory: 'Part II: Pedagogical Content Knowledge (50%)',
     subjectName: 'Classroom Management',
     weightage: '10 MCQs · 10 Marks',
@@ -877,7 +1069,7 @@ export const TEACHING_LICENSE_PARTS: LicensePartModule[] = [
   },
   {
     id: 'steda-part-2-classroom-assessment',
-    partNumber: 9,
+    partNumber: 10,
     partCategory: 'Part II: Pedagogical Content Knowledge (50%)',
     subjectName: 'Classroom Assessment & Evaluation',
     weightage: '10 MCQs · 10 Marks',
@@ -893,7 +1085,7 @@ export const TEACHING_LICENSE_PARTS: LicensePartModule[] = [
   },
   {
     id: 'steda-part-2-school-community',
-    partNumber: 10,
+    partNumber: 11,
     partCategory: 'Part II: Pedagogical Content Knowledge (50%)',
     subjectName: 'School, Community & Teacher',
     weightage: '10 MCQs · 10 Marks',

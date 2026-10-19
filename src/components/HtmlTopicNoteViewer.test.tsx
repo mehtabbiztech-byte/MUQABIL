@@ -33,9 +33,14 @@ const hubDocuments = [
     file: 'cooperative-learning-strategies.html',
     crqs: 4,
   },
+  {
+    topicId: 'methods-npstp-pakistan',
+    file: 'national-professional-standards-for-teachers-in-pakistan.html',
+    crqs: 4,
+  },
 ];
 
-test('Master Notes Hub attaches supplied HTML to exactly the five matching Methods of Teaching topics', () => {
+test('Master Notes Hub attaches supplied HTML to all six Methods of Teaching topics', () => {
   const htmlTopics = METHODS_OF_TEACHING_TOPICS.filter((topic) => topic.htmlNotesPath);
   assert.deepEqual(
     htmlTopics.map((topic) => topic.id).sort(),
@@ -45,9 +50,9 @@ test('Master Notes Hub attaches supplied HTML to exactly the five matching Metho
     const topic = METHODS_OF_TEACHING_TOPICS.find((item) => item.id === document.topicId)!;
     assert.equal(topic.htmlNotesPath, `notes/methods-of-teaching/${document.file}`);
   }
-  // The remaining pedagogy notes stay on the generated structured reader.
+  // Every pedagogy topic now carries its supplied standalone note.
   assert.equal(METHODS_OF_TEACHING_TOPICS.length, 6);
-  assert.equal(htmlTopics.length, 5);
+  assert.equal(htmlTopics.length, 6);
 });
 
 for (const document of hubDocuments) {

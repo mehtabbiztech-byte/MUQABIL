@@ -563,6 +563,7 @@ export const METHODS_OF_TEACHING_TOPICS: LicenseTopicNote[] = [
     topicNumber: '5',
     title: 'National Professional Standards for Teachers in Pakistan (NPSTP)',
     readTime: '10 min read',
+    htmlNotesPath: 'notes/methods-of-teaching/national-professional-standards-for-teachers-in-pakistan.html',
     summary:
       'The National Professional Standards for Teachers in Pakistan (NPSTP) provide a standardized national benchmark describing what competent educators must know, value, and practice. Developed in 2009 by the Policy and Planning Wing of the Ministry of Education with USAID support under the National Education Policy 2009, they guide teacher education accreditation, recruitment, performance appraisal, promotion, and continuous professional development (CPD). Each of the 10 standards is evaluated across three pillars: Knowledge, Dispositions, and Performances.',
     highYieldAlert:

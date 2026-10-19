@@ -45,6 +45,13 @@ const documents = [
     grids: ['featuresGrid', 'strategiesGrid', 'benefitsGrid'],
     crqs: 4,
   },
+  {
+    lessonId: 'methods-npstp-pakistan',
+    file: 'national-professional-standards-for-teachers-in-pakistan.html',
+    heading: 'National Professional Standards for Teachers in Pakistan',
+    grids: ['factsGrid', 'structureGrid', 'standardsGrid', 'bcsGrid'],
+    crqs: 4,
+  },
 ];
 
 test('supplied HTML documents are attached to matching topics without duplicating lessons', () => {
@@ -149,6 +156,20 @@ test('cooperative learning notes preserve the eight strategies, benefits and sit
     'Speed Quizzes', 'Puzzle Pieces', 'One-Minute Papers', 'Sentence Completion',
     'Classmate Interviews', 'Student Expertise', 'Freeride Elimination', 'Teamwork 101',
     'Key Takeaway', 'Ms. Fatima is a Grade 7 teacher']) {
+    assert.ok(html.includes(text), text);
+  }
+});
+
+test('NPSTP notes preserve the ten standards, memory aids and situation-based prompt', () => {
+  const html = readFileSync(path.join(process.cwd(), 'public/notes/methods-of-teaching/national-professional-standards-for-teachers-in-pakistan.html'), 'utf8');
+  assert.equal((html.match(/class="info-card"/g) || []).length, 3);
+  assert.equal((html.match(/class="kdp-card /g) || []).length, 3);
+  assert.equal((html.match(/class="standard-card"/g) || []).length, 10);
+  assert.equal((html.match(/class="list-card /g) || []).length, 3);
+  for (const text of ['National Professional Standards for Teachers in Pakistan',
+    'Memory Table of the Ten Standards', 'Teaching of the Holy Quran',
+    'Some Good Students Invariably Achieve Lasting Career Contentment, Practising Quran',
+    'Quick Revision Points', 'Mr. Imran is a newly appointed Grade 8 teacher']) {
     assert.ok(html.includes(text), text);
   }
 });

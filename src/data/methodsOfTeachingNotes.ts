@@ -162,6 +162,7 @@ export const METHODS_OF_TEACHING_LESSONS: StudyLesson[] = [
       { prompt: 'Describe the three-part structure of each standard.', answer: 'Knowledge is what the teacher should know; Dispositions are the values and attitudes the teacher should hold; Performances are what the teacher should do in practice.' },
       { prompt: 'Identify four standards a teacher violates by only lecturing, planning poorly, assessing only at term-end, and avoiding colleagues and parents.', answer: 'Instructional Planning and Strategies, Assessment, Collaboration and Partnerships, and Continuous Professional Development / Code of Conduct are directly implicated; Learning Environment and Communication may also be relevant depending on the evidence.' },
     ],
+    'notes/methods-of-teaching/national-professional-standards-for-teachers-in-pakistan.html',
   ),
   lesson(
     'methods-teacher-student-centred',

@@ -116,7 +116,7 @@ jobs:
 
       - name: Setup Pages
         if: steps.pages_check.outputs.enabled == 'true'
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
       # `npm run build` also emits the Node/Express bundle (dist/server.cjs) and
       # its sourcemap. GitHub Pages is static-only and can never execute them,
       # while server.cjs.map embeds the full server sourcesContent (server.ts,

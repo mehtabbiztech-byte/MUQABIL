@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Performance-Based Assessment — Classroom Assessment study note for the MUQABIL Teaching License hub: concepts, key vocabulary, comparison table, classroom application, misconceptions, takeaways and a practice quiz.">
+  <title>Performance-Based Assessment · Classroom Assessment</title>
+  <style>
+    /* ================= DESIGN TOKENS ================= */
+    :root {
+      --navy: #0e2a47;
+      --navy-2: #12365c;
+      --blue: #2f6ca8;
+      --blue-soft: #8bb3e0;
+      --blue-tint: #eaf2fb;
+      --mark: #dbeafe;
+      --ink: #0b2138;
+      --ink-2: #1c3f60;
+      --body: #35536f;
+      --muted: #5d7893;
+      --line: #dfe9f5;
+      --paper: #ffffff;
+      --wash: #f5faff;
+      --amber: #b8860b;
+      --amber-tint: #fff8e6;
+      --green: #1f7a4d;
+      --green-tint: #eaf8f0;
+      --red: #a83535;
+      --red-tint: #fdf1f1;
+      --shadow-sm: 0 6px 16px -10px rgba(12, 38, 66, 0.35);
+      --shadow-md: 0 18px 36px -22px rgba(12, 38, 66, 0.45);
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
+      color: var(--body);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 4rem;
+    }
+
+    /* ================= READING PROGRESS ================= */
+    .progress-track {
+      position: fixed; top: 0; left: 0; right: 0; height: 4px;
+      background: rgba(14, 42, 71, 0.08); z-index: 90;
+    }
+    .progress-fill {
+      display: block; height: 100%; width: 0%;
+      background: linear-gradient(90deg, #2f6ca8, #6aa9dd, #9cc7ee);
+      border-radius: 0 4px 4px 0; transition: width 0.12s linear;
+    }
+
+    .shell { max-width: 1080px; margin: 0 auto; padding: 0 1.1rem; }
+
+    /* ================= HERO ================= */
+    .hero {
+      position: relative; overflow: hidden;
+      margin-top: 1.6rem;
+      border-radius: 30px;
+      padding: 2.4rem 2.2rem 3.4rem;
+      background: radial-gradient(120% 140% at 0% 0%, #163b63 0%, #0e2a47 55%, #0a1f36 100%);
+      color: #fff;
+      box-shadow: var(--shadow-md);
+    }
+    .hero::after {
+      content: ''; position: absolute; right: -120px; top: -120px;
+      width: 340px; height: 340px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(139, 179, 224, 0.28), transparent 68%);
+      pointer-events: none;
+    }
+    .hero-top { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-bottom: 1.1rem; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #eaf4ff; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      padding: 0.32rem 0.85rem; border-radius: 999px;
+    }
+    .hero-top .hero-track { font-size: 0.74rem; color: #a9c8e6; font-weight: 600; letter-spacing: 0.04em; }
+    .hero h1 {
+      font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+      line-height: 1.16; font-weight: 800; letter-spacing: -0.02em;
+      color: #ffffff; max-width: 22ch;
+    }
+    .tagline {
+      margin-top: 0.85rem; max-width: 62ch;
+      font-size: 1.02rem; color: #c9def3;
+      border-left: 3px solid var(--blue-soft); padding-left: 1rem;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.4rem; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px; padding: 0.34rem 0.8rem;
+      font-size: 0.76rem; font-weight: 600; color: #dceafa;
+    }
+
+    /* ================= BIG IDEA + OBJECTIVES ================= */
+    .brief {
+      display: grid; grid-template-columns: 1.35fr 1fr; gap: 1.1rem;
+      margin: -2.2rem 1.4rem 0; position: relative; z-index: 2;
+    }
+    .brief-card {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-lg); padding: 1.4rem 1.5rem;
+      box-shadow: var(--shadow-md);
+    }
+    .brief-label {
+      display: inline-block; margin: 0; line-height: 1.2;
+      font-size: 0.68rem; font-weight: 800;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue);
+      margin-bottom: 0.55rem;
+    }
+    .brief-card p { font-size: 0.96rem; color: var(--ink-2); }
+    .objectives { list-style: none; counter-reset: obj; display: grid; gap: 0.7rem; }
+    .objectives li {
+      position: relative; padding-left: 2.1rem; font-size: 0.9rem;
+      color: var(--ink-2); line-height: 1.55;
+    }
+    .objectives li::before {
+      counter-increment: obj; content: counter(obj);
+      position: absolute; left: 0; top: 0.05rem;
+      width: 1.4rem; height: 1.4rem; border-radius: 50%;
+      display: grid; place-items: center;
+      background: var(--blue-tint); color: var(--blue);
+      font-size: 0.72rem; font-weight: 800;
+    }
+
+    /* ================= TABLE OF CONTENTS ================= */
+    .toc {
+      margin: 1.6rem 0 0; background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--line); border-radius: var(--radius-lg);
+      padding: 1.1rem 1.2rem; backdrop-filter: blur(4px);
+    }
+    .toc-title {
+      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem;
+    }
+    .toc-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0.35rem; }
+    .toc-list a {
+      display: flex; align-items: baseline; gap: 0.55rem;
+      padding: 0.42rem 0.5rem; border-radius: 10px;
+      text-decoration: none; color: var(--ink-2);
+      font-size: 0.88rem; font-weight: 600; transition: background 0.15s, color 0.15s;
+    }
+    .toc-list a:hover, .toc-list a:focus-visible { background: var(--blue-tint); color: var(--navy); }
+    .toc-num {
+      font-size: 0.68rem; font-weight: 800; color: var(--blue);
+      background: var(--blue-tint); border-radius: 6px; padding: 0.1rem 0.4rem;
+      flex-shrink: 0;
+    }
+
+    /* ================= TOOLBAR / SEARCH ================= */
+    .toolbar {
+      position: sticky; top: 0; z-index: 60;
+      margin: 1.6rem 0 0.4rem; padding: 0.6rem 0;
+      background: linear-gradient(180deg, rgba(243, 246, 253, 0.97) 65%, rgba(243, 246, 253, 0));
+    }
+    .toolbar-inner {
+      display: flex; align-items: center; gap: 0.7rem;
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: 999px; padding: 0.45rem 0.55rem 0.45rem 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .search-box { display: flex; align-items: center; gap: 0.55rem; flex: 1; min-width: 0; }
+    .search-box span { font-size: 0.95rem; opacity: 0.7; }
+    .search-box input {
+      border: none; outline: none; background: transparent;
+      font: inherit; font-size: 0.92rem; color: var(--ink);
+      width: 100%; padding: 0.3rem 0;
+    }
+    .search-box input::placeholder { color: #93a8bd; }
+    .count-pill {
+      flex-shrink: 0; background: var(--navy); color: #fff;
+      font-size: 0.75rem; font-weight: 700;
+      padding: 0.4rem 0.85rem; border-radius: 999px; white-space: nowrap;
+    }
+
+    /* ================= SECTION HEADERS ================= */
+    .section { margin-top: 3rem; scroll-margin-top: 90px; }
+    .section-head { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.3rem; }
+    .section-num {
+      flex-shrink: 0; width: 46px; height: 46px; border-radius: 15px;
+      display: grid; place-items: center;
+      background: var(--navy); color: #fff;
+      font-size: 0.9rem; font-weight: 800; letter-spacing: 0.02em;
+      box-shadow: 0 8px 18px -10px rgba(14, 42, 71, 0.9);
+    }
+    .eyebrow {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 0.18rem;
+    }
+    .section-head h2 {
+      font-size: clamp(1.25rem, 2.2vw, 1.6rem); font-weight: 800;
+      color: var(--ink); letter-spacing: -0.015em; line-height: 1.25;
+    }
+    .section-lead {
+      margin-top: 0.3rem; font-size: 0.92rem; color: var(--muted); max-width: 68ch;
+    }
+
+    /* ================= CONCEPT CARDS ================= */
+    .concept-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
+    .concept-card {
+      position: relative; display: flex; flex-direction: column;
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-md); padding: 1.25rem 1.25rem 1.1rem;
+      box-shadow: var(--shadow-sm); overflow: hidden;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+    .concept-card::before {
+      content: ''; position: absolute; inset: 0 0 auto 0; height: 4px;
+      background: linear-gradient(90deg, var(--blue), var(--blue-soft), #cfe2f5);
+    }
+    .concept-card:hover {
+      transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: #c4dcf2;
+    }
+    .concept-top { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; }
+    .concept-icon {
+      width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center;
+      background: var(--blue-tint); font-size: 1.2rem;
+    }
+    .concept-index {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em;
+      color: #9fb6cc; border: 1px solid var(--line); border-radius: 999px;
+      padding: 0.12rem 0.5rem;
+    }
+    .concept-title {
+      margin: 0.75rem 0 0.4rem; font-size: 1.02rem; font-weight: 800;
+      color: var(--ink); line-height: 1.35;
+    }
+    .concept-desc { font-size: 0.9rem; color: var(--body); }
+    .concept-desc strong, .vocab-def strong, .myth-reality strong, .takeaways strong, .lead-para strong {
+      color: #0a3a68; font-weight: 700;
+      background: linear-gradient(transparent 64%, var(--mark) 64%);
+      padding: 0 1px; border-radius: 2px;
+    }
+    .practice {
+      margin-top: auto; padding-top: 0.9rem;
+    }
+    .practice-box {
+      background: var(--wash); border: 1px solid #e2eefa;
+      border-left: 3px solid var(--blue); border-radius: 10px;
+      padding: 0.65rem 0.8rem;
+    }
+    .practice-label {
+      display: block; font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue);
+      margin-bottom: 0.18rem;
+    }
+    .practice-box p { font-size: 0.85rem; color: var(--ink-2); line-height: 1.5; }
+
+    /* ================= VOCABULARY ================= */
+    .vocab-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 0.75rem; margin: 0;
+    }
+    .vocab-card {
+      background: var(--paper); border: 1px solid var(--line);
+      border-left: 4px solid var(--blue-soft);
+      border-radius: var(--radius-sm); padding: 0.85rem 1rem;
+      box-shadow: 0 4px 12px -10px rgba(12, 38, 66, 0.4);
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .vocab-card:hover { border-left-color: var(--blue); transform: translateY(-2px); }
+    .vocab-term {
+      font-size: 0.9rem; font-weight: 800; color: var(--navy);
+      display: block; margin-bottom: 0.22rem; line-height: 1.35;
+    }
+    .vocab-def { font-size: 0.85rem; color: var(--body); line-height: 1.55; }
+
+    /* ================= TABLE ================= */
+    .table-shell {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .table-caption {
+      display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+      padding: 0.9rem 1.1rem; border-bottom: 1px solid var(--line);
+      background: #fbfdff;
+    }
+    .table-caption strong { font-size: 0.92rem; font-weight: 800; color: var(--ink); }
+    .table-caption span { font-size: 0.72rem; font-weight: 700; color: var(--muted); white-space: nowrap; }
+    .table-scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.86rem; min-width: 640px; }
+    thead th {
+      position: sticky; top: 0; z-index: 1;
+      background: var(--navy); color: #fff; text-align: left;
+      padding: 0.7rem 0.9rem; font-size: 0.76rem; font-weight: 700;
+      letter-spacing: 0.045em; text-transform: uppercase; white-space: nowrap;
+    }
+    tbody td { padding: 0.7rem 0.9rem; border-bottom: 1px solid #eef4fb; vertical-align: top; line-height: 1.5; }
+    tbody td:first-child { font-weight: 700; color: var(--navy); background: #fbfdff; }
+    tbody tr:nth-child(even) td { background: #f7fbff; }
+    tbody tr:nth-child(even) td:first-child { background: #f1f8ff; }
+    tbody tr:last-child td { border-bottom: none; }
+
+    /* ================= DO / AVOID ================= */
+    .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .dd-card {
+      border-radius: var(--radius-md); padding: 1.2rem 1.3rem;
+      border: 1px solid; box-shadow: var(--shadow-sm);
+    }
+    .dd-card.do { background: var(--green-tint); border-color: #bfe6d1; }
+    .dd-card.avoid { background: var(--red-tint); border-color: #efc9c9; }
+    .dd-card h3 {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.95rem; font-weight: 800; margin-bottom: 0.8rem;
+      letter-spacing: 0.01em;
+    }
+    .dd-card.do h3 { color: var(--green); }
+    .dd-card.avoid h3 { color: var(--red); }
+    .dd-card ul { list-style: none; display: grid; gap: 0.45rem; }
+    .dd-card li { position: relative; padding-left: 1.45rem; font-size: 0.87rem; color: var(--ink-2); line-height: 1.55; }
+    .dd-card.do li::before { content: '✔'; position: absolute; left: 0; color: var(--green); font-weight: 800; }
+    .dd-card.avoid li::before { content: '✕'; position: absolute; left: 0; color: var(--red); font-weight: 800; }
+
+    /* ================= MYTHS ================= */
+    .myth-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
+    .myth-card {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-md); padding: 1.1rem 1.2rem;
+      box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 0.55rem;
+    }
+    .myth-tag {
+      align-self: flex-start; display: inline-flex; align-items: center; gap: 0.35rem;
+      background: var(--red-tint); color: var(--red); border: 1px solid #f0cfcf;
+      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.18rem 0.55rem; border-radius: 999px;
+    }
+    .myth-claim { font-size: 0.93rem; font-weight: 700; color: var(--ink); line-height: 1.45; }
+    .myth-reality {
+      border-top: 1px dashed var(--line); padding-top: 0.55rem;
+      font-size: 0.86rem; color: var(--body);
+    }
+    .reality-tag {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      color: var(--green); font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.2rem;
+    }
+
+    /* ================= TAKEAWAYS ================= */
+    .takeaways {
+      background: linear-gradient(135deg, #12365c 0%, #0e2a47 100%);
+      color: #eaf4ff; border-radius: var(--radius-lg);
+      padding: 1.6rem 1.7rem; box-shadow: var(--shadow-md);
+      counter-reset: take;
+    }
+    .takeaways h3 {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.16em;
+      text-transform: uppercase; color: #9cc7ee; margin-bottom: 0.9rem;
+    }
+    .takeaways ol { list-style: none; display: grid; gap: 0.6rem; }
+    .takeaways li {
+      counter-increment: take; position: relative; padding-left: 2.2rem;
+      font-size: 0.9rem; line-height: 1.55;
+    }
+    .takeaways li::before {
+      content: counter(take, decimal-leading-zero);
+      position: absolute; left: 0; top: 0.12rem;
+      font-size: 0.72rem; font-weight: 800; color: #8bb3e0;
+      border: 1px solid rgba(139, 179, 224, 0.4);
+      border-radius: 6px; padding: 0.05rem 0.35rem;
+    }
+    .takeaways strong { color: #ffffff; background: none; }
+
+    /* ================= SUMMARY + EXAM TIP ================= */
+    .summary {
+      margin-top: 1rem; display: flex; gap: 0.9rem;
+      background: var(--paper); border: 1px solid var(--line);
+      border-left: 5px solid var(--blue);
+      border-radius: var(--radius-md); padding: 1.1rem 1.3rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .summary-label {
+      flex-shrink: 0; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--blue);
+      writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);
+    }
+    .summary p { font-size: 0.95rem; color: var(--ink-2); }
+
+    .exam-tip {
+      margin-top: 1rem; display: flex; gap: 0.8rem;
+      background: var(--amber-tint); border: 1px solid #f2e0b3;
+      border-radius: var(--radius-md); padding: 1rem 1.2rem;
+    }
+    .exam-tip .tip-icon { font-size: 1.1rem; line-height: 1.4; }
+    .exam-tip .tip-label {
+      display: block; font-size: 0.64rem; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--amber); margin-bottom: 0.15rem;
+    }
+    .exam-tip p { font-size: 0.88rem; color: #6b5310; }
+
+    /* ================= QUIZ ================= */
+    .quiz {
+      margin-top: 3rem; border-radius: var(--radius-lg);
+      overflow: hidden; box-shadow: var(--shadow-md); scroll-margin-top: 90px;
+    }
+    .quiz-head {
+      background: radial-gradient(120% 140% at 100% 0%, #1a4470 0%, #0e2a47 62%);
+      color: #fff; padding: 1.5rem 1.7rem;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.9rem;
+    }
+    .quiz-head .eyebrow { color: #9cc7ee; }
+    .quiz-head h2 { font-size: 1.35rem; font-weight: 800; color: #fff; }
+    .quiz-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .quiz-chips span {
+      background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px; padding: 0.28rem 0.7rem; font-size: 0.74rem; font-weight: 700; color: #dceafa;
+    }
+    .quiz-body { background: var(--paper); padding: 1.5rem 1.7rem 1.8rem; }
+
+    .quiz-tabs { display: flex; flex-wrap: wrap; gap: 0.45rem; border-bottom: 1px solid var(--line); padding-bottom: 0.9rem; margin-bottom: 1.2rem; }
+    .quiz-tab {
+      font: inherit; font-size: 0.84rem; font-weight: 700; cursor: pointer;
+      color: var(--ink-2); background: #f2f7fd; border: 1px solid var(--line);
+      border-radius: 999px; padding: 0.42rem 1rem; transition: all 0.15s;
+    }
+    .quiz-tab:hover { background: var(--blue-tint); border-color: #bcd8f0; }
+    .quiz-tab.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+    .quiz-tab:focus-visible { outline: 3px solid rgba(47, 108, 168, 0.35); outline-offset: 2px; }
+
+    .quiz-panel { display: none; }
+    .quiz-panel.active { display: block; }
+    .panel-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem; margin-bottom: 1rem; }
+    .section-label {
+      display: inline-block; background: var(--navy); color: #fff;
+      font-size: 0.66rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.28rem 0.75rem; border-radius: 999px;
+    }
+    .score-chip {
+      font-size: 0.76rem; font-weight: 700; color: var(--blue);
+      background: var(--blue-tint); border-radius: 999px; padding: 0.28rem 0.8rem;
+    }
+
+    .mcq-item {
+      background: #fbfdff; border: 1px solid #e4eefa;
+      border-radius: var(--radius-md); padding: 1rem 1.1rem; margin-bottom: 0.85rem;
+    }
+    .mcq-question {
+      display: flex; gap: 0.6rem; font-size: 0.93rem; font-weight: 700;
+      color: var(--ink); line-height: 1.5; margin-bottom: 0.75rem;
+    }
+    .mcq-question .q-num { color: var(--blue); font-weight: 800; }
+    .mcq-options { display: grid; gap: 0.45rem; }
+    .mcq-option {
+      display: flex; align-items: flex-start; gap: 0.6rem; width: 100%;
+      text-align: left; font: inherit; font-size: 0.87rem; color: var(--ink-2);
+      background: #fff; border: 1.5px solid #e2edf9; border-radius: 11px;
+      padding: 0.55rem 0.75rem; cursor: pointer; transition: all 0.15s;
+    }
+    .mcq-option:hover:not(:disabled) { border-color: #b7d4ee; background: #f7fbff; }
+    .mcq-option:disabled { cursor: default; }
+    .option-letter {
+      flex-shrink: 0; width: 1.35rem; height: 1.35rem; border-radius: 50%;
+      display: grid; place-items: center; font-size: 0.7rem; font-weight: 800;
+      background: #eef5fd; color: var(--blue);
+    }
+    .mcq-option.correct { border-color: #7fc7a1; background: var(--green-tint); font-weight: 600; }
+    .mcq-option.correct .option-letter { background: #cdeedb; color: #14603c; }
+    .mcq-option.incorrect { border-color: #e0a3a3; background: var(--red-tint); }
+    .mcq-option.incorrect .option-letter { background: #f4d4d4; color: #8f2b2b; }
+    .mcq-feedback {
+      display: none; margin-top: 0.65rem; font-size: 0.85rem;
+      border-radius: 10px; padding: 0.55rem 0.8rem; line-height: 1.5;
+    }
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.correct-fb { background: var(--green-tint); color: #14603c; border-left: 3px solid #2e9b5e; }
+    .mcq-feedback.incorrect-fb { background: var(--red-tint); color: #8f2b2b; border-left: 3px solid #d45a5a; }
+
+    .crq-item, .erq-item {
+      background: #fbfdff; border: 1px solid #e4eefa;
+      border-radius: var(--radius-md); padding: 1.1rem 1.2rem; margin-bottom: 0.9rem;
+    }
+    .erq-item { border: 2px solid var(--blue-soft); background: #f7fbff; }
+    .crq-question, .erq-question {
+      font-size: 0.95rem; font-weight: 700; color: var(--ink); line-height: 1.5; margin-bottom: 0.4rem;
+    }
+    .erq-marks {
+      display: inline-block; background: var(--navy); color: #fff;
+      font-size: 0.65rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.22rem 0.7rem; border-radius: 999px; margin-bottom: 0.6rem;
+    }
+    .crq-hint { font-size: 0.82rem; color: var(--muted); font-style: italic; margin-bottom: 0.6rem; }
+    .crq-textarea, .erq-textarea {
+      width: 100%; font: inherit; font-size: 0.88rem; color: var(--ink-2);
+      background: #fff; border: 1.5px solid #dbe8f6; border-radius: 11px;
+      padding: 0.7rem 0.85rem; resize: vertical; transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .crq-textarea { min-height: 96px; }
+    .erq-textarea { min-height: 170px; }
+    .crq-textarea:focus, .erq-textarea:focus {
+      outline: none; border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(47, 108, 168, 0.13);
+    }
+    .answer-meta {
+      display: flex; justify-content: space-between; gap: 0.6rem;
+      font-size: 0.74rem; color: var(--muted); margin-top: 0.35rem;
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.65rem; }
+    .btn {
+      font: inherit; font-size: 0.83rem; font-weight: 700; cursor: pointer;
+      border-radius: 999px; padding: 0.48rem 1.1rem; border: 1px solid transparent;
+      transition: all 0.15s;
+    }
+    .btn-primary { background: var(--navy); color: #fff; }
+    .btn-primary:hover { background: #16406c; transform: translateY(-1px); }
+    .btn-secondary { background: #eef5fd; color: #1b4670; border-color: #cfe2f4; }
+    .btn-secondary:hover { background: #e0edfa; }
+    .btn:focus-visible { outline: 3px solid rgba(47, 108, 168, 0.35); outline-offset: 2px; }
+    .crq-feedback, .erq-feedback {
+      display: none; margin-top: 0.7rem; border-radius: 10px;
+      padding: 0.7rem 0.9rem; font-size: 0.86rem; line-height: 1.6;
+    }
+    .crq-feedback.show, .erq-feedback.show { display: block; }
+    .crq-feedback.model, .erq-feedback.model { background: var(--blue-tint); color: #143c62; border-left: 3px solid var(--blue); }
+    .crq-feedback.good, .erq-feedback.good { background: var(--green-tint); color: #14603c; border-left: 3px solid #2e9b5e; }
+    .crq-feedback.partial, .erq-feedback.partial { background: var(--amber-tint); color: #6b5310; border-left: 3px solid #e0a800; }
+
+    /* ================= FOOTER + TOP BUTTON ================= */
+    .note-footer {
+      margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid var(--line);
+      display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem;
+      font-size: 0.76rem; color: var(--muted);
+    }
+    .to-top {
+      position: fixed; right: 1.1rem; bottom: 1.1rem; z-index: 70;
+      width: 44px; height: 44px; border-radius: 50%; border: none; cursor: pointer;
+      background: var(--navy); color: #fff; font-size: 1.05rem;
+      box-shadow: var(--shadow-md); opacity: 0; pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .to-top.visible { opacity: 1; pointer-events: auto; }
+    .to-top:hover { transform: translateY(-2px); }
+
+    .no-results {
+      grid-column: 1 / -1; text-align: center; padding: 2rem 1rem;
+      background: rgba(255, 255, 255, 0.8); border: 2px dashed #c3d8ee;
+      border-radius: var(--radius-md); color: var(--muted); font-weight: 600; font-size: 0.9rem;
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 900px) {
+      .brief { grid-template-columns: 1fr; margin: -1.6rem 0.8rem 0; }
+      .do-dont { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 1.7rem 1.25rem 2.8rem; border-radius: 24px; }
+      .hero h1 { max-width: none; }
+      .brief { margin: -1.4rem 0.5rem 0; }
+      .brief-card { padding: 1.1rem 1.15rem; border-radius: 18px; }
+      .section-head { gap: 0.7rem; }
+      .section-num { width: 38px; height: 38px; border-radius: 12px; font-size: 0.8rem; }
+      .concept-grid, .vocab-grid, .myth-grid { grid-template-columns: 1fr; }
+      .toolbar-inner { border-radius: 18px; padding: 0.55rem 0.75rem; }
+      .quiz-body { padding: 1.1rem 1rem 1.4rem; }
+      .quiz-head { padding: 1.2rem 1.1rem; }
+      .takeaways { padding: 1.2rem 1.1rem; }
+      .summary { flex-direction: column; gap: 0.5rem; }
+      .summary-label { writing-mode: horizontal-tb; transform: none; }
+    }
+
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-track { background: #e4ecf6; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: #a9c0d8; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: #7f9cba; }
+
+    ::selection { background: #cfe3f8; color: #0b2138; }
+
+    .toc-list a:focus-visible,
+    .mcq-option:focus-visible,
+    .quiz-tab:focus-visible,
+    .btn:focus-visible,
+    .to-top:focus-visible {
+      outline: 3px solid rgba(47, 108, 168, 0.4);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
+    /* ================= PRINT ================= */
+    @media print {
+      body { background: #fff; padding: 0; }
+      .progress-track, .toolbar, .to-top, .quiz-tabs { display: none !important; }
+      .hero { box-shadow: none; border-radius: 0; }
+      .quiz-panel { display: block !important; }
+      .concept-card, .vocab-card, .myth-card, .table-shell { break-inside: avoid; }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="progress-track" aria-hidden="true"><span class="progress-fill" id="progressFill"></span></div>
+
+  <div class="shell">
+    <!-- ================= HERO ================= -->
+    <header class="hero">
+      <div class="hero-top">
+        <span class="badge">📊 Classroom Assessment</span>
+        <span class="hero-track">Teaching License · Part II · Note 8 of 11</span>
+      </div>
+      <h1>Performance-Based Assessment</h1>
+      <p class="tagline">Ask learners to do the thing, not just describe it — then judge the doing with a rubric</p>
+      <div class="chips">
+        <span class="chip">⏱️ 10 min read</span>
+        <span class="chip">📚 7 sections</span>
+        <span class="chip">🔑 12 key terms</span>
+        <span class="chip">📝 10 MCQs · 4 CRQs · 1 ERQ</span>
+      </div>
+    </header>
+
+    <!-- ================= BIG IDEA + OBJECTIVES ================= -->
+    <div class="brief">
+      <section class="brief-card" aria-labelledby="bigidea-title">
+        <h2 class="brief-label" id="bigidea-title">The big idea</h2>
+        <p><strong>Performance-based assessment</strong> asks learners to demonstrate knowledge and skill by producing a performance or a product against explicit criteria. It is the natural way to assess outcomes that cannot be captured by a written test: conducting an experiment, repairing a circuit, delivering a presentation, resolving a case, designing a model or holding a conversation. Because the task is usually <strong>authentic</strong> — resembling what practitioners actually do — it assesses transfer rather than recall. The price of that validity is a set of practical problems: reliability of judgement, time, resources and fairness of access. Those problems are solved by design — clear criteria, rubric levels, process evidence, checkpoints and moderation — not by avoiding performance tasks.</p>
+      </section>
+      <section class="brief-card" aria-labelledby="objectives-title">
+        <h2 class="brief-label" id="objectives-title">What you will master</h2>
+        <ol class="objectives"><li>Define <strong>performance-based</strong> and <strong>authentic</strong> assessment, and distinguish them from paper-and-pencil testing.</li><li>Design a performance task with explicit criteria, process evidence and manageable logistics.</li><li>Explain how rubrics, anchors and moderation protect reliability in performance assessment.</li></ol>
+      </section>
+    </div>
+
+    <!-- ================= TABLE OF CONTENTS ================= -->
+    <nav class="toc" aria-label="Sections in this note">
+      <p class="toc-title">On this page</p>
+      <ol class="toc-list">
+        <li><a href="#concepts"><span class="toc-num">01</span> Core concepts</a></li>
+        <li><a href="#vocabulary"><span class="toc-num">02</span> Key vocabulary</a></li>
+        <li><a href="#comparison"><span class="toc-num">03</span> Comparison table</a></li>
+        <li><a href="#application"><span class="toc-num">04</span> Classroom application</a></li>
+        <li><a href="#misconceptions"><span class="toc-num">05</span> Misconceptions</a></li>
+        <li><a href="#takeaways"><span class="toc-num">06</span> Takeaways &amp; exam tip</a></li>
+        <li><a href="#practice"><span class="toc-num">07</span> Practice quiz</a></li>
+      </ol>
+    </nav>
+
+    <!-- ================= SEARCH ================= -->
+    <div class="toolbar">
+      <div class="toolbar-inner">
+        <div class="search-box">
+          <span aria-hidden="true">🔍</span>
+          <input id="searchInput" type="search" placeholder="Search concepts, key terms and misconceptions…" aria-label="Search this note">
+        </div>
+        <div class="count-pill" id="countDisplay" role="status" aria-live="polite">22 items</div>
+      </div>
+    </div>
+
+    <!-- ================= 01 CONCEPTS ================= -->
+    <section class="section" id="concepts" aria-labelledby="concepts-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">01</span>
+        <div>
+          <p class="eyebrow">Foundations</p>
+          <h2 id="concepts-title">Core concepts</h2>
+          <p class="section-lead">Each card isolates one idea examiners test. Read the definition first, then the <em>In practice</em> line — that is where scenario questions begin.</p>
+        </div>
+      </div>
+      <div class="concept-grid" id="conceptGrid">
+        <article class="concept-card" data-searchable="What makes an assessment performance-based">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🛠️</span>
+            <span class="concept-index">01</span>
+          </div>
+          <h3 class="concept-title">What makes an assessment performance-based</h3>
+          <p class="concept-desc">In <strong>performance-based assessment</strong> the learner constructs a response, product or demonstration rather than selecting from options, and the assessment judges the quality of that production against criteria. The task is usually multi-step, takes time, and requires the application of knowledge in a context. The judged evidence may be the product, the process, or both.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Write the task as a verb a learner could perform in front of you — explain, build, measure, demonstrate, debate.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Authenticity: resemblance to real work">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🌍</span>
+            <span class="concept-index">02</span>
+          </div>
+          <h3 class="concept-title">Authenticity: resemblance to real work</h3>
+          <p class="concept-desc"><strong>Authentic assessment</strong> uses tasks, audiences and constraints that resemble real practice: writing to an actual audience, investigating a local problem, following laboratory conventions, presenting to a panel. Authenticity increases the likelihood that success transfers beyond the classroom, and it raises motivation because the purpose is visible.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Give the task a real audience and a real constraint; both raise authenticity more cheaply than technology does.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Types of performance task">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🧾</span>
+            <span class="concept-index">03</span>
+          </div>
+          <h3 class="concept-title">Types of performance task</h3>
+          <p class="concept-desc">Common forms include experiments and practicals, projects and models, presentations and demonstrations, debates and role plays, simulations, exhibitions, fieldwork and portfolios. They differ in whether the main evidence is a <strong>product</strong> (a model, report, artefact) or a <strong>process</strong> (an investigation, a performance), and in how much can be observed live.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Choose the form that makes the target skill unavoidable — a debate if the outcome is argumentation, a practical if it is technique.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Designing the task: criteria before activity">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">📋</span>
+            <span class="concept-index">04</span>
+          </div>
+          <h3 class="concept-title">Designing the task: criteria before activity</h3>
+          <p class="concept-desc">A defensible task specifies the outcome being assessed, the conditions (time, resources, collaboration rules), the evidence to be collected and the criteria for success. Criteria must come from the learning outcome, and the rubric must be written before learners begin so that teaching, feedback and judgement all point at the same target.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Draft the rubric first, then write the task sheet; if a criterion cannot be observed, change the task.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Process evidence and checkpoints">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🔍</span>
+            <span class="concept-index">05</span>
+          </div>
+          <h3 class="concept-title">Process evidence and checkpoints</h3>
+          <p class="concept-desc">Because performance tasks unfold over time, evidence should be captured at <strong>checkpoints</strong>: a plan, a draft, a progress log, a photograph of a stage, a brief conference. Checkpoints reduce the risk of a final product being produced by someone else, allow early feedback, and give the teacher evidence of process rather than only product.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Schedule three short checkpoints and keep a one-line record of each learner’s progress at every one.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Reliability, fairness and practical constraints">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">⚖️</span>
+            <span class="concept-index">06</span>
+          </div>
+          <h3 class="concept-title">Reliability, fairness and practical constraints</h3>
+          <p class="concept-desc">Performance judgements are vulnerable to subjectivity, halo effects, order effects and inconsistent conditions. Reliability is protected by analytic rubrics, <strong>anchor</strong> scripts at each level, moderation, and standardised conditions. Fairness requires attention to resources, language demands and access needs, so that the task measures the intended skill rather than the learner’s access to materials.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Moderate one task with a colleague each term, scoring three scripts independently before discussing them.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= 02 VOCABULARY ================= -->
+    <section class="section" id="vocabulary" aria-labelledby="vocab-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">02</span>
+        <div>
+          <p class="eyebrow">Precision</p>
+          <h2 id="vocab-title">Key vocabulary</h2>
+          <p class="section-lead">Be able to define each term in one sentence. Bold terms below also appear highlighted inside the notes, so you can meet them in context.</p>
+        </div>
+      </div>
+      <dl class="vocab-grid" id="vocabGrid">
+        <div class="vocab-card" data-searchable="Performance-based assessment">
+          <dt class="vocab-term">Performance-based assessment</dt>
+          <dd class="vocab-def">Assessment in which learners demonstrate skills by producing a performance or product judged against criteria.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Authentic assessment">
+          <dt class="vocab-term">Authentic assessment</dt>
+          <dd class="vocab-def">Assessment using tasks, audiences and constraints that resemble real-world practice.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Rubric">
+          <dt class="vocab-term">Rubric</dt>
+          <dd class="vocab-def">A scoring tool listing criteria and describing performance levels for each.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Criterion">
+          <dt class="vocab-term">Criterion</dt>
+          <dd class="vocab-def">A dimension of performance that is judged, derived from the learning outcome.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Level descriptor">
+          <dt class="vocab-term">Level descriptor</dt>
+          <dd class="vocab-def">The statement describing what performance looks like at a particular level of a criterion.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Anchor">
+          <dt class="vocab-term">Anchor</dt>
+          <dd class="vocab-def">An exemplar of performance used to calibrate marking at a particular level.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Process evidence">
+          <dt class="vocab-term">Process evidence</dt>
+          <dd class="vocab-def">Documentation of how a product was produced, such as drafts, logs or observations.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Checkpoint">
+          <dt class="vocab-term">Checkpoint</dt>
+          <dd class="vocab-def">A scheduled moment in a long task at which evidence is reviewed and feedback given.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Moderation">
+          <dt class="vocab-term">Moderation</dt>
+          <dd class="vocab-def">Comparing and agreeing judgements across assessors to ensure consistent standards.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Halo effect">
+          <dt class="vocab-term">Halo effect</dt>
+          <dd class="vocab-def">The influence of an overall impression on judgements of separate criteria.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Reliability">
+          <dt class="vocab-term">Reliability</dt>
+          <dd class="vocab-def">Consistency of judgements across assessors, occasions and tasks.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Access arrangements">
+          <dt class="vocab-term">Access arrangements</dt>
+          <dd class="vocab-def">Adjustments that remove barriers so that a task measures the intended skill.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- ================= 03 COMPARISON ================= -->
+    <section class="section" id="comparison" aria-labelledby="comparison-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">03</span>
+        <div>
+          <p class="eyebrow">Distinctions</p>
+          <h2 id="comparison-title">Comparison table</h2>
+          <p class="section-lead">Use this table for “differentiate between”, “compare” and “which is most appropriate” questions — name the dimension, then the contrast.</p>
+        </div>
+      </div>
+      <div class="table-shell" id="compareGrid">
+        <div class="table-caption">
+          <strong>Performance Task Types and What They Evidence</strong>
+          <span>Swipe to view all columns →</span>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr><th scope="col">Task type</th><th scope="col">Skill demonstrated</th><th scope="col">Evidence collected</th><th scope="col">Main pitfall</th></tr>
+            </thead>
+            <tbody>
+            <tr><td>Science practical</td><td>Technique, safety, recording, conclusion</td><td>Observation checklist plus written report</td><td>Judging the report and not the technique</td></tr>
+            <tr><td>Project or model</td><td>Design, application, creativity, persistence</td><td>Product plus process log and draft</td><td>Product made by an adult at home</td></tr>
+            <tr><td>Presentation or demonstration</td><td>Explanation, organisation, audience awareness</td><td>Live rubric scoring or recorded talk</td><td>Confidence scored instead of content</td></tr>
+            <tr><td>Debate or role play</td><td>Argumentation, evidence use, listening</td><td>Rubric on claim, evidence, rebuttal</td><td>Dominant speakers rewarded, quiet learners unseen</td></tr>
+            <tr><td>Simulation or case study</td><td>Decision-making under constraints</td><td>Written decision with justification</td><td>One correct answer assumed</td></tr>
+            <tr><td>Fieldwork</td><td>Data collection, ethics, interpretation</td><td>Field notes, data set, analysis</td><td>Logistics consume the learning time</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 04 APPLICATION ================= -->
+    <section class="section" id="application" aria-labelledby="application-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">04</span>
+        <div>
+          <p class="eyebrow">Practice</p>
+          <h2 id="application-title">Classroom application</h2>
+          <p class="section-lead">What to do, and what to avoid, in a real classroom. The left column is the standard to teach; the right column lists the errors that cost marks and learning.</p>
+        </div>
+      </div>
+      <div class="do-dont" id="applyGrid">
+        <div class="dd-card do">
+          <h3><span aria-hidden="true">✅</span> Do this</h3>
+          <ul><li>Derive criteria from the <strong>learning outcome</strong> before designing the task.</li><li>Write the <strong>rubric</strong> and share it with learners at the start.</li><li>Collect <strong>process evidence</strong> through scheduled checkpoints.</li><li>Use <strong>anchors</strong> or exemplars to show what each level looks like.</li><li>Standardise conditions and note any variation for fairness.</li><li>Moderate a sample of judgements with a colleague each term.</li></ul>
+        </div>
+        <div class="dd-card avoid">
+          <h3><span aria-hidden="true">🚫</span> Avoid this</h3>
+          <ul><li>Do not assess a product you cannot observe being made without process evidence.</li><li>Do not score confidence, neatness or compliance as if they were the target skill.</li><li>Do not use a single holistic impression when the outcome has several criteria.</li><li>Do not set a task that requires expensive materials learners may not have.</li><li>Do not let group work hide individual contribution — assess it separately.</li><li>Do not assume performance assessment is automatically valid; a badly designed task is still invalid.</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 05 MISCONCEPTIONS ================= -->
+    <section class="section" id="misconceptions" aria-labelledby="misconceptions-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">05</span>
+        <div>
+          <p class="eyebrow">Exam traps</p>
+          <h2 id="misconceptions-title">Common misconceptions</h2>
+          <p class="section-lead">Each misconception below is a plausible-sounding statement that loses marks. Learn the reality column as a correction you can write.</p>
+        </div>
+      </div>
+      <div class="myth-grid" id="misGrid">
+        <article class="myth-card" data-searchable="&ldquo;Performance-based assessment is more valid, so it needs no criteria.&rdquo;">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;Performance-based assessment is more valid, so it needs no criteria.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>Validity comes from alignment plus defensible judgement. Without explicit <strong>criteria</strong>, a performance task becomes an impression, and impressions vary with the judge, the order and the learner’s confidence.</p>
+          </div>
+        </article>
+        <article class="myth-card" data-searchable="&ldquo;Performance tasks cannot be reliable.&rdquo;">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;Performance tasks cannot be reliable.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>Reliability is lower by default but can be raised substantially through analytic rubrics, <strong>anchors</strong>, standardised conditions and <strong>moderation</strong>. Essays were once thought unmarkable for the same reason.</p>
+          </div>
+        </article>
+        <article class="myth-card" data-searchable="&ldquo;A good product proves the learning.&rdquo;">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;A good product proves the learning.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>Products can be bought, copied or produced by someone else. <strong>Process evidence</strong> — drafts, logs, checkpoints, observation — is what connects the product to the learner.</p>
+          </div>
+        </article>
+        <article class="myth-card" data-searchable="&ldquo;Group projects assess collaboration and content equally well.&rdquo;">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;Group projects assess collaboration and content equally well.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>A group product does not show individual content mastery. Collaboration and content need separate criteria, and individual accountability needs a separate evidence point.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= 06 TAKEAWAYS ================= -->
+    <section class="section" id="takeaways" aria-labelledby="takeaways-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">06</span>
+        <div>
+          <p class="eyebrow">Compress</p>
+          <h2 id="takeaways-title">Key takeaways</h2>
+          <p class="section-lead">Revise these lines the night before the paper — they compress the whole note into recall-ready statements.</p>
+        </div>
+      </div>
+      <div class="takeaways">
+        <h3>Six things to remember</h3>
+        <ol><li><strong>Performance-based assessment</strong> judges what learners can do, not only what they can recall.</li><li><strong>Authenticity</strong> — real audience, real constraints — raises transfer and motivation.</li><li>Criteria and rubrics must be derived from the outcome and written before the task.</li><li><strong>Process evidence</strong> and checkpoints protect authenticity and enable feedback.</li><li>Reliability comes from analytic rubrics, anchors and <strong>moderation</strong>.</li><li>Fairness requires attention to resources, language and access arrangements.</li></ol>
+      </div>
+      <div class="summary">
+        <span class="summary-label">One-line summary</span>
+        <p>Performance-based assessment asks learners to produce a performance or product judged against explicit criteria, trading some reliability for much greater validity on complex outcomes, and recovering reliability through rubrics, anchors, process evidence and moderation.</p>
+      </div>
+      <div class="exam-tip">
+        <span class="tip-icon" aria-hidden="true">💡</span>
+        <div>
+          <span class="tip-label">Exam tip</span>
+          <p>If a scenario describes a learner doing something — conducting, presenting, building, debating — the answer is performance-based assessment; if it describes selecting or writing under exam conditions, it is a test. Look for the words ‘product’, ‘performance’ and ‘criteria’.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 07 QUIZ ================= -->
+    <section class="quiz" id="practice" aria-labelledby="quiz-title">
+      <div class="quiz-head">
+        <div>
+          <p class="eyebrow">Practice</p>
+          <h2 id="quiz-title">Test yourself</h2>
+        </div>
+        <div class="quiz-chips">
+          <span>10 MCQs</span>
+          <span>4 CRQs</span>
+          <span>1 ERQ</span>
+        </div>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-tabs" role="tablist" aria-label="Quiz sections">
+          <button class="quiz-tab active" role="tab" aria-selected="true" data-panel="mcqPanel">🔘 10 MCQs</button>
+          <button class="quiz-tab" role="tab" aria-selected="false" data-panel="crqPanel">✍️ 4 CRQs</button>
+          <button class="quiz-tab" role="tab" aria-selected="false" data-panel="erqPanel">📄 1 ERQ</button>
+        </div>
+
+        <div class="quiz-panel active" id="mcqPanel" role="tabpanel">
+          <div class="panel-head">
+            <span class="section-label">Multiple choice questions</span>
+            <span class="score-chip" id="mcqProgress">0 / 10 answered · 0 correct</span>
+          </div>
+          <div id="mcqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="crqPanel" role="tabpanel">
+          <div class="panel-head">
+            <span class="section-label">Constructed response questions</span>
+            <span class="score-chip">Model answers included</span>
+          </div>
+          <div id="crqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="erqPanel" role="tabpanel">
+          <div class="panel-head">
+            <span class="section-label">Extended response · situation-based</span>
+            <span class="score-chip">Keyword self-check</span>
+          </div>
+          <div id="erqContainer"></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="note-footer">
+      <span>MUQABIL · Teaching License Master Notes · Classroom Assessment</span>
+      <span>11 interactive notes in this module · revision 8 of 11</span>
+    </footer>
+  </div>
+
+  <button class="to-top" id="toTop" type="button" aria-label="Back to top">↑</button>
+
+<script>
+    (function () {
+      'use strict';
+
+      /* ================= READING PROGRESS ================= */
+      var fill = document.getElementById('progressFill');
+      var toTop = document.getElementById('toTop');
+
+      function updateScroll() {
+        var doc = document.documentElement;
+        var max = doc.scrollHeight - doc.clientHeight;
+        var pct = max > 0 ? (doc.scrollTop / max) * 100 : 0;
+        if (fill) fill.style.width = pct + '%';
+        if (toTop) {
+          if (doc.scrollTop > 600) toTop.classList.add('visible');
+          else toTop.classList.remove('visible');
+        }
+      }
+      window.addEventListener('scroll', updateScroll, { passive: true });
+      updateScroll();
+
+      if (toTop) {
+        toTop.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      /* ================= LIVE SEARCH ================= */
+      var searchInput = document.getElementById('searchInput');
+      var countDisplay = document.getElementById('countDisplay');
+      var grids = [
+        document.getElementById('conceptGrid'),
+        document.getElementById('vocabGrid'),
+        document.getElementById('misGrid')
+      ].filter(Boolean);
+
+      var cards = [];
+      grids.forEach(function (grid) {
+        Array.prototype.forEach.call(grid.querySelectorAll('[data-searchable]'), function (card) {
+          cards.push(card);
+        });
+      });
+
+      function applySearch(raw) {
+        var q = (raw || '').trim().toLowerCase();
+        var visible = 0;
+        cards.forEach(function (card) {
+          var text = ((card.getAttribute('data-searchable') || '') + ' ' + card.textContent).toLowerCase();
+          var matches = q === '' || text.indexOf(q) !== -1;
+          card.style.display = matches ? '' : 'none';
+          if (matches) visible++;
+        });
+        Array.prototype.forEach.call(document.querySelectorAll('.no-results'), function (el) {
+          el.parentNode.removeChild(el);
+        });
+        grids.forEach(function (grid) {
+          var shown = Array.prototype.filter.call(
+            grid.querySelectorAll('[data-searchable]'),
+            function (card) { return card.style.display !== 'none'; }
+          ).length;
+          if (shown === 0) {
+            var msg = document.createElement('div');
+            msg.className = 'no-results';
+            msg.textContent = '🔎 No matching items in this section.';
+            grid.appendChild(msg);
+          }
+        });
+        if (countDisplay) {
+          countDisplay.textContent = visible + ' item' + (visible === 1 ? '' : 's');
+        }
+      }
+
+      var debounceTimer;
+      if (searchInput) {
+        searchInput.addEventListener('input', function (e) {
+          clearTimeout(debounceTimer);
+          debounceTimer = setTimeout(function () { applySearch(e.target.value); }, 140);
+        });
+        searchInput.addEventListener('search', function (e) {
+          if (e.target.value === '') applySearch('');
+        });
+        searchInput.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && searchInput.value !== '') {
+            searchInput.value = '';
+            applySearch('');
+          }
+        });
+      }
+      applySearch('');
+
+      /* ================= QUIZ TABS ================= */
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.quiz-tab'));
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          tabs.forEach(function (t) {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          Array.prototype.forEach.call(document.querySelectorAll('.quiz-panel'), function (p) {
+            p.classList.remove('active');
+          });
+          tab.classList.add('active');
+          tab.setAttribute('aria-selected', 'true');
+          var panel = document.getElementById(tab.getAttribute('data-panel'));
+          if (panel) panel.classList.add('active');
+        });
+      });
+
+      /* ================= DATA ================= */
+      var mcqs = [{"q": "Performance-based assessment is characterised by:", "options": ["Selecting answers from options", "Learners producing a performance or product judged against criteria", "Timed written papers", "Norm-referenced scoring"], "answer": 1, "why": "The learner demonstrates by producing."}, {"q": "Authentic assessment is best described as:", "options": ["Any assessment done in class", "Assessment using tasks and contexts resembling real practice", "Assessment marked by the teacher", "Assessment with no criteria"], "answer": 1, "why": "Authenticity concerns resemblance to real work."}, {"q": "The greatest threat to the reliability of performance assessment is:", "options": ["Too many criteria", "Subjective judgement without rubrics or moderation", "Learner motivation", "Use of checkpoints"], "answer": 1, "why": "Judgement variance is the core reliability risk."}, {"q": "An anchor in performance assessment is:", "options": ["A time limit", "An exemplar used to calibrate judgements", "A type of rubric", "A practical skill"], "answer": 1, "why": "Anchors show what a level looks like."}, {"q": "Process evidence is important mainly because it:", "options": ["Makes marking faster", "Connects the product to the learner and enables feedback", "Replaces the rubric", "Increases difficulty"], "answer": 1, "why": "It documents how the work was produced."}, {"q": "Which is a performance task rather than a test?", "options": ["Multiple-choice quiz", "Short-answer paper", "Conducting an experiment and recording results", "Fill-in-the-blank exercise"], "answer": 2, "why": "It requires demonstration of practical skill."}, {"q": "Criteria for a performance task should be derived from:", "options": ["The materials available", "The learning outcome", "The learners’ preferences", "The marking time available"], "answer": 1, "why": "Alignment starts from the intended outcome."}, {"q": "A fairness concern specific to performance assessment is that:", "options": ["Learners may guess", "Access to materials and language demands may affect scores", "It takes no time", "It cannot be moderated"], "answer": 1, "why": "The task must measure the skill, not access."}, {"q": "The best response to a colleague who says performance tasks are ‘too subjective’ is:", "options": ["Avoid them", "Use analytic rubrics, anchors and moderation", "Only use group work", "Mark holistically"], "answer": 1, "why": "These are the standard reliability safeguards."}, {"q": "A group presentation should be assessed for:", "options": ["Group product only", "Content and collaboration with separate criteria and individual accountability", "Neatness only", "Length only"], "answer": 1, "why": "Separate criteria prevent content being masked by group effort."}];
+      var crqs = [{"q": "Distinguish performance-based assessment from a written test, and explain when each is more appropriate.", "hint": "Address what is produced, the outcomes served and the costs.", "model": "In a written test, learners respond to prompts under controlled conditions and the evidence is the written response; in performance-based assessment, learners produce a performance or product, and the evidence includes the production process as well as the result. Written tests are efficient for broad coverage of knowledge and reasoning, are easier to standardise and mark, and suit outcomes such as recall, explanation and analysis in writing. Performance tasks are more appropriate when the outcome is a skill or a complex product — conducting an experiment, demonstrating a technique, presenting, building, collaborating or solving a realistic problem — because a written description cannot establish that the learner can do it. Performance tasks have higher validity for those outcomes but cost more in time, resources and judgement. A defensible assessment plan therefore uses written tests for what they do well and performance tasks where doing is the outcome, rather than substituting one for the other."}, {"q": "Describe the steps you would follow to design and implement a performance task, from outcome to moderated judgement.", "hint": "Sequence: outcome, criteria, task, conditions, checkpoints, rubric, practice, moderation.", "model": "Begin with the outcome and identify the observable performance that would prove it. Derive three to five criteria from the outcome and write level descriptors for each, so the rubric exists before the task. Design the task so that those criteria are unavoidable, and specify the conditions: time, materials, whether collaboration is allowed, and what evidence will be collected. Build in checkpoints — a plan, a draft, a progress observation — so that process evidence exists and feedback can be given while it is still useful. Share the task sheet, criteria and an exemplar with learners, and give them a low-stakes rehearsal so that the format is familiar. During the task, record brief observations against the criteria rather than relying on memory. Mark with the analytic rubric, then moderate by scoring a sample independently with a colleague and discussing discrepancies. Return the rubric with comments and allow improvement where the task permits. Finally, review the evidence to see whether any criterion failed to discriminate, and revise the task or rubric for next time."}, {"q": "How can reliability be improved in performance assessment without destroying its validity?", "hint": "Rubrics, anchors, conditions, multiple judges, moderation, explicit criteria.", "model": "Reliability can be raised by making the judgement more structured without narrowing the task. Analytic rubrics with observable descriptors reduce global impressions and the halo effect, because each criterion is judged separately. Anchors — exemplars of typical work at each level — calibrate different markers to the same standard. Standardising the conditions, the time allowed and the evidence collected removes avoidable variation between learners. Where stakes are high, two independent assessors and a moderation meeting resolve discrepancies and produce a shared standard. Asking learners to submit process evidence reduces the risk of unauthorised assistance, which would otherwise distort results. Finally, training markers on a sample and discussing borderline cases builds a common interpretation. None of these steps changes what the learner must do, so validity is preserved while judgement becomes consistent."}, {"q": "A large class of 45 learners must complete a practical assessment with limited equipment. Propose a workable design.", "hint": "Address rotation, observation, checkpoints, rubric and fairness.", "model": "The task should be designed around the equipment rather than the equipment limiting the assessment. Learners can rotate through stations in groups of five or six, with one station assessed live by the teacher while other groups complete a related written analysis or a planning task that also generates evidence. The teacher assesses technique against three observable criteria using a tick sheet, which takes two to three minutes per learner. A second practical criterion can be evidenced from the written record of results, so not everything depends on live observation. Each group has a checkpoint where the plan is checked before equipment is issued, which prevents wasted materials and provides process evidence. Safety and collaboration can be assessed once per group with clear descriptors. To protect fairness, every group receives the same instructions, time and equipment, and any group that loses equipment time is given an equivalent opportunity. Finally, moderate a sample of the tick sheets and reports with a colleague to check that the standard is consistent across rotations."}];
+      var erq = {"scenario": "A school introduces project-based assessment in Grade 7 science. Learners submit a model of a water filter and a poster. Teachers mark the poster out of 10 for ‘effort and appearance’. Many models are clearly made by adults. Learners complain that marks depend on which teacher marks them, and two teachers’ classes have average marks twenty percentage points apart. The principal wants to abandon projects and return to written tests.", "task": "Diagnose the design failures in this performance assessment, explain why abandoning projects would be the wrong response, and propose a redesigned project assessment with defensible judgements.", "hint": "Address criteria, alignment, authenticity, process evidence, rubric quality, moderation and fairness of conditions.", "keywords": ["performance-based", "criteria", "rubric", "authentic", "process evidence", "checkpoint", "moderation", "reliability", "validity", "fairness"], "model": "The project assessment fails on design, not on the method. The criteria — ‘effort and appearance’ — are neither derived from the science outcomes nor observable in a defensible way, so the mark reflects presentation and teacher impression rather than understanding of filtration. That is a validity failure: the task may look authentic, but it does not measure the intended learning. The absence of process evidence explains the adult-made models: only the product is judged, so there is no way to connect the model to the learner’s work, and no checkpoint at which a plan or draft could be reviewed and supported. The twenty-point difference between classes indicates a reliability failure: with no rubric descriptors, no anchors and no moderation, each teacher applies a private standard. Abandoning projects would remove a genuine attempt to assess application and design, and would return the school to written tests that cannot assess the very outcomes the curriculum states; the underlying problem — unexamined criteria and unmoderated judgement — would then simply move into the marking of written work. The redesign should begin with the outcome: learners will design, build and evaluate a filter that reduces turbidity, explaining the principle at each layer. Three or four criteria follow from that: scientific explanation of the filtration principle, quality of design decisions, accuracy and interpretation of the test results, and evaluation of limitations. For each criterion, four level descriptors should describe observable features, and the rubric should be given to learners at the start along with an exemplar from a previous year. The task should require process evidence: a written plan approved at checkpoint one, a progress photograph and log at checkpoint two, and results recorded in a standard table. The final submission should include a short oral defence in which each learner explains one design decision, which makes adult-made models visible and gives the learner a chance to demonstrate understanding. Conditions should be standardised: materials supplied by the school, equal time, and a clear statement of what collaboration is permitted. Marking should be analytic, with the rubric completed before the oral defence and adjusted only with a written reason. Moderation should follow: the two teachers independently score five projects, compare criterion by criterion, and discuss discrepancies before marking their own sets; the head of department should sample the final distribution. Finally, the school should evaluate the change by checking whether the class averages converge, whether the marks correlate with the oral defences and written results, and whether learners can explain their design. Projects should be retained precisely because they assess what written tests cannot — but only when criteria, process evidence, conditions and moderation make the judgement defensible."};
+
+      /* ================= MCQs ================= */
+      var mcqContainer = document.getElementById('mcqContainer');
+      var scoreChip = document.getElementById('mcqProgress');
+      var answered = 0;
+      var correctCount = 0;
+      var letters = ['A', 'B', 'C', 'D'];
+
+      function updateScore() {
+        if (!scoreChip) return;
+        scoreChip.textContent = answered + ' / ' + mcqs.length + ' answered · ' + correctCount + ' correct';
+      }
+
+      mcqs.forEach(function (item, idx) {
+        var wrap = document.createElement('div');
+        wrap.className = 'mcq-item';
+
+        var q = document.createElement('p');
+        q.className = 'mcq-question';
+        var num = document.createElement('span');
+        num.className = 'q-num';
+        num.textContent = (idx + 1) + '.';
+        var qtext = document.createElement('span');
+        qtext.textContent = item.q;
+        q.appendChild(num);
+        q.appendChild(qtext);
+        wrap.appendChild(q);
+
+        var options = document.createElement('div');
+        options.className = 'mcq-options';
+
+        var fb = document.createElement('div');
+        fb.className = 'mcq-feedback';
+
+        Array.prototype.forEach.call(item.options, function (text, i) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'mcq-option';
+          btn.setAttribute('aria-label', letters[i] + '. ' + text);
+
+          var letter = document.createElement('span');
+          letter.className = 'option-letter';
+          letter.textContent = letters[i];
+          var label = document.createElement('span');
+          label.textContent = text;
+          btn.appendChild(letter);
+          btn.appendChild(label);
+
+          btn.addEventListener('click', function () {
+            if (wrap.getAttribute('data-answered') === 'true') return;
+            wrap.setAttribute('data-answered', 'true');
+            answered++;
+            var isCorrect = i === item.answer;
+            if (isCorrect) correctCount++;
+            btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+            Array.prototype.forEach.call(options.querySelectorAll('.mcq-option'), function (other, j) {
+              other.disabled = true;
+              if (j === item.answer) other.classList.add('correct');
+            });
+            fb.className = 'mcq-feedback show ' + (isCorrect ? 'correct-fb' : 'incorrect-fb');
+            fb.textContent = (isCorrect ? '✅ Correct. ' : '❌ Not quite. ') + item.why;
+            updateScore();
+          });
+
+          options.appendChild(btn);
+        });
+
+        wrap.appendChild(options);
+        wrap.appendChild(fb);
+        mcqContainer.appendChild(wrap);
+      });
+      updateScore();
+
+      /* ================= CRQs ================= */
+      var crqContainer = document.getElementById('crqContainer');
+      crqs.forEach(function (item, idx) {
+        var wrap = document.createElement('div');
+        wrap.className = 'crq-item';
+
+        var q = document.createElement('p');
+        q.className = 'crq-question';
+        q.textContent = 'CRQ ' + (idx + 1) + '. ' + item.q;
+        wrap.appendChild(q);
+
+        var hint = document.createElement('p');
+        hint.className = 'crq-hint';
+        hint.textContent = 'Hint: ' + item.hint;
+        wrap.appendChild(hint);
+
+        var area = document.createElement('textarea');
+        area.className = 'crq-textarea';
+        area.setAttribute('aria-label', 'Your answer for CRQ ' + (idx + 1));
+        area.placeholder = 'Write your answer, then reveal the model answer to self-check.';
+        wrap.appendChild(area);
+
+        var meta = document.createElement('div');
+        meta.className = 'answer-meta';
+        var words = document.createElement('span');
+        words.textContent = '0 words';
+        var target = document.createElement('span');
+        target.textContent = 'Target: 80–120 words';
+        meta.appendChild(words);
+        meta.appendChild(target);
+        wrap.appendChild(meta);
+
+        area.addEventListener('input', function () {
+          var count = area.value.trim() ? area.value.trim().split(/\s+/).length : 0;
+          words.textContent = count + ' word' + (count === 1 ? '' : 's');
+        });
+
+        var actions = document.createElement('div');
+        actions.className = 'actions';
+        var showBtn = document.createElement('button');
+        showBtn.type = 'button';
+        showBtn.className = 'btn btn-primary';
+        showBtn.textContent = 'Show model answer';
+        var clearBtn = document.createElement('button');
+        clearBtn.type = 'button';
+        clearBtn.className = 'btn btn-secondary';
+        clearBtn.textContent = 'Clear';
+        actions.appendChild(showBtn);
+        actions.appendChild(clearBtn);
+        wrap.appendChild(actions);
+
+        var fb = document.createElement('div');
+        fb.className = 'crq-feedback';
+        wrap.appendChild(fb);
+
+        showBtn.addEventListener('click', function () {
+          var open = fb.classList.contains('show');
+          if (open) {
+            fb.className = 'crq-feedback';
+            fb.textContent = '';
+            showBtn.textContent = 'Show model answer';
+          } else {
+            fb.className = 'crq-feedback show model';
+            fb.textContent = 'Model answer: ' + item.model;
+            showBtn.textContent = 'Hide model answer';
+          }
+        });
+        clearBtn.addEventListener('click', function () {
+          area.value = '';
+          words.textContent = '0 words';
+          fb.className = 'crq-feedback';
+          fb.textContent = '';
+          showBtn.textContent = 'Show model answer';
+        });
+
+        crqContainer.appendChild(wrap);
+      });
+
+      /* ================= ERQ ================= */
+      var erqContainer = document.getElementById('erqContainer');
+      var eWrap = document.createElement('div');
+      eWrap.className = 'erq-item';
+
+      var marks = document.createElement('span');
+      marks.className = 'erq-marks';
+      marks.textContent = 'Extended response · 10 marks';
+      eWrap.appendChild(marks);
+
+      var eq = document.createElement('p');
+      eq.className = 'erq-question';
+      eq.textContent = erq.scenario + ' ' + erq.task;
+      eWrap.appendChild(eq);
+
+      var ehint = document.createElement('p');
+      ehint.className = 'crq-hint';
+      ehint.textContent = 'Guidance: ' + erq.hint;
+      eWrap.appendChild(ehint);
+
+      var eArea = document.createElement('textarea');
+      eArea.className = 'erq-textarea';
+      eArea.setAttribute('aria-label', 'Your extended response');
+      eArea.placeholder = 'Plan your response: identify the problem, apply the theory, then give concrete classroom actions and how you would evaluate them.';
+      eWrap.appendChild(eArea);
+
+      var eMeta = document.createElement('div');
+      eMeta.className = 'answer-meta';
+      var eWords = document.createElement('span');
+      eWords.textContent = '0 words';
+      var eTarget = document.createElement('span');
+      eTarget.textContent = 'Target: 250–400 words';
+      eMeta.appendChild(eWords);
+      eMeta.appendChild(eTarget);
+      eWrap.appendChild(eMeta);
+
+      eArea.addEventListener('input', function () {
+        var count = eArea.value.trim() ? eArea.value.trim().split(/\s+/).length : 0;
+        eWords.textContent = count + ' word' + (count === 1 ? '' : 's');
+      });
+
+      var eActions = document.createElement('div');
+      eActions.className = 'actions';
+      var checkBtn = document.createElement('button');
+      checkBtn.type = 'button';
+      checkBtn.className = 'btn btn-primary';
+      checkBtn.textContent = 'Check my response';
+      var modelBtn = document.createElement('button');
+      modelBtn.type = 'button';
+      modelBtn.className = 'btn btn-secondary';
+      modelBtn.textContent = 'Show model answer';
+      eActions.appendChild(checkBtn);
+      eActions.appendChild(modelBtn);
+      eWrap.appendChild(eActions);
+
+      var eFb = document.createElement('div');
+      eFb.className = 'erq-feedback';
+      eWrap.appendChild(eFb);
+
+      checkBtn.addEventListener('click', function () {
+        var answer = eArea.value.toLowerCase();
+        if (!answer.trim()) {
+          eFb.className = 'erq-feedback show partial';
+          eFb.textContent = 'Write your response first — aim for at least 250 words before self-checking.';
+          return;
+        }
+        var hits = erq.keywords.filter(function (k) {
+          return answer.indexOf(k.toLowerCase()) !== -1;
+        });
+        var ratio = hits.length / erq.keywords.length;
+        var missing = erq.keywords.filter(function (k) { return hits.indexOf(k) === -1; });
+        if (ratio >= 0.6) {
+          eFb.className = 'erq-feedback show good';
+          eFb.textContent = '✅ Strong coverage: ' + hits.length + ' of ' + erq.keywords.length +
+            ' expected ideas present (' + hits.join(', ') + '). Now tighten the structure: theory → diagnosis → actions → evaluation.' +
+            (missing.length ? ' Still to consider: ' + missing.join(', ') + '.' : '');
+        } else {
+          eFb.className = 'erq-feedback show partial';
+          eFb.textContent = '⚠️ Partial coverage: ' + hits.length + ' of ' + erq.keywords.length +
+            ' expected ideas found. Add: ' + missing.join(', ') + '.';
+        }
+      });
+
+      modelBtn.addEventListener('click', function () {
+        var open = eFb.classList.contains('show') && eFb.classList.contains('model');
+        if (open) {
+          eFb.className = 'erq-feedback';
+          eFb.textContent = '';
+          modelBtn.textContent = 'Show model answer';
+        } else {
+          eFb.className = 'erq-feedback show model';
+          eFb.textContent = 'Model answer: ' + erq.model;
+          modelBtn.textContent = 'Hide model answer';
+        }
+      });
+
+      erqContainer.appendChild(eWrap);
+    })();
+</script>
+</body>
+</html>

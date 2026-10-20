@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Developing Assessment-Embedded Lesson Plans — Classroom Assessment study note for the MUQABIL Teaching License hub: concepts, key vocabulary, comparison table, classroom application, misconceptions, takeaways and a practice quiz.">
+  <title>Developing Assessment-Embedded Lesson Plans · Classroom Assessment</title>
+  <style>
+    /* ================= DESIGN TOKENS ================= */
+    :root {
+      --navy: #0e2a47;
+      --navy-2: #12365c;
+      --blue: #2f6ca8;
+      --blue-soft: #8bb3e0;
+      --blue-tint: #eaf2fb;
+      --mark: #dbeafe;
+      --ink: #0b2138;
+      --ink-2: #1c3f60;
+      --body: #35536f;
+      --muted: #5d7893;
+      --line: #dfe9f5;
+      --paper: #ffffff;
+      --wash: #f5faff;
+      --amber: #b8860b;
+      --amber-tint: #fff8e6;
+      --green: #1f7a4d;
+      --green-tint: #eaf8f0;
+      --red: #a83535;
+      --red-tint: #fdf1f1;
+      --shadow-sm: 0 6px 16px -10px rgba(12, 38, 66, 0.35);
+      --shadow-md: 0 18px 36px -22px rgba(12, 38, 66, 0.45);
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
+      color: var(--body);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 4rem;
+    }
+
+    /* ================= READING PROGRESS ================= */
+    .progress-track {
+      position: fixed; top: 0; left: 0; right: 0; height: 4px;
+      background: rgba(14, 42, 71, 0.08); z-index: 90;
+    }
+    .progress-fill {
+      display: block; height: 100%; width: 0%;
+      background: linear-gradient(90deg, #2f6ca8, #6aa9dd, #9cc7ee);
+      border-radius: 0 4px 4px 0; transition: width 0.12s linear;
+    }
+
+    .shell { max-width: 1080px; margin: 0 auto; padding: 0 1.1rem; }
+
+    /* ================= HERO ================= */
+    .hero {
+      position: relative; overflow: hidden;
+      margin-top: 1.6rem;
+      border-radius: 30px;
+      padding: 2.4rem 2.2rem 3.4rem;
+      background: radial-gradient(120% 140% at 0% 0%, #163b63 0%, #0e2a47 55%, #0a1f36 100%);
+      color: #fff;
+      box-shadow: var(--shadow-md);
+    }
+    .hero::after {
+      content: ''; position: absolute; right: -120px; top: -120px;
+      width: 340px; height: 340px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(139, 179, 224, 0.28), transparent 68%);
+      pointer-events: none;
+    }
+    .hero-top { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-bottom: 1.1rem; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #eaf4ff; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      padding: 0.32rem 0.85rem; border-radius: 999px;
+    }
+    .hero-top .hero-track { font-size: 0.74rem; color: #a9c8e6; font-weight: 600; letter-spacing: 0.04em; }
+    .hero h1 {
+      font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+      line-height: 1.16; font-weight: 800; letter-spacing: -0.02em;
+      color: #ffffff; max-width: 22ch;
+    }
+    .tagline {
+      margin-top: 0.85rem; max-width: 62ch;
+      font-size: 1.02rem; color: #c9def3;
+      border-left: 3px solid var(--blue-soft); padding-left: 1rem;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.4rem; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px; padding: 0.34rem 0.8rem;
+      font-size: 0.76rem; font-weight: 600; color: #dceafa;
+    }
+
+    /* ================= BIG IDEA + OBJECTIVES ================= */
+    .brief {
+      display: grid; grid-template-columns: 1.35fr 1fr; gap: 1.1rem;
+      margin: -2.2rem 1.4rem 0; position: relative; z-index: 2;
+    }
+    .brief-card {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-lg); padding: 1.4rem 1.5rem;
+      box-shadow: var(--shadow-md);
+    }
+    .brief-label {
+      display: inline-block; margin: 0; line-height: 1.2;
+      font-size: 0.68rem; font-weight: 800;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue);
+      margin-bottom: 0.55rem;
+    }
+    .brief-card p { font-size: 0.96rem; color: var(--ink-2); }
+    .objectives { list-style: none; counter-reset: obj; display: grid; gap: 0.7rem; }
+    .objectives li {
+      position: relative; padding-left: 2.1rem; font-size: 0.9rem;
+      color: var(--ink-2); line-height: 1.55;
+    }
+    .objectives li::before {
+      counter-increment: obj; content: counter(obj);
+      position: absolute; left: 0; top: 0.05rem;
+      width: 1.4rem; height: 1.4rem; border-radius: 50%;
+      display: grid; place-items: center;
+      background: var(--blue-tint); color: var(--blue);
+      font-size: 0.72rem; font-weight: 800;
+    }
+
+    /* ================= TABLE OF CONTENTS ================= */
+    .toc {
+      margin: 1.6rem 0 0; background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--line); border-radius: var(--radius-lg);
+      padding: 1.1rem 1.2rem; backdrop-filter: blur(4px);
+    }
+    .toc-title {
+      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem;
+    }
+    .toc-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0.35rem; }
+    .toc-list a {
+      display: flex; align-items: baseline; gap: 0.55rem;
+      padding: 0.42rem 0.5rem; border-radius: 10px;
+      text-decoration: none; color: var(--ink-2);
+      font-size: 0.88rem; font-weight: 600; transition: background 0.15s, color 0.15s;
+    }
+    .toc-list a:hover, .toc-list a:focus-visible { background: var(--blue-tint); color: var(--navy); }
+    .toc-num {
+      font-size: 0.68rem; font-weight: 800; color: var(--blue);
+      background: var(--blue-tint); border-radius: 6px; padding: 0.1rem 0.4rem;
+      flex-shrink: 0;
+    }
+
+    /* ================= TOOLBAR / SEARCH ================= */
+    .toolbar {
+      position: sticky; top: 0; z-index: 60;
+      margin: 1.6rem 0 0.4rem; padding: 0.6rem 0;
+      background: linear-gradient(180deg, rgba(243, 246, 253, 0.97) 65%, rgba(243, 246, 253, 0));
+    }
+    .toolbar-inner {
+      display: flex; align-items: center; gap: 0.7rem;
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: 999px; padding: 0.45rem 0.55rem 0.45rem 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .search-box { display: flex; align-items: center; gap: 0.55rem; flex: 1; min-width: 0; }
+    .search-box span { font-size: 0.95rem; opacity: 0.7; }
+    .search-box input {
+      border: none; outline: none; background: transparent;
+      font: inherit; font-size: 0.92rem; color: var(--ink);
+      width: 100%; padding: 0.3rem 0;
+    }
+    .search-box input::placeholder { color: #93a8bd; }
+    .count-pill {
+      flex-shrink: 0; background: var(--navy); color: #fff;
+      font-size: 0.75rem; font-weight: 700;
+      padding: 0.4rem 0.85rem; border-radius: 999px; white-space: nowrap;
+    }
+
+    /* ================= SECTION HEADERS ================= */
+    .section { margin-top: 3rem; scroll-margin-top: 90px; }
+    .section-head { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.3rem; }
+    .section-num {
+      flex-shrink: 0; width: 46px; height: 46px; border-radius: 15px;
+      display: grid; place-items: center;
+      background: var(--navy); color: #fff;
+      font-size: 0.9rem; font-weight: 800; letter-spacing: 0.02em;
+      box-shadow: 0 8px 18px -10px rgba(14, 42, 71, 0.9);
+    }
+    .eyebrow {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 0.18rem;
+    }
+    .section-head h2 {
+      font-size: clamp(1.25rem, 2.2vw, 1.6rem); font-weight: 800;
+      color: var(--ink); letter-spacing: -0.015em; line-height: 1.25;
+    }
+    .section-lead {
+      margin-top: 0.3rem; font-size: 0.92rem; color: var(--muted); max-width: 68ch;
+    }
+
+    /* ================= CONCEPT CARDS ================= */
+    .concept-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
+    .concept-card {
+      position: relative; display: flex; flex-direction: column;
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-md); padding: 1.25rem 1.25rem 1.1rem;
+      box-shadow: var(--shadow-sm); overflow: hidden;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+    .concept-card::before {
+      content: ''; position: absolute; inset: 0 0 auto 0; height: 4px;
+      background: linear-gradient(90deg, var(--blue), var(--blue-soft), #cfe2f5);
+    }
+    .concept-card:hover {
+      transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: #c4dcf2;
+    }
+    .concept-top { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; }
+    .concept-icon {
+      width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center;
+      background: var(--blue-tint); font-size: 1.2rem;
+    }
+    .concept-index {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em;
+      color: #9fb6cc; border: 1px solid var(--line); border-radius: 999px;
+      padding: 0.12rem 0.5rem;
+    }
+    .concept-title {
+      margin: 0.75rem 0 0.4rem; font-size: 1.02rem; font-weight: 800;
+      color: var(--ink); line-height: 1.35;
+    }
+    .concept-desc { font-size: 0.9rem; color: var(--body); }
+    .concept-desc strong, .vocab-def strong, .myth-reality strong, .takeaways strong, .lead-para strong {
+      color: #0a3a68; font-weight: 700;
+      background: linear-gradient(transparent 64%, var(--mark) 64%);
+      padding: 0 1px; border-radius: 2px;
+    }
+    .practice {
+      margin-top: auto; padding-top: 0.9rem;
+    }
+    .practice-box {
+      background: var(--wash); border: 1px solid #e2eefa;
+      border-left: 3px solid var(--blue); border-radius: 10px;
+      padding: 0.65rem 0.8rem;
+    }
+    .practice-label {
+      display: block; font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue);
+      margin-bottom: 0.18rem;
+    }
+    .practice-box p { font-size: 0.85rem; color: var(--ink-2); line-height: 1.5; }
+
+    /* ================= VOCABULARY ================= */
+    .vocab-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 0.75rem; margin: 0;
+    }
+    .vocab-card {
+      background: var(--paper); border: 1px solid var(--line);
+      border-left: 4px solid var(--blue-soft);
+      border-radius: var(--radius-sm); padding: 0.85rem 1rem;
+      box-shadow: 0 4px 12px -10px rgba(12, 38, 66, 0.4);
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .vocab-card:hover { border-left-color: var(--blue); transform: translateY(-2px); }
+    .vocab-term {
+      font-size: 0.9rem; font-weight: 800; color: var(--navy);
+      display: block; margin-bottom: 0.22rem; line-height: 1.35;
+    }
+    .vocab-def { font-size: 0.85rem; color: var(--body); line-height: 1.55; }
+
+    /* ================= TABLE ================= */
+    .table-shell {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .table-caption {
+      display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+      padding: 0.9rem 1.1rem; border-bottom: 1px solid var(--line);
+      background: #fbfdff;
+    }
+    .table-caption strong { font-size: 0.92rem; font-weight: 800; color: var(--ink); }
+    .table-caption span { font-size: 0.72rem; font-weight: 700; color: var(--muted); white-space: nowrap; }
+    .table-scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.86rem; min-width: 640px; }
+    thead th {
+      position: sticky; top: 0; z-index: 1;
+      background: var(--navy); color: #fff; text-align: left;
+      padding: 0.7rem 0.9rem; font-size: 0.76rem; font-weight: 700;
+      letter-spacing: 0.045em; text-transform: uppercase; white-space: nowrap;
+    }
+    tbody td { padding: 0.7rem 0.9rem; border-bottom: 1px solid #eef4fb; vertical-align: top; line-height: 1.5; }
+    tbody td:first-child { font-weight: 700; color: var(--navy); background: #fbfdff; }
+    tbody tr:nth-child(even) td { background: #f7fbff; }
+    tbody tr:nth-child(even) td:first-child { background: #f1f8ff; }
+    tbody tr:last-child td { border-bottom: none; }
+
+    /* ================= DO / AVOID ================= */
+    .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .dd-card {
+      border-radius: var(--radius-md); padding: 1.2rem 1.3rem;
+      border: 1px solid; box-shadow: var(--shadow-sm);
+    }
+    .dd-card.do { background: var(--green-tint); border-color: #bfe6d1; }
+    .dd-card.avoid { background: var(--red-tint); border-color: #efc9c9; }
+    .dd-card h3 {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.95rem; font-weight: 800; margin-bottom: 0.8rem;
+      letter-spacing: 0.01em;
+    }
+    .dd-card.do h3 { color: var(--green); }
+    .dd-card.avoid h3 { color: var(--red); }
+    .dd-card ul { list-style: none; display: grid; gap: 0.45rem; }
+    .dd-card li { position: relative; padding-left: 1.45rem; font-size: 0.87rem; color: var(--ink-2); line-height: 1.55; }
+    .dd-card.do li::before { content: '✔'; position: absolute; left: 0; color: var(--green); font-weight: 800; }
+    .dd-card.avoid li::before { content: '✕'; position: absolute; left: 0; color: var(--red); font-weight: 800; }
+
+    /* ================= MYTHS ================= */
+    .myth-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
+    .myth-card {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-md); padding: 1.1rem 1.2rem;
+      box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 0.55rem;
+    }
+    .myth-tag {
+      align-self: flex-start; display: inline-flex; align-items: center; gap: 0.35rem;
+      background: var(--red-tint); color: var(--red); border: 1px solid #f0cfcf;
+      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.18rem 0.55rem; border-radius: 999px;
+    }
+    .myth-claim { font-size: 0.93rem; font-weight: 700; color: var(--ink); line-height: 1.45; }
+    .myth-reality {
+      border-top: 1px dashed var(--line); padding-top: 0.55rem;
+      font-size: 0.86rem; color: var(--body);
+    }
+    .reality-tag {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      color: var(--green); font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.2rem;
+    }
+
+    /* ================= TAKEAWAYS ================= */
+    .takeaways {
+      background: linear-gradient(135deg, #12365c 0%, #0e2a47 100%);
+      color: #eaf4ff; border-radius: var(--radius-lg);
+      padding: 1.6rem 1.7rem; box-shadow: var(--shadow-md);
+      counter-reset: take;
+    }
+    .takeaways h3 {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.16em;
+      text-transform: uppercase; color: #9cc7ee; margin-bottom: 0.9rem;
+    }
+    .takeaways ol { list-style: none; display: grid; gap: 0.6rem; }
+    .takeaways li {
+      counter-increment: take; position: relative; padding-left: 2.2rem;
+      font-size: 0.9rem; line-height: 1.55;
+    }
+    .takeaways li::before {
+      content: counter(take, decimal-leading-zero);
+      position: absolute; left: 0; top: 0.12rem;
+      font-size: 0.72rem; font-weight: 800; color: #8bb3e0;
+      border: 1px solid rgba(139, 179, 224, 0.4);
+      border-radius: 6px; padding: 0.05rem 0.35rem;
+    }
+    .takeaways strong { color: #ffffff; background: none; }
+
+    /* ================= SUMMARY + EXAM TIP ================= */
+    .summary {
+      margin-top: 1rem; display: flex; gap: 0.9rem;
+      background: var(--paper); border: 1px solid var(--line);
+      border-left: 5px solid var(--blue);
+      border-radius: var(--radius-md); padding: 1.1rem 1.3rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .summary-label {
+      flex-shrink: 0; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--blue);
+      writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);
+    }
+    .summary p { font-size: 0.95rem; color: var(--ink-2); }
+
+    .exam-tip {
+      margin-top: 1rem; display: flex; gap: 0.8rem;
+      background: var(--amber-tint); border: 1px solid #f2e0b3;
+      border-radius: var(--radius-md); padding: 1rem 1.2rem;
+    }
+    .exam-tip .tip-icon { font-size: 1.1rem; line-height: 1.4; }
+    .exam-tip .tip-label {
+      display: block; font-size: 0.64rem; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--amber); margin-bottom: 0.15rem;
+    }
+    .exam-tip p { font-size: 0.88rem; color: #6b5310; }
+
+    /* ================= QUIZ ================= */
+    .quiz {
+      margin-top: 3rem; border-radius: var(--radius-lg);
+      overflow: hidden; box-shadow: var(--shadow-md); scroll-margin-top: 90px;
+    }
+    .quiz-head {
+      background: radial-gradient(120% 140% at 100% 0%, #1a4470 0%, #0e2a47 62%);
+      color: #fff; padding: 1.5rem 1.7rem;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.9rem;
+    }
+    .quiz-head .eyebrow { color: #9cc7ee; }
+    .quiz-head h2 { font-size: 1.35rem; font-weight: 800; color: #fff; }
+    .quiz-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .quiz-chips span {
+      background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px; padding: 0.28rem 0.7rem; font-size: 0.74rem; font-weight: 700; color: #dceafa;
+    }
+    .quiz-body { background: var(--paper); padding: 1.5rem 1.7rem 1.8rem; }
+
+    .quiz-tabs { display: flex; flex-wrap: wrap; gap: 0.45rem; border-bottom: 1px solid var(--line); padding-bottom: 0.9rem; margin-bottom: 1.2rem; }
+    .quiz-tab {
+      font: inherit; font-size: 0.84rem; font-weight: 700; cursor: pointer;
+      color: var(--ink-2); background: #f2f7fd; border: 1px solid var(--line);
+      border-radius: 999px; padding: 0.42rem 1rem; transition: all 0.15s;
+    }
+    .quiz-tab:hover { background: var(--blue-tint); border-color: #bcd8f0; }
+    .quiz-tab.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+    .quiz-tab:focus-visible { outline: 3px solid rgba(47, 108, 168, 0.35); outline-offset: 2px; }
+
+    .quiz-panel { display: none; }
+    .quiz-panel.active { display: block; }
+    .panel-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem; margin-bottom: 1rem; }
+    .section-label {
+      display: inline-block; background: var(--navy); color: #fff;
+      font-size: 0.66rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.28rem 0.75rem; border-radius: 999px;
+    }
+    .score-chip {
+      font-size: 0.76rem; font-weight: 700; color: var(--blue);
+      background: var(--blue-tint); border-radius: 999px; padding: 0.28rem 0.8rem;
+    }
+
+    .mcq-item {
+      background: #fbfdff; border: 1px solid #e4eefa;
+      border-radius: var(--radius-md); padding: 1rem 1.1rem; margin-bottom: 0.85rem;
+    }
+    .mcq-question {
+      display: flex; gap: 0.6rem; font-size: 0.93rem; font-weight: 700;
+      color: var(--ink); line-height: 1.5; margin-bottom: 0.75rem;
+    }
+    .mcq-question .q-num { color: var(--blue); font-weight: 800; }
+    .mcq-options { display: grid; gap: 0.45rem; }
+    .mcq-option {
+      display: flex; align-items: flex-start; gap: 0.6rem; width: 100%;
+      text-align: left; font: inherit; font-size: 0.87rem; color: var(--ink-2);
+      background: #fff; border: 1.5px solid #e2edf9; border-radius: 11px;
+      padding: 0.55rem 0.75rem; cursor: pointer; transition: all 0.15s;
+    }
+    .mcq-option:hover:not(:disabled) { border-color: #b7d4ee; background: #f7fbff; }
+    .mcq-option:disabled { cursor: default; }
+    .option-letter {
+      flex-shrink: 0; width: 1.35rem; height: 1.35rem; border-radius: 50%;
+      display: grid; place-items: center; font-size: 0.7rem; font-weight: 800;
+      background: #eef5fd; color: var(--blue);
+    }
+    .mcq-option.correct { border-color: #7fc7a1; background: var(--green-tint); font-weight: 600; }
+    .mcq-option.correct .option-letter { background: #cdeedb; color: #14603c; }
+    .mcq-option.incorrect { border-color: #e0a3a3; background: var(--red-tint); }
+    .mcq-option.incorrect .option-letter { background: #f4d4d4; color: #8f2b2b; }
+    .mcq-feedback {
+      display: none; margin-top: 0.65rem; font-size: 0.85rem;
+      border-radius: 10px; padding: 0.55rem 0.8rem; line-height: 1.5;
+    }
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.correct-fb { background: var(--green-tint); color: #14603c; border-left: 3px solid #2e9b5e; }
+    .mcq-feedback.incorrect-fb { background: var(--red-tint); color: #8f2b2b; border-left: 3px solid #d45a5a; }
+
+    .crq-item, .erq-item {
+      background: #fbfdff; border: 1px solid #e4eefa;
+      border-radius: var(--radius-md); padding: 1.1rem 1.2rem; margin-bottom: 0.9rem;
+    }
+    .erq-item { border: 2px solid var(--blue-soft); background: #f7fbff; }
+    .crq-question, .erq-question {
+      font-size: 0.95rem; font-weight: 700; color: var(--ink); line-height: 1.5; margin-bottom: 0.4rem;
+    }
+    .erq-marks {
+      display: inline-block; background: var(--navy); color: #fff;
+      font-size: 0.65rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.22rem 0.7rem; border-radius: 999px; margin-bottom: 0.6rem;
+    }
+    .crq-hint { font-size: 0.82rem; color: var(--muted); font-style: italic; margin-bottom: 0.6rem; }
+    .crq-textarea, .erq-textarea {
+      width: 100%; font: inherit; font-size: 0.88rem; color: var(--ink-2);
+      background: #fff; border: 1.5px solid #dbe8f6; border-radius: 11px;
+      padding: 0.7rem 0.85rem; resize: vertical; transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .crq-textarea { min-height: 96px; }
+    .erq-textarea { min-height: 170px; }
+    .crq-textarea:focus, .erq-textarea:focus {
+      outline: none; border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(47, 108, 168, 0.13);
+    }
+    .answer-meta {
+      display: flex; justify-content: space-between; gap: 0.6rem;
+      font-size: 0.74rem; color: var(--muted); margin-top: 0.35rem;
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.65rem; }
+    .btn {
+      font: inherit; font-size: 0.83rem; font-weight: 700; cursor: pointer;
+      border-radius: 999px; padding: 0.48rem 1.1rem; border: 1px solid transparent;
+      transition: all 0.15s;
+    }
+    .btn-primary { background: var(--navy); color: #fff; }
+    .btn-primary:hover { background: #16406c; transform: translateY(-1px); }
+    .btn-secondary { background: #eef5fd; color: #1b4670; border-color: #cfe2f4; }
+    .btn-secondary:hover { background: #e0edfa; }
+    .btn:focus-visible { outline: 3px solid rgba(47, 108, 168, 0.35); outline-offset: 2px; }
+    .crq-feedback, .erq-feedback {
+      display: none; margin-top: 0.7rem; border-radius: 10px;
+      padding: 0.7rem 0.9rem; font-size: 0.86rem; line-height: 1.6;
+    }
+    .crq-feedback.show, .erq-feedback.show { display: block; }
+    .crq-feedback.model, .erq-feedback.model { background: var(--blue-tint); color: #143c62; border-left: 3px solid var(--blue); }
+    .crq-feedback.good, .erq-feedback.good { background: var(--green-tint); color: #14603c; border-left: 3px solid #2e9b5e; }
+    .crq-feedback.partial, .erq-feedback.partial { background: var(--amber-tint); color: #6b5310; border-left: 3px solid #e0a800; }
+
+    /* ================= FOOTER + TOP BUTTON ================= */
+    .note-footer {
+      margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid var(--line);
+      display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem;
+      font-size: 0.76rem; color: var(--muted);
+    }
+    .to-top {
+      position: fixed; right: 1.1rem; bottom: 1.1rem; z-index: 70;
+      width: 44px; height: 44px; border-radius: 50%; border: none; cursor: pointer;
+      background: var(--navy); color: #fff; font-size: 1.05rem;
+      box-shadow: var(--shadow-md); opacity: 0; pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .to-top.visible { opacity: 1; pointer-events: auto; }
+    .to-top:hover { transform: translateY(-2px); }
+
+    .no-results {
+      grid-column: 1 / -1; text-align: center; padding: 2rem 1rem;
+      background: rgba(255, 255, 255, 0.8); border: 2px dashed #c3d8ee;
+      border-radius: var(--radius-md); color: var(--muted); font-weight: 600; font-size: 0.9rem;
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 900px) {
+      .brief { grid-template-columns: 1fr; margin: -1.6rem 0.8rem 0; }
+      .do-dont { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 1.7rem 1.25rem 2.8rem; border-radius: 24px; }
+      .hero h1 { max-width: none; }
+      .brief { margin: -1.4rem 0.5rem 0; }
+      .brief-card { padding: 1.1rem 1.15rem; border-radius: 18px; }
+      .section-head { gap: 0.7rem; }
+      .section-num { width: 38px; height: 38px; border-radius: 12px; font-size: 0.8rem; }
+      .concept-grid, .vocab-grid, .myth-grid { grid-template-columns: 1fr; }
+      .toolbar-inner { border-radius: 18px; padding: 0.55rem 0.75rem; }
+      .quiz-body { padding: 1.1rem 1rem 1.4rem; }
+      .quiz-head { padding: 1.2rem 1.1rem; }
+      .takeaways { padding: 1.2rem 1.1rem; }
+      .summary { flex-direction: column; gap: 0.5rem; }
+      .summary-label { writing-mode: horizontal-tb; transform: none; }
+    }
+
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-track { background: #e4ecf6; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: #a9c0d8; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: #7f9cba; }
+
+    ::selection { background: #cfe3f8; color: #0b2138; }
+
+    .toc-list a:focus-visible,
+    .mcq-option:focus-visible,
+    .quiz-tab:focus-visible,
+    .btn:focus-visible,
+    .to-top:focus-visible {
+      outline: 3px solid rgba(47, 108, 168, 0.4);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
+    /* ================= PRINT ================= */
+    @media print {
+      body { background: #fff; padding: 0; }
+      .progress-track, .toolbar, .to-top, .quiz-tabs { display: none !important; }
+      .hero { box-shadow: none; border-radius: 0; }
+      .quiz-panel { display: block !important; }
+      .concept-card, .vocab-card, .myth-card, .table-shell { break-inside: avoid; }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="progress-track" aria-hidden="true"><span class="progress-fill" id="progressFill"></span></div>
+
+  <div class="shell">
+    <!-- ================= HERO ================= -->
+    <header class="hero">
+      <div class="hero-top">
+        <span class="badge">📊 Classroom Assessment</span>
+        <span class="hero-track">Teaching License · Part II · Note 6 of 11</span>
+      </div>
+      <h1>Developing Assessment-Embedded Lesson Plans</h1>
+      <p class="tagline">Plan backwards from the evidence — if you cannot say what you will look for, the objective is not yet a plan</p>
+      <div class="chips">
+        <span class="chip">⏱️ 10 min read</span>
+        <span class="chip">📚 7 sections</span>
+        <span class="chip">🔑 12 key terms</span>
+        <span class="chip">📝 10 MCQs · 4 CRQs · 1 ERQ</span>
+      </div>
+    </header>
+
+    <!-- ================= BIG IDEA + OBJECTIVES ================= -->
+    <div class="brief">
+      <section class="brief-card" aria-labelledby="bigidea-title">
+        <h2 class="brief-label" id="bigidea-title">The big idea</h2>
+        <p>An <strong>assessment-embedded lesson plan</strong> is a plan in which assessment is designed at the same time as the activities, not added afterwards. It starts from <strong>constructive alignment</strong>: the learning outcome, the teaching activity and the evidence of learning must all point at the same thing. <strong>Backward design</strong> makes this concrete — identify the desired result, decide what would count as acceptable evidence, and only then plan the learning experiences. In practice this means every plan contains stated outcomes, shared <strong>success criteria</strong>, a diagnostic opening, at least one mid-lesson <strong>check for understanding</strong> with a decision rule, and an end-of-lesson <strong>exit ticket</strong> whose results shape the next lesson.</p>
+      </section>
+      <section class="brief-card" aria-labelledby="objectives-title">
+        <h2 class="brief-label" id="objectives-title">What you will master</h2>
+        <ol class="objectives"><li>Write a lesson outcome and <strong>success criteria</strong> that make the evidence of learning observable.</li><li>Apply <strong>backward design</strong> and <strong>constructive alignment</strong> to sequence a lesson from outcome to evidence to activity.</li><li>Build a lesson assessment map with diagnostic, hinge and exit points, each with an explicit decision rule.</li></ol>
+      </section>
+    </div>
+
+    <!-- ================= TABLE OF CONTENTS ================= -->
+    <nav class="toc" aria-label="Sections in this note">
+      <p class="toc-title">On this page</p>
+      <ol class="toc-list">
+        <li><a href="#concepts"><span class="toc-num">01</span> Core concepts</a></li>
+        <li><a href="#vocabulary"><span class="toc-num">02</span> Key vocabulary</a></li>
+        <li><a href="#comparison"><span class="toc-num">03</span> Comparison table</a></li>
+        <li><a href="#application"><span class="toc-num">04</span> Classroom application</a></li>
+        <li><a href="#misconceptions"><span class="toc-num">05</span> Misconceptions</a></li>
+        <li><a href="#takeaways"><span class="toc-num">06</span> Takeaways &amp; exam tip</a></li>
+        <li><a href="#practice"><span class="toc-num">07</span> Practice quiz</a></li>
+      </ol>
+    </nav>
+
+    <!-- ================= SEARCH ================= -->
+    <div class="toolbar">
+      <div class="toolbar-inner">
+        <div class="search-box">
+          <span aria-hidden="true">🔍</span>
+          <input id="searchInput" type="search" placeholder="Search concepts, key terms and misconceptions…" aria-label="Search this note">
+        </div>
+        <div class="count-pill" id="countDisplay" role="status" aria-live="polite">22 items</div>
+      </div>
+    </div>
+
+    <!-- ================= 01 CONCEPTS ================= -->
+    <section class="section" id="concepts" aria-labelledby="concepts-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">01</span>
+        <div>
+          <p class="eyebrow">Foundations</p>
+          <h2 id="concepts-title">Core concepts</h2>
+          <p class="section-lead">Each card isolates one idea examiners test. Read the definition first, then the <em>In practice</em> line — that is where scenario questions begin.</p>
+        </div>
+      </div>
+      <div class="concept-grid" id="conceptGrid">
+        <article class="concept-card" data-searchable="Constructive alignment: outcome, activity, evidence">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🔗</span>
+            <span class="concept-index">01</span>
+          </div>
+          <h3 class="concept-title">Constructive alignment: outcome, activity, evidence</h3>
+          <p class="concept-desc"><strong>Constructive alignment</strong> (Biggs) requires that the intended learning outcome, the activity learners do, and the assessment task all address the same verb at the same cognitive level. If the outcome says ‘compare’, an activity of copying definitions and a test item asking for recall are misaligned, and no amount of marking will fix the design.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Underline the verb in your outcome, then check that the activity and the assessment both require that verb.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Backward design: evidence before activity">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">⏪</span>
+            <span class="concept-index">02</span>
+          </div>
+          <h3 class="concept-title">Backward design: evidence before activity</h3>
+          <p class="concept-desc"><strong>Backward design</strong> (Wiggins and McTighe) proceeds in three stages: identify the desired results, determine what would count as acceptable evidence, then plan learning experiences. Planning activities first usually produces busy lessons whose learning cannot be demonstrated. Planning evidence first forces clarity about what ‘success’ looks like before the lesson begins.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Draft the exit ticket before you draft the group activity.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Outcomes and success criteria that can be seen">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🎯</span>
+            <span class="concept-index">03</span>
+          </div>
+          <h3 class="concept-title">Outcomes and success criteria that can be seen</h3>
+          <p class="concept-desc">A usable outcome names an observable performance: ‘Learners will be able to convert between fractions, decimals and percentages for common values.’ <strong>Success criteria</strong> unpack it into what the learner’s work will contain — for example, ‘I can convert 3/4 to 0.75 and to 75% and explain the method.’ Criteria must be visible to learners, not kept in the plan.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Write criteria in the first person (‘I can…’) and display them for the whole lesson.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="The opening diagnostic: start where they are">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🧭</span>
+            <span class="concept-index">04</span>
+          </div>
+          <h3 class="concept-title">The opening diagnostic: start where they are</h3>
+          <p class="concept-desc">Every lesson should begin with a two- to five-minute check of the prerequisite knowledge the new learning depends on. This is <strong>diagnostic assessment</strong> at lesson scale: a quick problem, a sorting task, or three recall questions. Its purpose is to decide whether to proceed, briefly repair, or change the planned entry point.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Identify the one prerequisite idea the lesson cannot work without, and test only that.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Mid-lesson checks and decision rules">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">⏱️</span>
+            <span class="concept-index">05</span>
+          </div>
+          <h3 class="concept-title">Mid-lesson checks and decision rules</h3>
+          <p class="concept-desc">A <strong>check for understanding</strong> — a <strong>hinge question</strong>, mini-whiteboards, cold call, or a quick pair explanation — sits at the point where the lesson would otherwise move from teaching to practice. It is only useful if the plan states a <strong>decision rule</strong> in advance: for example, ‘if more than a third answer B, reteach with a diagram before practice.’</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Write the decision rule next to the question on the plan so you act in the moment rather than improvise.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="The exit ticket and the next-lesson handover">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🎟️</span>
+            <span class="concept-index">06</span>
+          </div>
+          <h3 class="concept-title">The exit ticket and the next-lesson handover</h3>
+          <p class="concept-desc">The <strong>exit ticket</strong> is a short end-of-lesson task that produces evidence from every learner in under five minutes. Its design determines the next lesson: the plan should state how the tickets will be sorted and what each group will do next. Assessment-embedded planning therefore joins two lessons — the evidence collected at the end of one becomes the opening activity of the next.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Sort exit tickets into three piles — secure, partial, not yet — and start the next lesson with the middle pile.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= 02 VOCABULARY ================= -->
+    <section class="section" id="vocabulary" aria-labelledby="vocab-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">02</span>
+        <div>
+          <p class="eyebrow">Precision</p>
+          <h2 id="vocab-title">Key vocabulary</h2>
+          <p class="section-lead">Be able to define each term in one sentence. Bold terms below also appear highlighted inside the notes, so you can meet them in context.</p>
+        </div>
+      </div>
+      <dl class="vocab-grid" id="vocabGrid">
+        <div class="vocab-card" data-searchable="Constructive alignment">
+          <dt class="vocab-term">Constructive alignment</dt>
+          <dd class="vocab-def">Designing outcomes, activities and assessment so that all three require the same learning at the same cognitive level.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Backward design">
+          <dt class="vocab-term">Backward design</dt>
+          <dd class="vocab-def">Planning from desired results to acceptable evidence to learning experiences.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Learning outcome">
+          <dt class="vocab-term">Learning outcome</dt>
+          <dd class="vocab-def">An observable statement of what learners will know or be able to do by the end of a lesson or unit.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Success criteria">
+          <dt class="vocab-term">Success criteria</dt>
+          <dd class="vocab-def">Learner-facing statements describing what a successful performance contains.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Check for understanding">
+          <dt class="vocab-term">Check for understanding</dt>
+          <dd class="vocab-def">A quick mid-lesson assessment used to decide whether to proceed, repair or reteach.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Hinge question">
+          <dt class="vocab-term">Hinge question</dt>
+          <dd class="vocab-def">A single diagnostic question at a decision point in the lesson, with distractors for common misconceptions.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Decision rule">
+          <dt class="vocab-term">Decision rule</dt>
+          <dd class="vocab-def">A pre-planned response specifying what the teacher will do for each likely pattern of results.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Exit ticket">
+          <dt class="vocab-term">Exit ticket</dt>
+          <dd class="vocab-def">A short end-of-lesson task that captures every learner’s understanding.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Diagnostic assessment">
+          <dt class="vocab-term">Diagnostic assessment</dt>
+          <dd class="vocab-def">Assessment of prerequisite knowledge and misconceptions before new teaching.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Scaffolding">
+          <dt class="vocab-term">Scaffolding</dt>
+          <dd class="vocab-def">Temporary support that is withdrawn as competence develops.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Formative task">
+          <dt class="vocab-term">Formative task</dt>
+          <dd class="vocab-def">A task whose primary purpose is to generate evidence and feedback during learning.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Table of specifications">
+          <dt class="vocab-term">Table of specifications</dt>
+          <dd class="vocab-def">A blueprint that maps assessment items to content and cognitive levels.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- ================= 03 COMPARISON ================= -->
+    <section class="section" id="comparison" aria-labelledby="comparison-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">03</span>
+        <div>
+          <p class="eyebrow">Distinctions</p>
+          <h2 id="comparison-title">Comparison table</h2>
+          <p class="section-lead">Use this table for “differentiate between”, “compare” and “which is most appropriate” questions — name the dimension, then the contrast.</p>
+        </div>
+      </div>
+      <div class="table-shell" id="compareGrid">
+        <div class="table-caption">
+          <strong>Assessment Map for One 40-Minute Lesson</strong>
+          <span>Swipe to view all columns →</span>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr><th scope="col">Lesson phase</th><th scope="col">Assessment moment</th><th scope="col">Tool</th><th scope="col">Decision if evidence is weak</th></tr>
+            </thead>
+            <tbody>
+            <tr><td>Opening (0–5 min)</td><td>Prerequisite check</td><td>Three-question diagnostic on the board</td><td>Repair the prerequisite for 5 minutes before proceeding</td></tr>
+            <tr><td>Teaching (5–18 min)</td><td>Guided questioning</td><td>Cold call plus mini-whiteboards</td><td>Re-explain with a second representation</td></tr>
+            <tr><td>Transition (18–22 min)</td><td>Hinge question</td><td>One multiple-choice item with misconception distractors</td><td>If over one third choose a distractor, reteach before practice</td></tr>
+            <tr><td>Practice (22–35 min)</td><td>Monitoring and feedback</td><td>Circulation with a checklist; peer check against criteria</td><td>Pull a small group; scaffold the first step</td></tr>
+            <tr><td>Close (35–40 min)</td><td>Exit ticket</td><td>Two items: one routine, one transfer</td><td>Sort into three piles and start the next lesson with the middle pile</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 04 APPLICATION ================= -->
+    <section class="section" id="application" aria-labelledby="application-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">04</span>
+        <div>
+          <p class="eyebrow">Practice</p>
+          <h2 id="application-title">Classroom application</h2>
+          <p class="section-lead">What to do, and what to avoid, in a real classroom. The left column is the standard to teach; the right column lists the errors that cost marks and learning.</p>
+        </div>
+      </div>
+      <div class="do-dont" id="applyGrid">
+        <div class="dd-card do">
+          <h3><span aria-hidden="true">✅</span> Do this</h3>
+          <ul><li>Write the <strong>learning outcome</strong> as an observable performance with one clear verb.</li><li>Derive <strong>success criteria</strong> from the outcome and display them to learners.</li><li>Begin with a short <strong>diagnostic</strong> check of the prerequisite idea.</li><li>Plan one <strong>check for understanding</strong> with a written <strong>decision rule</strong>.</li><li>Design the <strong>exit ticket</strong> before designing the activities.</li><li>Plan how the evidence will change the next lesson, and note it on the plan.</li></ul>
+        </div>
+        <div class="dd-card avoid">
+          <h3><span aria-hidden="true">🚫</span> Avoid this</h3>
+          <ul><li>Do not write activities first and invent an objective to fit them.</li><li>Do not use outcomes such as ‘understand’ or ‘know’ with no observable evidence.</li><li>Do not plan an assessment you have no intention of acting on.</li><li>Do not put the only check at the end of the lesson; by then it is summative for that lesson.</li><li>Do not let the exit ticket become a graded test — keep it low-stakes and fast.</li><li>Do not ignore the results; an unread exit ticket is paperwork.</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 05 MISCONCEPTIONS ================= -->
+    <section class="section" id="misconceptions" aria-labelledby="misconceptions-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">05</span>
+        <div>
+          <p class="eyebrow">Exam traps</p>
+          <h2 id="misconceptions-title">Common misconceptions</h2>
+          <p class="section-lead">Each misconception below is a plausible-sounding statement that loses marks. Learn the reality column as a correction you can write.</p>
+        </div>
+      </div>
+      <div class="myth-grid" id="misGrid">
+        <article class="myth-card" data-searchable="&ldquo;A lesson plan only needs objectives and activities; assessment belongs to the end of the unit.&rdquo;">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;A lesson plan only needs objectives and activities; assessment belongs to the end of the unit.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>If assessment is only at the end, teaching cannot respond. <strong>Assessment-embedded plans</strong> place evidence points inside the lesson so that instruction can change while it still matters.</p>
+          </div>
+        </article>
+        <article class="myth-card" data-searchable="&ldquo;Adding assessment to a lesson means adding a test.&rdquo;">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;Adding assessment to a lesson means adding a test.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>Most embedded assessment is questioning, observation, whiteboards and a two-item exit ticket. It adds minutes, not papers.</p>
+          </div>
+        </article>
+        <article class="myth-card" data-searchable="&ldquo;Backward design is only for whole units, not single lessons.&rdquo;">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;Backward design is only for whole units, not single lessons.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>The same logic scales down: decide the evidence, then the activities. Drafting the <strong>exit ticket</strong> first is backward design in miniature.</p>
+          </div>
+        </article>
+        <article class="myth-card" data-searchable="&ldquo;A well-written objective guarantees that the lesson is aligned.&rdquo;">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;A well-written objective guarantees that the lesson is aligned.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p><strong>Constructive alignment</strong> also requires the activity and the assessment to demand the same cognitive level as the objective. Many plans have correct objectives and misaligned tasks.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= 06 TAKEAWAYS ================= -->
+    <section class="section" id="takeaways" aria-labelledby="takeaways-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">06</span>
+        <div>
+          <p class="eyebrow">Compress</p>
+          <h2 id="takeaways-title">Key takeaways</h2>
+          <p class="section-lead">Revise these lines the night before the paper — they compress the whole note into recall-ready statements.</p>
+        </div>
+      </div>
+      <div class="takeaways">
+        <h3>Six things to remember</h3>
+        <ol><li><strong>Constructive alignment</strong> ties outcome, activity and evidence to the same verb and cognitive level.</li><li><strong>Backward design</strong> plans evidence before activities.</li><li><strong>Success criteria</strong> must be observable and visible to learners.</li><li>Every lesson needs an opening diagnostic, a mid-lesson check with a <strong>decision rule</strong>, and an <strong>exit ticket</strong>.</li><li>The exit ticket is the bridge to the next lesson, not the end of assessment.</li><li>Assessment-embedded planning adds minutes of design time and saves hours of unfocused marking.</li></ol>
+      </div>
+      <div class="summary">
+        <span class="summary-label">One-line summary</span>
+        <p>An assessment-embedded lesson plan is built backwards from observable outcomes and success criteria, with a diagnostic opening, a mid-lesson check tied to a decision rule, and an exit ticket that shapes the next lesson.</p>
+      </div>
+      <div class="exam-tip">
+        <span class="tip-icon" aria-hidden="true">💡</span>
+        <div>
+          <span class="tip-label">Exam tip</span>
+          <p>If a question asks how to make a lesson plan assessment-embedded, answer with the sequence — outcome and success criteria, diagnostic, hinge question with a decision rule, exit ticket, next-lesson action — and name <strong>constructive alignment</strong> once.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 07 QUIZ ================= -->
+    <section class="quiz" id="practice" aria-labelledby="quiz-title">
+      <div class="quiz-head">
+        <div>
+          <p class="eyebrow">Practice</p>
+          <h2 id="quiz-title">Test yourself</h2>
+        </div>
+        <div class="quiz-chips">
+          <span>10 MCQs</span>
+          <span>4 CRQs</span>
+          <span>1 ERQ</span>
+        </div>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-tabs" role="tablist" aria-label="Quiz sections">
+          <button class="quiz-tab active" role="tab" aria-selected="true" data-panel="mcqPanel">🔘 10 MCQs</button>
+          <button class="quiz-tab" role="tab" aria-selected="false" data-panel="crqPanel">✍️ 4 CRQs</button>
+          <button class="quiz-tab" role="tab" aria-selected="false" data-panel="erqPanel">📄 1 ERQ</button>
+        </div>
+
+        <div class="quiz-panel active" id="mcqPanel" role="tabpanel">
+          <div class="panel-head">
+            <span class="section-label">Multiple choice questions</span>
+            <span class="score-chip" id="mcqProgress">0 / 10 answered · 0 correct</span>
+          </div>
+          <div id="mcqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="crqPanel" role="tabpanel">
+          <div class="panel-head">
+            <span class="section-label">Constructed response questions</span>
+            <span class="score-chip">Model answers included</span>
+          </div>
+          <div id="crqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="erqPanel" role="tabpanel">
+          <div class="panel-head">
+            <span class="section-label">Extended response · situation-based</span>
+            <span class="score-chip">Keyword self-check</span>
+          </div>
+          <div id="erqContainer"></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="note-footer">
+      <span>MUQABIL · Teaching License Master Notes · Classroom Assessment</span>
+      <span>11 interactive notes in this module · revision 6 of 11</span>
+    </footer>
+  </div>
+
+  <button class="to-top" id="toTop" type="button" aria-label="Back to top">↑</button>
+
+<script>
+    (function () {
+      'use strict';
+
+      /* ================= READING PROGRESS ================= */
+      var fill = document.getElementById('progressFill');
+      var toTop = document.getElementById('toTop');
+
+      function updateScroll() {
+        var doc = document.documentElement;
+        var max = doc.scrollHeight - doc.clientHeight;
+        var pct = max > 0 ? (doc.scrollTop / max) * 100 : 0;
+        if (fill) fill.style.width = pct + '%';
+        if (toTop) {
+          if (doc.scrollTop > 600) toTop.classList.add('visible');
+          else toTop.classList.remove('visible');
+        }
+      }
+      window.addEventListener('scroll', updateScroll, { passive: true });
+      updateScroll();
+
+      if (toTop) {
+        toTop.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      /* ================= LIVE SEARCH ================= */
+      var searchInput = document.getElementById('searchInput');
+      var countDisplay = document.getElementById('countDisplay');
+      var grids = [
+        document.getElementById('conceptGrid'),
+        document.getElementById('vocabGrid'),
+        document.getElementById('misGrid')
+      ].filter(Boolean);
+
+      var cards = [];
+      grids.forEach(function (grid) {
+        Array.prototype.forEach.call(grid.querySelectorAll('[data-searchable]'), function (card) {
+          cards.push(card);
+        });
+      });
+
+      function applySearch(raw) {
+        var q = (raw || '').trim().toLowerCase();
+        var visible = 0;
+        cards.forEach(function (card) {
+          var text = ((card.getAttribute('data-searchable') || '') + ' ' + card.textContent).toLowerCase();
+          var matches = q === '' || text.indexOf(q) !== -1;
+          card.style.display = matches ? '' : 'none';
+          if (matches) visible++;
+        });
+        Array.prototype.forEach.call(document.querySelectorAll('.no-results'), function (el) {
+          el.parentNode.removeChild(el);
+        });
+        grids.forEach(function (grid) {
+          var shown = Array.prototype.filter.call(
+            grid.querySelectorAll('[data-searchable]'),
+            function (card) { return card.style.display !== 'none'; }
+          ).length;
+          if (shown === 0) {
+            var msg = document.createElement('div');
+            msg.className = 'no-results';
+            msg.textContent = '🔎 No matching items in this section.';
+            grid.appendChild(msg);
+          }
+        });
+        if (countDisplay) {
+          countDisplay.textContent = visible + ' item' + (visible === 1 ? '' : 's');
+        }
+      }
+
+      var debounceTimer;
+      if (searchInput) {
+        searchInput.addEventListener('input', function (e) {
+          clearTimeout(debounceTimer);
+          debounceTimer = setTimeout(function () { applySearch(e.target.value); }, 140);
+        });
+        searchInput.addEventListener('search', function (e) {
+          if (e.target.value === '') applySearch('');
+        });
+        searchInput.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && searchInput.value !== '') {
+            searchInput.value = '';
+            applySearch('');
+          }
+        });
+      }
+      applySearch('');
+
+      /* ================= QUIZ TABS ================= */
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.quiz-tab'));
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          tabs.forEach(function (t) {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          Array.prototype.forEach.call(document.querySelectorAll('.quiz-panel'), function (p) {
+            p.classList.remove('active');
+          });
+          tab.classList.add('active');
+          tab.setAttribute('aria-selected', 'true');
+          var panel = document.getElementById(tab.getAttribute('data-panel'));
+          if (panel) panel.classList.add('active');
+        });
+      });
+
+      /* ================= DATA ================= */
+      var mcqs = [{"q": "Constructive alignment requires that outcomes, activities and assessment:", "options": ["Use the same materials", "Address the same learning at the same cognitive level", "Take the same time", "Be marked by the same teacher"], "answer": 1, "why": "Alignment is about the learning demand, not resources or logistics."}, {"q": "Backward design begins with:", "options": ["Selecting activities", "Identifying desired results and acceptable evidence", "Choosing a textbook", "Writing a test key"], "answer": 1, "why": "Evidence is determined before learning experiences are planned."}, {"q": "The main purpose of an opening diagnostic in a lesson is to:", "options": ["Grade prior learning", "Decide whether to proceed, repair or change the entry point", "Fill the first five minutes", "Motivate learners"], "answer": 1, "why": "It informs an immediate instructional decision."}, {"q": "A decision rule in a lesson plan specifies:", "options": ["The classroom rules", "What the teacher will do for each likely pattern of assessment results", "The mark allocation", "The seating plan"], "answer": 1, "why": "It converts evidence into a planned action."}, {"q": "Which outcome is written in observable terms?", "options": ["Students will understand fractions", "Students will appreciate mathematics", "Students will convert 3/4 to 0.75 and 75%", "Students will know about percentages"], "answer": 2, "why": "Only this names an observable performance."}, {"q": "An exit ticket is best used to:", "options": ["Award a grade", "Capture every learner’s understanding and shape the next lesson", "Replace the unit test", "Check attendance"], "answer": 1, "why": "It is a bridge to the next lesson."}, {"q": "The strongest evidence that a plan is assessment-embedded is that it includes:", "options": ["A list of activities", "Named assessment points with actions attached", "A homework task", "A textbook page reference"], "answer": 1, "why": "Assessment is embedded when evidence changes teaching."}, {"q": "Success criteria should be:", "options": ["Kept in the teacher’s plan", "Written in observable, learner-facing language", "Expressed as marks", "Identical for every lesson"], "answer": 1, "why": "Learners must be able to use them."}, {"q": "A hinge question usually contains distractors that:", "options": ["Trick learners", "Correspond to common misconceptions", "Make the answer obvious", "Test spelling"], "answer": 1, "why": "Distractors reveal which misconception is present."}, {"q": "Which is the main workload benefit of assessment-embedded planning?", "options": ["Fewer lessons to plan", "Less unfocused marking because evidence is targeted", "No need for feedback", "Shorter examinations"], "answer": 1, "why": "Targeted evidence replaces broad, unfocused correction."}];
+      var crqs = [{"q": "Explain constructive alignment and illustrate it with one aligned and one misaligned example.", "hint": "Name the three components and the cognitive level.", "model": "Constructive alignment means that the intended learning outcome, the learning activity and the assessment task all require the same learning at the same cognitive level. In an aligned example the outcome is ‘compare two sources on the causes of the 1857 uprising’, the activity gives learners two short sources and a comparison grid, and the assessment asks learners to write two similarities and two differences with evidence. All three require comparison. In a misaligned example the same outcome is followed by a teacher lecture on causes and an assessment asking learners to list five causes from memory. The activity requires listening and recall, and the assessment requires recall, so the outcome is never actually taught or assessed. The consequence is that marks do not measure the stated outcome, and learners who can recite causes may be unable to compare sources."}, {"q": "Describe how you would apply backward design to plan a single 40-minute lesson.", "hint": "Three stages, then a concrete sequence.", "model": "Start with the desired result: what should learners be able to do by the end, expressed as one observable outcome, for example ‘convert between fractions, decimals and percentages for common values and explain the method’. Next determine acceptable evidence before planning activities: a two-item exit ticket, one routine conversion and one transfer item such as ordering a set of mixed values, marked against three success criteria; plus a hinge question to be used before practice. Only then plan the learning experiences: a five-minute diagnostic on equivalent fractions, explicit teaching with a worked example and a visual representation, guided practice with whiteboards, the hinge question, tiered practice with circulation, and the exit ticket. The plan should also state the decision rule for the hinge question and how the exit tickets will be sorted for the next lesson. Because the evidence was designed first, every activity exists to make that evidence possible."}, {"q": "Why is a mid-lesson check more valuable than an end-of-lesson test for improving learning?", "hint": "Consider timing, actionability and the purpose distinction.", "model": "A mid-lesson check arrives while the lesson can still change. If the hinge question shows that a third of the class holds a specific misconception, the teacher can reteach with a different representation, adjust the practice, or pull a small group, and every learner benefits in that same lesson. An end-of-lesson test produces information after the teaching has finished, so the teacher can only respond in the next lesson, by which time learners have practised the error and the class has moved on. The mid-lesson check is therefore formative in purpose, while the end-of-lesson test, if it is graded and recorded, is summative. Both are useful, but they answer different questions: the hinge question asks ‘should I proceed?’, while the exit ticket asks ‘what must I do next lesson?’."}, {"q": "A colleague says planning with assessment points takes too long. Respond with a practical argument.", "hint": "Compare design time against marking time and rework.", "model": "The additional design time is small and it is front-loaded: writing success criteria, one hinge question with distractors and a two-item exit ticket takes perhaps ten minutes for a lesson, and once created they can be reused and refined across parallel classes and years. The time saved is larger. Without embedded assessment, teachers mark whole sets of books to discover misunderstandings, reteach entire topics at the end of the unit, and repeat explanations that a mid-lesson check would have triggered at the right moment. Embedded assessment also reduces the need for large summative retests, because gaps are caught early. The practical approach is to embed assessment in one lesson per week at first, then extend, and to share hinge questions and exit tickets within a subject department so that the design cost is divided. The claim to test is not whether planning takes longer, but whether the total time spent on planning, marking and reteaching falls while learning improves."}];
+      var erq = {"scenario": "A school’s lesson-plan template requires: topic, objectives, materials, teacher activity, student activity, homework. Teachers write objectives such as ‘students will understand the importance of the water cycle’ and plan a lecture followed by a worksheet. Lesson observations show high compliance, but unit test results are poor and teachers complain that learners ‘forget everything by the next lesson’.", "task": "Redesign the lesson-plan template so that assessment is embedded, and explain how each new element would change what happens in the classroom. Use the observation that learners forget content by the next lesson as evidence in your analysis.", "hint": "Critique the current template, then specify outcomes, success criteria, diagnostic, hinge question with decision rule, practice monitoring, exit ticket and next-lesson handover.", "keywords": ["constructive alignment", "backward design", "learning outcome", "success criteria", "diagnostic", "hinge question", "decision rule", "exit ticket", "feedback", "retention"], "model": "The current template is activity-based, not learning-based. Objectives such as ‘understand the importance of the water cycle’ are unobservable, so they cannot be assessed, and any activity satisfies them. The template has no place to record what learners will do to demonstrate learning, so teachers default to a lecture and a worksheet, both of which can be completed without understanding. There is no check during the lesson, so misunderstanding is invisible until the unit test, and no bridge to the next lesson, which explains the complaint that learners forget everything: nothing was ever retrieved, applied or revisited. The template is also misaligned — the objective implies explanation and application, while the activity and the worksheet require listening and copying. A redesigned template should begin with the outcome, written as an observable performance at a stated cognitive level, for example ‘learners will explain how evaporation, condensation and precipitation transfer water, and predict the effect of a change in temperature on one stage’. Immediately below it should be two or three success criteria written for learners, so that the teacher and the class share the definition of success. The next field should be the evidence plan, completed before activities: one opening diagnostic on the prerequisite idea that matter changes state with temperature, one hinge question with two designed distractors at the point where teaching moves to practice, and a two-item exit ticket, one routine and one transfer. Each assessment point should have a decision rule, such as ‘if more than one third choose the condensation distractor, reteach with a labelled diagram before the worksheet’. Only after these fields should the template ask for the sequence of activities, and it should require each activity to be annotated with what evidence it produces or what it prepares. A monitoring field should record how the teacher will circulate and what they will look for during practice, with a space for the names of learners to pull for support. The closing field should be the exit-ticket sort and the next-lesson opening activity: which misconception will be addressed in the first five minutes, and which learners will start with a scaffolded version. A final field for reflection should ask what the evidence showed and what will change. In the classroom, the effect is a shift from coverage to evidence. The unobservable objective is replaced by a performance that can be seen, so the worksheet must change to a task that requires explanation and prediction. The diagnostic prevents the lesson from starting above the class’s prerequisite knowledge, which is a common cause of passive compliance. The hinge question interrupts the drift from teaching to practice at exactly the moment when reteaching is still cheap. The exit ticket produces evidence from every learner in five minutes, and sorting it into three piles gives the next lesson a purposeful start, which directly addresses forgetting: the content is retrieved, the misconception is corrected, and the learners who need support receive it before new material is added. Teachers also gain a defensible record for reporting, because the evidence was planned rather than improvised."};
+
+      /* ================= MCQs ================= */
+      var mcqContainer = document.getElementById('mcqContainer');
+      var scoreChip = document.getElementById('mcqProgress');
+      var answered = 0;
+      var correctCount = 0;
+      var letters = ['A', 'B', 'C', 'D'];
+
+      function updateScore() {
+        if (!scoreChip) return;
+        scoreChip.textContent = answered + ' / ' + mcqs.length + ' answered · ' + correctCount + ' correct';
+      }
+
+      mcqs.forEach(function (item, idx) {
+        var wrap = document.createElement('div');
+        wrap.className = 'mcq-item';
+
+        var q = document.createElement('p');
+        q.className = 'mcq-question';
+        var num = document.createElement('span');
+        num.className = 'q-num';
+        num.textContent = (idx + 1) + '.';
+        var qtext = document.createElement('span');
+        qtext.textContent = item.q;
+        q.appendChild(num);
+        q.appendChild(qtext);
+        wrap.appendChild(q);
+
+        var options = document.createElement('div');
+        options.className = 'mcq-options';
+
+        var fb = document.createElement('div');
+        fb.className = 'mcq-feedback';
+
+        Array.prototype.forEach.call(item.options, function (text, i) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'mcq-option';
+          btn.setAttribute('aria-label', letters[i] + '. ' + text);
+
+          var letter = document.createElement('span');
+          letter.className = 'option-letter';
+          letter.textContent = letters[i];
+          var label = document.createElement('span');
+          label.textContent = text;
+          btn.appendChild(letter);
+          btn.appendChild(label);
+
+          btn.addEventListener('click', function () {
+            if (wrap.getAttribute('data-answered') === 'true') return;
+            wrap.setAttribute('data-answered', 'true');
+            answered++;
+            var isCorrect = i === item.answer;
+            if (isCorrect) correctCount++;
+            btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+            Array.prototype.forEach.call(options.querySelectorAll('.mcq-option'), function (other, j) {
+              other.disabled = true;
+              if (j === item.answer) other.classList.add('correct');
+            });
+            fb.className = 'mcq-feedback show ' + (isCorrect ? 'correct-fb' : 'incorrect-fb');
+            fb.textContent = (isCorrect ? '✅ Correct. ' : '❌ Not quite. ') + item.why;
+            updateScore();
+          });
+
+          options.appendChild(btn);
+        });
+
+        wrap.appendChild(options);
+        wrap.appendChild(fb);
+        mcqContainer.appendChild(wrap);
+      });
+      updateScore();
+
+      /* ================= CRQs ================= */
+      var crqContainer = document.getElementById('crqContainer');
+      crqs.forEach(function (item, idx) {
+        var wrap = document.createElement('div');
+        wrap.className = 'crq-item';
+
+        var q = document.createElement('p');
+        q.className = 'crq-question';
+        q.textContent = 'CRQ ' + (idx + 1) + '. ' + item.q;
+        wrap.appendChild(q);
+
+        var hint = document.createElement('p');
+        hint.className = 'crq-hint';
+        hint.textContent = 'Hint: ' + item.hint;
+        wrap.appendChild(hint);
+
+        var area = document.createElement('textarea');
+        area.className = 'crq-textarea';
+        area.setAttribute('aria-label', 'Your answer for CRQ ' + (idx + 1));
+        area.placeholder = 'Write your answer, then reveal the model answer to self-check.';
+        wrap.appendChild(area);
+
+        var meta = document.createElement('div');
+        meta.className = 'answer-meta';
+        var words = document.createElement('span');
+        words.textContent = '0 words';
+        var target = document.createElement('span');
+        target.textContent = 'Target: 80–120 words';
+        meta.appendChild(words);
+        meta.appendChild(target);
+        wrap.appendChild(meta);
+
+        area.addEventListener('input', function () {
+          var count = area.value.trim() ? area.value.trim().split(/\s+/).length : 0;
+          words.textContent = count + ' word' + (count === 1 ? '' : 's');
+        });
+
+        var actions = document.createElement('div');
+        actions.className = 'actions';
+        var showBtn = document.createElement('button');
+        showBtn.type = 'button';
+        showBtn.className = 'btn btn-primary';
+        showBtn.textContent = 'Show model answer';
+        var clearBtn = document.createElement('button');
+        clearBtn.type = 'button';
+        clearBtn.className = 'btn btn-secondary';
+        clearBtn.textContent = 'Clear';
+        actions.appendChild(showBtn);
+        actions.appendChild(clearBtn);
+        wrap.appendChild(actions);
+
+        var fb = document.createElement('div');
+        fb.className = 'crq-feedback';
+        wrap.appendChild(fb);
+
+        showBtn.addEventListener('click', function () {
+          var open = fb.classList.contains('show');
+          if (open) {
+            fb.className = 'crq-feedback';
+            fb.textContent = '';
+            showBtn.textContent = 'Show model answer';
+          } else {
+            fb.className = 'crq-feedback show model';
+            fb.textContent = 'Model answer: ' + item.model;
+            showBtn.textContent = 'Hide model answer';
+          }
+        });
+        clearBtn.addEventListener('click', function () {
+          area.value = '';
+          words.textContent = '0 words';
+          fb.className = 'crq-feedback';
+          fb.textContent = '';
+          showBtn.textContent = 'Show model answer';
+        });
+
+        crqContainer.appendChild(wrap);
+      });
+
+      /* ================= ERQ ================= */
+      var erqContainer = document.getElementById('erqContainer');
+      var eWrap = document.createElement('div');
+      eWrap.className = 'erq-item';
+
+      var marks = document.createElement('span');
+      marks.className = 'erq-marks';
+      marks.textContent = 'Extended response · 10 marks';
+      eWrap.appendChild(marks);
+
+      var eq = document.createElement('p');
+      eq.className = 'erq-question';
+      eq.textContent = erq.scenario + ' ' + erq.task;
+      eWrap.appendChild(eq);
+
+      var ehint = document.createElement('p');
+      ehint.className = 'crq-hint';
+      ehint.textContent = 'Guidance: ' + erq.hint;
+      eWrap.appendChild(ehint);
+
+      var eArea = document.createElement('textarea');
+      eArea.className = 'erq-textarea';
+      eArea.setAttribute('aria-label', 'Your extended response');
+      eArea.placeholder = 'Plan your response: identify the problem, apply the theory, then give concrete classroom actions and how you would evaluate them.';
+      eWrap.appendChild(eArea);
+
+      var eMeta = document.createElement('div');
+      eMeta.className = 'answer-meta';
+      var eWords = document.createElement('span');
+      eWords.textContent = '0 words';
+      var eTarget = document.createElement('span');
+      eTarget.textContent = 'Target: 250–400 words';
+      eMeta.appendChild(eWords);
+      eMeta.appendChild(eTarget);
+      eWrap.appendChild(eMeta);
+
+      eArea.addEventListener('input', function () {
+        var count = eArea.value.trim() ? eArea.value.trim().split(/\s+/).length : 0;
+        eWords.textContent = count + ' word' + (count === 1 ? '' : 's');
+      });
+
+      var eActions = document.createElement('div');
+      eActions.className = 'actions';
+      var checkBtn = document.createElement('button');
+      checkBtn.type = 'button';
+      checkBtn.className = 'btn btn-primary';
+      checkBtn.textContent = 'Check my response';
+      var modelBtn = document.createElement('button');
+      modelBtn.type = 'button';
+      modelBtn.className = 'btn btn-secondary';
+      modelBtn.textContent = 'Show model answer';
+      eActions.appendChild(checkBtn);
+      eActions.appendChild(modelBtn);
+      eWrap.appendChild(eActions);
+
+      var eFb = document.createElement('div');
+      eFb.className = 'erq-feedback';
+      eWrap.appendChild(eFb);
+
+      checkBtn.addEventListener('click', function () {
+        var answer = eArea.value.toLowerCase();
+        if (!answer.trim()) {
+          eFb.className = 'erq-feedback show partial';
+          eFb.textContent = 'Write your response first — aim for at least 250 words before self-checking.';
+          return;
+        }
+        var hits = erq.keywords.filter(function (k) {
+          return answer.indexOf(k.toLowerCase()) !== -1;
+        });
+        var ratio = hits.length / erq.keywords.length;
+        var missing = erq.keywords.filter(function (k) { return hits.indexOf(k) === -1; });
+        if (ratio >= 0.6) {
+          eFb.className = 'erq-feedback show good';
+          eFb.textContent = '✅ Strong coverage: ' + hits.length + ' of ' + erq.keywords.length +
+            ' expected ideas present (' + hits.join(', ') + '). Now tighten the structure: theory → diagnosis → actions → evaluation.' +
+            (missing.length ? ' Still to consider: ' + missing.join(', ') + '.' : '');
+        } else {
+          eFb.className = 'erq-feedback show partial';
+          eFb.textContent = '⚠️ Partial coverage: ' + hits.length + ' of ' + erq.keywords.length +
+            ' expected ideas found. Add: ' + missing.join(', ') + '.';
+        }
+      });
+
+      modelBtn.addEventListener('click', function () {
+        var open = eFb.classList.contains('show') && eFb.classList.contains('model');
+        if (open) {
+          eFb.className = 'erq-feedback';
+          eFb.textContent = '';
+          modelBtn.textContent = 'Show model answer';
+        } else {
+          eFb.className = 'erq-feedback show model';
+          eFb.textContent = 'Model answer: ' + erq.model;
+          modelBtn.textContent = 'Hide model answer';
+        }
+      });
+
+      erqContainer.appendChild(eWrap);
+    })();
+</script>
+</body>
+</html>

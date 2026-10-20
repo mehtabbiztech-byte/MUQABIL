@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Two Key Types of Classroom Assessment — Classroom Assessment study note for the MUQABIL Teaching License hub: concepts, key vocabulary, comparison table, classroom application, misconceptions, takeaways and a practice quiz.">
+  <title>Two Key Types of Classroom Assessment · Classroom Assessment</title>
+  <style>
+    /* ================= DESIGN TOKENS ================= */
+    :root {
+      --navy: #0e2a47;
+      --navy-2: #12365c;
+      --blue: #2f6ca8;
+      --blue-soft: #8bb3e0;
+      --blue-tint: #eaf2fb;
+      --mark: #dbeafe;
+      --ink: #0b2138;
+      --ink-2: #1c3f60;
+      --body: #35536f;
+      --muted: #5d7893;
+      --line: #dfe9f5;
+      --paper: #ffffff;
+      --wash: #f5faff;
+      --amber: #b8860b;
+      --amber-tint: #fff8e6;
+      --green: #1f7a4d;
+      --green-tint: #eaf8f0;
+      --red: #a83535;
+      --red-tint: #fdf1f1;
+      --shadow-sm: 0 6px 16px -10px rgba(12, 38, 66, 0.35);
+      --shadow-md: 0 18px 36px -22px rgba(12, 38, 66, 0.45);
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
+      color: var(--body);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 4rem;
+    }
+
+    /* ================= READING PROGRESS ================= */
+    .progress-track {
+      position: fixed; top: 0; left: 0; right: 0; height: 4px;
+      background: rgba(14, 42, 71, 0.08); z-index: 90;
+    }
+    .progress-fill {
+      display: block; height: 100%; width: 0%;
+      background: linear-gradient(90deg, #2f6ca8, #6aa9dd, #9cc7ee);
+      border-radius: 0 4px 4px 0; transition: width 0.12s linear;
+    }
+
+    .shell { max-width: 1080px; margin: 0 auto; padding: 0 1.1rem; }
+
+    /* ================= HERO ================= */
+    .hero {
+      position: relative; overflow: hidden;
+      margin-top: 1.6rem;
+      border-radius: 30px;
+      padding: 2.4rem 2.2rem 3.4rem;
+      background: radial-gradient(120% 140% at 0% 0%, #163b63 0%, #0e2a47 55%, #0a1f36 100%);
+      color: #fff;
+      box-shadow: var(--shadow-md);
+    }
+    .hero::after {
+      content: ''; position: absolute; right: -120px; top: -120px;
+      width: 340px; height: 340px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(139, 179, 224, 0.28), transparent 68%);
+      pointer-events: none;
+    }
+    .hero-top { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-bottom: 1.1rem; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #eaf4ff; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      padding: 0.32rem 0.85rem; border-radius: 999px;
+    }
+    .hero-top .hero-track { font-size: 0.74rem; color: #a9c8e6; font-weight: 600; letter-spacing: 0.04em; }
+    .hero h1 {
+      font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+      line-height: 1.16; font-weight: 800; letter-spacing: -0.02em;
+      color: #ffffff; max-width: 22ch;
+    }
+    .tagline {
+      margin-top: 0.85rem; max-width: 62ch;
+      font-size: 1.02rem; color: #c9def3;
+      border-left: 3px solid var(--blue-soft); padding-left: 1rem;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.4rem; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px; padding: 0.34rem 0.8rem;
+      font-size: 0.76rem; font-weight: 600; color: #dceafa;
+    }
+
+    /* ================= BIG IDEA + OBJECTIVES ================= */
+    .brief {
+      display: grid; grid-template-columns: 1.35fr 1fr; gap: 1.1rem;
+      margin: -2.2rem 1.4rem 0; position: relative; z-index: 2;
+    }
+    .brief-card {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-lg); padding: 1.4rem 1.5rem;
+      box-shadow: var(--shadow-md);
+    }
+    .brief-label {
+      display: inline-block; margin: 0; line-height: 1.2;
+      font-size: 0.68rem; font-weight: 800;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue);
+      margin-bottom: 0.55rem;
+    }
+    .brief-card p { font-size: 0.96rem; color: var(--ink-2); }
+    .objectives { list-style: none; counter-reset: obj; display: grid; gap: 0.7rem; }
+    .objectives li {
+      position: relative; padding-left: 2.1rem; font-size: 0.9rem;
+      color: var(--ink-2); line-height: 1.55;
+    }
+    .objectives li::before {
+      counter-increment: obj; content: counter(obj);
+      position: absolute; left: 0; top: 0.05rem;
+      width: 1.4rem; height: 1.4rem; border-radius: 50%;
+      display: grid; place-items: center;
+      background: var(--blue-tint); color: var(--blue);
+      font-size: 0.72rem; font-weight: 800;
+    }
+
+    /* ================= TABLE OF CONTENTS ================= */
+    .toc {
+      margin: 1.6rem 0 0; background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--line); border-radius: var(--radius-lg);
+      padding: 1.1rem 1.2rem; backdrop-filter: blur(4px);
+    }
+    .toc-title {
+      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem;
+    }
+    .toc-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0.35rem; }
+    .toc-list a {
+      display: flex; align-items: baseline; gap: 0.55rem;
+      padding: 0.42rem 0.5rem; border-radius: 10px;
+      text-decoration: none; color: var(--ink-2);
+      font-size: 0.88rem; font-weight: 600; transition: background 0.15s, color 0.15s;
+    }
+    .toc-list a:hover, .toc-list a:focus-visible { background: var(--blue-tint); color: var(--navy); }
+    .toc-num {
+      font-size: 0.68rem; font-weight: 800; color: var(--blue);
+      background: var(--blue-tint); border-radius: 6px; padding: 0.1rem 0.4rem;
+      flex-shrink: 0;
+    }
+
+    /* ================= TOOLBAR / SEARCH ================= */
+    .toolbar {
+      position: sticky; top: 0; z-index: 60;
+      margin: 1.6rem 0 0.4rem; padding: 0.6rem 0;
+      background: linear-gradient(180deg, rgba(243, 246, 253, 0.97) 65%, rgba(243, 246, 253, 0));
+    }
+    .toolbar-inner {
+      display: flex; align-items: center; gap: 0.7rem;
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: 999px; padding: 0.45rem 0.55rem 0.45rem 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .search-box { display: flex; align-items: center; gap: 0.55rem; flex: 1; min-width: 0; }
+    .search-box span { font-size: 0.95rem; opacity: 0.7; }
+    .search-box input {
+      border: none; outline: none; background: transparent;
+      font: inherit; font-size: 0.92rem; color: var(--ink);
+      width: 100%; padding: 0.3rem 0;
+    }
+    .search-box input::placeholder { color: #93a8bd; }
+    .count-pill {
+      flex-shrink: 0; background: var(--navy); color: #fff;
+      font-size: 0.75rem; font-weight: 700;
+      padding: 0.4rem 0.85rem; border-radius: 999px; white-space: nowrap;
+    }
+
+    /* ================= SECTION HEADERS ================= */
+    .section { margin-top: 3rem; scroll-margin-top: 90px; }
+    .section-head { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.3rem; }
+    .section-num {
+      flex-shrink: 0; width: 46px; height: 46px; border-radius: 15px;
+      display: grid; place-items: center;
+      background: var(--navy); color: #fff;
+      font-size: 0.9rem; font-weight: 800; letter-spacing: 0.02em;
+      box-shadow: 0 8px 18px -10px rgba(14, 42, 71, 0.9);
+    }
+    .eyebrow {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 0.18rem;
+    }
+    .section-head h2 {
+      font-size: clamp(1.25rem, 2.2vw, 1.6rem); font-weight: 800;
+      color: var(--ink); letter-spacing: -0.015em; line-height: 1.25;
+    }
+    .section-lead {
+      margin-top: 0.3rem; font-size: 0.92rem; color: var(--muted); max-width: 68ch;
+    }
+
+    /* ================= CONCEPT CARDS ================= */
+    .concept-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
+    .concept-card {
+      position: relative; display: flex; flex-direction: column;
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-md); padding: 1.25rem 1.25rem 1.1rem;
+      box-shadow: var(--shadow-sm); overflow: hidden;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+    .concept-card::before {
+      content: ''; position: absolute; inset: 0 0 auto 0; height: 4px;
+      background: linear-gradient(90deg, var(--blue), var(--blue-soft), #cfe2f5);
+    }
+    .concept-card:hover {
+      transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: #c4dcf2;
+    }
+    .concept-top { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; }
+    .concept-icon {
+      width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center;
+      background: var(--blue-tint); font-size: 1.2rem;
+    }
+    .concept-index {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em;
+      color: #9fb6cc; border: 1px solid var(--line); border-radius: 999px;
+      padding: 0.12rem 0.5rem;
+    }
+    .concept-title {
+      margin: 0.75rem 0 0.4rem; font-size: 1.02rem; font-weight: 800;
+      color: var(--ink); line-height: 1.35;
+    }
+    .concept-desc { font-size: 0.9rem; color: var(--body); }
+    .concept-desc strong, .vocab-def strong, .myth-reality strong, .takeaways strong, .lead-para strong {
+      color: #0a3a68; font-weight: 700;
+      background: linear-gradient(transparent 64%, var(--mark) 64%);
+      padding: 0 1px; border-radius: 2px;
+    }
+    .practice {
+      margin-top: auto; padding-top: 0.9rem;
+    }
+    .practice-box {
+      background: var(--wash); border: 1px solid #e2eefa;
+      border-left: 3px solid var(--blue); border-radius: 10px;
+      padding: 0.65rem 0.8rem;
+    }
+    .practice-label {
+      display: block; font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue);
+      margin-bottom: 0.18rem;
+    }
+    .practice-box p { font-size: 0.85rem; color: var(--ink-2); line-height: 1.5; }
+
+    /* ================= VOCABULARY ================= */
+    .vocab-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 0.75rem; margin: 0;
+    }
+    .vocab-card {
+      background: var(--paper); border: 1px solid var(--line);
+      border-left: 4px solid var(--blue-soft);
+      border-radius: var(--radius-sm); padding: 0.85rem 1rem;
+      box-shadow: 0 4px 12px -10px rgba(12, 38, 66, 0.4);
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .vocab-card:hover { border-left-color: var(--blue); transform: translateY(-2px); }
+    .vocab-term {
+      font-size: 0.9rem; font-weight: 800; color: var(--navy);
+      display: block; margin-bottom: 0.22rem; line-height: 1.35;
+    }
+    .vocab-def { font-size: 0.85rem; color: var(--body); line-height: 1.55; }
+
+    /* ================= TABLE ================= */
+    .table-shell {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .table-caption {
+      display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+      padding: 0.9rem 1.1rem; border-bottom: 1px solid var(--line);
+      background: #fbfdff;
+    }
+    .table-caption strong { font-size: 0.92rem; font-weight: 800; color: var(--ink); }
+    .table-caption span { font-size: 0.72rem; font-weight: 700; color: var(--muted); white-space: nowrap; }
+    .table-scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.86rem; min-width: 640px; }
+    thead th {
+      position: sticky; top: 0; z-index: 1;
+      background: var(--navy); color: #fff; text-align: left;
+      padding: 0.7rem 0.9rem; font-size: 0.76rem; font-weight: 700;
+      letter-spacing: 0.045em; text-transform: uppercase; white-space: nowrap;
+    }
+    tbody td { padding: 0.7rem 0.9rem; border-bottom: 1px solid #eef4fb; vertical-align: top; line-height: 1.5; }
+    tbody td:first-child { font-weight: 700; color: var(--navy); background: #fbfdff; }
+    tbody tr:nth-child(even) td { background: #f7fbff; }
+    tbody tr:nth-child(even) td:first-child { background: #f1f8ff; }
+    tbody tr:last-child td { border-bottom: none; }
+
+    /* ================= DO / AVOID ================= */
+    .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .dd-card {
+      border-radius: var(--radius-md); padding: 1.2rem 1.3rem;
+      border: 1px solid; box-shadow: var(--shadow-sm);
+    }
+    .dd-card.do { background: var(--green-tint); border-color: #bfe6d1; }
+    .dd-card.avoid { background: var(--red-tint); border-color: #efc9c9; }
+    .dd-card h3 {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.95rem; font-weight: 800; margin-bottom: 0.8rem;
+      letter-spacing: 0.01em;
+    }
+    .dd-card.do h3 { color: var(--green); }
+    .dd-card.avoid h3 { color: var(--red); }
+    .dd-card ul { list-style: none; display: grid; gap: 0.45rem; }
+    .dd-card li { position: relative; padding-left: 1.45rem; font-size: 0.87rem; color: var(--ink-2); line-height: 1.55; }
+    .dd-card.do li::before { content: '✔'; position: absolute; left: 0; color: var(--green); font-weight: 800; }
+    .dd-card.avoid li::before { content: '✕'; position: absolute; left: 0; color: var(--red); font-weight: 800; }
+
+    /* ================= MYTHS ================= */
+    .myth-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
+    .myth-card {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-md); padding: 1.1rem 1.2rem;
+      box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 0.55rem;
+    }
+    .myth-tag {
+      align-self: flex-start; display: inline-flex; align-items: center; gap: 0.35rem;
+      background: var(--red-tint); color: var(--red); border: 1px solid #f0cfcf;
+      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.18rem 0.55rem; border-radius: 999px;
+    }
+    .myth-claim { font-size: 0.93rem; font-weight: 700; color: var(--ink); line-height: 1.45; }
+    .myth-reality {
+      border-top: 1px dashed var(--line); padding-top: 0.55rem;
+      font-size: 0.86rem; color: var(--body);
+    }
+    .reality-tag {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      color: var(--green); font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.2rem;
+    }
+
+    /* ================= TAKEAWAYS ================= */
+    .takeaways {
+      background: linear-gradient(135deg, #12365c 0%, #0e2a47 100%);
+      color: #eaf4ff; border-radius: var(--radius-lg);
+      padding: 1.6rem 1.7rem; box-shadow: var(--shadow-md);
+      counter-reset: take;
+    }
+    .takeaways h3 {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.16em;
+      text-transform: uppercase; color: #9cc7ee; margin-bottom: 0.9rem;
+    }
+    .takeaways ol { list-style: none; display: grid; gap: 0.6rem; }
+    .takeaways li {
+      counter-increment: take; position: relative; padding-left: 2.2rem;
+      font-size: 0.9rem; line-height: 1.55;
+    }
+    .takeaways li::before {
+      content: counter(take, decimal-leading-zero);
+      position: absolute; left: 0; top: 0.12rem;
+      font-size: 0.72rem; font-weight: 800; color: #8bb3e0;
+      border: 1px solid rgba(139, 179, 224, 0.4);
+      border-radius: 6px; padding: 0.05rem 0.35rem;
+    }
+    .takeaways strong { color: #ffffff; background: none; }
+
+    /* ================= SUMMARY + EXAM TIP ================= */
+    .summary {
+      margin-top: 1rem; display: flex; gap: 0.9rem;
+      background: var(--paper); border: 1px solid var(--line);
+      border-left: 5px solid var(--blue);
+      border-radius: var(--radius-md); padding: 1.1rem 1.3rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .summary-label {
+      flex-shrink: 0; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--blue);
+      writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);
+    }
+    .summary p { font-size: 0.95rem; color: var(--ink-2); }
+
+    .exam-tip {
+      margin-top: 1rem; display: flex; gap: 0.8rem;
+      background: var(--amber-tint); border: 1px solid #f2e0b3;
+      border-radius: var(--radius-md); padding: 1rem 1.2rem;
+    }
+    .exam-tip .tip-icon { font-size: 1.1rem; line-height: 1.4; }
+    .exam-tip .tip-label {
+      display: block; font-size: 0.64rem; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--amber); margin-bottom: 0.15rem;
+    }
+    .exam-tip p { font-size: 0.88rem; color: #6b5310; }
+
+    /* ================= QUIZ ================= */
+    .quiz {
+      margin-top: 3rem; border-radius: var(--radius-lg);
+      overflow: hidden; box-shadow: var(--shadow-md); scroll-margin-top: 90px;
+    }
+    .quiz-head {
+      background: radial-gradient(120% 140% at 100% 0%, #1a4470 0%, #0e2a47 62%);
+      color: #fff; padding: 1.5rem 1.7rem;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.9rem;
+    }
+    .quiz-head .eyebrow { color: #9cc7ee; }
+    .quiz-head h2 { font-size: 1.35rem; font-weight: 800; color: #fff; }
+    .quiz-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .quiz-chips span {
+      background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px; padding: 0.28rem 0.7rem; font-size: 0.74rem; font-weight: 700; color: #dceafa;
+    }
+    .quiz-body { background: var(--paper); padding: 1.5rem 1.7rem 1.8rem; }
+
+    .quiz-tabs { display: flex; flex-wrap: wrap; gap: 0.45rem; border-bottom: 1px solid var(--line); padding-bottom: 0.9rem; margin-bottom: 1.2rem; }
+    .quiz-tab {
+      font: inherit; font-size: 0.84rem; font-weight: 700; cursor: pointer;
+      color: var(--ink-2); background: #f2f7fd; border: 1px solid var(--line);
+      border-radius: 999px; padding: 0.42rem 1rem; transition: all 0.15s;
+    }
+    .quiz-tab:hover { background: var(--blue-tint); border-color: #bcd8f0; }
+    .quiz-tab.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+    .quiz-tab:focus-visible { outline: 3px solid rgba(47, 108, 168, 0.35); outline-offset: 2px; }
+
+    .quiz-panel { display: none; }
+    .quiz-panel.active { display: block; }
+    .panel-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem; margin-bottom: 1rem; }
+    .section-label {
+      display: inline-block; background: var(--navy); color: #fff;
+      font-size: 0.66rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.28rem 0.75rem; border-radius: 999px;
+    }
+    .score-chip {
+      font-size: 0.76rem; font-weight: 700; color: var(--blue);
+      background: var(--blue-tint); border-radius: 999px; padding: 0.28rem 0.8rem;
+    }
+
+    .mcq-item {
+      background: #fbfdff; border: 1px solid #e4eefa;
+      border-radius: var(--radius-md); padding: 1rem 1.1rem; margin-bottom: 0.85rem;
+    }
+    .mcq-question {
+      display: flex; gap: 0.6rem; font-size: 0.93rem; font-weight: 700;
+      color: var(--ink); line-height: 1.5; margin-bottom: 0.75rem;
+    }
+    .mcq-question .q-num { color: var(--blue); font-weight: 800; }
+    .mcq-options { display: grid; gap: 0.45rem; }
+    .mcq-option {
+      display: flex; align-items: flex-start; gap: 0.6rem; width: 100%;
+      text-align: left; font: inherit; font-size: 0.87rem; color: var(--ink-2);
+      background: #fff; border: 1.5px solid #e2edf9; border-radius: 11px;
+      padding: 0.55rem 0.75rem; cursor: pointer; transition: all 0.15s;
+    }
+    .mcq-option:hover:not(:disabled) { border-color: #b7d4ee; background: #f7fbff; }
+    .mcq-option:disabled { cursor: default; }
+    .option-letter {
+      flex-shrink: 0; width: 1.35rem; height: 1.35rem; border-radius: 50%;
+      display: grid; place-items: center; font-size: 0.7rem; font-weight: 800;
+      background: #eef5fd; color: var(--blue);
+    }
+    .mcq-option.correct { border-color: #7fc7a1; background: var(--green-tint); font-weight: 600; }
+    .mcq-option.correct .option-letter { background: #cdeedb; color: #14603c; }
+    .mcq-option.incorrect { border-color: #e0a3a3; background: var(--red-tint); }
+    .mcq-option.incorrect .option-letter { background: #f4d4d4; color: #8f2b2b; }
+    .mcq-feedback {
+      display: none; margin-top: 0.65rem; font-size: 0.85rem;
+      border-radius: 10px; padding: 0.55rem 0.8rem; line-height: 1.5;
+    }
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.correct-fb { background: var(--green-tint); color: #14603c; border-left: 3px solid #2e9b5e; }
+    .mcq-feedback.incorrect-fb { background: var(--red-tint); color: #8f2b2b; border-left: 3px solid #d45a5a; }
+
+    .crq-item, .erq-item {
+      background: #fbfdff; border: 1px solid #e4eefa;
+      border-radius: var(--radius-md); padding: 1.1rem 1.2rem; margin-bottom: 0.9rem;
+    }
+    .erq-item { border: 2px solid var(--blue-soft); background: #f7fbff; }
+    .crq-question, .erq-question {
+      font-size: 0.95rem; font-weight: 700; color: var(--ink); line-height: 1.5; margin-bottom: 0.4rem;
+    }
+    .erq-marks {
+      display: inline-block; background: var(--navy); color: #fff;
+      font-size: 0.65rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.22rem 0.7rem; border-radius: 999px; margin-bottom: 0.6rem;
+    }
+    .crq-hint { font-size: 0.82rem; color: var(--muted); font-style: italic; margin-bottom: 0.6rem; }
+    .crq-textarea, .erq-textarea {
+      width: 100%; font: inherit; font-size: 0.88rem; color: var(--ink-2);
+      background: #fff; border: 1.5px solid #dbe8f6; border-radius: 11px;
+      padding: 0.7rem 0.85rem; resize: vertical; transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .crq-textarea { min-height: 96px; }
+    .erq-textarea { min-height: 170px; }
+    .crq-textarea:focus, .erq-textarea:focus {
+      outline: none; border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(47, 108, 168, 0.13);
+    }
+    .answer-meta {
+      display: flex; justify-content: space-between; gap: 0.6rem;
+      font-size: 0.74rem; color: var(--muted); margin-top: 0.35rem;
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.65rem; }
+    .btn {
+      font: inherit; font-size: 0.83rem; font-weight: 700; cursor: pointer;
+      border-radius: 999px; padding: 0.48rem 1.1rem; border: 1px solid transparent;
+      transition: all 0.15s;
+    }
+    .btn-primary { background: var(--navy); color: #fff; }
+    .btn-primary:hover { background: #16406c; transform: translateY(-1px); }
+    .btn-secondary { background: #eef5fd; color: #1b4670; border-color: #cfe2f4; }
+    .btn-secondary:hover { background: #e0edfa; }
+    .btn:focus-visible { outline: 3px solid rgba(47, 108, 168, 0.35); outline-offset: 2px; }
+    .crq-feedback, .erq-feedback {
+      display: none; margin-top: 0.7rem; border-radius: 10px;
+      padding: 0.7rem 0.9rem; font-size: 0.86rem; line-height: 1.6;
+    }
+    .crq-feedback.show, .erq-feedback.show { display: block; }
+    .crq-feedback.model, .erq-feedback.model { background: var(--blue-tint); color: #143c62; border-left: 3px solid var(--blue); }
+    .crq-feedback.good, .erq-feedback.good { background: var(--green-tint); color: #14603c; border-left: 3px solid #2e9b5e; }
+    .crq-feedback.partial, .erq-feedback.partial { background: var(--amber-tint); color: #6b5310; border-left: 3px solid #e0a800; }
+
+    /* ================= FOOTER + TOP BUTTON ================= */
+    .note-footer {
+      margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid var(--line);
+      display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem;
+      font-size: 0.76rem; color: var(--muted);
+    }
+    .to-top {
+      position: fixed; right: 1.1rem; bottom: 1.1rem; z-index: 70;
+      width: 44px; height: 44px; border-radius: 50%; border: none; cursor: pointer;
+      background: var(--navy); color: #fff; font-size: 1.05rem;
+      box-shadow: var(--shadow-md); opacity: 0; pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .to-top.visible { opacity: 1; pointer-events: auto; }
+    .to-top:hover { transform: translateY(-2px); }
+
+    .no-results {
+      grid-column: 1 / -1; text-align: center; padding: 2rem 1rem;
+      background: rgba(255, 255, 255, 0.8); border: 2px dashed #c3d8ee;
+      border-radius: var(--radius-md); color: var(--muted); font-weight: 600; font-size: 0.9rem;
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 900px) {
+      .brief { grid-template-columns: 1fr; margin: -1.6rem 0.8rem 0; }
+      .do-dont { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 1.7rem 1.25rem 2.8rem; border-radius: 24px; }
+      .hero h1 { max-width: none; }
+      .brief { margin: -1.4rem 0.5rem 0; }
+      .brief-card { padding: 1.1rem 1.15rem; border-radius: 18px; }
+      .section-head { gap: 0.7rem; }
+      .section-num { width: 38px; height: 38px; border-radius: 12px; font-size: 0.8rem; }
+      .concept-grid, .vocab-grid, .myth-grid { grid-template-columns: 1fr; }
+      .toolbar-inner { border-radius: 18px; padding: 0.55rem 0.75rem; }
+      .quiz-body { padding: 1.1rem 1rem 1.4rem; }
+      .quiz-head { padding: 1.2rem 1.1rem; }
+      .takeaways { padding: 1.2rem 1.1rem; }
+      .summary { flex-direction: column; gap: 0.5rem; }
+      .summary-label { writing-mode: horizontal-tb; transform: none; }
+    }
+
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-track { background: #e4ecf6; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: #a9c0d8; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: #7f9cba; }
+
+    ::selection { background: #cfe3f8; color: #0b2138; }
+
+    .toc-list a:focus-visible,
+    .mcq-option:focus-visible,
+    .quiz-tab:focus-visible,
+    .btn:focus-visible,
+    .to-top:focus-visible {
+      outline: 3px solid rgba(47, 108, 168, 0.4);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
+    /* ================= PRINT ================= */
+    @media print {
+      body { background: #fff; padding: 0; }
+      .progress-track, .toolbar, .to-top, .quiz-tabs { display: none !important; }
+      .hero { box-shadow: none; border-radius: 0; }
+      .quiz-panel { display: block !important; }
+      .concept-card, .vocab-card, .myth-card, .table-shell { break-inside: avoid; }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="progress-track" aria-hidden="true"><span class="progress-fill" id="progressFill"></span></div>
+
+  <div class="shell">
+    <!-- ================= HERO ================= -->
+    <header class="hero">
+      <div class="hero-top">
+        <span class="badge">📊 Classroom Assessment</span>
+        <span class="hero-track">Teaching License · Part II · Note 3 of 11</span>
+      </div>
+      <h1>Two Key Types of Classroom Assessment</h1>
+      <p class="tagline">Formative assessment steers the journey; summative assessment reports on the destination</p>
+      <div class="chips">
+        <span class="chip">⏱️ 10 min read</span>
+        <span class="chip">📚 7 sections</span>
+        <span class="chip">🔑 12 key terms</span>
+        <span class="chip">📝 10 MCQs · 4 CRQs · 1 ERQ</span>
+      </div>
+    </header>
+
+    <!-- ================= BIG IDEA + OBJECTIVES ================= -->
+    <div class="brief">
+      <section class="brief-card" aria-labelledby="bigidea-title">
+        <h2 class="brief-label" id="bigidea-title">The big idea</h2>
+        <p>Classroom assessment is conventionally divided into two key types by purpose: <strong>formative assessment</strong>, which happens during learning and is used to adjust teaching and give <strong>feedback</strong>, and <strong>summative assessment</strong>, which happens at the end of a period of learning and is used to judge and report achievement. Formative is assessment *for* learning; summative is assessment *of* learning. The distinction is about purpose and use, not about the instrument: the same quiz can be formative if its results change tomorrow’s lesson, and summative if it is graded for the report. A third type, <strong>diagnostic assessment</strong>, is usually treated as a specialised form of formative assessment carried out before teaching, and is examined alongside the two key types.</p>
+      </section>
+      <section class="brief-card" aria-labelledby="objectives-title">
+        <h2 class="brief-label" id="objectives-title">What you will master</h2>
+        <ol class="objectives"><li>Define <strong>formative</strong> and <strong>summative</strong> assessment by purpose, timing and use, and give two classroom examples of each.</li><li>Explain why the same instrument can be formative or summative, and what determines which it becomes.</li><li>Show how formative evidence should feed summative judgements, and how <strong>diagnostic</strong> assessment fits the two-type model.</li></ol>
+      </section>
+    </div>
+
+    <!-- ================= TABLE OF CONTENTS ================= -->
+    <nav class="toc" aria-label="Sections in this note">
+      <p class="toc-title">On this page</p>
+      <ol class="toc-list">
+        <li><a href="#concepts"><span class="toc-num">01</span> Core concepts</a></li>
+        <li><a href="#vocabulary"><span class="toc-num">02</span> Key vocabulary</a></li>
+        <li><a href="#comparison"><span class="toc-num">03</span> Comparison table</a></li>
+        <li><a href="#application"><span class="toc-num">04</span> Classroom application</a></li>
+        <li><a href="#misconceptions"><span class="toc-num">05</span> Misconceptions</a></li>
+        <li><a href="#takeaways"><span class="toc-num">06</span> Takeaways &amp; exam tip</a></li>
+        <li><a href="#practice"><span class="toc-num">07</span> Practice quiz</a></li>
+      </ol>
+    </nav>
+
+    <!-- ================= SEARCH ================= -->
+    <div class="toolbar">
+      <div class="toolbar-inner">
+        <div class="search-box">
+          <span aria-hidden="true">🔍</span>
+          <input id="searchInput" type="search" placeholder="Search concepts, key terms and misconceptions…" aria-label="Search this note">
+        </div>
+        <div class="count-pill" id="countDisplay" role="status" aria-live="polite">22 items</div>
+      </div>
+    </div>
+
+    <!-- ================= 01 CONCEPTS ================= -->
+    <section class="section" id="concepts" aria-labelledby="concepts-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">01</span>
+        <div>
+          <p class="eyebrow">Foundations</p>
+          <h2 id="concepts-title">Core concepts</h2>
+          <p class="section-lead">Each card isolates one idea examiners test. Read the definition first, then the <em>In practice</em> line — that is where scenario questions begin.</p>
+        </div>
+      </div>
+      <div class="concept-grid" id="conceptGrid">
+        <article class="concept-card" data-searchable="Formative assessment: assessment for learning">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🧭</span>
+            <span class="concept-index">01</span>
+          </div>
+          <h3 class="concept-title">Formative assessment: assessment for learning</h3>
+          <p class="concept-desc"><strong>Formative assessment</strong> is any evidence-gathering during learning that is interpreted and used to adapt teaching and give <strong>feedback</strong>. Its defining feature is consequence: the learner or teacher does something differently because of it. Typical tools are hinge questions, exit tickets, mini-whiteboards, cold calling, drafts with comments, peer and self-assessment, and targeted observation.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Plan one hinge question per lesson with a distractor for each common misconception, then act on the result.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Summative assessment: assessment of learning">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🏁</span>
+            <span class="concept-index">02</span>
+          </div>
+          <h3 class="concept-title">Summative assessment: assessment of learning</h3>
+          <p class="concept-desc"><strong>Summative assessment</strong> summarises achievement at the end of a unit, term, year or stage for reporting, certification or progression. It demands coverage, comparability and defensible marking, so tests, projects with rubrics and moderated tasks are used. Its results are usually recorded and communicated to learners, parents or authorities.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Build summative papers from a table of specifications so marks match the taught outcomes and their weight.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Purpose, not instrument, decides the type">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🔁</span>
+            <span class="concept-index">03</span>
+          </div>
+          <h3 class="concept-title">Purpose, not instrument, decides the type</h3>
+          <p class="concept-desc">The same 10-question quiz is formative when it is ungraded and used to regroup learners, and summative when it counts towards a term grade. This is why labelling a task ‘formative’ in a lesson plan is meaningless unless the plan says how the evidence will be used.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>For every assessment, write the use sentence: ‘If learners get X wrong, I will…’</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Diagnostic assessment: finding the cause">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🔍</span>
+            <span class="concept-index">04</span>
+          </div>
+          <h3 class="concept-title">Diagnostic assessment: finding the cause</h3>
+          <p class="concept-desc"><strong>Diagnostic assessment</strong> occurs before teaching to establish prior knowledge and locate specific misconceptions, so that instruction starts at the right point. It is close to formative in purpose because it changes teaching, but it looks backwards at learning that should already exist. Error analysis and short ungraded probes are its main tools.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Analyse wrong answers by error type rather than counting them; the pattern tells you what to teach.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="How formative evidence feeds summative judgement">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">📈</span>
+            <span class="concept-index">05</span>
+          </div>
+          <h3 class="concept-title">How formative evidence feeds summative judgement</h3>
+          <p class="concept-desc">Formative and summative are strongest when connected. Formative evidence shows which outcomes are secure, which learners need support, and where a summative task would be unfair or badly designed. Summative judgement should therefore be built from a documented record of formative evidence, not from one terminal paper.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Keep a one-page outcome tracker; tick formative evidence against outcomes, then use it to build the term judgement.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Balancing the two in a real classroom">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">⚖️</span>
+            <span class="concept-index">06</span>
+          </div>
+          <h3 class="concept-title">Balancing the two in a real classroom</h3>
+          <p class="concept-desc">Over-emphasis on summative assessment narrows teaching, raises anxiety and encourages mark-chasing. Over-emphasis on formative assessment without periodic summative judgement leaves parents and learners without an honest account of achievement. A defensible classroom has frequent low-stakes formative checks and periodic, well-designed summative assessments, with feedback in both directions.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Aim for a 4:1 ratio of formative to summative activity in a unit, and tell learners which is which.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= 02 VOCABULARY ================= -->
+    <section class="section" id="vocabulary" aria-labelledby="vocab-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">02</span>
+        <div>
+          <p class="eyebrow">Precision</p>
+          <h2 id="vocab-title">Key vocabulary</h2>
+          <p class="section-lead">Be able to define each term in one sentence. Bold terms below also appear highlighted inside the notes, so you can meet them in context.</p>
+        </div>
+      </div>
+      <dl class="vocab-grid" id="vocabGrid">
+        <div class="vocab-card" data-searchable="Formative assessment">
+          <dt class="vocab-term">Formative assessment</dt>
+          <dd class="vocab-def">Assessment during learning, used to adapt teaching and give feedback; assessment for learning.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Summative assessment">
+          <dt class="vocab-term">Summative assessment</dt>
+          <dd class="vocab-def">Assessment at the end of a period of learning, used to summarise and report achievement.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Diagnostic assessment">
+          <dt class="vocab-term">Diagnostic assessment</dt>
+          <dd class="vocab-def">Pre-teaching assessment that identifies prior knowledge and specific misconceptions.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Assessment for learning">
+          <dt class="vocab-term">Assessment for learning</dt>
+          <dd class="vocab-def">The use of assessment evidence by learners and teachers to decide where to go next.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Assessment of learning">
+          <dt class="vocab-term">Assessment of learning</dt>
+          <dd class="vocab-def">The use of assessment to summarise and certify what has been learned.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Hinge question">
+          <dt class="vocab-term">Hinge question</dt>
+          <dd class="vocab-def">A single diagnostic question used mid-lesson to decide whether to move on or reteach.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Exit ticket">
+          <dt class="vocab-term">Exit ticket</dt>
+          <dd class="vocab-def">A short end-of-lesson task that captures each learner’s understanding for the next lesson.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Feedback">
+          <dt class="vocab-term">Feedback</dt>
+          <dd class="vocab-def">Information about performance against criteria that directs the next step.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Table of specifications">
+          <dt class="vocab-term">Table of specifications</dt>
+          <dd class="vocab-def">A blueprint mapping marks to content areas and cognitive levels when building a test.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Moderation">
+          <dt class="vocab-term">Moderation</dt>
+          <dd class="vocab-def">Agreement of judgements across teachers to ensure comparable standards.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Reliability">
+          <dt class="vocab-term">Reliability</dt>
+          <dd class="vocab-def">Consistency of an assessment’s results across occasions, forms and markers.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Validity">
+          <dt class="vocab-term">Validity</dt>
+          <dd class="vocab-def">The extent to which an assessment measures the intended learning outcomes.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- ================= 03 COMPARISON ================= -->
+    <section class="section" id="comparison" aria-labelledby="comparison-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">03</span>
+        <div>
+          <p class="eyebrow">Distinctions</p>
+          <h2 id="comparison-title">Comparison table</h2>
+          <p class="section-lead">Use this table for “differentiate between”, “compare” and “which is most appropriate” questions — name the dimension, then the contrast.</p>
+        </div>
+      </div>
+      <div class="table-shell" id="compareGrid">
+        <div class="table-caption">
+          <strong>Formative versus Summative Assessment</strong>
+          <span>Swipe to view all columns →</span>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr><th scope="col">Dimension</th><th scope="col">Formative</th><th scope="col">Summative</th><th scope="col">Example</th></tr>
+            </thead>
+            <tbody>
+            <tr><td>Purpose</td><td>Improve learning while it happens</td><td>Judge and report achievement</td><td>Hinge question vs. end-of-term examination</td></tr>
+            <tr><td>Timing</td><td>During the unit, continuously</td><td>At the end of a unit, term or stage</td><td>Mid-lesson check vs. final paper</td></tr>
+            <tr><td>Stakes</td><td>Low or none</td><td>Often high</td><td>Ungraded whiteboard work vs. promotion decision</td></tr>
+            <tr><td>Typical tools</td><td>Questioning, exit tickets, drafts, peer assessment</td><td>Tests, projects with rubrics, practicals</td><td>Thumbs vs. 40-mark test</td></tr>
+            <tr><td>Use of results</td><td>Adjust teaching, give feedback</td><td>Record, report, certify</td><td>Regrouping vs. report card</td></tr>
+            <tr><td>Feedback direction</td><td>To the learner and the teacher, immediately</td><td>To the learner, parents and system, afterwards</td><td>Comment in a draft vs. grade on a report</td></tr>
+            <tr><td>Main risk</td><td>Collected but never used</td><td>Narrow coverage and teaching to the test</td><td>Paperwork vs. cramming</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 04 APPLICATION ================= -->
+    <section class="section" id="application" aria-labelledby="application-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">04</span>
+        <div>
+          <p class="eyebrow">Practice</p>
+          <h2 id="application-title">Classroom application</h2>
+          <p class="section-lead">What to do, and what to avoid, in a real classroom. The left column is the standard to teach; the right column lists the errors that cost marks and learning.</p>
+        </div>
+      </div>
+      <div class="do-dont" id="applyGrid">
+        <div class="dd-card do">
+          <h3><span aria-hidden="true">✅</span> Do this</h3>
+          <ul><li>Name each assessment as formative or summative in your plan, with its intended use.</li><li>Use <strong>hinge questions</strong> and <strong>exit tickets</strong> to make formative evidence routine and fast.</li><li>Give <strong>feedback</strong> against <strong>success criteria</strong> so learners know the next step.</li><li>Design summative papers from a <strong>table of specifications</strong> that mirrors taught outcomes.</li><li>Base summative judgements on a documented record of formative evidence.</li><li>Tell learners which tasks are practice and which count, so they can take sensible risks.</li></ul>
+        </div>
+        <div class="dd-card avoid">
+          <h3><span aria-hidden="true">🚫</span> Avoid this</h3>
+          <ul><li>Do not label a task formative if its results never change teaching.</li><li>Do not grade every piece of formative work; it turns practice into evaluation.</li><li>Do not let <strong>summative</strong> assessment be the only evidence you can produce at reporting time.</li><li>Do not design summative papers by choosing items that are easy to mark.</li><li>Do not use <strong>diagnostic</strong> assessment to rank learners; use it to locate misconceptions.</li><li>Do not keep formative evidence only in your head — record it against outcomes in one place.</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 05 MISCONCEPTIONS ================= -->
+    <section class="section" id="misconceptions" aria-labelledby="misconceptions-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">05</span>
+        <div>
+          <p class="eyebrow">Exam traps</p>
+          <h2 id="misconceptions-title">Common misconceptions</h2>
+          <p class="section-lead">Each misconception below is a plausible-sounding statement that loses marks. Learn the reality column as a correction you can write.</p>
+        </div>
+      </div>
+      <div class="myth-grid" id="misGrid">
+        <article class="myth-card" data-searchable="&ldquo;Formative assessment means ungraded work, and summative means graded work.&rdquo;">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;Formative assessment means ungraded work, and summative means graded work.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>The distinction is purpose and use, not grading. A graded quiz whose results are analysed and used for reteaching is functioning formatively; an ungraded test whose results are filed away is not.</p>
+          </div>
+        </article>
+        <article class="myth-card" data-searchable="&ldquo;Formative assessment is optional extra work once the syllabus is covered.&rdquo;">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;Formative assessment is optional extra work once the syllabus is covered.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>Formative assessment is the mechanism by which coverage becomes learning. Without it, the teacher has no evidence about whether the syllabus was understood until the summative results arrive — too late to act.</p>
+          </div>
+        </article>
+        <article class="myth-card" data-searchable="&ldquo;Summative assessment is the enemy of good teaching.&rdquo;">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;Summative assessment is the enemy of good teaching.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>Well-designed <strong>summative</strong> assessment is necessary for honest reporting, progression and public accountability. The problem is over-use and poor design, not the purpose itself.</p>
+          </div>
+        </article>
+        <article class="myth-card" data-searchable="&ldquo;Diagnostic assessment is a separate third type unrelated to the other two.&rdquo;">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;Diagnostic assessment is a separate third type unrelated to the other two.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>It is usually treated as a specialised form of <strong>formative</strong> assessment used before teaching; its purpose — adapting instruction — is formative, while its focus is prior learning.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= 06 TAKEAWAYS ================= -->
+    <section class="section" id="takeaways" aria-labelledby="takeaways-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">06</span>
+        <div>
+          <p class="eyebrow">Compress</p>
+          <h2 id="takeaways-title">Key takeaways</h2>
+          <p class="section-lead">Revise these lines the night before the paper — they compress the whole note into recall-ready statements.</p>
+        </div>
+      </div>
+      <div class="takeaways">
+        <h3>Six things to remember</h3>
+        <ol><li><strong>Formative</strong> assessment happens during learning and changes the next step; <strong>summative</strong> assessment summarises at the end.</li><li>The type is decided by purpose and use, not by the instrument or the presence of marks.</li><li><strong>Diagnostic</strong> assessment locates prior knowledge and is formative in purpose.</li><li>Formative evidence should feed the summative judgement so that reporting is defensible.</li><li>Summative papers need a <strong>table of specifications</strong> for valid coverage and weighting.</li><li>Frequent low-stakes formative checks plus periodic, well-designed summative tasks is the defensible balance.</li></ol>
+      </div>
+      <div class="summary">
+        <span class="summary-label">One-line summary</span>
+        <p>Formative assessment is assessment for learning — continuous, low-stakes and used to adjust teaching and give feedback — while summative assessment is assessment of learning, used at the end of a period to judge and report achievement against criteria.</p>
+      </div>
+      <div class="exam-tip">
+        <span class="tip-icon" aria-hidden="true">💡</span>
+        <div>
+          <span class="tip-label">Exam tip</span>
+          <p>If a question says ‘the teacher analyses the quiz and regroups learners’, the answer is <strong>formative</strong> even though a quiz looks like a test. If it says ‘used for the report card’ or ‘promotion’, the answer is <strong>summative</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 07 QUIZ ================= -->
+    <section class="quiz" id="practice" aria-labelledby="quiz-title">
+      <div class="quiz-head">
+        <div>
+          <p class="eyebrow">Practice</p>
+          <h2 id="quiz-title">Test yourself</h2>
+        </div>
+        <div class="quiz-chips">
+          <span>10 MCQs</span>
+          <span>4 CRQs</span>
+          <span>1 ERQ</span>
+        </div>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-tabs" role="tablist" aria-label="Quiz sections">
+          <button class="quiz-tab active" role="tab" aria-selected="true" data-panel="mcqPanel">🔘 10 MCQs</button>
+          <button class="quiz-tab" role="tab" aria-selected="false" data-panel="crqPanel">✍️ 4 CRQs</button>
+          <button class="quiz-tab" role="tab" aria-selected="false" data-panel="erqPanel">📄 1 ERQ</button>
+        </div>
+
+        <div class="quiz-panel active" id="mcqPanel" role="tabpanel">
+          <div class="panel-head">
+            <span class="section-label">Multiple choice questions</span>
+            <span class="score-chip" id="mcqProgress">0 / 10 answered · 0 correct</span>
+          </div>
+          <div id="mcqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="crqPanel" role="tabpanel">
+          <div class="panel-head">
+            <span class="section-label">Constructed response questions</span>
+            <span class="score-chip">Model answers included</span>
+          </div>
+          <div id="crqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="erqPanel" role="tabpanel">
+          <div class="panel-head">
+            <span class="section-label">Extended response · situation-based</span>
+            <span class="score-chip">Keyword self-check</span>
+          </div>
+          <div id="erqContainer"></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="note-footer">
+      <span>MUQABIL · Teaching License Master Notes · Classroom Assessment</span>
+      <span>11 interactive notes in this module · revision 3 of 11</span>
+    </footer>
+  </div>
+
+  <button class="to-top" id="toTop" type="button" aria-label="Back to top">↑</button>
+
+<script>
+    (function () {
+      'use strict';
+
+      /* ================= READING PROGRESS ================= */
+      var fill = document.getElementById('progressFill');
+      var toTop = document.getElementById('toTop');
+
+      function updateScroll() {
+        var doc = document.documentElement;
+        var max = doc.scrollHeight - doc.clientHeight;
+        var pct = max > 0 ? (doc.scrollTop / max) * 100 : 0;
+        if (fill) fill.style.width = pct + '%';
+        if (toTop) {
+          if (doc.scrollTop > 600) toTop.classList.add('visible');
+          else toTop.classList.remove('visible');
+        }
+      }
+      window.addEventListener('scroll', updateScroll, { passive: true });
+      updateScroll();
+
+      if (toTop) {
+        toTop.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      /* ================= LIVE SEARCH ================= */
+      var searchInput = document.getElementById('searchInput');
+      var countDisplay = document.getElementById('countDisplay');
+      var grids = [
+        document.getElementById('conceptGrid'),
+        document.getElementById('vocabGrid'),
+        document.getElementById('misGrid')
+      ].filter(Boolean);
+
+      var cards = [];
+      grids.forEach(function (grid) {
+        Array.prototype.forEach.call(grid.querySelectorAll('[data-searchable]'), function (card) {
+          cards.push(card);
+        });
+      });
+
+      function applySearch(raw) {
+        var q = (raw || '').trim().toLowerCase();
+        var visible = 0;
+        cards.forEach(function (card) {
+          var text = ((card.getAttribute('data-searchable') || '') + ' ' + card.textContent).toLowerCase();
+          var matches = q === '' || text.indexOf(q) !== -1;
+          card.style.display = matches ? '' : 'none';
+          if (matches) visible++;
+        });
+        Array.prototype.forEach.call(document.querySelectorAll('.no-results'), function (el) {
+          el.parentNode.removeChild(el);
+        });
+        grids.forEach(function (grid) {
+          var shown = Array.prototype.filter.call(
+            grid.querySelectorAll('[data-searchable]'),
+            function (card) { return card.style.display !== 'none'; }
+          ).length;
+          if (shown === 0) {
+            var msg = document.createElement('div');
+            msg.className = 'no-results';
+            msg.textContent = '🔎 No matching items in this section.';
+            grid.appendChild(msg);
+          }
+        });
+        if (countDisplay) {
+          countDisplay.textContent = visible + ' item' + (visible === 1 ? '' : 's');
+        }
+      }
+
+      var debounceTimer;
+      if (searchInput) {
+        searchInput.addEventListener('input', function (e) {
+          clearTimeout(debounceTimer);
+          debounceTimer = setTimeout(function () { applySearch(e.target.value); }, 140);
+        });
+        searchInput.addEventListener('search', function (e) {
+          if (e.target.value === '') applySearch('');
+        });
+        searchInput.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && searchInput.value !== '') {
+            searchInput.value = '';
+            applySearch('');
+          }
+        });
+      }
+      applySearch('');
+
+      /* ================= QUIZ TABS ================= */
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.quiz-tab'));
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          tabs.forEach(function (t) {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          Array.prototype.forEach.call(document.querySelectorAll('.quiz-panel'), function (p) {
+            p.classList.remove('active');
+          });
+          tab.classList.add('active');
+          tab.setAttribute('aria-selected', 'true');
+          var panel = document.getElementById(tab.getAttribute('data-panel'));
+          if (panel) panel.classList.add('active');
+        });
+      });
+
+      /* ================= DATA ================= */
+      var mcqs = [{"q": "Formative assessment is best defined by:", "options": ["Being ungraded", "Being short", "Being used to adapt teaching and give feedback", "Being conducted weekly"], "answer": 2, "why": "Purpose and use define formative assessment, not length or grading."}, {"q": "Summative assessment is primarily used to:", "options": ["Adjust tomorrow’s lesson", "Diagnose prior knowledge", "Summarise and report achievement", "Replace feedback"], "answer": 2, "why": "Summative assessment judges achievement at the end of a period."}, {"q": "An exit ticket collected and used to regroup the next lesson is:", "options": ["Summative", "Formative", "Norm-referenced", "A board examination"], "answer": 1, "why": "The evidence changes teaching, which is the defining feature of formative use."}, {"q": "A diagnostic assessment is best given:", "options": ["At the end of the year", "Before teaching a unit", "Only in examinations", "After marking"], "answer": 1, "why": "Diagnostic assessment establishes starting points before instruction."}, {"q": "Which is the biggest threat to the value of formative assessment?", "options": ["Using too many tools", "Collecting evidence but never acting on it", "Involving learners", "Using short tasks"], "answer": 1, "why": "Without a change in teaching, formative assessment is just extra testing."}, {"q": "A table of specifications is used mainly to improve:", "options": ["The reliability of marking", "The validity and balance of a summative paper", "Learner motivation", "Classroom seating"], "answer": 1, "why": "It maps marks to content and cognitive levels for representative coverage."}, {"q": "Which statement is correct?", "options": ["All tests are summative", "All formative assessment is ungraded", "The same quiz can serve both purposes", "Summative assessment cannot inform teaching"], "answer": 2, "why": "Purpose and use, not the instrument, determine the type."}, {"q": "Peer assessment is most often formative because it:", "options": ["Produces a grade", "Generates feedback against criteria during learning", "Replaces the teacher", "Is anonymous"], "answer": 1, "why": "Peer assessment works when criteria are shared and feedback is used."}, {"q": "The main risk of an over-summative assessment culture is:", "options": ["Too much feedback", "Narrow teaching and mark-chasing", "Too little record keeping", "Reduced coverage"], "answer": 1, "why": "High-stakes frequent grading narrows the curriculum and motivation."}, {"q": "Summative judgement is most defensible when it is:", "options": ["Based on one terminal paper", "Built from documented formative evidence plus summative tasks", "Adjusted to motivate learners", "Kept confidential from parents"], "answer": 1, "why": "Multiple documented sources raise validity and fairness."}];
+      var crqs = [{"q": "Distinguish between formative and summative assessment in terms of purpose, timing, use of results and examples.", "hint": "Use four dimensions; give two examples of each type.", "model": "By purpose, formative assessment improves learning while it is happening, while summative assessment judges and reports achievement at the end of a period. By timing, formative assessment is continuous and embedded in lessons, whereas summative assessment occurs at unit, term or stage boundaries. By use of results, formative evidence immediately changes teaching and gives feedback — the teacher reteaches, regroups or adjusts pace — while summative results are recorded, reported to learners and parents, and used for progression or certification. Examples of formative assessment include a hinge question on equivalent fractions answered on mini-whiteboards, and an exit ticket analysed that evening to plan the next lesson. Examples of summative assessment include a 40-mark end-of-unit test built from a table of specifications, and a project assessed with a shared rubric at the end of term."}, {"q": "Explain, with an example, why the same assessment instrument can be either formative or summative.", "hint": "Focus on what is done with the results.", "model": "The type is determined by purpose and use, not by the instrument. A ten-item multiple-choice quiz on the water cycle is summative if it is marked, entered in the register, weighted in the term grade and communicated to parents without further action. The identical quiz is formative if it is ungraded, if the teacher sorts the responses by item to see that most learners confuse evaporation with condensation, and if the next lesson begins with a demonstration and a re-teach of that distinction. The instrument, its length and the cognitive demand are the same; what differs is whether the evidence is interpreted and used to adapt teaching and give feedback. This is why writing ‘formative quiz’ in a lesson plan is insufficient — the plan must specify the use."}, {"q": "How should formative assessment evidence influence the design of summative assessment?", "hint": "Coverage, fairness, item design and timing.", "model": "Formative evidence should shape both what the summative task covers and how it is built. First, it shows which outcomes have been securely taught; if formative records reveal that one objective was never reached because of timetable disruption, the summative paper should not weight it heavily without reteaching, or the judgement will be unfair. Second, item-level formative data reveal the misconceptions learners actually hold, which helps design distractors and choose tasks that discriminate between secure and insecure understanding rather than between memorisers and non-memorisers. Third, formative data identify learners needing access arrangements, such as additional time or a reader, so that summative assessment measures learning rather than barriers. Fourth, patterns of formative performance justify the weighting in the table of specifications so that the paper reflects taught emphasis. Finally, formative evidence provides the documented basis on which the summative judgement rests, which is what makes a report defensible in a moderation meeting or a parent conversation."}, {"q": "A school decides to replace all class tests with one annual examination in order to ‘reduce pressure’. Evaluate this decision.", "hint": "Consider learning evidence, feedback, fairness and the actual source of pressure.", "model": "The decision confuses the source of pressure with the frequency of assessment. Pressure comes from high stakes and public comparison, not from assessment as such; a single annual examination raises the stakes of that one occasion, which typically increases anxiety and encourages cramming, while removing the continuous evidence that would make the examination fair. Pedagogically, replacing class tests removes the teacher’s ability to detect misunderstanding during the year, so errors persist for months and learners receive no feedback while it could still help. The annual examination must then sample a whole year in one sitting, which increases sampling error and makes the judgement less reliable. There is also a design problem: a single paper cannot cover practical, oral and project outcomes, so those outcomes effectively disappear from the taught curriculum. A better response to the pressure concern is to keep low-stakes formative assessment, make it ungraded and private, reduce the number of graded tasks to a small, well-signposted set, publish criteria in advance, and ensure the annual examination draws on documented continuous evidence rather than standing alone."}];
+      var erq = {"scenario": "A Grade 8 science teacher in a government school teaches six classes of 45 learners. Terminal results have been poor for three years. Her assessment consists of a monthly test copied from a guidebook, marked out of 25 and entered into the register; learners see only the total. She says she has no time for ‘extra assessment’ because the syllabus must be finished by February, and that continuous assessment is impossible with 45 learners per class.", "task": "Explain how formative and summative assessment are currently being confused or misused in this classroom, and propose a realistic plan that improves both without adding significant marking time.", "hint": "Diagnose the missing formative loop and the weak summative design, then propose low-workflow routines.", "keywords": ["formative", "summative", "feedback", "exit ticket", "hinge question", "diagnostic", "table of specifications", "moderation", "record keeping", "coverage"], "model": "The teacher currently has repeated summative measurement and almost no formative assessment. The monthly test is summative in form — it produces a total for the register — but it is not functioning summatively either, because a single total with no item analysis gives no information about which outcomes were met, and a guidebook test is unlikely to match the taught outcomes or their weighting. Because learners see only the total, they receive no feedback and cannot act; because the teacher does not analyse items, she cannot reteach. The result is a loop with no feedback in either direction: teaching continues at syllabus pace, misunderstanding accumulates, and the terminal test simply records the accumulated gap. The claim that there is no time for assessment is understandable but self-defeating: the syllabus is being covered, not learned, and the February deadline is being met at the cost of the results the school is judged on. A realistic plan should add minutes, not hours. First, replace the copied monthly test with a short teacher-made test built from a simple table of specifications so that items match the taught outcomes, and mark it by item rather than only by total: recording the class percentage correct for each item takes five minutes and immediately shows what to reteach. Second, introduce one hinge question per lesson written on the board, answered on small slips or by show of hands with a distractor for the common misconception; the teacher scans and decides whether to move on, without collecting anything. Third, use a whole-class exit ticket once a week: one question on a slip, collected at the door, sorted into three piles — secure, partial, not yet — which gives a class-level picture in about four minutes without individual marking. Fourth, keep a single class tracker sheet listing the unit outcomes with a tick for ‘secure’, ‘partial’ or ‘not yet’ based on those two routines, so that formative evidence exists without a mark book entry per learner. Fifth, give feedback in class rather than in writing: two minutes at the start of the next lesson on the most common error, with a corrected example, is feedback to 45 learners at once. Sixth, build the terminal examination from the same table of specifications and moderate one class set with a colleague so that standards are comparable across the six sections. Seventh, use the tracker to decide what to reteach in the two weeks before the examination rather than re-covering everything. The workload change is small: item tallying, one slip sort per week, one tracker sheet. The gain is a functioning feedback loop, evidence that can be reported honestly, and a realistic chance that February coverage corresponds to actual learning."};
+
+      /* ================= MCQs ================= */
+      var mcqContainer = document.getElementById('mcqContainer');
+      var scoreChip = document.getElementById('mcqProgress');
+      var answered = 0;
+      var correctCount = 0;
+      var letters = ['A', 'B', 'C', 'D'];
+
+      function updateScore() {
+        if (!scoreChip) return;
+        scoreChip.textContent = answered + ' / ' + mcqs.length + ' answered · ' + correctCount + ' correct';
+      }
+
+      mcqs.forEach(function (item, idx) {
+        var wrap = document.createElement('div');
+        wrap.className = 'mcq-item';
+
+        var q = document.createElement('p');
+        q.className = 'mcq-question';
+        var num = document.createElement('span');
+        num.className = 'q-num';
+        num.textContent = (idx + 1) + '.';
+        var qtext = document.createElement('span');
+        qtext.textContent = item.q;
+        q.appendChild(num);
+        q.appendChild(qtext);
+        wrap.appendChild(q);
+
+        var options = document.createElement('div');
+        options.className = 'mcq-options';
+
+        var fb = document.createElement('div');
+        fb.className = 'mcq-feedback';
+
+        Array.prototype.forEach.call(item.options, function (text, i) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'mcq-option';
+          btn.setAttribute('aria-label', letters[i] + '. ' + text);
+
+          var letter = document.createElement('span');
+          letter.className = 'option-letter';
+          letter.textContent = letters[i];
+          var label = document.createElement('span');
+          label.textContent = text;
+          btn.appendChild(letter);
+          btn.appendChild(label);
+
+          btn.addEventListener('click', function () {
+            if (wrap.getAttribute('data-answered') === 'true') return;
+            wrap.setAttribute('data-answered', 'true');
+            answered++;
+            var isCorrect = i === item.answer;
+            if (isCorrect) correctCount++;
+            btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+            Array.prototype.forEach.call(options.querySelectorAll('.mcq-option'), function (other, j) {
+              other.disabled = true;
+              if (j === item.answer) other.classList.add('correct');
+            });
+            fb.className = 'mcq-feedback show ' + (isCorrect ? 'correct-fb' : 'incorrect-fb');
+            fb.textContent = (isCorrect ? '✅ Correct. ' : '❌ Not quite. ') + item.why;
+            updateScore();
+          });
+
+          options.appendChild(btn);
+        });
+
+        wrap.appendChild(options);
+        wrap.appendChild(fb);
+        mcqContainer.appendChild(wrap);
+      });
+      updateScore();
+
+      /* ================= CRQs ================= */
+      var crqContainer = document.getElementById('crqContainer');
+      crqs.forEach(function (item, idx) {
+        var wrap = document.createElement('div');
+        wrap.className = 'crq-item';
+
+        var q = document.createElement('p');
+        q.className = 'crq-question';
+        q.textContent = 'CRQ ' + (idx + 1) + '. ' + item.q;
+        wrap.appendChild(q);
+
+        var hint = document.createElement('p');
+        hint.className = 'crq-hint';
+        hint.textContent = 'Hint: ' + item.hint;
+        wrap.appendChild(hint);
+
+        var area = document.createElement('textarea');
+        area.className = 'crq-textarea';
+        area.setAttribute('aria-label', 'Your answer for CRQ ' + (idx + 1));
+        area.placeholder = 'Write your answer, then reveal the model answer to self-check.';
+        wrap.appendChild(area);
+
+        var meta = document.createElement('div');
+        meta.className = 'answer-meta';
+        var words = document.createElement('span');
+        words.textContent = '0 words';
+        var target = document.createElement('span');
+        target.textContent = 'Target: 80–120 words';
+        meta.appendChild(words);
+        meta.appendChild(target);
+        wrap.appendChild(meta);
+
+        area.addEventListener('input', function () {
+          var count = area.value.trim() ? area.value.trim().split(/\s+/).length : 0;
+          words.textContent = count + ' word' + (count === 1 ? '' : 's');
+        });
+
+        var actions = document.createElement('div');
+        actions.className = 'actions';
+        var showBtn = document.createElement('button');
+        showBtn.type = 'button';
+        showBtn.className = 'btn btn-primary';
+        showBtn.textContent = 'Show model answer';
+        var clearBtn = document.createElement('button');
+        clearBtn.type = 'button';
+        clearBtn.className = 'btn btn-secondary';
+        clearBtn.textContent = 'Clear';
+        actions.appendChild(showBtn);
+        actions.appendChild(clearBtn);
+        wrap.appendChild(actions);
+
+        var fb = document.createElement('div');
+        fb.className = 'crq-feedback';
+        wrap.appendChild(fb);
+
+        showBtn.addEventListener('click', function () {
+          var open = fb.classList.contains('show');
+          if (open) {
+            fb.className = 'crq-feedback';
+            fb.textContent = '';
+            showBtn.textContent = 'Show model answer';
+          } else {
+            fb.className = 'crq-feedback show model';
+            fb.textContent = 'Model answer: ' + item.model;
+            showBtn.textContent = 'Hide model answer';
+          }
+        });
+        clearBtn.addEventListener('click', function () {
+          area.value = '';
+          words.textContent = '0 words';
+          fb.className = 'crq-feedback';
+          fb.textContent = '';
+          showBtn.textContent = 'Show model answer';
+        });
+
+        crqContainer.appendChild(wrap);
+      });
+
+      /* ================= ERQ ================= */
+      var erqContainer = document.getElementById('erqContainer');
+      var eWrap = document.createElement('div');
+      eWrap.className = 'erq-item';
+
+      var marks = document.createElement('span');
+      marks.className = 'erq-marks';
+      marks.textContent = 'Extended response · 10 marks';
+      eWrap.appendChild(marks);
+
+      var eq = document.createElement('p');
+      eq.className = 'erq-question';
+      eq.textContent = erq.scenario + ' ' + erq.task;
+      eWrap.appendChild(eq);
+
+      var ehint = document.createElement('p');
+      ehint.className = 'crq-hint';
+      ehint.textContent = 'Guidance: ' + erq.hint;
+      eWrap.appendChild(ehint);
+
+      var eArea = document.createElement('textarea');
+      eArea.className = 'erq-textarea';
+      eArea.setAttribute('aria-label', 'Your extended response');
+      eArea.placeholder = 'Plan your response: identify the problem, apply the theory, then give concrete classroom actions and how you would evaluate them.';
+      eWrap.appendChild(eArea);
+
+      var eMeta = document.createElement('div');
+      eMeta.className = 'answer-meta';
+      var eWords = document.createElement('span');
+      eWords.textContent = '0 words';
+      var eTarget = document.createElement('span');
+      eTarget.textContent = 'Target: 250–400 words';
+      eMeta.appendChild(eWords);
+      eMeta.appendChild(eTarget);
+      eWrap.appendChild(eMeta);
+
+      eArea.addEventListener('input', function () {
+        var count = eArea.value.trim() ? eArea.value.trim().split(/\s+/).length : 0;
+        eWords.textContent = count + ' word' + (count === 1 ? '' : 's');
+      });
+
+      var eActions = document.createElement('div');
+      eActions.className = 'actions';
+      var checkBtn = document.createElement('button');
+      checkBtn.type = 'button';
+      checkBtn.className = 'btn btn-primary';
+      checkBtn.textContent = 'Check my response';
+      var modelBtn = document.createElement('button');
+      modelBtn.type = 'button';
+      modelBtn.className = 'btn btn-secondary';
+      modelBtn.textContent = 'Show model answer';
+      eActions.appendChild(checkBtn);
+      eActions.appendChild(modelBtn);
+      eWrap.appendChild(eActions);
+
+      var eFb = document.createElement('div');
+      eFb.className = 'erq-feedback';
+      eWrap.appendChild(eFb);
+
+      checkBtn.addEventListener('click', function () {
+        var answer = eArea.value.toLowerCase();
+        if (!answer.trim()) {
+          eFb.className = 'erq-feedback show partial';
+          eFb.textContent = 'Write your response first — aim for at least 250 words before self-checking.';
+          return;
+        }
+        var hits = erq.keywords.filter(function (k) {
+          return answer.indexOf(k.toLowerCase()) !== -1;
+        });
+        var ratio = hits.length / erq.keywords.length;
+        var missing = erq.keywords.filter(function (k) { return hits.indexOf(k) === -1; });
+        if (ratio >= 0.6) {
+          eFb.className = 'erq-feedback show good';
+          eFb.textContent = '✅ Strong coverage: ' + hits.length + ' of ' + erq.keywords.length +
+            ' expected ideas present (' + hits.join(', ') + '). Now tighten the structure: theory → diagnosis → actions → evaluation.' +
+            (missing.length ? ' Still to consider: ' + missing.join(', ') + '.' : '');
+        } else {
+          eFb.className = 'erq-feedback show partial';
+          eFb.textContent = '⚠️ Partial coverage: ' + hits.length + ' of ' + erq.keywords.length +
+            ' expected ideas found. Add: ' + missing.join(', ') + '.';
+        }
+      });
+
+      modelBtn.addEventListener('click', function () {
+        var open = eFb.classList.contains('show') && eFb.classList.contains('model');
+        if (open) {
+          eFb.className = 'erq-feedback';
+          eFb.textContent = '';
+          modelBtn.textContent = 'Show model answer';
+        } else {
+          eFb.className = 'erq-feedback show model';
+          eFb.textContent = 'Model answer: ' + erq.model;
+          modelBtn.textContent = 'Hide model answer';
+        }
+      });
+
+      erqContainer.appendChild(eWrap);
+    })();
+</script>
+</body>
+</html>

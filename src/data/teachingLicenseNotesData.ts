@@ -1,3 +1,7 @@
+import { EDUCATIONAL_PSYCHOLOGY_TOPICS } from './educationalPsychologyTopics';
+
+export { EDUCATIONAL_PSYCHOLOGY_TOPICS };
+
 export interface QuickQuizItem {
   id: string;
   question: string;
@@ -2259,6 +2263,22 @@ export const TEACHING_LICENSE_PARTS: LicensePartModule[] = [
     description:
       'Cognitive, physical, and socio-emotional development stages (Piaget, Vygotsky, Erikson, Kohlberg), learning theories, motivation, and inclusive education strategies.',
     topics: CHILD_DEVELOPMENT_TOPICS,
+  },
+  {
+    id: 'steda-part-2-educational-psychology',
+    partNumber: 12,
+    partCategory: 'Part II: Pedagogical Content Knowledge (50%)',
+    subjectName: 'Educational Psychology',
+    weightage: 'Revision · 6 Interactive Notes',
+    marks: 0,
+    targetLevel: 'Elementary (BPS-16) & Secondary (BPS-17)',
+    iconName: 'Brain',
+    themeColor: 'from-indigo-600 to-purple-700',
+    badgeBg: 'bg-indigo-500/10',
+    badgeText: 'text-indigo-600 dark:text-indigo-400',
+    description:
+      'Conceptual revision module for the psychology content embedded in Part II: major learning theories, psychology versus educational psychology, individual differences, basic needs and motivation, and home–school–community influences — each with a full interactive note, MCQs, CRQs, and an ERQ.',
+    topics: EDUCATIONAL_PSYCHOLOGY_TOPICS,
   },
   {
     id: 'steda-part-2-classroom-management',

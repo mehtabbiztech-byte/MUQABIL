@@ -11,6 +11,7 @@ import {
   EDUCATIONAL_PSYCHOLOGY_SUBJECT,
 } from './educationalPsychologyNotes';
 import { STUDY_CURRICULUM } from './studyNotesData';
+import { EDUCATIONAL_PSYCHOLOGY_TOPICS, TEACHING_LICENSE_PARTS } from './teachingLicenseNotesData';
 
 const educationalPsychologyDocuments = [
   {
@@ -66,6 +67,41 @@ test('Educational Psychology notes expose six complete, uniquely identified less
     assert.ok(lesson.practice.length >= 4, lesson.id);
     assert.ok(lesson.htmlNotesPath?.startsWith('notes/educational-psychology/'), lesson.id);
   }
+});
+
+test('Teaching License hub exposes Educational Psychology as its own reference module', () => {
+  const modules = TEACHING_LICENSE_PARTS.filter(
+    (part) => part.id === 'steda-part-2-educational-psychology',
+  );
+  assert.equal(modules.length, 1);
+
+  const [module] = modules;
+  assert.equal(module.subjectName, 'Educational Psychology');
+  assert.equal(module.partCategory, 'Part II: Pedagogical Content Knowledge (50%)');
+  assert.equal(module.topics, EDUCATIONAL_PSYCHOLOGY_TOPICS);
+  assert.equal(module.topics.length, 6);
+
+  // Every topic in the module opens its supplied interactive HTML note.
+  for (const topic of module.topics) {
+    assert.ok(topic.htmlNotesPath, topic.id);
+    assert.ok(
+      topic.htmlNotesPath!.startsWith('notes/educational-psychology/'),
+      topic.htmlNotesPath,
+    );
+    readFileSync(path.join(process.cwd(), 'public', topic.htmlNotesPath!), 'utf8');
+    assert.ok(topic.summary.length > 0, topic.id);
+    assert.ok(topic.concepts.length > 0, topic.id);
+    assert.ok(topic.frequentExamQuestions.length > 0, topic.id);
+    assert.ok(topic.quickQuiz.length > 0, topic.id);
+  }
+
+  // The module is listed once and every part keeps a stable, unique number.
+  const partNumbers = TEACHING_LICENSE_PARTS.map((part) => part.partNumber);
+  assert.equal(new Set(partNumbers).size, partNumbers.length);
+  assert.equal(
+    new Set(TEACHING_LICENSE_PARTS.map((part) => part.id)).size,
+    TEACHING_LICENSE_PARTS.length,
+  );
 });
 
 test('Educational Psychology subject is registered once in the study curriculum with all lessons', () => {

@@ -759,7 +759,7 @@ PREPARED VIA MEHTAB STS IBA PREP
               className="flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-purple-600 text-white font-bold text-xs shadow-sm"
             >
               <Menu className="w-4 h-4" />
-              <span>Browse Syllabus Index (10 Modules · {allTopics.length} Topics)</span>
+              <span>Browse Syllabus Index ({TEACHING_LICENSE_PARTS.length} Modules · {allTopics.length} Topics)</span>
             </button>
 
             <button

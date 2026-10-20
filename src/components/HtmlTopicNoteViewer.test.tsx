@@ -7,6 +7,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { HtmlTopicNoteViewer } from './HtmlTopicNoteViewer';
 import {
   CHILD_DEVELOPMENT_TOPICS,
+  EDUCATIONAL_PSYCHOLOGY_TOPICS,
   FOUNDATIONS_OF_EDUCATION_TOPICS,
   METHODS_OF_TEACHING_TOPICS,
 } from '../data/teachingLicenseNotesData';
@@ -97,12 +98,43 @@ const hubDocuments = [
     path: 'notes/child-development/age-appropriate-teaching-strategies-based-on-developmental-theory.html',
     crqs: 4,
   },
+  {
+    topicId: 'edu-psych-basics-learning-theories',
+    path: 'notes/educational-psychology/basics-of-educational-psychology-major-learning-theories.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'edu-psych-vs-educational-psychology',
+    path: 'notes/educational-psychology/differences-between-psychology-and-educational-psychology.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'edu-psych-learning-theories',
+    path: 'notes/educational-psychology/learning-theories-behaviorism-cognitivism-constructivism-humanism.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'edu-psych-individual-differences',
+    path: 'notes/educational-psychology/individual-differences-in-educational-psychology.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'edu-psych-basic-needs-motivation',
+    path: 'notes/educational-psychology/basic-needs-and-motivation.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'edu-psych-home-school-community',
+    path: 'notes/educational-psychology/learning-and-motivation-in-home-school-and-community.html',
+    crqs: 4,
+  },
 ];
 
 const allHubTopics = [
   ...METHODS_OF_TEACHING_TOPICS,
   ...FOUNDATIONS_OF_EDUCATION_TOPICS,
   ...CHILD_DEVELOPMENT_TOPICS,
+  ...EDUCATIONAL_PSYCHOLOGY_TOPICS,
 ];
 
 test('Master Notes Hub attaches supplied HTML to matching topics across modules', () => {
@@ -115,13 +147,16 @@ test('Master Notes Hub attaches supplied HTML to matching topics across modules'
     const topic = allHubTopics.find((item) => item.id === document.topicId)!;
     assert.equal(topic.htmlNotesPath, document.path);
   }
-  // Every Methods of Teaching, Foundations of Education, and Child Development topic carries its supplied standalone note.
+  // Every Methods of Teaching, Foundations of Education, Child Development, and Educational Psychology topic carries a supplied standalone note.
   assert.equal(METHODS_OF_TEACHING_TOPICS.length, 6);
   assert.equal(METHODS_OF_TEACHING_TOPICS.filter((topic) => topic.htmlNotesPath).length, 6);
   assert.equal(FOUNDATIONS_OF_EDUCATION_TOPICS.length, 5);
   assert.equal(FOUNDATIONS_OF_EDUCATION_TOPICS.filter((topic) => topic.htmlNotesPath).length, 5);
   assert.equal(CHILD_DEVELOPMENT_TOPICS.length, 6);
   assert.equal(CHILD_DEVELOPMENT_TOPICS.filter((topic) => topic.htmlNotesPath).length, 6);
+  assert.equal(EDUCATIONAL_PSYCHOLOGY_TOPICS.length, 6);
+  assert.equal(EDUCATIONAL_PSYCHOLOGY_TOPICS.filter((topic) => topic.htmlNotesPath).length, 6);
+  assert.ok(EDUCATIONAL_PSYCHOLOGY_TOPICS.every((topic) => topic.htmlNotesPath!.startsWith('notes/educational-psychology/')));
   assert.equal(htmlTopics.length, hubDocuments.length);
   // Topics without a supplied document stay on the generated note body.
   assert.ok(allHubTopics

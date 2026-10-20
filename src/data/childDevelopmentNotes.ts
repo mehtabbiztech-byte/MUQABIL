@@ -2,9 +2,9 @@ import type { StudyLesson, StudySubject } from '../types';
 
 /**
  * Source-aligned Child Development & Educational Psychology notes supplied
- * for the MUQABIL study-notes section. The four lessons retain the source
- * topics, explanations, examples, key points, practice questions, and render
- * the supplied HTML documents through htmlNotesPath.
+ * for the MUQABIL study-notes section. The six lessons retain the source
+ * topics, explanations, examples, key points, and practice questions, and
+ * render the supplied HTML documents unchanged through htmlNotesPath.
  */
 const lesson = (
   id: string,
@@ -30,6 +30,45 @@ const lesson = (
 });
 
 export const CHILD_DEVELOPMENT_LESSONS: StudyLesson[] = [
+  lesson(
+    'child-dev-conceptions-implications',
+    'Conceptions of Child Development & Their Implications for Teaching and Learning',
+    '10 min read',
+    'Child development is the continuous process of physical, cognitive, emotional, social, and language changes that occur from birth through childhood and adolescence, shaped by both heredity (nature) and environment (nurture). Seven major conceptions frame how educators understand development: Continuous Process, Sequential Process, Individual Differences, Holistic Process, Nature and Nurture, Active Learning, and Developmental Readiness. Key psychologists — Jean Piaget, Lev Vygotsky, Erik Erikson, Lawrence Kohlberg, John Bowlby, B. F. Skinner, and Albert Bandura — explain complementary dimensions of growth, directly guiding classroom readiness, differentiation, active inquiry, social interaction, emotional safety, continuous assessment, and inclusive learning environments.',
+    [
+      'Seven major conceptions: Continuous Process (gradual over time), Sequential Process (orderly stage progression), Individual Differences (unique developmental pace), Holistic Process (interconnected physical, mental, emotional, and social domains), Nature and Nurture (genetics + environment), Active Learning (exploration, interaction, and experience), and Developmental Readiness (learning skills effectively when ready).',
+      'Core psychologists & theories: Jean Piaget (Cognitive Development), Lev Vygotsky (Sociocultural Theory & ZPD), Erik Erikson (Psychosocial Development), Lawrence Kohlberg (Moral Development), John Bowlby (Attachment Theory), B. F. Skinner (Operant Conditioning), and Albert Bandura (Social Learning Theory).',
+      'Scaffolding provides temporary support within the Zone of Proximal Development (ZPD) — the gap between independent performance and supported performance — and fades as learner competence grows.',
+      'Classroom implications span nine areas: Developmental Readiness, Individual Differences, Active Learning, Social Interaction, Motivation, Emotional Development, Holistic Development, Continuous Assessment, and Rich Learning Environments.',
+      'Emotional security normalizes mistakes and reduces fear of failure, enabling learners to explore, participate actively, and persist through challenges.',
+      'Understanding child development equips teachers to choose age-appropriate methods, respect learner diversity, identify difficulties early, and build inclusive classrooms.',
+    ],
+    [
+      'Providing extra guided practice for slower learners alongside enrichment tasks for fast finishers honors Individual Differences.',
+      'Using hands-on experiments, projects, and problem-solving instead of lecture-only instruction applies the Active Learning conception.',
+      'Normalizing mistakes in a warm, respectful classroom supports Emotional Development for anxious learners.',
+      'Setting up charts, manipulatives, and learning corners transforms a dull room into an exploratory Learning Environment.',
+    ],
+    [
+      {
+        prompt: 'List and explain any five major conceptions of child development.',
+        answer: 'Five major conceptions are: (1) Continuous Process — development takes place gradually over time; (2) Sequential Process — children pass through developmental stages in an orderly sequence; (3) Individual Differences — every child develops at a different rate; (4) Holistic Process — physical, mental, emotional, and social development are interconnected; and (5) Nature and Nurture — development is shaped by both genetic factors and environmental experiences (Active Learning and Developmental Readiness are also core conceptions).',
+      },
+      {
+        prompt: 'Explain the Zone of Proximal Development (ZPD) and scaffolding, and their implications for teaching.',
+        answer: "The Zone of Proximal Development (ZPD), from Vygotsky's sociocultural theory, is the gap between what a learner can do independently and what they can do with guidance. Scaffolding is the temporary support provided within the ZPD — such as hints, modeling, or prompts — that is gradually removed as competence improves. For teaching, this implies using guided practice, peer learning, group work, and gradually releasing responsibility to students.",
+      },
+      {
+        prompt: 'Describe three implications of child development for teaching and learning, explaining what each means for the teacher.',
+        answer: 'Three key implications: (1) Developmental Readiness — teach according to students’ age and developmental level rather than forcing premature skills; (2) Individual Differences — adapt teaching to varied abilities and learning speeds using differentiated instruction; (3) Active Learning — use activities, experiments, projects, and problem-solving so students learn by doing rather than passively listening.',
+      },
+      {
+        prompt: 'Match each theorist to their contribution: Piaget, Vygotsky, Erikson, Kohlberg, Bowlby, Skinner, Bandura.',
+        answer: 'Jean Piaget — Cognitive Development Theory; Lev Vygotsky — Sociocultural Theory and Zone of Proximal Development (ZPD); Erik Erikson — Psychosocial Development Theory; Lawrence Kohlberg — Moral Development Theory; John Bowlby — Attachment Theory; B. F. Skinner — Operant Conditioning; Albert Bandura — Social Learning Theory.',
+      },
+    ],
+    'notes/child-development/conceptions-of-child-development-and-their-implications-for-teaching-and-learning.html',
+  ),
   lesson(
     'child-dev-major-theories',
     'Major Theories & Domains of Child Development',
@@ -185,6 +224,44 @@ export const CHILD_DEVELOPMENT_LESSONS: StudyLesson[] = [
       },
     ],
     'notes/child-development/individual-differences-between-students-and-children-with-special-needs.html',
+  ),
+  lesson(
+    'child-dev-age-appropriate-strategies',
+    'Age-Appropriate Teaching Strategies Based on Developmental Theory',
+    '10 min read',
+    "Age-appropriate teaching strategies are teaching methods selected according to children's age, developmental stage, abilities, interests, and learning needs. Selecting the right strategy at the right developmental moment makes learning meaningful and engaging, whereas mismatched strategies cause frustration or boredom. Across developmental bands, Infancy (0–2 years) calls for play, sensory activities, imitation games, and caregiver interaction; Early Childhood (2–6 years) thrives on play-based learning, storytelling, songs, pictures, and hands-on activities; Middle Childhood (7–11 years) benefits from demonstrations, experiments, manipulatives, practical examples, and group activities; and Adolescence (12–18 years) engages abstract thinking through debates, problem-solving, projects, independent learning, and critical-thinking tasks. Major theorists — Piaget, Vygotsky, Erikson, Skinner, Bandura, and Bruner — anchor six guiding classroom principles: Readiness, Learning by Doing, Individual Differences, Scaffolding, Positive Reinforcement, and Inclusive Teaching.",
+    [
+      'Age bands & matched strategies: Infancy (0–2y: sensory activities, imitation, caregiver interaction); Early Childhood (2–6y: play-based learning, storytelling, songs, pictures, hands-on tasks); Middle Childhood (7–11y: demonstrations, experiments, manipulatives, group activities); Adolescence (12–18y: debates, problem-solving, projects, independent learning, critical thinking).',
+      "Piaget's stage alignment: Sensorimotor (0–2y: sensory exploration & physical interaction), Preoperational (2–7y: pictures, stories, play & concrete examples), Concrete Operational (7–11y: objects, experiments, classification & logical activities), Formal Operational (11+y: abstract concepts, hypotheses, debate & critical thinking).",
+      'Theorist-to-strategy translation: Piaget (stage-matched activities), Vygotsky (guided learning, scaffolding & peer collaboration), Erikson (building confidence, independence & achievement), Skinner (reinforcement & constructive feedback), Bandura (modeling positive behavior & skills), and Bruner (discovery learning, questioning & exploration).',
+      'Six principles of effective age-appropriate teaching: Readiness, Learning by Doing, Individual Differences, Scaffolding, Positive Reinforcement, and Inclusive Teaching.',
+      'Age ranges are approximate benchmarks — effective educators match strategies to developmental stages while adapting to each learner’s prior knowledge, pace, and individual needs.',
+    ],
+    [
+      'Using play-based learning, storytelling, songs, and picture cards with 4-year-olds matches symbolic thinking and rapid language growth.',
+      'Using hands-on manipulatives, experiments, and classification tasks with 9-year-olds matches concrete operational logic.',
+      'Organizing structured debates, research projects, and independent problem-solving for 15-year-olds supports formal abstract reasoning and identity formation.',
+      'Giving temporary prompts during a new skill and gradually fading support models scaffolding in practice.',
+    ],
+    [
+      {
+        prompt: 'Explain age-appropriate teaching strategies and describe appropriate strategies for two age groups.',
+        answer: "Age-appropriate teaching strategies are teaching methods selected according to children's age, developmental stage, abilities, interests, and learning needs. For Early Childhood (2–6 years), play-based learning, storytelling, songs, pictures, and hands-on activities match symbolic thinking and language growth. For Adolescence (12–18 years), debates, problem-solving, projects, independent learning, and critical-thinking tasks match abstract reasoning and identity development.",
+      },
+      {
+        prompt: "Describe Piaget's four stages of cognitive development and the teaching strategy appropriate for each stage.",
+        answer: "Piaget's four stages and matched strategies are: (1) Sensorimotor (0–2 years) — sensory exploration and physical interaction; (2) Preoperational (2–7 years) — pictures, stories, play, and concrete examples; (3) Concrete Operational (7–11 years) — objects, experiments, classification, and logical activities; and (4) Formal Operational (11+ years) — abstract concepts, hypotheses, debate, and critical thinking.",
+      },
+      {
+        prompt: "Explain how three developmental theorists' ideas translate into classroom teaching strategies.",
+        answer: "Piaget's cognitive theory translates into matching activities to the learner's stage of thinking (concrete materials before abstraction). Vygotsky's sociocultural theory translates into guided learning, scaffolding, and peer collaboration within the ZPD. Skinner's operant conditioning translates into positive reinforcement and constructive feedback, alongside Bandura's modeling and Bruner's discovery learning.",
+      },
+      {
+        prompt: 'List and explain the six principles of effective age-appropriate teaching.',
+        answer: 'The six principles are: (1) Readiness — teach concepts when learners are developmentally prepared; (2) Learning by Doing — provide practical, interactive experiences; (3) Individual Differences — adapt teaching to varied abilities and learning speeds; (4) Scaffolding — provide temporary support and gradually reduce it as competence develops; (5) Positive Reinforcement — recognize effort, progress, and positive behavior; and (6) Inclusive Teaching — provide accessible activities and resources for all learners.',
+      },
+    ],
+    'notes/child-development/age-appropriate-teaching-strategies-based-on-developmental-theory.html',
   ),
 ];
 

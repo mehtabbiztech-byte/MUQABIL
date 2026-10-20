@@ -1,5 +1,8 @@
-import test from 'node:test';
+import test, { after, before } from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 import { 
   exportMcqsToExcel, 
   exportQuizAttemptToExcel, 
@@ -18,6 +21,21 @@ import {
 } from './exportUtils';
 import { MCQ, QuizAttempt, StudyLesson, JobAlert } from '../types';
 import { AllPastPaperEntry } from '../data/allPastPapersDirectory';
+
+const originalCwd = process.cwd();
+let tempExportDir = '';
+
+before(() => {
+  tempExportDir = fs.mkdtempSync(path.join(os.tmpdir(), 'muqabil-export-test-'));
+  process.chdir(tempExportDir);
+});
+
+after(() => {
+  process.chdir(originalCwd);
+  if (tempExportDir) {
+    fs.rmSync(tempExportDir, { recursive: true, force: true });
+  }
+});
 
 const SAMPLE_MCQS: MCQ[] = [
   {

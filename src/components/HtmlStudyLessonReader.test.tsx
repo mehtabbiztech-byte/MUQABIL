@@ -90,6 +90,13 @@ const documents = [
     crqs: 4,
   },
   {
+    lessonId: 'child-dev-conceptions-implications',
+    path: 'notes/child-development/conceptions-of-child-development-and-their-implications-for-teaching-and-learning.html',
+    heading: 'Conceptions of Child Development &amp; Their Implications for Teaching and Learning',
+    grids: ['conceptionsGrid', 'examGrid'],
+    crqs: 4,
+  },
+  {
     lessonId: 'child-dev-major-theories',
     path: 'notes/child-development/major-theories-and-domains-of-child-development.html',
     heading: 'Major Theories &amp; Domains of Child Development',
@@ -117,6 +124,13 @@ const documents = [
     grids: ['typesGrid', 'needsGrid', 'examGrid'],
     crqs: 4,
   },
+  {
+    lessonId: 'child-dev-age-appropriate-strategies',
+    path: 'notes/child-development/age-appropriate-teaching-strategies-based-on-developmental-theory.html',
+    heading: 'Age-Appropriate Teaching Strategies Based on Developmental Theory',
+    grids: ['ageGrid', 'principlesGrid', 'examGrid'],
+    crqs: 4,
+  },
 ];
 
 const allHtmlLessons = [
@@ -127,8 +141,8 @@ const allHtmlLessons = [
 
 test('supplied HTML documents are attached to matching topics without duplicating lessons', () => {
   assert.equal(METHODS_OF_TEACHING_LESSONS.length, 6);
-  assert.ok(FOUNDATIONS_OF_EDUCATION_LESSONS.length >= 1);
-  assert.equal(CHILD_DEVELOPMENT_LESSONS.length, 4);
+  assert.equal(FOUNDATIONS_OF_EDUCATION_LESSONS.length, 5);
+  assert.equal(CHILD_DEVELOPMENT_LESSONS.length, 6);
   const curriculumLessons = [
     METHODS_OF_TEACHING_SUBJECT,
     FOUNDATIONS_OF_EDUCATION_SUBJECT,
@@ -281,6 +295,68 @@ test('philosophical foundations notes preserve the branches, schools, comparison
     'Idealism', 'Realism', 'Pragmatism / Experimentalism', 'Existentialism',
     'Plato', 'Aristotle', 'John Dewey', 'Jean-Paul Sartre', 'Schools at a Glance',
     'Provocative mentor', 'Key Takeaway', 'A secondary school in Pakistan']) {
+    assert.ok(html.includes(text), text);
+  }
+});
+
+test('conceptions of child development notes preserve the seven conceptions, theorist and implication tables, and situation-based prompt', () => {
+  const html = readFileSync(
+    path.join(
+      process.cwd(),
+      'public/notes/child-development/conceptions-of-child-development-and-their-implications-for-teaching-and-learning.html',
+    ),
+    'utf8',
+  );
+  assert.equal((html.match(/class="conception-card /g) || []).length, 7);
+  assert.equal((html.match(/class="matrix-wrapper"/g) || []).length, 2);
+  assert.equal((html.match(/class="exam-fact"/g) || []).length, 7);
+  assert.equal((html.match(/class="takeaway-card"/g) || []).length, 1);
+  for (const text of [
+    'Conceptions of Child Development &amp; Their Implications for Teaching and Learning',
+    'Continuous Process',
+    'Sequential Process',
+    'Individual Differences',
+    'Holistic Process',
+    'Nature and Nurture',
+    'Active Learning',
+    'Developmental Readiness',
+    'Attachment Theory',
+    'Zone of Proximal Development (ZPD)',
+    'Key Takeaway',
+    'Mr. Hassan teaches Grade 2 (children aged 7–8 years).',
+  ]) {
+    assert.ok(html.includes(text), text);
+  }
+});
+
+test('age-appropriate teaching strategies notes preserve the four age bands, theorist/stage matrices, six principles, and situation-based prompt', () => {
+  const html = readFileSync(
+    path.join(
+      process.cwd(),
+      'public/notes/child-development/age-appropriate-teaching-strategies-based-on-developmental-theory.html',
+    ),
+    'utf8',
+  );
+  assert.equal((html.match(/class="age-card /g) || []).length, 4);
+  assert.equal((html.match(/class="matrix-wrapper"/g) || []).length, 2);
+  assert.equal((html.match(/class="principle-card"/g) || []).length, 6);
+  assert.equal((html.match(/class="exam-fact"/g) || []).length, 7);
+  assert.equal((html.match(/class="takeaway-card"/g) || []).length, 1);
+  for (const text of [
+    'Age-Appropriate Teaching Strategies Based on Developmental Theory',
+    'Infancy',
+    'Early Childhood',
+    'Middle Childhood',
+    'Adolescence',
+    'Jerome Bruner',
+    'Discovery Learning',
+    'Readiness',
+    'Learning by Doing',
+    'Positive Reinforcement',
+    'Inclusive Teaching',
+    'Key Takeaway',
+    'Ms. Zara teaches a combined class',
+  ]) {
     assert.ok(html.includes(text), text);
   }
 });

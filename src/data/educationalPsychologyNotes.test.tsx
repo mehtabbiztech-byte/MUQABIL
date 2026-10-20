@@ -95,6 +95,18 @@ test('Teaching License hub exposes Educational Psychology as its own reference m
     assert.ok(topic.quickQuiz.length > 0, topic.id);
   }
 
+  // Only the reference module carries zero marks, so the hub header can report
+  // revision modules separately from the scored 100-mark blueprint.
+  const revisionModules = TEACHING_LICENSE_PARTS.filter((part) => part.marks === 0);
+  assert.deepEqual(
+    revisionModules.map((part) => part.id),
+    ['steda-part-2-educational-psychology'],
+  );
+  assert.equal(
+    revisionModules.reduce((total, part) => total + part.topics.length, 0),
+    6,
+  );
+
   // The module is listed once and every part keeps a stable, unique number.
   const partNumbers = TEACHING_LICENSE_PARTS.map((part) => part.partNumber);
   assert.equal(new Set(partNumbers).size, partNumbers.length);

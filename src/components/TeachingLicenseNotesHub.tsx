@@ -242,6 +242,17 @@ export const TeachingLicenseNotesHub: React.FC<TeachingLicenseNotesHubProps> = (
     return TEACHING_LICENSE_PARTS.flatMap((p) => p.topics);
   }, []);
 
+  // Reference (revision) modules carry no exam marks; they supplement the
+  // scored blueprint and are surfaced separately in the hub header.
+  const revisionModules = useMemo(
+    () => TEACHING_LICENSE_PARTS.filter((p) => p.marks === 0),
+    [],
+  );
+  const revisionTopicCount = useMemo(
+    () => revisionModules.reduce((total, part) => total + part.topics.length, 0),
+    [revisionModules],
+  );
+
   const totalMasteredCount = useMemo(() => {
     return Object.values(masteredTopics).filter(Boolean).length;
   }, [masteredTopics]);
@@ -546,6 +557,12 @@ PREPARED VIA MEHTAB STS IBA PREP
                   <BookOpen className="w-3.5 h-3.5 text-amber-400" />
                   {allTopics.length} Detailed Topics
                 </span>
+                {revisionModules.length > 0 && (
+                  <span className="flex items-center gap-1.5 bg-white/10 px-3 py-1 rounded-lg border border-white/10">
+                    <Sparkles className="w-3.5 h-3.5 text-purple-300" />
+                    {revisionModules.length} Revision Module{revisionModules.length > 1 ? 's' : ''} ({revisionTopicCount} Topics)
+                  </span>
+                )}
                 <span className="flex items-center gap-1.5 bg-white/10 px-3 py-1 rounded-lg border border-white/10">
                   <Zap className="w-3.5 h-3.5 text-emerald-400" />
                   60% Passing Benchmark

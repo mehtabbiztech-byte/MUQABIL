@@ -6,3 +6,18 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Test / export artifacts (do not commit)
+*.xlsx
+test_*.pdf
+MUQABIL_*Test*
+MUQABIL_Practice_History_*
+MUQABIL_Transcript_*
+MUQABIL_Scorecard_*
+test_export_*
+test_jobs_*
+test_papers_*
+test_jobs_bulletin_*
+
+# Package manager (project uses npm)
+bun.lock

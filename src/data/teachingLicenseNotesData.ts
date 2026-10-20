@@ -1,6 +1,8 @@
 import { EDUCATIONAL_PSYCHOLOGY_TOPICS } from './educationalPsychologyTopics';
+import { CLASSROOM_MANAGEMENT_TOPICS } from './classroomManagementTopics';
 
 export { EDUCATIONAL_PSYCHOLOGY_TOPICS };
+export { CLASSROOM_MANAGEMENT_TOPICS };
 
 export interface QuickQuizItem {
   id: string;
@@ -2265,22 +2267,6 @@ export const TEACHING_LICENSE_PARTS: LicensePartModule[] = [
     topics: CHILD_DEVELOPMENT_TOPICS,
   },
   {
-    id: 'steda-part-2-educational-psychology',
-    partNumber: 12,
-    partCategory: 'Part II: Pedagogical Content Knowledge (50%)',
-    subjectName: 'Educational Psychology',
-    weightage: 'Revision · 6 Interactive Notes',
-    marks: 0,
-    targetLevel: 'Elementary (BPS-16) & Secondary (BPS-17)',
-    iconName: 'Brain',
-    themeColor: 'from-indigo-600 to-purple-700',
-    badgeBg: 'bg-indigo-500/10',
-    badgeText: 'text-indigo-600 dark:text-indigo-400',
-    description:
-      'Conceptual revision module for the psychology content embedded in Part II: major learning theories, psychology versus educational psychology, individual differences, basic needs and motivation, and home–school–community influences — each with a full interactive note, MCQs, CRQs, and an ERQ.',
-    topics: EDUCATIONAL_PSYCHOLOGY_TOPICS,
-  },
-  {
     id: 'steda-part-2-classroom-management',
     partNumber: 9,
     partCategory: 'Part II: Pedagogical Content Knowledge (50%)',
@@ -2293,8 +2279,8 @@ export const TEACHING_LICENSE_PARTS: LicensePartModule[] = [
     badgeBg: 'bg-blue-500/10',
     badgeText: 'text-blue-600 dark:text-blue-400',
     description:
-      "Routines, positive discipline, Jacob Kounin's group management techniques (withitness, overlapping, smoothness), conflict resolution, and creating an enabling classroom environment.",
-    topics: [],
+      'Ten interactive notes covering learning theories in management, environment design, observation and data collection, physical and social environments, curriculum, routines and time, shared values and community, physical setup, tiered strategies, and differentiated learning.',
+    topics: CLASSROOM_MANAGEMENT_TOPICS,
   },
   {
     id: 'steda-part-2-classroom-assessment',
@@ -2327,5 +2313,21 @@ export const TEACHING_LICENSE_PARTS: LicensePartModule[] = [
     description:
       'School Management Committees (SMCs), community mobilization, parent-teacher collaboration, Article 25-A, NPSTP standards, and the ethical responsibilities of professional educators.',
     topics: [],
+  },
+  {
+    id: 'steda-part-2-educational-psychology',
+    partNumber: 12,
+    partCategory: 'Part II: Pedagogical Content Knowledge (50%)',
+    subjectName: 'Educational Psychology',
+    weightage: 'Revision · 6 Interactive Notes',
+    marks: 0,
+    targetLevel: 'Elementary (BPS-16) & Secondary (BPS-17)',
+    iconName: 'Brain',
+    themeColor: 'from-indigo-600 to-purple-700',
+    badgeBg: 'bg-indigo-500/10',
+    badgeText: 'text-indigo-600 dark:text-indigo-400',
+    description:
+      'Conceptual revision module for the psychology content embedded in Part II: major learning theories, psychology versus educational psychology, individual differences, basic needs and motivation, and home–school–community influences — each with a full interactive note, MCQs, CRQs, and an ERQ.',
+    topics: EDUCATIONAL_PSYCHOLOGY_TOPICS,
   },
 ];

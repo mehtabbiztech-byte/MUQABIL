@@ -7,6 +7,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { HtmlTopicNoteViewer } from './HtmlTopicNoteViewer';
 import {
   CHILD_DEVELOPMENT_TOPICS,
+  CLASSROOM_MANAGEMENT_TOPICS,
   EDUCATIONAL_PSYCHOLOGY_TOPICS,
   FOUNDATIONS_OF_EDUCATION_TOPICS,
   METHODS_OF_TEACHING_TOPICS,
@@ -128,6 +129,56 @@ const hubDocuments = [
     path: 'notes/educational-psychology/learning-and-motivation-in-home-school-and-community.html',
     crqs: 4,
   },
+  {
+    topicId: 'learning-theories-and-classroom-management',
+    path: 'notes/classroom-management/learning-theories-and-classroom-management.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'designing-an-effective-classroom-environment',
+    path: 'notes/classroom-management/designing-an-effective-classroom-environment.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'classroom-observation-and-data-collection',
+    path: 'notes/classroom-management/classroom-observation-and-data-collection.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'classroom-management-physical-and-social-environment',
+    path: 'notes/classroom-management/classroom-management-physical-and-social-environment.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'curriculum-and-classroom-management',
+    path: 'notes/classroom-management/curriculum-and-classroom-management.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'routines-schedules-and-time-management',
+    path: 'notes/classroom-management/routines-schedules-and-time-management.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'shared-values-and-classroom-community',
+    path: 'notes/classroom-management/shared-values-and-classroom-community.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'physical-setup-of-the-classroom',
+    path: 'notes/classroom-management/physical-setup-of-the-classroom.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'strategies-for-classroom-management',
+    path: 'notes/classroom-management/strategies-for-classroom-management.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'differentiated-learning',
+    path: 'notes/classroom-management/differentiated-learning.html',
+    crqs: 4,
+  },
 ];
 
 const allHubTopics = [
@@ -135,6 +186,7 @@ const allHubTopics = [
   ...FOUNDATIONS_OF_EDUCATION_TOPICS,
   ...CHILD_DEVELOPMENT_TOPICS,
   ...EDUCATIONAL_PSYCHOLOGY_TOPICS,
+  ...CLASSROOM_MANAGEMENT_TOPICS,
 ];
 
 test('Master Notes Hub attaches supplied HTML to matching topics across modules', () => {
@@ -147,7 +199,7 @@ test('Master Notes Hub attaches supplied HTML to matching topics across modules'
     const topic = allHubTopics.find((item) => item.id === document.topicId)!;
     assert.equal(topic.htmlNotesPath, document.path);
   }
-  // Every Methods of Teaching, Foundations of Education, Child Development, and Educational Psychology topic carries a supplied standalone note.
+  // Every Methods of Teaching, Foundations of Education, Child Development, Educational Psychology and Classroom Management topic carries a supplied standalone note.
   assert.equal(METHODS_OF_TEACHING_TOPICS.length, 6);
   assert.equal(METHODS_OF_TEACHING_TOPICS.filter((topic) => topic.htmlNotesPath).length, 6);
   assert.equal(FOUNDATIONS_OF_EDUCATION_TOPICS.length, 5);
@@ -157,6 +209,9 @@ test('Master Notes Hub attaches supplied HTML to matching topics across modules'
   assert.equal(EDUCATIONAL_PSYCHOLOGY_TOPICS.length, 6);
   assert.equal(EDUCATIONAL_PSYCHOLOGY_TOPICS.filter((topic) => topic.htmlNotesPath).length, 6);
   assert.ok(EDUCATIONAL_PSYCHOLOGY_TOPICS.every((topic) => topic.htmlNotesPath!.startsWith('notes/educational-psychology/')));
+  assert.equal(CLASSROOM_MANAGEMENT_TOPICS.length, 10);
+  assert.equal(CLASSROOM_MANAGEMENT_TOPICS.filter((topic) => topic.htmlNotesPath).length, 10);
+  assert.ok(CLASSROOM_MANAGEMENT_TOPICS.every((topic) => topic.htmlNotesPath!.startsWith('notes/classroom-management/')));
   assert.equal(htmlTopics.length, hubDocuments.length);
   // Topics without a supplied document stay on the generated note body.
   assert.ok(allHubTopics

@@ -68,6 +68,11 @@ const hubDocuments = [
     crqs: 4,
   },
   {
+    topicId: 'child-dev-conceptions-implications',
+    path: 'notes/child-development/conceptions-of-child-development-and-their-implications-for-teaching-and-learning.html',
+    crqs: 4,
+  },
+  {
     topicId: 'child-dev-major-theories',
     path: 'notes/child-development/major-theories-and-domains-of-child-development.html',
     crqs: 4,
@@ -85,6 +90,11 @@ const hubDocuments = [
   {
     topicId: 'child-dev-individual-differences-special-needs',
     path: 'notes/child-development/individual-differences-between-students-and-children-with-special-needs.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'child-dev-age-appropriate-strategies',
+    path: 'notes/child-development/age-appropriate-teaching-strategies-based-on-developmental-theory.html',
     crqs: 4,
   },
 ];
@@ -105,12 +115,13 @@ test('Master Notes Hub attaches supplied HTML to matching topics across modules'
     const topic = allHubTopics.find((item) => item.id === document.topicId)!;
     assert.equal(topic.htmlNotesPath, document.path);
   }
-  // Every Methods of Teaching topic carries its supplied standalone note.
+  // Every Methods of Teaching, Foundations of Education, and Child Development topic carries its supplied standalone note.
   assert.equal(METHODS_OF_TEACHING_TOPICS.length, 6);
   assert.equal(METHODS_OF_TEACHING_TOPICS.filter((topic) => topic.htmlNotesPath).length, 6);
-  assert.ok(FOUNDATIONS_OF_EDUCATION_TOPICS.length >= 1);
-  assert.equal(CHILD_DEVELOPMENT_TOPICS.length, 4);
-  assert.equal(CHILD_DEVELOPMENT_TOPICS.filter((topic) => topic.htmlNotesPath).length, 4);
+  assert.equal(FOUNDATIONS_OF_EDUCATION_TOPICS.length, 5);
+  assert.equal(FOUNDATIONS_OF_EDUCATION_TOPICS.filter((topic) => topic.htmlNotesPath).length, 5);
+  assert.equal(CHILD_DEVELOPMENT_TOPICS.length, 6);
+  assert.equal(CHILD_DEVELOPMENT_TOPICS.filter((topic) => topic.htmlNotesPath).length, 6);
   assert.equal(htmlTopics.length, hubDocuments.length);
   // Topics without a supplied document stay on the generated note body.
   assert.ok(allHubTopics

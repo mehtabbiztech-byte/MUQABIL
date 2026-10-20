@@ -1533,8 +1533,151 @@ export const FOUNDATIONS_OF_EDUCATION_TOPICS: LicenseTopicNote[] = [
 
 export const CHILD_DEVELOPMENT_TOPICS: LicenseTopicNote[] = [
   {
-    id: 'child-dev-major-theories',
+    id: 'child-dev-conceptions-implications',
     topicNumber: '1',
+    title: 'Conceptions of Child Development & Their Implications for Teaching and Learning',
+    readTime: '10 min read',
+    htmlNotesPath:
+      'notes/child-development/conceptions-of-child-development-and-their-implications-for-teaching-and-learning.html',
+    summary:
+      'Child development is the continuous process of physical, cognitive, emotional, social, and language changes from birth through childhood and adolescence, shaped by both heredity (nature) and environment (nurture). Seven major conceptions frame classroom practice: Continuous Process, Sequential Process, Individual Differences, Holistic Process, Nature and Nurture, Active Learning, and Developmental Readiness. Core theorists (Piaget, Vygotsky, Erikson, Kohlberg, Bowlby, Skinner, Bandura) inform nine key implications across readiness, differentiation, active learning, social interaction, motivation, emotional security, holistic growth, continuous assessment, and learning environments.',
+    highYieldAlert:
+      'STS High-Yield: Child development is both continuous and sequential, holistic across physical-cognitive-social-emotional domains, and shaped jointly by nature (genetics) and nurture (environment). Match Vygotsky to ZPD & Scaffolding, Bowlby to Attachment Theory, Bandura to Social Learning, and Skinner to Operant Conditioning.',
+    concepts: [
+      {
+        conceptTitle: 'Seven Major Conceptions of Child Development',
+        explanation:
+          'Foundational principles describing how human growth unfolds across childhood and adolescence.',
+        keyTerms: [
+          {
+            term: 'Continuous & Sequential Process',
+            definition:
+              'Development takes place gradually over time while passing through developmental stages in an orderly sequence.',
+          },
+          {
+            term: 'Individual Differences & Holistic Process',
+            definition:
+              'Every child develops at a unique rate, and physical, mental, emotional, and social changes are deeply interconnected.',
+          },
+          {
+            term: 'Nature & Nurture',
+            definition:
+              'Development is jointly shaped by hereditary genetic endowments (nature) and environmental experiences (nurture).',
+          },
+          {
+            term: 'Active Learning & Developmental Readiness',
+            definition:
+              'Children construct understanding through exploration, interaction, and experience, learning skills most effectively when developmentally ready.',
+          },
+        ],
+      },
+      {
+        conceptTitle: 'Major Psychologists & Core Contributions',
+        explanation:
+          'How foundational developmental and learning theorists inform classroom instruction.',
+        keyTerms: [
+          {
+            term: 'Jean Piaget & Lev Vygotsky',
+            definition:
+              'Piaget formulated Cognitive Development Theory across stages; Vygotsky formulated Sociocultural Theory and the Zone of Proximal Development (ZPD).',
+          },
+          {
+            term: 'Erik Erikson, Lawrence Kohlberg & John Bowlby',
+            definition:
+              'Erikson mapped Psychosocial Development stages; Kohlberg explained Moral Development; Bowlby established Attachment Theory.',
+          },
+          {
+            term: 'B. F. Skinner & Albert Bandura',
+            definition:
+              'Skinner demonstrated Operant Conditioning through reinforcement; Bandura established Social Learning Theory via observation and imitation.',
+          },
+        ],
+      },
+      {
+        conceptTitle: 'Classroom Implications for Teaching and Learning',
+        explanation:
+          'Translating developmental principles into inclusive daily pedagogy.',
+        bulletPoints: [
+          'Developmental Readiness: Teach according to students’ age and developmental level.',
+          'Individual Differences: Adapt instruction to diverse abilities and learning speeds.',
+          'Active Learning & Social Interaction: Combine hands-on experiments, projects, group work, and peer learning.',
+          'Emotional Development & Motivation: Create a safe, respectful classroom where mistakes are normalized and constructive feedback encourages effort.',
+          'Assessment & Environment: Use continuous assessment to spot difficulties early and provide rich exploratory learning materials.',
+        ],
+      },
+    ],
+    comparisonTable: {
+      title: 'Conceptions of Child Development & Classroom Implications',
+      headers: ['Conception / Principle', 'Core Meaning', 'Implication for Teachers'],
+      rows: [
+        ['Developmental Readiness', 'Skills are learned best when the child is ready', 'Match content and difficulty to age and developmental level'],
+        ['Individual Differences', 'Every child develops at a distinct pace', 'Differentiate tasks for varied abilities and speeds'],
+        ['Active Learning', 'Children learn through exploration and experience', 'Use activities, experiments, projects, and problem-solving'],
+        ['Holistic Process', 'Physical, cognitive, social, and emotional domains connect', 'Support emotional safety, social interaction, and intellectual growth together'],
+        ['Social Interaction (Vygotsky)', 'Guidance and language bridge the ZPD', 'Provide temporary scaffolding and structured peer learning'],
+      ],
+    },
+    classroomApplication:
+      'When a Grade 2 class shows fast finishers getting bored while anxious learners fear mistakes during textbook lectures, the teacher introduces tiered activities (Individual Differences), hands-on learning corners (Active Learning & Environment), and mistake-friendly praise (Emotional Development).',
+    mnemonicAid:
+      'Remember the 7 Conceptions: "C-S-I-H-N-A-D" -> Continuous, Sequential, Individual differences, Holistic, Nature & nurture, Active learning, Developmental readiness.',
+    frequentExamQuestions: [
+      {
+        question: 'List and explain five major conceptions of child development.',
+        answer:
+          'Continuous Process (gradual growth over time), Sequential Process (orderly stage progression), Individual Differences (unique pace for every child), Holistic Process (interconnected physical, cognitive, emotional, and social domains), and Nature and Nurture (joint influence of genetics and environment).',
+      },
+      {
+        question: 'Explain the Zone of Proximal Development (ZPD) and scaffolding, and their classroom implications.',
+        answer:
+          'ZPD (Vygotsky) is the gap between independent performance and supported performance. Scaffolding is temporary support (modeling, hints, prompts) faded as competence grows, implying guided practice, peer learning, and gradual release of responsibility.',
+      },
+      {
+        question: 'Match Bowlby, Bandura, and Skinner to their theoretical contributions.',
+        answer:
+          'John Bowlby — Attachment Theory; Albert Bandura — Social Learning Theory (observational learning and imitation); B. F. Skinner — Operant Conditioning (reinforcement).',
+      },
+    ],
+    quickQuiz: [
+      {
+        id: 'quiz-ci-1',
+        question:
+          'The idea that physical, mental, emotional, and social development are interconnected refers to which conception?',
+        options: ['Sequential Process', 'Holistic Process', 'Operant Conditioning', 'Centration'],
+        correctIndex: 1,
+        explanation:
+          'The Holistic Process conception emphasizes that physical, cognitive, emotional, and social domains develop together and influence one another.',
+      },
+      {
+        id: 'quiz-ci-2',
+        question: 'Which theorist formulated Attachment Theory in child development?',
+        options: ['John Bowlby', 'B. F. Skinner', 'Lawrence Kohlberg', 'Jerome Bruner'],
+        correctIndex: 0,
+        explanation:
+          'John Bowlby established Attachment Theory, highlighting early caregiver-child emotional bonds.',
+      },
+      {
+        id: 'quiz-ci-3',
+        question: 'What does the conception of "Nature and Nurture" state?',
+        options: [
+          'Only genetics determine development',
+          'Only classroom environment matters',
+          'Development is shaped by both genetic factors and environmental experiences',
+          'All children develop at the exact same speed',
+        ],
+        correctIndex: 2,
+        explanation:
+          'Nature and Nurture recognizes that biological heredity and environmental experiences interact continuously to shape development.',
+      },
+    ],
+    examDistractorTraps: [
+      'Trap: Treating child development as purely cognitive or purely physical — development is holistic across physical, cognitive, emotional, social, and language domains.',
+      'Trap: Defining scaffolding as permanent help — scaffolding is temporary support within the ZPD that fades as independence grows.',
+    ],
+  },
+  {
+    id: 'child-dev-major-theories',
+    topicNumber: '2',
     title: 'Major Theories & Domains of Child Development',
     readTime: '10 min read',
     htmlNotesPath: 'notes/child-development/major-theories-and-domains-of-child-development.html',
@@ -1594,6 +1737,23 @@ export const CHILD_DEVELOPMENT_TOPICS: LicenseTopicNote[] = [
         ],
       },
     ],
+    frequentExamQuestions: [
+      {
+        question: 'Differentiate between assimilation and accommodation in Piaget’s cognitive theory.',
+        answer:
+          'Assimilation fits new experiences into existing cognitive schemas, whereas accommodation modifies existing schemas or forms new ones when new evidence does not fit.',
+      },
+      {
+        question: 'Explain Vygotsky’s Zone of Proximal Development (ZPD) and More Knowledgeable Other (MKO).',
+        answer:
+          'The ZPD is the distance between independent performance and assisted potential; an MKO (teacher or capable peer) provides temporary scaffolding within that zone.',
+      },
+      {
+        question: 'Why is Erikson’s stage of Industry vs. Inferiority vital for primary school teachers?',
+        answer:
+          'Between ages 6 and 12, praising effort and enabling mastery builds industry and competence, whereas chronic ridicule or unaddressed failure produces feelings of inferiority.',
+      },
+    ],
     quickQuiz: [
       {
         id: 'quiz-cd-1',
@@ -1624,7 +1784,7 @@ export const CHILD_DEVELOPMENT_TOPICS: LicenseTopicNote[] = [
   },
   {
     id: 'child-dev-developmental-stages',
-    topicNumber: '2',
+    topicNumber: '3',
     title: 'Characteristics of Various Developmental Stages According to Various Theorists',
     readTime: '12 min read',
     htmlNotesPath: 'notes/child-development/characteristics-of-various-developmental-stages-according-to-various-theorists.html',
@@ -1674,6 +1834,23 @@ export const CHILD_DEVELOPMENT_TOPICS: LicenseTopicNote[] = [
         ],
       },
     ],
+    frequentExamQuestions: [
+      {
+        question: 'Contrast Preoperational and Concrete Operational thought on a conservation of liquid task.',
+        answer:
+          'A Preoperational child centers on liquid height alone and judges the taller glass has more; a Concrete Operational child decenters, recognizes reversibility, and knows volume stays equal.',
+      },
+      {
+        question: 'Distinguish between Cephalocaudal and Proximodistal growth patterns.',
+        answer:
+          'Cephalocaudal development proceeds from head to toe (head control before walking), while Proximodistal development proceeds from the central trunk outward to hands and fingers.',
+      },
+      {
+        question: 'What are David Elkind’s "Imaginary Audience" and "Personal Fable" in adolescence?',
+        answer:
+          'Imaginary Audience is feeling constantly watched by peers; Personal Fable is believing one’s experiences are uniquely untouchable or invulnerable.',
+      },
+    ],
     quickQuiz: [
       {
         id: 'quiz-ds-1',
@@ -1704,7 +1881,7 @@ export const CHILD_DEVELOPMENT_TOPICS: LicenseTopicNote[] = [
   },
   {
     id: 'child-dev-factors-influencing-learning',
-    topicNumber: '3',
+    topicNumber: '4',
     title: 'Factors Influencing the Learning Process of a Child',
     readTime: '10 min read',
     htmlNotesPath: 'notes/child-development/factors-influencing-the-learning-process-of-a-child.html',
@@ -1750,6 +1927,23 @@ export const CHILD_DEVELOPMENT_TOPICS: LicenseTopicNote[] = [
         ],
       },
     ],
+    frequentExamQuestions: [
+      {
+        question: 'How does Maslow’s Hierarchy of Needs explain attention difficulties in hungry or fearful learners?',
+        answer:
+          'Lower deficiency needs (food, rest, safety, belonging) take priority over cognitive growth needs; unmet survival or safety needs divert attention away from classroom learning.',
+      },
+      {
+        question: 'Contrast intrinsic and extrinsic motivation in classroom learning.',
+        answer:
+          'Intrinsic motivation comes from internal curiosity and mastery satisfaction, fostering deep retention; extrinsic motivation relies on external rewards, grades, or avoiding punishment.',
+      },
+      {
+        question: 'Explain Arnold Gesell’s maturation theory and the Pygmalion Effect.',
+        answer:
+          'Gesell showed biological maturation sets readiness for skills; the Pygmalion Effect shows high, supportive teacher expectations elevate student achievement.',
+      },
+    ],
     quickQuiz: [
       {
         id: 'quiz-fl-1',
@@ -1780,7 +1974,7 @@ export const CHILD_DEVELOPMENT_TOPICS: LicenseTopicNote[] = [
   },
   {
     id: 'child-dev-individual-differences-special-needs',
-    topicNumber: '4',
+    topicNumber: '5',
     title: 'Individual Differences Between Students & Children with Special Needs',
     readTime: '10 min read',
     htmlNotesPath: 'notes/child-development/individual-differences-between-students-and-children-with-special-needs.html',
@@ -1826,6 +2020,23 @@ export const CHILD_DEVELOPMENT_TOPICS: LicenseTopicNote[] = [
         ],
       },
     ],
+    frequentExamQuestions: [
+      {
+        question: 'Distinguish between general Individual Differences and Special Educational Needs (SEN).',
+        answer:
+          'Individual differences are natural variations in pace, interest, and learning style across all learners; SEN involves documented sensory, physical, intellectual, or neurodevelopmental conditions requiring accommodations or an IEP.',
+      },
+      {
+        question: 'Name the four elements of Differentiated Instruction proposed by Carol Ann Tomlinson.',
+        answer:
+          'Content (what students access), Process (how they make sense of ideas), Product (how they demonstrate mastery), and Learning Environment (physical and affective climate).',
+      },
+      {
+        question: 'What are the three core principles of Universal Design for Learning (UDL)?',
+        answer:
+          'Multiple means of Representation, Multiple means of Action & Expression, and Multiple means of Engagement.',
+      },
+    ],
     quickQuiz: [
       {
         id: 'quiz-id-1',
@@ -1852,6 +2063,150 @@ export const CHILD_DEVELOPMENT_TOPICS: LicenseTopicNote[] = [
     examDistractorTraps: [
       'Trap: Conflating Individual Differences with Disabilities — every child exhibits individual differences (pace, personality, interest); only a subset have diagnostic SEN.',
       'Trap: Thinking gifted students require "more worksheets"; gifted learners require qualitative enrichment, higher-order inquiry, and depth, not repetitive quantity.',
+    ],
+  },
+  {
+    id: 'child-dev-age-appropriate-strategies',
+    topicNumber: '6',
+    title: 'Age-Appropriate Teaching Strategies Based on Developmental Theory',
+    readTime: '10 min read',
+    htmlNotesPath:
+      'notes/child-development/age-appropriate-teaching-strategies-based-on-developmental-theory.html',
+    summary:
+      "Age-appropriate teaching strategies are instructional methods chosen according to children's age, developmental stage, abilities, interests, and learning needs. Across developmental bands, Infancy (0–2 years) calls for play, sensory activities, imitation games, and caregiver interaction; Early Childhood (2–6 years) thrives on play-based learning, storytelling, songs, pictures, and hands-on activities; Middle Childhood (7–11 years) requires demonstrations, experiments, manipulatives, practical examples, and group work; and Adolescence (12–18 years) develops higher-order reasoning through debates, problem-solving, projects, independent learning, and critical-thinking tasks. Major theorists (Piaget, Vygotsky, Erikson, Skinner, Bandura, Bruner) underpin six core classroom principles: Readiness, Learning by Doing, Individual Differences, Scaffolding, Positive Reinforcement, and Inclusive Teaching.",
+    highYieldAlert:
+      'STS High-Yield: Match each Piagetian stage and age group to its optimal classroom method — Preoperational / Early Childhood (2–7y) = play-based learning, storytelling, songs & pictures; Concrete Operational / Middle Childhood (7–11y) = tangible manipulatives, experiments & classification; Formal Operational / Adolescence (11+y) = abstract hypotheses, debates & independent inquiry; and Jerome Bruner = Discovery Learning.',
+    concepts: [
+      {
+        conceptTitle: 'Teaching Strategies Across Four Developmental Age Bands',
+        explanation:
+          'Selecting instructional methods that match how children think, explore, and grow at each age range.',
+        keyTerms: [
+          {
+            term: 'Infancy (0–2 years)',
+            definition:
+              'Sensory exploration and rapid physical growth — supported through play, sensory activities, imitation games, and warm caregiver interaction.',
+          },
+          {
+            term: 'Early Childhood (2–6 years)',
+            definition:
+              'Language explosion, imagination, and symbolic thought — supported through play-based learning, storytelling, songs, pictures, and hands-on activities.',
+          },
+          {
+            term: 'Middle Childhood (7–11 years)',
+            definition:
+              'Logical thinking about concrete objects and experiences — supported through demonstrations, experiments, manipulatives, practical examples, and group activities.',
+          },
+          {
+            term: 'Adolescence (12–18 years)',
+            definition:
+              'Increasing abstract reasoning and identity formation — supported through debates, problem-solving, projects, independent learning, and critical-thinking tasks.',
+          },
+        ],
+      },
+      {
+        conceptTitle: 'Translating Developmental Theories into Classroom Action',
+        explanation:
+          'Each developmental psychologist provides an actionable instructional implication.',
+        keyTerms: [
+          {
+            term: 'Piaget & Bruner',
+            definition:
+              'Piaget: match activities to the learner’s stage of thinking; Jerome Bruner (Discovery Learning): encourage active exploration, questioning, and discovery.',
+          },
+          {
+            term: 'Vygotsky & Erikson',
+            definition:
+              'Vygotsky (Sociocultural): guided learning, temporary scaffolding, and peer collaboration; Erikson (Psychosocial): nurture confidence, autonomy, and achievement.',
+          },
+          {
+            term: 'Skinner & Bandura',
+            definition:
+              'Skinner (Operant Conditioning): positive reinforcement and constructive feedback; Bandura (Social Learning): demonstrate positive behavior and model skills.',
+          },
+        ],
+      },
+      {
+        conceptTitle: 'Six Principles of Effective Age-Appropriate Teaching',
+        explanation:
+          'Core pedagogical rules ensuring developmental alignment without ignoring learner individuality.',
+        bulletPoints: [
+          '1. Readiness: Teach concepts when learners are developmentally prepared.',
+          '2. Learning by Doing: Provide practical, interactive, hands-on experiences.',
+          '3. Individual Differences: Adapt teaching to varied abilities and learning speeds.',
+          '4. Scaffolding: Give temporary support and gradually reduce it as competence develops.',
+          '5. Positive Reinforcement: Recognize effort, progress, and positive classroom behavior.',
+          '6. Inclusive Teaching: Provide accessible activities and learning resources for all students.',
+        ],
+      },
+    ],
+    comparisonTable: {
+      title: "Piaget's Stages & Matched Classroom Teaching Strategies",
+      headers: ['Piaget Stage', 'Approximate Age', ' Learner Characteristics', 'Matched Teaching Strategy'],
+      rows: [
+        ['Sensorimotor', '0–2 years', 'Sensory exploration & motor action', 'Sensory exploration and physical interaction'],
+        ['Preoperational', '2–7 years', 'Symbolic thought, language & imagination', 'Pictures, stories, play, and concrete examples'],
+        ['Concrete Operational', '7–11 years', 'Logical thinking with tangible objects', 'Objects, experiments, classification, and logical activities'],
+        ['Formal Operational', '11+ years', 'Abstract reasoning & hypothesis testing', 'Abstract concepts, hypotheses, debate, and critical thinking'],
+      ],
+    },
+    classroomApplication:
+      'In a multi-grade school program, a teacher plans story-picture play stations for 4-year-olds (Early Childhood), hands-on fraction manipulatives and science demonstrations for 9-year-olds (Middle Childhood), and civic debates with independent inquiry projects for 15-year-olds (Adolescence).',
+    mnemonicAid:
+      'Remember the 6 Principles: "R-L-I-S-P-I" -> Readiness, Learning by doing, Individual differences, Scaffolding, Positive reinforcement, Inclusive teaching.',
+    frequentExamQuestions: [
+      {
+        question: 'Describe appropriate teaching strategies for Early Childhood (2–6y), Middle Childhood (7–11y), and Adolescence (12–18y).',
+        answer:
+          'Early Childhood: play-based learning, storytelling, songs, pictures, and hands-on activities. Middle Childhood: demonstrations, experiments, manipulatives, practical examples, and group work. Adolescence: debates, problem-solving, projects, independent learning, and critical-thinking tasks.',
+      },
+      {
+        question: 'Which psychologist is associated with Discovery Learning and what is its teaching implication?',
+        answer:
+          'Jerome Bruner is associated with Discovery Learning, implying that teachers should encourage active exploration, questioning, and learner discovery.',
+      },
+      {
+        question: 'List the six principles of effective age-appropriate teaching.',
+        answer:
+          'Readiness, Learning by Doing, Individual Differences, Scaffolding, Positive Reinforcement, and Inclusive Teaching.',
+      },
+    ],
+    quickQuiz: [
+      {
+        id: 'quiz-aas-1',
+        question:
+          'Play-based learning, storytelling, songs, and hands-on picture activities are most appropriate for which stage?',
+        options: ['Infancy (0–2 years)', 'Early Childhood (2–6 years)', 'Adolescence (12–18 years)', 'Adulthood'],
+        correctIndex: 1,
+        explanation:
+          'Early childhood (2–6 years) is marked by rapid language growth, imagination, and symbolic thinking, making play-based learning, stories, and songs ideal.',
+      },
+      {
+        id: 'quiz-aas-2',
+        question: 'Which psychologist is directly associated with Discovery Learning?',
+        options: ['B. F. Skinner', 'Jerome Bruner', 'John Bowlby', 'Ivan Pavlov'],
+        correctIndex: 1,
+        explanation:
+          'Jerome Bruner championed Discovery Learning, encouraging students to explore, ask questions, and discover patterns.',
+      },
+      {
+        id: 'quiz-aas-3',
+        question:
+          'According to Piaget’s developmental theory, which strategies best support learners in the Concrete Operational stage (7–11 years)?',
+        options: [
+          'Abstract philosophical debates only',
+          'Objects, experiments, classification, and logical activities',
+          'Infant rattle imitation only',
+          'Unassisted university dissertations',
+        ],
+        correctIndex: 1,
+        explanation:
+          'Concrete operational learners reason logically when anchored in tangible objects, experiments, manipulatives, and classification tasks.',
+      },
+    ],
+    examDistractorTraps: [
+      'Trap: Treating age ranges as rigid cutoffs — age bands are approximate, so teachers must combine stage awareness with attention to individual readiness.',
+      'Trap: Using abstract lecture-only instruction in primary grades (7–11y) where learners still require concrete manipulatives, demonstrations, and practical examples.',
     ],
   },
 ];

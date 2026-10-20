@@ -108,6 +108,23 @@ service cloud.firestore {
         allow delete: if isOwner(userId);
       }
 
+      // Planner preference: which roadmap is active (multi-device continuity).
+      match /study_planner_meta/{docId} {
+        allow read: if isOwner(userId);
+        allow create, update: if isOwner(userId)
+          && docId == 'prefs'
+          && request.resource.data.keys().hasOnly(['userId', 'activePlanId', 'updatedAt'])
+          && request.resource.data.userId == userId
+          && request.resource.data.updatedAt is string
+          && (
+            request.resource.data.activePlanId == null
+            || (request.resource.data.activePlanId is string
+              && request.resource.data.activePlanId.size() > 0
+              && request.resource.data.activePlanId.size() <= 150)
+          );
+        allow delete: if isOwner(userId);
+      }
+
       // Private study plans are explicitly opt-in synced and scoped to the owner.
       match /study_plans/{planId} {
         allow read: if isOwner(userId);

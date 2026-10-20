@@ -23,7 +23,13 @@ import {
   type StudyPlannerCollection,
   type StudyPlannerForm,
 } from '../lib/studyPlanner';
-import { deleteStudyPlannerPlanFromDb, getStudyPlannerPlansFromDb, saveStudyPlannerPlanToDb } from '../lib/firestoreService';
+import {
+  deleteStudyPlannerPlanFromDb,
+  getStudyPlannerActivePlanIdFromDb,
+  getStudyPlannerPlansFromDb,
+  saveStudyPlannerActivePlanIdToDb,
+  saveStudyPlannerPlanToDb,
+} from '../lib/firestoreService';
 
 type CloudSyncStatus = 'off' | 'syncing' | 'synced' | 'error';
 
@@ -97,10 +103,19 @@ export const SmartStudyPlannerView: React.FC = () => {
     let cancelled = false;
     setCloudReady(false);
     setCloudSyncStatus('syncing');
-    void getStudyPlannerPlansFromDb(userId)
-      .then((remote) => {
+    void Promise.all([
+      getStudyPlannerPlansFromDb(userId),
+      getStudyPlannerActivePlanIdFromDb(userId),
+    ])
+      .then(([remote, remoteActivePlanId]) => {
         if (cancelled) return;
-        setCollection((local) => mergeStudyPlannerCollections(local, remote));
+        setCollection((local) => {
+          const merged = mergeStudyPlannerCollections(local, {
+            ...remote,
+            activePlanId: remoteActivePlanId ?? remote.activePlanId,
+          });
+          return merged;
+        });
         setCloudSyncStatus('synced');
         setCloudReady(true);
       })
@@ -121,7 +136,10 @@ export const SmartStudyPlannerView: React.FC = () => {
         setCloudSyncStatus('synced');
         return;
       }
-      void Promise.all(collection.plans.map((savedPlan) => saveStudyPlannerPlanToDb(userId, savedPlan)))
+      void Promise.all([
+        ...collection.plans.map((savedPlan) => saveStudyPlannerPlanToDb(userId, savedPlan)),
+        saveStudyPlannerActivePlanIdToDb(userId, collection.activePlanId),
+      ])
         .then((results) => setCloudSyncStatus(results.every(Boolean) ? 'synced' : 'error'))
         .catch(() => setCloudSyncStatus('error'));
     }, 700);

@@ -68,6 +68,38 @@ export async function deleteStudyPlannerPlanFromDb(userId: string, planId: strin
   }
 }
 
+/** Loads planner preference document (active plan selection) for multi-device continuity. */
+export async function getStudyPlannerActivePlanIdFromDb(userId: string): Promise<string | null> {
+  if (!userId) return null;
+  try {
+    const snap = await getDoc(doc(db, 'users', userId, 'study_planner_meta', 'prefs'));
+    if (!snap.exists()) return null;
+    const data = snap.data();
+    const id = typeof data.activePlanId === 'string' ? data.activePlanId : null;
+    return id && SAFE_STUDY_PLAN_ID.test(id) ? id : null;
+  } catch (error) {
+    console.error('Error loading study planner active plan preference:', error);
+    return null;
+  }
+}
+
+/** Persists which plan is active so other devices restore the same selection. */
+export async function saveStudyPlannerActivePlanIdToDb(userId: string, activePlanId: string | null): Promise<boolean> {
+  if (!userId) return false;
+  if (activePlanId !== null && !SAFE_STUDY_PLAN_ID.test(activePlanId)) return false;
+  try {
+    await setDoc(doc(db, 'users', userId, 'study_planner_meta', 'prefs'), {
+      userId,
+      activePlanId,
+      updatedAt: new Date().toISOString(),
+    });
+    return true;
+  } catch (error) {
+    console.error('Error saving study planner active plan preference:', error);
+    return false;
+  }
+}
+
 /**
  * Fetches user profile from Firestore.
  */

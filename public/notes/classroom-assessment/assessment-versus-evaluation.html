@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Assessment and Evaluation: What Is the Difference? — Classroom Assessment study note for the MUQABIL Teaching License hub: concepts, key vocabulary, comparison table, classroom application, misconceptions, takeaways and a practice quiz.">
+  <title>Assessment and Evaluation: What Is the Difference? · Classroom Assessment</title>
+  <style>
+    /* ================= DESIGN TOKENS ================= */
+    :root {
+      --navy: #0e2a47;
+      --navy-2: #12365c;
+      --blue: #2f6ca8;
+      --blue-soft: #8bb3e0;
+      --blue-tint: #eaf2fb;
+      --mark: #dbeafe;
+      --ink: #0b2138;
+      --ink-2: #1c3f60;
+      --body: #35536f;
+      --muted: #5d7893;
+      --line: #dfe9f5;
+      --paper: #ffffff;
+      --wash: #f5faff;
+      --amber: #b8860b;
+      --amber-tint: #fff8e6;
+      --green: #1f7a4d;
+      --green-tint: #eaf8f0;
+      --red: #a83535;
+      --red-tint: #fdf1f1;
+      --shadow-sm: 0 6px 16px -10px rgba(12, 38, 66, 0.35);
+      --shadow-md: 0 18px 36px -22px rgba(12, 38, 66, 0.45);
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
+      color: var(--body);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 4rem;
+    }
+
+    /* ================= READING PROGRESS ================= */
+    .progress-track {
+      position: fixed; top: 0; left: 0; right: 0; height: 4px;
+      background: rgba(14, 42, 71, 0.08); z-index: 90;
+    }
+    .progress-fill {
+      display: block; height: 100%; width: 0%;
+      background: linear-gradient(90deg, #2f6ca8, #6aa9dd, #9cc7ee);
+      border-radius: 0 4px 4px 0; transition: width 0.12s linear;
+    }
+
+    .shell { max-width: 1080px; margin: 0 auto; padding: 0 1.1rem; }
+
+    /* ================= HERO ================= */
+    .hero {
+      position: relative; overflow: hidden;
+      margin-top: 1.6rem;
+      border-radius: 30px;
+      padding: 2.4rem 2.2rem 3.4rem;
+      background: radial-gradient(120% 140% at 0% 0%, #163b63 0%, #0e2a47 55%, #0a1f36 100%);
+      color: #fff;
+      box-shadow: var(--shadow-md);
+    }
+    .hero::after {
+      content: ''; position: absolute; right: -120px; top: -120px;
+      width: 340px; height: 340px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(139, 179, 224, 0.28), transparent 68%);
+      pointer-events: none;
+    }
+    .hero-top { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-bottom: 1.1rem; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #eaf4ff; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      padding: 0.32rem 0.85rem; border-radius: 999px;
+    }
+    .hero-top .hero-track { font-size: 0.74rem; color: #a9c8e6; font-weight: 600; letter-spacing: 0.04em; }
+    .hero h1 {
+      font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+      line-height: 1.16; font-weight: 800; letter-spacing: -0.02em;
+      color: #ffffff; max-width: 22ch;
+    }
+    .tagline {
+      margin-top: 0.85rem; max-width: 62ch;
+      font-size: 1.02rem; color: #c9def3;
+      border-left: 3px solid var(--blue-soft); padding-left: 1rem;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.4rem; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px; padding: 0.34rem 0.8rem;
+      font-size: 0.76rem; font-weight: 600; color: #dceafa;
+    }
+
+    /* ================= BIG IDEA + OBJECTIVES ================= */
+    .brief {
+      display: grid; grid-template-columns: 1.35fr 1fr; gap: 1.1rem;
+      margin: -2.2rem 1.4rem 0; position: relative; z-index: 2;
+    }
+    .brief-card {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-lg); padding: 1.4rem 1.5rem;
+      box-shadow: var(--shadow-md);
+    }
+    .brief-label {
+      display: inline-block; margin: 0; line-height: 1.2;
+      font-size: 0.68rem; font-weight: 800;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue);
+      margin-bottom: 0.55rem;
+    }
+    .brief-card p { font-size: 0.96rem; color: var(--ink-2); }
+    .objectives { list-style: none; counter-reset: obj; display: grid; gap: 0.7rem; }
+    .objectives li {
+      position: relative; padding-left: 2.1rem; font-size: 0.9rem;
+      color: var(--ink-2); line-height: 1.55;
+    }
+    .objectives li::before {
+      counter-increment: obj; content: counter(obj);
+      position: absolute; left: 0; top: 0.05rem;
+      width: 1.4rem; height: 1.4rem; border-radius: 50%;
+      display: grid; place-items: center;
+      background: var(--blue-tint); color: var(--blue);
+      font-size: 0.72rem; font-weight: 800;
+    }
+
+    /* ================= TABLE OF CONTENTS ================= */
+    .toc {
+      margin: 1.6rem 0 0; background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--line); border-radius: var(--radius-lg);
+      padding: 1.1rem 1.2rem; backdrop-filter: blur(4px);
+    }
+    .toc-title {
+      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem;
+    }
+    .toc-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0.35rem; }
+    .toc-list a {
+      display: flex; align-items: baseline; gap: 0.55rem;
+      padding: 0.42rem 0.5rem; border-radius: 10px;
+      text-decoration: none; color: var(--ink-2);
+      font-size: 0.88rem; font-weight: 600; transition: background 0.15s, color 0.15s;
+    }
+    .toc-list a:hover, .toc-list a:focus-visible { background: var(--blue-tint); color: var(--navy); }
+    .toc-num {
+      font-size: 0.68rem; font-weight: 800; color: var(--blue);
+      background: var(--blue-tint); border-radius: 6px; padding: 0.1rem 0.4rem;
+      flex-shrink: 0;
+    }
+
+    /* ================= TOOLBAR / SEARCH ================= */
+    .toolbar {
+      position: sticky; top: 0; z-index: 60;
+      margin: 1.6rem 0 0.4rem; padding: 0.6rem 0;
+      background: linear-gradient(180deg, rgba(243, 246, 253, 0.97) 65%, rgba(243, 246, 253, 0));
+    }
+    .toolbar-inner {
+      display: flex; align-items: center; gap: 0.7rem;
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: 999px; padding: 0.45rem 0.55rem 0.45rem 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .search-box { display: flex; align-items: center; gap: 0.55rem; flex: 1; min-width: 0; }
+    .search-box span { font-size: 0.95rem; opacity: 0.7; }
+    .search-box input {
+      border: none; outline: none; background: transparent;
+      font: inherit; font-size: 0.92rem; color: var(--ink);
+      width: 100%; padding: 0.3rem 0;
+    }
+    .search-box input::placeholder { color: #93a8bd; }
+    .count-pill {
+      flex-shrink: 0; background: var(--navy); color: #fff;
+      font-size: 0.75rem; font-weight: 700;
+      padding: 0.4rem 0.85rem; border-radius: 999px; white-space: nowrap;
+    }
+
+    /* ================= SECTION HEADERS ================= */
+    .section { margin-top: 3rem; scroll-margin-top: 90px; }
+    .section-head { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.3rem; }
+    .section-num {
+      flex-shrink: 0; width: 46px; height: 46px; border-radius: 15px;
+      display: grid; place-items: center;
+      background: var(--navy); color: #fff;
+      font-size: 0.9rem; font-weight: 800; letter-spacing: 0.02em;
+      box-shadow: 0 8px 18px -10px rgba(14, 42, 71, 0.9);
+    }
+    .eyebrow {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 0.18rem;
+    }
+    .section-head h2 {
+      font-size: clamp(1.25rem, 2.2vw, 1.6rem); font-weight: 800;
+      color: var(--ink); letter-spacing: -0.015em; line-height: 1.25;
+    }
+    .section-lead {
+      margin-top: 0.3rem; font-size: 0.92rem; color: var(--muted); max-width: 68ch;
+    }
+
+    /* ================= CONCEPT CARDS ================= */
+    .concept-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
+    .concept-card {
+      position: relative; display: flex; flex-direction: column;
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-md); padding: 1.25rem 1.25rem 1.1rem;
+      box-shadow: var(--shadow-sm); overflow: hidden;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+    .concept-card::before {
+      content: ''; position: absolute; inset: 0 0 auto 0; height: 4px;
+      background: linear-gradient(90deg, var(--blue), var(--blue-soft), #cfe2f5);
+    }
+    .concept-card:hover {
+      transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: #c4dcf2;
+    }
+    .concept-top { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; }
+    .concept-icon {
+      width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center;
+      background: var(--blue-tint); font-size: 1.2rem;
+    }
+    .concept-index {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em;
+      color: #9fb6cc; border: 1px solid var(--line); border-radius: 999px;
+      padding: 0.12rem 0.5rem;
+    }
+    .concept-title {
+      margin: 0.75rem 0 0.4rem; font-size: 1.02rem; font-weight: 800;
+      color: var(--ink); line-height: 1.35;
+    }
+    .concept-desc { font-size: 0.9rem; color: var(--body); }
+    .concept-desc strong, .vocab-def strong, .myth-reality strong, .takeaways strong, .lead-para strong {
+      color: #0a3a68; font-weight: 700;
+      background: linear-gradient(transparent 64%, var(--mark) 64%);
+      padding: 0 1px; border-radius: 2px;
+    }
+    .practice {
+      margin-top: auto; padding-top: 0.9rem;
+    }
+    .practice-box {
+      background: var(--wash); border: 1px solid #e2eefa;
+      border-left: 3px solid var(--blue); border-radius: 10px;
+      padding: 0.65rem 0.8rem;
+    }
+    .practice-label {
+      display: block; font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue);
+      margin-bottom: 0.18rem;
+    }
+    .practice-box p { font-size: 0.85rem; color: var(--ink-2); line-height: 1.5; }
+
+    /* ================= VOCABULARY ================= */
+    .vocab-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 0.75rem; margin: 0;
+    }
+    .vocab-card {
+      background: var(--paper); border: 1px solid var(--line);
+      border-left: 4px solid var(--blue-soft);
+      border-radius: var(--radius-sm); padding: 0.85rem 1rem;
+      box-shadow: 0 4px 12px -10px rgba(12, 38, 66, 0.4);
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .vocab-card:hover { border-left-color: var(--blue); transform: translateY(-2px); }
+    .vocab-term {
+      font-size: 0.9rem; font-weight: 800; color: var(--navy);
+      display: block; margin-bottom: 0.22rem; line-height: 1.35;
+    }
+    .vocab-def { font-size: 0.85rem; color: var(--body); line-height: 1.55; }
+
+    /* ================= TABLE ================= */
+    .table-shell {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .table-caption {
+      display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+      padding: 0.9rem 1.1rem; border-bottom: 1px solid var(--line);
+      background: #fbfdff;
+    }
+    .table-caption strong { font-size: 0.92rem; font-weight: 800; color: var(--ink); }
+    .table-caption span { font-size: 0.72rem; font-weight: 700; color: var(--muted); white-space: nowrap; }
+    .table-scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.86rem; min-width: 640px; }
+    thead th {
+      position: sticky; top: 0; z-index: 1;
+      background: var(--navy); color: #fff; text-align: left;
+      padding: 0.7rem 0.9rem; font-size: 0.76rem; font-weight: 700;
+      letter-spacing: 0.045em; text-transform: uppercase; white-space: nowrap;
+    }
+    tbody td { padding: 0.7rem 0.9rem; border-bottom: 1px solid #eef4fb; vertical-align: top; line-height: 1.5; }
+    tbody td:first-child { font-weight: 700; color: var(--navy); background: #fbfdff; }
+    tbody tr:nth-child(even) td { background: #f7fbff; }
+    tbody tr:nth-child(even) td:first-child { background: #f1f8ff; }
+    tbody tr:last-child td { border-bottom: none; }
+
+    /* ================= DO / AVOID ================= */
+    .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .dd-card {
+      border-radius: var(--radius-md); padding: 1.2rem 1.3rem;
+      border: 1px solid; box-shadow: var(--shadow-sm);
+    }
+    .dd-card.do { background: var(--green-tint); border-color: #bfe6d1; }
+    .dd-card.avoid { background: var(--red-tint); border-color: #efc9c9; }
+    .dd-card h3 {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.95rem; font-weight: 800; margin-bottom: 0.8rem;
+      letter-spacing: 0.01em;
+    }
+    .dd-card.do h3 { color: var(--green); }
+    .dd-card.avoid h3 { color: var(--red); }
+    .dd-card ul { list-style: none; display: grid; gap: 0.45rem; }
+    .dd-card li { position: relative; padding-left: 1.45rem; font-size: 0.87rem; color: var(--ink-2); line-height: 1.55; }
+    .dd-card.do li::before { content: '✔'; position: absolute; left: 0; color: var(--green); font-weight: 800; }
+    .dd-card.avoid li::before { content: '✕'; position: absolute; left: 0; color: var(--red); font-weight: 800; }
+
+    /* ================= MYTHS ================= */
+    .myth-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
+    .myth-card {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-md); padding: 1.1rem 1.2rem;
+      box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 0.55rem;
+    }
+    .myth-tag {
+      align-self: flex-start; display: inline-flex; align-items: center; gap: 0.35rem;
+      background: var(--red-tint); color: var(--red); border: 1px solid #f0cfcf;
+      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.18rem 0.55rem; border-radius: 999px;
+    }
+    .myth-claim { font-size: 0.93rem; font-weight: 700; color: var(--ink); line-height: 1.45; }
+    .myth-reality {
+      border-top: 1px dashed var(--line); padding-top: 0.55rem;
+      font-size: 0.86rem; color: var(--body);
+    }
+    .reality-tag {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      color: var(--green); font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.2rem;
+    }
+
+    /* ================= TAKEAWAYS ================= */
+    .takeaways {
+      background: linear-gradient(135deg, #12365c 0%, #0e2a47 100%);
+      color: #eaf4ff; border-radius: var(--radius-lg);
+      padding: 1.6rem 1.7rem; box-shadow: var(--shadow-md);
+      counter-reset: take;
+    }
+    .takeaways h3 {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.16em;
+      text-transform: uppercase; color: #9cc7ee; margin-bottom: 0.9rem;
+    }
+    .takeaways ol { list-style: none; display: grid; gap: 0.6rem; }
+    .takeaways li {
+      counter-increment: take; position: relative; padding-left: 2.2rem;
+      font-size: 0.9rem; line-height: 1.55;
+    }
+    .takeaways li::before {
+      content: counter(take, decimal-leading-zero);
+      position: absolute; left: 0; top: 0.12rem;
+      font-size: 0.72rem; font-weight: 800; color: #8bb3e0;
+      border: 1px solid rgba(139, 179, 224, 0.4);
+      border-radius: 6px; padding: 0.05rem 0.35rem;
+    }
+    .takeaways strong { color: #ffffff; background: none; }
+
+    /* ================= SUMMARY + EXAM TIP ================= */
+    .summary {
+      margin-top: 1rem; display: flex; gap: 0.9rem;
+      background: var(--paper); border: 1px solid var(--line);
+      border-left: 5px solid var(--blue);
+      border-radius: var(--radius-md); padding: 1.1rem 1.3rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .summary-label {
+      flex-shrink: 0; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--blue);
+      writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);
+    }
+    .summary p { font-size: 0.95rem; color: var(--ink-2); }
+
+    .exam-tip {
+      margin-top: 1rem; display: flex; gap: 0.8rem;
+      background: var(--amber-tint); border: 1px solid #f2e0b3;
+      border-radius: var(--radius-md); padding: 1rem 1.2rem;
+    }
+    .exam-tip .tip-icon { font-size: 1.1rem; line-height: 1.4; }
+    .exam-tip .tip-label {
+      display: block; font-size: 0.64rem; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--amber); margin-bottom: 0.15rem;
+    }
+    .exam-tip p { font-size: 0.88rem; color: #6b5310; }
+
+    /* ================= QUIZ ================= */
+    .quiz {
+      margin-top: 3rem; border-radius: var(--radius-lg);
+      overflow: hidden; box-shadow: var(--shadow-md); scroll-margin-top: 90px;
+    }
+    .quiz-head {
+      background: radial-gradient(120% 140% at 100% 0%, #1a4470 0%, #0e2a47 62%);
+      color: #fff; padding: 1.5rem 1.7rem;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.9rem;
+    }
+    .quiz-head .eyebrow { color: #9cc7ee; }
+    .quiz-head h2 { font-size: 1.35rem; font-weight: 800; color: #fff; }
+    .quiz-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .quiz-chips span {
+      background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px; padding: 0.28rem 0.7rem; font-size: 0.74rem; font-weight: 700; color: #dceafa;
+    }
+    .quiz-body { background: var(--paper); padding: 1.5rem 1.7rem 1.8rem; }
+
+    .quiz-tabs { display: flex; flex-wrap: wrap; gap: 0.45rem; border-bottom: 1px solid var(--line); padding-bottom: 0.9rem; margin-bottom: 1.2rem; }
+    .quiz-tab {
+      font: inherit; font-size: 0.84rem; font-weight: 700; cursor: pointer;
+      color: var(--ink-2); background: #f2f7fd; border: 1px solid var(--line);
+      border-radius: 999px; padding: 0.42rem 1rem; transition: all 0.15s;
+    }
+    .quiz-tab:hover { background: var(--blue-tint); border-color: #bcd8f0; }
+    .quiz-tab.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+    .quiz-tab:focus-visible { outline: 3px solid rgba(47, 108, 168, 0.35); outline-offset: 2px; }
+
+    .quiz-panel { display: none; }
+    .quiz-panel.active { display: block; }
+    .panel-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem; margin-bottom: 1rem; }
+    .section-label {
+      display: inline-block; background: var(--navy); color: #fff;
+      font-size: 0.66rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.28rem 0.75rem; border-radius: 999px;
+    }
+    .score-chip {
+      font-size: 0.76rem; font-weight: 700; color: var(--blue);
+      background: var(--blue-tint); border-radius: 999px; padding: 0.28rem 0.8rem;
+    }
+
+    .mcq-item {
+      background: #fbfdff; border: 1px solid #e4eefa;
+      border-radius: var(--radius-md); padding: 1rem 1.1rem; margin-bottom: 0.85rem;
+    }
+    .mcq-question {
+      display: flex; gap: 0.6rem; font-size: 0.93rem; font-weight: 700;
+      color: var(--ink); line-height: 1.5; margin-bottom: 0.75rem;
+    }
+    .mcq-question .q-num { color: var(--blue); font-weight: 800; }
+    .mcq-options { display: grid; gap: 0.45rem; }
+    .mcq-option {
+      display: flex; align-items: flex-start; gap: 0.6rem; width: 100%;
+      text-align: left; font: inherit; font-size: 0.87rem; color: var(--ink-2);
+      background: #fff; border: 1.5px solid #e2edf9; border-radius: 11px;
+      padding: 0.55rem 0.75rem; cursor: pointer; transition: all 0.15s;
+    }
+    .mcq-option:hover:not(:disabled) { border-color: #b7d4ee; background: #f7fbff; }
+    .mcq-option:disabled { cursor: default; }
+    .option-letter {
+      flex-shrink: 0; width: 1.35rem; height: 1.35rem; border-radius: 50%;
+      display: grid; place-items: center; font-size: 0.7rem; font-weight: 800;
+      background: #eef5fd; color: var(--blue);
+    }
+    .mcq-option.correct { border-color: #7fc7a1; background: var(--green-tint); font-weight: 600; }
+    .mcq-option.correct .option-letter { background: #cdeedb; color: #14603c; }
+    .mcq-option.incorrect { border-color: #e0a3a3; background: var(--red-tint); }
+    .mcq-option.incorrect .option-letter { background: #f4d4d4; color: #8f2b2b; }
+    .mcq-feedback {
+      display: none; margin-top: 0.65rem; font-size: 0.85rem;
+      border-radius: 10px; padding: 0.55rem 0.8rem; line-height: 1.5;
+    }
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.correct-fb { background: var(--green-tint); color: #14603c; border-left: 3px solid #2e9b5e; }
+    .mcq-feedback.incorrect-fb { background: var(--red-tint); color: #8f2b2b; border-left: 3px solid #d45a5a; }
+
+    .crq-item, .erq-item {
+      background: #fbfdff; border: 1px solid #e4eefa;
+      border-radius: var(--radius-md); padding: 1.1rem 1.2rem; margin-bottom: 0.9rem;
+    }
+    .erq-item { border: 2px solid var(--blue-soft); background: #f7fbff; }
+    .crq-question, .erq-question {
+      font-size: 0.95rem; font-weight: 700; color: var(--ink); line-height: 1.5; margin-bottom: 0.4rem;
+    }
+    .erq-marks {
+      display: inline-block; background: var(--navy); color: #fff;
+      font-size: 0.65rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.22rem 0.7rem; border-radius: 999px; margin-bottom: 0.6rem;
+    }
+    .crq-hint { font-size: 0.82rem; color: var(--muted); font-style: italic; margin-bottom: 0.6rem; }
+    .crq-textarea, .erq-textarea {
+      width: 100%; font: inherit; font-size: 0.88rem; color: var(--ink-2);
+      background: #fff; border: 1.5px solid #dbe8f6; border-radius: 11px;
+      padding: 0.7rem 0.85rem; resize: vertical; transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .crq-textarea { min-height: 96px; }
+    .erq-textarea { min-height: 170px; }
+    .crq-textarea:focus, .erq-textarea:focus {
+      outline: none; border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(47, 108, 168, 0.13);
+    }
+    .answer-meta {
+      display: flex; justify-content: space-between; gap: 0.6rem;
+      font-size: 0.74rem; color: var(--muted); margin-top: 0.35rem;
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.65rem; }
+    .btn {
+      font: inherit; font-size: 0.83rem; font-weight: 700; cursor: pointer;
+      border-radius: 999px; padding: 0.48rem 1.1rem; border: 1px solid transparent;
+      transition: all 0.15s;
+    }
+    .btn-primary { background: var(--navy); color: #fff; }
+    .btn-primary:hover { background: #16406c; transform: translateY(-1px); }
+    .btn-secondary { background: #eef5fd; color: #1b4670; border-color: #cfe2f4; }
+    .btn-secondary:hover { background: #e0edfa; }
+    .btn:focus-visible { outline: 3px solid rgba(47, 108, 168, 0.35); outline-offset: 2px; }
+    .crq-feedback, .erq-feedback {
+      display: none; margin-top: 0.7rem; border-radius: 10px;
+      padding: 0.7rem 0.9rem; font-size: 0.86rem; line-height: 1.6;
+    }
+    .crq-feedback.show, .erq-feedback.show { display: block; }
+    .crq-feedback.model, .erq-feedback.model { background: var(--blue-tint); color: #143c62; border-left: 3px solid var(--blue); }
+    .crq-feedback.good, .erq-feedback.good { background: var(--green-tint); color: #14603c; border-left: 3px solid #2e9b5e; }
+    .crq-feedback.partial, .erq-feedback.partial { background: var(--amber-tint); color: #6b5310; border-left: 3px solid #e0a800; }
+
+    /* ================= FOOTER + TOP BUTTON ================= */
+    .note-footer {
+      margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid var(--line);
+      display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem;
+      font-size: 0.76rem; color: var(--muted);
+    }
+    .to-top {
+      position: fixed; right: 1.1rem; bottom: 1.1rem; z-index: 70;
+      width: 44px; height: 44px; border-radius: 50%; border: none; cursor: pointer;
+      background: var(--navy); color: #fff; font-size: 1.05rem;
+      box-shadow: var(--shadow-md); opacity: 0; pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .to-top.visible { opacity: 1; pointer-events: auto; }
+    .to-top:hover { transform: translateY(-2px); }
+
+    .no-results {
+      grid-column: 1 / -1; text-align: center; padding: 2rem 1rem;
+      background: rgba(255, 255, 255, 0.8); border: 2px dashed #c3d8ee;
+      border-radius: var(--radius-md); color: var(--muted); font-weight: 600; font-size: 0.9rem;
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 900px) {
+      .brief { grid-template-columns: 1fr; margin: -1.6rem 0.8rem 0; }
+      .do-dont { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 1.7rem 1.25rem 2.8rem; border-radius: 24px; }
+      .hero h1 { max-width: none; }
+      .brief { margin: -1.4rem 0.5rem 0; }
+      .brief-card { padding: 1.1rem 1.15rem; border-radius: 18px; }
+      .section-head { gap: 0.7rem; }
+      .section-num { width: 38px; height: 38px; border-radius: 12px; font-size: 0.8rem; }
+      .concept-grid, .vocab-grid, .myth-grid { grid-template-columns: 1fr; }
+      .toolbar-inner { border-radius: 18px; padding: 0.55rem 0.75rem; }
+      .quiz-body { padding: 1.1rem 1rem 1.4rem; }
+      .quiz-head { padding: 1.2rem 1.1rem; }
+      .takeaways { padding: 1.2rem 1.1rem; }
+      .summary { flex-direction: column; gap: 0.5rem; }
+      .summary-label { writing-mode: horizontal-tb; transform: none; }
+    }
+
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-track { background: #e4ecf6; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: #a9c0d8; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: #7f9cba; }
+
+    ::selection { background: #cfe3f8; color: #0b2138; }
+
+    .toc-list a:focus-visible,
+    .mcq-option:focus-visible,
+    .quiz-tab:focus-visible,
+    .btn:focus-visible,
+    .to-top:focus-visible {
+      outline: 3px solid rgba(47, 108, 168, 0.4);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
+    /* ================= PRINT ================= */
+    @media print {
+      body { background: #fff; padding: 0; }
+      .progress-track, .toolbar, .to-top, .quiz-tabs { display: none !important; }
+      .hero { box-shadow: none; border-radius: 0; }
+      .quiz-panel { display: block !important; }
+      .concept-card, .vocab-card, .myth-card, .table-shell { break-inside: avoid; }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="progress-track" aria-hidden="true"><span class="progress-fill" id="progressFill"></span></div>
+
+  <div class="shell">
+    <!-- ================= HERO ================= -->
+    <header class="hero">
+      <div class="hero-top">
+        <span class="badge">📊 Classroom Assessment</span>
+        <span class="hero-track">Teaching License · Part II · Note 2 of 11</span>
+      </div>
+      <h1>Assessment and Evaluation: What Is the Difference?</h1>
+      <p class="tagline">Assessment is the process that improves learning; evaluation is the judgement that decides about it</p>
+      <div class="chips">
+        <span class="chip">⏱️ 10 min read</span>
+        <span class="chip">📚 7 sections</span>
+        <span class="chip">🔑 12 key terms</span>
+        <span class="chip">📝 10 MCQs · 4 CRQs · 1 ERQ</span>
+      </div>
+    </header>
+
+    <!-- ================= BIG IDEA + OBJECTIVES ================= -->
+    <div class="brief">
+      <section class="brief-card" aria-labelledby="bigidea-title">
+        <h2 class="brief-label" id="bigidea-title">The big idea</h2>
+        <p>The difference between <strong>assessment</strong> and <strong>evaluation</strong> is one of process versus judgement. <strong>Assessment</strong> is an ongoing, evidence-gathering and feedback process whose main purpose is to improve learning while it is happening; it is diagnostic and formative, learner-facing and forward-looking. <strong>Evaluation</strong> is the act of judging that evidence against standards, summing up performance and using the judgement to make decisions about learners, teaching or programmes; it is summative, judgemental and often backwards-looking. The two are complementary — evaluation without assessment is guesswork, and assessment without evaluation never changes anything — but confusing them produces the classic examination error of treating them as synonyms.</p>
+      </section>
+      <section class="brief-card" aria-labelledby="objectives-title">
+        <h2 class="brief-label" id="objectives-title">What you will master</h2>
+        <ol class="objectives"><li>Contrast <strong>assessment</strong> and <strong>evaluation</strong> across purpose, timing, focus, process and outcome.</li><li>Explain why the same evidence can serve both assessment and evaluation, and what changes when it does.</li><li>Justify the balance a classroom needs — continuous assessment feeding periodic evaluation — with reference to learning and motivation.</li></ol>
+      </section>
+    </div>
+
+    <!-- ================= TABLE OF CONTENTS ================= -->
+    <nav class="toc" aria-label="Sections in this note">
+      <p class="toc-title">On this page</p>
+      <ol class="toc-list">
+        <li><a href="#concepts"><span class="toc-num">01</span> Core concepts</a></li>
+        <li><a href="#vocabulary"><span class="toc-num">02</span> Key vocabulary</a></li>
+        <li><a href="#comparison"><span class="toc-num">03</span> Comparison table</a></li>
+        <li><a href="#application"><span class="toc-num">04</span> Classroom application</a></li>
+        <li><a href="#misconceptions"><span class="toc-num">05</span> Misconceptions</a></li>
+        <li><a href="#takeaways"><span class="toc-num">06</span> Takeaways &amp; exam tip</a></li>
+        <li><a href="#practice"><span class="toc-num">07</span> Practice quiz</a></li>
+      </ol>
+    </nav>
+
+    <!-- ================= SEARCH ================= -->
+    <div class="toolbar">
+      <div class="toolbar-inner">
+        <div class="search-box">
+          <span aria-hidden="true">🔍</span>
+          <input id="searchInput" type="search" placeholder="Search concepts, key terms and misconceptions…" aria-label="Search this note">
+        </div>
+        <div class="count-pill" id="countDisplay" role="status" aria-live="polite">22 items</div>
+      </div>
+    </div>
+
+    <!-- ================= 01 CONCEPTS ================= -->
+    <section class="section" id="concepts" aria-labelledby="concepts-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">01</span>
+        <div>
+          <p class="eyebrow">Foundations</p>
+          <h2 id="concepts-title">Core concepts</h2>
+          <p class="section-lead">Each card isolates one idea examiners test. Read the definition first, then the <em>In practice</em> line — that is where scenario questions begin.</p>
+        </div>
+      </div>
+      <div class="concept-grid" id="conceptGrid">
+        <article class="concept-card" data-searchable="Purpose: improvement versus judgement">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🎯</span>
+            <span class="concept-index">01</span>
+          </div>
+          <h3 class="concept-title">Purpose: improvement versus judgement</h3>
+          <p class="concept-desc">The defining difference is purpose. <strong>Assessment</strong> asks ‘where is the learner now and what will move them forward?’ <strong>Evaluation</strong> asks ‘how good is this performance or programme, and what decision follows?’ Assessment is therefore oriented to improvement, while evaluation is oriented to judgement and accountability.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Ask of every task you set: is this for the learner’s next step, or for a decision I must record?</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Timing: continuous versus terminal">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">⏱️</span>
+            <span class="concept-index">02</span>
+          </div>
+          <h3 class="concept-title">Timing: continuous versus terminal</h3>
+          <p class="concept-desc"><strong>Assessment</strong> is continuous and can happen at any point — before a unit (<strong>diagnostic</strong>), during it (<strong>formative</strong>), at the end (<strong>summative</strong>). <strong>Evaluation</strong> usually occurs at a decision point: end of unit, term, year or programme. The timing is not the definition, however: an end-of-unit test can be used formatively, and a mid-term observation can contribute to a terminal evaluation.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Label each assessment in your plan as before, during or after learning, and say what decision it feeds.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Focus: the learner versus the learning system">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">📊</span>
+            <span class="concept-index">03</span>
+          </div>
+          <h3 class="concept-title">Focus: the learner versus the learning system</h3>
+          <p class="concept-desc"><strong>Assessment</strong> focuses closely on what a learner can do and what support they need next. <strong>Evaluation</strong> widens the lens to the effectiveness of teaching, the curriculum, resources or the school — it can conclude that the problem lies in the scheme of work rather than in the child.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>When a class performs poorly, evaluate the task, the teaching and the time allowed before judging the learners.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Process: description versus comparison">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🔄</span>
+            <span class="concept-index">04</span>
+          </div>
+          <h3 class="concept-title">Process: description versus comparison</h3>
+          <p class="concept-desc"><strong>Assessment</strong> describes performance and gives feedback against success criteria. <strong>Evaluation</strong> compares that performance with a standard, a previous level or a target, and then assigns value — satisfactory, unsatisfactory, improving, below benchmark — and takes a decision.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Write feedback as description plus next step, and reserve comparative language for the evaluation report.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Outcome: feedback versus a decision">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🧾</span>
+            <span class="concept-index">05</span>
+          </div>
+          <h3 class="concept-title">Outcome: feedback versus a decision</h3>
+          <p class="concept-desc">The output of <strong>assessment</strong> is actionable feedback for the learner and the teacher. The output of <strong>evaluation</strong> is a judgement with consequences — a grade on a report, promotion, referral for support, revision of a unit plan, or a school improvement target. Both may use the same data; the difference is what is produced.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>After marking, write one feedback sentence per learner and one evaluative sentence for yourself about the teaching.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Why both are necessary — and how they interlock">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">⚖️</span>
+            <span class="concept-index">06</span>
+          </div>
+          <h3 class="concept-title">Why both are necessary — and how they interlock</h3>
+          <p class="concept-desc">Assessment without evaluation never improves the system: evidence accumulates and nothing is decided. Evaluation without assessment is guesswork: judgements are made without evidence. In practice they loop — assessment evidence feeds evaluation, evaluation decisions reshape teaching, and the reshaped teaching generates new assessment evidence.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>End each unit with two questions: what did learners learn (assessment), and what will I change (evaluation)?</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= 02 VOCABULARY ================= -->
+    <section class="section" id="vocabulary" aria-labelledby="vocab-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">02</span>
+        <div>
+          <p class="eyebrow">Precision</p>
+          <h2 id="vocab-title">Key vocabulary</h2>
+          <p class="section-lead">Be able to define each term in one sentence. Bold terms below also appear highlighted inside the notes, so you can meet them in context.</p>
+        </div>
+      </div>
+      <dl class="vocab-grid" id="vocabGrid">
+        <div class="vocab-card" data-searchable="Assessment">
+          <dt class="vocab-term">Assessment</dt>
+          <dd class="vocab-def">Continuous process of gathering, interpreting and using evidence to improve learning and report on it.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Evaluation">
+          <dt class="vocab-term">Evaluation</dt>
+          <dd class="vocab-def">Judgement of worth or quality against criteria, leading to a decision about learners, teaching or programmes.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Formative assessment">
+          <dt class="vocab-term">Formative assessment</dt>
+          <dd class="vocab-def">Assessment during learning that shapes the next teaching step through feedback.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Summative assessment">
+          <dt class="vocab-term">Summative assessment</dt>
+          <dd class="vocab-def">Assessment at the end of a period that summarises achievement for reporting.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Diagnostic assessment">
+          <dt class="vocab-term">Diagnostic assessment</dt>
+          <dd class="vocab-def">Pre-teaching assessment that locates prior knowledge and specific misconceptions.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Feedback">
+          <dt class="vocab-term">Feedback</dt>
+          <dd class="vocab-def">Information about performance against success criteria that tells the learner what to do next.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Success criteria">
+          <dt class="vocab-term">Success criteria</dt>
+          <dd class="vocab-def">Observable statements describing what a successful performance looks like.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Judgement">
+          <dt class="vocab-term">Judgement</dt>
+          <dd class="vocab-def">A considered decision about quality or worth based on evidence and an explicit standard.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Accountability">
+          <dt class="vocab-term">Accountability</dt>
+          <dd class="vocab-def">The obligation to justify decisions and outcomes to learners, parents and the system.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Benchmark">
+          <dt class="vocab-term">Benchmark</dt>
+          <dd class="vocab-def">A reference standard or level against which performance is compared.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Moderation">
+          <dt class="vocab-term">Moderation</dt>
+          <dd class="vocab-def">Agreement of judgements across teachers so that standards are consistent.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Reporting">
+          <dt class="vocab-term">Reporting</dt>
+          <dd class="vocab-def">Communicating summative judgements and progress to learners, parents and authorities.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- ================= 03 COMPARISON ================= -->
+    <section class="section" id="comparison" aria-labelledby="comparison-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">03</span>
+        <div>
+          <p class="eyebrow">Distinctions</p>
+          <h2 id="comparison-title">Comparison table</h2>
+          <p class="section-lead">Use this table for “differentiate between”, “compare” and “which is most appropriate” questions — name the dimension, then the contrast.</p>
+        </div>
+      </div>
+      <div class="table-shell" id="compareGrid">
+        <div class="table-caption">
+          <strong>Assessment versus Evaluation: Six Dimensions of Difference</strong>
+          <span>Swipe to view all columns →</span>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr><th scope="col">Dimension</th><th scope="col">Assessment</th><th scope="col">Evaluation</th><th scope="col">Illustration</th></tr>
+            </thead>
+            <tbody>
+            <tr><td>Purpose</td><td>Improve learning</td><td>Judge worth and decide</td><td>Exit ticket used to regroup tomorrow vs. term grade on a report</td></tr>
+            <tr><td>Timing</td><td>Continuous, before/during/after</td><td>At decision points</td><td>Daily questioning vs. end-of-term review</td></tr>
+            <tr><td>Focus</td><td>Individual learner and next step</td><td>Teaching, curriculum, programme or learner outcome</td><td>‘Ali needs work on inference’ vs. ‘the unit was too ambitious’</td></tr>
+            <tr><td>Process</td><td>Describe against criteria</td><td>Compare with a standard and assign value</td><td>Feedback sentence vs. ‘below expected level’</td></tr>
+            <tr><td>Outcome</td><td>Actionable feedback</td><td>A recorded judgement or decision</td><td>Next-step prompt vs. promotion or referral</td></tr>
+            <tr><td>Tone</td><td>Supportive and forward-looking</td><td>Accountable and summative</td><td>‘Try this example’ vs. ‘has not met the outcome’</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 04 APPLICATION ================= -->
+    <section class="section" id="application" aria-labelledby="application-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">04</span>
+        <div>
+          <p class="eyebrow">Practice</p>
+          <h2 id="application-title">Classroom application</h2>
+          <p class="section-lead">What to do, and what to avoid, in a real classroom. The left column is the standard to teach; the right column lists the errors that cost marks and learning.</p>
+        </div>
+      </div>
+      <div class="do-dont" id="applyGrid">
+        <div class="dd-card do">
+          <h3><span aria-hidden="true">✅</span> Do this</h3>
+          <ul><li>State the purpose of every task before you design it — improvement or judgement.</li><li>Use <strong>assessment</strong> evidence continuously and keep a light record against outcomes.</li><li>Give <strong>feedback</strong> that names the criterion and the next step, not just the mark.</li><li>Use <strong>evaluation</strong> to judge your teaching and the curriculum, not only the learners.</li><li>Moderate <strong>evaluation</strong> judgements with colleagues so standards stay comparable.</li><li>Let <strong>assessment</strong> data drive the <strong>evaluation</strong> decision rather than replacing it.</li></ul>
+        </div>
+        <div class="dd-card avoid">
+          <h3><span aria-hidden="true">🚫</span> Avoid this</h3>
+          <ul><li>Do not use <strong>assessment</strong> and <strong>evaluation</strong> as synonyms in a written answer.</li><li>Do not turn every assessment into an evaluated, recorded grade — it destroys formative purpose.</li><li>Do not evaluate a learner without evidence beyond a single test.</li><li>Do not give feedback that is pure evaluation (‘weak’, ‘careless’) with no next step.</li><li>Do not let summative evaluation crowd out the continuous assessment that should inform it.</li><li>Do not present a comparative <strong>evaluation</strong> of a child publicly; report judgements privately and constructively.</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 05 MISCONCEPTIONS ================= -->
+    <section class="section" id="misconceptions" aria-labelledby="misconceptions-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">05</span>
+        <div>
+          <p class="eyebrow">Exam traps</p>
+          <h2 id="misconceptions-title">Common misconceptions</h2>
+          <p class="section-lead">Each misconception below is a plausible-sounding statement that loses marks. Learn the reality column as a correction you can write.</p>
+        </div>
+      </div>
+      <div class="myth-grid" id="misGrid">
+        <article class="myth-card" data-searchable="&ldquo;Assessment and evaluation are the same process with different names.&rdquo;">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;Assessment and evaluation are the same process with different names.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p><strong>Assessment</strong> gathers and interprets evidence to improve learning; <strong>evaluation</strong> judges that evidence against standards and takes a decision. They differ in purpose, timing, process and outcome.</p>
+          </div>
+        </article>
+        <article class="myth-card" data-searchable="&ldquo;Only evaluation matters because it produces grades.&rdquo;">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;Only evaluation matters because it produces grades.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>Grades without <strong>assessment</strong> are unsupported judgements. Continuous assessment is what makes an evaluation defensible and what actually improves learning.</p>
+          </div>
+        </article>
+        <article class="myth-card" data-searchable="&ldquo;Formative assessment is just frequent testing.&rdquo;">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;Formative assessment is just frequent testing.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>Frequent testing without interpretation and adjustment is repeated measurement. <strong>Formative assessment</strong> exists only when evidence changes the next teaching step through <strong>feedback</strong>.</p>
+          </div>
+        </article>
+        <article class="myth-card" data-searchable="&ldquo;Teachers should not evaluate their own teaching — that is the head teacher’s job.&rdquo;">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;Teachers should not evaluate their own teaching — that is the head teacher’s job.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>Evaluating one’s own teaching against evidence is a core professional responsibility; external evaluation is additional accountability, not a substitute.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= 06 TAKEAWAYS ================= -->
+    <section class="section" id="takeaways" aria-labelledby="takeaways-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">06</span>
+        <div>
+          <p class="eyebrow">Compress</p>
+          <h2 id="takeaways-title">Key takeaways</h2>
+          <p class="section-lead">Revise these lines the night before the paper — they compress the whole note into recall-ready statements.</p>
+        </div>
+      </div>
+      <div class="takeaways">
+        <h3>Six things to remember</h3>
+        <ol><li><strong>Assessment</strong> is a process for improving learning; <strong>evaluation</strong> is a judgement for deciding.</li><li>Assessment is continuous and descriptive; evaluation is periodic and comparative.</li><li>The same evidence can serve both, but only if it is interpreted and used.</li><li>Assessment produces <strong>feedback</strong>; evaluation produces grades, decisions and accountability.</li><li>Assessment without evaluation changes nothing; evaluation without assessment is guesswork.</li><li>A healthy classroom balances continuous assessment with periodic, moderated evaluation.</li></ol>
+      </div>
+      <div class="summary">
+        <span class="summary-label">One-line summary</span>
+        <p>Assessment and evaluation are partners, not synonyms: assessment continuously gathers and interprets evidence to improve learning, while evaluation judges that evidence against standards and uses the judgement to decide about learners, teaching and programmes.</p>
+      </div>
+      <div class="exam-tip">
+        <span class="tip-icon" aria-hidden="true">💡</span>
+        <div>
+          <span class="tip-label">Exam tip</span>
+          <p>In ‘differentiate between’ questions, always give the dimension first — purpose, timing, focus, process, outcome — then the contrast. A two-column answer without named dimensions rarely earns full marks.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 07 QUIZ ================= -->
+    <section class="quiz" id="practice" aria-labelledby="quiz-title">
+      <div class="quiz-head">
+        <div>
+          <p class="eyebrow">Practice</p>
+          <h2 id="quiz-title">Test yourself</h2>
+        </div>
+        <div class="quiz-chips">
+          <span>10 MCQs</span>
+          <span>4 CRQs</span>
+          <span>1 ERQ</span>
+        </div>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-tabs" role="tablist" aria-label="Quiz sections">
+          <button class="quiz-tab active" role="tab" aria-selected="true" data-panel="mcqPanel">🔘 10 MCQs</button>
+          <button class="quiz-tab" role="tab" aria-selected="false" data-panel="crqPanel">✍️ 4 CRQs</button>
+          <button class="quiz-tab" role="tab" aria-selected="false" data-panel="erqPanel">📄 1 ERQ</button>
+        </div>
+
+        <div class="quiz-panel active" id="mcqPanel" role="tabpanel">
+          <div class="panel-head">
+            <span class="section-label">Multiple choice questions</span>
+            <span class="score-chip" id="mcqProgress">0 / 10 answered · 0 correct</span>
+          </div>
+          <div id="mcqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="crqPanel" role="tabpanel">
+          <div class="panel-head">
+            <span class="section-label">Constructed response questions</span>
+            <span class="score-chip">Model answers included</span>
+          </div>
+          <div id="crqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="erqPanel" role="tabpanel">
+          <div class="panel-head">
+            <span class="section-label">Extended response · situation-based</span>
+            <span class="score-chip">Keyword self-check</span>
+          </div>
+          <div id="erqContainer"></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="note-footer">
+      <span>MUQABIL · Teaching License Master Notes · Classroom Assessment</span>
+      <span>11 interactive notes in this module · revision 2 of 11</span>
+    </footer>
+  </div>
+
+  <button class="to-top" id="toTop" type="button" aria-label="Back to top">↑</button>
+
+<script>
+    (function () {
+      'use strict';
+
+      /* ================= READING PROGRESS ================= */
+      var fill = document.getElementById('progressFill');
+      var toTop = document.getElementById('toTop');
+
+      function updateScroll() {
+        var doc = document.documentElement;
+        var max = doc.scrollHeight - doc.clientHeight;
+        var pct = max > 0 ? (doc.scrollTop / max) * 100 : 0;
+        if (fill) fill.style.width = pct + '%';
+        if (toTop) {
+          if (doc.scrollTop > 600) toTop.classList.add('visible');
+          else toTop.classList.remove('visible');
+        }
+      }
+      window.addEventListener('scroll', updateScroll, { passive: true });
+      updateScroll();
+
+      if (toTop) {
+        toTop.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      /* ================= LIVE SEARCH ================= */
+      var searchInput = document.getElementById('searchInput');
+      var countDisplay = document.getElementById('countDisplay');
+      var grids = [
+        document.getElementById('conceptGrid'),
+        document.getElementById('vocabGrid'),
+        document.getElementById('misGrid')
+      ].filter(Boolean);
+
+      var cards = [];
+      grids.forEach(function (grid) {
+        Array.prototype.forEach.call(grid.querySelectorAll('[data-searchable]'), function (card) {
+          cards.push(card);
+        });
+      });
+
+      function applySearch(raw) {
+        var q = (raw || '').trim().toLowerCase();
+        var visible = 0;
+        cards.forEach(function (card) {
+          var text = ((card.getAttribute('data-searchable') || '') + ' ' + card.textContent).toLowerCase();
+          var matches = q === '' || text.indexOf(q) !== -1;
+          card.style.display = matches ? '' : 'none';
+          if (matches) visible++;
+        });
+        Array.prototype.forEach.call(document.querySelectorAll('.no-results'), function (el) {
+          el.parentNode.removeChild(el);
+        });
+        grids.forEach(function (grid) {
+          var shown = Array.prototype.filter.call(
+            grid.querySelectorAll('[data-searchable]'),
+            function (card) { return card.style.display !== 'none'; }
+          ).length;
+          if (shown === 0) {
+            var msg = document.createElement('div');
+            msg.className = 'no-results';
+            msg.textContent = '🔎 No matching items in this section.';
+            grid.appendChild(msg);
+          }
+        });
+        if (countDisplay) {
+          countDisplay.textContent = visible + ' item' + (visible === 1 ? '' : 's');
+        }
+      }
+
+      var debounceTimer;
+      if (searchInput) {
+        searchInput.addEventListener('input', function (e) {
+          clearTimeout(debounceTimer);
+          debounceTimer = setTimeout(function () { applySearch(e.target.value); }, 140);
+        });
+        searchInput.addEventListener('search', function (e) {
+          if (e.target.value === '') applySearch('');
+        });
+        searchInput.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && searchInput.value !== '') {
+            searchInput.value = '';
+            applySearch('');
+          }
+        });
+      }
+      applySearch('');
+
+      /* ================= QUIZ TABS ================= */
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.quiz-tab'));
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          tabs.forEach(function (t) {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          Array.prototype.forEach.call(document.querySelectorAll('.quiz-panel'), function (p) {
+            p.classList.remove('active');
+          });
+          tab.classList.add('active');
+          tab.setAttribute('aria-selected', 'true');
+          var panel = document.getElementById(tab.getAttribute('data-panel'));
+          if (panel) panel.classList.add('active');
+        });
+      });
+
+      /* ================= DATA ================= */
+      var mcqs = [{"q": "The primary purpose of assessment is to:", "options": ["Rank learners", "Improve teaching and learning", "Certify achievement", "Satisfy parents"], "answer": 1, "why": "Assessment is improvement-oriented; evaluation is judgement-oriented."}, {"q": "Which is the best example of evaluation rather than assessment?", "options": ["Asking a hinge question mid-lesson", "Collecting exit tickets", "Deciding a learner has not met the term outcome and must repeat the unit", "Observing group work"], "answer": 2, "why": "A judgement against a standard with a decision attached is evaluation."}, {"q": "Assessment is best described as:", "options": ["A one-off event at the end of a term", "A continuous process of gathering and interpreting evidence", "A synonym for examination", "A judgement of teacher competence"], "answer": 1, "why": "Assessment is continuous and process-oriented."}, {"q": "Which dimension most clearly separates assessment from evaluation?", "options": ["The subject taught", "The number of learners", "Purpose — improvement versus judgement", "The use of paper"], "answer": 2, "why": "Purpose is the defining distinction; timing and form follow from it."}, {"q": "Evaluation typically involves:", "options": ["Describing performance only", "Comparing performance with a standard and assigning value", "Ignoring criteria", "Collecting evidence without using it"], "answer": 1, "why": "Evaluation requires comparison against a criterion."}, {"q": "A teacher writes: ‘Your introduction states a clear position; add one counter-argument and link it to your thesis.’ This is:", "options": ["Evaluation without assessment", "Assessment feedback, not just evaluation", "A summative grade", "A norm-referenced judgement"], "answer": 1, "why": "It describes against criteria and gives a next step."}, {"q": "Which statement about the relationship is correct?", "options": ["Evaluation supplies the evidence for assessment", "Assessment supplies evidence that evaluation judges", "They are mutually exclusive", "Evaluation must always precede assessment"], "answer": 1, "why": "Assessment generates the evidence; evaluation judges it."}, {"q": "Continuous assessment improves learning mainly because it:", "options": ["Produces more grades", "Allows timely adjustment and feedback", "Reduces teacher workload", "Removes the need for evaluation"], "answer": 1, "why": "Timeliness is what makes assessment formative."}, {"q": "Judging the effectiveness of a scheme of work is an example of evaluation at the level of:", "options": ["The individual learner", "The curriculum or programme", "The board examination", "The classroom rule book"], "answer": 1, "why": "Programme-level judgement is evaluation of the curriculum."}, {"q": "The main risk of evaluating learners on a single test is that:", "options": ["It takes too long to mark", "The judgement may be invalid because evidence is narrow", "Learners prefer projects", "Parents complain"], "answer": 1, "why": "Narrow evidence undermines the validity of the judgement."}];
+      var crqs = [{"q": "Differentiate between assessment and evaluation with reference to purpose, timing, process and outcome.", "hint": "Use four named dimensions and give a classroom illustration for each.", "model": "By purpose, assessment aims to improve learning while it is in progress, whereas evaluation aims to judge quality and support a decision. In timing, assessment is continuous — diagnostic before a unit, formative during it, summative at its end — while evaluation occurs at decision points such as the end of a term. In process, assessment describes performance against success criteria and produces feedback, whereas evaluation compares performance with a standard, benchmark or previous level and assigns value. In outcome, assessment yields a next teaching step for the learner or teacher, while evaluation yields a recorded judgement such as a report grade, promotion, referral or a decision to revise the scheme of work. A classroom illustration: an exit ticket showing that fourteen learners cannot convert fractions is assessment; deciding, on that evidence, that the unit must be retaught and the term plan adjusted is evaluation."}, {"q": "Explain why assessment without evaluation cannot improve a school, and evaluation without assessment cannot be trusted.", "hint": "Address unused evidence and unsupported judgement, then the loop between them.", "model": "Assessment without evaluation produces evidence that is never acted on. Teachers collect exit tickets, marks and observations, but unless someone judges what the evidence means and decides to change grouping, resources or the scheme of work, nothing in the system changes; the data becomes paperwork. Evaluation without assessment is equally weak because a judgement needs evidence: a grade, a promotion decision or a conclusion that a programme failed must rest on documented performance, or it is an impression that cannot be defended to learners, parents or authorities. The two therefore form a loop. Assessment generates interpretable evidence; evaluation judges it and produces decisions; those decisions reshape teaching; the reshaped teaching generates new evidence. Schools improve when the loop turns frequently and visibly, and stagnate when either half is missing."}, {"q": "A head teacher asks teachers to ‘assess more and evaluate less’. Critically examine this instruction.", "hint": "Unpack what the instruction gets right and what it risks.", "model": "The instruction is right to protect formative assessment. If every piece of evidence becomes a graded, recorded judgement, learners become grade-focused, teachers spend their time on documentation, and assessment loses its power to change the next lesson. Increasing low-stakes, ungraded, feedback-rich assessment is therefore sound. But ‘evaluate less’ cannot mean ‘never judge’. Evaluation is required for reporting to parents, for promotion and certification, for identifying learners who need referral, and for judging whether a unit or the scheme of work is working. Without periodic, defensible evaluation, the school cannot account for its decisions or detect systemic problems such as a textbook that is too hard or a topic taught too quickly. The professional reading of the instruction is therefore: assess continuously and mostly formatively, but retain periodic, moderated evaluation anchored in that assessment evidence, and keep the two purposes visibly separate to learners."}, {"q": "How would you explain the difference between assessment and evaluation to a parent who believes marks are the only information that matters?", "hint": "Use plain language, an example, and the parent’s legitimate interest in standards.", "model": "I would explain that assessment is the ongoing checking I do so that I can help their child improve — the questions I ask, the work I look at, the comments I write, the quick checks at the end of a lesson. Evaluation is when I step back, compare that evidence with the standard expected at this stage, and make a judgement, which is what appears on the report. Marks are therefore a summary of a judgement, not the whole picture: two learners can both score 12 out of 20, but one may be missing a single concept and the other may be unable to explain their method at all, and they need different help. I would also reassure the parent that standards are not being lowered — the criteria are the same for everyone, and the report still gives an honest judgement. What continuous assessment adds is early warning and specific next steps, so a small gap does not become a failed term."}];
+      var erq = {"scenario": "In a private school in Karachi, teachers must enter a grade for every piece of classwork in an online portal that parents can see in real time. Teachers report that learners now ask ‘is this graded?’ before starting any task, refuse to attempt challenging work, and argue about marks. Two teachers have stopped giving written comments because ‘nobody reads them’. At the same time, the end-of-term evaluation is based only on a single written examination, and the head teacher complains that the results no longer predict which learners need support.", "task": "Analyse the problems using the distinction between assessment and evaluation, then propose a revised policy for the school that protects learning while still providing honest, defensible evaluation for parents.", "hint": "Diagnose the conflation of purposes, then separate continuous assessment from periodic evaluation with clear rules.", "keywords": ["assessment", "evaluation", "formative", "summative", "feedback", "grading", "criteria", "motivation", "moderation", "reporting"], "model": "The school has collapsed assessment into evaluation. Every task is immediately converted into a public judgement, so learners experience assessment only as a verdict, not as information. That explains the behaviour: asking ‘is this graded?’ is a rational response to a system where ungraded work appears to have no value; refusing challenge is rational when a low mark is visible to parents in real time; arguing about marks is rational when the judgement is the only currency. Written comments have disappeared because the comment competes with a visible number that parents respond to first. Meanwhile the actual evaluation is unsound: it rests on one written examination at the end of term, which samples a narrow range of outcomes and one occasion, so it cannot predict which learners need support. The system has continuous evaluation and no real assessment, combined with a terminal evaluation that lacks assessment evidence. A revised policy should separate the two purposes explicitly. First, distinguish formative work from evaluated work: classwork, practice, drafts and exploratory tasks are recorded as assessment evidence with written or oral feedback and no public grade; only designated ‘evaluated tasks’ — perhaps one per fortnight per subject — carry a grade. This protects risk-taking and restores the value of comments, because comments are no longer competing with a number on every task. Second, publish success criteria and rubrics before evaluated tasks so that the grade is transparent and learners can self-check; this also reduces mark arguments. Third, restrict parent-portal visibility to evaluated tasks plus a short teacher comment, and add a termly summary rather than a live stream, so parents see a considered judgement rather than a running commentary. Fourth, build the term evaluation on multiple sources: evaluated tasks, a performance or project assessed by rubric, and the end-of-term examination, aggregated against the learning outcomes for the term. Fifth, introduce moderation: teachers of the same subject compare a sample of evaluated work each month against the rubric, which improves reliability and gives the head teacher comparable data. Sixth, use the assessment record diagnostically — flag learners whose evaluated tasks and examination diverge, since that pattern usually indicates either test anxiety or a marking problem, and investigate rather than conclude. Finally, communicate the change to parents in a short letter that explains what continuous assessment is for, what will and will not be graded, and how the term judgement will be made. The policy succeeds if learners again attempt difficult work, if comments are read and acted on, and if end-of-term evaluations can be traced back to documented evidence."};
+
+      /* ================= MCQs ================= */
+      var mcqContainer = document.getElementById('mcqContainer');
+      var scoreChip = document.getElementById('mcqProgress');
+      var answered = 0;
+      var correctCount = 0;
+      var letters = ['A', 'B', 'C', 'D'];
+
+      function updateScore() {
+        if (!scoreChip) return;
+        scoreChip.textContent = answered + ' / ' + mcqs.length + ' answered · ' + correctCount + ' correct';
+      }
+
+      mcqs.forEach(function (item, idx) {
+        var wrap = document.createElement('div');
+        wrap.className = 'mcq-item';
+
+        var q = document.createElement('p');
+        q.className = 'mcq-question';
+        var num = document.createElement('span');
+        num.className = 'q-num';
+        num.textContent = (idx + 1) + '.';
+        var qtext = document.createElement('span');
+        qtext.textContent = item.q;
+        q.appendChild(num);
+        q.appendChild(qtext);
+        wrap.appendChild(q);
+
+        var options = document.createElement('div');
+        options.className = 'mcq-options';
+
+        var fb = document.createElement('div');
+        fb.className = 'mcq-feedback';
+
+        Array.prototype.forEach.call(item.options, function (text, i) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'mcq-option';
+          btn.setAttribute('aria-label', letters[i] + '. ' + text);
+
+          var letter = document.createElement('span');
+          letter.className = 'option-letter';
+          letter.textContent = letters[i];
+          var label = document.createElement('span');
+          label.textContent = text;
+          btn.appendChild(letter);
+          btn.appendChild(label);
+
+          btn.addEventListener('click', function () {
+            if (wrap.getAttribute('data-answered') === 'true') return;
+            wrap.setAttribute('data-answered', 'true');
+            answered++;
+            var isCorrect = i === item.answer;
+            if (isCorrect) correctCount++;
+            btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+            Array.prototype.forEach.call(options.querySelectorAll('.mcq-option'), function (other, j) {
+              other.disabled = true;
+              if (j === item.answer) other.classList.add('correct');
+            });
+            fb.className = 'mcq-feedback show ' + (isCorrect ? 'correct-fb' : 'incorrect-fb');
+            fb.textContent = (isCorrect ? '✅ Correct. ' : '❌ Not quite. ') + item.why;
+            updateScore();
+          });
+
+          options.appendChild(btn);
+        });
+
+        wrap.appendChild(options);
+        wrap.appendChild(fb);
+        mcqContainer.appendChild(wrap);
+      });
+      updateScore();
+
+      /* ================= CRQs ================= */
+      var crqContainer = document.getElementById('crqContainer');
+      crqs.forEach(function (item, idx) {
+        var wrap = document.createElement('div');
+        wrap.className = 'crq-item';
+
+        var q = document.createElement('p');
+        q.className = 'crq-question';
+        q.textContent = 'CRQ ' + (idx + 1) + '. ' + item.q;
+        wrap.appendChild(q);
+
+        var hint = document.createElement('p');
+        hint.className = 'crq-hint';
+        hint.textContent = 'Hint: ' + item.hint;
+        wrap.appendChild(hint);
+
+        var area = document.createElement('textarea');
+        area.className = 'crq-textarea';
+        area.setAttribute('aria-label', 'Your answer for CRQ ' + (idx + 1));
+        area.placeholder = 'Write your answer, then reveal the model answer to self-check.';
+        wrap.appendChild(area);
+
+        var meta = document.createElement('div');
+        meta.className = 'answer-meta';
+        var words = document.createElement('span');
+        words.textContent = '0 words';
+        var target = document.createElement('span');
+        target.textContent = 'Target: 80–120 words';
+        meta.appendChild(words);
+        meta.appendChild(target);
+        wrap.appendChild(meta);
+
+        area.addEventListener('input', function () {
+          var count = area.value.trim() ? area.value.trim().split(/\s+/).length : 0;
+          words.textContent = count + ' word' + (count === 1 ? '' : 's');
+        });
+
+        var actions = document.createElement('div');
+        actions.className = 'actions';
+        var showBtn = document.createElement('button');
+        showBtn.type = 'button';
+        showBtn.className = 'btn btn-primary';
+        showBtn.textContent = 'Show model answer';
+        var clearBtn = document.createElement('button');
+        clearBtn.type = 'button';
+        clearBtn.className = 'btn btn-secondary';
+        clearBtn.textContent = 'Clear';
+        actions.appendChild(showBtn);
+        actions.appendChild(clearBtn);
+        wrap.appendChild(actions);
+
+        var fb = document.createElement('div');
+        fb.className = 'crq-feedback';
+        wrap.appendChild(fb);
+
+        showBtn.addEventListener('click', function () {
+          var open = fb.classList.contains('show');
+          if (open) {
+            fb.className = 'crq-feedback';
+            fb.textContent = '';
+            showBtn.textContent = 'Show model answer';
+          } else {
+            fb.className = 'crq-feedback show model';
+            fb.textContent = 'Model answer: ' + item.model;
+            showBtn.textContent = 'Hide model answer';
+          }
+        });
+        clearBtn.addEventListener('click', function () {
+          area.value = '';
+          words.textContent = '0 words';
+          fb.className = 'crq-feedback';
+          fb.textContent = '';
+          showBtn.textContent = 'Show model answer';
+        });
+
+        crqContainer.appendChild(wrap);
+      });
+
+      /* ================= ERQ ================= */
+      var erqContainer = document.getElementById('erqContainer');
+      var eWrap = document.createElement('div');
+      eWrap.className = 'erq-item';
+
+      var marks = document.createElement('span');
+      marks.className = 'erq-marks';
+      marks.textContent = 'Extended response · 10 marks';
+      eWrap.appendChild(marks);
+
+      var eq = document.createElement('p');
+      eq.className = 'erq-question';
+      eq.textContent = erq.scenario + ' ' + erq.task;
+      eWrap.appendChild(eq);
+
+      var ehint = document.createElement('p');
+      ehint.className = 'crq-hint';
+      ehint.textContent = 'Guidance: ' + erq.hint;
+      eWrap.appendChild(ehint);
+
+      var eArea = document.createElement('textarea');
+      eArea.className = 'erq-textarea';
+      eArea.setAttribute('aria-label', 'Your extended response');
+      eArea.placeholder = 'Plan your response: identify the problem, apply the theory, then give concrete classroom actions and how you would evaluate them.';
+      eWrap.appendChild(eArea);
+
+      var eMeta = document.createElement('div');
+      eMeta.className = 'answer-meta';
+      var eWords = document.createElement('span');
+      eWords.textContent = '0 words';
+      var eTarget = document.createElement('span');
+      eTarget.textContent = 'Target: 250–400 words';
+      eMeta.appendChild(eWords);
+      eMeta.appendChild(eTarget);
+      eWrap.appendChild(eMeta);
+
+      eArea.addEventListener('input', function () {
+        var count = eArea.value.trim() ? eArea.value.trim().split(/\s+/).length : 0;
+        eWords.textContent = count + ' word' + (count === 1 ? '' : 's');
+      });
+
+      var eActions = document.createElement('div');
+      eActions.className = 'actions';
+      var checkBtn = document.createElement('button');
+      checkBtn.type = 'button';
+      checkBtn.className = 'btn btn-primary';
+      checkBtn.textContent = 'Check my response';
+      var modelBtn = document.createElement('button');
+      modelBtn.type = 'button';
+      modelBtn.className = 'btn btn-secondary';
+      modelBtn.textContent = 'Show model answer';
+      eActions.appendChild(checkBtn);
+      eActions.appendChild(modelBtn);
+      eWrap.appendChild(eActions);
+
+      var eFb = document.createElement('div');
+      eFb.className = 'erq-feedback';
+      eWrap.appendChild(eFb);
+
+      checkBtn.addEventListener('click', function () {
+        var answer = eArea.value.toLowerCase();
+        if (!answer.trim()) {
+          eFb.className = 'erq-feedback show partial';
+          eFb.textContent = 'Write your response first — aim for at least 250 words before self-checking.';
+          return;
+        }
+        var hits = erq.keywords.filter(function (k) {
+          return answer.indexOf(k.toLowerCase()) !== -1;
+        });
+        var ratio = hits.length / erq.keywords.length;
+        var missing = erq.keywords.filter(function (k) { return hits.indexOf(k) === -1; });
+        if (ratio >= 0.6) {
+          eFb.className = 'erq-feedback show good';
+          eFb.textContent = '✅ Strong coverage: ' + hits.length + ' of ' + erq.keywords.length +
+            ' expected ideas present (' + hits.join(', ') + '). Now tighten the structure: theory → diagnosis → actions → evaluation.' +
+            (missing.length ? ' Still to consider: ' + missing.join(', ') + '.' : '');
+        } else {
+          eFb.className = 'erq-feedback show partial';
+          eFb.textContent = '⚠️ Partial coverage: ' + hits.length + ' of ' + erq.keywords.length +
+            ' expected ideas found. Add: ' + missing.join(', ') + '.';
+        }
+      });
+
+      modelBtn.addEventListener('click', function () {
+        var open = eFb.classList.contains('show') && eFb.classList.contains('model');
+        if (open) {
+          eFb.className = 'erq-feedback';
+          eFb.textContent = '';
+          modelBtn.textContent = 'Show model answer';
+        } else {
+          eFb.className = 'erq-feedback show model';
+          eFb.textContent = 'Model answer: ' + erq.model;
+          modelBtn.textContent = 'Hide model answer';
+        }
+      });
+
+      erqContainer.appendChild(eWrap);
+    })();
+</script>
+</body>
+</html>

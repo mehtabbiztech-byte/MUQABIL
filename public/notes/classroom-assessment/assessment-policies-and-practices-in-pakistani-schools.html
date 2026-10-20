@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Assessment Policies and Practices in Pakistani Schools — Classroom Assessment study note for the MUQABIL Teaching License hub: concepts, key vocabulary, comparison table, classroom application, misconceptions, takeaways and a practice quiz.">
+  <title>Assessment Policies and Practices in Pakistani Schools · Classroom Assessment</title>
+  <style>
+    /* ================= DESIGN TOKENS ================= */
+    :root {
+      --navy: #0e2a47;
+      --navy-2: #12365c;
+      --blue: #2f6ca8;
+      --blue-soft: #8bb3e0;
+      --blue-tint: #eaf2fb;
+      --mark: #dbeafe;
+      --ink: #0b2138;
+      --ink-2: #1c3f60;
+      --body: #35536f;
+      --muted: #5d7893;
+      --line: #dfe9f5;
+      --paper: #ffffff;
+      --wash: #f5faff;
+      --amber: #b8860b;
+      --amber-tint: #fff8e6;
+      --green: #1f7a4d;
+      --green-tint: #eaf8f0;
+      --red: #a83535;
+      --red-tint: #fdf1f1;
+      --shadow-sm: 0 6px 16px -10px rgba(12, 38, 66, 0.35);
+      --shadow-md: 0 18px 36px -22px rgba(12, 38, 66, 0.45);
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
+      color: var(--body);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 4rem;
+    }
+
+    /* ================= READING PROGRESS ================= */
+    .progress-track {
+      position: fixed; top: 0; left: 0; right: 0; height: 4px;
+      background: rgba(14, 42, 71, 0.08); z-index: 90;
+    }
+    .progress-fill {
+      display: block; height: 100%; width: 0%;
+      background: linear-gradient(90deg, #2f6ca8, #6aa9dd, #9cc7ee);
+      border-radius: 0 4px 4px 0; transition: width 0.12s linear;
+    }
+
+    .shell { max-width: 1080px; margin: 0 auto; padding: 0 1.1rem; }
+
+    /* ================= HERO ================= */
+    .hero {
+      position: relative; overflow: hidden;
+      margin-top: 1.6rem;
+      border-radius: 30px;
+      padding: 2.4rem 2.2rem 3.4rem;
+      background: radial-gradient(120% 140% at 0% 0%, #163b63 0%, #0e2a47 55%, #0a1f36 100%);
+      color: #fff;
+      box-shadow: var(--shadow-md);
+    }
+    .hero::after {
+      content: ''; position: absolute; right: -120px; top: -120px;
+      width: 340px; height: 340px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(139, 179, 224, 0.28), transparent 68%);
+      pointer-events: none;
+    }
+    .hero-top { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-bottom: 1.1rem; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #eaf4ff; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      padding: 0.32rem 0.85rem; border-radius: 999px;
+    }
+    .hero-top .hero-track { font-size: 0.74rem; color: #a9c8e6; font-weight: 600; letter-spacing: 0.04em; }
+    .hero h1 {
+      font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+      line-height: 1.16; font-weight: 800; letter-spacing: -0.02em;
+      color: #ffffff; max-width: 22ch;
+    }
+    .tagline {
+      margin-top: 0.85rem; max-width: 62ch;
+      font-size: 1.02rem; color: #c9def3;
+      border-left: 3px solid var(--blue-soft); padding-left: 1rem;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.4rem; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px; padding: 0.34rem 0.8rem;
+      font-size: 0.76rem; font-weight: 600; color: #dceafa;
+    }
+
+    /* ================= BIG IDEA + OBJECTIVES ================= */
+    .brief {
+      display: grid; grid-template-columns: 1.35fr 1fr; gap: 1.1rem;
+      margin: -2.2rem 1.4rem 0; position: relative; z-index: 2;
+    }
+    .brief-card {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-lg); padding: 1.4rem 1.5rem;
+      box-shadow: var(--shadow-md);
+    }
+    .brief-label {
+      display: inline-block; margin: 0; line-height: 1.2;
+      font-size: 0.68rem; font-weight: 800;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue);
+      margin-bottom: 0.55rem;
+    }
+    .brief-card p { font-size: 0.96rem; color: var(--ink-2); }
+    .objectives { list-style: none; counter-reset: obj; display: grid; gap: 0.7rem; }
+    .objectives li {
+      position: relative; padding-left: 2.1rem; font-size: 0.9rem;
+      color: var(--ink-2); line-height: 1.55;
+    }
+    .objectives li::before {
+      counter-increment: obj; content: counter(obj);
+      position: absolute; left: 0; top: 0.05rem;
+      width: 1.4rem; height: 1.4rem; border-radius: 50%;
+      display: grid; place-items: center;
+      background: var(--blue-tint); color: var(--blue);
+      font-size: 0.72rem; font-weight: 800;
+    }
+
+    /* ================= TABLE OF CONTENTS ================= */
+    .toc {
+      margin: 1.6rem 0 0; background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--line); border-radius: var(--radius-lg);
+      padding: 1.1rem 1.2rem; backdrop-filter: blur(4px);
+    }
+    .toc-title {
+      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem;
+    }
+    .toc-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0.35rem; }
+    .toc-list a {
+      display: flex; align-items: baseline; gap: 0.55rem;
+      padding: 0.42rem 0.5rem; border-radius: 10px;
+      text-decoration: none; color: var(--ink-2);
+      font-size: 0.88rem; font-weight: 600; transition: background 0.15s, color 0.15s;
+    }
+    .toc-list a:hover, .toc-list a:focus-visible { background: var(--blue-tint); color: var(--navy); }
+    .toc-num {
+      font-size: 0.68rem; font-weight: 800; color: var(--blue);
+      background: var(--blue-tint); border-radius: 6px; padding: 0.1rem 0.4rem;
+      flex-shrink: 0;
+    }
+
+    /* ================= TOOLBAR / SEARCH ================= */
+    .toolbar {
+      position: sticky; top: 0; z-index: 60;
+      margin: 1.6rem 0 0.4rem; padding: 0.6rem 0;
+      background: linear-gradient(180deg, rgba(243, 246, 253, 0.97) 65%, rgba(243, 246, 253, 0));
+    }
+    .toolbar-inner {
+      display: flex; align-items: center; gap: 0.7rem;
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: 999px; padding: 0.45rem 0.55rem 0.45rem 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .search-box { display: flex; align-items: center; gap: 0.55rem; flex: 1; min-width: 0; }
+    .search-box span { font-size: 0.95rem; opacity: 0.7; }
+    .search-box input {
+      border: none; outline: none; background: transparent;
+      font: inherit; font-size: 0.92rem; color: var(--ink);
+      width: 100%; padding: 0.3rem 0;
+    }
+    .search-box input::placeholder { color: #93a8bd; }
+    .count-pill {
+      flex-shrink: 0; background: var(--navy); color: #fff;
+      font-size: 0.75rem; font-weight: 700;
+      padding: 0.4rem 0.85rem; border-radius: 999px; white-space: nowrap;
+    }
+
+    /* ================= SECTION HEADERS ================= */
+    .section { margin-top: 3rem; scroll-margin-top: 90px; }
+    .section-head { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.3rem; }
+    .section-num {
+      flex-shrink: 0; width: 46px; height: 46px; border-radius: 15px;
+      display: grid; place-items: center;
+      background: var(--navy); color: #fff;
+      font-size: 0.9rem; font-weight: 800; letter-spacing: 0.02em;
+      box-shadow: 0 8px 18px -10px rgba(14, 42, 71, 0.9);
+    }
+    .eyebrow {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 0.18rem;
+    }
+    .section-head h2 {
+      font-size: clamp(1.25rem, 2.2vw, 1.6rem); font-weight: 800;
+      color: var(--ink); letter-spacing: -0.015em; line-height: 1.25;
+    }
+    .section-lead {
+      margin-top: 0.3rem; font-size: 0.92rem; color: var(--muted); max-width: 68ch;
+    }
+
+    /* ================= CONCEPT CARDS ================= */
+    .concept-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
+    .concept-card {
+      position: relative; display: flex; flex-direction: column;
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-md); padding: 1.25rem 1.25rem 1.1rem;
+      box-shadow: var(--shadow-sm); overflow: hidden;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+    .concept-card::before {
+      content: ''; position: absolute; inset: 0 0 auto 0; height: 4px;
+      background: linear-gradient(90deg, var(--blue), var(--blue-soft), #cfe2f5);
+    }
+    .concept-card:hover {
+      transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: #c4dcf2;
+    }
+    .concept-top { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; }
+    .concept-icon {
+      width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center;
+      background: var(--blue-tint); font-size: 1.2rem;
+    }
+    .concept-index {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em;
+      color: #9fb6cc; border: 1px solid var(--line); border-radius: 999px;
+      padding: 0.12rem 0.5rem;
+    }
+    .concept-title {
+      margin: 0.75rem 0 0.4rem; font-size: 1.02rem; font-weight: 800;
+      color: var(--ink); line-height: 1.35;
+    }
+    .concept-desc { font-size: 0.9rem; color: var(--body); }
+    .concept-desc strong, .vocab-def strong, .myth-reality strong, .takeaways strong, .lead-para strong {
+      color: #0a3a68; font-weight: 700;
+      background: linear-gradient(transparent 64%, var(--mark) 64%);
+      padding: 0 1px; border-radius: 2px;
+    }
+    .practice {
+      margin-top: auto; padding-top: 0.9rem;
+    }
+    .practice-box {
+      background: var(--wash); border: 1px solid #e2eefa;
+      border-left: 3px solid var(--blue); border-radius: 10px;
+      padding: 0.65rem 0.8rem;
+    }
+    .practice-label {
+      display: block; font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue);
+      margin-bottom: 0.18rem;
+    }
+    .practice-box p { font-size: 0.85rem; color: var(--ink-2); line-height: 1.5; }
+
+    /* ================= VOCABULARY ================= */
+    .vocab-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 0.75rem; margin: 0;
+    }
+    .vocab-card {
+      background: var(--paper); border: 1px solid var(--line);
+      border-left: 4px solid var(--blue-soft);
+      border-radius: var(--radius-sm); padding: 0.85rem 1rem;
+      box-shadow: 0 4px 12px -10px rgba(12, 38, 66, 0.4);
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .vocab-card:hover { border-left-color: var(--blue); transform: translateY(-2px); }
+    .vocab-term {
+      font-size: 0.9rem; font-weight: 800; color: var(--navy);
+      display: block; margin-bottom: 0.22rem; line-height: 1.35;
+    }
+    .vocab-def { font-size: 0.85rem; color: var(--body); line-height: 1.55; }
+
+    /* ================= TABLE ================= */
+    .table-shell {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .table-caption {
+      display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+      padding: 0.9rem 1.1rem; border-bottom: 1px solid var(--line);
+      background: #fbfdff;
+    }
+    .table-caption strong { font-size: 0.92rem; font-weight: 800; color: var(--ink); }
+    .table-caption span { font-size: 0.72rem; font-weight: 700; color: var(--muted); white-space: nowrap; }
+    .table-scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.86rem; min-width: 640px; }
+    thead th {
+      position: sticky; top: 0; z-index: 1;
+      background: var(--navy); color: #fff; text-align: left;
+      padding: 0.7rem 0.9rem; font-size: 0.76rem; font-weight: 700;
+      letter-spacing: 0.045em; text-transform: uppercase; white-space: nowrap;
+    }
+    tbody td { padding: 0.7rem 0.9rem; border-bottom: 1px solid #eef4fb; vertical-align: top; line-height: 1.5; }
+    tbody td:first-child { font-weight: 700; color: var(--navy); background: #fbfdff; }
+    tbody tr:nth-child(even) td { background: #f7fbff; }
+    tbody tr:nth-child(even) td:first-child { background: #f1f8ff; }
+    tbody tr:last-child td { border-bottom: none; }
+
+    /* ================= DO / AVOID ================= */
+    .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .dd-card {
+      border-radius: var(--radius-md); padding: 1.2rem 1.3rem;
+      border: 1px solid; box-shadow: var(--shadow-sm);
+    }
+    .dd-card.do { background: var(--green-tint); border-color: #bfe6d1; }
+    .dd-card.avoid { background: var(--red-tint); border-color: #efc9c9; }
+    .dd-card h3 {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.95rem; font-weight: 800; margin-bottom: 0.8rem;
+      letter-spacing: 0.01em;
+    }
+    .dd-card.do h3 { color: var(--green); }
+    .dd-card.avoid h3 { color: var(--red); }
+    .dd-card ul { list-style: none; display: grid; gap: 0.45rem; }
+    .dd-card li { position: relative; padding-left: 1.45rem; font-size: 0.87rem; color: var(--ink-2); line-height: 1.55; }
+    .dd-card.do li::before { content: '✔'; position: absolute; left: 0; color: var(--green); font-weight: 800; }
+    .dd-card.avoid li::before { content: '✕'; position: absolute; left: 0; color: var(--red); font-weight: 800; }
+
+    /* ================= MYTHS ================= */
+    .myth-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
+    .myth-card {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-md); padding: 1.1rem 1.2rem;
+      box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 0.55rem;
+    }
+    .myth-tag {
+      align-self: flex-start; display: inline-flex; align-items: center; gap: 0.35rem;
+      background: var(--red-tint); color: var(--red); border: 1px solid #f0cfcf;
+      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.18rem 0.55rem; border-radius: 999px;
+    }
+    .myth-claim { font-size: 0.93rem; font-weight: 700; color: var(--ink); line-height: 1.45; }
+    .myth-reality {
+      border-top: 1px dashed var(--line); padding-top: 0.55rem;
+      font-size: 0.86rem; color: var(--body);
+    }
+    .reality-tag {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      color: var(--green); font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.2rem;
+    }
+
+    /* ================= TAKEAWAYS ================= */
+    .takeaways {
+      background: linear-gradient(135deg, #12365c 0%, #0e2a47 100%);
+      color: #eaf4ff; border-radius: var(--radius-lg);
+      padding: 1.6rem 1.7rem; box-shadow: var(--shadow-md);
+      counter-reset: take;
+    }
+    .takeaways h3 {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.16em;
+      text-transform: uppercase; color: #9cc7ee; margin-bottom: 0.9rem;
+    }
+    .takeaways ol { list-style: none; display: grid; gap: 0.6rem; }
+    .takeaways li {
+      counter-increment: take; position: relative; padding-left: 2.2rem;
+      font-size: 0.9rem; line-height: 1.55;
+    }
+    .takeaways li::before {
+      content: counter(take, decimal-leading-zero);
+      position: absolute; left: 0; top: 0.12rem;
+      font-size: 0.72rem; font-weight: 800; color: #8bb3e0;
+      border: 1px solid rgba(139, 179, 224, 0.4);
+      border-radius: 6px; padding: 0.05rem 0.35rem;
+    }
+    .takeaways strong { color: #ffffff; background: none; }
+
+    /* ================= SUMMARY + EXAM TIP ================= */
+    .summary {
+      margin-top: 1rem; display: flex; gap: 0.9rem;
+      background: var(--paper); border: 1px solid var(--line);
+      border-left: 5px solid var(--blue);
+      border-radius: var(--radius-md); padding: 1.1rem 1.3rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .summary-label {
+      flex-shrink: 0; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--blue);
+      writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);
+    }
+    .summary p { font-size: 0.95rem; color: var(--ink-2); }
+
+    .exam-tip {
+      margin-top: 1rem; display: flex; gap: 0.8rem;
+      background: var(--amber-tint); border: 1px solid #f2e0b3;
+      border-radius: var(--radius-md); padding: 1rem 1.2rem;
+    }
+    .exam-tip .tip-icon { font-size: 1.1rem; line-height: 1.4; }
+    .exam-tip .tip-label {
+      display: block; font-size: 0.64rem; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--amber); margin-bottom: 0.15rem;
+    }
+    .exam-tip p { font-size: 0.88rem; color: #6b5310; }
+
+    /* ================= QUIZ ================= */
+    .quiz {
+      margin-top: 3rem; border-radius: var(--radius-lg);
+      overflow: hidden; box-shadow: var(--shadow-md); scroll-margin-top: 90px;
+    }
+    .quiz-head {
+      background: radial-gradient(120% 140% at 100% 0%, #1a4470 0%, #0e2a47 62%);
+      color: #fff; padding: 1.5rem 1.7rem;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.9rem;
+    }
+    .quiz-head .eyebrow { color: #9cc7ee; }
+    .quiz-head h2 { font-size: 1.35rem; font-weight: 800; color: #fff; }
+    .quiz-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .quiz-chips span {
+      background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px; padding: 0.28rem 0.7rem; font-size: 0.74rem; font-weight: 700; color: #dceafa;
+    }
+    .quiz-body { background: var(--paper); padding: 1.5rem 1.7rem 1.8rem; }
+
+    .quiz-tabs { display: flex; flex-wrap: wrap; gap: 0.45rem; border-bottom: 1px solid var(--line); padding-bottom: 0.9rem; margin-bottom: 1.2rem; }
+    .quiz-tab {
+      font: inherit; font-size: 0.84rem; font-weight: 700; cursor: pointer;
+      color: var(--ink-2); background: #f2f7fd; border: 1px solid var(--line);
+      border-radius: 999px; padding: 0.42rem 1rem; transition: all 0.15s;
+    }
+    .quiz-tab:hover { background: var(--blue-tint); border-color: #bcd8f0; }
+    .quiz-tab.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+    .quiz-tab:focus-visible { outline: 3px solid rgba(47, 108, 168, 0.35); outline-offset: 2px; }
+
+    .quiz-panel { display: none; }
+    .quiz-panel.active { display: block; }
+    .panel-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem; margin-bottom: 1rem; }
+    .section-label {
+      display: inline-block; background: var(--navy); color: #fff;
+      font-size: 0.66rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.28rem 0.75rem; border-radius: 999px;
+    }
+    .score-chip {
+      font-size: 0.76rem; font-weight: 700; color: var(--blue);
+      background: var(--blue-tint); border-radius: 999px; padding: 0.28rem 0.8rem;
+    }
+
+    .mcq-item {
+      background: #fbfdff; border: 1px solid #e4eefa;
+      border-radius: var(--radius-md); padding: 1rem 1.1rem; margin-bottom: 0.85rem;
+    }
+    .mcq-question {
+      display: flex; gap: 0.6rem; font-size: 0.93rem; font-weight: 700;
+      color: var(--ink); line-height: 1.5; margin-bottom: 0.75rem;
+    }
+    .mcq-question .q-num { color: var(--blue); font-weight: 800; }
+    .mcq-options { display: grid; gap: 0.45rem; }
+    .mcq-option {
+      display: flex; align-items: flex-start; gap: 0.6rem; width: 100%;
+      text-align: left; font: inherit; font-size: 0.87rem; color: var(--ink-2);
+      background: #fff; border: 1.5px solid #e2edf9; border-radius: 11px;
+      padding: 0.55rem 0.75rem; cursor: pointer; transition: all 0.15s;
+    }
+    .mcq-option:hover:not(:disabled) { border-color: #b7d4ee; background: #f7fbff; }
+    .mcq-option:disabled { cursor: default; }
+    .option-letter {
+      flex-shrink: 0; width: 1.35rem; height: 1.35rem; border-radius: 50%;
+      display: grid; place-items: center; font-size: 0.7rem; font-weight: 800;
+      background: #eef5fd; color: var(--blue);
+    }
+    .mcq-option.correct { border-color: #7fc7a1; background: var(--green-tint); font-weight: 600; }
+    .mcq-option.correct .option-letter { background: #cdeedb; color: #14603c; }
+    .mcq-option.incorrect { border-color: #e0a3a3; background: var(--red-tint); }
+    .mcq-option.incorrect .option-letter { background: #f4d4d4; color: #8f2b2b; }
+    .mcq-feedback {
+      display: none; margin-top: 0.65rem; font-size: 0.85rem;
+      border-radius: 10px; padding: 0.55rem 0.8rem; line-height: 1.5;
+    }
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.correct-fb { background: var(--green-tint); color: #14603c; border-left: 3px solid #2e9b5e; }
+    .mcq-feedback.incorrect-fb { background: var(--red-tint); color: #8f2b2b; border-left: 3px solid #d45a5a; }
+
+    .crq-item, .erq-item {
+      background: #fbfdff; border: 1px solid #e4eefa;
+      border-radius: var(--radius-md); padding: 1.1rem 1.2rem; margin-bottom: 0.9rem;
+    }
+    .erq-item { border: 2px solid var(--blue-soft); background: #f7fbff; }
+    .crq-question, .erq-question {
+      font-size: 0.95rem; font-weight: 700; color: var(--ink); line-height: 1.5; margin-bottom: 0.4rem;
+    }
+    .erq-marks {
+      display: inline-block; background: var(--navy); color: #fff;
+      font-size: 0.65rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.22rem 0.7rem; border-radius: 999px; margin-bottom: 0.6rem;
+    }
+    .crq-hint { font-size: 0.82rem; color: var(--muted); font-style: italic; margin-bottom: 0.6rem; }
+    .crq-textarea, .erq-textarea {
+      width: 100%; font: inherit; font-size: 0.88rem; color: var(--ink-2);
+      background: #fff; border: 1.5px solid #dbe8f6; border-radius: 11px;
+      padding: 0.7rem 0.85rem; resize: vertical; transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .crq-textarea { min-height: 96px; }
+    .erq-textarea { min-height: 170px; }
+    .crq-textarea:focus, .erq-textarea:focus {
+      outline: none; border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(47, 108, 168, 0.13);
+    }
+    .answer-meta {
+      display: flex; justify-content: space-between; gap: 0.6rem;
+      font-size: 0.74rem; color: var(--muted); margin-top: 0.35rem;
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.65rem; }
+    .btn {
+      font: inherit; font-size: 0.83rem; font-weight: 700; cursor: pointer;
+      border-radius: 999px; padding: 0.48rem 1.1rem; border: 1px solid transparent;
+      transition: all 0.15s;
+    }
+    .btn-primary { background: var(--navy); color: #fff; }
+    .btn-primary:hover { background: #16406c; transform: translateY(-1px); }
+    .btn-secondary { background: #eef5fd; color: #1b4670; border-color: #cfe2f4; }
+    .btn-secondary:hover { background: #e0edfa; }
+    .btn:focus-visible { outline: 3px solid rgba(47, 108, 168, 0.35); outline-offset: 2px; }
+    .crq-feedback, .erq-feedback {
+      display: none; margin-top: 0.7rem; border-radius: 10px;
+      padding: 0.7rem 0.9rem; font-size: 0.86rem; line-height: 1.6;
+    }
+    .crq-feedback.show, .erq-feedback.show { display: block; }
+    .crq-feedback.model, .erq-feedback.model { background: var(--blue-tint); color: #143c62; border-left: 3px solid var(--blue); }
+    .crq-feedback.good, .erq-feedback.good { background: var(--green-tint); color: #14603c; border-left: 3px solid #2e9b5e; }
+    .crq-feedback.partial, .erq-feedback.partial { background: var(--amber-tint); color: #6b5310; border-left: 3px solid #e0a800; }
+
+    /* ================= FOOTER + TOP BUTTON ================= */
+    .note-footer {
+      margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid var(--line);
+      display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem;
+      font-size: 0.76rem; color: var(--muted);
+    }
+    .to-top {
+      position: fixed; right: 1.1rem; bottom: 1.1rem; z-index: 70;
+      width: 44px; height: 44px; border-radius: 50%; border: none; cursor: pointer;
+      background: var(--navy); color: #fff; font-size: 1.05rem;
+      box-shadow: var(--shadow-md); opacity: 0; pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .to-top.visible { opacity: 1; pointer-events: auto; }
+    .to-top:hover { transform: translateY(-2px); }
+
+    .no-results {
+      grid-column: 1 / -1; text-align: center; padding: 2rem 1rem;
+      background: rgba(255, 255, 255, 0.8); border: 2px dashed #c3d8ee;
+      border-radius: var(--radius-md); color: var(--muted); font-weight: 600; font-size: 0.9rem;
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 900px) {
+      .brief { grid-template-columns: 1fr; margin: -1.6rem 0.8rem 0; }
+      .do-dont { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 1.7rem 1.25rem 2.8rem; border-radius: 24px; }
+      .hero h1 { max-width: none; }
+      .brief { margin: -1.4rem 0.5rem 0; }
+      .brief-card { padding: 1.1rem 1.15rem; border-radius: 18px; }
+      .section-head { gap: 0.7rem; }
+      .section-num { width: 38px; height: 38px; border-radius: 12px; font-size: 0.8rem; }
+      .concept-grid, .vocab-grid, .myth-grid { grid-template-columns: 1fr; }
+      .toolbar-inner { border-radius: 18px; padding: 0.55rem 0.75rem; }
+      .quiz-body { padding: 1.1rem 1rem 1.4rem; }
+      .quiz-head { padding: 1.2rem 1.1rem; }
+      .takeaways { padding: 1.2rem 1.1rem; }
+      .summary { flex-direction: column; gap: 0.5rem; }
+      .summary-label { writing-mode: horizontal-tb; transform: none; }
+    }
+
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-track { background: #e4ecf6; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: #a9c0d8; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: #7f9cba; }
+
+    ::selection { background: #cfe3f8; color: #0b2138; }
+
+    .toc-list a:focus-visible,
+    .mcq-option:focus-visible,
+    .quiz-tab:focus-visible,
+    .btn:focus-visible,
+    .to-top:focus-visible {
+      outline: 3px solid rgba(47, 108, 168, 0.4);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
+    /* ================= PRINT ================= */
+    @media print {
+      body { background: #fff; padding: 0; }
+      .progress-track, .toolbar, .to-top, .quiz-tabs { display: none !important; }
+      .hero { box-shadow: none; border-radius: 0; }
+      .quiz-panel { display: block !important; }
+      .concept-card, .vocab-card, .myth-card, .table-shell { break-inside: avoid; }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="progress-track" aria-hidden="true"><span class="progress-fill" id="progressFill"></span></div>
+
+  <div class="shell">
+    <!-- ================= HERO ================= -->
+    <header class="hero">
+      <div class="hero-top">
+        <span class="badge">📊 Classroom Assessment</span>
+        <span class="hero-track">Teaching License · Part II · Note 5 of 11</span>
+      </div>
+      <h1>Assessment Policies and Practices in Pakistani Schools</h1>
+      <p class="tagline">From classroom exit tickets to board examinations — who assesses what, why, and with what consequence</p>
+      <div class="chips">
+        <span class="chip">⏱️ 11 min read</span>
+        <span class="chip">📚 7 sections</span>
+        <span class="chip">🔑 12 key terms</span>
+        <span class="chip">📝 10 MCQs · 4 CRQs · 1 ERQ</span>
+      </div>
+    </header>
+
+    <!-- ================= BIG IDEA + OBJECTIVES ================= -->
+    <div class="brief">
+      <section class="brief-card" aria-labelledby="bigidea-title">
+        <h2 class="brief-label" id="bigidea-title">The big idea</h2>
+        <p>Assessment in Pakistan operates at several levels at once. The federal government sets the curriculum framework and national priorities, provincial governments run school systems and textbook boards, examination boards certify achievement at Grades 9–12, provincial examination commissions have assessed Grade 5 and Grade 8, and national bodies sample learning for system monitoring. Inside the classroom, the teacher’s own tests and marking remain the dominant day-to-day instrument. Policy since the <strong>Single National Curriculum (SNC)</strong> has emphasised standards, benchmarks and student learning outcomes, and has encouraged continuous and formative assessment — but high-stakes public examinations still shape what is taught. Understanding this architecture, and the gap between policy and practice, is what examination questions on ‘assessment policies and practices’ actually test.</p>
+      </section>
+      <section class="brief-card" aria-labelledby="objectives-title">
+        <h2 class="brief-label" id="objectives-title">What you will master</h2>
+        <ol class="objectives"><li>Map the levels of assessment in Pakistan: classroom, school, provincial, board and national, with the purpose and consequence of each.</li><li>Explain what the <strong>Single National Curriculum</strong> changed in assessment expectations and why implementation has been uneven.</li><li>Evaluate the effects of high-stakes public examinations on classroom practice, and propose realistic improvements.</li></ol>
+      </section>
+    </div>
+
+    <!-- ================= TABLE OF CONTENTS ================= -->
+    <nav class="toc" aria-label="Sections in this note">
+      <p class="toc-title">On this page</p>
+      <ol class="toc-list">
+        <li><a href="#concepts"><span class="toc-num">01</span> Core concepts</a></li>
+        <li><a href="#vocabulary"><span class="toc-num">02</span> Key vocabulary</a></li>
+        <li><a href="#comparison"><span class="toc-num">03</span> Comparison table</a></li>
+        <li><a href="#application"><span class="toc-num">04</span> Classroom application</a></li>
+        <li><a href="#misconceptions"><span class="toc-num">05</span> Misconceptions</a></li>
+        <li><a href="#takeaways"><span class="toc-num">06</span> Takeaways &amp; exam tip</a></li>
+        <li><a href="#practice"><span class="toc-num">07</span> Practice quiz</a></li>
+      </ol>
+    </nav>
+
+    <!-- ================= SEARCH ================= -->
+    <div class="toolbar">
+      <div class="toolbar-inner">
+        <div class="search-box">
+          <span aria-hidden="true">🔍</span>
+          <input id="searchInput" type="search" placeholder="Search concepts, key terms and misconceptions…" aria-label="Search this note">
+        </div>
+        <div class="count-pill" id="countDisplay" role="status" aria-live="polite">22 items</div>
+      </div>
+    </div>
+
+    <!-- ================= 01 CONCEPTS ================= -->
+    <section class="section" id="concepts" aria-labelledby="concepts-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">01</span>
+        <div>
+          <p class="eyebrow">Foundations</p>
+          <h2 id="concepts-title">Core concepts</h2>
+          <p class="section-lead">Each card isolates one idea examiners test. Read the definition first, then the <em>In practice</em> line — that is where scenario questions begin.</p>
+        </div>
+      </div>
+      <div class="concept-grid" id="conceptGrid">
+        <article class="concept-card" data-searchable="The policy architecture: who decides what">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🏛️</span>
+            <span class="concept-index">01</span>
+          </div>
+          <h3 class="concept-title">The policy architecture: who decides what</h3>
+          <p class="concept-desc">Curriculum and national priorities are set at federal level through the Ministry of Federal Education and Professional Training, with provincial governments responsible for school delivery, teacher employment and textbook boards. Examination boards (<strong>BISE</strong> provincially, <strong>FBISE</strong> federally) certify Grades 9–12, while provincial commissions and national bodies conduct large-scale assessment. Classroom assessment is delegated entirely to teachers, which is why practice varies so widely between schools.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>When a policy question appears, name the level first: classroom, school, district, province, board or nation.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="SNC and the shift to outcomes and continuous assessment">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">📘</span>
+            <span class="concept-index">02</span>
+          </div>
+          <h3 class="concept-title">SNC and the shift to outcomes and continuous assessment</h3>
+          <p class="concept-desc">The <strong>Single National Curriculum</strong>, introduced from 2020 and phased across grades, is organised around competencies, standards, benchmarks and <strong>student learning outcomes (SLOs)</strong>, and it explicitly encourages formative and continuous assessment rather than reliance on a single terminal paper. The SLO format is significant: it makes the criterion for assessment visible and obliges teachers to assess what the outcome states, not merely what the textbook contains.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Take one SLO from the curriculum and write a two-item check that would show whether it has been achieved.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Public examinations and their washback">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🏆</span>
+            <span class="concept-index">03</span>
+          </div>
+          <h3 class="concept-title">Public examinations and their washback</h3>
+          <p class="concept-desc">Board examinations at Grades 9–12 are high-stakes: they determine progression, college admission and employment prospects. Their <strong>washback</strong> is strong — teaching narrows to tested content, past papers dominate, and subjects or skills not examined are marginalised. Marking is centralised and often rushed, and reliability depends on marking schemes, examiner training and moderation.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Teach one examined topic through an unseen-source question rather than past-paper recall, and discuss the difference with learners.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Large-scale and sample-based assessment">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">📊</span>
+            <span class="concept-index">04</span>
+          </div>
+          <h3 class="concept-title">Large-scale and sample-based assessment</h3>
+          <p class="concept-desc">The <strong>National Education Assessment System (NEAS)</strong> and participation in international studies such as TIMSS sample learning nationally to inform policy, not to grade individuals. Provincial bodies have also run Grade 5 and Grade 8 examinations — in Punjab through the <strong>Punjab Examination Commission (PEC)</strong> — although arrangements have changed over time. System-level assessment answers ‘how is the system doing?’, a different question from ‘how is this learner doing?’.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Distinguish clearly in your answers between assessment for certification, for improvement and for system monitoring.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Classroom practice: what actually happens">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🏫</span>
+            <span class="concept-index">05</span>
+          </div>
+          <h3 class="concept-title">Classroom practice: what actually happens</h3>
+          <p class="concept-desc">In most classrooms, assessment means teacher-made monthly and terminal tests, exercise-book marking and annual examinations, often in large classes with heavy marking loads. Feedback is frequently reduced to a tick, a date or a mark. Promotion practices vary: some provinces have restricted detention in early grades, which removes a consequence of failure without replacing it with formative support.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Audit your own assessment week: how much of it produced a change in teaching, and how much produced only a number?</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Challenges and reform directions">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🔧</span>
+            <span class="concept-index">06</span>
+          </div>
+          <h3 class="concept-title">Challenges and reform directions</h3>
+          <p class="concept-desc">The recurring challenges are assessment literacy in pre-service training, marking load, weak moderation, examination security, tuition culture and the dominance of recall items. Reform directions include stronger formative assessment in teacher education, item banking and moderation, use of assessment data for school improvement, and building classroom assessment that is credible enough to reduce the pressure on a single terminal paper.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Propose one change a school could make next term that improves assessment without new budget.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= 02 VOCABULARY ================= -->
+    <section class="section" id="vocabulary" aria-labelledby="vocab-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">02</span>
+        <div>
+          <p class="eyebrow">Precision</p>
+          <h2 id="vocab-title">Key vocabulary</h2>
+          <p class="section-lead">Be able to define each term in one sentence. Bold terms below also appear highlighted inside the notes, so you can meet them in context.</p>
+        </div>
+      </div>
+      <dl class="vocab-grid" id="vocabGrid">
+        <div class="vocab-card" data-searchable="Single National Curriculum (SNC)">
+          <dt class="vocab-term">Single National Curriculum (SNC)</dt>
+          <dd class="vocab-def">National curriculum framework introduced from 2020, organised around competencies, standards, benchmarks and student learning outcomes.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Student learning outcome (SLO)">
+          <dt class="vocab-term">Student learning outcome (SLO)</dt>
+          <dd class="vocab-def">A specific, observable statement of what a learner should know or be able to do by the end of a stage.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="BISE">
+          <dt class="vocab-term">BISE</dt>
+          <dd class="vocab-def">Board of Intermediate and Secondary Education; conducts SSC and HSSC examinations in each province.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="FBISE">
+          <dt class="vocab-term">FBISE</dt>
+          <dd class="vocab-def">Federal Board of Intermediate and Secondary Education; examines federal institutions and affiliated schools.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="PEC">
+          <dt class="vocab-term">PEC</dt>
+          <dd class="vocab-def">Punjab Examination Commission, which has conducted Grade 5 and Grade 8 examinations in Punjab.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="NEAS">
+          <dt class="vocab-term">NEAS</dt>
+          <dd class="vocab-def">National Education Assessment System; sample-based national assessment used for system monitoring.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="TIMSS">
+          <dt class="vocab-term">TIMSS</dt>
+          <dd class="vocab-def">Trends in International Mathematics and Science Study; an international sample-based assessment in which Pakistan has participated.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Washback">
+          <dt class="vocab-term">Washback</dt>
+          <dd class="vocab-def">The effect of an examination on teaching and learning, usually narrowing content to what is tested.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Moderation">
+          <dt class="vocab-term">Moderation</dt>
+          <dd class="vocab-def">Process of comparing and agreeing marks across examiners or schools to ensure consistent standards.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Marking scheme">
+          <dt class="vocab-term">Marking scheme</dt>
+          <dd class="vocab-def">The documented allocation of marks and acceptable answers used to score a paper consistently.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="No-detention policy">
+          <dt class="vocab-term">No-detention policy</dt>
+          <dd class="vocab-def">A policy that prevents learners being held back in certain early grades, used in some provincial systems.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Assessment literacy">
+          <dt class="vocab-term">Assessment literacy</dt>
+          <dd class="vocab-def">The knowledge and skill teachers need to design, interpret and use assessment evidence well.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- ================= 03 COMPARISON ================= -->
+    <section class="section" id="comparison" aria-labelledby="comparison-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">03</span>
+        <div>
+          <p class="eyebrow">Distinctions</p>
+          <h2 id="comparison-title">Comparison table</h2>
+          <p class="section-lead">Use this table for “differentiate between”, “compare” and “which is most appropriate” questions — name the dimension, then the contrast.</p>
+        </div>
+      </div>
+      <div class="table-shell" id="compareGrid">
+        <div class="table-caption">
+          <strong>Levels of Assessment in Pakistan</strong>
+          <span>Swipe to view all columns →</span>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr><th scope="col">Level</th><th scope="col">Typical instrument</th><th scope="col">Main purpose</th><th scope="col">Consequence</th></tr>
+            </thead>
+            <tbody>
+            <tr><td>Classroom</td><td>Teacher-made quiz, exit ticket, observation, project</td><td>Improve learning; give feedback</td><td>Regrouping, reteaching, feedback to learners</td></tr>
+            <tr><td>School</td><td>Term examination, report card, parent meeting</td><td>Report progress; inform promotion</td><td>Promotion, support plan, parent communication</td></tr>
+            <tr><td>Provincial commission</td><td>Grade 5 and Grade 8 examinations (e.g. PEC in Punjab)</td><td>Verify foundation learning; inform the district</td><td>School and district accountability; transition decisions</td></tr>
+            <tr><td>Examination board</td><td>SSC and HSSC papers (BISE/FBISE)</td><td>Certify achievement</td><td>Grades, college admission, employment eligibility</td></tr>
+            <tr><td>National sample</td><td>NEAS and international studies such as TIMSS</td><td>Monitor system performance</td><td>Policy and curriculum review; no individual grade</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 04 APPLICATION ================= -->
+    <section class="section" id="application" aria-labelledby="application-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">04</span>
+        <div>
+          <p class="eyebrow">Practice</p>
+          <h2 id="application-title">Classroom application</h2>
+          <p class="section-lead">What to do, and what to avoid, in a real classroom. The left column is the standard to teach; the right column lists the errors that cost marks and learning.</p>
+        </div>
+      </div>
+      <div class="do-dont" id="applyGrid">
+        <div class="dd-card do">
+          <h3><span aria-hidden="true">✅</span> Do this</h3>
+          <ul><li>Identify the level of assessment before discussing its purpose or consequence.</li><li>Plan classroom assessment against the curriculum’s <strong>student learning outcomes</strong>.</li><li>Use <strong>formative assessment</strong> to reduce dependence on the single terminal paper.</li><li>Prepare learners for public examinations while still teaching untested skills such as inquiry and communication.</li><li>Share <strong>marking schemes</strong> or rubrics with learners so criteria are transparent.</li><li>Use school-level data to target support rather than only to rank classes.</li></ul>
+        </div>
+        <div class="dd-card avoid">
+          <h3><span aria-hidden="true">🚫</span> Avoid this</h3>
+          <ul><li>Do not describe all assessment in Pakistan as if it were board examination.</li><li>Do not present sample-based national assessment as if it graded individual learners.</li><li>Do not assume a curriculum document changes classroom practice without teacher support.</li><li>Do not teach only past-paper items; <strong>washback</strong> narrows learning and often lowers performance on unfamiliar tasks.</li><li>Do not treat a promotion policy as an assessment policy; removing detention is not the same as providing support.</li><li>Do not cite a specific examination arrangement as permanent — provincial policies change and should be checked.</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 05 MISCONCEPTIONS ================= -->
+    <section class="section" id="misconceptions" aria-labelledby="misconceptions-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">05</span>
+        <div>
+          <p class="eyebrow">Exam traps</p>
+          <h2 id="misconceptions-title">Common misconceptions</h2>
+          <p class="section-lead">Each misconception below is a plausible-sounding statement that loses marks. Learn the reality column as a correction you can write.</p>
+        </div>
+      </div>
+      <div class="myth-grid" id="misGrid">
+        <article class="myth-card" data-searchable="&ldquo;Assessment in Pakistan means the board examination at the end of Grade 10.&rdquo;">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;Assessment in Pakistan means the board examination at the end of Grade 10.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>Board examinations are one level. Classroom <strong>formative assessment</strong>, school term examinations, provincial Grade 5 and 8 assessments and national sample-based studies all form part of the system, with different purposes and consequences.</p>
+          </div>
+        </article>
+        <article class="myth-card" data-searchable="&ldquo;The Single National Curriculum replaced examinations with continuous assessment.&rdquo;">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;The Single National Curriculum replaced examinations with continuous assessment.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>The SNC changed the curriculum’s structure and its assessment expectations, emphasising outcomes and formative assessment, but public examinations continue and still exert strong <strong>washback</strong> on teaching.</p>
+          </div>
+        </article>
+        <article class="myth-card" data-searchable="&ldquo;National assessment results are used to fail individual learners.&rdquo;">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;National assessment results are used to fail individual learners.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>NEAS and international studies such as TIMSS are sample-based and report at system level; their purpose is monitoring and policy, not individual certification.</p>
+          </div>
+        </article>
+        <article class="myth-card" data-searchable="&ldquo;If the curriculum states an outcome, teachers will automatically assess it.&rdquo;">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;If the curriculum states an outcome, teachers will automatically assess it.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>Implementation depends on <strong>assessment literacy</strong>, resources, class size and the pressure of public examinations. Policy intention and classroom practice are frequently far apart.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= 06 TAKEAWAYS ================= -->
+    <section class="section" id="takeaways" aria-labelledby="takeaways-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">06</span>
+        <div>
+          <p class="eyebrow">Compress</p>
+          <h2 id="takeaways-title">Key takeaways</h2>
+          <p class="section-lead">Revise these lines the night before the paper — they compress the whole note into recall-ready statements.</p>
+        </div>
+      </div>
+      <div class="takeaways">
+        <h3>Six things to remember</h3>
+        <ol><li>Assessment in Pakistan operates at classroom, school, provincial, board and national levels with different purposes.</li><li>The <strong>SNC</strong> organised the curriculum around competencies, standards, benchmarks and <strong>SLOs</strong> and encouraged formative assessment.</li><li>Board examinations remain high-stakes and produce strong <strong>washback</strong> on what is taught.</li><li>Provincial commissions and <strong>NEAS</strong> assess samples or cohorts for accountability and system monitoring.</li><li>Classroom practice is dominated by teacher-made tests and exercise-book marking, often with little feedback.</li><li>The central reform need is <strong>assessment literacy</strong> and credible classroom assessment, not more testing.</li></ol>
+      </div>
+      <div class="summary">
+        <span class="summary-label">One-line summary</span>
+        <p>Assessment policy in Pakistan spans national curriculum outcomes, provincial and board examinations and sample-based national monitoring, while classroom practice remains dominated by teacher-made tests whose feedback potential is largely unrealised.</p>
+      </div>
+      <div class="exam-tip">
+        <span class="tip-icon" aria-hidden="true">💡</span>
+        <div>
+          <span class="tip-label">Exam tip</span>
+          <p>Policy questions reward precise levels and purposes. If the stem mentions certification or college admission, it is board examination; if it mentions system performance or sampling, it is NEAS or TIMSS; if it mentions <strong>SLOs</strong>, it is the SNC framework.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 07 QUIZ ================= -->
+    <section class="quiz" id="practice" aria-labelledby="quiz-title">
+      <div class="quiz-head">
+        <div>
+          <p class="eyebrow">Practice</p>
+          <h2 id="quiz-title">Test yourself</h2>
+        </div>
+        <div class="quiz-chips">
+          <span>10 MCQs</span>
+          <span>4 CRQs</span>
+          <span>1 ERQ</span>
+        </div>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-tabs" role="tablist" aria-label="Quiz sections">
+          <button class="quiz-tab active" role="tab" aria-selected="true" data-panel="mcqPanel">🔘 10 MCQs</button>
+          <button class="quiz-tab" role="tab" aria-selected="false" data-panel="crqPanel">✍️ 4 CRQs</button>
+          <button class="quiz-tab" role="tab" aria-selected="false" data-panel="erqPanel">📄 1 ERQ</button>
+        </div>
+
+        <div class="quiz-panel active" id="mcqPanel" role="tabpanel">
+          <div class="panel-head">
+            <span class="section-label">Multiple choice questions</span>
+            <span class="score-chip" id="mcqProgress">0 / 10 answered · 0 correct</span>
+          </div>
+          <div id="mcqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="crqPanel" role="tabpanel">
+          <div class="panel-head">
+            <span class="section-label">Constructed response questions</span>
+            <span class="score-chip">Model answers included</span>
+          </div>
+          <div id="crqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="erqPanel" role="tabpanel">
+          <div class="panel-head">
+            <span class="section-label">Extended response · situation-based</span>
+            <span class="score-chip">Keyword self-check</span>
+          </div>
+          <div id="erqContainer"></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="note-footer">
+      <span>MUQABIL · Teaching License Master Notes · Classroom Assessment</span>
+      <span>11 interactive notes in this module · revision 5 of 11</span>
+    </footer>
+  </div>
+
+  <button class="to-top" id="toTop" type="button" aria-label="Back to top">↑</button>
+
+<script>
+    (function () {
+      'use strict';
+
+      /* ================= READING PROGRESS ================= */
+      var fill = document.getElementById('progressFill');
+      var toTop = document.getElementById('toTop');
+
+      function updateScroll() {
+        var doc = document.documentElement;
+        var max = doc.scrollHeight - doc.clientHeight;
+        var pct = max > 0 ? (doc.scrollTop / max) * 100 : 0;
+        if (fill) fill.style.width = pct + '%';
+        if (toTop) {
+          if (doc.scrollTop > 600) toTop.classList.add('visible');
+          else toTop.classList.remove('visible');
+        }
+      }
+      window.addEventListener('scroll', updateScroll, { passive: true });
+      updateScroll();
+
+      if (toTop) {
+        toTop.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      /* ================= LIVE SEARCH ================= */
+      var searchInput = document.getElementById('searchInput');
+      var countDisplay = document.getElementById('countDisplay');
+      var grids = [
+        document.getElementById('conceptGrid'),
+        document.getElementById('vocabGrid'),
+        document.getElementById('misGrid')
+      ].filter(Boolean);
+
+      var cards = [];
+      grids.forEach(function (grid) {
+        Array.prototype.forEach.call(grid.querySelectorAll('[data-searchable]'), function (card) {
+          cards.push(card);
+        });
+      });
+
+      function applySearch(raw) {
+        var q = (raw || '').trim().toLowerCase();
+        var visible = 0;
+        cards.forEach(function (card) {
+          var text = ((card.getAttribute('data-searchable') || '') + ' ' + card.textContent).toLowerCase();
+          var matches = q === '' || text.indexOf(q) !== -1;
+          card.style.display = matches ? '' : 'none';
+          if (matches) visible++;
+        });
+        Array.prototype.forEach.call(document.querySelectorAll('.no-results'), function (el) {
+          el.parentNode.removeChild(el);
+        });
+        grids.forEach(function (grid) {
+          var shown = Array.prototype.filter.call(
+            grid.querySelectorAll('[data-searchable]'),
+            function (card) { return card.style.display !== 'none'; }
+          ).length;
+          if (shown === 0) {
+            var msg = document.createElement('div');
+            msg.className = 'no-results';
+            msg.textContent = '🔎 No matching items in this section.';
+            grid.appendChild(msg);
+          }
+        });
+        if (countDisplay) {
+          countDisplay.textContent = visible + ' item' + (visible === 1 ? '' : 's');
+        }
+      }
+
+      var debounceTimer;
+      if (searchInput) {
+        searchInput.addEventListener('input', function (e) {
+          clearTimeout(debounceTimer);
+          debounceTimer = setTimeout(function () { applySearch(e.target.value); }, 140);
+        });
+        searchInput.addEventListener('search', function (e) {
+          if (e.target.value === '') applySearch('');
+        });
+        searchInput.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && searchInput.value !== '') {
+            searchInput.value = '';
+            applySearch('');
+          }
+        });
+      }
+      applySearch('');
+
+      /* ================= QUIZ TABS ================= */
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.quiz-tab'));
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          tabs.forEach(function (t) {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          Array.prototype.forEach.call(document.querySelectorAll('.quiz-panel'), function (p) {
+            p.classList.remove('active');
+          });
+          tab.classList.add('active');
+          tab.setAttribute('aria-selected', 'true');
+          var panel = document.getElementById(tab.getAttribute('data-panel'));
+          if (panel) panel.classList.add('active');
+        });
+      });
+
+      /* ================= DATA ================= */
+      var mcqs = [{"q": "Which body conducts SSC and HSSC examinations in the provinces?", "options": ["NEAS", "BISE", "PEC", "PCTB"], "answer": 1, "why": "Boards of Intermediate and Secondary Education certify Grades 9–12."}, {"q": "The Single National Curriculum organises learning primarily around:", "options": ["Textbook chapters", "Competencies, standards, benchmarks and student learning outcomes", "Past papers", "Examination boards"], "answer": 1, "why": "The SNC is outcomes-based in structure."}, {"q": "NEAS is best described as:", "options": ["A board examination for Grade 10", "A sample-based national assessment for system monitoring", "A provincial textbook body", "A teacher licensing authority"], "answer": 1, "why": "NEAS assesses samples to inform policy, not individuals."}, {"q": "The effect of public examinations on classroom teaching is called:", "options": ["Washback", "Moderation", "Sampling error", "Scaffolding"], "answer": 0, "why": "Washback is the influence of assessment on teaching and learning."}, {"q": "Which level of assessment has improvement of learning as its primary purpose?", "options": ["Board examination", "National sample study", "Classroom formative assessment", "Provincial commission examination"], "answer": 2, "why": "Formative classroom assessment exists to improve learning."}, {"q": "A major weakness of much classroom assessment in Pakistani schools is that:", "options": ["It is too formative", "It produces marks with little feedback", "It uses too many rubrics", "It is always moderated"], "answer": 1, "why": "Marking often stops at a number or tick."}, {"q": "TIMSS is an example of:", "options": ["A provincial textbook", "An international sample-based assessment", "A school report card", "A teacher appraisal tool"], "answer": 1, "why": "TIMSS compares system-level performance internationally."}, {"q": "A no-detention policy in early grades creates which assessment challenge?", "options": ["Too many examinations", "Removal of a consequence without replacement formative support", "Fewer learners enrolled", "Excessive moderation"], "answer": 1, "why": "Promotion without support can hide unaddressed gaps."}, {"q": "The strongest lever for improving assessment practice in schools is:", "options": ["More terminal examinations", "Teacher assessment literacy and moderation", "Longer papers", "Publishing class rankings"], "answer": 1, "why": "Capacity to design and use evidence is the binding constraint."}, {"q": "Which statement about SNC assessment expectations is accurate?", "options": ["It abolished all examinations", "It emphasised outcomes and formative assessment while examinations continue", "It replaced teachers with tests", "It applies only to private schools"], "answer": 1, "why": "Curriculum expectations changed; public examinations persisted."}];
+      var crqs = [{"q": "Describe the different levels of assessment operating in Pakistani schools and state the main purpose of each.", "hint": "Move from classroom to national level, naming bodies.", "model": "At classroom level, teachers use questioning, observation, quizzes, projects and teacher-made tests primarily to improve learning and give feedback; the consequence is reteaching or regrouping. At school level, term examinations and report cards summarise progress for parents and inform promotion or support decisions. At provincial level, examination commissions such as the Punjab Examination Commission have conducted Grade 5 and Grade 8 examinations to verify foundation learning and inform district accountability. At board level, BISEs and FBISE conduct SSC and HSSC examinations that certify achievement with consequences for college admission and employment. At national level, the National Education Assessment System and participation in international studies such as TIMSS sample learning to monitor system performance and inform policy, without grading individual learners. Each level uses different instruments and answers a different question."}, {"q": "Explain how high-stakes public examinations influence classroom teaching, and evaluate one advantage and one disadvantage of that influence.", "hint": "Define washback, then weigh focus against narrowing.", "model": "High-stakes public examinations exert washback: teachers allocate time to tested subjects and tested item types, use past papers as the main resource, and rehearse examination technique. The advantage is focus and equity of expectation — learners across schools prepare for a common standard, and teachers prioritise content that the system values, which can raise measured attainment and motivate sustained practice. The disadvantage is narrowing: untested outcomes such as inquiry, practical work, collaboration and extended writing are marginalised, and recall items encourage memorisation rather than understanding. Assessment then certifies the ability to reproduce content rather than the ability to use it, and learners who meet the examination standard may still be unable to transfer knowledge. The professional response is not to ignore the examination but to teach the examined content through tasks that also develop the untested skills, so that preparation and genuine learning are not in conflict."}, {"q": "What does the Single National Curriculum change about assessment, and why has implementation varied between schools?", "hint": "Address outcomes, formative emphasis, capacity and context.", "model": "The SNC restructured the curriculum around competencies, standards, benchmarks and student learning outcomes, which makes the criterion for assessment explicit: teachers are expected to assess whether a stated outcome has been achieved rather than merely whether a chapter was covered. It also encourages continuous and formative assessment and a broader view of learner development. Implementation has varied for several reasons. Assessment literacy is uneven, so an outcomes document does not by itself change marking practice. Large classes and heavy marking loads make individual feedback difficult. Public examinations still reward recall, so teachers rationally prioritise preparation for them. Resources differ between private, government and rural schools, and in-service training has been uneven. Finally, changing curriculum expectations does not change the incentive structure created by high-stakes selection, so where the examination does not reflect the SNC’s outcomes, practice follows the examination rather than the document."}, {"q": "Propose three realistic improvements to classroom assessment in a government school with large classes and no additional budget.", "hint": "Prioritise low-cost, high-leverage routines.", "model": "First, introduce whole-class feedback rather than individual marking of every book: the teacher samples ten books, identifies two common errors, and teaches the correction in the first ten minutes of the next lesson while learners correct their own work. This costs minutes and reaches all learners. Second, share success criteria and use comment-only marking on one substantial piece per fortnight, reserving marks for reported tasks, so that feedback is read and acted on in improvement time. Third, build a simple class outcome tracker on one sheet per unit, ticking ‘secure, partial, not yet’ from exit tickets, and use it to plan reteaching and to generate evidence for the term report. These require no budget, reduce marking load and produce credible evidence. A fourth low-cost measure would be peer feedback against the same criteria, with a modelled example, which multiplies feedback and builds self-regulation."}];
+      var erq = {"scenario": "A district education office notices that Grade 9 results in government schools have fallen for two years. Head teachers respond by adding extra periods of past-paper practice from January and by testing every week. Teachers report that learners can answer familiar past-paper questions but fail when the wording changes. Attendance in the months before the examination improves, but learners who are far behind stop attending altogether.", "task": "Analyse the problem using concepts of washback, assessment purpose and assessment literacy. Propose a district-level strategy that would improve results sustainably without simply increasing the number of tests.", "hint": "Distinguish measurement frequency from learning; address item design, formative use, teacher capacity and support for weaker learners.", "keywords": ["washback", "formative", "summative", "SLOs", "assessment literacy", "item analysis", "moderation", "feedback", "remediation", "validity"], "model": "The district response increases the frequency of measurement without improving the quality of learning evidence. Weekly testing and past-paper practice produce strong washback toward the surface features of familiar items: learners learn the wording and the sequence of standard questions, not the underlying concepts, which is exactly why they fail when the wording changes. This is a validity problem. The weekly tests are being used summatively — to rank and to pressure — rather than formatively; their results are not analysed item by item, so the same misconceptions are retested rather than retaught. Meanwhile the learners who are furthest behind withdraw, because repeated failure without support communicates that the subject is not for them; attendance data already show this. The district has confused accountability with improvement. A sustainable strategy should start with assessment literacy. Teachers need training in writing items against the SLOs, in constructing a simple table of specifications, and in analysing responses by item to identify misconceptions; this is a modest investment with immediate effect on the quality of evidence. Second, the district should require that every test be followed by a documented reteaching response — two items with the lowest percentage correct must be retaught with a different approach — so that testing produces teaching rather than ranking. Third, item design should be diversified: include unseen-source and application items so that learners practise transfer rather than recognition, and share the criteria for extended answers. Fourth, moderation should be introduced for extended-response items, with teachers marking a common sample against a scheme, which raises reliability and gives a shared professional language. Fifth, weaker learners need a diagnostic and a remediation plan at the start of the year, not extra testing in January; the district can require a baseline assessment in September and short, targeted support groups, with progress monitored by the classroom teacher. Sixth, attendance and motivation require early success: short, achievable formative tasks with visible progress are more effective than weekly failure. Seventh, the district should monitor leading indicators — the proportion of items answered correctly on application tasks, the number of learners below the support threshold, and the number of reteaching responses documented — rather than only the terminal result. Finally, head teachers should be accountable for the quality of assessment, not the quantity of tests; the district can inspect a sample of papers and marking against the SLOs. Results should improve because learners are taught to transfer, because misconceptions are addressed when detected, and because weaker learners remain in the system long enough to benefit."};
+
+      /* ================= MCQs ================= */
+      var mcqContainer = document.getElementById('mcqContainer');
+      var scoreChip = document.getElementById('mcqProgress');
+      var answered = 0;
+      var correctCount = 0;
+      var letters = ['A', 'B', 'C', 'D'];
+
+      function updateScore() {
+        if (!scoreChip) return;
+        scoreChip.textContent = answered + ' / ' + mcqs.length + ' answered · ' + correctCount + ' correct';
+      }
+
+      mcqs.forEach(function (item, idx) {
+        var wrap = document.createElement('div');
+        wrap.className = 'mcq-item';
+
+        var q = document.createElement('p');
+        q.className = 'mcq-question';
+        var num = document.createElement('span');
+        num.className = 'q-num';
+        num.textContent = (idx + 1) + '.';
+        var qtext = document.createElement('span');
+        qtext.textContent = item.q;
+        q.appendChild(num);
+        q.appendChild(qtext);
+        wrap.appendChild(q);
+
+        var options = document.createElement('div');
+        options.className = 'mcq-options';
+
+        var fb = document.createElement('div');
+        fb.className = 'mcq-feedback';
+
+        Array.prototype.forEach.call(item.options, function (text, i) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'mcq-option';
+          btn.setAttribute('aria-label', letters[i] + '. ' + text);
+
+          var letter = document.createElement('span');
+          letter.className = 'option-letter';
+          letter.textContent = letters[i];
+          var label = document.createElement('span');
+          label.textContent = text;
+          btn.appendChild(letter);
+          btn.appendChild(label);
+
+          btn.addEventListener('click', function () {
+            if (wrap.getAttribute('data-answered') === 'true') return;
+            wrap.setAttribute('data-answered', 'true');
+            answered++;
+            var isCorrect = i === item.answer;
+            if (isCorrect) correctCount++;
+            btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+            Array.prototype.forEach.call(options.querySelectorAll('.mcq-option'), function (other, j) {
+              other.disabled = true;
+              if (j === item.answer) other.classList.add('correct');
+            });
+            fb.className = 'mcq-feedback show ' + (isCorrect ? 'correct-fb' : 'incorrect-fb');
+            fb.textContent = (isCorrect ? '✅ Correct. ' : '❌ Not quite. ') + item.why;
+            updateScore();
+          });
+
+          options.appendChild(btn);
+        });
+
+        wrap.appendChild(options);
+        wrap.appendChild(fb);
+        mcqContainer.appendChild(wrap);
+      });
+      updateScore();
+
+      /* ================= CRQs ================= */
+      var crqContainer = document.getElementById('crqContainer');
+      crqs.forEach(function (item, idx) {
+        var wrap = document.createElement('div');
+        wrap.className = 'crq-item';
+
+        var q = document.createElement('p');
+        q.className = 'crq-question';
+        q.textContent = 'CRQ ' + (idx + 1) + '. ' + item.q;
+        wrap.appendChild(q);
+
+        var hint = document.createElement('p');
+        hint.className = 'crq-hint';
+        hint.textContent = 'Hint: ' + item.hint;
+        wrap.appendChild(hint);
+
+        var area = document.createElement('textarea');
+        area.className = 'crq-textarea';
+        area.setAttribute('aria-label', 'Your answer for CRQ ' + (idx + 1));
+        area.placeholder = 'Write your answer, then reveal the model answer to self-check.';
+        wrap.appendChild(area);
+
+        var meta = document.createElement('div');
+        meta.className = 'answer-meta';
+        var words = document.createElement('span');
+        words.textContent = '0 words';
+        var target = document.createElement('span');
+        target.textContent = 'Target: 80–120 words';
+        meta.appendChild(words);
+        meta.appendChild(target);
+        wrap.appendChild(meta);
+
+        area.addEventListener('input', function () {
+          var count = area.value.trim() ? area.value.trim().split(/\s+/).length : 0;
+          words.textContent = count + ' word' + (count === 1 ? '' : 's');
+        });
+
+        var actions = document.createElement('div');
+        actions.className = 'actions';
+        var showBtn = document.createElement('button');
+        showBtn.type = 'button';
+        showBtn.className = 'btn btn-primary';
+        showBtn.textContent = 'Show model answer';
+        var clearBtn = document.createElement('button');
+        clearBtn.type = 'button';
+        clearBtn.className = 'btn btn-secondary';
+        clearBtn.textContent = 'Clear';
+        actions.appendChild(showBtn);
+        actions.appendChild(clearBtn);
+        wrap.appendChild(actions);
+
+        var fb = document.createElement('div');
+        fb.className = 'crq-feedback';
+        wrap.appendChild(fb);
+
+        showBtn.addEventListener('click', function () {
+          var open = fb.classList.contains('show');
+          if (open) {
+            fb.className = 'crq-feedback';
+            fb.textContent = '';
+            showBtn.textContent = 'Show model answer';
+          } else {
+            fb.className = 'crq-feedback show model';
+            fb.textContent = 'Model answer: ' + item.model;
+            showBtn.textContent = 'Hide model answer';
+          }
+        });
+        clearBtn.addEventListener('click', function () {
+          area.value = '';
+          words.textContent = '0 words';
+          fb.className = 'crq-feedback';
+          fb.textContent = '';
+          showBtn.textContent = 'Show model answer';
+        });
+
+        crqContainer.appendChild(wrap);
+      });
+
+      /* ================= ERQ ================= */
+      var erqContainer = document.getElementById('erqContainer');
+      var eWrap = document.createElement('div');
+      eWrap.className = 'erq-item';
+
+      var marks = document.createElement('span');
+      marks.className = 'erq-marks';
+      marks.textContent = 'Extended response · 10 marks';
+      eWrap.appendChild(marks);
+
+      var eq = document.createElement('p');
+      eq.className = 'erq-question';
+      eq.textContent = erq.scenario + ' ' + erq.task;
+      eWrap.appendChild(eq);
+
+      var ehint = document.createElement('p');
+      ehint.className = 'crq-hint';
+      ehint.textContent = 'Guidance: ' + erq.hint;
+      eWrap.appendChild(ehint);
+
+      var eArea = document.createElement('textarea');
+      eArea.className = 'erq-textarea';
+      eArea.setAttribute('aria-label', 'Your extended response');
+      eArea.placeholder = 'Plan your response: identify the problem, apply the theory, then give concrete classroom actions and how you would evaluate them.';
+      eWrap.appendChild(eArea);
+
+      var eMeta = document.createElement('div');
+      eMeta.className = 'answer-meta';
+      var eWords = document.createElement('span');
+      eWords.textContent = '0 words';
+      var eTarget = document.createElement('span');
+      eTarget.textContent = 'Target: 250–400 words';
+      eMeta.appendChild(eWords);
+      eMeta.appendChild(eTarget);
+      eWrap.appendChild(eMeta);
+
+      eArea.addEventListener('input', function () {
+        var count = eArea.value.trim() ? eArea.value.trim().split(/\s+/).length : 0;
+        eWords.textContent = count + ' word' + (count === 1 ? '' : 's');
+      });
+
+      var eActions = document.createElement('div');
+      eActions.className = 'actions';
+      var checkBtn = document.createElement('button');
+      checkBtn.type = 'button';
+      checkBtn.className = 'btn btn-primary';
+      checkBtn.textContent = 'Check my response';
+      var modelBtn = document.createElement('button');
+      modelBtn.type = 'button';
+      modelBtn.className = 'btn btn-secondary';
+      modelBtn.textContent = 'Show model answer';
+      eActions.appendChild(checkBtn);
+      eActions.appendChild(modelBtn);
+      eWrap.appendChild(eActions);
+
+      var eFb = document.createElement('div');
+      eFb.className = 'erq-feedback';
+      eWrap.appendChild(eFb);
+
+      checkBtn.addEventListener('click', function () {
+        var answer = eArea.value.toLowerCase();
+        if (!answer.trim()) {
+          eFb.className = 'erq-feedback show partial';
+          eFb.textContent = 'Write your response first — aim for at least 250 words before self-checking.';
+          return;
+        }
+        var hits = erq.keywords.filter(function (k) {
+          return answer.indexOf(k.toLowerCase()) !== -1;
+        });
+        var ratio = hits.length / erq.keywords.length;
+        var missing = erq.keywords.filter(function (k) { return hits.indexOf(k) === -1; });
+        if (ratio >= 0.6) {
+          eFb.className = 'erq-feedback show good';
+          eFb.textContent = '✅ Strong coverage: ' + hits.length + ' of ' + erq.keywords.length +
+            ' expected ideas present (' + hits.join(', ') + '). Now tighten the structure: theory → diagnosis → actions → evaluation.' +
+            (missing.length ? ' Still to consider: ' + missing.join(', ') + '.' : '');
+        } else {
+          eFb.className = 'erq-feedback show partial';
+          eFb.textContent = '⚠️ Partial coverage: ' + hits.length + ' of ' + erq.keywords.length +
+            ' expected ideas found. Add: ' + missing.join(', ') + '.';
+        }
+      });
+
+      modelBtn.addEventListener('click', function () {
+        var open = eFb.classList.contains('show') && eFb.classList.contains('model');
+        if (open) {
+          eFb.className = 'erq-feedback';
+          eFb.textContent = '';
+          modelBtn.textContent = 'Show model answer';
+        } else {
+          eFb.className = 'erq-feedback show model';
+          eFb.textContent = 'Model answer: ' + erq.model;
+          modelBtn.textContent = 'Hide model answer';
+        }
+      });
+
+      erqContainer.appendChild(eWrap);
+    })();
+</script>
+</body>
+</html>

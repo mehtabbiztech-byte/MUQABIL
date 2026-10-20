@@ -1,8 +1,10 @@
 import { EDUCATIONAL_PSYCHOLOGY_TOPICS } from './educationalPsychologyTopics';
 import { CLASSROOM_MANAGEMENT_TOPICS } from './classroomManagementTopics';
+import { CLASSROOM_ASSESSMENT_TOPICS } from './classroomAssessmentTopics';
 
 export { EDUCATIONAL_PSYCHOLOGY_TOPICS };
 export { CLASSROOM_MANAGEMENT_TOPICS };
+export { CLASSROOM_ASSESSMENT_TOPICS };
 
 export interface QuickQuizItem {
   id: string;
@@ -2295,8 +2297,8 @@ export const TEACHING_LICENSE_PARTS: LicensePartModule[] = [
     badgeBg: 'bg-emerald-500/10',
     badgeText: 'text-emerald-600 dark:text-emerald-400',
     description:
-      "Diagnostic, formative, and summative assessments, Bloom's revised cognitive taxonomy (Anderson & Krathwohl), test construction, rubrics, and continuous assessment schemes.",
-    topics: [],
+      'Eleven interactive notes covering assessment, evaluation and testing terminology; assessment versus evaluation; formative and summative types; feedback; assessment policy and practice in Pakistan; assessment-embedded lesson planning; item types; performance-based assessment; rubrics; portfolios; and the significance of teacher-made tests.',
+    topics: CLASSROOM_ASSESSMENT_TOPICS,
   },
   {
     id: 'steda-part-2-school-community',

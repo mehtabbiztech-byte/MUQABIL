@@ -7,6 +7,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { HtmlTopicNoteViewer } from './HtmlTopicNoteViewer';
 import {
   CHILD_DEVELOPMENT_TOPICS,
+  CLASSROOM_ASSESSMENT_TOPICS,
   CLASSROOM_MANAGEMENT_TOPICS,
   EDUCATIONAL_PSYCHOLOGY_TOPICS,
   FOUNDATIONS_OF_EDUCATION_TOPICS,
@@ -179,6 +180,61 @@ const hubDocuments = [
     path: 'notes/classroom-management/differentiated-learning.html',
     crqs: 4,
   },
+  {
+    topicId: 'definitions-of-assessment-evaluation-and-testing',
+    path: 'notes/classroom-assessment/definitions-of-assessment-evaluation-and-testing.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'assessment-versus-evaluation',
+    path: 'notes/classroom-assessment/assessment-versus-evaluation.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'two-key-types-of-classroom-assessment',
+    path: 'notes/classroom-assessment/two-key-types-of-classroom-assessment.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'feedback-characteristics-and-benefits',
+    path: 'notes/classroom-assessment/feedback-characteristics-and-benefits.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'assessment-policies-and-practices-in-pakistani-schools',
+    path: 'notes/classroom-assessment/assessment-policies-and-practices-in-pakistani-schools.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'assessment-embedded-lesson-plans',
+    path: 'notes/classroom-assessment/assessment-embedded-lesson-plans.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'types-of-test-questions',
+    path: 'notes/classroom-assessment/types-of-test-questions.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'performance-based-assessments',
+    path: 'notes/classroom-assessment/performance-based-assessments.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'assessment-rubrics-and-their-importance',
+    path: 'notes/classroom-assessment/assessment-rubrics-and-their-importance.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'portfolio-assessment',
+    path: 'notes/classroom-assessment/portfolio-assessment.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'significance-of-teacher-made-tests',
+    path: 'notes/classroom-assessment/significance-of-teacher-made-tests.html',
+    crqs: 4,
+  },
 ];
 
 const allHubTopics = [
@@ -187,6 +243,7 @@ const allHubTopics = [
   ...CHILD_DEVELOPMENT_TOPICS,
   ...EDUCATIONAL_PSYCHOLOGY_TOPICS,
   ...CLASSROOM_MANAGEMENT_TOPICS,
+  ...CLASSROOM_ASSESSMENT_TOPICS,
 ];
 
 test('Master Notes Hub attaches supplied HTML to matching topics across modules', () => {
@@ -199,7 +256,7 @@ test('Master Notes Hub attaches supplied HTML to matching topics across modules'
     const topic = allHubTopics.find((item) => item.id === document.topicId)!;
     assert.equal(topic.htmlNotesPath, document.path);
   }
-  // Every Methods of Teaching, Foundations of Education, Child Development, Educational Psychology and Classroom Management topic carries a supplied standalone note.
+  // Every Methods of Teaching, Foundations of Education, Child Development, Educational Psychology, Classroom Management and Classroom Assessment topic carries a supplied standalone note.
   assert.equal(METHODS_OF_TEACHING_TOPICS.length, 6);
   assert.equal(METHODS_OF_TEACHING_TOPICS.filter((topic) => topic.htmlNotesPath).length, 6);
   assert.equal(FOUNDATIONS_OF_EDUCATION_TOPICS.length, 5);
@@ -212,6 +269,9 @@ test('Master Notes Hub attaches supplied HTML to matching topics across modules'
   assert.equal(CLASSROOM_MANAGEMENT_TOPICS.length, 10);
   assert.equal(CLASSROOM_MANAGEMENT_TOPICS.filter((topic) => topic.htmlNotesPath).length, 10);
   assert.ok(CLASSROOM_MANAGEMENT_TOPICS.every((topic) => topic.htmlNotesPath!.startsWith('notes/classroom-management/')));
+  assert.equal(CLASSROOM_ASSESSMENT_TOPICS.length, 11);
+  assert.equal(CLASSROOM_ASSESSMENT_TOPICS.filter((topic) => topic.htmlNotesPath).length, 11);
+  assert.ok(CLASSROOM_ASSESSMENT_TOPICS.every((topic) => topic.htmlNotesPath!.startsWith('notes/classroom-assessment/')));
   assert.equal(htmlTopics.length, hubDocuments.length);
   // Topics without a supplied document stay on the generated note body.
   assert.ok(allHubTopics

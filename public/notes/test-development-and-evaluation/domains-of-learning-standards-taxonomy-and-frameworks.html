@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Domains of Learning, Standards, Taxonomy and Frameworks — Test Development and Evaluation study note for the MUQABIL Teaching License hub: concepts, key vocabulary, comparison tables, worked examples, misconceptions, exam-style questions with model answers and a practice quiz.">
+  <title>Domains of Learning, Standards, Taxonomy and Frameworks · Test Development &amp; Evaluation</title>
+  <style>
+    /* ================= DESIGN TOKENS ================= */
+    :root {
+      --ink: #101a2b;
+      --ink-soft: #33415c;
+      --muted: #5c6b82;
+      --line: #dbe4ef;
+      --surface: #ffffff;
+      --surface-alt: #f7f9fc;
+      --page: #eef2f8;
+      --indigo-900: #131b3a;
+      --indigo-800: #1b2450;
+      --indigo-600: #4338ca;
+      --indigo-500: #4f46e5;
+      --teal-600: #0f766e;
+      --teal-500: #14b8a6;
+      --amber-600: #b45309;
+      --amber-50: #fffbeb;
+      --green-700: #166534;
+      --green-50: #f0fdf4;
+      --red-700: #991b1b;
+      --red-50: #fef2f2;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+      --shadow-sm: 0 1px 2px rgba(16, 26, 43, 0.06), 0 2px 8px rgba(16, 26, 43, 0.05);
+      --shadow-md: 0 8px 24px rgba(16, 26, 43, 0.09);
+      --shadow-lg: 0 24px 60px rgba(16, 26, 43, 0.16);
+      --font: "Segoe UI", "Inter", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+
+    body {
+      margin: 0;
+      font-family: var(--font);
+      color: var(--ink);
+      background-color: var(--page);
+      background-image: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
+      background-attachment: fixed;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    h1, h2, h3, h4, p, ul, ol, dl, dd, figure { margin: 0; }
+    ul, ol { padding-left: 0; list-style: none; }
+    strong { color: #0b1526; font-weight: 700; }
+    a { color: var(--indigo-600); }
+
+    ::selection { background: #d9defb; color: #14183a; }
+
+    /* ================= READING PROGRESS ================= */
+    .progress-track {
+      position: fixed; inset: 0 0 auto 0; height: 4px;
+      background: rgba(19, 27, 58, 0.08); z-index: 60;
+    }
+    .progress-fill {
+      display: block; height: 100%; width: 0;
+      background: linear-gradient(90deg, var(--indigo-500), var(--teal-500));
+      transition: width 0.12s linear;
+    }
+
+    .skip-link {
+      position: absolute; left: -999px; top: 0; z-index: 80;
+      background: #fff; color: var(--indigo-600);
+      padding: 0.7rem 1.1rem; border-radius: 0 0 10px 0; font-weight: 700;
+    }
+    .skip-link:focus { left: 0; }
+
+    .shell { max-width: 1180px; margin: 0 auto; padding: 1.4rem 1.1rem 3.5rem; }
+
+    /* ================= HERO ================= */
+    .hero {
+      position: relative; overflow: hidden;
+      border-radius: 26px; padding: 2.2rem 2.2rem 2rem;
+      color: #eef2ff;
+      background:
+        radial-gradient(1100px 380px at 88% -30%, rgba(20, 184, 166, 0.34), transparent 62%),
+        radial-gradient(760px 320px at 4% 0%, rgba(79, 70, 229, 0.55), transparent 60%),
+        linear-gradient(155deg, var(--indigo-900) 0%, var(--indigo-800) 58%, #16305a 100%);
+      box-shadow: var(--shadow-lg);
+    }
+    .hero::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+      background-size: 46px 46px;
+      mask-image: radial-gradient(620px 300px at 82% 12%, #000 0%, transparent 78%);
+    }
+    .hero > * { position: relative; z-index: 1; }
+
+    .hero-kicker {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem;
+      font-size: 0.76rem; letter-spacing: 0.05em; text-transform: uppercase;
+      color: #b9c6ee; font-weight: 700;
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.22);
+      padding: 0.34rem 0.72rem; border-radius: 999px;
+      color: #ffffff; text-transform: none; letter-spacing: 0; font-size: 0.76rem;
+    }
+    .kicker-sep { width: 4px; height: 4px; border-radius: 50%; background: rgba(255, 255, 255, 0.45); }
+
+    .hero h1 {
+      margin-top: 1rem; max-width: 26ch;
+      font-size: clamp(1.85rem, 3.6vw, 2.75rem); line-height: 1.12;
+      font-weight: 800; letter-spacing: -0.022em; color: #ffffff;
+      text-wrap: balance;
+    }
+    .hero .tagline {
+      margin-top: 0.9rem; max-width: 66ch; font-size: 1.03rem; line-height: 1.6;
+      color: #cdd8f5; border-left: 3px solid rgba(20, 184, 166, 0.85); padding-left: 0.95rem;
+    }
+
+    .meta-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.35rem; }
+    .meta-chips li {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(9, 14, 33, 0.42); border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #dbe4ff; font-size: 0.78rem; font-weight: 600;
+      padding: 0.36rem 0.72rem; border-radius: 999px;
+    }
+
+    .hero-cards {
+      display: grid; gap: 1rem; margin-top: 1.7rem;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    }
+    .hero-card {
+      background: rgba(255, 255, 255, 0.96); color: var(--ink);
+      border-radius: var(--radius-lg); padding: 1.3rem 1.35rem;
+      box-shadow: 0 18px 40px rgba(6, 11, 28, 0.28);
+    }
+    .hero-card h2 {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.71rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--indigo-600);
+    }
+    .hero-card h2::before {
+      content: ""; width: 22px; height: 3px; border-radius: 2px;
+      background: linear-gradient(90deg, var(--indigo-500), var(--teal-500));
+    }
+    .hero-card p { margin-top: 0.65rem; font-size: 0.96rem; color: #263449; }
+    .objectives { margin-top: 0.7rem; display: grid; gap: 0.5rem; counter-reset: obj; }
+    .objectives li {
+      position: relative; padding-left: 1.85rem; font-size: 0.92rem; color: #263449;
+      counter-increment: obj;
+    }
+    .objectives li::before {
+      content: counter(obj); position: absolute; left: 0; top: 0.1rem;
+      width: 1.25rem; height: 1.25rem; border-radius: 50%;
+      display: grid; place-items: center;
+      font-size: 0.68rem; font-weight: 800; color: #fff;
+      background: linear-gradient(135deg, var(--indigo-500), var(--teal-600));
+    }
+
+    /* ================= LAYOUT ================= */
+    .layout {
+      display: grid; gap: 1.6rem; margin-top: 1.6rem;
+      grid-template-columns: 232px minmax(0, 1fr);
+      align-items: start;
+    }
+
+    .rail {
+      position: sticky; top: 1.4rem;
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius-lg); padding: 1.05rem 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .rail-title {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.11em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .rail-list { margin-top: 0.7rem; display: grid; gap: 0.18rem; }
+    .rail-list a {
+      display: flex; align-items: baseline; gap: 0.5rem;
+      padding: 0.34rem 0.45rem; border-radius: 8px;
+      font-size: 0.83rem; font-weight: 600; color: #41506a;
+      text-decoration: none; line-height: 1.35;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .rail-list a:hover { background: #eef1fb; color: var(--indigo-600); }
+    .rail-list a[aria-current="true"] { background: #e8ecfd; color: var(--indigo-600); }
+    .rail-list .n {
+      font-variant-numeric: tabular-nums; font-size: 0.7rem; font-weight: 800;
+      color: #94a0b8; min-width: 1.35rem;
+    }
+    .rail-list a[aria-current="true"] .n { color: var(--indigo-500); }
+    .rail-progress { margin-top: 1rem; padding-top: 0.85rem; border-top: 1px dashed var(--line); }
+    .rail-progress-label {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-size: 0.68rem; font-weight: 700; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .rail-progress-label span:last-child { color: var(--indigo-600); font-size: 0.72rem; }
+    .rail-bar { margin-top: 0.4rem; height: 6px; border-radius: 999px; background: #e6ebf5; overflow: hidden; }
+    .rail-bar > span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--indigo-500), var(--teal-500)); }
+    .rail-note { margin-top: 0.9rem; font-size: 0.72rem; line-height: 1.5; color: var(--muted); }
+
+    main { min-width: 0; }
+
+    /* ================= TOOLBAR ================= */
+    .toolbar {
+      position: sticky; top: 0.6rem; z-index: 30;
+      display: flex; gap: 0.7rem; align-items: center;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--line); border-radius: 999px;
+      padding: 0.5rem 0.6rem 0.5rem 0.95rem;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 1.4rem;
+    }
+    .search-box { display: flex; align-items: center; gap: 0.5rem; flex: 1; min-width: 0; color: var(--muted); }
+    .search-box input {
+      flex: 1; min-width: 0; border: 0; background: transparent;
+      font: inherit; font-size: 0.88rem; color: var(--ink); padding: 0.35rem 0;
+    }
+    .search-box input:focus { outline: none; }
+    .search-box input::placeholder { color: #94a3b8; }
+    .count-pill {
+      flex-shrink: 0; font-size: 0.73rem; font-weight: 700; color: var(--indigo-600);
+      background: #eaedfd; border-radius: 999px; padding: 0.3rem 0.7rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ================= SECTIONS ================= */
+    .section { margin-bottom: 1.5rem; scroll-margin-top: 84px; }
+    .section-head {
+      display: flex; align-items: flex-start; gap: 0.9rem;
+      padding: 0.2rem 0.1rem 0.9rem;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 1.1rem;
+    }
+    .section-num {
+      flex-shrink: 0; width: 2.5rem; height: 2.5rem; border-radius: 12px;
+      display: grid; place-items: center;
+      font-size: 0.86rem; font-weight: 800; font-variant-numeric: tabular-nums;
+      color: #ffffff;
+      background: linear-gradient(140deg, var(--indigo-600), #1e3a8a);
+      box-shadow: 0 6px 16px rgba(67, 56, 202, 0.28);
+    }
+    .section-heading { flex: 1; min-width: 0; }
+    .eyebrow {
+      font-size: 0.66rem; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--teal-600);
+    }
+    .section-head h2 {
+      margin-top: 0.12rem; font-size: clamp(1.25rem, 2.1vw, 1.55rem);
+      line-height: 1.25; font-weight: 800; letter-spacing: -0.015em; text-wrap: balance;
+    }
+    .section-lead { margin-top: 0.35rem; font-size: 0.9rem; color: var(--muted); max-width: 72ch; }
+    .section-time {
+      flex-shrink: 0; align-self: center;
+      font-size: 0.68rem; font-weight: 700; color: #64748b;
+      background: #f1f5f9; border: 1px solid var(--line);
+      padding: 0.24rem 0.55rem; border-radius: 999px; white-space: nowrap;
+    }
+
+    /* ================= CARDS ================= */
+    .card-grid { display: grid; gap: 0.9rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .card {
+      position: relative; background: var(--surface);
+      border: 1px solid var(--line); border-radius: var(--radius-md);
+      padding: 1.15rem 1.2rem 1.1rem;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+    }
+    .card::before {
+      content: ""; position: absolute; inset: 0 0 auto 0; height: 3px;
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+      background: linear-gradient(90deg, var(--indigo-500), var(--teal-500));
+      opacity: 0.85;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: #c8d4e6; }
+    .card-top { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; }
+    .card-icon {
+      width: 2.1rem; height: 2.1rem; border-radius: 10px;
+      display: grid; place-items: center; font-size: 1rem;
+      background: #eef1fd; border: 1px solid #dfe5fb;
+    }
+    .card-index {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em;
+      color: #9aa6ba; font-variant-numeric: tabular-nums;
+    }
+    .card h3 {
+      margin-top: 0.75rem; font-size: 1rem; line-height: 1.35;
+      font-weight: 750; letter-spacing: -0.008em;
+    }
+    .card p { margin-top: 0.45rem; font-size: 0.88rem; color: #3a485e; }
+    .card .exam-wording {
+      margin-top: 0.7rem; font-size: 0.78rem; line-height: 1.5;
+      color: #4338ca; background: #eef0fe; border-radius: 8px; padding: 0.5rem 0.6rem;
+    }
+    .card .exam-wording b { font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.64rem; }
+    .card .practice {
+      margin-top: 0.7rem; padding: 0.6rem 0.7rem; border-radius: 9px;
+      background: #f1f7f5; border: 1px dashed #c6e3da;
+      font-size: 0.83rem; color: #22504a;
+    }
+    .card .practice b {
+      display: block; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--teal-600); margin-bottom: 0.15rem;
+    }
+
+    /* ================= GLOSSARY ================= */
+    .glossary { display: grid; gap: 0.7rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .term {
+      background: var(--surface); border: 1px solid var(--line);
+      border-left: 3px solid var(--teal-500);
+      border-radius: var(--radius-sm); padding: 0.85rem 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .term dt {
+      font-size: 0.9rem; font-weight: 800; color: #0f172a;
+      display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem;
+    }
+    .term .tag {
+      font-size: 0.6rem; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase;
+      color: #0f766e; background: #e6f7f3; border-radius: 999px; padding: 0.1rem 0.42rem;
+    }
+    .term dd { margin-top: 0.32rem; font-size: 0.855rem; color: #3f4c61; }
+
+    /* ================= TABLES ================= */
+    .table-card {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm);
+    }
+    .table-card + .table-card { margin-top: 0.9rem; }
+    .table-caption {
+      display: flex; justify-content: space-between; align-items: center; gap: 0.8rem;
+      padding: 0.8rem 1rem; background: #f8fafc; border-bottom: 1px solid var(--line);
+    }
+    .table-caption strong { font-size: 0.83rem; letter-spacing: -0.005em; }
+    .table-caption span { font-size: 0.68rem; color: var(--muted); white-space: nowrap; }
+    .table-scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.83rem; min-width: 540px; }
+    thead th {
+      position: sticky; top: 0; z-index: 1;
+      background: linear-gradient(160deg, #1c2445, #22305c);
+      color: #e8eeff; text-align: left; font-weight: 700; font-size: 0.72rem;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      padding: 0.62rem 0.85rem; white-space: nowrap;
+    }
+    tbody td {
+      padding: 0.62rem 0.85rem; border-top: 1px solid #e9eef6;
+      vertical-align: top; color: #33415c; line-height: 1.5;
+    }
+    tbody tr:nth-child(even) td { background: #fbfcfe; }
+    tbody td:first-child { font-weight: 650; color: #1c2740; }
+
+    /* ================= WORKED EXAMPLES ================= */
+    .example {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius-md); padding: 1.15rem 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .example + .example { margin-top: 0.9rem; }
+    .example-head { display: flex; flex-wrap: wrap; align-items: center; gap: 0.55rem; }
+    .example-head h3 { font-size: 0.98rem; font-weight: 800; letter-spacing: -0.01em; }
+    .example-tag {
+      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--indigo-600); background: #eceffe; border-radius: 999px; padding: 0.16rem 0.5rem;
+    }
+    .example-prompt { margin-top: 0.55rem; font-size: 0.88rem; color: #3b4a61; }
+    .steps { margin-top: 0.8rem; display: grid; gap: 0.55rem; counter-reset: step; }
+    .steps li {
+      position: relative; padding-left: 2.1rem; font-size: 0.86rem; color: #33415c;
+      counter-increment: step;
+    }
+    .steps li::before {
+      content: counter(step); position: absolute; left: 0; top: 0.05rem;
+      width: 1.45rem; height: 1.45rem; border-radius: 8px;
+      display: grid; place-items: center;
+      font-size: 0.68rem; font-weight: 800; color: var(--indigo-600);
+      background: #edf0fd; border: 1px solid #dfe4fb;
+    }
+    .steps li b { color: #101a2b; }
+    .result {
+      margin-top: 0.85rem; padding: 0.7rem 0.85rem; border-radius: 10px;
+      background: #f0f7ff; border: 1px solid #d7e6f8;
+      font-size: 0.85rem; color: #1e3a5f;
+    }
+    .result b { color: #0c2f57; }
+    details.reasoning { margin-top: 0.75rem; }
+    details.reasoning summary {
+      cursor: pointer; font-size: 0.8rem; font-weight: 700; color: var(--indigo-600);
+      list-style: none; display: inline-flex; align-items: center; gap: 0.35rem;
+    }
+    details.reasoning summary::-webkit-details-marker { display: none; }
+    details.reasoning summary::before { content: "＋"; font-weight: 800; }
+    details.reasoning[open] summary::before { content: "－"; }
+    details.reasoning p { margin-top: 0.5rem; font-size: 0.84rem; color: #46536a; }
+
+    /* ================= DO / AVOID ================= */
+    .do-avoid { display: grid; gap: 0.9rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .panel { border-radius: var(--radius-md); padding: 1.1rem 1.2rem; border: 1px solid; }
+    .panel h3 {
+      display: flex; align-items: center; gap: 0.45rem;
+      font-size: 0.85rem; font-weight: 800; letter-spacing: 0.02em; text-transform: uppercase;
+    }
+    .panel ul { margin-top: 0.7rem; display: grid; gap: 0.45rem; }
+    .panel li { position: relative; padding-left: 1.15rem; font-size: 0.86rem; line-height: 1.5; }
+    .panel li::before { position: absolute; left: 0; top: 0; font-weight: 800; }
+    .panel.do { background: var(--green-50); border-color: #bbf7d0; color: #14532d; }
+    .panel.do h3 { color: var(--green-700); }
+    .panel.do li::before { content: "✓"; color: #16a34a; }
+    .panel.avoid { background: var(--red-50); border-color: #fecaca; color: #7f1d1d; }
+    .panel.avoid h3 { color: var(--red-700); }
+    .panel.avoid li::before { content: "✕"; color: #dc2626; }
+
+    /* ================= MYTHS ================= */
+    .myths { display: grid; gap: 0.8rem; }
+    .myth {
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-md);
+      padding: 1rem 1.15rem; box-shadow: var(--shadow-sm);
+      display: grid; gap: 0.5rem; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    }
+    .myth-claim { font-size: 0.88rem; color: #7c2d12; }
+    .myth-claim span {
+      display: inline-block; margin-bottom: 0.3rem;
+      font-size: 0.6rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #b45309; background: #fef3c7; border-radius: 999px; padding: 0.1rem 0.45rem;
+    }
+    .myth-fix { font-size: 0.86rem; color: #14532d; border-left: 2px solid #86efac; padding-left: 0.75rem; }
+    .myth-fix span {
+      display: inline-block; margin-bottom: 0.3rem;
+      font-size: 0.6rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #15803d; background: #dcfce7; border-radius: 999px; padding: 0.1rem 0.45rem;
+    }
+
+    /* ================= EXAM ROOM ================= */
+    .exam-q {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius-md); padding: 1.05rem 1.15rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .exam-q + .exam-q { margin-top: 0.8rem; }
+    .exam-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem; }
+    .chip {
+      font-size: 0.64rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+      border-radius: 999px; padding: 0.16rem 0.5rem;
+    }
+    .chip.command { color: #4338ca; background: #eceffe; }
+    .chip.marks { color: #0f766e; background: #e6f7f3; }
+    .chip.level { color: #92400e; background: #fef3c7; }
+    .exam-q p { margin-top: 0.55rem; font-size: 0.9rem; color: #2c3a50; }
+    details.model { margin-top: 0.65rem; border-top: 1px dashed var(--line); padding-top: 0.55rem; }
+    details.model summary {
+      cursor: pointer; list-style: none; font-size: 0.8rem; font-weight: 700; color: var(--indigo-600);
+      display: inline-flex; align-items: center; gap: 0.35rem;
+    }
+    details.model summary::-webkit-details-marker { display: none; }
+    details.model summary::before { content: "▸"; }
+    details.model[open] summary::before { content: "▾"; }
+    details.model p { margin-top: 0.5rem; font-size: 0.855rem; color: #3b4a61; }
+
+    /* ================= TAKEAWAYS + CHECKLIST ================= */
+    .takeaways {
+      border-radius: var(--radius-lg); padding: 1.35rem 1.45rem;
+      background: linear-gradient(155deg, #151d3c, #1d2a52);
+      color: #e6ecff; box-shadow: var(--shadow-md);
+    }
+    .takeaways h3 {
+      font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #9fb2e6; font-weight: 800;
+    }
+    .takeaways ol { margin-top: 0.85rem; display: grid; gap: 0.55rem; counter-reset: tk; }
+    .takeaways li {
+      position: relative; padding-left: 2rem; font-size: 0.89rem; color: #dbe4ff;
+      counter-increment: tk;
+    }
+    .takeaways li::before {
+      content: counter(tk, decimal-leading-zero); position: absolute; left: 0; top: 0.05rem;
+      font-size: 0.72rem; font-weight: 800; color: #7dd3c0; font-variant-numeric: tabular-nums;
+    }
+    .takeaways strong { color: #ffffff; }
+
+    .summary {
+      margin-top: 0.9rem; background: var(--surface); border: 1px solid var(--line);
+      border-left: 4px solid var(--indigo-500); border-radius: var(--radius-md);
+      padding: 0.95rem 1.1rem; box-shadow: var(--shadow-sm);
+    }
+    .summary span {
+      font-size: 0.63rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--indigo-600);
+    }
+    .summary p { margin-top: 0.3rem; font-size: 0.9rem; color: #2f3d53; }
+
+    .exam-tip {
+      margin-top: 0.9rem; display: flex; gap: 0.8rem;
+      background: var(--amber-50); border: 1px solid #fde68a;
+      border-radius: var(--radius-md); padding: 0.95rem 1.1rem;
+    }
+    .exam-tip .tip-icon { font-size: 1.15rem; line-height: 1; }
+    .exam-tip span.tip-label {
+      font-size: 0.63rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--amber-600);
+    }
+    .exam-tip p { margin-top: 0.25rem; font-size: 0.88rem; color: #78350f; }
+
+    .checklist {
+      margin-top: 0.9rem; background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius-md); padding: 1rem 1.1rem; box-shadow: var(--shadow-sm);
+    }
+    .checklist-head { display: flex; justify-content: space-between; align-items: baseline; gap: 0.8rem; }
+    .checklist-head h3 { font-size: 0.8rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #334155; }
+    .checklist-head span { font-size: 0.74rem; font-weight: 700; color: var(--indigo-600); font-variant-numeric: tabular-nums; }
+    .checklist ul { margin-top: 0.65rem; display: grid; gap: 0.35rem; }
+    .checklist label {
+      display: flex; gap: 0.6rem; align-items: flex-start;
+      font-size: 0.86rem; color: #3a485e; cursor: pointer; padding: 0.2rem 0;
+    }
+    .checklist input { margin-top: 0.28rem; accent-color: var(--indigo-500); width: 15px; height: 15px; flex-shrink: 0; }
+    .checklist input:checked + span { color: #94a3b8; text-decoration: line-through; }
+
+    /* ================= QUIZ ================= */
+    .quiz {
+      margin-top: 1.6rem; background: var(--surface);
+      border: 1px solid var(--line); border-radius: 24px;
+      box-shadow: var(--shadow-md); overflow: hidden;
+    }
+    .quiz-head {
+      display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: center;
+      padding: 1.35rem 1.5rem 1.1rem;
+      background: linear-gradient(150deg, #f7f9ff, #eef3fb);
+      border-bottom: 1px solid var(--line);
+    }
+    .quiz-head h2 { font-size: clamp(1.2rem, 2vw, 1.45rem); font-weight: 800; letter-spacing: -0.015em; }
+    .quiz-chips { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .quiz-chips span {
+      font-size: 0.7rem; font-weight: 700; color: #3730a3; background: #e8ecfd;
+      border-radius: 999px; padding: 0.22rem 0.6rem;
+    }
+    .quiz-body { padding: 1.2rem 1.5rem 1.5rem; }
+    .quiz-tabs { display: flex; gap: 0.45rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .quiz-tab {
+      font: inherit; font-size: 0.8rem; font-weight: 700; cursor: pointer;
+      border: 1px solid var(--line); background: #fff; color: #475569;
+      padding: 0.45rem 0.85rem; border-radius: 999px;
+      transition: all 0.15s ease;
+    }
+    .quiz-tab:hover { border-color: #c7d2fe; color: var(--indigo-600); }
+    .quiz-tab.active {
+      background: linear-gradient(140deg, var(--indigo-600), #1e3a8a);
+      border-color: transparent; color: #fff; box-shadow: 0 6px 16px rgba(67, 56, 202, 0.3);
+    }
+    .quiz-panel { display: none; }
+    .quiz-panel.active { display: block; }
+    .panel-head {
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.6rem;
+      margin-bottom: 0.9rem;
+    }
+    .panel-head .section-label {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+    }
+    .score-chip {
+      font-size: 0.72rem; font-weight: 700; color: #0f766e; background: #e6f7f3;
+      border-radius: 999px; padding: 0.24rem 0.6rem; font-variant-numeric: tabular-nums;
+    }
+
+    .mcq {
+      border: 1px solid var(--line); border-radius: var(--radius-md);
+      padding: 0.95rem 1.05rem; background: #fff;
+    }
+    .mcq + .mcq { margin-top: 0.65rem; }
+    .mcq-q { font-size: 0.89rem; font-weight: 650; color: #1b2740; display: flex; gap: 0.55rem; }
+    .mcq-q .qnum {
+      flex-shrink: 0; width: 1.35rem; height: 1.35rem; border-radius: 6px;
+      display: grid; place-items: center; font-size: 0.68rem; font-weight: 800;
+      color: var(--indigo-600); background: #eef1fd;
+    }
+    .options { margin-top: 0.65rem; display: grid; gap: 0.35rem; }
+    .option {
+      display: flex; gap: 0.55rem; align-items: flex-start;
+      font: inherit; font-size: 0.845rem; text-align: left; cursor: pointer;
+      border: 1px solid #e4eaf4; background: #fbfcfe; color: #334155;
+      border-radius: 9px; padding: 0.45rem 0.6rem;
+      transition: all 0.12s ease;
+    }
+    .option:hover:not(:disabled) { border-color: #c7d2fe; background: #f5f7ff; }
+    .option .letter {
+      flex-shrink: 0; width: 1.15rem; height: 1.15rem; border-radius: 50%;
+      display: grid; place-items: center; font-size: 0.65rem; font-weight: 800;
+      background: #e8edf7; color: #475569;
+    }
+    .option.correct { border-color: #86efac; background: #f0fdf4; color: #14532d; }
+    .option.correct .letter { background: #16a34a; color: #fff; }
+    .option.wrong { border-color: #fca5a5; background: #fef2f2; color: #7f1d1d; }
+    .option.wrong .letter { background: #dc2626; color: #fff; }
+    .option:disabled { cursor: default; }
+    .mcq-feedback {
+      margin-top: 0.55rem; font-size: 0.8rem; border-radius: 8px; padding: 0.5rem 0.65rem;
+      display: none;
+    }
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.good { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+    .mcq-feedback.bad { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+
+    .crq, .erq { border: 1px solid var(--line); border-radius: var(--radius-md); background: #fff; padding: 1rem 1.1rem; }
+    .crq + .crq { margin-top: 0.7rem; }
+    .crq h4, .erq h4 { font-size: 0.9rem; font-weight: 700; color: #1b2740; }
+    .hint { margin-top: 0.3rem; font-size: 0.79rem; color: #64748b; font-style: italic; }
+    .word-row { margin-top: 0.6rem; display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; font-size: 0.75rem; color: #64748b; }
+    .word-count.ok { color: #15803d; font-weight: 700; }
+    textarea, .erq textarea {
+      width: 100%; margin-top: 0.5rem; min-height: 96px; resize: vertical;
+      font: inherit; font-size: 0.85rem; color: #1e293b;
+      border: 1px solid #dbe4ef; border-radius: 9px; padding: 0.6rem 0.7rem;
+      background: #fcfdff;
+    }
+    textarea:focus { outline: 2px solid #c7d2fe; border-color: #a5b4fc; }
+    .btn-row { margin-top: 0.55rem; display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .btn {
+      font: inherit; font-size: 0.78rem; font-weight: 700; cursor: pointer;
+      border-radius: 999px; padding: 0.42rem 0.85rem;
+      border: 1px solid transparent;
+      background: linear-gradient(140deg, var(--indigo-600), #1e3a8a); color: #fff;
+    }
+    .btn.secondary { background: #fff; color: var(--indigo-600); border-color: #c7d2fe; }
+    .feedback { display: none; margin-top: 0.6rem; font-size: 0.82rem; border-radius: 9px; padding: 0.6rem 0.7rem; }
+    .feedback.show { display: block; }
+    .feedback.good { background: #f0fdf4; color: #14532d; border: 1px solid #bbf7d0; }
+    .feedback.partial { background: #fffbeb; color: #78350f; border: 1px solid #fde68a; }
+    .feedback.model { background: #f5f7ff; color: #312e81; border: 1px solid #c7d2fe; }
+    .erq .scenario {
+      margin-top: 0.6rem; background: #f8fafc; border: 1px solid var(--line);
+      border-radius: 9px; padding: 0.7rem 0.8rem; font-size: 0.85rem; color: #334155;
+    }
+    .erq .task { margin-top: 0.6rem; font-size: 0.86rem; color: #1e293b; }
+    .keyword-row { margin-top: 0.6rem; display: flex; flex-wrap: wrap; gap: 0.3rem; }
+    .keyword {
+      font-size: 0.68rem; font-weight: 600; color: #475569; background: #f1f5f9;
+      border: 1px solid #e2e8f0; border-radius: 999px; padding: 0.12rem 0.45rem;
+    }
+    .keyword.hit { background: #dcfce7; border-color: #86efac; color: #166534; }
+
+    .no-results {
+      grid-column: 1 / -1; text-align: center; font-size: 0.85rem; color: var(--muted);
+      padding: 1.4rem; border: 1px dashed var(--line); border-radius: var(--radius-md);
+    }
+
+    /* ================= FOOTER + TOP ================= */
+    .note-footer {
+      margin-top: 1.6rem; padding: 1.1rem 0.2rem;
+      display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: space-between;
+      font-size: 0.73rem; color: #64748b; border-top: 1px solid var(--line);
+    }
+    .to-top {
+      position: fixed; right: 1.1rem; bottom: 1.1rem; z-index: 40;
+      width: 2.6rem; height: 2.6rem; border-radius: 50%; border: 1px solid var(--line);
+      background: #fff; color: var(--indigo-600); font-size: 1rem; cursor: pointer;
+      box-shadow: var(--shadow-md); opacity: 0; pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+    .to-top.visible { opacity: 1; pointer-events: auto; }
+    .to-top:hover { transform: translateY(-2px); }
+
+    /* ================= FOCUS / MOTION ================= */
+    .rail-list a:focus-visible,
+    .quiz-tab:focus-visible,
+    .option:focus-visible,
+    .btn:focus-visible,
+    .to-top:focus-visible,
+    details summary:focus-visible,
+    .checklist input:focus-visible {
+      outline: 3px solid rgba(79, 70, 229, 0.4);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 1000px) {
+      .layout { grid-template-columns: minmax(0, 1fr); }
+      .rail { position: static; order: 2; }
+      .rail-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .rail-progress, .rail-note { display: none; }
+      main { order: 1; }
+    }
+
+    @media (max-width: 760px) {
+      .hero { padding: 1.6rem 1.3rem 1.5rem; border-radius: 20px; }
+      .hero-cards { grid-template-columns: minmax(0, 1fr); }
+      .card-grid, .glossary, .do-avoid { grid-template-columns: minmax(0, 1fr); }
+      .myth { grid-template-columns: minmax(0, 1fr); }
+      .section-time { display: none; }
+      .quiz-body, .quiz-head { padding-left: 1.1rem; padding-right: 1.1rem; }
+    }
+
+    @media (max-width: 600px) {
+      .shell { padding: 0.9rem 0.75rem 2.5rem; }
+      .toolbar { position: static; border-radius: 14px; }
+      .rail-list { grid-template-columns: minmax(0, 1fr); }
+      .section-head { gap: 0.7rem; }
+      .section-num { width: 2.2rem; height: 2.2rem; font-size: 0.78rem; }
+      .hero h1 { font-size: 1.6rem; }
+      .hero .tagline { font-size: 0.95rem; }
+      .takeaways { padding: 1.1rem 1.15rem; }
+    }
+
+    /* ================= PRINT ================= */
+    @media print {
+      body { background: #fff; }
+      .progress-track, .toolbar, .to-top, .rail, .quiz-tabs, .btn-row { display: none !important; }
+      .shell { max-width: none; padding: 0; }
+      .hero { box-shadow: none; border-radius: 0; color: #000; background: #fff; border-bottom: 2px solid #000; }
+      .hero h1, .hero .tagline, .hero-kicker { color: #000; }
+      .hero-card { box-shadow: none; border: 1px solid #999; }
+      .layout { grid-template-columns: 1fr; }
+      .quiz-panel { display: block !important; }
+      details { open: true; }
+      .card, .term, .myth, .example, .exam-q, .table-card { break-inside: avoid; box-shadow: none; }
+      .takeaways { background: #f3f4f6; color: #000; }
+      .takeaways li, .takeaways strong { color: #000; }
+    }
+</style>
+</head>
+<body>
+  <a class="skip-link" href="#concepts">Skip to the first section</a>
+  <div class="progress-track" aria-hidden="true"><span class="progress-fill" id="progressFill"></span></div>
+
+  <div class="shell">
+    <!-- ================= HERO ================= -->
+    <header class="hero">
+      <p class="hero-kicker">
+        <span class="badge">🧪 Test Development & Evaluation</span>
+        <span class="kicker-sep" aria-hidden="true"></span>
+        <span>Teaching License · Part II · Module 13 · Note 3 of 5</span>
+      </p>
+      <h1>Domains of Learning, Standards, Taxonomy and Frameworks</h1>
+      <p class="tagline">Outcomes live in domains, levels and standards — name them precisely and the right assessment method follows</p>
+      <ul class="meta-chips">
+        <li>⏱️ 15 min read</li>
+        <li>📚 8 sections</li>
+        <li>🔑 12 key terms</li>
+        <li>🧩 3 worked examples</li>
+        <li>📝 10 MCQs · 4 CRQs · 1 ERQ</li>
+      </ul>
+
+      <div class="hero-cards">
+        <section class="hero-card" aria-labelledby="bigidea-title">
+          <h2 id="bigidea-title">The big idea</h2>
+          <p>Every learning outcome belongs to a <strong>domain</strong> (cognitive, affective or psychomotor), sits at a <strong>level</strong> within that domain, and is expressed through a <strong>standard</strong>, <strong>benchmark</strong> or <strong>student learning outcome</strong> in a curriculum framework. Taxonomies give teachers and examiners a shared ladder: <strong>Bloom’s</strong> revised taxonomy (Anderson and Krathwohl, 2001) orders cognitive processes from remember to create and adds a knowledge dimension; <strong>Krathwohl’s</strong> affective taxonomy runs from receiving to characterising; <strong>Simpson’s</strong> psychomotor taxonomy runs from perception to origination. Using the ladder correctly determines whether an item tests recall or evaluation, whether a rubric or a checklist is appropriate, and whether the paper is aligned with the curriculum’s <strong>standards</strong>. Most mislabelled objectives and mismatched assessments come from confusing a domain with a level, or a level with a verb.</p>
+        </section>
+        <section class="hero-card" aria-labelledby="objectives-title">
+          <h2 id="objectives-title">What you will master</h2>
+          <ol class="objectives"><li>Distinguish the <strong>cognitive</strong>, <strong>affective</strong> and <strong>psychomotor</strong> domains and select an appropriate assessment method for each.</li><li>Place outcomes accurately on the revised <strong>Bloom</strong> two-dimensional taxonomy and justify the level with the task demand, not the verb alone.</li><li>Relate <strong>standards</strong>, <strong>benchmarks</strong> and <strong>student learning outcomes</strong> to day-to-day assessment and <strong>constructive alignment</strong>.</li></ol>
+        </section>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="rail" aria-label="Contents of this note">
+        <p class="rail-title">On this page</p>
+        <nav aria-label="Sections">
+          <ol class="rail-list">
+          <li><a href="#concepts"><span class="n">01</span>Core concepts</a></li>          <li><a href="#vocabulary"><span class="n">02</span>Key vocabulary</a></li>          <li><a href="#comparisons"><span class="n">03</span>Comparisons that decide marks</a></li>          <li><a href="#worked-examples"><span class="n">04</span>Worked examples</a></li>          <li><a href="#application"><span class="n">05</span>Classroom and test-room application</a></li>          <li><a href="#misconceptions"><span class="n">06</span>Misconceptions</a></li>          <li><a href="#exam"><span class="n">07</span>Exam-style questions</a></li>          <li><a href="#takeaways"><span class="n">08</span>Takeaways and revision</a></li>          <li><a href="#practice"><span class="n">09</span>Practice quiz</a></li>
+          </ol>
+        </nav>
+        <div class="rail-progress">
+          <p class="rail-progress-label"><span>Read</span><span id="railPct">0%</span></p>
+          <div class="rail-bar" aria-hidden="true"><span id="railFill"></span></div>
+        </div>
+        <p class="rail-note">Tip: use the search box to jump straight to a term, then answer the quiz without looking back.</p>
+      </aside>
+
+      <main>
+        <div class="toolbar" role="search">
+          <div class="search-box">
+            <span aria-hidden="true">🔍</span>
+            <input id="searchInput" type="search" placeholder="Search concepts, key terms and misconceptions…" aria-label="Search this note">
+          </div>
+          <div class="count-pill" id="countDisplay" role="status" aria-live="polite">22 items</div>
+        </div>
+
+        <!-- ================= 01 CONCEPTS ================= -->
+        <section class="section" id="concepts" aria-labelledby="concepts-title" data-section>
+          <div class="section-head">
+            <span class="section-num" aria-hidden="true">01</span>
+            <div class="section-heading">
+              <p class="eyebrow">Foundations</p>
+              <h2 id="concepts-title">Core concepts</h2>
+              <p class="section-lead">Six ideas carry this topic. Each card gives the definition, the wording examiners use, and what the idea looks like in a real test.</p>
+            </div>
+            <span class="section-time">6 cards</span>
+          </div>
+          <div class="card-grid searchable-grid" id="conceptGrid">
+        <article class="card" data-searchable="Why domains matter for assessment">
+          <div class="card-top">
+            <span class="card-icon" aria-hidden="true">🧠</span>
+            <span class="card-index">01 / 06</span>
+          </div>
+          <h3>Why domains matter for assessment</h3>
+          <p>A <strong>domain</strong> is a category of learning: cognitive (knowing and thinking), affective (attitudes, values, dispositions) and psychomotor (physical skill). The domain determines what evidence counts. Cognitive outcomes can be tested with items; affective outcomes need observation over time, attitude scales or reflective evidence; psychomotor outcomes need performance tasks with checklists. Specifying the domain in the outcome is therefore the first act of assessment design.</p>
+          <p class="exam-wording"><b>Exam wording</b>“The three domains of learning are cognitive, affective and psychomotor, and each requires a different mode of assessment.”</p>
+          <div class="practice"><b>In practice</b>Write the domain and level next to every objective in your scheme of work before planning the assessment.</div>
+        </article>
+        <article class="card" data-searchable="The cognitive domain: Bloom then and now">
+          <div class="card-top">
+            <span class="card-icon" aria-hidden="true">🪜</span>
+            <span class="card-index">02 / 06</span>
+          </div>
+          <h3>The cognitive domain: Bloom then and now</h3>
+          <p>Bloom’s original taxonomy (1956) ran knowledge, comprehension, application, analysis, synthesis, evaluation. The revised version (Anderson and Krathwohl, 2001) uses verbs — remember, understand, apply, analyse, evaluate, create — and moves <strong>create</strong> to the apex. The revision matters for exams: the top level is now creative synthesis, and the categories describe what learners do, not what teachers say.</p>
+          <p class="exam-wording"><b>Exam wording</b>“In the revised taxonomy, create is the highest level, and the categories are expressed as verbs.”</p>
+          <div class="practice"><b>In practice</b>Label each item with its intended level; if 80 per cent of the marks sit at remember and understand, the paper cannot assess application.</div>
+        </article>
+        <article class="card" data-searchable="The knowledge dimension: the second axis">
+          <div class="card-top">
+            <span class="card-icon" aria-hidden="true">🗄️</span>
+            <span class="card-index">03 / 06</span>
+          </div>
+          <h3>The knowledge dimension: the second axis</h3>
+          <p>The 2001 revision adds <strong>factual</strong> (terminology, details), <strong>conceptual</strong> (classifications, principles, models), <strong>procedural</strong> (skills, techniques, methods) and <strong>metacognitive</strong> (strategic and self-knowledge) knowledge. The <strong>taxonomy table</strong> crosses the four knowledge types with the six processes, so an outcome can be positioned precisely — for example “apply procedural knowledge” or “evaluate conceptual knowledge”.</p>
+          <p class="exam-wording"><b>Exam wording</b>“The taxonomy table combines the knowledge dimension with the cognitive process dimension.”</p>
+          <div class="practice"><b>In practice</b>For one unit, plot every outcome on the table; empty rows and columns reveal what your teaching and testing ignore.</div>
+        </article>
+        <article class="card" data-searchable="The affective domain">
+          <div class="card-top">
+            <span class="card-icon" aria-hidden="true">❤️</span>
+            <span class="card-index">04 / 06</span>
+          </div>
+          <h3>The affective domain</h3>
+          <p><strong>Krathwohl’s</strong> affective taxonomy runs from <strong>receiving</strong> (attention), <strong>responding</strong> (active participation), <strong>valuing</strong> (commitment), <strong>organising</strong> (integrating values into a system) to <strong>characterising</strong> (acting consistently from a value system). Attitudes are inferred from behaviour over time, so written tests are weak evidence; observation schedules, participation records, structured reflection and attitude scales are stronger, provided they are used ethically.</p>
+          <p class="exam-wording"><b>Exam wording</b>“Affective outcomes are assessed through sustained observation and self-report rather than single test items.”</p>
+          <div class="practice"><b>In practice</b>Assess one affective outcome per term using an observation schedule with three observable indicators, not a quiz.</div>
+        </article>
+        <article class="card" data-searchable="The psychomotor domain">
+          <div class="card-top">
+            <span class="card-icon" aria-hidden="true">🤹</span>
+            <span class="card-index">05 / 06</span>
+          </div>
+          <h3>The psychomotor domain</h3>
+          <p><strong>Simpson’s</strong> seven levels are perception, set, guided response, mechanism, complex overt response, adaptation and origination. The progression runs from watching and imitating to performing smoothly and then adapting the skill to new situations. Assessment requires direct observation against a checklist or rubric of observable technique, with safety and process criteria stated separately from the final product.</p>
+          <p class="exam-wording"><b>Exam wording</b>“Psychomotor skills are assessed by direct observation of performance against explicit criteria.”</p>
+          <div class="practice"><b>In practice</b>Turn the practical into a checklist of observable steps, then mark technique separately from the written report.</div>
+        </article>
+        <article class="card" data-searchable="Standards, benchmarks, SLOs and frameworks">
+          <div class="card-top">
+            <span class="card-icon" aria-hidden="true">📘</span>
+            <span class="card-index">06 / 06</span>
+          </div>
+          <h3>Standards, benchmarks, SLOs and frameworks</h3>
+          <p>A <strong>standard</strong> states what learners should know and be able to do; a <strong>benchmark</strong> specifies the expected level at a stage; a <strong>student learning outcome (SLO)</strong> states the observable result of a unit. Curricula such as Pakistan’s <strong>Single National Curriculum</strong> organise content as competencies, standards, benchmarks and SLOs. <strong>Constructive alignment</strong> then requires teaching activities and assessment tasks to address the same standard at the same level — and <strong>command words</strong> in examination questions are the visible signal of that level.</p>
+          <p class="exam-wording"><b>Exam wording</b>“Standards describe expectations; SLOs make them observable and therefore assessable.”</p>
+          <div class="practice"><b>In practice</b>Take one SLO, underline its verb, and check that your task and rubric require exactly that verb.</div>
+        </article>
+          </div>
+        </section>
+
+        <!-- ================= 02 VOCABULARY ================= -->
+        <section class="section" id="vocabulary" aria-labelledby="vocab-title" data-section>
+          <div class="section-head">
+            <span class="section-num" aria-hidden="true">02</span>
+            <div class="section-heading">
+              <p class="eyebrow">Precision</p>
+              <h2 id="vocab-title">Key vocabulary</h2>
+              <p class="section-lead">Definitions are one sentence each so you can reproduce them under pressure. Bold terms recur highlighted in the rest of the note.</p>
+            </div>
+            <span class="section-time">12 terms</span>
+          </div>
+          <dl class="glossary searchable-grid" id="vocabGrid">
+        <div class="term" data-searchable="Domain of learning">
+          <dt>Domain of learning<span class="tag">Concept</span></dt>
+          <dd>A category of learning — cognitive, affective or psychomotor — that determines the evidence required.</dd>
+        </div>
+        <div class="term" data-searchable="Cognitive domain">
+          <dt>Cognitive domain<span class="tag">Domain</span></dt>
+          <dd>Learning concerned with knowledge and thinking processes, ordered by Bloom’s taxonomy.</dd>
+        </div>
+        <div class="term" data-searchable="Affective domain">
+          <dt>Affective domain<span class="tag">Domain</span></dt>
+          <dd>Learning concerned with attitudes, values and dispositions, ordered by Krathwohl’s taxonomy.</dd>
+        </div>
+        <div class="term" data-searchable="Psychomotor domain">
+          <dt>Psychomotor domain<span class="tag">Domain</span></dt>
+          <dd>Learning concerned with physical skills, ordered by Simpson’s taxonomy.</dd>
+        </div>
+        <div class="term" data-searchable="Taxonomy">
+          <dt>Taxonomy<span class="tag">Framework</span></dt>
+          <dd>A hierarchical classification of learning outcomes used to describe and order cognitive demand.</dd>
+        </div>
+        <div class="term" data-searchable="Knowledge dimension">
+          <dt>Knowledge dimension<span class="tag">Framework</span></dt>
+          <dd>The 2001 taxonomy axis distinguishing factual, conceptual, procedural and metacognitive knowledge.</dd>
+        </div>
+        <div class="term" data-searchable="Standard">
+          <dt>Standard<span class="tag">Curriculum</span></dt>
+          <dd>A statement of what learners should know and be able to do in a subject.</dd>
+        </div>
+        <div class="term" data-searchable="Benchmark">
+          <dt>Benchmark<span class="tag">Curriculum</span></dt>
+          <dd>The expected level of achievement of a standard at a particular stage or grade.</dd>
+        </div>
+        <div class="term" data-searchable="Student learning outcome">
+          <dt>Student learning outcome<span class="tag">Curriculum</span></dt>
+          <dd>An observable statement of what a learner should be able to do by the end of a unit or stage.</dd>
+        </div>
+        <div class="term" data-searchable="Constructive alignment">
+          <dt>Constructive alignment<span class="tag">Principle</span></dt>
+          <dd>Designing outcomes, activities and assessment so that all three demand the same learning.</dd>
+        </div>
+        <div class="term" data-searchable="Command word">
+          <dt>Command word<span class="tag">Exam</span></dt>
+          <dd>The verb in an examination question that signals the required cognitive operation, such as explain or evaluate.</dd>
+        </div>
+        <div class="term" data-searchable="SOLO taxonomy">
+          <dt>SOLO taxonomy<span class="tag">Framework</span></dt>
+          <dd>A taxonomy describing levels of observed learning outcome from prestructural to extended abstract.</dd>
+        </div>
+          </dl>
+        </section>
+
+        <!-- ================= 03 COMPARISONS ================= -->
+        <section class="section" id="comparisons" aria-labelledby="comparisons-title" data-section>
+          <div class="section-head">
+            <span class="section-num" aria-hidden="true">03</span>
+            <div class="section-heading">
+              <p class="eyebrow">Distinctions</p>
+              <h2 id="comparisons-title">Comparisons that decide marks</h2>
+              <p class="section-lead">Most lost marks come from near-misses between paired terms. Learn the dimension first, then the contrast — that is the structure full-mark answers use.</p>
+            </div>
+            <span class="section-time">2 tables</span>
+          </div>
+<div id="compareGrid">
+        <div class="table-card">
+          <div class="table-caption">
+            <strong>Revised Bloom’s Taxonomy: Levels, Verbs and Item Stems</strong>
+            <span>Swipe to view all columns →</span>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th scope="col">Level</th><th scope="col">Typical verbs</th><th scope="col">Sample item stem</th><th scope="col">What it demands</th></tr></thead>
+              <tbody>
+              <tr><td>Remember</td><td>Define, list, name, state, identify</td><td>State the formula for speed.</td><td>Retrieval of factual knowledge</td></tr>
+              <tr><td>Understand</td><td>Explain, describe, summarise, classify</td><td>Explain why the speed changes when distance doubles.</td><td>Meaning-making and explanation</td></tr>
+              <tr><td>Apply</td><td>Calculate, solve, use, demonstrate</td><td>Calculate the average speed for the journey shown.</td><td>Using procedure in a familiar task</td></tr>
+              <tr><td>Analyse</td><td>Compare, differentiate, examine, infer</td><td>Compare the two methods and identify the source of error.</td><td>Breaking material into parts and relationships</td></tr>
+              <tr><td>Evaluate</td><td>Judge, justify, critique, appraise</td><td>Judge which method is more reliable and justify your choice.</td><td>Judgement against criteria</td></tr>
+              <tr><td>Create</td><td>Design, construct, plan, produce</td><td>Design an investigation that would test the claim.</td><td>Producing a new coherent whole</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="table-card">
+          <div class="table-caption">
+            <strong>The Three Domains and How to Assess Them</strong>
+            <span>Swipe to view all columns →</span>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th scope="col">Domain</th><th scope="col">Levels (abbreviated)</th><th scope="col">Best assessment method</th><th scope="col">Example outcome</th></tr></thead>
+              <tbody>
+              <tr><td>Cognitive</td><td>Remember → Understand → Apply → Analyse → Evaluate → Create</td><td>Items, tasks and rubrics matched to level</td><td>Evaluate two sources and justify which is more reliable</td></tr>
+              <tr><td>Affective</td><td>Receiving → Responding → Valuing → Organising → Characterising</td><td>Sustained observation, reflection, attitude scales</td><td>Persist with a difficult task and support peers without prompting</td></tr>
+              <tr><td>Psychomotor</td><td>Perception → Set → Guided response → Mechanism → Complex overt response → Adaptation → Origination</td><td>Observed performance with checklist or rubric</td><td>Prepare a slide specimen safely and focus the microscope unaided</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        </div>
+        </section>
+
+        <!-- ================= 04 WORKED EXAMPLES ================= -->
+        <section class="section" id="worked-examples" aria-labelledby="examples-title" data-section>
+          <div class="section-head">
+            <span class="section-num" aria-hidden="true">04</span>
+            <div class="section-heading">
+              <p class="eyebrow">Application</p>
+              <h2 id="examples-title">Worked examples</h2>
+              <p class="section-lead">Three walkthroughs take the definitions to the level the paper asks for: a calculation, a judgement and a repair.</p>
+            </div>
+            <span class="section-time">3 walkthroughs</span>
+          </div>
+        <article class="example">
+          <div class="example-head">
+            <span class="example-tag">Writing outcomes</span>
+            <h3>One topic, three levels</h3>
+          </div>
+          <p class="example-prompt">Write learning outcomes for a lesson on photosynthesis at the remember, apply and evaluate levels.</p>
+          <ol class="steps">
+            <li><strong>Remember:</strong> “State the reactants and products of photosynthesis.” The verb demands retrieval only, so a short-answer or selected-response item is sufficient.</li>
+            <li><strong>Apply:</strong> “Predict the effect of removing light on the rate of photosynthesis and justify the prediction using the equation.” The learner must use the relationship in a new case.</li>
+            <li><strong>Evaluate:</strong> “Judge whether the evidence in the two experiments supports the claim that light intensity is limiting, and justify your judgement.” The learner must weigh evidence against a criterion.</li>
+            <li><strong>Check alignment:</strong> each outcome names an observable performance at a stated level, so the task and the rubric can be designed directly from it.</li>
+          </ol>
+          <div class="result"><b>Result</b> Three outcomes, three distinct levels, three different assessment demands — the verb is doing real work, not decorating the plan.</div>
+          <details class="reasoning">
+            <summary>Why this works</summary>
+            <p>The verb alone does not guarantee the level: “explain” in a recall question is really remember. The demand of the task is the test, which is why the outcome should specify what the learner must do with the content.</p>
+          </details>
+        </article>
+        <article class="example">
+          <div class="example-head">
+            <span class="example-tag">Mapping</span>
+            <h3>Plotting a unit on the taxonomy table</h3>
+          </div>
+          <p class="example-prompt">A unit has 24-mark assessment: 14 marks of definitions and labelling, 8 marks of calculation, 2 marks of comparison. Map it on the two-dimensional taxonomy and diagnose the imbalance.</p>
+          <ol class="steps">
+            <li><strong>Knowledge axis:</strong> definitions and labelling are factual; calculations are procedural; comparison of methods is conceptual.</li>
+            <li><strong>Process axis:</strong> definitions are remember; calculations are apply; comparison is analyse.</li>
+            <li><strong>Plot the marks:</strong> 14 at factual/remember, 8 at procedural/apply, 2 at conceptual/analyse. The metacognitive row is empty and the evaluate and create columns are empty.</li>
+            <li><strong>Diagnose:</strong> the paper assesses recall and routine procedure almost exclusively, so the unit’s claimed outcome about evaluating methods is not assessed at all.</li>
+          </ol>
+          <div class="result"><b>Result</b> 14 marks factual-remember, 8 procedural-apply, 2 conceptual-analyse, nothing at evaluate or create — the blueprint exposes the gap before the paper is set.</div>
+          <details class="reasoning">
+            <summary>Why this works</summary>
+            <p>The taxonomy table is a diagnostic grid, not a theory diagram. Plotting marks makes the mismatch between stated outcomes and actual evidence visible and fixable.</p>
+          </details>
+        </article>
+        <article class="example">
+          <div class="example-head">
+            <span class="example-tag">Method choice</span>
+            <h3>Assessing an affective and a psychomotor outcome</h3>
+          </div>
+          <p class="example-prompt">A Grade 6 teacher must assess (a) “works cooperatively in a group” and (b) “measures the volume of a liquid accurately using a measuring cylinder”.</p>
+          <ol class="steps">
+            <li>For (a), written tests cannot evidence the behaviour. Build an <strong>observation schedule</strong> with three observable indicators — takes turns, builds on others’ ideas, completes an assigned role — and record over four lessons.</li>
+            <li>For (b), build a <strong>performance checklist</strong>: eye level at the meniscus, cylinder on a flat surface, correct reading at the bottom of the curve, unit recorded.</li>
+            <li>Use the same criteria with learners in advance so the standard is visible, and record process and product separately.</li>
+            <li>Avoid inferring (a) from a single lesson or from popularity; affective judgements need repeated evidence and should be reported privately.</li>
+          </ol>
+          <div class="result"><b>Result</b> Observation schedule for the affective outcome, performance checklist for the psychomotor outcome — and neither is a written test.</div>
+          <details class="reasoning">
+            <summary>Why this works</summary>
+            <p>Method follows domain. Using a test for collaboration or a written report for technique produces evidence of writing, not of the outcome, which is a validity failure.</p>
+          </details>
+        </article>
+        </section>
+
+        <!-- ================= 05 APPLICATION ================= -->
+        <section class="section" id="application" aria-labelledby="application-title" data-section>
+          <div class="section-head">
+            <span class="section-num" aria-hidden="true">05</span>
+            <div class="section-heading">
+              <p class="eyebrow">Practice</p>
+              <h2 id="application-title">Classroom and test-room application</h2>
+              <p class="section-lead">The left column is the professional standard; the right column lists the errors that cost marks and damage results.</p>
+            </div>
+            <span class="section-time">do / avoid</span>
+          </div>
+          <div class="do-avoid" id="applyGrid">
+            <div class="panel do">
+              <h3><span aria-hidden="true">✅</span> Do this</h3>
+              <ul><li>Name the domain and level in every stated outcome.</li><li>Write outcomes with observable verbs and then check the task really demands that level.</li><li>Plot assessment marks on the <strong>taxonomy table</strong> to expose imbalances.</li><li>Match method to domain: items for cognitive, observation for affective, performance for psychomotor.</li><li>Use the curriculum’s <strong>SLOs</strong> and <strong>command words</strong> to calibrate level and wording.</li><li>Share level descriptors or checklists with learners before the task.</li></ul>
+            </div>
+            <div class="panel avoid">
+              <h3><span aria-hidden="true">🚫</span> Avoid this</h3>
+              <ul><li>Do not equate a verb with a level; “explain” in a recall task is remember, not understand.</li><li>Do not assess affective outcomes with a written quiz and call it attitude measurement.</li><li>Do not mark a practical by reading the report and ignoring the technique.</li><li>Do not use the original Bloom order in a 2001-framework answer; create is the apex now.</li><li>Do not write outcomes that cannot be observed, such as “will appreciate” or “will know about”.</li><li>Do not treat standards, benchmarks and SLOs as synonyms in a written answer.</li></ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= 06 MISCONCEPTIONS ================= -->
+        <section class="section" id="misconceptions" aria-labelledby="myths-title" data-section>
+          <div class="section-head">
+            <span class="section-num" aria-hidden="true">06</span>
+            <div class="section-heading">
+              <p class="eyebrow">Exam traps</p>
+              <h2 id="myths-title">Misconceptions</h2>
+              <p class="section-lead">Each myth is a plausible sentence that loses marks. Learn the reality column as the correction you can write.</p>
+            </div>
+            <span class="section-time">4 corrections</span>
+          </div>
+          <div class="myths searchable-grid" id="misGrid">
+        <article class="myth" data-searchable="Evaluation is the highest level of Bloom’s taxonomy.">
+          <div class="myth-claim"><span>Myth</span>Evaluation is the highest level of Bloom’s taxonomy.</div>
+          <div class="myth-fix"><span>Reality</span>In the revised taxonomy (2001) <strong>create</strong> is the apex, with evaluate beneath it. Evaluation was the apex only in the original 1956 version.</div>
+        </article>
+        <article class="myth" data-searchable="Using a higher-order verb in the objective makes the task higher-order.">
+          <div class="myth-claim"><span>Myth</span>Using a higher-order verb in the objective makes the task higher-order.</div>
+          <div class="myth-fix"><span>Reality</span>Cognitive level is set by the <strong>demand of the task</strong>, not the verb. A question that says “evaluate” but has one acceptable answer memorised from the textbook is a recall item.</div>
+        </article>
+        <article class="myth" data-searchable="Affective outcomes cannot be assessed, so they should not be stated.">
+          <div class="myth-claim"><span>Myth</span>Affective outcomes cannot be assessed, so they should not be stated.</div>
+          <div class="myth-fix"><span>Reality</span>They cannot be assessed well by written tests, but they can be assessed through sustained observation, structured reflection and attitude scales. Omitting them simply removes them from teaching.</div>
+        </article>
+        <article class="myth" data-searchable="Every lesson should reach the top of the taxonomy.">
+          <div class="myth-claim"><span>Myth</span>Every lesson should reach the top of the taxonomy.</div>
+          <div class="myth-fix"><span>Reality</span>Higher-order work depends on secure factual and procedural knowledge. The requirement is <strong>alignment</strong> with the standard, not climbing to create in every lesson.</div>
+        </article>
+          </div>
+        </section>
+
+        <!-- ================= 07 EXAM ROOM ================= -->
+        <section class="section" id="exam" aria-labelledby="exam-title" data-section>
+          <div class="section-head">
+            <span class="section-num" aria-hidden="true">07</span>
+            <div class="section-heading">
+              <p class="eyebrow">Exam room</p>
+              <h2 id="exam-title">Exam-style questions</h2>
+              <p class="section-lead">Answer first, then open the model. The chips show the command word, the mark value and the cognitive level being tested.</p>
+            </div>
+            <span class="section-time">2 questions</span>
+          </div>
+        <article class="exam-q">
+          <div class="exam-meta">
+            <span class="chip command">Explain</span>
+            <span class="chip marks">6 marks</span>
+            <span class="chip level">Understand</span>
+          </div>
+          <p>Explain the relationship between standards, benchmarks and student learning outcomes in an outcomes-based curriculum.</p>
+          <details class="model">
+            <summary>Model answer</summary>
+            <p>A standard is a broad statement of what learners should know and be able to do in a subject, for example that they can investigate scientifically. A benchmark specifies the expected level of that standard at a particular stage, such as the investigative skills expected by the end of Grade 8. A student learning outcome makes the expectation observable at unit level, for example that the learner can design a fair test with one independent variable and justify the controls. The relationship is one of increasing specificity: standards describe the destination, benchmarks locate it by stage, and SLOs describe the evidence of arrival. That is why assessment is written against SLOs and aggregated upward to judge whether the standard has been met.</p>
+          </details>
+        </article>
+        <article class="exam-q">
+          <div class="exam-meta">
+            <span class="chip command">Analyse</span>
+            <span class="chip marks">8 marks</span>
+            <span class="chip level">Analyse</span>
+          </div>
+          <p>A unit states the outcome “evaluate the reliability of a news report”, but the assessment awards 20 marks for identifying bias and 2 marks for evaluating reliability. Analyse the problem and propose a corrected blueprint.</p>
+          <details class="model">
+            <summary>Model answer</summary>
+            <p>The problem is misalignment between the stated outcome and the evidence collected. Identification is an analysis-level operation — spotting loaded language and omission — whereas evaluation requires a judgement against criteria with justification. Awarding 20 of 22 marks to identification means the paper measures analysis and gives almost no weight to the stated outcome, so a learner can score highly without being able to evaluate. The corrected blueprint should allocate marks in proportion to the outcome: for example 6 marks for identifying techniques, 6 for applying two credibility criteria to each report, 8 for a justified comparative judgement, and 2 for accuracy of expression, with the rubric descriptors written at those levels. The revised paper should also include a task that cannot be completed by spotting techniques alone, such as requiring the learner to state which report is more reliable and defend the judgement against a counter-claim.</p>
+          </details>
+        </article>
+        </section>
+
+        <!-- ================= 08 TAKEAWAYS ================= -->
+        <section class="section" id="takeaways" aria-labelledby="takeaways-title" data-section>
+          <div class="section-head">
+            <span class="section-num" aria-hidden="true">08</span>
+            <div class="section-heading">
+              <p class="eyebrow">Compress</p>
+              <h2 id="takeaways-title">Takeaways and revision</h2>
+              <p class="section-lead">Revise these six lines the night before the paper, then tick the checklist once each one is retrievable without notes.</p>
+            </div>
+            <span class="section-time">6 lines</span>
+          </div>
+          <div class="takeaways">
+            <h3>Six things to remember</h3>
+            <ol><li>Outcomes belong to a <strong>domain</strong> and a <strong>level</strong>; both determine the assessment method.</li><li>Revised <strong>Bloom</strong> runs remember to create, with <strong>create</strong> at the apex, and adds a knowledge dimension.</li><li><strong>Affective</strong> outcomes need sustained observation; <strong>psychomotor</strong> outcomes need observed performance.</li><li><strong>Standards</strong>, <strong>benchmarks</strong> and <strong>SLOs</strong> move from broad expectation to observable evidence.</li><li><strong>Constructive alignment</strong> requires task and rubric to demand the stated level, not just use its verb.</li><li>Plotting marks on the taxonomy table exposes gaps before the paper is set.</li></ol>
+          </div>
+          <div class="summary">
+            <span>One-line summary</span>
+            <p>Domains, levels and standards are the grammar of assessment design: name the domain, place the outcome on the taxonomy, and align the task and rubric with the standard it claims to assess.</p>
+          </div>
+          <div class="exam-tip">
+            <span class="tip-icon" aria-hidden="true">💡</span>
+            <div>
+              <span class="tip-label">Exam tip</span>
+              <p>In questions about Bloom, state the year of the version you are using. If you write “evaluation is the highest level” without specifying 1956, you lose the mark in a 2001 framework.</p>
+            </div>
+          </div>
+          <div class="checklist" id="checklist">
+            <div class="checklist-head">
+              <h3>Revision checklist</h3>
+              <span id="checklistCount">0 of 6 done</span>
+            </div>
+            <ul>
+          <li>
+            <label>
+              <input type="checkbox" data-key="check-1">
+              <span>I can name the three domains and their taxonomies with their level sequences.</span>
+            </label>
+          </li>          <li>
+            <label>
+              <input type="checkbox" data-key="check-2">
+              <span>I can explain the difference between the 1956 and 2001 versions of Bloom’s taxonomy.</span>
+            </label>
+          </li>          <li>
+            <label>
+              <input type="checkbox" data-key="check-3">
+              <span>I can use the knowledge dimension to position an outcome precisely.</span>
+            </label>
+          </li>          <li>
+            <label>
+              <input type="checkbox" data-key="check-4">
+              <span>I can choose an assessment method appropriate to each domain.</span>
+            </label>
+          </li>          <li>
+            <label>
+              <input type="checkbox" data-key="check-5">
+              <span>I can distinguish standard, benchmark and SLO and show how they relate.</span>
+            </label>
+          </li>          <li>
+            <label>
+              <input type="checkbox" data-key="check-6">
+              <span>I can map a paper’s marks onto the taxonomy table and diagnose an imbalance.</span>
+            </label>
+          </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ================= 09 QUIZ ================= -->
+        <section class="quiz" id="practice" aria-labelledby="quiz-title" data-section>
+          <div class="quiz-head">
+            <div>
+              <p class="eyebrow">Practice</p>
+              <h2 id="quiz-title">Test yourself</h2>
+            </div>
+            <div class="quiz-chips">
+              <span>10 MCQs</span>
+              <span>4 CRQs</span>
+              <span>1 ERQ</span>
+            </div>
+          </div>
+          <div class="quiz-body">
+            <div class="quiz-tabs" role="tablist" aria-label="Quiz sections">
+              <button class="quiz-tab active" role="tab" aria-selected="true" data-panel="mcqPanel">🔘 10 MCQs</button>
+              <button class="quiz-tab" role="tab" aria-selected="false" data-panel="crqPanel">✍️ 4 CRQs</button>
+              <button class="quiz-tab" role="tab" aria-selected="false" data-panel="erqPanel">📄 1 ERQ</button>
+            </div>
+
+            <div class="quiz-panel active" id="mcqPanel" role="tabpanel">
+              <div class="panel-head">
+                <span class="section-label">Multiple choice questions</span>
+                <span class="score-chip" id="mcqProgress">0 / 10 answered · 0 correct</span>
+              </div>
+              <div id="mcqContainer"></div>
+            </div>
+
+            <div class="quiz-panel" id="crqPanel" role="tabpanel">
+              <div class="panel-head">
+                <span class="section-label">Constructed response questions</span>
+                <span class="score-chip">Model answers included</span>
+              </div>
+              <div id="crqContainer"></div>
+            </div>
+
+            <div class="quiz-panel" id="erqPanel" role="tabpanel">
+              <div class="panel-head">
+                <span class="section-label">Extended response · situation-based</span>
+                <span class="score-chip">Keyword self-check</span>
+              </div>
+              <div id="erqContainer"></div>
+            </div>
+          </div>
+        </section>
+
+        <footer class="note-footer">
+          <span>MUQABIL · Teaching License Master Notes · Test Development & Evaluation</span>
+          <span>5 interactive notes in this module · revision 3 of 5</span>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <button class="to-top" id="toTop" type="button" aria-label="Back to top">↑</button>
+
+<script>
+    (function () {
+      'use strict';
+
+      var SLUG = 'domains-of-learning-standards-taxonomy-and-frameworks';
+
+      /* ================= READING PROGRESS + BACK TO TOP ================= */
+      var fill = document.getElementById('progressFill');
+      var railFill = document.getElementById('railFill');
+      var railPct = document.getElementById('railPct');
+      var toTop = document.getElementById('toTop');
+
+      function updateScroll() {
+        var doc = document.documentElement;
+        var max = doc.scrollHeight - doc.clientHeight;
+        var pct = max > 0 ? Math.min(100, Math.max(0, (doc.scrollTop / max) * 100)) : 0;
+        if (fill) fill.style.width = pct + '%';
+        if (railFill) railFill.style.width = pct + '%';
+        if (railPct) railPct.textContent = Math.round(pct) + '%';
+        if (toTop) {
+          if (doc.scrollTop > 600) toTop.classList.add('visible');
+          else toTop.classList.remove('visible');
+        }
+      }
+      window.addEventListener('scroll', updateScroll, { passive: true });
+      updateScroll();
+
+      if (toTop) {
+        toTop.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      /* ================= SIDE NAV: ACTIVE SECTION ================= */
+      var railLinks = Array.prototype.slice.call(document.querySelectorAll('.rail-list a'));
+      var sections = railLinks
+        .map(function (link) {
+          var id = link.getAttribute('href').slice(1);
+          return document.getElementById(id);
+        })
+        .filter(Boolean);
+
+      function setActive(id) {
+        railLinks.forEach(function (link) {
+          if (link.getAttribute('href') === '#' + id) link.setAttribute('aria-current', 'true');
+          else link.removeAttribute('aria-current');
+        });
+      }
+
+      if ('IntersectionObserver' in window && sections.length) {
+        var visible = {};
+        var observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              visible[entry.target.id] = entry.isIntersecting ? entry.intersectionRatio : 0;
+            });
+            var best = null;
+            var bestRatio = 0;
+            sections.forEach(function (section) {
+              var ratio = visible[section.id] || 0;
+              if (ratio > bestRatio) { bestRatio = ratio; best = section.id; }
+            });
+            if (best) setActive(best);
+          },
+          { rootMargin: '-96px 0px -55% 0px', threshold: [0, 0.15, 0.4, 0.75] }
+        );
+        sections.forEach(function (section) { observer.observe(section); });
+      }
+
+      railLinks.forEach(function (link) {
+        link.addEventListener('click', function () {
+          setActive(link.getAttribute('href').slice(1));
+        });
+      });
+
+      /* ================= LIVE SEARCH ================= */
+      var searchInput = document.getElementById('searchInput');
+      var countDisplay = document.getElementById('countDisplay');
+      var grids = Array.prototype.slice.call(document.querySelectorAll('.searchable-grid'));
+
+      var cards = [];
+      grids.forEach(function (grid) {
+        Array.prototype.forEach.call(grid.querySelectorAll('[data-searchable]'), function (card) {
+          cards.push(card);
+        });
+      });
+
+      function applySearch(raw) {
+        var q = (raw || '').trim().toLowerCase();
+        var shown = 0;
+        cards.forEach(function (card) {
+          var text = ((card.getAttribute('data-searchable') || '') + ' ' + card.textContent).toLowerCase();
+          var hit = q === '' || text.indexOf(q) !== -1;
+          card.style.display = hit ? '' : 'none';
+          if (hit) shown++;
+        });
+        Array.prototype.forEach.call(document.querySelectorAll('.no-results'), function (node) {
+          node.parentNode.removeChild(node);
+        });
+        grids.forEach(function (grid) {
+          var any = Array.prototype.filter.call(
+            grid.querySelectorAll('[data-searchable]'),
+            function (card) { return card.style.display !== 'none'; }
+          ).length;
+          if (any === 0) {
+            var note = document.createElement('div');
+            note.className = 'no-results';
+            note.textContent = 'No matching items in this section.';
+            grid.appendChild(note);
+          }
+        });
+        if (countDisplay) {
+          countDisplay.textContent = shown + (shown === 1 ? ' match' : ' matches');
+        }
+      }
+
+      var debounce;
+      if (searchInput) {
+        searchInput.addEventListener('input', function (event) {
+          clearTimeout(debounce);
+          var value = event.target.value;
+          debounce = setTimeout(function () { applySearch(value); }, 130);
+        });
+        searchInput.addEventListener('search', function (event) {
+          if (event.target.value === '') applySearch('');
+        });
+        searchInput.addEventListener('keydown', function (event) {
+          if (event.key === 'Escape' && searchInput.value !== '') {
+            searchInput.value = '';
+            applySearch('');
+          }
+        });
+      }
+      applySearch('');
+
+      /* ================= REVISION CHECKLIST ================= */
+      var checklist = document.getElementById('checklist');
+      var checklistCount = document.getElementById('checklistCount');
+      var storageKey = 'muqabil-checklist-' + SLUG;
+
+      function readStore() {
+        try {
+          var raw = window.localStorage.getItem(storageKey);
+          return raw ? JSON.parse(raw) : {};
+        } catch (error) {
+          return {};
+        }
+      }
+
+      function writeStore(value) {
+        try {
+          window.localStorage.setItem(storageKey, JSON.stringify(value));
+        } catch (error) {
+          /* storage unavailable: the checklist still works for this visit */
+        }
+      }
+
+      function refreshChecklist() {
+        if (!checklist) return;
+        var boxes = Array.prototype.slice.call(checklist.querySelectorAll('input[type="checkbox"]'));
+        var done = boxes.filter(function (box) { return box.checked; }).length;
+        if (checklistCount) checklistCount.textContent = done + ' of ' + boxes.length + ' done';
+      }
+
+      if (checklist) {
+        var stored = readStore();
+        Array.prototype.forEach.call(checklist.querySelectorAll('input[type="checkbox"]'), function (box) {
+          box.checked = Boolean(stored[box.getAttribute('data-key')]);
+          box.addEventListener('change', function () {
+            var state = readStore();
+            state[box.getAttribute('data-key')] = box.checked;
+            writeStore(state);
+            refreshChecklist();
+          });
+        });
+        refreshChecklist();
+      }
+
+      /* ================= QUIZ TABS ================= */
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.quiz-tab'));
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          tabs.forEach(function (item) {
+            item.classList.remove('active');
+            item.setAttribute('aria-selected', 'false');
+          });
+          Array.prototype.forEach.call(document.querySelectorAll('.quiz-panel'), function (panel) {
+            panel.classList.remove('active');
+          });
+          tab.classList.add('active');
+          tab.setAttribute('aria-selected', 'true');
+          var panel = document.getElementById(tab.getAttribute('data-panel'));
+          if (panel) panel.classList.add('active');
+        });
+      });
+
+      /* ================= DATA ================= */
+      var mcqs = [{"q": "In the revised Bloom’s taxonomy (2001), the highest level is:", "options": ["Evaluation", "Synthesis", "Create", "Analyse"], "answer": 2, "why": "Create replaced synthesis at the apex, above evaluate."}, {"q": "“State the three states of matter” is at which level?", "options": ["Remember", "Understand", "Apply", "Analyse"], "answer": 0, "why": "It requires retrieval of factual knowledge."}, {"q": "The knowledge dimension of the 2001 taxonomy includes:", "options": ["Factual, conceptual, procedural, metacognitive", "Recall, comprehension, application", "Receiving, responding, valuing", "Perception, set, mechanism"], "answer": 0, "why": "These are the four knowledge types."}, {"q": "The affective domain is best assessed through:", "options": ["Multiple-choice items", "Sustained observation and structured reflection", "A timed essay only", "A practical checklist"], "answer": 1, "why": "Attitudes are inferred from behaviour over time."}, {"q": "Simpson’s psychomotor taxonomy begins with:", "options": ["Mechanism", "Perception", "Origination", "Guided response"], "answer": 1, "why": "Perception is the first level, followed by set and guided response."}, {"q": "Krathwohl’s affective level of ‘valuing’ refers to:", "options": ["Paying attention", "Active participation", "Commitment to a worth or value", "Acting from a consistent value system"], "answer": 2, "why": "Valuing is commitment; characterising is the final level."}, {"q": "A student learning outcome is best described as:", "options": ["A broad subject expectation", "An observable statement of what a learner can do at unit level", "A stage-level benchmark", "A teaching activity"], "answer": 1, "why": "SLOs make the expectation observable and assessable."}, {"q": "Constructive alignment requires that outcome, activity and assessment:", "options": ["Use the same materials", "Demand the same learning at the same level", "Take equal time", "Be written by one teacher"], "answer": 1, "why": "Alignment is about learning demand."}, {"q": "A written test is a weak measure of a psychomotor outcome because it:", "options": ["Is too short", "Measures description rather than performance", "Cannot be marked", "Is always norm-referenced"], "answer": 1, "why": "The skill must be observed to be assessed."}, {"q": "The command word in an examination question signals:", "options": ["The mark allocation", "The cognitive operation required", "The time allowed", "The topic"], "answer": 1, "why": "Command words such as explain or evaluate indicate the required process."}];
+      var crqs = [{"q": "Describe the three domains of learning and state an appropriate assessment method for each.", "hint": "Name the taxonomy for each domain and give a concrete method.", "model": "The cognitive domain concerns knowledge and thinking, ordered by Bloom’s taxonomy from remember to create; it is assessed through items and tasks matched to the intended level, marked with a key or rubric. The affective domain concerns attitudes, values and dispositions, ordered by Krathwohl from receiving to characterising; it is assessed through sustained observation against observable indicators, structured reflection and attitude scales rather than single test items. The psychomotor domain concerns physical skills, ordered by Simpson from perception to origination; it is assessed by direct observation of performance against a checklist or rubric, with technique and product judged separately. Choosing the method from the domain is a validity requirement: a written test for collaboration or a report for technique measures writing rather than the outcome."}, {"q": "Explain the difference between Bloom’s original taxonomy and the 2001 revision, and why the revision matters for test construction.", "hint": "Compare structures, top levels and the added dimension.", "model": "The original taxonomy (1956) used nouns — knowledge, comprehension, application, analysis, synthesis, evaluation — with evaluation at the apex. The revision (Anderson and Krathwohl, 2001) uses verbs — remember, understand, apply, analyse, evaluate, create — places create at the apex, and adds a second axis, the knowledge dimension of factual, conceptual, procedural and metacognitive knowledge. This matters for test construction because the two-dimensional table forces the designer to specify both what knowledge is being used and what operation is required. An item asking learners to recall a procedure and one asking them to apply it are now clearly distinguishable, and plots of marks across the table reveal whether a paper is dominated by factual recall or genuinely samples understanding and application."}, {"q": "How does constructive alignment operate from a curriculum standard down to a marked task?", "hint": "Move from standard to benchmark to SLO to task to rubric.", "model": "The curriculum states a standard, for example that learners can investigate scientifically. The benchmark specifies what that looks like at the grade, such as designing a fair test with one independent variable. The unit SLO makes it observable: the learner can identify variables, justify controls and record results. Constructive alignment then requires the teaching activity to give learners practice in that exact operation and the assessment to demand it, so the task asks for a design with justification rather than a definition of a fair test. The rubric descriptors are written at the same level, so marks are awarded for justification rather than for naming parts. If any link weakens — an activity that only demonstrates, or a task that only recalls — the standard is no longer being assessed, even if the paperwork still cites it."}, {"q": "Why can a test be well marked yet invalid? Relate your answer to the taxonomy.", "hint": "Separate precision of marking from level and construct.", "model": "Marking quality affects reliability, not validity. A paper can be marked with a flawless key and still be invalid if its items sit at the wrong level or sample the wrong outcomes. A unit that states “evaluate two interpretations” but assesses 20 marks of definitions and 2 marks of evaluation is precisely marked and badly aligned: the scores are stable but they describe recall, not evaluation. The taxonomy makes this visible, because plotting the marks shows the empty evaluate column and the crowded remember row. Improving validity requires redesigning items and the blueprint so that the task demands the stated level; improving the key would only make the same wrong measurement more consistent."}];
+      var erq = {"scenario": "A school’s Grade 7 scheme of work lists outcomes such as “understand the importance of cleanliness”, “know the parts of a plant” and “appreciate teamwork”. Assessment consists of a 50-mark written paper of definitions and diagrams. Teachers report that learners can label a diagram perfectly but cannot plan an investigation, and that the ‘teamwork’ outcome is never mentioned again after the scheme is submitted. A visiting educator says the scheme is ‘full of objectives but empty of assessment’.", "task": "Analyse the scheme using the concepts of domains, taxonomy levels, standards and constructive alignment, and propose a revised outcome-and-assessment plan for the unit.", "hint": "Diagnose unobservable outcomes, domain mismatch and level collapse, then rewrite outcomes and match methods.", "keywords": ["domain", "taxonomy", "cognitive", "affective", "psychomotor", "SLO", "constructive alignment", "command word", "rubric", "observation"], "model": "The scheme uses the language of outcomes but not the logic of them. “Understand”, “know” and “appreciate” are not observable, so no task can demonstrate whether they have been achieved; the teacher is left to assess whatever is easy to print. The paper then collapses every outcome into a single domain and level: definitions and diagrams are factual recall in the cognitive domain, so all 50 marks sit at remember and understand, while the stated investigation outcome is not assessed at all. That is a validity failure produced by a level collapse, and it explains why learners can label a plant perfectly but cannot plan an investigation — the assessed task never required planning. The affective outcome is stated and abandoned: teamwork is not assessed, so it is not taught, which is exactly what happens when an outcome has no evidence attached. The visiting educator’s comment is accurate: objectives without assessment are wishes. A revised plan should begin by rewriting the outcomes so that each names a domain and an observable performance. “Know the parts of a plant” becomes “label the parts of a flowering plant and explain the function of two of them” — remember plus understand, assessed by a labelled diagram and two short explanations. “Understand the importance of cleanliness” becomes an affective outcome with observable indicators: “follows the agreed hygiene routine and reminds peers without prompting”, assessed by an observation schedule over four lessons. The investigation outcome becomes “plan a fair test with one independent variable and justify the controls”, assessed by a short design brief marked with a rubric. Teamwork becomes “contributes an assigned role and builds on a peer’s idea”, recorded on the same observation schedule with three indicators. The assessment plan should then be plotted on the taxonomy table: roughly 40 per cent of marks at remember and understand, 40 per cent at apply and analyse, and 20 per cent at evaluate, with the affective and psychomotor outcomes recorded separately because they cannot share the written paper’s scale. Methods should match domains: a written paper for the cognitive outcomes, a design brief with a rubric for planning, an observation schedule for the affective outcomes, and a practical checklist if a handling skill is involved. Criteria and checklists should be shared with learners in advance, and command words in tasks should match the intended level so that “explain” really requires explanation. Finally, the scheme should record where each outcome is assessed, which makes an abandoned outcome immediately visible in future. The result is a unit where every stated outcome has evidence, the mark distribution reflects the standard rather than the easiest items to set, and the report to parents can describe what learners can actually do."};
+
+      /* ================= MCQs ================= */
+      var mcqContainer = document.getElementById('mcqContainer');
+      var scoreChip = document.getElementById('mcqProgress');
+      var answered = 0;
+      var correctCount = 0;
+      var letters = ['A', 'B', 'C', 'D'];
+
+      function updateScore() {
+        if (scoreChip) {
+          scoreChip.textContent = answered + ' / ' + mcqs.length + ' answered · ' + correctCount + ' correct';
+        }
+      }
+
+      mcqs.forEach(function (item, index) {
+        var wrap = document.createElement('article');
+        wrap.className = 'mcq';
+
+        var q = document.createElement('p');
+        q.className = 'mcq-q';
+        var num = document.createElement('span');
+        num.className = 'qnum';
+        num.textContent = String(index + 1);
+        var qText = document.createElement('span');
+        qText.textContent = item.q;
+        q.appendChild(num);
+        q.appendChild(qText);
+        wrap.appendChild(q);
+
+        var list = document.createElement('div');
+        list.className = 'options';
+        var feedback = document.createElement('div');
+        feedback.className = 'mcq-feedback';
+        var locked = false;
+
+        item.options.forEach(function (option, optionIndex) {
+          var button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'option';
+
+          var letter = document.createElement('span');
+          letter.className = 'letter';
+          letter.textContent = letters[optionIndex];
+
+          var text = document.createElement('span');
+          text.textContent = option;
+
+          button.appendChild(letter);
+          button.appendChild(text);
+
+          button.addEventListener('click', function () {
+            if (locked) return;
+            locked = true;
+            answered++;
+            var right = optionIndex === item.answer;
+            if (right) correctCount++;
+
+            Array.prototype.forEach.call(list.querySelectorAll('.option'), function (other) {
+              other.disabled = true;
+            });
+            button.classList.add(right ? 'correct' : 'wrong');
+            if (!right) {
+              var key = list.querySelectorAll('.option')[item.answer];
+              if (key) key.classList.add('correct');
+            }
+            feedback.className = 'mcq-feedback show ' + (right ? 'good' : 'bad');
+            feedback.textContent = (right ? 'Correct. ' : 'Not quite. ') + item.why;
+            updateScore();
+          });
+
+          list.appendChild(button);
+        });
+
+        wrap.appendChild(list);
+        wrap.appendChild(feedback);
+        mcqContainer.appendChild(wrap);
+      });
+      updateScore();
+
+      /* ================= CRQs ================= */
+      var crqContainer = document.getElementById('crqContainer');
+
+      crqs.forEach(function (item, index) {
+        var wrap = document.createElement('article');
+        wrap.className = 'crq';
+
+        var title = document.createElement('h4');
+        title.textContent = 'Question ' + (index + 1) + '. ' + item.q;
+        wrap.appendChild(title);
+
+        var hint = document.createElement('p');
+        hint.className = 'hint';
+        hint.textContent = 'Hint: ' + item.hint;
+        wrap.appendChild(hint);
+
+        var area = document.createElement('textarea');
+        area.placeholder = 'Write your answer here — aim for 80 to 120 words.';
+        area.setAttribute('aria-label', 'Answer for question ' + (index + 1));
+        wrap.appendChild(area);
+
+        var row = document.createElement('div');
+        row.className = 'word-row';
+        var count = document.createElement('span');
+        count.textContent = '0 words';
+        var target = document.createElement('span');
+        target.textContent = 'Target: 80–120 words';
+        row.appendChild(count);
+        row.appendChild(target);
+        wrap.appendChild(row);
+
+        function updateWords() {
+          var words = area.value.trim().split(/\s+/).filter(Boolean).length;
+          count.textContent = words + (words === 1 ? ' word' : ' words');
+          if (words >= 80 && words <= 160) {
+            count.className = 'word-count ok';
+          } else {
+            count.className = '';
+          }
+        }
+        area.addEventListener('input', updateWords);
+
+        var row2 = document.createElement('div');
+        row2.className = 'btn-row';
+        var modelBtn = document.createElement('button');
+        modelBtn.type = 'button';
+        modelBtn.className = 'btn secondary';
+        modelBtn.textContent = 'Show model answer';
+        row2.appendChild(modelBtn);
+        wrap.appendChild(row2);
+
+        var feedback = document.createElement('div');
+        feedback.className = 'feedback';
+        wrap.appendChild(feedback);
+
+        modelBtn.addEventListener('click', function () {
+          var open = feedback.classList.contains('show');
+          if (open) {
+            feedback.className = 'feedback';
+            feedback.textContent = '';
+            modelBtn.textContent = 'Show model answer';
+          } else {
+            feedback.className = 'feedback show model';
+            feedback.textContent = 'Model answer: ' + item.model;
+            modelBtn.textContent = 'Hide model answer';
+          }
+        });
+
+        crqContainer.appendChild(wrap);
+      });
+
+      /* ================= ERQ ================= */
+      var erqContainer = document.getElementById('erqContainer');
+
+      (function () {
+        var wrap = document.createElement('article');
+        wrap.className = 'erq';
+
+        var title = document.createElement('h4');
+        title.textContent = 'Situation-based extended response · 10 marks';
+        wrap.appendChild(title);
+
+        var scenario = document.createElement('div');
+        scenario.className = 'scenario';
+        scenario.textContent = erq.scenario;
+        wrap.appendChild(scenario);
+
+        var task = document.createElement('p');
+        task.className = 'task';
+        task.textContent = erq.task;
+        wrap.appendChild(task);
+
+        var hint = document.createElement('p');
+        hint.className = 'hint';
+        hint.textContent = 'Hint: ' + erq.hint;
+        wrap.appendChild(hint);
+
+        var keywords = document.createElement('div');
+        keywords.className = 'keyword-row';
+        erq.keywords.forEach(function (keyword) {
+          var chip = document.createElement('span');
+          chip.className = 'keyword';
+          chip.textContent = keyword;
+          keywords.appendChild(chip);
+        });
+        wrap.appendChild(keywords);
+
+        var area = document.createElement('textarea');
+        area.placeholder = 'Plan briefly, then write your answer — aim for 250 to 350 words.';
+        area.setAttribute('aria-label', 'Extended response answer');
+        wrap.appendChild(area);
+
+        var row = document.createElement('div');
+        row.className = 'word-row';
+        var count = document.createElement('span');
+        count.textContent = '0 words';
+        var target = document.createElement('span');
+        target.textContent = 'Target: 250–350 words';
+        row.appendChild(count);
+        row.appendChild(target);
+        wrap.appendChild(row);
+
+        area.addEventListener('input', function () {
+          var words = area.value.trim().split(/\s+/).filter(Boolean).length;
+          count.textContent = words + (words === 1 ? ' word' : ' words');
+        });
+
+        var row2 = document.createElement('div');
+        row2.className = 'btn-row';
+        var checkBtn = document.createElement('button');
+        checkBtn.type = 'button';
+        checkBtn.className = 'btn';
+        checkBtn.textContent = 'Check my coverage';
+        var modelBtn = document.createElement('button');
+        modelBtn.type = 'button';
+        modelBtn.className = 'btn secondary';
+        modelBtn.textContent = 'Show model answer';
+        row2.appendChild(checkBtn);
+        row2.appendChild(modelBtn);
+        wrap.appendChild(row2);
+
+        var feedback = document.createElement('div');
+        feedback.className = 'feedback';
+        wrap.appendChild(feedback);
+
+        checkBtn.addEventListener('click', function () {
+          var answer = area.value.toLowerCase();
+          if (!answer.trim()) {
+            feedback.className = 'feedback show partial';
+            feedback.textContent = 'Write your response first — aim for at least 250 words before self-checking.';
+            return;
+          }
+          var hits = erq.keywords.filter(function (keyword) {
+            return answer.indexOf(keyword.toLowerCase()) !== -1;
+          });
+          var missing = erq.keywords.filter(function (keyword) {
+            return hits.indexOf(keyword) === -1;
+          });
+          Array.prototype.forEach.call(keywords.querySelectorAll('.keyword'), function (chip) {
+            chip.classList.toggle('hit', hits.indexOf(chip.textContent) !== -1);
+          });
+          var ratio = hits.length / erq.keywords.length;
+          if (ratio >= 0.6) {
+            feedback.className = 'feedback show good';
+            feedback.textContent = 'Strong coverage: ' + hits.length + ' of ' + erq.keywords.length +
+              ' expected ideas present. Now tighten the structure: principle -> diagnosis -> action -> evaluation.' +
+              (missing.length ? ' Still to consider: ' + missing.join(', ') + '.' : '');
+          } else {
+            feedback.className = 'feedback show partial';
+            feedback.textContent = 'Partial coverage: ' + hits.length + ' of ' + erq.keywords.length +
+              ' expected ideas found. Add: ' + missing.join(', ') + '.';
+          }
+        });
+
+        modelBtn.addEventListener('click', function () {
+          var open = feedback.classList.contains('show') && feedback.classList.contains('model');
+          if (open) {
+            feedback.className = 'feedback';
+            feedback.textContent = '';
+            modelBtn.textContent = 'Show model answer';
+          } else {
+            feedback.className = 'feedback show model';
+            feedback.textContent = 'Model answer: ' + erq.model;
+            modelBtn.textContent = 'Hide model answer';
+          }
+        });
+
+        erqContainer.appendChild(wrap);
+      })();
+    })();
+</script>
+</body>
+</html>

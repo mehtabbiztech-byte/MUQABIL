@@ -12,6 +12,7 @@ import {
   EDUCATIONAL_PSYCHOLOGY_TOPICS,
   FOUNDATIONS_OF_EDUCATION_TOPICS,
   METHODS_OF_TEACHING_TOPICS,
+  TEST_DEVELOPMENT_TOPICS,
 } from '../data/teachingLicenseNotesData';
 
 const hubDocuments = [
@@ -234,6 +235,30 @@ const hubDocuments = [
     topicId: 'significance-of-teacher-made-tests',
     path: 'notes/classroom-assessment/significance-of-teacher-made-tests.html',
     crqs: 4,
+  },  {
+    topicId: 'tests-and-measurement',
+    path: 'notes/test-development-and-evaluation/tests-and-measurement.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'principles-of-testing',
+    path: 'notes/test-development-and-evaluation/principles-of-testing.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'domains-of-learning-standards-taxonomy-and-frameworks',
+    path: 'notes/test-development-and-evaluation/domains-of-learning-standards-taxonomy-and-frameworks.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'validity-reliability-and-characteristics-of-tests',
+    path: 'notes/test-development-and-evaluation/validity-reliability-and-characteristics-of-tests.html',
+    crqs: 4,
+  },
+  {
+    topicId: 'test-development-and-review',
+    path: 'notes/test-development-and-evaluation/test-development-and-review.html',
+    crqs: 4,
   },
 ];
 
@@ -244,6 +269,7 @@ const allHubTopics = [
   ...EDUCATIONAL_PSYCHOLOGY_TOPICS,
   ...CLASSROOM_MANAGEMENT_TOPICS,
   ...CLASSROOM_ASSESSMENT_TOPICS,
+  ...TEST_DEVELOPMENT_TOPICS,
 ];
 
 test('Master Notes Hub attaches supplied HTML to matching topics across modules', () => {
@@ -256,7 +282,7 @@ test('Master Notes Hub attaches supplied HTML to matching topics across modules'
     const topic = allHubTopics.find((item) => item.id === document.topicId)!;
     assert.equal(topic.htmlNotesPath, document.path);
   }
-  // Every Methods of Teaching, Foundations of Education, Child Development, Educational Psychology, Classroom Management and Classroom Assessment topic carries a supplied standalone note.
+  // Every Methods of Teaching, Foundations of Education, Child Development, Educational Psychology, Classroom Management, Classroom Assessment and Test Development topic carries a supplied standalone note.
   assert.equal(METHODS_OF_TEACHING_TOPICS.length, 6);
   assert.equal(METHODS_OF_TEACHING_TOPICS.filter((topic) => topic.htmlNotesPath).length, 6);
   assert.equal(FOUNDATIONS_OF_EDUCATION_TOPICS.length, 5);
@@ -272,6 +298,9 @@ test('Master Notes Hub attaches supplied HTML to matching topics across modules'
   assert.equal(CLASSROOM_ASSESSMENT_TOPICS.length, 11);
   assert.equal(CLASSROOM_ASSESSMENT_TOPICS.filter((topic) => topic.htmlNotesPath).length, 11);
   assert.ok(CLASSROOM_ASSESSMENT_TOPICS.every((topic) => topic.htmlNotesPath!.startsWith('notes/classroom-assessment/')));
+  assert.equal(TEST_DEVELOPMENT_TOPICS.length, 5);
+  assert.equal(TEST_DEVELOPMENT_TOPICS.filter((topic) => topic.htmlNotesPath).length, 5);
+  assert.ok(TEST_DEVELOPMENT_TOPICS.every((topic) => topic.htmlNotesPath!.startsWith('notes/test-development-and-evaluation/')));
   assert.equal(htmlTopics.length, hubDocuments.length);
   // Topics without a supplied document stay on the generated note body.
   assert.ok(allHubTopics

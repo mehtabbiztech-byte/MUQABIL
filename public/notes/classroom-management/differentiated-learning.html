@@ -3,1029 +3,1066 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Differentiated Learning — Classroom Management study note for the MUQABIL Teaching License hub: concepts, key vocabulary, comparison table, classroom application, misconceptions, takeaways and a practice quiz.">
   <title>Differentiated Learning · Classroom Management</title>
   <style>
-    /* ---------- GLOBAL ---------- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    /* ================= DESIGN TOKENS ================= */
+    :root {
+      --navy: #0e2a47;
+      --navy-2: #12365c;
+      --blue: #2f6ca8;
+      --blue-soft: #8bb3e0;
+      --blue-tint: #eaf2fb;
+      --mark: #dbeafe;
+      --ink: #0b2138;
+      --ink-2: #1c3f60;
+      --body: #35536f;
+      --muted: #5d7893;
+      --line: #dfe9f5;
+      --paper: #ffffff;
+      --wash: #f5faff;
+      --amber: #b8860b;
+      --amber-tint: #fff8e6;
+      --green: #1f7a4d;
+      --green-tint: #eaf8f0;
+      --red: #a83535;
+      --red-tint: #fdf1f1;
+      --shadow-sm: 0 6px 16px -10px rgba(12, 38, 66, 0.35);
+      --shadow-md: 0 18px 36px -22px rgba(12, 38, 66, 0.45);
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
     }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
 
     body {
       font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
       background: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      padding: 2rem 1rem;
-      line-height: 1.6;
-      color: #1e2b3c;
+      color: var(--body);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 4rem;
     }
 
-    .main-wrapper {
-      max-width: 1100px;
-      width: 100%;
+    /* ================= READING PROGRESS ================= */
+    .progress-track {
+      position: fixed; top: 0; left: 0; right: 0; height: 4px;
+      background: rgba(14, 42, 71, 0.08); z-index: 90;
+    }
+    .progress-fill {
+      display: block; height: 100%; width: 0%;
+      background: linear-gradient(90deg, #2f6ca8, #6aa9dd, #9cc7ee);
+      border-radius: 0 4px 4px 0; transition: width 0.12s linear;
     }
 
-    /* ---------- HEADER ---------- */
-    .header-card {
-      background: white;
-      border-radius: 2rem 2rem 1.5rem 1.5rem;
-      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
-      padding: 2rem 2rem 1.5rem 2rem;
-      margin-bottom: 1.8rem;
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      transition: transform 0.2s;
-    }
+    .shell { max-width: 1080px; margin: 0 auto; padding: 0 1.1rem; }
 
-    .header-card:hover {
-      transform: scale(1.002);
+    /* ================= HERO ================= */
+    .hero {
+      position: relative; overflow: hidden;
+      margin-top: 1.6rem;
+      border-radius: 30px;
+      padding: 2.4rem 2.2rem 3.4rem;
+      background: radial-gradient(120% 140% at 0% 0%, #163b63 0%, #0e2a47 55%, #0a1f36 100%);
+      color: #fff;
+      box-shadow: var(--shadow-md);
     }
-
+    .hero::after {
+      content: ''; position: absolute; right: -120px; top: -120px;
+      width: 340px; height: 340px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(139, 179, 224, 0.28), transparent 68%);
+      pointer-events: none;
+    }
+    .hero-top { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-bottom: 1.1rem; }
     .badge {
-      display: inline-block;
-      background: #2a4b7c;
-      color: #f0f7ff;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      padding: 0.3rem 1rem;
-      border-radius: 40px;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #eaf4ff; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      padding: 0.32rem 0.85rem; border-radius: 999px;
+    }
+    .hero-top .hero-track { font-size: 0.74rem; color: #a9c8e6; font-weight: 600; letter-spacing: 0.04em; }
+    .hero h1 {
+      font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+      line-height: 1.16; font-weight: 800; letter-spacing: -0.02em;
+      color: #ffffff; max-width: 22ch;
+    }
+    .tagline {
+      margin-top: 0.85rem; max-width: 62ch;
+      font-size: 1.02rem; color: #c9def3;
+      border-left: 3px solid var(--blue-soft); padding-left: 1rem;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.4rem; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px; padding: 0.34rem 0.8rem;
+      font-size: 0.76rem; font-weight: 600; color: #dceafa;
     }
 
-    h1 {
-      font-size: 2.1rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: #0e2a47;
-      margin-bottom: 0.4rem;
-      line-height: 1.25;
+    /* ================= BIG IDEA + OBJECTIVES ================= */
+    .brief {
+      display: grid; grid-template-columns: 1.35fr 1fr; gap: 1.1rem;
+      margin: -2.2rem 1.4rem 0; position: relative; z-index: 2;
+    }
+    .brief-card {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-lg); padding: 1.4rem 1.5rem;
+      box-shadow: var(--shadow-md);
+    }
+    .brief-label {
+      display: inline-block; margin: 0; line-height: 1.2;
+      font-size: 0.68rem; font-weight: 800;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue);
+      margin-bottom: 0.55rem;
+    }
+    .brief-card p { font-size: 0.96rem; color: var(--ink-2); }
+    .objectives { list-style: none; counter-reset: obj; display: grid; gap: 0.7rem; }
+    .objectives li {
+      position: relative; padding-left: 2.1rem; font-size: 0.9rem;
+      color: var(--ink-2); line-height: 1.55;
+    }
+    .objectives li::before {
+      counter-increment: obj; content: counter(obj);
+      position: absolute; left: 0; top: 0.05rem;
+      width: 1.4rem; height: 1.4rem; border-radius: 50%;
+      display: grid; place-items: center;
+      background: var(--blue-tint); color: var(--blue);
+      font-size: 0.72rem; font-weight: 800;
     }
 
-    .subhead {
-      font-size: 1.05rem;
-      color: #2f5277;
-      font-weight: 400;
-      border-left: 5px solid #8bb3e0;
-      padding-left: 1.2rem;
-      margin: 1rem 0 0.2rem 0;
-      font-style: italic;
+    /* ================= TABLE OF CONTENTS ================= */
+    .toc {
+      margin: 1.6rem 0 0; background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--line); border-radius: var(--radius-lg);
+      padding: 1.1rem 1.2rem; backdrop-filter: blur(4px);
     }
-
-    .intro-text {
-      background: #e6f0fc;
-      padding: 1rem 1.4rem;
-      border-radius: 1.2rem;
-      margin-top: 1.4rem;
-      font-size: 0.98rem;
-      color: #1d3a5c;
-      border-left: 5px solid #3b6ea5;
+    .toc-title {
+      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem;
     }
-
-    /* ---------- SECTION TITLE ---------- */
-    .section-title {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #0e2a47;
-      margin: 2.2rem 0 1rem 0;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
+    .toc-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0.35rem; }
+    .toc-list a {
+      display: flex; align-items: baseline; gap: 0.55rem;
+      padding: 0.42rem 0.5rem; border-radius: 10px;
+      text-decoration: none; color: var(--ink-2);
+      font-size: 0.88rem; font-weight: 600; transition: background 0.15s, color 0.15s;
     }
-
-    .section-title .line {
-      flex: 1;
-      height: 2px;
-      background: linear-gradient(90deg, #8bb3e0, transparent);
-      border-radius: 2px;
-    }
-
-    /* ---------- CARD GRID (general) ---------- */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.4rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .info-card {
-      background: white;
-      border-radius: 1.6rem;
-      padding: 1.5rem 1.4rem 1.4rem 1.4rem;
-      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
-      transition: all 0.25s ease;
-      border: 1px solid #e3ecf7;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .info-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 6px;
-      background: linear-gradient(90deg, #3f7cb0, #8bb3e0, #b8d4f0);
-      opacity: 0.75;
-      transition: height 0.2s;
-    }
-
-    .info-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 22px 28px -16px #1e3f5e;
-      border-color: #b8d0e9;
-    }
-
-    .info-card:hover::before {
-      height: 10px;
-      opacity: 1;
-    }
-
-    .card-icon-lg {
-      font-size: 2rem;
-      line-height: 1;
-      background: #e9f0fa;
-      width: 54px;
-      height: 54px;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .toc-list a:hover, .toc-list a:focus-visible { background: var(--blue-tint); color: var(--navy); }
+    .toc-num {
+      font-size: 0.68rem; font-weight: 800; color: var(--blue);
+      background: var(--blue-tint); border-radius: 6px; padding: 0.1rem 0.4rem;
       flex-shrink: 0;
-      color: #1b3c61;
-      margin-bottom: 0.8rem;
-      transition: background 0.2s;
     }
 
-    .info-card:hover .card-icon-lg {
-      background: #d3e3f8;
+    /* ================= TOOLBAR / SEARCH ================= */
+    .toolbar {
+      position: sticky; top: 0; z-index: 60;
+      margin: 1.6rem 0 0.4rem; padding: 0.6rem 0;
+      background: linear-gradient(180deg, rgba(243, 246, 253, 0.97) 65%, rgba(243, 246, 253, 0));
     }
-
-    .card-title-md {
-      font-weight: 700;
-      font-size: 1.2rem;
-      color: #0e2a47;
-      letter-spacing: -0.3px;
-      line-height: 1.3;
-      margin-bottom: 0.5rem;
+    .toolbar-inner {
+      display: flex; align-items: center; gap: 0.7rem;
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: 999px; padding: 0.45rem 0.55rem 0.45rem 1rem;
+      box-shadow: var(--shadow-sm);
     }
-
-    .card-desc-sm {
-      font-size: 0.93rem;
-      color: #274e73;
-      line-height: 1.6;
-      opacity: 0.94;
-      flex: 1;
-    }
-
-    /* ---------- STRATEGY CARDS ---------- */
-    .strategy-card {
-      background: white;
-      border-radius: 1.6rem;
-      padding: 1.5rem 1.5rem 1.4rem 1.5rem;
-      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
-      transition: all 0.25s ease;
-      border: 1px solid #e3ecf7;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .strategy-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 6px;
-      background: linear-gradient(90deg, #3f7cb0, #8bb3e0, #b8d4f0);
-      opacity: 0.75;
-      transition: height 0.2s;
-    }
-
-    .strategy-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 22px 28px -16px #1e3f5e;
-      border-color: #b8d0e9;
-    }
-
-    .strategy-card:hover::before {
-      height: 10px;
-      opacity: 1;
-    }
-
-    .strategy-num {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: white;
-      background: #0e2a47;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 0.6rem;
-    }
-
-    .strategy-title {
-      font-weight: 700;
-      font-size: 1.15rem;
-      color: #0e2a47;
-      margin-bottom: 0.4rem;
-    }
-
-    .strategy-concept {
-      font-size: 0.91rem;
-      color: #274e73;
-      margin-bottom: 0.8rem;
-      line-height: 1.55;
-    }
-
-    .impact-block {
-      background: #f6faff;
-      border-radius: 1rem;
-      padding: 0.8rem 1rem;
-      margin-top: auto;
-      border-left: 5px solid #3b7bb5;
-      font-size: 0.88rem;
-      color: #183c5e;
-      box-shadow: inset 0 0 0 1px #d9e8fc;
-      transition: background 0.2s;
-    }
-
-    .strategy-card:hover .impact-block {
-      background: #ecf4fe;
-    }
-
-    .impact-label {
-      display: inline-block;
-      font-weight: 700;
-      color: #1a4b7a;
-      font-size: 0.7rem;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      margin-bottom: 0.3rem;
-      background: #d7e6fa;
-      padding: 0.1rem 0.7rem;
-      border-radius: 30px;
-    }
-
-    /* ---------- DO / DON'T ---------- */
-    .dodont-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.2rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .do-card, .dont-card {
-      border-radius: 1.6rem;
-      padding: 1.5rem 1.5rem;
-      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.12);
-      border: 1px solid;
-    }
-
-    .do-card {
-      background: #f0faf4;
-      border-color: #b8e0c8;
-    }
-
-    .dont-card {
-      background: #fdf6f6;
-      border-color: #e8c8c8;
-    }
-
-    .do-card h3, .dont-card h3 {
-      font-size: 1.15rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .do-card h3 { color: #1b6e3e; }
-    .dont-card h3 { color: #a83535; }
-
-    .do-card ul, .dont-card ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .do-card li, .dont-card li {
-      padding: 0.45rem 0 0.45rem 1.7rem;
-      position: relative;
-      font-size: 0.92rem;
-      line-height: 1.55;
-      color: #1e3c5a;
-    }
-
-    .do-card li::before {
-      content: '✔';
-      position: absolute;
-      left: 0;
-      color: #2e9b5e;
-      font-weight: 700;
-    }
-
-    .dont-card li::before {
-      content: '✘';
-      position: absolute;
-      left: 0;
-      color: #d45a5a;
-      font-weight: 700;
-    }
-
-    /* ---------- KEY TAKEAWAY ---------- */
-    .takeaway-card {
-      background: #0e2a47;
-      color: white;
-      border-radius: 1.6rem;
-      padding: 1.6rem 2rem;
-      margin: 1.5rem 0 0.5rem 0;
-      font-size: 1rem;
-      line-height: 1.6;
-      box-shadow: 0 14px 26px -12px #0e2a47;
-      border-left: 6px solid #8bb3e0;
-    }
-
-    .takeaway-card strong {
-      color: #b8d4f0;
-    }
-
-    /* ---------- SEARCH & COUNT ---------- */
-    .filter-section {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1.5rem;
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(8px);
-      padding: 0.8rem 1.5rem;
-      border-radius: 60px;
-      box-shadow: 0 8px 18px -8px rgba(0, 27, 45, 0.1);
-    }
-
-    .search-box {
-      display: flex;
-      align-items: center;
-      background: white;
-      border-radius: 40px;
-      padding: 0.3rem 0.3rem 0.3rem 1.2rem;
-      flex: 2;
-      min-width: 240px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
-      border: 1px solid #ccdcee;
-    }
-
-    .search-box span {
-      font-size: 1.1rem;
-      margin-right: 0.5rem;
-      color: #4e6b8a;
-    }
-
+    .search-box { display: flex; align-items: center; gap: 0.55rem; flex: 1; min-width: 0; }
+    .search-box span { font-size: 0.95rem; opacity: 0.7; }
     .search-box input {
-      border: none;
-      padding: 0.7rem 0.2rem;
-      width: 100%;
-      font-size: 0.95rem;
-      outline: none;
-      background: transparent;
-      color: #0c253b;
+      border: none; outline: none; background: transparent;
+      font: inherit; font-size: 0.92rem; color: var(--ink);
+      width: 100%; padding: 0.3rem 0;
     }
-
-    .search-box input::placeholder {
-      color: #879eb6;
-      font-weight: 300;
-    }
-
+    .search-box input::placeholder { color: #93a8bd; }
     .count-pill {
-      background: #0e2a47;
-      color: white;
-      padding: 0.4rem 1.2rem;
-      border-radius: 30px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      white-space: nowrap;
+      flex-shrink: 0; background: var(--navy); color: #fff;
+      font-size: 0.75rem; font-weight: 700;
+      padding: 0.4rem 0.85rem; border-radius: 999px; white-space: nowrap;
     }
 
-    /* ---------- QUIZ SECTION ---------- */
-    .quiz-section {
-      margin-top: 2.5rem;
+    /* ================= SECTION HEADERS ================= */
+    .section { margin-top: 3rem; scroll-margin-top: 90px; }
+    .section-head { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.3rem; }
+    .section-num {
+      flex-shrink: 0; width: 46px; height: 46px; border-radius: 15px;
+      display: grid; place-items: center;
+      background: var(--navy); color: #fff;
+      font-size: 0.9rem; font-weight: 800; letter-spacing: 0.02em;
+      box-shadow: 0 8px 18px -10px rgba(14, 42, 71, 0.9);
+    }
+    .eyebrow {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 0.18rem;
+    }
+    .section-head h2 {
+      font-size: clamp(1.25rem, 2.2vw, 1.6rem); font-weight: 800;
+      color: var(--ink); letter-spacing: -0.015em; line-height: 1.25;
+    }
+    .section-lead {
+      margin-top: 0.3rem; font-size: 0.92rem; color: var(--muted); max-width: 68ch;
     }
 
-    .quiz-header {
-      background: #0e2a47;
-      border-radius: 2rem 2rem 0 0;
-      padding: 1.5rem 2rem;
-      color: white;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
+    /* ================= CONCEPT CARDS ================= */
+    .concept-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
+    .concept-card {
+      position: relative; display: flex; flex-direction: column;
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-md); padding: 1.25rem 1.25rem 1.1rem;
+      box-shadow: var(--shadow-sm); overflow: hidden;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+    .concept-card::before {
+      content: ''; position: absolute; inset: 0 0 auto 0; height: 4px;
+      background: linear-gradient(90deg, var(--blue), var(--blue-soft), #cfe2f5);
+    }
+    .concept-card:hover {
+      transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: #c4dcf2;
+    }
+    .concept-top { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; }
+    .concept-icon {
+      width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center;
+      background: var(--blue-tint); font-size: 1.2rem;
+    }
+    .concept-index {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em;
+      color: #9fb6cc; border: 1px solid var(--line); border-radius: 999px;
+      padding: 0.12rem 0.5rem;
+    }
+    .concept-title {
+      margin: 0.75rem 0 0.4rem; font-size: 1.02rem; font-weight: 800;
+      color: var(--ink); line-height: 1.35;
+    }
+    .concept-desc { font-size: 0.9rem; color: var(--body); }
+    .concept-desc strong, .vocab-def strong, .myth-reality strong, .takeaways strong, .lead-para strong {
+      color: #0a3a68; font-weight: 700;
+      background: linear-gradient(transparent 64%, var(--mark) 64%);
+      padding: 0 1px; border-radius: 2px;
+    }
+    .practice {
+      margin-top: auto; padding-top: 0.9rem;
+    }
+    .practice-box {
+      background: var(--wash); border: 1px solid #e2eefa;
+      border-left: 3px solid var(--blue); border-radius: 10px;
+      padding: 0.65rem 0.8rem;
+    }
+    .practice-label {
+      display: block; font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue);
+      margin-bottom: 0.18rem;
+    }
+    .practice-box p { font-size: 0.85rem; color: var(--ink-2); line-height: 1.5; }
+
+    /* ================= VOCABULARY ================= */
+    .vocab-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 0.75rem; margin: 0;
+    }
+    .vocab-card {
+      background: var(--paper); border: 1px solid var(--line);
+      border-left: 4px solid var(--blue-soft);
+      border-radius: var(--radius-sm); padding: 0.85rem 1rem;
+      box-shadow: 0 4px 12px -10px rgba(12, 38, 66, 0.4);
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .vocab-card:hover { border-left-color: var(--blue); transform: translateY(-2px); }
+    .vocab-term {
+      font-size: 0.9rem; font-weight: 800; color: var(--navy);
+      display: block; margin-bottom: 0.22rem; line-height: 1.35;
+    }
+    .vocab-def { font-size: 0.85rem; color: var(--body); line-height: 1.55; }
+
+    /* ================= TABLE ================= */
+    .table-shell {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .table-caption {
+      display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+      padding: 0.9rem 1.1rem; border-bottom: 1px solid var(--line);
+      background: #fbfdff;
+    }
+    .table-caption strong { font-size: 0.92rem; font-weight: 800; color: var(--ink); }
+    .table-caption span { font-size: 0.72rem; font-weight: 700; color: var(--muted); white-space: nowrap; }
+    .table-scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.86rem; min-width: 640px; }
+    thead th {
+      position: sticky; top: 0; z-index: 1;
+      background: var(--navy); color: #fff; text-align: left;
+      padding: 0.7rem 0.9rem; font-size: 0.76rem; font-weight: 700;
+      letter-spacing: 0.045em; text-transform: uppercase; white-space: nowrap;
+    }
+    tbody td { padding: 0.7rem 0.9rem; border-bottom: 1px solid #eef4fb; vertical-align: top; line-height: 1.5; }
+    tbody td:first-child { font-weight: 700; color: var(--navy); background: #fbfdff; }
+    tbody tr:nth-child(even) td { background: #f7fbff; }
+    tbody tr:nth-child(even) td:first-child { background: #f1f8ff; }
+    tbody tr:last-child td { border-bottom: none; }
+
+    /* ================= DO / AVOID ================= */
+    .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .dd-card {
+      border-radius: var(--radius-md); padding: 1.2rem 1.3rem;
+      border: 1px solid; box-shadow: var(--shadow-sm);
+    }
+    .dd-card.do { background: var(--green-tint); border-color: #bfe6d1; }
+    .dd-card.avoid { background: var(--red-tint); border-color: #efc9c9; }
+    .dd-card h3 {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.95rem; font-weight: 800; margin-bottom: 0.8rem;
+      letter-spacing: 0.01em;
+    }
+    .dd-card.do h3 { color: var(--green); }
+    .dd-card.avoid h3 { color: var(--red); }
+    .dd-card ul { list-style: none; display: grid; gap: 0.45rem; }
+    .dd-card li { position: relative; padding-left: 1.45rem; font-size: 0.87rem; color: var(--ink-2); line-height: 1.55; }
+    .dd-card.do li::before { content: '✔'; position: absolute; left: 0; color: var(--green); font-weight: 800; }
+    .dd-card.avoid li::before { content: '✕'; position: absolute; left: 0; color: var(--red); font-weight: 800; }
+
+    /* ================= MYTHS ================= */
+    .myth-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
+    .myth-card {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-md); padding: 1.1rem 1.2rem;
+      box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 0.55rem;
+    }
+    .myth-tag {
+      align-self: flex-start; display: inline-flex; align-items: center; gap: 0.35rem;
+      background: var(--red-tint); color: var(--red); border: 1px solid #f0cfcf;
+      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.18rem 0.55rem; border-radius: 999px;
+    }
+    .myth-claim { font-size: 0.93rem; font-weight: 700; color: var(--ink); line-height: 1.45; }
+    .myth-reality {
+      border-top: 1px dashed var(--line); padding-top: 0.55rem;
+      font-size: 0.86rem; color: var(--body);
+    }
+    .reality-tag {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      color: var(--green); font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.2rem;
     }
 
-    .quiz-header h2 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      letter-spacing: -0.3px;
+    /* ================= TAKEAWAYS ================= */
+    .takeaways {
+      background: linear-gradient(135deg, #12365c 0%, #0e2a47 100%);
+      color: #eaf4ff; border-radius: var(--radius-lg);
+      padding: 1.6rem 1.7rem; box-shadow: var(--shadow-md);
+      counter-reset: take;
     }
-
-    .quiz-header .quiz-badge {
-      background: #8bb3e0;
-      color: #0e2a47;
-      padding: 0.3rem 1.2rem;
-      border-radius: 40px;
-      font-size: 0.85rem;
-      font-weight: 700;
+    .takeaways h3 {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.16em;
+      text-transform: uppercase; color: #9cc7ee; margin-bottom: 0.9rem;
     }
-
-    .quiz-body {
-      background: white;
-      border-radius: 0 0 2rem 2rem;
-      padding: 2rem;
-      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
-      border: 1px solid #e3ecf7;
-      border-top: none;
+    .takeaways ol { list-style: none; display: grid; gap: 0.6rem; }
+    .takeaways li {
+      counter-increment: take; position: relative; padding-left: 2.2rem;
+      font-size: 0.9rem; line-height: 1.55;
     }
-
-    .quiz-tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-bottom: 2rem;
-      border-bottom: 2px solid #e3ecf7;
-      padding-bottom: 1rem;
+    .takeaways li::before {
+      content: counter(take, decimal-leading-zero);
+      position: absolute; left: 0; top: 0.12rem;
+      font-size: 0.72rem; font-weight: 800; color: #8bb3e0;
+      border: 1px solid rgba(139, 179, 224, 0.4);
+      border-radius: 6px; padding: 0.05rem 0.35rem;
     }
+    .takeaways strong { color: #ffffff; background: none; }
 
+    /* ================= SUMMARY + EXAM TIP ================= */
+    .summary {
+      margin-top: 1rem; display: flex; gap: 0.9rem;
+      background: var(--paper); border: 1px solid var(--line);
+      border-left: 5px solid var(--blue);
+      border-radius: var(--radius-md); padding: 1.1rem 1.3rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .summary-label {
+      flex-shrink: 0; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--blue);
+      writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);
+    }
+    .summary p { font-size: 0.95rem; color: var(--ink-2); }
+
+    .exam-tip {
+      margin-top: 1rem; display: flex; gap: 0.8rem;
+      background: var(--amber-tint); border: 1px solid #f2e0b3;
+      border-radius: var(--radius-md); padding: 1rem 1.2rem;
+    }
+    .exam-tip .tip-icon { font-size: 1.1rem; line-height: 1.4; }
+    .exam-tip .tip-label {
+      display: block; font-size: 0.64rem; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--amber); margin-bottom: 0.15rem;
+    }
+    .exam-tip p { font-size: 0.88rem; color: #6b5310; }
+
+    /* ================= QUIZ ================= */
+    .quiz {
+      margin-top: 3rem; border-radius: var(--radius-lg);
+      overflow: hidden; box-shadow: var(--shadow-md); scroll-margin-top: 90px;
+    }
+    .quiz-head {
+      background: radial-gradient(120% 140% at 100% 0%, #1a4470 0%, #0e2a47 62%);
+      color: #fff; padding: 1.5rem 1.7rem;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.9rem;
+    }
+    .quiz-head .eyebrow { color: #9cc7ee; }
+    .quiz-head h2 { font-size: 1.35rem; font-weight: 800; color: #fff; }
+    .quiz-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .quiz-chips span {
+      background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px; padding: 0.28rem 0.7rem; font-size: 0.74rem; font-weight: 700; color: #dceafa;
+    }
+    .quiz-body { background: var(--paper); padding: 1.5rem 1.7rem 1.8rem; }
+
+    .quiz-tabs { display: flex; flex-wrap: wrap; gap: 0.45rem; border-bottom: 1px solid var(--line); padding-bottom: 0.9rem; margin-bottom: 1.2rem; }
     .quiz-tab {
-      background: #f0f5fd;
-      border: 1px solid #d0e0f0;
-      color: #1b4670;
-      padding: 0.5rem 1.3rem;
-      border-radius: 40px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
+      font: inherit; font-size: 0.84rem; font-weight: 700; cursor: pointer;
+      color: var(--ink-2); background: #f2f7fd; border: 1px solid var(--line);
+      border-radius: 999px; padding: 0.42rem 1rem; transition: all 0.15s;
     }
+    .quiz-tab:hover { background: var(--blue-tint); border-color: #bcd8f0; }
+    .quiz-tab.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+    .quiz-tab:focus-visible { outline: 3px solid rgba(47, 108, 168, 0.35); outline-offset: 2px; }
 
-    .quiz-tab:hover {
-      background: #e0ecfc;
-      border-color: #a0c0e0;
-    }
-
-    .quiz-tab.active {
-      background: #0e2a47;
-      color: white;
-      border-color: #0e2a47;
-    }
-
-    .quiz-panel {
-      display: none;
-    }
-
-    .quiz-panel.active {
-      display: block;
-    }
-
+    .quiz-panel { display: none; }
+    .quiz-panel.active { display: block; }
+    .panel-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem; margin-bottom: 1rem; }
     .section-label {
-      display: inline-block;
-      background: #0e2a47;
-      color: white;
-      padding: 0.3rem 1rem;
-      border-radius: 40px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 1.2rem;
+      display: inline-block; background: var(--navy); color: #fff;
+      font-size: 0.66rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.28rem 0.75rem; border-radius: 999px;
+    }
+    .score-chip {
+      font-size: 0.76rem; font-weight: 700; color: var(--blue);
+      background: var(--blue-tint); border-radius: 999px; padding: 0.28rem 0.8rem;
     }
 
-    /* MCQ */
     .mcq-item {
-      background: #f9fcff;
-      border-radius: 1.2rem;
-      padding: 1.3rem 1.5rem;
-      margin-bottom: 1.2rem;
-      border: 1px solid #d9e8fc;
-      transition: background 0.2s;
+      background: #fbfdff; border: 1px solid #e4eefa;
+      border-radius: var(--radius-md); padding: 1rem 1.1rem; margin-bottom: 0.85rem;
     }
-
-    .mcq-item:hover {
-      background: #f0f7fe;
-    }
-
     .mcq-question {
-      font-weight: 600;
-      font-size: 1rem;
-      color: #0e2a47;
-      margin-bottom: 0.8rem;
-      line-height: 1.5;
+      display: flex; gap: 0.6rem; font-size: 0.93rem; font-weight: 700;
+      color: var(--ink); line-height: 1.5; margin-bottom: 0.75rem;
     }
-
-    .mcq-options {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
+    .mcq-question .q-num { color: var(--blue); font-weight: 800; }
+    .mcq-options { display: grid; gap: 0.45rem; }
     .mcq-option {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.6rem;
-      padding: 0.6rem 0.9rem;
-      border-radius: 0.8rem;
-      background: white;
-      border: 1.5px solid #d9e8fc;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-size: 0.93rem;
-      color: #1e3c5a;
+      display: flex; align-items: flex-start; gap: 0.6rem; width: 100%;
+      text-align: left; font: inherit; font-size: 0.87rem; color: var(--ink-2);
+      background: #fff; border: 1.5px solid #e2edf9; border-radius: 11px;
+      padding: 0.55rem 0.75rem; cursor: pointer; transition: all 0.15s;
     }
-
-    .mcq-option:hover {
-      border-color: #8bb3e0;
-      background: #eef6ff;
+    .mcq-option:hover:not(:disabled) { border-color: #b7d4ee; background: #f7fbff; }
+    .mcq-option:disabled { cursor: default; }
+    .option-letter {
+      flex-shrink: 0; width: 1.35rem; height: 1.35rem; border-radius: 50%;
+      display: grid; place-items: center; font-size: 0.7rem; font-weight: 800;
+      background: #eef5fd; color: var(--blue);
     }
-
-    .mcq-option.selected {
-      border-color: #3b7bb5;
-      background: #e4f0fe;
-      font-weight: 500;
-    }
-
-    .mcq-option.correct {
-      border-color: #2e9b5e;
-      background: #e6f7ee;
-      font-weight: 600;
-    }
-
-    .mcq-option.incorrect {
-      border-color: #d45a5a;
-      background: #fdeaea;
-      font-weight: 500;
-    }
-
-    .mcq-option .option-letter {
-      font-weight: 700;
-      color: #2a4b7c;
-      min-width: 1.4rem;
-      text-align: center;
-      flex-shrink: 0;
-    }
-
-    .mcq-option.correct .option-letter { color: #1b7a44; }
-    .mcq-option.incorrect .option-letter { color: #b03030; }
-
+    .mcq-option.correct { border-color: #7fc7a1; background: var(--green-tint); font-weight: 600; }
+    .mcq-option.correct .option-letter { background: #cdeedb; color: #14603c; }
+    .mcq-option.incorrect { border-color: #e0a3a3; background: var(--red-tint); }
+    .mcq-option.incorrect .option-letter { background: #f4d4d4; color: #8f2b2b; }
     .mcq-feedback {
-      margin-top: 0.7rem;
-      font-size: 0.88rem;
-      padding: 0.5rem 0.9rem;
-      border-radius: 0.8rem;
-      display: none;
-      font-weight: 500;
+      display: none; margin-top: 0.65rem; font-size: 0.85rem;
+      border-radius: 10px; padding: 0.55rem 0.8rem; line-height: 1.5;
     }
-
     .mcq-feedback.show { display: block; }
-    .mcq-feedback.correct-fb {
-      background: #e6f7ee;
-      color: #1b6e3e;
-      border-left: 4px solid #2e9b5e;
-    }
-    .mcq-feedback.incorrect-fb {
-      background: #fdeaea;
-      color: #9e2a2a;
-      border-left: 4px solid #d45a5a;
-    }
+    .mcq-feedback.correct-fb { background: var(--green-tint); color: #14603c; border-left: 3px solid #2e9b5e; }
+    .mcq-feedback.incorrect-fb { background: var(--red-tint); color: #8f2b2b; border-left: 3px solid #d45a5a; }
 
-    /* CRQ / ERQ shared */
     .crq-item, .erq-item {
-      background: #f9fcff;
-      border-radius: 1.2rem;
-      padding: 1.3rem 1.5rem;
-      margin-bottom: 1.2rem;
-      border: 1px solid #d9e8fc;
+      background: #fbfdff; border: 1px solid #e4eefa;
+      border-radius: var(--radius-md); padding: 1.1rem 1.2rem; margin-bottom: 0.9rem;
     }
-
-    .erq-item {
-      border: 2px solid #8bb3e0;
-      background: #f5faff;
-    }
-
+    .erq-item { border: 2px solid var(--blue-soft); background: #f7fbff; }
     .crq-question, .erq-question {
-      font-weight: 600;
-      font-size: 1rem;
-      color: #0e2a47;
-      margin-bottom: 0.5rem;
-      line-height: 1.5;
+      font-size: 0.95rem; font-weight: 700; color: var(--ink); line-height: 1.5; margin-bottom: 0.4rem;
     }
-
-    .erq-question {
-      font-size: 1.05rem;
-      font-weight: 700;
-    }
-
     .erq-marks {
-      display: inline-block;
-      background: #0e2a47;
-      color: white;
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 0.2rem 0.9rem;
-      border-radius: 40px;
-      margin-bottom: 0.8rem;
+      display: inline-block; background: var(--navy); color: #fff;
+      font-size: 0.65rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.22rem 0.7rem; border-radius: 999px; margin-bottom: 0.6rem;
     }
-
-    .crq-hint {
-      font-size: 0.85rem;
-      color: #4e6b8a;
-      font-style: italic;
-      margin-bottom: 0.7rem;
-    }
-
+    .crq-hint { font-size: 0.82rem; color: var(--muted); font-style: italic; margin-bottom: 0.6rem; }
     .crq-textarea, .erq-textarea {
-      width: 100%;
-      border: 1.5px solid #d9e8fc;
-      border-radius: 0.9rem;
-      padding: 0.8rem 1rem;
-      font-family: inherit;
-      font-size: 0.93rem;
-      color: #1e3c5a;
-      resize: vertical;
-      transition: border-color 0.2s;
-      background: white;
+      width: 100%; font: inherit; font-size: 0.88rem; color: var(--ink-2);
+      background: #fff; border: 1.5px solid #dbe8f6; border-radius: 11px;
+      padding: 0.7rem 0.85rem; resize: vertical; transition: border-color 0.15s, box-shadow 0.15s;
     }
-
-    .crq-textarea { min-height: 90px; }
-    .erq-textarea { min-height: 160px; }
-
+    .crq-textarea { min-height: 96px; }
+    .erq-textarea { min-height: 170px; }
     .crq-textarea:focus, .erq-textarea:focus {
-      outline: none;
-      border-color: #3b7bb5;
-      box-shadow: 0 0 0 3px rgba(59, 123, 181, 0.12);
+      outline: none; border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(47, 108, 168, 0.13);
     }
-
-    .crq-actions, .erq-actions {
-      display: flex;
-      gap: 0.7rem;
-      margin-top: 0.7rem;
-      flex-wrap: wrap;
+    .answer-meta {
+      display: flex; justify-content: space-between; gap: 0.6rem;
+      font-size: 0.74rem; color: var(--muted); margin-top: 0.35rem;
     }
-
+    .actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.65rem; }
     .btn {
-      padding: 0.55rem 1.4rem;
-      border-radius: 40px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      border: none;
-      font-family: inherit;
+      font: inherit; font-size: 0.83rem; font-weight: 700; cursor: pointer;
+      border-radius: 999px; padding: 0.48rem 1.1rem; border: 1px solid transparent;
+      transition: all 0.15s;
     }
-
-    .btn-primary {
-      background: #0e2a47;
-      color: white;
-    }
-    .btn-primary:hover {
-      background: #1a4170;
-      transform: translateY(-1px);
-    }
-
-    .btn-secondary {
-      background: #e9f0fa;
-      color: #1b4670;
-      border: 1px solid #c0d8f0;
-    }
-    .btn-secondary:hover { background: #d8e6f8; }
-
+    .btn-primary { background: var(--navy); color: #fff; }
+    .btn-primary:hover { background: #16406c; transform: translateY(-1px); }
+    .btn-secondary { background: #eef5fd; color: #1b4670; border-color: #cfe2f4; }
+    .btn-secondary:hover { background: #e0edfa; }
+    .btn:focus-visible { outline: 3px solid rgba(47, 108, 168, 0.35); outline-offset: 2px; }
     .crq-feedback, .erq-feedback {
-      margin-top: 0.8rem;
-      padding: 0.8rem 1rem;
-      border-radius: 0.9rem;
-      font-size: 0.9rem;
-      display: none;
-      line-height: 1.6;
+      display: none; margin-top: 0.7rem; border-radius: 10px;
+      padding: 0.7rem 0.9rem; font-size: 0.86rem; line-height: 1.6;
     }
-
     .crq-feedback.show, .erq-feedback.show { display: block; }
+    .crq-feedback.model, .erq-feedback.model { background: var(--blue-tint); color: #143c62; border-left: 3px solid var(--blue); }
+    .crq-feedback.good, .erq-feedback.good { background: var(--green-tint); color: #14603c; border-left: 3px solid #2e9b5e; }
+    .crq-feedback.partial, .erq-feedback.partial { background: var(--amber-tint); color: #6b5310; border-left: 3px solid #e0a800; }
 
-    .crq-feedback.good, .erq-feedback.good {
-      background: #e6f7ee;
-      color: #1b6e3e;
-      border-left: 4px solid #2e9b5e;
+    /* ================= FOOTER + TOP BUTTON ================= */
+    .note-footer {
+      margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid var(--line);
+      display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem;
+      font-size: 0.76rem; color: var(--muted);
+    }
+    .to-top {
+      position: fixed; right: 1.1rem; bottom: 1.1rem; z-index: 70;
+      width: 44px; height: 44px; border-radius: 50%; border: none; cursor: pointer;
+      background: var(--navy); color: #fff; font-size: 1.05rem;
+      box-shadow: var(--shadow-md); opacity: 0; pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .to-top.visible { opacity: 1; pointer-events: auto; }
+    .to-top:hover { transform: translateY(-2px); }
+
+    .no-results {
+      grid-column: 1 / -1; text-align: center; padding: 2rem 1rem;
+      background: rgba(255, 255, 255, 0.8); border: 2px dashed #c3d8ee;
+      border-radius: var(--radius-md); color: var(--muted); font-weight: 600; font-size: 0.9rem;
     }
 
-    .crq-feedback.partial, .erq-feedback.partial {
-      background: #fff8e6;
-      color: #8a6d1f;
-      border-left: 4px solid #e0a800;
-    }
-
-    .erq-feedback.model {
-      background: #e6f0fc;
-      color: #1a3e62;
-      border-left: 5px solid #3b7bb5;
-    }
-
-    /* ---------- RESPONSIVE ---------- */
-    @media (max-width: 700px) {
-      .dodont-grid { grid-template-columns: 1fr; }
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 900px) {
+      .brief { grid-template-columns: 1fr; margin: -1.6rem 0.8rem 0; }
+      .do-dont { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 600px) {
-      .header-card { padding: 1.5rem 1.2rem; }
-      h1 { font-size: 1.7rem; }
-      .filter-section {
-        flex-direction: column;
-        align-items: stretch;
-        border-radius: 2rem;
-        padding: 1rem;
+      .hero { padding: 1.7rem 1.25rem 2.8rem; border-radius: 24px; }
+      .hero h1 { max-width: none; }
+      .brief { margin: -1.4rem 0.5rem 0; }
+      .brief-card { padding: 1.1rem 1.15rem; border-radius: 18px; }
+      .section-head { gap: 0.7rem; }
+      .section-num { width: 38px; height: 38px; border-radius: 12px; font-size: 0.8rem; }
+      .concept-grid, .vocab-grid, .myth-grid { grid-template-columns: 1fr; }
+      .toolbar-inner { border-radius: 18px; padding: 0.55rem 0.75rem; }
+      .quiz-body { padding: 1.1rem 1rem 1.4rem; }
+      .quiz-head { padding: 1.2rem 1.1rem; }
+      .takeaways { padding: 1.2rem 1.1rem; }
+      .summary { flex-direction: column; gap: 0.5rem; }
+      .summary-label { writing-mode: horizontal-tb; transform: none; }
+    }
+
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-track { background: #e4ecf6; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: #a9c0d8; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: #7f9cba; }
+
+    ::selection { background: #cfe3f8; color: #0b2138; }
+
+    .toc-list a:focus-visible,
+    .mcq-option:focus-visible,
+    .quiz-tab:focus-visible,
+    .btn:focus-visible,
+    .to-top:focus-visible {
+      outline: 3px solid rgba(47, 108, 168, 0.4);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
       }
-      .search-box { width: 100%; }
-      .count-pill { text-align: center; padding: 0.5rem; }
-      .cards-grid { grid-template-columns: 1fr; }
-      .quiz-body { padding: 1.2rem; }
-      .quiz-header { padding: 1.2rem; }
-      .quiz-header h2 { font-size: 1.3rem; }
-      .mcq-item, .crq-item, .erq-item { padding: 1rem; }
-      .quiz-tab { font-size: 0.8rem; padding: 0.4rem 1rem; }
     }
 
-    ::-webkit-scrollbar { width: 10px; }
-    ::-webkit-scrollbar-track { background: #dfe9f5; border-radius: 20px; }
-    ::-webkit-scrollbar-thumb { background: #94b0d1; border-radius: 20px; }
-    ::-webkit-scrollbar-thumb:hover { background: #6d8fb4; }
-
-    .no-results {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 3rem 1rem;
-      background: #ffffffc9;
-      border-radius: 2rem;
-      font-size: 1.1rem;
-      color: #4b6888;
-      border: 2px dashed #b8cee8;
-      font-weight: 500;
+    /* ================= PRINT ================= */
+    @media print {
+      body { background: #fff; padding: 0; }
+      .progress-track, .toolbar, .to-top, .quiz-tabs { display: none !important; }
+      .hero { box-shadow: none; border-radius: 0; }
+      .quiz-panel { display: block !important; }
+      .concept-card, .vocab-card, .myth-card, .table-shell { break-inside: avoid; }
     }
-
-    /* ---------- TABLES ---------- */
-    .table-wrapper {
-      background: white;
-      border-radius: 1.6rem;
-      padding: 1.2rem;
-      border: 1px solid #e3ecf7;
-      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
-      overflow-x: auto;
-      margin-bottom: 0.5rem;
-    }
-
-    .table-wrapper table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9rem;
-      min-width: 620px;
-    }
-
-    .table-wrapper caption {
-      text-align: left;
-      font-weight: 700;
-      color: #0e2a47;
-      font-size: 0.95rem;
-      padding: 0.2rem 0.2rem 0.8rem 0.2rem;
-    }
-
-    .table-wrapper thead th {
-      background: #0e2a47;
-      color: #ffffff;
-      text-align: left;
-      padding: 0.75rem 0.9rem;
-      font-weight: 700;
-      font-size: 0.85rem;
-      letter-spacing: 0.2px;
-    }
-
-    .table-wrapper tbody td {
-      padding: 0.75rem 0.9rem;
-      border-bottom: 1px solid #e3ecf7;
-      vertical-align: top;
-      color: #274e73;
-      line-height: 1.55;
-    }
-
-    .table-wrapper tbody tr:nth-child(even) { background: #f7faff; }
-    .table-wrapper tbody tr:last-child td { border-bottom: none; }
-
-    /* ---------- SUMMARY STRIP ---------- */
-    .summary-card {
-      background: #e6f0fc;
-      border-left: 6px solid #3b7cb0;
-      border-radius: 1.4rem;
-      padding: 1.3rem 1.6rem;
-      margin-top: 1rem;
-      font-size: 1rem;
-      color: #1d3a5c;
-      box-shadow: inset 0 0 0 1px #d9e8fc;
-    }
-
-    .summary-card strong { color: #0e2a47; }
-
-    .takeaway-card ul { margin: 0; padding-left: 1.2rem; }
-    .takeaway-card li { margin-bottom: 0.45rem; }
 
   </style>
 </head>
 <body>
-  <div class="main-wrapper">
-    <!-- ================= HEADER ================= -->
-    <div class="header-card">
-      <span class="badge">🏫 Classroom Management</span>
+  <div class="progress-track" aria-hidden="true"><span class="progress-fill" id="progressFill"></span></div>
+
+  <div class="shell">
+    <!-- ================= HERO ================= -->
+    <header class="hero">
+      <div class="hero-top">
+        <span class="badge">🏫 Classroom Management</span>
+        <span class="hero-track">Teaching License · Part II · Note 10 of 10</span>
+      </div>
       <h1>Differentiated Learning</h1>
-      <p class="subhead">Same destination, different routes — differentiation is how one teacher manages a class of thirty different learners</p>
-      <div class="intro-text"><strong>💡 Core idea:</strong> Differentiated learning is the deliberate adaptation of content, process, product and environment in response to learner readiness, interests and learning profiles, so that every learner works just beyond their current level with the support they need. It is not individual lesson plans for every child, and it is not lowering standards: it is maintaining a common, high learning goal while varying the route, the support and the demonstration of mastery.</div>
+      <p class="tagline">Same destination, different routes — differentiation is how one teacher manages a class of thirty different learners</p>
+      <div class="chips">
+        <span class="chip">⏱️ 9 min read</span>
+        <span class="chip">📚 7 sections</span>
+        <span class="chip">🔑 12 key terms</span>
+        <span class="chip">📝 10 MCQs · 4 CRQs · 1 ERQ</span>
+      </div>
+    </header>
+
+    <!-- ================= BIG IDEA + OBJECTIVES ================= -->
+    <div class="brief">
+      <section class="brief-card" aria-labelledby="bigidea-title">
+        <h2 class="brief-label" id="bigidea-title">The big idea</h2>
+        <p>Differentiated learning is the deliberate adaptation of content, process, product and environment in response to learner <strong>readiness</strong>, <strong>interests</strong> and <strong>learning profiles</strong>, so that every learner works just beyond their current level with the support they need. It is not individual lesson plans for every child, and it is not lowering standards: it is maintaining a common, high learning goal while varying the route, the support and the demonstration of mastery.</p>
+      </section>
+      <section class="brief-card" aria-labelledby="objectives-title">
+        <h2 class="brief-label" id="objectives-title">What you will master</h2>
+        <ol class="objectives"><li>Apply Tomlinson’s model: three entry points and four elements to differentiate.</li><li>Plan a lesson using <strong>pre-assessment</strong>, <strong>tiered tasks</strong> and flexible regrouping.</li><li>Distinguish <strong>accommodation</strong> from <strong>modification</strong>, and <strong>enrichment</strong> from more-of-the-same.</li></ol>
+      </section>
     </div>
+
+    <!-- ================= TABLE OF CONTENTS ================= -->
+    <nav class="toc" aria-label="Sections in this note">
+      <p class="toc-title">On this page</p>
+      <ol class="toc-list">
+        <li><a href="#concepts"><span class="toc-num">01</span> Core concepts</a></li>
+        <li><a href="#vocabulary"><span class="toc-num">02</span> Key vocabulary</a></li>
+        <li><a href="#comparison"><span class="toc-num">03</span> Comparison table</a></li>
+        <li><a href="#application"><span class="toc-num">04</span> Classroom application</a></li>
+        <li><a href="#misconceptions"><span class="toc-num">05</span> Misconceptions</a></li>
+        <li><a href="#takeaways"><span class="toc-num">06</span> Takeaways &amp; exam tip</a></li>
+        <li><a href="#practice"><span class="toc-num">07</span> Practice quiz</a></li>
+      </ol>
+    </nav>
 
     <!-- ================= SEARCH ================= -->
-    <div class="filter-section">
-      <div class="search-box">
-        <span>🔍</span>
-        <input id="searchInput" type="search" placeholder="Search concepts and misconceptions..." aria-label="Search this note">
-      </div>
-      <div class="count-pill" id="countDisplay">10 items</div>
-    </div>
-
-    <!-- ================= CONCEPTS ================= -->
-    <h2 class="section-title">🎯 Core Concepts <span class="line"></span></h2>
-    <div class="cards-grid" id="conceptGrid">
-        <div class="info-card" data-searchable="Core principles">
-          <div class="card-icon-lg">🎯</div>
-          <div class="card-title-md">Core principles</div>
-          <div class="card-desc-sm">Differentiation is proactive, goal-driven, flexible and evidence-based. Teachers pre-assess, define a common essential learning goal, then vary tasks, support and products. Tomlinson identifies three learner entry points — readiness, interest and learning profile — and four elements to modify — content, process, product and environment.</div>
-          <div class="impact-block"><span class="impact-label">In practice</span>Write one clear objective, then design three routes to it rather than three different objectives.</div>
+    <div class="toolbar">
+      <div class="toolbar-inner">
+        <div class="search-box">
+          <span aria-hidden="true">🔍</span>
+          <input id="searchInput" type="search" placeholder="Search concepts, key terms and misconceptions…" aria-label="Search this note">
         </div>
-        <div class="info-card" data-searchable="Pre-assessment and formative evidence">
-          <div class="card-icon-lg">📊</div>
-          <div class="card-title-md">Pre-assessment and formative evidence</div>
-          <div class="card-desc-sm">Differentiation begins with evidence, not assumption: diagnostic quizzes, hinge questions, exit tickets, prior work and quick conversations reveal readiness and misconceptions, and allow grouping to change as understanding changes.</div>
-          <div class="impact-block"><span class="impact-label">In practice</span>Use a five-question hinge question after the explanation and regroup for the practice phase based on the result.</div>
-        </div>
-        <div class="info-card" data-searchable="Tiered tasks and scaffolding">
-          <div class="card-icon-lg">🧱</div>
-          <div class="card-title-md">Tiered tasks and scaffolding</div>
-          <div class="card-desc-sm">Tiered tasks address the same objective at different levels of complexity, structure or abstraction. Scaffolds — worked examples, sentence frames, graphic organisers, partially completed models, glossaries — are temporary and progressively removed.</div>
-          <div class="impact-block"><span class="impact-label">In practice</span>Offer the same word problem with a diagram and steps for one group, and without scaffolds for another, both aiming at the same concept.</div>
-        </div>
-        <div class="info-card" data-searchable="Flexible grouping and cooperative structures">
-          <div class="card-icon-lg">🔀</div>
-          <div class="card-title-md">Flexible grouping and cooperative structures</div>
-          <div class="card-desc-sm">Groups should be temporary and purpose-driven: readiness groups for targeted teaching, mixed-ability groups for discussion and peer explanation, interest groups for projects. Roles and accountability prevent group work becoming one learner’s work.</div>
-          <div class="impact-block"><span class="impact-label">In practice</span>Regroup after each formative check; keep groups fluid and avoid permanent “ability tables”.</div>
-        </div>
-        <div class="info-card" data-searchable="Universal Design for Learning and accommodations">
-          <div class="card-icon-lg">🧠</div>
-          <div class="card-title-md">Universal Design for Learning and accommodations</div>
-          <div class="card-desc-sm">UDL designs multiple means of engagement, representation and expression from the outset, benefiting all learners. Accommodations (extra time, larger print, assistive technology, reduced copying) remove barriers without changing the standard; modifications change the standard and should be individual and documented.</div>
-          <div class="impact-block"><span class="impact-label">In practice</span>Offer the response in writing, orally or as a labelled diagram where the objective is understanding, not handwriting.</div>
-        </div>
-        <div class="info-card" data-searchable="Challenge and enrichment for all">
-          <div class="card-icon-lg">🎁</div>
-          <div class="card-title-md">Challenge and enrichment for all</div>
-          <div class="card-desc-sm">Differentiation includes learners who already exceed the standard. Enrichment should deepen thinking — extension questions, open-ended investigations, teaching a peer, applying to new contexts — rather than simply assigning more of the same work.</div>
-          <div class="impact-block"><span class="impact-label">In practice</span>Replace “finish early, do twenty more sums” with “design a problem that uses the same rule in a new context”.</div>
-        </div>
-    </div>
-
-    <!-- ================= COMPARISON TABLE ================= -->
-    <h2 class="section-title">📊 Tomlinson’s Model: What to Differentiate and How <span class="line"></span></h2>
-    <div class="table-wrapper" id="compareGrid">
-      <table>
-        <caption>Tomlinson’s Model: What to Differentiate and How</caption>
-        <thead><tr><th>Element</th><th>What changes</th><th>Classroom example</th><th>Avoid</th></tr></thead>
-        <tbody>
-          <tr><td>Content</td><td>Access to knowledge, resources, vocabulary support</td><td>Two versions of a text; audio plus print; key vocabulary pre-taught</td><td>Giving weaker learners less content to think about</td></tr>
-          <tr><td>Process</td><td>How learners engage with the idea</td><td>Tiered tasks, stations, scaffolds, worked examples, peer tutoring</td><td>Only more of the same exercises</td></tr>
-          <tr><td>Product</td><td>How learning is demonstrated</td><td>Essay, poster, presentation, labelled model, oral explanation</td><td>Always requiring written output regardless of the objective</td></tr>
-          <tr><td>Environment</td><td>Climate, grouping, seating, resources</td><td>Quiet zone, flexible seating, accessible materials, cooperative roles</td><td>Permanent ability groups and public labelling</td></tr>
-          <tr><td>Readiness</td><td>Level of challenge and support</td><td>Pre-assessment, tiered tasks, targeted reteaching</td><td>Assuming prior knowledge</td></tr>
-          <tr><td>Interest</td><td>Topic, examples and choice</td><td>Choice boards, local contexts, project options</td><td>Choice that abandons the objective</td></tr>
-          <tr><td>Learning profile</td><td>Ways of accessing and expressing learning</td><td>Visual models, discussion, movement, technology</td><td>Labelling by “learning style”</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- ================= APPLICATION ================= -->
-    <h2 class="section-title">🏫 Classroom Application <span class="line"></span></h2>
-    <div class="dodont-grid" id="applyGrid">
-      <div class="do-card">
-        <h3>✅ Do this</h3>
-        <ul><li>Pre-assess readiness and misconceptions before planning the tasks.</li><li>Keep one high, shared learning goal and differentiate the route to it.</li><li>Prepare tiered tasks and scaffolds in advance, not on the spot.</li><li>Group flexibly and change groups as evidence changes.</li><li>Offer multiple ways to demonstrate the same learning.</li><li>Plan genuine enrichment for learners who already meet the standard.</li></ul>
-      </div>
-      <div class="dont-card">
-        <h3>🚫 Avoid this</h3>
-        <ul><li>Do not equate differentiation with more worksheets for fast finishers.</li><li>Do not create permanent ability groups or announce them publicly.</li><li>Do not lower the standard; adjust support and complexity instead.</li><li>Do not match instruction to claimed “learning styles” — the evidence is weak.</li><li>Do not differentiate everything; focus on the lesson’s essential learning.</li><li>Do not use support as a reward to be withdrawn punitively.</li></ul>
+        <div class="count-pill" id="countDisplay" role="status" aria-live="polite">22 items</div>
       </div>
     </div>
 
-    <!-- ================= MISCONCEPTIONS ================= -->
-    <h2 class="section-title">⚠️ Common Misconceptions <span class="line"></span></h2>
-    <div class="cards-grid" id="misGrid">
-        <div class="info-card" data-searchable="Differentiation means a separate plan for every learner.">
-          <div class="card-icon-lg">❌</div>
-          <div class="card-title-md">&ldquo;Differentiation means a separate plan for every learner.&rdquo;</div>
-          <div class="card-desc-sm">It means a small number of purposeful routes to a common goal, plus targeted support, which is manageable in a class of thirty.</div>
-        </div>        <div class="info-card" data-searchable="Differentiation lowers standards.">
-          <div class="card-icon-lg">❌</div>
-          <div class="card-title-md">&ldquo;Differentiation lowers standards.&rdquo;</div>
-          <div class="card-desc-sm">Differentiation maintains the standard and changes the support, entry point and demonstration of mastery. Lowering the standard is modification, not differentiation.</div>
-        </div>        <div class="info-card" data-searchable="Fast learners do not need differentiation.">
-          <div class="card-icon-lg">❌</div>
-          <div class="card-title-md">&ldquo;Fast learners do not need differentiation.&rdquo;</div>
-          <div class="card-desc-sm">Learners who already meet the standard need enrichment that deepens thinking, or they disengage and develop habits of coasting.</div>
-        </div>        <div class="info-card" data-searchable="Matching instruction to learning styles is differentiation.">
-          <div class="card-icon-lg">❌</div>
-          <div class="card-title-md">&ldquo;Matching instruction to learning styles is differentiation.&rdquo;</div>
-          <div class="card-desc-sm">Evidence for sensory learning-style matching is weak. Effective practice offers multiple representations and modalities to everyone rather than diagnosing styles.</div>
+    <!-- ================= 01 CONCEPTS ================= -->
+    <section class="section" id="concepts" aria-labelledby="concepts-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">01</span>
+        <div>
+          <p class="eyebrow">Foundations</p>
+          <h2 id="concepts-title">Core concepts</h2>
+          <p class="section-lead">Each card isolates one idea examiners test. Read the definition first, then the <em>In practice</em> line — that is where scenario questions begin.</p>
         </div>
-    </div>
+      </div>
+      <div class="concept-grid" id="conceptGrid">
+        <article class="concept-card" data-searchable="Core principles">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🎯</span>
+            <span class="concept-index">01</span>
+          </div>
+          <h3 class="concept-title">Core principles</h3>
+          <p class="concept-desc"><strong>Differentiation</strong> is proactive, goal-driven, flexible and evidence-based. Teachers pre-assess, define a common essential learning goal, then vary tasks, support and products. Tomlinson identifies three learner entry points — <strong>readiness</strong>, <strong>interest</strong> and <strong>learning profile</strong> — and four elements to modify — content, process, product and environment.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Write one clear objective, then design three routes to it rather than three different objectives.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Pre-assessment and formative evidence">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">📊</span>
+            <span class="concept-index">02</span>
+          </div>
+          <h3 class="concept-title">Pre-assessment and formative evidence</h3>
+          <p class="concept-desc"><strong>Differentiation</strong> begins with evidence, not assumption: diagnostic quizzes, hinge questions, exit tickets, prior work and quick conversations reveal <strong>readiness</strong> and misconceptions, and allow grouping to change as understanding changes.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Use a five-question hinge question after the explanation and regroup for the practice phase based on the result.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Tiered tasks and scaffolding">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🧱</span>
+            <span class="concept-index">03</span>
+          </div>
+          <h3 class="concept-title">Tiered tasks and scaffolding</h3>
+          <p class="concept-desc"><strong>Tiered tasks</strong> address the same objective at different levels of complexity, structure or abstraction. Scaffolds — worked examples, sentence frames, graphic organisers, partially completed models, glossaries — are temporary and progressively removed.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Offer the same word problem with a diagram and steps for one group, and without scaffolds for another, both aiming at the same concept.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Flexible grouping and cooperative structures">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🔀</span>
+            <span class="concept-index">04</span>
+          </div>
+          <h3 class="concept-title">Flexible grouping and cooperative structures</h3>
+          <p class="concept-desc">Groups should be temporary and purpose-driven: <strong>readiness</strong> groups for targeted teaching, mixed-ability groups for discussion and peer explanation, <strong>interest</strong> groups for projects. Roles and accountability prevent group work becoming one learner’s work.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Regroup after each formative check; keep groups fluid and avoid permanent “ability tables”.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Universal Design for Learning and accommodations">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🧠</span>
+            <span class="concept-index">05</span>
+          </div>
+          <h3 class="concept-title">Universal Design for Learning and accommodations</h3>
+          <p class="concept-desc">UDL designs multiple means of engagement, representation and expression from the outset, benefiting all learners. <strong>Accommodations</strong> (extra time, larger print, assistive technology, reduced copying) remove barriers without changing the standard; <strong>modifications</strong> change the standard and should be individual and documented.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Offer the response in writing, orally or as a labelled diagram where the objective is understanding, not handwriting.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Challenge and enrichment for all">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🎁</span>
+            <span class="concept-index">06</span>
+          </div>
+          <h3 class="concept-title">Challenge and enrichment for all</h3>
+          <p class="concept-desc"><strong>Differentiation</strong> includes learners who already exceed the standard. <strong>Enrichment</strong> should deepen thinking — extension questions, open-ended investigations, teaching a peer, applying to new contexts — rather than simply assigning more of the same work.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Replace “finish early, do twenty more sums” with “design a problem that uses the same rule in a new context”.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
 
-    <!-- ================= TAKEAWAYS ================= -->
-    <h2 class="section-title">🔑 Key Takeaways <span class="line"></span></h2>
-    <div class="takeaway-card">
-      <strong>Remember these points for the exam:</strong>
-      <ul><li>Differentiation adapts content, process, product and environment in response to readiness, interest and profile.</li><li>It is goal-driven: one high shared objective with multiple routes and support levels.</li><li>Pre-assessment and formative evidence make differentiation responsive rather than assumed.</li><li>Scaffolds are temporary and should be faded as competence grows.</li><li>Flexible, temporary grouping outperforms permanent ability grouping.</li><li>UDL designs access for everyone; accommodations remove barriers without changing the standard.</li></ul>
-    </div>
-    <div class="summary-card"><strong>📌 One-line summary:</strong> Differentiated learning keeps one high, shared goal while varying content, process, product and environment so that every learner works in their zone of proximal development with the support they need.</div>
+    <!-- ================= 02 VOCABULARY ================= -->
+    <section class="section" id="vocabulary" aria-labelledby="vocab-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">02</span>
+        <div>
+          <p class="eyebrow">Precision</p>
+          <h2 id="vocab-title">Key vocabulary</h2>
+          <p class="section-lead">Be able to define each term in one sentence. Bold terms below also appear highlighted inside the notes, so you can meet them in context.</p>
+        </div>
+      </div>
+      <dl class="vocab-grid" id="vocabGrid">
+        <div class="vocab-card" data-searchable="Differentiation">
+          <dt class="vocab-term">Differentiation</dt>
+          <dd class="vocab-def">Deliberate adaptation of content, process, product and environment in response to <strong>readiness</strong>, <strong>interest</strong> and profile.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Readiness">
+          <dt class="vocab-term">Readiness</dt>
+          <dd class="vocab-def">A learner’s current proximity to a specific learning goal — not a measure of general ability.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Interest">
+          <dt class="vocab-term">Interest</dt>
+          <dd class="vocab-def">The topics, contexts and activities that engage a learner.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Learning profile">
+          <dt class="vocab-term">Learning profile</dt>
+          <dd class="vocab-def">Preferences in how a learner accesses and expresses learning; not a fixed “learning style”.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Tiered task">
+          <dt class="vocab-term">Tiered task</dt>
+          <dd class="vocab-def">Parallel versions of one task at different levels of complexity or support, aimed at the same objective.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Scaffolding">
+          <dt class="vocab-term">Scaffolding</dt>
+          <dd class="vocab-def">Temporary support such as worked examples, sentence frames or organisers, progressively removed.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Flexible grouping">
+          <dt class="vocab-term">Flexible grouping</dt>
+          <dd class="vocab-def">Temporary, purpose-driven groups that change as evidence changes.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Universal Design for Learning (UDL)">
+          <dt class="vocab-term">Universal Design for Learning (UDL)</dt>
+          <dd class="vocab-def">Designing multiple means of engagement, representation and expression from the outset.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Accommodation">
+          <dt class="vocab-term">Accommodation</dt>
+          <dd class="vocab-def">A change that removes a barrier without changing the learning standard.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Modification">
+          <dt class="vocab-term">Modification</dt>
+          <dd class="vocab-def">A change to the learning standard or expectation itself.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Enrichment">
+          <dt class="vocab-term">Enrichment</dt>
+          <dd class="vocab-def">Deeper, open-ended work for learners who already meet the standard.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Pre-assessment">
+          <dt class="vocab-term">Pre-assessment</dt>
+          <dd class="vocab-def">Evidence gathered before teaching to establish <strong>readiness</strong> and misconceptions.</dd>
+        </div>
+      </dl>
+    </section>
 
-    <!-- ================= QUIZ ================= -->
-    <div class="quiz-section">
-      <div class="quiz-header">
-        <h2>📝 Practice Quiz</h2>
-        <span class="quiz-badge">10 MCQs · 4 CRQs · 1 ERQ</span>
+    <!-- ================= 03 COMPARISON ================= -->
+    <section class="section" id="comparison" aria-labelledby="comparison-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">03</span>
+        <div>
+          <p class="eyebrow">Distinctions</p>
+          <h2 id="comparison-title">Comparison table</h2>
+          <p class="section-lead">Use this table for “differentiate between”, “compare” and “which is most appropriate” questions — name the dimension, then the contrast.</p>
+        </div>
+      </div>
+      <div class="table-shell" id="compareGrid">
+        <div class="table-caption">
+          <strong>Tomlinson’s Model: What to Differentiate and How</strong>
+          <span>Swipe to view all columns →</span>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr><th scope="col">Element</th><th scope="col">What changes</th><th scope="col">Classroom example</th><th scope="col">Avoid</th></tr>
+            </thead>
+            <tbody>
+            <tr><td>Content</td><td>Access to knowledge, resources, vocabulary support</td><td>Two versions of a text; audio plus print; key vocabulary pre-taught</td><td>Giving weaker learners less content to think about</td></tr>
+            <tr><td>Process</td><td>How learners engage with the idea</td><td><strong>Tiered tasks</strong>, stations, scaffolds, worked examples, peer tutoring</td><td>Only more of the same exercises</td></tr>
+            <tr><td>Product</td><td>How learning is demonstrated</td><td>Essay, poster, presentation, labelled model, oral explanation</td><td>Always requiring written output regardless of the objective</td></tr>
+            <tr><td>Environment</td><td>Climate, grouping, seating, resources</td><td>Quiet zone, flexible seating, accessible materials, cooperative roles</td><td>Permanent ability groups and public labelling</td></tr>
+            <tr><td><strong>Readiness</strong></td><td>Level of challenge and support</td><td><strong>Pre-assessment</strong>, <strong>tiered tasks</strong>, targeted reteaching</td><td>Assuming prior knowledge</td></tr>
+            <tr><td><strong>Interest</strong></td><td>Topic, examples and choice</td><td>Choice boards, local contexts, project options</td><td>Choice that abandons the objective</td></tr>
+            <tr><td><strong>Learning profile</strong></td><td>Ways of accessing and expressing learning</td><td>Visual models, discussion, movement, technology</td><td>Labelling by “learning style”</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 04 APPLICATION ================= -->
+    <section class="section" id="application" aria-labelledby="application-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">04</span>
+        <div>
+          <p class="eyebrow">Practice</p>
+          <h2 id="application-title">Classroom application</h2>
+          <p class="section-lead">What to do, and what to avoid, in a real classroom. The left column is the standard to teach; the right column lists the errors that create management problems.</p>
+        </div>
+      </div>
+      <div class="do-dont" id="applyGrid">
+        <div class="dd-card do">
+          <h3><span aria-hidden="true">✅</span> Do this</h3>
+          <ul><li>Pre-assess <strong>readiness</strong> and misconceptions before planning the tasks.</li><li>Keep one high, shared learning goal and differentiate the route to it.</li><li>Prepare <strong>tiered tasks</strong> and scaffolds in advance, not on the spot.</li><li>Group flexibly and change groups as evidence changes.</li><li>Offer multiple ways to demonstrate the same learning.</li><li>Plan genuine <strong>enrichment</strong> for learners who already meet the standard.</li></ul>
+        </div>
+        <div class="dd-card avoid">
+          <h3><span aria-hidden="true">🚫</span> Avoid this</h3>
+          <ul><li>Do not equate <strong>differentiation</strong> with more worksheets for fast finishers.</li><li>Do not create permanent ability groups or announce them publicly.</li><li>Do not lower the standard; adjust support and complexity instead.</li><li>Do not match instruction to claimed “learning styles” — the evidence is weak.</li><li>Do not differentiate everything; focus on the lesson’s essential learning.</li><li>Do not use support as a reward to be withdrawn punitively.</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 05 MISCONCEPTIONS ================= -->
+    <section class="section" id="misconceptions" aria-labelledby="misconceptions-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">05</span>
+        <div>
+          <p class="eyebrow">Exam traps</p>
+          <h2 id="misconceptions-title">Common misconceptions</h2>
+          <p class="section-lead">Each misconception below is a plausible-sounding statement that loses marks. Learn the reality column as a correction you can write.</p>
+        </div>
+      </div>
+      <div class="myth-grid" id="misGrid">
+        <article class="myth-card" data-searchable="Differentiation means a separate plan for every learner.">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;Differentiation means a separate plan for every learner.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>It means a small number of purposeful routes to a common goal, plus targeted support, which is manageable in a class of thirty.</p>
+          </div>
+        </article>
+        <article class="myth-card" data-searchable="Differentiation lowers standards.">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;Differentiation lowers standards.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p><strong>Differentiation</strong> maintains the standard and changes the support, entry point and demonstration of mastery. Lowering the standard is <strong>modification</strong>, not <strong>differentiation</strong>.</p>
+          </div>
+        </article>
+        <article class="myth-card" data-searchable="Fast learners do not need differentiation.">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;Fast learners do not need differentiation.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>Learners who already meet the standard need <strong>enrichment</strong> that deepens thinking, or they disengage and develop habits of coasting.</p>
+          </div>
+        </article>
+        <article class="myth-card" data-searchable="Matching instruction to learning styles is differentiation.">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;Matching instruction to learning styles is differentiation.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>Evidence for sensory learning-style matching is weak. Effective practice offers multiple representations and modalities to everyone rather than diagnosing styles.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= 06 TAKEAWAYS ================= -->
+    <section class="section" id="takeaways" aria-labelledby="takeaways-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">06</span>
+        <div>
+          <p class="eyebrow">Compress</p>
+          <h2 id="takeaways-title">Key takeaways</h2>
+          <p class="section-lead">Revise these lines the night before the paper — they compress the whole note into recall-ready statements.</p>
+        </div>
+      </div>
+      <div class="takeaways">
+        <h3>Six things to remember</h3>
+        <ol><li><strong>Differentiation</strong> adapts content, process, product and environment in response to <strong>readiness</strong>, <strong>interest</strong> and profile.</li><li>It is goal-driven: one high shared objective with multiple routes and support levels.</li><li><strong>Pre-assessment</strong> and formative evidence make <strong>differentiation</strong> responsive rather than assumed.</li><li>Scaffolds are temporary and should be faded as competence grows.</li><li>Flexible, temporary grouping outperforms permanent ability grouping.</li><li>UDL designs access for everyone; <strong>accommodations</strong> remove barriers without changing the standard.</li></ol>
+      </div>
+      <div class="summary">
+        <span class="summary-label">One-line summary</span>
+        <p>Differentiated learning keeps one high, shared goal while varying content, process, product and environment so that every learner works in their zone of proximal development with the support they need.</p>
+      </div>
+      <div class="exam-tip">
+        <span class="tip-icon" aria-hidden="true">💡</span>
+        <div>
+          <span class="tip-label">Exam tip</span>
+          <p>Accommodation versus modification is the most common trap. Extra time, larger print or an oral response are accommodations; reducing the number of objectives is a modification.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 07 QUIZ ================= -->
+    <section class="quiz" id="practice" aria-labelledby="quiz-title">
+      <div class="quiz-head">
+        <div>
+          <p class="eyebrow">Practice</p>
+          <h2 id="quiz-title">Test yourself</h2>
+        </div>
+        <div class="quiz-chips">
+          <span>10 MCQs</span>
+          <span>4 CRQs</span>
+          <span>1 ERQ</span>
+        </div>
       </div>
       <div class="quiz-body">
-        <div class="quiz-tabs" role="tablist">
-          <button class="quiz-tab active" data-panel="mcqPanel" role="tab">🔘 10 MCQs</button>
-          <button class="quiz-tab" data-panel="crqPanel" role="tab">✍️ 4 CRQs</button>
-          <button class="quiz-tab" data-panel="erqPanel" role="tab">📄 1 ERQ</button>
+        <div class="quiz-tabs" role="tablist" aria-label="Quiz sections">
+          <button class="quiz-tab active" role="tab" aria-selected="true" data-panel="mcqPanel">🔘 10 MCQs</button>
+          <button class="quiz-tab" role="tab" aria-selected="false" data-panel="crqPanel">✍️ 4 CRQs</button>
+          <button class="quiz-tab" role="tab" aria-selected="false" data-panel="erqPanel">📄 1 ERQ</button>
         </div>
 
-        <div class="quiz-panel active" id="mcqPanel">
-          <span class="section-label">Multiple Choice Questions</span>
+        <div class="quiz-panel active" id="mcqPanel" role="tabpanel">
+          <div class="panel-head">
+            <span class="section-label">Multiple choice questions</span>
+            <span class="score-chip" id="mcqProgress">0 / 10 answered · 0 correct</span>
+          </div>
           <div id="mcqContainer"></div>
         </div>
 
-        <div class="quiz-panel" id="crqPanel">
-          <span class="section-label">Constructed Response Questions</span>
+        <div class="quiz-panel" id="crqPanel" role="tabpanel">
+          <div class="panel-head">
+            <span class="section-label">Constructed response questions</span>
+            <span class="score-chip">Model answers included</span>
+          </div>
           <div id="crqContainer"></div>
         </div>
 
-        <div class="quiz-panel" id="erqPanel">
-          <span class="section-label">Extended Response Question (Situation-Based)</span>
+        <div class="quiz-panel" id="erqPanel" role="tabpanel">
+          <div class="panel-head">
+            <span class="section-label">Extended response · situation-based</span>
+            <span class="score-chip">Keyword self-check</span>
+          </div>
           <div id="erqContainer"></div>
         </div>
       </div>
-    </div>
+    </section>
+
+    <footer class="note-footer">
+      <span>MUQABIL · Teaching License Master Notes · Classroom Management</span>
+      <span>10 interactive notes in this module · revision 10 of 10</span>
+    </footer>
   </div>
+
+  <button class="to-top" id="toTop" type="button" aria-label="Back to top">↑</button>
 
 <script>
     (function () {
-      // ================= LIVE SEARCH =================
+      'use strict';
+
+      /* ================= READING PROGRESS ================= */
+      var fill = document.getElementById('progressFill');
+      var toTop = document.getElementById('toTop');
+
+      function updateScroll() {
+        var doc = document.documentElement;
+        var max = doc.scrollHeight - doc.clientHeight;
+        var pct = max > 0 ? (doc.scrollTop / max) * 100 : 0;
+        if (fill) fill.style.width = pct + '%';
+        if (toTop) {
+          if (doc.scrollTop > 600) toTop.classList.add('visible');
+          else toTop.classList.remove('visible');
+        }
+      }
+      window.addEventListener('scroll', updateScroll, { passive: true });
+      updateScroll();
+
+      if (toTop) {
+        toTop.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      /* ================= LIVE SEARCH ================= */
       var searchInput = document.getElementById('searchInput');
       var countDisplay = document.getElementById('countDisplay');
-      var searchGrids = [
+      var grids = [
         document.getElementById('conceptGrid'),
+        document.getElementById('vocabGrid'),
         document.getElementById('misGrid')
       ].filter(Boolean);
-      var allCards = [];
-      searchGrids.forEach(function (grid) {
-        grid.querySelectorAll('[data-searchable]').forEach(function (card) {
-          allCards.push(card);
+
+      var cards = [];
+      grids.forEach(function (grid) {
+        Array.prototype.forEach.call(grid.querySelectorAll('[data-searchable]'), function (card) {
+          cards.push(card);
         });
       });
 
-      function applySearch(rawQuery) {
-        var q = (rawQuery || '').trim().toLowerCase();
+      function applySearch(raw) {
+        var q = (raw || '').trim().toLowerCase();
         var visible = 0;
-        allCards.forEach(function (card) {
-          var text = ((card.dataset.searchable || '') + ' ' + card.textContent).toLowerCase();
+        cards.forEach(function (card) {
+          var text = ((card.getAttribute('data-searchable') || '') + ' ' + card.textContent).toLowerCase();
           var matches = q === '' || text.indexOf(q) !== -1;
           card.style.display = matches ? '' : 'none';
           if (matches) visible++;
         });
-        document.querySelectorAll('.no-results').forEach(function (el) { el.remove(); });
-        searchGrids.forEach(function (grid) {
+        Array.prototype.forEach.call(document.querySelectorAll('.no-results'), function (el) {
+          el.parentNode.removeChild(el);
+        });
+        grids.forEach(function (grid) {
           var shown = Array.prototype.filter.call(
             grid.querySelectorAll('[data-searchable]'),
             function (card) { return card.style.display !== 'none'; }
@@ -1042,103 +1079,158 @@
         }
       }
 
-      var debounce;
+      var debounceTimer;
       if (searchInput) {
         searchInput.addEventListener('input', function (e) {
-          clearTimeout(debounce);
-          debounce = setTimeout(function () { applySearch(e.target.value); }, 150);
+          clearTimeout(debounceTimer);
+          debounceTimer = setTimeout(function () { applySearch(e.target.value); }, 140);
         });
         searchInput.addEventListener('search', function (e) {
           if (e.target.value === '') applySearch('');
         });
+        searchInput.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && searchInput.value !== '') {
+            searchInput.value = '';
+            applySearch('');
+          }
+        });
       }
       applySearch('');
 
-      // ================= QUIZ TABS =================
-      var tabs = document.querySelectorAll('.quiz-tab');
+      /* ================= QUIZ TABS ================= */
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.quiz-tab'));
       tabs.forEach(function (tab) {
         tab.addEventListener('click', function () {
-          tabs.forEach(function (t) { t.classList.remove('active'); });
-          document.querySelectorAll('.quiz-panel').forEach(function (p) {
+          tabs.forEach(function (t) {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          Array.prototype.forEach.call(document.querySelectorAll('.quiz-panel'), function (p) {
             p.classList.remove('active');
           });
           tab.classList.add('active');
-          var panel = document.getElementById(tab.dataset.panel);
+          tab.setAttribute('aria-selected', 'true');
+          var panel = document.getElementById(tab.getAttribute('data-panel'));
           if (panel) panel.classList.add('active');
         });
       });
 
-      // ================= DATA =================
+      /* ================= DATA ================= */
       var mcqs = [{"q": "Differentiation is best described as:", "options": ["A separate plan for every learner", "Adapting content, process, product and environment toward a common goal", "Lowering standards for weaker learners", "Using learning styles"], "answer": 1, "why": "Differentiation varies the route and support while maintaining the goal."}, {"q": "Tomlinson identifies three learner entry points. They are:", "options": ["Content, process, product", "Readiness, interest, learning profile", "Visual, auditory, kinesthetic", "Formative, summative, diagnostic"], "answer": 1, "why": "Readiness, interest and learning profile are the entry points."}, {"q": "Which is an example of differentiating the product?", "options": ["Reading a simpler text", "Choosing between a poster and an oral explanation", "Using a graphic organiser", "Seating near the teacher"], "answer": 1, "why": "The product is how learning is demonstrated."}, {"q": "Tiered tasks are designed to:", "options": ["Give fast learners more worksheets", "Address the same objective at different levels of complexity", "Replace the objective", "Rank learners publicly"], "answer": 1, "why": "Tiers vary complexity toward the same learning goal."}, {"q": "Scaffolds should be:", "options": ["Permanent", "Temporary and faded as competence grows", "Used only for tests", "Hidden from learners"], "answer": 1, "why": "Scaffolding is gradually withdrawn to build independence."}, {"q": "A key UDL principle is:", "options": ["One fixed means of representation", "Multiple means of engagement, representation and expression", "Only written output", "Only whole-class instruction"], "answer": 1, "why": "UDL provides multiple means of engagement, representation and expression."}, {"q": "Flexible grouping means:", "options": ["Permanent ability tables", "Temporary, purpose-driven groups that change with evidence", "No grouping ever", "Random permanent groups"], "answer": 1, "why": "Groups should be fluid and evidence-driven."}, {"q": "Enrichment for learners who already meet the standard should:", "options": ["Add more of the same exercises", "Deepen thinking through open-ended application", "Remove them from the lesson", "Reduce their work"], "answer": 1, "why": "Enrichment deepens rather than duplicates."}, {"q": "An accommodation differs from a modification in that an accommodation:", "options": ["Changes the standard", "Removes a barrier without changing the standard", "Replaces assessment", "Is never documented"], "answer": 1, "why": "Accommodations alter access, not expectations."}, {"q": "Matching instruction to visual/auditory/kinesthetic learning styles is discouraged because:", "options": ["It is too expensive", "Evidence for style-matching is weak", "It is illegal", "It requires technology"], "answer": 1, "why": "Research does not support matching sensory styles; multiple representations for all is recommended."}];
       var crqs = [{"q": "Explain Tomlinson’s model of differentiation, naming the learner entry points and the elements that can be differentiated.", "hint": "Name the framework components precisely.", "model": "Tomlinson’s model starts from three learner entry points: readiness, interest and learning profile. Teachers respond by differentiating four classroom elements: content (what learners access and the resources provided), process (how learners engage with and make sense of the content), product (how learners demonstrate learning) and environment (climate, grouping, seating and resources). Differentiation is proactive, rooted in pre-assessment, and always anchored to a common essential learning goal, so variation occurs in the route and support rather than in the destination."}, {"q": "Describe how you would plan a lesson using pre-assessment, tiered tasks and flexible grouping.", "hint": "Give a sequence from diagnosis to regrouping.", "model": "Begin with a short pre-assessment — five questions or a hinge question — targeting the prerequisite knowledge for the lesson. Use the results to define one essential objective and prepare three task tiers: a supported tier with worked examples and sentence frames, a core tier with guided practice, and an extension tier applying the concept to an unfamiliar context. In the lesson, teach the concept to the whole class, use the hinge question to check understanding, then regroup flexibly for the practice phase and teach the supported tier briefly while others work. Finish with an exit ticket, and use it to decide the groups for the next lesson rather than leaving them fixed."}, {"q": "A colleague says differentiation is impossible with 45 learners. Respond with a realistic approach.", "hint": "Acknowledge the constraint and offer sustainable structures.", "model": "The constraint is real, so differentiation must be efficient rather than exhaustive. Start with one lesson element: differentiate the process through two or three tiers, not thirty. Use whole-class teaching with a hinge question to detect who needs which tier, then organise the room so one tier works independently with clear instructions while the teacher supports the tier that needs direct help. Use peer tutoring, structured roles and answer keys for self-checking to reduce the teacher’s load. Prepare scaffolds as standard resources available to anyone, rather than personalised packets. Differentiate the product occasionally through choice, and use UDL so access is designed in. The aim is two or three deliberate routes and a clear goal, not individual curricula."}, {"q": "How does differentiation support classroom management, and what risks arise if it is poorly implemented?", "hint": "Link differentiation to engagement and behaviour.", "model": "Differentiation supports management because tasks matched to readiness and interest reduce both boredom and anxiety, the two main sources of off-task behaviour, and because flexible grouping increases participation and belonging. Risks arise when differentiation is implemented as permanent ability grouping, which labels learners and hardens identities; when support is visible and stigmatising; when fast learners receive only more of the same work and disengage; and when tasks proliferate so that the teacher cannot monitor or give feedback, allowing off-task behaviour in unsupervised groups. Well-managed differentiation is quiet, fluid and anchored to a common goal."}];
       var erq = {"scenario": "A Grade 6 mathematics class of 40 learners includes three learners working well below grade level, a group of twelve who have not mastered fractions, eighteen who are secure, and seven who finish early and become disruptive. The teacher currently teaches one lesson to the whole class and assigns the same twenty questions to everyone.", "task": "Design a differentiated approach for a two-week fractions unit, explaining how you will group learners, prepare tasks and scaffolds, use formative assessment, support the early finishers, and evaluate the impact.", "hint": "Address the common goal, tiers, grouping, assessment, enrichment and measurement.", "keywords": ["pre-assessment", "tiers", "flexible grouping", "scaffold", "formative", "enrichment", "UDL", "feedback", "independence", "measurement"], "model": "The unit should begin with a short diagnostic on prerequisite ideas — equal parts, equivalent fractions and comparing simple fractions — because the twelve learners who have not mastered fractions are likely missing one of these, and the three working well below grade level need to know what a fraction represents before procedures. One essential learning goal should be defined for the unit: representing, comparing and finding equivalent fractions, with addition of like fractions as the extension. Three tiers should be prepared in advance: a supported tier using fraction strips, diagrams and worked examples with sentence frames; a core tier using guided practice and comparison tasks; and an extension tier applying equivalence to problem-solving and simple probability contexts. Grouping should be flexible, not permanent: whole-class teaching with a hinge question, then regrouping for the practice phase, with the teacher taking the supported tier for five to eight minutes while the core tier self-checks against an answer key and the extension tier works independently. Scaffolds should be available to anyone who needs them, so no learner is visibly labelled. Formative assessment should run through exit tickets and a mid-unit check, and groups should change accordingly. The early finishers need genuine enrichment rather than more sums: open tasks such as designing a fair-share problem, writing a comparison challenge for a peer, or explaining equivalence with a model. Evaluation should use the diagnostic and exit-ticket data, work samples across the tiers, observation of on-task behaviour during independent phases, and a brief learner survey on challenge and clarity; if early finishers remain disruptive, the extension tasks are not challenging enough and should be redesigned rather than punished."};
 
-      // ================= MCQ RENDERING =================
+      /* ================= MCQs ================= */
       var mcqContainer = document.getElementById('mcqContainer');
+      var scoreChip = document.getElementById('mcqProgress');
+      var answered = 0;
+      var correctCount = 0;
+      var letters = ['A', 'B', 'C', 'D'];
+
+      function updateScore() {
+        if (!scoreChip) return;
+        scoreChip.textContent = answered + ' / ' + mcqs.length + ' answered · ' + correctCount + ' correct';
+      }
+
       mcqs.forEach(function (item, idx) {
         var wrap = document.createElement('div');
         wrap.className = 'mcq-item';
 
-        var q = document.createElement('div');
+        var q = document.createElement('p');
         q.className = 'mcq-question';
-        q.textContent = (idx + 1) + '. ' + item.q;
+        var num = document.createElement('span');
+        num.className = 'q-num';
+        num.textContent = (idx + 1) + '.';
+        var qtext = document.createElement('span');
+        qtext.textContent = item.q;
+        q.appendChild(num);
+        q.appendChild(qtext);
         wrap.appendChild(q);
 
         var options = document.createElement('div');
         options.className = 'mcq-options';
-        var letters = ['A', 'B', 'C', 'D'];
-        item.options.forEach(function (text, i) {
-          var btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = 'mcq-option';
-          btn.innerHTML = '<span class="option-letter">' + letters[i] + '</span><span>' +
-            text.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</span>';
-          btn.addEventListener('click', function () {
-            if (wrap.dataset.answered === 'true') return;
-            wrap.dataset.answered = 'true';
-            var correct = i === item.answer;
-            btn.classList.add(correct ? 'correct' : 'incorrect');
-            options.querySelectorAll('.mcq-option').forEach(function (other, j) {
-              other.disabled = true;
-              if (j === item.answer) other.classList.add('correct');
-            });
-            fb.className = 'mcq-feedback show ' + (correct ? 'correct-fb' : 'incorrect-fb');
-            fb.textContent = (correct ? '✅ Correct. ' : '❌ Not quite. ') + item.why;
-          });
-          options.appendChild(btn);
-        });
-        wrap.appendChild(options);
 
         var fb = document.createElement('div');
         fb.className = 'mcq-feedback';
-        wrap.appendChild(fb);
 
+        Array.prototype.forEach.call(item.options, function (text, i) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'mcq-option';
+          btn.setAttribute('aria-label', letters[i] + '. ' + text);
+
+          var letter = document.createElement('span');
+          letter.className = 'option-letter';
+          letter.textContent = letters[i];
+          var label = document.createElement('span');
+          label.textContent = text;
+          btn.appendChild(letter);
+          btn.appendChild(label);
+
+          btn.addEventListener('click', function () {
+            if (wrap.getAttribute('data-answered') === 'true') return;
+            wrap.setAttribute('data-answered', 'true');
+            answered++;
+            var isCorrect = i === item.answer;
+            if (isCorrect) correctCount++;
+            btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+            Array.prototype.forEach.call(options.querySelectorAll('.mcq-option'), function (other, j) {
+              other.disabled = true;
+              if (j === item.answer) other.classList.add('correct');
+            });
+            fb.className = 'mcq-feedback show ' + (isCorrect ? 'correct-fb' : 'incorrect-fb');
+            fb.textContent = (isCorrect ? '✅ Correct. ' : '❌ Not quite. ') + item.why;
+            updateScore();
+          });
+
+          options.appendChild(btn);
+        });
+
+        wrap.appendChild(options);
+        wrap.appendChild(fb);
         mcqContainer.appendChild(wrap);
       });
+      updateScore();
 
-      // ================= CRQ RENDERING =================
+      /* ================= CRQs ================= */
       var crqContainer = document.getElementById('crqContainer');
       crqs.forEach(function (item, idx) {
         var wrap = document.createElement('div');
         wrap.className = 'crq-item';
 
-        var q = document.createElement('div');
+        var q = document.createElement('p');
         q.className = 'crq-question';
         q.textContent = 'CRQ ' + (idx + 1) + '. ' + item.q;
         wrap.appendChild(q);
 
-        var hint = document.createElement('div');
+        var hint = document.createElement('p');
         hint.className = 'crq-hint';
         hint.textContent = 'Hint: ' + item.hint;
         wrap.appendChild(hint);
 
         var area = document.createElement('textarea');
         area.className = 'crq-textarea';
-        area.placeholder = 'Write your answer here, then reveal the model answer to self-check.';
+        area.setAttribute('aria-label', 'Your answer for CRQ ' + (idx + 1));
+        area.placeholder = 'Write your answer, then reveal the model answer to self-check.';
         wrap.appendChild(area);
 
+        var meta = document.createElement('div');
+        meta.className = 'answer-meta';
+        var words = document.createElement('span');
+        words.textContent = '0 words';
+        var target = document.createElement('span');
+        target.textContent = 'Target: 80–120 words';
+        meta.appendChild(words);
+        meta.appendChild(target);
+        wrap.appendChild(meta);
+
+        area.addEventListener('input', function () {
+          var count = area.value.trim() ? area.value.trim().split(/\s+/).length : 0;
+          words.textContent = count + ' word' + (count === 1 ? '' : 's');
+        });
+
         var actions = document.createElement('div');
-        actions.className = 'crq-actions';
+        actions.className = 'actions';
         var showBtn = document.createElement('button');
         showBtn.type = 'button';
         showBtn.className = 'btn btn-primary';
@@ -1156,12 +1248,20 @@
         wrap.appendChild(fb);
 
         showBtn.addEventListener('click', function () {
-          fb.className = 'crq-feedback show good';
-          fb.textContent = 'Model answer: ' + item.model;
-          showBtn.textContent = 'Hide model answer';
+          var open = fb.classList.contains('show');
+          if (open) {
+            fb.className = 'crq-feedback';
+            fb.textContent = '';
+            showBtn.textContent = 'Show model answer';
+          } else {
+            fb.className = 'crq-feedback show model';
+            fb.textContent = 'Model answer: ' + item.model;
+            showBtn.textContent = 'Hide model answer';
+          }
         });
         clearBtn.addEventListener('click', function () {
           area.value = '';
+          words.textContent = '0 words';
           fb.className = 'crq-feedback';
           fb.textContent = '';
           showBtn.textContent = 'Show model answer';
@@ -1170,33 +1270,49 @@
         crqContainer.appendChild(wrap);
       });
 
-      // ================= ERQ RENDERING =================
+      /* ================= ERQ ================= */
       var erqContainer = document.getElementById('erqContainer');
       var eWrap = document.createElement('div');
       eWrap.className = 'erq-item';
 
       var marks = document.createElement('span');
       marks.className = 'erq-marks';
-      marks.textContent = 'Long response · 10 marks';
+      marks.textContent = 'Extended response · 10 marks';
       eWrap.appendChild(marks);
 
-      var eq = document.createElement('div');
+      var eq = document.createElement('p');
       eq.className = 'erq-question';
       eq.textContent = erq.scenario + ' ' + erq.task;
       eWrap.appendChild(eq);
 
-      var ehint = document.createElement('div');
+      var ehint = document.createElement('p');
       ehint.className = 'crq-hint';
       ehint.textContent = 'Guidance: ' + erq.hint;
       eWrap.appendChild(ehint);
 
       var eArea = document.createElement('textarea');
       eArea.className = 'erq-textarea';
-      eArea.placeholder = 'Plan your response: identify the problem, apply the theory, then give concrete classroom actions.';
+      eArea.setAttribute('aria-label', 'Your extended response');
+      eArea.placeholder = 'Plan your response: identify the problem, apply the theory, then give concrete classroom actions and how you would evaluate them.';
       eWrap.appendChild(eArea);
 
+      var eMeta = document.createElement('div');
+      eMeta.className = 'answer-meta';
+      var eWords = document.createElement('span');
+      eWords.textContent = '0 words';
+      var eTarget = document.createElement('span');
+      eTarget.textContent = 'Target: 250–400 words';
+      eMeta.appendChild(eWords);
+      eMeta.appendChild(eTarget);
+      eWrap.appendChild(eMeta);
+
+      eArea.addEventListener('input', function () {
+        var count = eArea.value.trim() ? eArea.value.trim().split(/\s+/).length : 0;
+        eWords.textContent = count + ' word' + (count === 1 ? '' : 's');
+      });
+
       var eActions = document.createElement('div');
-      eActions.className = 'erq-actions';
+      eActions.className = 'actions';
       var checkBtn = document.createElement('button');
       checkBtn.type = 'button';
       checkBtn.className = 'btn btn-primary';
@@ -1215,29 +1331,39 @@
 
       checkBtn.addEventListener('click', function () {
         var answer = eArea.value.toLowerCase();
-        var hit = erq.keywords.filter(function (k) { return answer.indexOf(k.toLowerCase()) !== -1; });
         if (!answer.trim()) {
           eFb.className = 'erq-feedback show partial';
-          eFb.textContent = 'Write your response first — aim for at least 150 words before self-checking.';
+          eFb.textContent = 'Write your response first — aim for at least 250 words before self-checking.';
           return;
         }
-        var ratio = hit.length / erq.keywords.length;
+        var hits = erq.keywords.filter(function (k) {
+          return answer.indexOf(k.toLowerCase()) !== -1;
+        });
+        var ratio = hits.length / erq.keywords.length;
+        var missing = erq.keywords.filter(function (k) { return hits.indexOf(k) === -1; });
         if (ratio >= 0.6) {
           eFb.className = 'erq-feedback show good';
-          eFb.textContent = '✅ Strong coverage: you included ' + hit.length + ' of ' + erq.keywords.length +
-            ' expected ideas (' + hit.join(', ') + '). Now refine the structure: theory → diagnosis → actions → evaluation.';
+          eFb.textContent = '✅ Strong coverage: ' + hits.length + ' of ' + erq.keywords.length +
+            ' expected ideas present (' + hits.join(', ') + '). Now tighten the structure: theory → diagnosis → actions → evaluation.' +
+            (missing.length ? ' Still to consider: ' + missing.join(', ') + '.' : '');
         } else {
           eFb.className = 'erq-feedback show partial';
-          eFb.textContent = '⚠️ Partial coverage: ' + hit.length + ' of ' + erq.keywords.length +
-            ' expected ideas found. Consider adding: ' + erq.keywords.filter(function (k) {
-              return hit.indexOf(k) === -1;
-            }).join(', ') + '.';
+          eFb.textContent = '⚠️ Partial coverage: ' + hits.length + ' of ' + erq.keywords.length +
+            ' expected ideas found. Add: ' + missing.join(', ') + '.';
         }
       });
 
       modelBtn.addEventListener('click', function () {
-        eFb.className = 'erq-feedback show model';
-        eFb.textContent = 'Model answer: ' + erq.model;
+        var open = eFb.classList.contains('show') && eFb.classList.contains('model');
+        if (open) {
+          eFb.className = 'erq-feedback';
+          eFb.textContent = '';
+          modelBtn.textContent = 'Show model answer';
+        } else {
+          eFb.className = 'erq-feedback show model';
+          eFb.textContent = 'Model answer: ' + erq.model;
+          modelBtn.textContent = 'Hide model answer';
+        }
       });
 
       erqContainer.appendChild(eWrap);

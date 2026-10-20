@@ -92,3 +92,45 @@ test('Classroom Management notes are not duplicated into other hub modules', () 
   );
   assert.equal(new Set(studyLessonIds).size, studyLessonIds.length);
 });
+
+test('redesigned notes expose a clear hierarchy and a key-vocabulary glossary', () => {
+  for (const topic of CLASSROOM_MANAGEMENT_TOPICS) {
+    const html = readFileSync(path.join(process.cwd(), 'public', topic.htmlNotesPath!), 'utf8');
+
+    // One page title, then numbered sections with their own heading levels.
+    assert.equal((html.match(/<h1>/g) || []).length, 1, topic.id);
+    const sectionNumbers = [...html.matchAll(/<span class="section-num" aria-hidden="true">(\d{2})<\/span>/g)]
+      .map((match) => match[1]);
+    assert.deepEqual(sectionNumbers, ['01', '02', '03', '04', '05', '06'], topic.id);
+    assert.ok(html.includes('class="section-head"'), topic.id);
+    assert.ok(html.includes('class="eyebrow"'), topic.id);
+    assert.ok(html.includes('class="section-lead"'), topic.id);
+
+    // Table of contents links resolve to real sections in the document.
+    const tocTargets = [...html.matchAll(/<a href="#([a-z-]+)"><span class="toc-num">/g)]
+      .map((match) => match[1]);
+    assert.ok(tocTargets.length >= 7, topic.id);
+    for (const target of tocTargets) {
+      assert.ok(html.includes(`id="${target}"`), `${topic.id}: ${target}`);
+    }
+
+    // Key vocabulary is defined, and terminology is highlighted in the body.
+    const terms = [...html.matchAll(/<dt class="vocab-term">([^<]+)<\/dt>/g)].map((match) => match[1]);
+    assert.ok(terms.length >= 10, `${topic.id}: ${terms.length} terms`);
+    assert.equal(new Set(terms).size, terms.length, topic.id);
+    for (const term of terms) {
+      assert.ok(term.trim().length > 0, topic.id);
+    }
+    const highlighted = [...html.matchAll(/<strong>([^<]+)<\/strong>/g)].map((match) => match[1]);
+    assert.ok(highlighted.length >= 10, `${topic.id}: ${highlighted.length} highlights`);
+
+    // Structure helpers that make the note study-ready.
+    assert.ok(html.includes('class="objectives"'), topic.id);
+    assert.ok(html.includes('class="practice-box"'), topic.id);
+    assert.ok(html.includes('class="myth-tag"'), topic.id);
+    assert.ok(html.includes('class="exam-tip"'), topic.id);
+    assert.ok(html.includes('class="takeaways"'), topic.id);
+    assert.ok(html.includes('id="progressFill"'), topic.id);
+    assert.ok(html.includes('role="tab"'), topic.id);
+  }
+});

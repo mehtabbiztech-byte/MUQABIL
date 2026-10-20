@@ -3,1030 +3,1067 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Classroom Observation and Data Collection — Classroom Management study note for the MUQABIL Teaching License hub: concepts, key vocabulary, comparison table, classroom application, misconceptions, takeaways and a practice quiz.">
   <title>Classroom Observation and Data Collection · Classroom Management</title>
   <style>
-    /* ---------- GLOBAL ---------- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    /* ================= DESIGN TOKENS ================= */
+    :root {
+      --navy: #0e2a47;
+      --navy-2: #12365c;
+      --blue: #2f6ca8;
+      --blue-soft: #8bb3e0;
+      --blue-tint: #eaf2fb;
+      --mark: #dbeafe;
+      --ink: #0b2138;
+      --ink-2: #1c3f60;
+      --body: #35536f;
+      --muted: #5d7893;
+      --line: #dfe9f5;
+      --paper: #ffffff;
+      --wash: #f5faff;
+      --amber: #b8860b;
+      --amber-tint: #fff8e6;
+      --green: #1f7a4d;
+      --green-tint: #eaf8f0;
+      --red: #a83535;
+      --red-tint: #fdf1f1;
+      --shadow-sm: 0 6px 16px -10px rgba(12, 38, 66, 0.35);
+      --shadow-md: 0 18px 36px -22px rgba(12, 38, 66, 0.45);
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
     }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
 
     body {
       font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
       background: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      padding: 2rem 1rem;
-      line-height: 1.6;
-      color: #1e2b3c;
+      color: var(--body);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 4rem;
     }
 
-    .main-wrapper {
-      max-width: 1100px;
-      width: 100%;
+    /* ================= READING PROGRESS ================= */
+    .progress-track {
+      position: fixed; top: 0; left: 0; right: 0; height: 4px;
+      background: rgba(14, 42, 71, 0.08); z-index: 90;
+    }
+    .progress-fill {
+      display: block; height: 100%; width: 0%;
+      background: linear-gradient(90deg, #2f6ca8, #6aa9dd, #9cc7ee);
+      border-radius: 0 4px 4px 0; transition: width 0.12s linear;
     }
 
-    /* ---------- HEADER ---------- */
-    .header-card {
-      background: white;
-      border-radius: 2rem 2rem 1.5rem 1.5rem;
-      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
-      padding: 2rem 2rem 1.5rem 2rem;
-      margin-bottom: 1.8rem;
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      transition: transform 0.2s;
-    }
+    .shell { max-width: 1080px; margin: 0 auto; padding: 0 1.1rem; }
 
-    .header-card:hover {
-      transform: scale(1.002);
+    /* ================= HERO ================= */
+    .hero {
+      position: relative; overflow: hidden;
+      margin-top: 1.6rem;
+      border-radius: 30px;
+      padding: 2.4rem 2.2rem 3.4rem;
+      background: radial-gradient(120% 140% at 0% 0%, #163b63 0%, #0e2a47 55%, #0a1f36 100%);
+      color: #fff;
+      box-shadow: var(--shadow-md);
     }
-
+    .hero::after {
+      content: ''; position: absolute; right: -120px; top: -120px;
+      width: 340px; height: 340px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(139, 179, 224, 0.28), transparent 68%);
+      pointer-events: none;
+    }
+    .hero-top { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-bottom: 1.1rem; }
     .badge {
-      display: inline-block;
-      background: #2a4b7c;
-      color: #f0f7ff;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      padding: 0.3rem 1rem;
-      border-radius: 40px;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #eaf4ff; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      padding: 0.32rem 0.85rem; border-radius: 999px;
+    }
+    .hero-top .hero-track { font-size: 0.74rem; color: #a9c8e6; font-weight: 600; letter-spacing: 0.04em; }
+    .hero h1 {
+      font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+      line-height: 1.16; font-weight: 800; letter-spacing: -0.02em;
+      color: #ffffff; max-width: 22ch;
+    }
+    .tagline {
+      margin-top: 0.85rem; max-width: 62ch;
+      font-size: 1.02rem; color: #c9def3;
+      border-left: 3px solid var(--blue-soft); padding-left: 1rem;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.4rem; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px; padding: 0.34rem 0.8rem;
+      font-size: 0.76rem; font-weight: 600; color: #dceafa;
     }
 
-    h1 {
-      font-size: 2.1rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: #0e2a47;
-      margin-bottom: 0.4rem;
-      line-height: 1.25;
+    /* ================= BIG IDEA + OBJECTIVES ================= */
+    .brief {
+      display: grid; grid-template-columns: 1.35fr 1fr; gap: 1.1rem;
+      margin: -2.2rem 1.4rem 0; position: relative; z-index: 2;
+    }
+    .brief-card {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-lg); padding: 1.4rem 1.5rem;
+      box-shadow: var(--shadow-md);
+    }
+    .brief-label {
+      display: inline-block; margin: 0; line-height: 1.2;
+      font-size: 0.68rem; font-weight: 800;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue);
+      margin-bottom: 0.55rem;
+    }
+    .brief-card p { font-size: 0.96rem; color: var(--ink-2); }
+    .objectives { list-style: none; counter-reset: obj; display: grid; gap: 0.7rem; }
+    .objectives li {
+      position: relative; padding-left: 2.1rem; font-size: 0.9rem;
+      color: var(--ink-2); line-height: 1.55;
+    }
+    .objectives li::before {
+      counter-increment: obj; content: counter(obj);
+      position: absolute; left: 0; top: 0.05rem;
+      width: 1.4rem; height: 1.4rem; border-radius: 50%;
+      display: grid; place-items: center;
+      background: var(--blue-tint); color: var(--blue);
+      font-size: 0.72rem; font-weight: 800;
     }
 
-    .subhead {
-      font-size: 1.05rem;
-      color: #2f5277;
-      font-weight: 400;
-      border-left: 5px solid #8bb3e0;
-      padding-left: 1.2rem;
-      margin: 1rem 0 0.2rem 0;
-      font-style: italic;
+    /* ================= TABLE OF CONTENTS ================= */
+    .toc {
+      margin: 1.6rem 0 0; background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--line); border-radius: var(--radius-lg);
+      padding: 1.1rem 1.2rem; backdrop-filter: blur(4px);
     }
-
-    .intro-text {
-      background: #e6f0fc;
-      padding: 1rem 1.4rem;
-      border-radius: 1.2rem;
-      margin-top: 1.4rem;
-      font-size: 0.98rem;
-      color: #1d3a5c;
-      border-left: 5px solid #3b6ea5;
+    .toc-title {
+      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem;
     }
-
-    /* ---------- SECTION TITLE ---------- */
-    .section-title {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #0e2a47;
-      margin: 2.2rem 0 1rem 0;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
+    .toc-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0.35rem; }
+    .toc-list a {
+      display: flex; align-items: baseline; gap: 0.55rem;
+      padding: 0.42rem 0.5rem; border-radius: 10px;
+      text-decoration: none; color: var(--ink-2);
+      font-size: 0.88rem; font-weight: 600; transition: background 0.15s, color 0.15s;
     }
-
-    .section-title .line {
-      flex: 1;
-      height: 2px;
-      background: linear-gradient(90deg, #8bb3e0, transparent);
-      border-radius: 2px;
-    }
-
-    /* ---------- CARD GRID (general) ---------- */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.4rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .info-card {
-      background: white;
-      border-radius: 1.6rem;
-      padding: 1.5rem 1.4rem 1.4rem 1.4rem;
-      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
-      transition: all 0.25s ease;
-      border: 1px solid #e3ecf7;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .info-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 6px;
-      background: linear-gradient(90deg, #3f7cb0, #8bb3e0, #b8d4f0);
-      opacity: 0.75;
-      transition: height 0.2s;
-    }
-
-    .info-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 22px 28px -16px #1e3f5e;
-      border-color: #b8d0e9;
-    }
-
-    .info-card:hover::before {
-      height: 10px;
-      opacity: 1;
-    }
-
-    .card-icon-lg {
-      font-size: 2rem;
-      line-height: 1;
-      background: #e9f0fa;
-      width: 54px;
-      height: 54px;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .toc-list a:hover, .toc-list a:focus-visible { background: var(--blue-tint); color: var(--navy); }
+    .toc-num {
+      font-size: 0.68rem; font-weight: 800; color: var(--blue);
+      background: var(--blue-tint); border-radius: 6px; padding: 0.1rem 0.4rem;
       flex-shrink: 0;
-      color: #1b3c61;
-      margin-bottom: 0.8rem;
-      transition: background 0.2s;
     }
 
-    .info-card:hover .card-icon-lg {
-      background: #d3e3f8;
+    /* ================= TOOLBAR / SEARCH ================= */
+    .toolbar {
+      position: sticky; top: 0; z-index: 60;
+      margin: 1.6rem 0 0.4rem; padding: 0.6rem 0;
+      background: linear-gradient(180deg, rgba(243, 246, 253, 0.97) 65%, rgba(243, 246, 253, 0));
     }
-
-    .card-title-md {
-      font-weight: 700;
-      font-size: 1.2rem;
-      color: #0e2a47;
-      letter-spacing: -0.3px;
-      line-height: 1.3;
-      margin-bottom: 0.5rem;
+    .toolbar-inner {
+      display: flex; align-items: center; gap: 0.7rem;
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: 999px; padding: 0.45rem 0.55rem 0.45rem 1rem;
+      box-shadow: var(--shadow-sm);
     }
-
-    .card-desc-sm {
-      font-size: 0.93rem;
-      color: #274e73;
-      line-height: 1.6;
-      opacity: 0.94;
-      flex: 1;
-    }
-
-    /* ---------- STRATEGY CARDS ---------- */
-    .strategy-card {
-      background: white;
-      border-radius: 1.6rem;
-      padding: 1.5rem 1.5rem 1.4rem 1.5rem;
-      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
-      transition: all 0.25s ease;
-      border: 1px solid #e3ecf7;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .strategy-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 6px;
-      background: linear-gradient(90deg, #3f7cb0, #8bb3e0, #b8d4f0);
-      opacity: 0.75;
-      transition: height 0.2s;
-    }
-
-    .strategy-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 22px 28px -16px #1e3f5e;
-      border-color: #b8d0e9;
-    }
-
-    .strategy-card:hover::before {
-      height: 10px;
-      opacity: 1;
-    }
-
-    .strategy-num {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: white;
-      background: #0e2a47;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 0.6rem;
-    }
-
-    .strategy-title {
-      font-weight: 700;
-      font-size: 1.15rem;
-      color: #0e2a47;
-      margin-bottom: 0.4rem;
-    }
-
-    .strategy-concept {
-      font-size: 0.91rem;
-      color: #274e73;
-      margin-bottom: 0.8rem;
-      line-height: 1.55;
-    }
-
-    .impact-block {
-      background: #f6faff;
-      border-radius: 1rem;
-      padding: 0.8rem 1rem;
-      margin-top: auto;
-      border-left: 5px solid #3b7bb5;
-      font-size: 0.88rem;
-      color: #183c5e;
-      box-shadow: inset 0 0 0 1px #d9e8fc;
-      transition: background 0.2s;
-    }
-
-    .strategy-card:hover .impact-block {
-      background: #ecf4fe;
-    }
-
-    .impact-label {
-      display: inline-block;
-      font-weight: 700;
-      color: #1a4b7a;
-      font-size: 0.7rem;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      margin-bottom: 0.3rem;
-      background: #d7e6fa;
-      padding: 0.1rem 0.7rem;
-      border-radius: 30px;
-    }
-
-    /* ---------- DO / DON'T ---------- */
-    .dodont-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.2rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .do-card, .dont-card {
-      border-radius: 1.6rem;
-      padding: 1.5rem 1.5rem;
-      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.12);
-      border: 1px solid;
-    }
-
-    .do-card {
-      background: #f0faf4;
-      border-color: #b8e0c8;
-    }
-
-    .dont-card {
-      background: #fdf6f6;
-      border-color: #e8c8c8;
-    }
-
-    .do-card h3, .dont-card h3 {
-      font-size: 1.15rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .do-card h3 { color: #1b6e3e; }
-    .dont-card h3 { color: #a83535; }
-
-    .do-card ul, .dont-card ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .do-card li, .dont-card li {
-      padding: 0.45rem 0 0.45rem 1.7rem;
-      position: relative;
-      font-size: 0.92rem;
-      line-height: 1.55;
-      color: #1e3c5a;
-    }
-
-    .do-card li::before {
-      content: '✔';
-      position: absolute;
-      left: 0;
-      color: #2e9b5e;
-      font-weight: 700;
-    }
-
-    .dont-card li::before {
-      content: '✘';
-      position: absolute;
-      left: 0;
-      color: #d45a5a;
-      font-weight: 700;
-    }
-
-    /* ---------- KEY TAKEAWAY ---------- */
-    .takeaway-card {
-      background: #0e2a47;
-      color: white;
-      border-radius: 1.6rem;
-      padding: 1.6rem 2rem;
-      margin: 1.5rem 0 0.5rem 0;
-      font-size: 1rem;
-      line-height: 1.6;
-      box-shadow: 0 14px 26px -12px #0e2a47;
-      border-left: 6px solid #8bb3e0;
-    }
-
-    .takeaway-card strong {
-      color: #b8d4f0;
-    }
-
-    /* ---------- SEARCH & COUNT ---------- */
-    .filter-section {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1.5rem;
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(8px);
-      padding: 0.8rem 1.5rem;
-      border-radius: 60px;
-      box-shadow: 0 8px 18px -8px rgba(0, 27, 45, 0.1);
-    }
-
-    .search-box {
-      display: flex;
-      align-items: center;
-      background: white;
-      border-radius: 40px;
-      padding: 0.3rem 0.3rem 0.3rem 1.2rem;
-      flex: 2;
-      min-width: 240px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
-      border: 1px solid #ccdcee;
-    }
-
-    .search-box span {
-      font-size: 1.1rem;
-      margin-right: 0.5rem;
-      color: #4e6b8a;
-    }
-
+    .search-box { display: flex; align-items: center; gap: 0.55rem; flex: 1; min-width: 0; }
+    .search-box span { font-size: 0.95rem; opacity: 0.7; }
     .search-box input {
-      border: none;
-      padding: 0.7rem 0.2rem;
-      width: 100%;
-      font-size: 0.95rem;
-      outline: none;
-      background: transparent;
-      color: #0c253b;
+      border: none; outline: none; background: transparent;
+      font: inherit; font-size: 0.92rem; color: var(--ink);
+      width: 100%; padding: 0.3rem 0;
     }
-
-    .search-box input::placeholder {
-      color: #879eb6;
-      font-weight: 300;
-    }
-
+    .search-box input::placeholder { color: #93a8bd; }
     .count-pill {
-      background: #0e2a47;
-      color: white;
-      padding: 0.4rem 1.2rem;
-      border-radius: 30px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      white-space: nowrap;
+      flex-shrink: 0; background: var(--navy); color: #fff;
+      font-size: 0.75rem; font-weight: 700;
+      padding: 0.4rem 0.85rem; border-radius: 999px; white-space: nowrap;
     }
 
-    /* ---------- QUIZ SECTION ---------- */
-    .quiz-section {
-      margin-top: 2.5rem;
+    /* ================= SECTION HEADERS ================= */
+    .section { margin-top: 3rem; scroll-margin-top: 90px; }
+    .section-head { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.3rem; }
+    .section-num {
+      flex-shrink: 0; width: 46px; height: 46px; border-radius: 15px;
+      display: grid; place-items: center;
+      background: var(--navy); color: #fff;
+      font-size: 0.9rem; font-weight: 800; letter-spacing: 0.02em;
+      box-shadow: 0 8px 18px -10px rgba(14, 42, 71, 0.9);
+    }
+    .eyebrow {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 0.18rem;
+    }
+    .section-head h2 {
+      font-size: clamp(1.25rem, 2.2vw, 1.6rem); font-weight: 800;
+      color: var(--ink); letter-spacing: -0.015em; line-height: 1.25;
+    }
+    .section-lead {
+      margin-top: 0.3rem; font-size: 0.92rem; color: var(--muted); max-width: 68ch;
     }
 
-    .quiz-header {
-      background: #0e2a47;
-      border-radius: 2rem 2rem 0 0;
-      padding: 1.5rem 2rem;
-      color: white;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
+    /* ================= CONCEPT CARDS ================= */
+    .concept-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
+    .concept-card {
+      position: relative; display: flex; flex-direction: column;
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-md); padding: 1.25rem 1.25rem 1.1rem;
+      box-shadow: var(--shadow-sm); overflow: hidden;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+    .concept-card::before {
+      content: ''; position: absolute; inset: 0 0 auto 0; height: 4px;
+      background: linear-gradient(90deg, var(--blue), var(--blue-soft), #cfe2f5);
+    }
+    .concept-card:hover {
+      transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: #c4dcf2;
+    }
+    .concept-top { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; }
+    .concept-icon {
+      width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center;
+      background: var(--blue-tint); font-size: 1.2rem;
+    }
+    .concept-index {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em;
+      color: #9fb6cc; border: 1px solid var(--line); border-radius: 999px;
+      padding: 0.12rem 0.5rem;
+    }
+    .concept-title {
+      margin: 0.75rem 0 0.4rem; font-size: 1.02rem; font-weight: 800;
+      color: var(--ink); line-height: 1.35;
+    }
+    .concept-desc { font-size: 0.9rem; color: var(--body); }
+    .concept-desc strong, .vocab-def strong, .myth-reality strong, .takeaways strong, .lead-para strong {
+      color: #0a3a68; font-weight: 700;
+      background: linear-gradient(transparent 64%, var(--mark) 64%);
+      padding: 0 1px; border-radius: 2px;
+    }
+    .practice {
+      margin-top: auto; padding-top: 0.9rem;
+    }
+    .practice-box {
+      background: var(--wash); border: 1px solid #e2eefa;
+      border-left: 3px solid var(--blue); border-radius: 10px;
+      padding: 0.65rem 0.8rem;
+    }
+    .practice-label {
+      display: block; font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue);
+      margin-bottom: 0.18rem;
+    }
+    .practice-box p { font-size: 0.85rem; color: var(--ink-2); line-height: 1.5; }
+
+    /* ================= VOCABULARY ================= */
+    .vocab-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 0.75rem; margin: 0;
+    }
+    .vocab-card {
+      background: var(--paper); border: 1px solid var(--line);
+      border-left: 4px solid var(--blue-soft);
+      border-radius: var(--radius-sm); padding: 0.85rem 1rem;
+      box-shadow: 0 4px 12px -10px rgba(12, 38, 66, 0.4);
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .vocab-card:hover { border-left-color: var(--blue); transform: translateY(-2px); }
+    .vocab-term {
+      font-size: 0.9rem; font-weight: 800; color: var(--navy);
+      display: block; margin-bottom: 0.22rem; line-height: 1.35;
+    }
+    .vocab-def { font-size: 0.85rem; color: var(--body); line-height: 1.55; }
+
+    /* ================= TABLE ================= */
+    .table-shell {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .table-caption {
+      display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+      padding: 0.9rem 1.1rem; border-bottom: 1px solid var(--line);
+      background: #fbfdff;
+    }
+    .table-caption strong { font-size: 0.92rem; font-weight: 800; color: var(--ink); }
+    .table-caption span { font-size: 0.72rem; font-weight: 700; color: var(--muted); white-space: nowrap; }
+    .table-scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.86rem; min-width: 640px; }
+    thead th {
+      position: sticky; top: 0; z-index: 1;
+      background: var(--navy); color: #fff; text-align: left;
+      padding: 0.7rem 0.9rem; font-size: 0.76rem; font-weight: 700;
+      letter-spacing: 0.045em; text-transform: uppercase; white-space: nowrap;
+    }
+    tbody td { padding: 0.7rem 0.9rem; border-bottom: 1px solid #eef4fb; vertical-align: top; line-height: 1.5; }
+    tbody td:first-child { font-weight: 700; color: var(--navy); background: #fbfdff; }
+    tbody tr:nth-child(even) td { background: #f7fbff; }
+    tbody tr:nth-child(even) td:first-child { background: #f1f8ff; }
+    tbody tr:last-child td { border-bottom: none; }
+
+    /* ================= DO / AVOID ================= */
+    .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .dd-card {
+      border-radius: var(--radius-md); padding: 1.2rem 1.3rem;
+      border: 1px solid; box-shadow: var(--shadow-sm);
+    }
+    .dd-card.do { background: var(--green-tint); border-color: #bfe6d1; }
+    .dd-card.avoid { background: var(--red-tint); border-color: #efc9c9; }
+    .dd-card h3 {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.95rem; font-weight: 800; margin-bottom: 0.8rem;
+      letter-spacing: 0.01em;
+    }
+    .dd-card.do h3 { color: var(--green); }
+    .dd-card.avoid h3 { color: var(--red); }
+    .dd-card ul { list-style: none; display: grid; gap: 0.45rem; }
+    .dd-card li { position: relative; padding-left: 1.45rem; font-size: 0.87rem; color: var(--ink-2); line-height: 1.55; }
+    .dd-card.do li::before { content: '✔'; position: absolute; left: 0; color: var(--green); font-weight: 800; }
+    .dd-card.avoid li::before { content: '✕'; position: absolute; left: 0; color: var(--red); font-weight: 800; }
+
+    /* ================= MYTHS ================= */
+    .myth-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
+    .myth-card {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-md); padding: 1.1rem 1.2rem;
+      box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 0.55rem;
+    }
+    .myth-tag {
+      align-self: flex-start; display: inline-flex; align-items: center; gap: 0.35rem;
+      background: var(--red-tint); color: var(--red); border: 1px solid #f0cfcf;
+      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.18rem 0.55rem; border-radius: 999px;
+    }
+    .myth-claim { font-size: 0.93rem; font-weight: 700; color: var(--ink); line-height: 1.45; }
+    .myth-reality {
+      border-top: 1px dashed var(--line); padding-top: 0.55rem;
+      font-size: 0.86rem; color: var(--body);
+    }
+    .reality-tag {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      color: var(--green); font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.2rem;
     }
 
-    .quiz-header h2 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      letter-spacing: -0.3px;
+    /* ================= TAKEAWAYS ================= */
+    .takeaways {
+      background: linear-gradient(135deg, #12365c 0%, #0e2a47 100%);
+      color: #eaf4ff; border-radius: var(--radius-lg);
+      padding: 1.6rem 1.7rem; box-shadow: var(--shadow-md);
+      counter-reset: take;
     }
-
-    .quiz-header .quiz-badge {
-      background: #8bb3e0;
-      color: #0e2a47;
-      padding: 0.3rem 1.2rem;
-      border-radius: 40px;
-      font-size: 0.85rem;
-      font-weight: 700;
+    .takeaways h3 {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.16em;
+      text-transform: uppercase; color: #9cc7ee; margin-bottom: 0.9rem;
     }
-
-    .quiz-body {
-      background: white;
-      border-radius: 0 0 2rem 2rem;
-      padding: 2rem;
-      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
-      border: 1px solid #e3ecf7;
-      border-top: none;
+    .takeaways ol { list-style: none; display: grid; gap: 0.6rem; }
+    .takeaways li {
+      counter-increment: take; position: relative; padding-left: 2.2rem;
+      font-size: 0.9rem; line-height: 1.55;
     }
-
-    .quiz-tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-bottom: 2rem;
-      border-bottom: 2px solid #e3ecf7;
-      padding-bottom: 1rem;
+    .takeaways li::before {
+      content: counter(take, decimal-leading-zero);
+      position: absolute; left: 0; top: 0.12rem;
+      font-size: 0.72rem; font-weight: 800; color: #8bb3e0;
+      border: 1px solid rgba(139, 179, 224, 0.4);
+      border-radius: 6px; padding: 0.05rem 0.35rem;
     }
+    .takeaways strong { color: #ffffff; background: none; }
 
+    /* ================= SUMMARY + EXAM TIP ================= */
+    .summary {
+      margin-top: 1rem; display: flex; gap: 0.9rem;
+      background: var(--paper); border: 1px solid var(--line);
+      border-left: 5px solid var(--blue);
+      border-radius: var(--radius-md); padding: 1.1rem 1.3rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .summary-label {
+      flex-shrink: 0; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--blue);
+      writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);
+    }
+    .summary p { font-size: 0.95rem; color: var(--ink-2); }
+
+    .exam-tip {
+      margin-top: 1rem; display: flex; gap: 0.8rem;
+      background: var(--amber-tint); border: 1px solid #f2e0b3;
+      border-radius: var(--radius-md); padding: 1rem 1.2rem;
+    }
+    .exam-tip .tip-icon { font-size: 1.1rem; line-height: 1.4; }
+    .exam-tip .tip-label {
+      display: block; font-size: 0.64rem; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--amber); margin-bottom: 0.15rem;
+    }
+    .exam-tip p { font-size: 0.88rem; color: #6b5310; }
+
+    /* ================= QUIZ ================= */
+    .quiz {
+      margin-top: 3rem; border-radius: var(--radius-lg);
+      overflow: hidden; box-shadow: var(--shadow-md); scroll-margin-top: 90px;
+    }
+    .quiz-head {
+      background: radial-gradient(120% 140% at 100% 0%, #1a4470 0%, #0e2a47 62%);
+      color: #fff; padding: 1.5rem 1.7rem;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.9rem;
+    }
+    .quiz-head .eyebrow { color: #9cc7ee; }
+    .quiz-head h2 { font-size: 1.35rem; font-weight: 800; color: #fff; }
+    .quiz-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .quiz-chips span {
+      background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px; padding: 0.28rem 0.7rem; font-size: 0.74rem; font-weight: 700; color: #dceafa;
+    }
+    .quiz-body { background: var(--paper); padding: 1.5rem 1.7rem 1.8rem; }
+
+    .quiz-tabs { display: flex; flex-wrap: wrap; gap: 0.45rem; border-bottom: 1px solid var(--line); padding-bottom: 0.9rem; margin-bottom: 1.2rem; }
     .quiz-tab {
-      background: #f0f5fd;
-      border: 1px solid #d0e0f0;
-      color: #1b4670;
-      padding: 0.5rem 1.3rem;
-      border-radius: 40px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
+      font: inherit; font-size: 0.84rem; font-weight: 700; cursor: pointer;
+      color: var(--ink-2); background: #f2f7fd; border: 1px solid var(--line);
+      border-radius: 999px; padding: 0.42rem 1rem; transition: all 0.15s;
     }
+    .quiz-tab:hover { background: var(--blue-tint); border-color: #bcd8f0; }
+    .quiz-tab.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+    .quiz-tab:focus-visible { outline: 3px solid rgba(47, 108, 168, 0.35); outline-offset: 2px; }
 
-    .quiz-tab:hover {
-      background: #e0ecfc;
-      border-color: #a0c0e0;
-    }
-
-    .quiz-tab.active {
-      background: #0e2a47;
-      color: white;
-      border-color: #0e2a47;
-    }
-
-    .quiz-panel {
-      display: none;
-    }
-
-    .quiz-panel.active {
-      display: block;
-    }
-
+    .quiz-panel { display: none; }
+    .quiz-panel.active { display: block; }
+    .panel-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem; margin-bottom: 1rem; }
     .section-label {
-      display: inline-block;
-      background: #0e2a47;
-      color: white;
-      padding: 0.3rem 1rem;
-      border-radius: 40px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 1.2rem;
+      display: inline-block; background: var(--navy); color: #fff;
+      font-size: 0.66rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.28rem 0.75rem; border-radius: 999px;
+    }
+    .score-chip {
+      font-size: 0.76rem; font-weight: 700; color: var(--blue);
+      background: var(--blue-tint); border-radius: 999px; padding: 0.28rem 0.8rem;
     }
 
-    /* MCQ */
     .mcq-item {
-      background: #f9fcff;
-      border-radius: 1.2rem;
-      padding: 1.3rem 1.5rem;
-      margin-bottom: 1.2rem;
-      border: 1px solid #d9e8fc;
-      transition: background 0.2s;
+      background: #fbfdff; border: 1px solid #e4eefa;
+      border-radius: var(--radius-md); padding: 1rem 1.1rem; margin-bottom: 0.85rem;
     }
-
-    .mcq-item:hover {
-      background: #f0f7fe;
-    }
-
     .mcq-question {
-      font-weight: 600;
-      font-size: 1rem;
-      color: #0e2a47;
-      margin-bottom: 0.8rem;
-      line-height: 1.5;
+      display: flex; gap: 0.6rem; font-size: 0.93rem; font-weight: 700;
+      color: var(--ink); line-height: 1.5; margin-bottom: 0.75rem;
     }
-
-    .mcq-options {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
+    .mcq-question .q-num { color: var(--blue); font-weight: 800; }
+    .mcq-options { display: grid; gap: 0.45rem; }
     .mcq-option {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.6rem;
-      padding: 0.6rem 0.9rem;
-      border-radius: 0.8rem;
-      background: white;
-      border: 1.5px solid #d9e8fc;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-size: 0.93rem;
-      color: #1e3c5a;
+      display: flex; align-items: flex-start; gap: 0.6rem; width: 100%;
+      text-align: left; font: inherit; font-size: 0.87rem; color: var(--ink-2);
+      background: #fff; border: 1.5px solid #e2edf9; border-radius: 11px;
+      padding: 0.55rem 0.75rem; cursor: pointer; transition: all 0.15s;
     }
-
-    .mcq-option:hover {
-      border-color: #8bb3e0;
-      background: #eef6ff;
+    .mcq-option:hover:not(:disabled) { border-color: #b7d4ee; background: #f7fbff; }
+    .mcq-option:disabled { cursor: default; }
+    .option-letter {
+      flex-shrink: 0; width: 1.35rem; height: 1.35rem; border-radius: 50%;
+      display: grid; place-items: center; font-size: 0.7rem; font-weight: 800;
+      background: #eef5fd; color: var(--blue);
     }
-
-    .mcq-option.selected {
-      border-color: #3b7bb5;
-      background: #e4f0fe;
-      font-weight: 500;
-    }
-
-    .mcq-option.correct {
-      border-color: #2e9b5e;
-      background: #e6f7ee;
-      font-weight: 600;
-    }
-
-    .mcq-option.incorrect {
-      border-color: #d45a5a;
-      background: #fdeaea;
-      font-weight: 500;
-    }
-
-    .mcq-option .option-letter {
-      font-weight: 700;
-      color: #2a4b7c;
-      min-width: 1.4rem;
-      text-align: center;
-      flex-shrink: 0;
-    }
-
-    .mcq-option.correct .option-letter { color: #1b7a44; }
-    .mcq-option.incorrect .option-letter { color: #b03030; }
-
+    .mcq-option.correct { border-color: #7fc7a1; background: var(--green-tint); font-weight: 600; }
+    .mcq-option.correct .option-letter { background: #cdeedb; color: #14603c; }
+    .mcq-option.incorrect { border-color: #e0a3a3; background: var(--red-tint); }
+    .mcq-option.incorrect .option-letter { background: #f4d4d4; color: #8f2b2b; }
     .mcq-feedback {
-      margin-top: 0.7rem;
-      font-size: 0.88rem;
-      padding: 0.5rem 0.9rem;
-      border-radius: 0.8rem;
-      display: none;
-      font-weight: 500;
+      display: none; margin-top: 0.65rem; font-size: 0.85rem;
+      border-radius: 10px; padding: 0.55rem 0.8rem; line-height: 1.5;
     }
-
     .mcq-feedback.show { display: block; }
-    .mcq-feedback.correct-fb {
-      background: #e6f7ee;
-      color: #1b6e3e;
-      border-left: 4px solid #2e9b5e;
-    }
-    .mcq-feedback.incorrect-fb {
-      background: #fdeaea;
-      color: #9e2a2a;
-      border-left: 4px solid #d45a5a;
-    }
+    .mcq-feedback.correct-fb { background: var(--green-tint); color: #14603c; border-left: 3px solid #2e9b5e; }
+    .mcq-feedback.incorrect-fb { background: var(--red-tint); color: #8f2b2b; border-left: 3px solid #d45a5a; }
 
-    /* CRQ / ERQ shared */
     .crq-item, .erq-item {
-      background: #f9fcff;
-      border-radius: 1.2rem;
-      padding: 1.3rem 1.5rem;
-      margin-bottom: 1.2rem;
-      border: 1px solid #d9e8fc;
+      background: #fbfdff; border: 1px solid #e4eefa;
+      border-radius: var(--radius-md); padding: 1.1rem 1.2rem; margin-bottom: 0.9rem;
     }
-
-    .erq-item {
-      border: 2px solid #8bb3e0;
-      background: #f5faff;
-    }
-
+    .erq-item { border: 2px solid var(--blue-soft); background: #f7fbff; }
     .crq-question, .erq-question {
-      font-weight: 600;
-      font-size: 1rem;
-      color: #0e2a47;
-      margin-bottom: 0.5rem;
-      line-height: 1.5;
+      font-size: 0.95rem; font-weight: 700; color: var(--ink); line-height: 1.5; margin-bottom: 0.4rem;
     }
-
-    .erq-question {
-      font-size: 1.05rem;
-      font-weight: 700;
-    }
-
     .erq-marks {
-      display: inline-block;
-      background: #0e2a47;
-      color: white;
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 0.2rem 0.9rem;
-      border-radius: 40px;
-      margin-bottom: 0.8rem;
+      display: inline-block; background: var(--navy); color: #fff;
+      font-size: 0.65rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.22rem 0.7rem; border-radius: 999px; margin-bottom: 0.6rem;
     }
-
-    .crq-hint {
-      font-size: 0.85rem;
-      color: #4e6b8a;
-      font-style: italic;
-      margin-bottom: 0.7rem;
-    }
-
+    .crq-hint { font-size: 0.82rem; color: var(--muted); font-style: italic; margin-bottom: 0.6rem; }
     .crq-textarea, .erq-textarea {
-      width: 100%;
-      border: 1.5px solid #d9e8fc;
-      border-radius: 0.9rem;
-      padding: 0.8rem 1rem;
-      font-family: inherit;
-      font-size: 0.93rem;
-      color: #1e3c5a;
-      resize: vertical;
-      transition: border-color 0.2s;
-      background: white;
+      width: 100%; font: inherit; font-size: 0.88rem; color: var(--ink-2);
+      background: #fff; border: 1.5px solid #dbe8f6; border-radius: 11px;
+      padding: 0.7rem 0.85rem; resize: vertical; transition: border-color 0.15s, box-shadow 0.15s;
     }
-
-    .crq-textarea { min-height: 90px; }
-    .erq-textarea { min-height: 160px; }
-
+    .crq-textarea { min-height: 96px; }
+    .erq-textarea { min-height: 170px; }
     .crq-textarea:focus, .erq-textarea:focus {
-      outline: none;
-      border-color: #3b7bb5;
-      box-shadow: 0 0 0 3px rgba(59, 123, 181, 0.12);
+      outline: none; border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(47, 108, 168, 0.13);
     }
-
-    .crq-actions, .erq-actions {
-      display: flex;
-      gap: 0.7rem;
-      margin-top: 0.7rem;
-      flex-wrap: wrap;
+    .answer-meta {
+      display: flex; justify-content: space-between; gap: 0.6rem;
+      font-size: 0.74rem; color: var(--muted); margin-top: 0.35rem;
     }
-
+    .actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.65rem; }
     .btn {
-      padding: 0.55rem 1.4rem;
-      border-radius: 40px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      border: none;
-      font-family: inherit;
+      font: inherit; font-size: 0.83rem; font-weight: 700; cursor: pointer;
+      border-radius: 999px; padding: 0.48rem 1.1rem; border: 1px solid transparent;
+      transition: all 0.15s;
     }
-
-    .btn-primary {
-      background: #0e2a47;
-      color: white;
-    }
-    .btn-primary:hover {
-      background: #1a4170;
-      transform: translateY(-1px);
-    }
-
-    .btn-secondary {
-      background: #e9f0fa;
-      color: #1b4670;
-      border: 1px solid #c0d8f0;
-    }
-    .btn-secondary:hover { background: #d8e6f8; }
-
+    .btn-primary { background: var(--navy); color: #fff; }
+    .btn-primary:hover { background: #16406c; transform: translateY(-1px); }
+    .btn-secondary { background: #eef5fd; color: #1b4670; border-color: #cfe2f4; }
+    .btn-secondary:hover { background: #e0edfa; }
+    .btn:focus-visible { outline: 3px solid rgba(47, 108, 168, 0.35); outline-offset: 2px; }
     .crq-feedback, .erq-feedback {
-      margin-top: 0.8rem;
-      padding: 0.8rem 1rem;
-      border-radius: 0.9rem;
-      font-size: 0.9rem;
-      display: none;
-      line-height: 1.6;
+      display: none; margin-top: 0.7rem; border-radius: 10px;
+      padding: 0.7rem 0.9rem; font-size: 0.86rem; line-height: 1.6;
     }
-
     .crq-feedback.show, .erq-feedback.show { display: block; }
+    .crq-feedback.model, .erq-feedback.model { background: var(--blue-tint); color: #143c62; border-left: 3px solid var(--blue); }
+    .crq-feedback.good, .erq-feedback.good { background: var(--green-tint); color: #14603c; border-left: 3px solid #2e9b5e; }
+    .crq-feedback.partial, .erq-feedback.partial { background: var(--amber-tint); color: #6b5310; border-left: 3px solid #e0a800; }
 
-    .crq-feedback.good, .erq-feedback.good {
-      background: #e6f7ee;
-      color: #1b6e3e;
-      border-left: 4px solid #2e9b5e;
+    /* ================= FOOTER + TOP BUTTON ================= */
+    .note-footer {
+      margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid var(--line);
+      display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem;
+      font-size: 0.76rem; color: var(--muted);
+    }
+    .to-top {
+      position: fixed; right: 1.1rem; bottom: 1.1rem; z-index: 70;
+      width: 44px; height: 44px; border-radius: 50%; border: none; cursor: pointer;
+      background: var(--navy); color: #fff; font-size: 1.05rem;
+      box-shadow: var(--shadow-md); opacity: 0; pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .to-top.visible { opacity: 1; pointer-events: auto; }
+    .to-top:hover { transform: translateY(-2px); }
+
+    .no-results {
+      grid-column: 1 / -1; text-align: center; padding: 2rem 1rem;
+      background: rgba(255, 255, 255, 0.8); border: 2px dashed #c3d8ee;
+      border-radius: var(--radius-md); color: var(--muted); font-weight: 600; font-size: 0.9rem;
     }
 
-    .crq-feedback.partial, .erq-feedback.partial {
-      background: #fff8e6;
-      color: #8a6d1f;
-      border-left: 4px solid #e0a800;
-    }
-
-    .erq-feedback.model {
-      background: #e6f0fc;
-      color: #1a3e62;
-      border-left: 5px solid #3b7bb5;
-    }
-
-    /* ---------- RESPONSIVE ---------- */
-    @media (max-width: 700px) {
-      .dodont-grid { grid-template-columns: 1fr; }
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 900px) {
+      .brief { grid-template-columns: 1fr; margin: -1.6rem 0.8rem 0; }
+      .do-dont { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 600px) {
-      .header-card { padding: 1.5rem 1.2rem; }
-      h1 { font-size: 1.7rem; }
-      .filter-section {
-        flex-direction: column;
-        align-items: stretch;
-        border-radius: 2rem;
-        padding: 1rem;
+      .hero { padding: 1.7rem 1.25rem 2.8rem; border-radius: 24px; }
+      .hero h1 { max-width: none; }
+      .brief { margin: -1.4rem 0.5rem 0; }
+      .brief-card { padding: 1.1rem 1.15rem; border-radius: 18px; }
+      .section-head { gap: 0.7rem; }
+      .section-num { width: 38px; height: 38px; border-radius: 12px; font-size: 0.8rem; }
+      .concept-grid, .vocab-grid, .myth-grid { grid-template-columns: 1fr; }
+      .toolbar-inner { border-radius: 18px; padding: 0.55rem 0.75rem; }
+      .quiz-body { padding: 1.1rem 1rem 1.4rem; }
+      .quiz-head { padding: 1.2rem 1.1rem; }
+      .takeaways { padding: 1.2rem 1.1rem; }
+      .summary { flex-direction: column; gap: 0.5rem; }
+      .summary-label { writing-mode: horizontal-tb; transform: none; }
+    }
+
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-track { background: #e4ecf6; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: #a9c0d8; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: #7f9cba; }
+
+    ::selection { background: #cfe3f8; color: #0b2138; }
+
+    .toc-list a:focus-visible,
+    .mcq-option:focus-visible,
+    .quiz-tab:focus-visible,
+    .btn:focus-visible,
+    .to-top:focus-visible {
+      outline: 3px solid rgba(47, 108, 168, 0.4);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
       }
-      .search-box { width: 100%; }
-      .count-pill { text-align: center; padding: 0.5rem; }
-      .cards-grid { grid-template-columns: 1fr; }
-      .quiz-body { padding: 1.2rem; }
-      .quiz-header { padding: 1.2rem; }
-      .quiz-header h2 { font-size: 1.3rem; }
-      .mcq-item, .crq-item, .erq-item { padding: 1rem; }
-      .quiz-tab { font-size: 0.8rem; padding: 0.4rem 1rem; }
     }
 
-    ::-webkit-scrollbar { width: 10px; }
-    ::-webkit-scrollbar-track { background: #dfe9f5; border-radius: 20px; }
-    ::-webkit-scrollbar-thumb { background: #94b0d1; border-radius: 20px; }
-    ::-webkit-scrollbar-thumb:hover { background: #6d8fb4; }
-
-    .no-results {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 3rem 1rem;
-      background: #ffffffc9;
-      border-radius: 2rem;
-      font-size: 1.1rem;
-      color: #4b6888;
-      border: 2px dashed #b8cee8;
-      font-weight: 500;
+    /* ================= PRINT ================= */
+    @media print {
+      body { background: #fff; padding: 0; }
+      .progress-track, .toolbar, .to-top, .quiz-tabs { display: none !important; }
+      .hero { box-shadow: none; border-radius: 0; }
+      .quiz-panel { display: block !important; }
+      .concept-card, .vocab-card, .myth-card, .table-shell { break-inside: avoid; }
     }
-
-    /* ---------- TABLES ---------- */
-    .table-wrapper {
-      background: white;
-      border-radius: 1.6rem;
-      padding: 1.2rem;
-      border: 1px solid #e3ecf7;
-      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
-      overflow-x: auto;
-      margin-bottom: 0.5rem;
-    }
-
-    .table-wrapper table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9rem;
-      min-width: 620px;
-    }
-
-    .table-wrapper caption {
-      text-align: left;
-      font-weight: 700;
-      color: #0e2a47;
-      font-size: 0.95rem;
-      padding: 0.2rem 0.2rem 0.8rem 0.2rem;
-    }
-
-    .table-wrapper thead th {
-      background: #0e2a47;
-      color: #ffffff;
-      text-align: left;
-      padding: 0.75rem 0.9rem;
-      font-weight: 700;
-      font-size: 0.85rem;
-      letter-spacing: 0.2px;
-    }
-
-    .table-wrapper tbody td {
-      padding: 0.75rem 0.9rem;
-      border-bottom: 1px solid #e3ecf7;
-      vertical-align: top;
-      color: #274e73;
-      line-height: 1.55;
-    }
-
-    .table-wrapper tbody tr:nth-child(even) { background: #f7faff; }
-    .table-wrapper tbody tr:last-child td { border-bottom: none; }
-
-    /* ---------- SUMMARY STRIP ---------- */
-    .summary-card {
-      background: #e6f0fc;
-      border-left: 6px solid #3b7cb0;
-      border-radius: 1.4rem;
-      padding: 1.3rem 1.6rem;
-      margin-top: 1rem;
-      font-size: 1rem;
-      color: #1d3a5c;
-      box-shadow: inset 0 0 0 1px #d9e8fc;
-    }
-
-    .summary-card strong { color: #0e2a47; }
-
-    .takeaway-card ul { margin: 0; padding-left: 1.2rem; }
-    .takeaway-card li { margin-bottom: 0.45rem; }
 
   </style>
 </head>
 <body>
-  <div class="main-wrapper">
-    <!-- ================= HEADER ================= -->
-    <div class="header-card">
-      <span class="badge">🏫 Classroom Management</span>
+  <div class="progress-track" aria-hidden="true"><span class="progress-fill" id="progressFill"></span></div>
+
+  <div class="shell">
+    <!-- ================= HERO ================= -->
+    <header class="hero">
+      <div class="hero-top">
+        <span class="badge">🏫 Classroom Management</span>
+        <span class="hero-track">Teaching License · Part II · Note 3 of 10</span>
+      </div>
       <h1>Classroom Observation and Data Collection</h1>
-      <p class="subhead">You cannot manage what you have not measured — systematic observation turns impressions into evidence</p>
-      <div class="intro-text"><strong>💡 Core idea:</strong> Classroom observation is the disciplined collection of evidence about what learners and teachers actually do. It converts vague judgements such as “this class is disruptive” into measurable questions: which behaviour, in which setting, at what frequency, for how long, and with what consequence. Well-designed observation supports formative decisions, fair assessment of behaviour plans, and professional growth, provided the tools are reliable, ethical and paired with triangulated evidence.</div>
+      <p class="tagline">You cannot manage what you have not measured — systematic observation turns impressions into evidence</p>
+      <div class="chips">
+        <span class="chip">⏱️ 9 min read</span>
+        <span class="chip">📚 7 sections</span>
+        <span class="chip">🔑 12 key terms</span>
+        <span class="chip">📝 10 MCQs · 4 CRQs · 1 ERQ</span>
+      </div>
+    </header>
+
+    <!-- ================= BIG IDEA + OBJECTIVES ================= -->
+    <div class="brief">
+      <section class="brief-card" aria-labelledby="bigidea-title">
+        <h2 class="brief-label" id="bigidea-title">The big idea</h2>
+        <p>Classroom observation is the disciplined collection of evidence about what learners and teachers actually do. It converts vague judgements such as “this class is disruptive” into measurable questions: which behaviour, in which setting, at what frequency, for how long, and with what consequence. Well-designed observation supports formative decisions, fair assessment of behaviour plans, and professional growth, provided the tools are reliable, ethical and paired with triangulated evidence.</p>
+      </section>
+      <section class="brief-card" aria-labelledby="objectives-title">
+        <h2 class="brief-label" id="objectives-title">What you will master</h2>
+        <ol class="objectives"><li>Turn a vague concern into an <strong>operational definition</strong> and a measurable observation question.</li><li>Select the correct recording method (event, time, duration, latency, ABC) for a given purpose.</li><li>Evaluate observation evidence for reliability and ethics before acting on it.</li></ol>
+      </section>
     </div>
+
+    <!-- ================= TABLE OF CONTENTS ================= -->
+    <nav class="toc" aria-label="Sections in this note">
+      <p class="toc-title">On this page</p>
+      <ol class="toc-list">
+        <li><a href="#concepts"><span class="toc-num">01</span> Core concepts</a></li>
+        <li><a href="#vocabulary"><span class="toc-num">02</span> Key vocabulary</a></li>
+        <li><a href="#comparison"><span class="toc-num">03</span> Comparison table</a></li>
+        <li><a href="#application"><span class="toc-num">04</span> Classroom application</a></li>
+        <li><a href="#misconceptions"><span class="toc-num">05</span> Misconceptions</a></li>
+        <li><a href="#takeaways"><span class="toc-num">06</span> Takeaways &amp; exam tip</a></li>
+        <li><a href="#practice"><span class="toc-num">07</span> Practice quiz</a></li>
+      </ol>
+    </nav>
 
     <!-- ================= SEARCH ================= -->
-    <div class="filter-section">
-      <div class="search-box">
-        <span>🔍</span>
-        <input id="searchInput" type="search" placeholder="Search concepts and misconceptions..." aria-label="Search this note">
-      </div>
-      <div class="count-pill" id="countDisplay">10 items</div>
-    </div>
-
-    <!-- ================= CONCEPTS ================= -->
-    <h2 class="section-title">🎯 Core Concepts <span class="line"></span></h2>
-    <div class="cards-grid" id="conceptGrid">
-        <div class="info-card" data-searchable="Purposes of observation">
-          <div class="card-icon-lg">🎯</div>
-          <div class="card-title-md">Purposes of observation</div>
-          <div class="card-desc-sm">Observation serves diagnosis (what is happening?), monitoring (is the intervention working?), evaluation (how effective was the lesson?) and professional development (how can I improve?). The purpose determines the tool: diagnosis needs rich description, monitoring needs repeatable counts.</div>
-          <div class="impact-block"><span class="impact-label">In practice</span>Write the question before choosing the tool: “How often does Ali leave his seat during independent work?” is measurable; “Ali is disruptive” is not.</div>
+    <div class="toolbar">
+      <div class="toolbar-inner">
+        <div class="search-box">
+          <span aria-hidden="true">🔍</span>
+          <input id="searchInput" type="search" placeholder="Search concepts, key terms and misconceptions…" aria-label="Search this note">
         </div>
-        <div class="info-card" data-searchable="Narrative and descriptive methods">
-          <div class="card-icon-lg">📝</div>
-          <div class="card-title-md">Narrative and descriptive methods</div>
-          <div class="card-desc-sm">Running records and anecdotal records capture a continuous, contextual account of events in sequence. They preserve antecedents, behaviour and consequences, which makes them valuable for functional analysis, but they are time-consuming and prone to observer interpretation.</div>
-          <div class="impact-block"><span class="impact-label">In practice</span>Use a running record for one target learner for ten minutes, noting exactly what happened before, during and after the behaviour.</div>
-        </div>
-        <div class="info-card" data-searchable="Systematic and quantitative methods">
-          <div class="card-icon-lg">🔢</div>
-          <div class="card-title-md">Systematic and quantitative methods</div>
-          <div class="card-desc-sm">Event sampling counts occurrences, time sampling records whether a behaviour is occurring at fixed intervals, duration recording measures how long it lasts, and latency recording measures the delay before a behaviour starts. Checklists and rating scales summarise presence or degree of behaviours.</div>
-          <div class="impact-block"><span class="impact-label">In practice</span>Sample on-task behaviour every five minutes across a forty-minute lesson; the resulting percentage is far more convincing than a general impression.</div>
-        </div>
-        <div class="info-card" data-searchable="Antecedent–Behaviour–Consequence (ABC) analysis">
-          <div class="card-icon-lg">📋</div>
-          <div class="card-title-md">Antecedent–Behaviour–Consequence (ABC) analysis</div>
-          <div class="card-desc-sm">ABC recording identifies the function of behaviour: what triggered it (antecedent), what it looked like (behaviour), and what followed (consequence). Functions are typically attention, escape, access to tangibles or sensory regulation.</div>
-          <div class="impact-block"><span class="impact-label">In practice</span>If calling out reliably produces peer laughter, the function is attention — so the plan must teach and reinforce an alternative way to gain attention.</div>
-        </div>
-        <div class="info-card" data-searchable="Observation participants and settings">
-          <div class="card-icon-lg">🤝</div>
-          <div class="card-title-md">Observation participants and settings</div>
-          <div class="card-desc-sm">Observation may be participant (the teacher observes while teaching) or non-participant; structured or unstructured; live or recorded; peer, mentor or self-observation. Video and audio allow repeated, slower analysis but raise consent and storage issues.</div>
-          <div class="impact-block"><span class="impact-label">In practice</span>Record a ten-minute segment of your own transitions and analyse it with a colleague — self-observation is often the least threatening entry point.</div>
-        </div>
-        <div class="info-card" data-searchable="Reliability, validity and ethics">
-          <div class="card-icon-lg">⚖️</div>
-          <div class="card-title-md">Reliability, validity and ethics</div>
-          <div class="card-desc-sm">Threats include observer drift, reactivity (learners changing because they are watched), halo effects, and single-source bias. Inter-rater agreement, clear operational definitions, multiple observation sessions and triangulation improve trustworthiness. Consent, confidentiality, anonymised records and non-judgemental language are ethical requirements.</div>
-          <div class="impact-block"><span class="impact-label">In practice</span>Define the behaviour in observable terms (“out of seat without permission for more than 10 seconds”) so two observers would record the same thing.</div>
-        </div>
-    </div>
-
-    <!-- ================= COMPARISON TABLE ================= -->
-    <h2 class="section-title">📊 Observation Methods: What Each Captures and Its Limits <span class="line"></span></h2>
-    <div class="table-wrapper" id="compareGrid">
-      <table>
-        <caption>Observation Methods: What Each Captures and Its Limits</caption>
-        <thead><tr><th>Method</th><th>What it captures</th><th>Best used for</th><th>Limitation</th></tr></thead>
-        <tbody>
-          <tr><td>Running record</td><td>Continuous description in context</td><td>Diagnosis; antecedent–behaviour sequences</td><td>Time-consuming; interpretive</td></tr>
-          <tr><td>Anecdotal record</td><td>Notable incident written afterwards</td><td>Building a picture over time</td><td>Selective memory; low reliability</td></tr>
-          <tr><td>Event sampling / frequency count</td><td>Number of occurrences</td><td>High-frequency target behaviours</td><td>Ignores duration and intensity</td></tr>
-          <tr><td>Time sampling (interval)</td><td>Whether behaviour occurs at set intervals</td><td>On-task and engagement estimates</td><td>Misses behaviour between intervals</td></tr>
-          <tr><td>Duration recording</td><td>How long a behaviour lasts</td><td>Out-of-seat, tantrums, time on task</td><td>Requires a stopwatch and attention</td></tr>
-          <tr><td>Latency recording</td><td>Delay before behaviour begins</td><td>Compliance with instructions</td><td>Narrow focus; context lost</td></tr>
-          <tr><td>Checklist / rating scale</td><td>Presence or degree of behaviours</td><td>Quick screening, lesson observation</td><td>Rater bias; coarse detail</td></tr>
-          <tr><td>ABC analysis</td><td>Antecedent, behaviour, consequence</td><td>Functional behaviour assessment</td><td>Needs training to interpret functions</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- ================= APPLICATION ================= -->
-    <h2 class="section-title">🏫 Classroom Application <span class="line"></span></h2>
-    <div class="dodont-grid" id="applyGrid">
-      <div class="do-card">
-        <h3>✅ Do this</h3>
-        <ul><li>Define the target behaviour in observable, countable terms before you begin.</li><li>Observe more than once and across different lessons to avoid a single-session judgement.</li><li>Record antecedents and consequences, not only the behaviour itself.</li><li>Use a simple tally sheet or interval grid rather than relying on memory.</li><li>Triangulate with work samples, learner interviews and teacher records.</li><li>Anonymise records and share findings respectfully with the learner and family.</li></ul>
-      </div>
-      <div class="dont-card">
-        <h3>🚫 Avoid this</h3>
-        <ul><li>Do not label learners (“lazy”, “naughty”); record behaviour, not character.</li><li>Do not let one observation decide a placement or a behaviour plan.</li><li>Do not observe only the loudest learners; sample quiet disengagement too.</li><li>Do not change the definition of a behaviour mid-observation — that destroys comparability.</li><li>Do not record in a way that humiliates a learner if the sheet is seen.</li><li>Do not ignore reactivity: give the class time to adjust to your presence or camera.</li></ul>
+        <div class="count-pill" id="countDisplay" role="status" aria-live="polite">22 items</div>
       </div>
     </div>
 
-    <!-- ================= MISCONCEPTIONS ================= -->
-    <h2 class="section-title">⚠️ Common Misconceptions <span class="line"></span></h2>
-    <div class="cards-grid" id="misGrid">
-        <div class="info-card" data-searchable="Observation is simply watching the class.">
-          <div class="card-icon-lg">❌</div>
-          <div class="card-title-md">&ldquo;Observation is simply watching the class.&rdquo;</div>
-          <div class="card-desc-sm">Watching becomes observation only when there is a clear question, an operational definition, a recording method and a plan for using the data.</div>
-        </div>        <div class="info-card" data-searchable="One well-conducted observation is enough to judge a teacher or learner.">
-          <div class="card-icon-lg">❌</div>
-          <div class="card-title-md">&ldquo;One well-conducted observation is enough to judge a teacher or learner.&rdquo;</div>
-          <div class="card-desc-sm">A single session is a sample, not a verdict. Reliability requires repeated observations across contexts and, ideally, more than one observer.</div>
-        </div>        <div class="info-card" data-searchable="Quantitative data is always more objective than descriptive notes.">
-          <div class="card-icon-lg">❌</div>
-          <div class="card-title-md">&ldquo;Quantitative data is always more objective than descriptive notes.&rdquo;</div>
-          <div class="card-desc-sm">Counts are only as good as the definitions behind them. Numbers without context can mislead, which is why ABC and narrative evidence usually accompany frequency data.</div>
-        </div>        <div class="info-card" data-searchable="Observation data should be kept confidential from the learner and family.">
-          <div class="card-icon-lg">❌</div>
-          <div class="card-title-md">&ldquo;Observation data should be kept confidential from the learner and family.&rdquo;</div>
-          <div class="card-desc-sm">Records should be anonymised and securely stored, but findings and plans should be shared respectfully with learners and families; secrecy undermines trust and partnership.</div>
+    <!-- ================= 01 CONCEPTS ================= -->
+    <section class="section" id="concepts" aria-labelledby="concepts-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">01</span>
+        <div>
+          <p class="eyebrow">Foundations</p>
+          <h2 id="concepts-title">Core concepts</h2>
+          <p class="section-lead">Each card isolates one idea examiners test. Read the definition first, then the <em>In practice</em> line — that is where scenario questions begin.</p>
         </div>
-    </div>
+      </div>
+      <div class="concept-grid" id="conceptGrid">
+        <article class="concept-card" data-searchable="Purposes of observation">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🎯</span>
+            <span class="concept-index">01</span>
+          </div>
+          <h3 class="concept-title">Purposes of observation</h3>
+          <p class="concept-desc">Observation serves diagnosis (what is happening?), monitoring (is the intervention working?), evaluation (how effective was the lesson?) and professional development (how can I improve?). The purpose determines the tool: diagnosis needs rich description, monitoring needs repeatable counts.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Write the question before choosing the tool: “How often does Ali leave his seat during independent work?” is measurable; “Ali is disruptive” is not.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Narrative and descriptive methods">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">📝</span>
+            <span class="concept-index">02</span>
+          </div>
+          <h3 class="concept-title">Narrative and descriptive methods</h3>
+          <p class="concept-desc"><strong>Running records</strong> and <strong>anecdotal records</strong> capture a continuous, contextual account of events in sequence. They preserve antecedents, behaviour and consequences, which makes them valuable for functional analysis, but they are time-consuming and prone to observer interpretation.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Use a <strong>running record</strong> for one target learner for ten minutes, noting exactly what happened before, during and after the behaviour.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Systematic and quantitative methods">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🔢</span>
+            <span class="concept-index">03</span>
+          </div>
+          <h3 class="concept-title">Systematic and quantitative methods</h3>
+          <p class="concept-desc"><strong>Event sampling</strong> counts occurrences, <strong>time sampling</strong> records whether a behaviour is occurring at fixed intervals, <strong>duration recording</strong> measures how long it lasts, and <strong>latency recording</strong> measures the delay before a behaviour starts. Checklists and rating scales summarise presence or degree of behaviours.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Sample on-task behaviour every five minutes across a forty-minute lesson; the resulting percentage is far more convincing than a general impression.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Antecedent–Behaviour–Consequence (ABC) analysis">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">📋</span>
+            <span class="concept-index">04</span>
+          </div>
+          <h3 class="concept-title">Antecedent–Behaviour–Consequence (ABC) analysis</h3>
+          <p class="concept-desc">ABC recording identifies the function of behaviour: what triggered it (antecedent), what it looked like (behaviour), and what followed (consequence). Functions are typically attention, escape, access to tangibles or sensory regulation.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>If calling out reliably produces peer laughter, the function is attention — so the plan must teach and reinforce an alternative way to gain attention.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Observation participants and settings">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🤝</span>
+            <span class="concept-index">05</span>
+          </div>
+          <h3 class="concept-title">Observation participants and settings</h3>
+          <p class="concept-desc">Observation may be participant (the teacher observes while teaching) or non-participant; structured or unstructured; live or recorded; peer, mentor or self-observation. Video and audio allow repeated, slower analysis but raise consent and storage issues.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Record a ten-minute segment of your own transitions and analyse it with a colleague — self-observation is often the least threatening entry point.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Reliability, validity and ethics">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">⚖️</span>
+            <span class="concept-index">06</span>
+          </div>
+          <h3 class="concept-title">Reliability, validity and ethics</h3>
+          <p class="concept-desc">Threats include <strong>observer drift</strong>, <strong>reactivity</strong> (learners changing because they are watched), halo effects, and single-source bias. Inter-rater agreement, clear <strong>operational definitions</strong>, multiple observation sessions and <strong>triangulation</strong> improve trustworthiness. Consent, confidentiality, anonymised records and non-judgemental language are ethical requirements.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Define the behaviour in observable terms (“out of seat without permission for more than 10 seconds”) so two observers would record the same thing.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
 
-    <!-- ================= TAKEAWAYS ================= -->
-    <h2 class="section-title">🔑 Key Takeaways <span class="line"></span></h2>
-    <div class="takeaway-card">
-      <strong>Remember these points for the exam:</strong>
-      <ul><li>Begin with a precise question and an operational definition of the behaviour to be observed.</li><li>Match the tool to the purpose: narrative methods for diagnosis, systematic counting for monitoring.</li><li>ABC analysis identifies the function of behaviour and therefore the intervention.</li><li>Time sampling is the standard, practical way to estimate on-task engagement.</li><li>Reliability depends on repeated observations, clear definitions, and inter-rater agreement.</li><li>Ethics — consent, confidentiality, anonymised language and respectful feedback — are part of the method.</li></ul>
-    </div>
-    <div class="summary-card"><strong>📌 One-line summary:</strong> Observation becomes management evidence when a clear question, an operational definition, a suitable recording tool, repeated samples and ethical use of the data are combined.</div>
+    <!-- ================= 02 VOCABULARY ================= -->
+    <section class="section" id="vocabulary" aria-labelledby="vocab-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">02</span>
+        <div>
+          <p class="eyebrow">Precision</p>
+          <h2 id="vocab-title">Key vocabulary</h2>
+          <p class="section-lead">Be able to define each term in one sentence. Bold terms below also appear highlighted inside the notes, so you can meet them in context.</p>
+        </div>
+      </div>
+      <dl class="vocab-grid" id="vocabGrid">
+        <div class="vocab-card" data-searchable="Operational definition">
+          <dt class="vocab-term">Operational definition</dt>
+          <dd class="vocab-def">A precise, observable description of a behaviour so that two observers would record the same thing.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Event sampling">
+          <dt class="vocab-term">Event sampling</dt>
+          <dd class="vocab-def">Recording every occurrence of a defined behaviour to produce a frequency count.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Time sampling">
+          <dt class="vocab-term">Time sampling</dt>
+          <dd class="vocab-def">Recording whether a behaviour is occurring at fixed intervals; the standard way to estimate on-task engagement.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Duration recording">
+          <dt class="vocab-term">Duration recording</dt>
+          <dd class="vocab-def">Measuring how long a behaviour lasts.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Latency recording">
+          <dt class="vocab-term">Latency recording</dt>
+          <dd class="vocab-def">Measuring the delay between an instruction and the start of the behaviour.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Running record">
+          <dt class="vocab-term">Running record</dt>
+          <dd class="vocab-def">A continuous, in-sequence narrative description of events as they happen.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Anecdotal record">
+          <dt class="vocab-term">Anecdotal record</dt>
+          <dd class="vocab-def">A brief written account of a notable incident composed after the event.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="ABC analysis">
+          <dt class="vocab-term">ABC analysis</dt>
+          <dd class="vocab-def">Recording the Antecedent, Behaviour and Consequence in order to identify the function of a behaviour.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Reactivity">
+          <dt class="vocab-term">Reactivity</dt>
+          <dd class="vocab-def">A change in behaviour caused by learners or teachers knowing they are being observed.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Inter-rater reliability">
+          <dt class="vocab-term">Inter-rater reliability</dt>
+          <dd class="vocab-def">The degree to which independent observers agree on what they recorded.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Triangulation">
+          <dt class="vocab-term">Triangulation</dt>
+          <dd class="vocab-def">Checking findings against multiple data sources such as observation, work samples and interviews.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Observer drift">
+          <dt class="vocab-term">Observer drift</dt>
+          <dd class="vocab-def">The gradual change in an observer’s application of definitions over time.</dd>
+        </div>
+      </dl>
+    </section>
 
-    <!-- ================= QUIZ ================= -->
-    <div class="quiz-section">
-      <div class="quiz-header">
-        <h2>📝 Practice Quiz</h2>
-        <span class="quiz-badge">10 MCQs · 4 CRQs · 1 ERQ</span>
+    <!-- ================= 03 COMPARISON ================= -->
+    <section class="section" id="comparison" aria-labelledby="comparison-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">03</span>
+        <div>
+          <p class="eyebrow">Distinctions</p>
+          <h2 id="comparison-title">Comparison table</h2>
+          <p class="section-lead">Use this table for “differentiate between”, “compare” and “which is most appropriate” questions — name the dimension, then the contrast.</p>
+        </div>
+      </div>
+      <div class="table-shell" id="compareGrid">
+        <div class="table-caption">
+          <strong>Observation Methods: What Each Captures and Its Limits</strong>
+          <span>Swipe to view all columns →</span>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr><th scope="col">Method</th><th scope="col">What it captures</th><th scope="col">Best used for</th><th scope="col">Limitation</th></tr>
+            </thead>
+            <tbody>
+            <tr><td><strong>Running record</strong></td><td>Continuous description in context</td><td>Diagnosis; antecedent–behaviour sequences</td><td>Time-consuming; interpretive</td></tr>
+            <tr><td><strong>Anecdotal record</strong></td><td>Notable incident written afterwards</td><td>Building a picture over time</td><td>Selective memory; low reliability</td></tr>
+            <tr><td><strong>Event sampling</strong> / frequency count</td><td>Number of occurrences</td><td>High-frequency target behaviours</td><td>Ignores duration and intensity</td></tr>
+            <tr><td><strong>Time sampling</strong> (interval)</td><td>Whether behaviour occurs at set intervals</td><td>On-task and engagement estimates</td><td>Misses behaviour between intervals</td></tr>
+            <tr><td><strong>Duration recording</strong></td><td>How long a behaviour lasts</td><td>Out-of-seat, tantrums, time on task</td><td>Requires a stopwatch and attention</td></tr>
+            <tr><td><strong>Latency recording</strong></td><td>Delay before behaviour begins</td><td>Compliance with instructions</td><td>Narrow focus; context lost</td></tr>
+            <tr><td>Checklist / rating scale</td><td>Presence or degree of behaviours</td><td>Quick screening, lesson observation</td><td>Rater bias; coarse detail</td></tr>
+            <tr><td><strong>ABC analysis</strong></td><td>Antecedent, behaviour, consequence</td><td>Functional behaviour assessment</td><td>Needs training to interpret functions</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 04 APPLICATION ================= -->
+    <section class="section" id="application" aria-labelledby="application-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">04</span>
+        <div>
+          <p class="eyebrow">Practice</p>
+          <h2 id="application-title">Classroom application</h2>
+          <p class="section-lead">What to do, and what to avoid, in a real classroom. The left column is the standard to teach; the right column lists the errors that create management problems.</p>
+        </div>
+      </div>
+      <div class="do-dont" id="applyGrid">
+        <div class="dd-card do">
+          <h3><span aria-hidden="true">✅</span> Do this</h3>
+          <ul><li>Define the target behaviour in observable, countable terms before you begin.</li><li>Observe more than once and across different lessons to avoid a single-session judgement.</li><li>Record antecedents and consequences, not only the behaviour itself.</li><li>Use a simple tally sheet or interval grid rather than relying on memory.</li><li>Triangulate with work samples, learner interviews and teacher records.</li><li>Anonymise records and share findings respectfully with the learner and family.</li></ul>
+        </div>
+        <div class="dd-card avoid">
+          <h3><span aria-hidden="true">🚫</span> Avoid this</h3>
+          <ul><li>Do not label learners (“lazy”, “naughty”); record behaviour, not character.</li><li>Do not let one observation decide a placement or a behaviour plan.</li><li>Do not observe only the loudest learners; sample quiet disengagement too.</li><li>Do not change the definition of a behaviour mid-observation — that destroys comparability.</li><li>Do not record in a way that humiliates a learner if the sheet is seen.</li><li>Do not ignore <strong>reactivity</strong>: give the class time to adjust to your presence or camera.</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 05 MISCONCEPTIONS ================= -->
+    <section class="section" id="misconceptions" aria-labelledby="misconceptions-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">05</span>
+        <div>
+          <p class="eyebrow">Exam traps</p>
+          <h2 id="misconceptions-title">Common misconceptions</h2>
+          <p class="section-lead">Each misconception below is a plausible-sounding statement that loses marks. Learn the reality column as a correction you can write.</p>
+        </div>
+      </div>
+      <div class="myth-grid" id="misGrid">
+        <article class="myth-card" data-searchable="Observation is simply watching the class.">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;Observation is simply watching the class.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>Watching becomes observation only when there is a clear question, an <strong>operational definition</strong>, a recording method and a plan for using the data.</p>
+          </div>
+        </article>
+        <article class="myth-card" data-searchable="One well-conducted observation is enough to judge a teacher or learner.">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;One well-conducted observation is enough to judge a teacher or learner.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>A single session is a sample, not a verdict. Reliability requires repeated observations across contexts and, ideally, more than one observer.</p>
+          </div>
+        </article>
+        <article class="myth-card" data-searchable="Quantitative data is always more objective than descriptive notes.">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;Quantitative data is always more objective than descriptive notes.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>Counts are only as good as the definitions behind them. Numbers without context can mislead, which is why ABC and narrative evidence usually accompany frequency data.</p>
+          </div>
+        </article>
+        <article class="myth-card" data-searchable="Observation data should be kept confidential from the learner and family.">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;Observation data should be kept confidential from the learner and family.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>Records should be anonymised and securely stored, but findings and plans should be shared respectfully with learners and families; secrecy undermines trust and partnership.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= 06 TAKEAWAYS ================= -->
+    <section class="section" id="takeaways" aria-labelledby="takeaways-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">06</span>
+        <div>
+          <p class="eyebrow">Compress</p>
+          <h2 id="takeaways-title">Key takeaways</h2>
+          <p class="section-lead">Revise these lines the night before the paper — they compress the whole note into recall-ready statements.</p>
+        </div>
+      </div>
+      <div class="takeaways">
+        <h3>Six things to remember</h3>
+        <ol><li>Begin with a precise question and an <strong>operational definition</strong> of the behaviour to be observed.</li><li>Match the tool to the purpose: narrative methods for diagnosis, systematic counting for monitoring.</li><li><strong>ABC analysis</strong> identifies the function of behaviour and therefore the intervention.</li><li><strong>Time sampling</strong> is the standard, practical way to estimate on-task engagement.</li><li>Reliability depends on repeated observations, clear definitions, and inter-rater agreement.</li><li>Ethics — consent, confidentiality, anonymised language and respectful feedback — are part of the method.</li></ol>
+      </div>
+      <div class="summary">
+        <span class="summary-label">One-line summary</span>
+        <p>Observation becomes management evidence when a clear question, an <strong>operational definition</strong>, a suitable recording tool, repeated samples and ethical use of the data are combined.</p>
+      </div>
+      <div class="exam-tip">
+        <span class="tip-icon" aria-hidden="true">💡</span>
+        <div>
+          <span class="tip-label">Exam tip</span>
+          <p>A frequency count is not the same as a percentage of time. If a stem mentions “every five minutes” the method is time sampling; if it mentions counting each incident, the method is event sampling.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 07 QUIZ ================= -->
+    <section class="quiz" id="practice" aria-labelledby="quiz-title">
+      <div class="quiz-head">
+        <div>
+          <p class="eyebrow">Practice</p>
+          <h2 id="quiz-title">Test yourself</h2>
+        </div>
+        <div class="quiz-chips">
+          <span>10 MCQs</span>
+          <span>4 CRQs</span>
+          <span>1 ERQ</span>
+        </div>
       </div>
       <div class="quiz-body">
-        <div class="quiz-tabs" role="tablist">
-          <button class="quiz-tab active" data-panel="mcqPanel" role="tab">🔘 10 MCQs</button>
-          <button class="quiz-tab" data-panel="crqPanel" role="tab">✍️ 4 CRQs</button>
-          <button class="quiz-tab" data-panel="erqPanel" role="tab">📄 1 ERQ</button>
+        <div class="quiz-tabs" role="tablist" aria-label="Quiz sections">
+          <button class="quiz-tab active" role="tab" aria-selected="true" data-panel="mcqPanel">🔘 10 MCQs</button>
+          <button class="quiz-tab" role="tab" aria-selected="false" data-panel="crqPanel">✍️ 4 CRQs</button>
+          <button class="quiz-tab" role="tab" aria-selected="false" data-panel="erqPanel">📄 1 ERQ</button>
         </div>
 
-        <div class="quiz-panel active" id="mcqPanel">
-          <span class="section-label">Multiple Choice Questions</span>
+        <div class="quiz-panel active" id="mcqPanel" role="tabpanel">
+          <div class="panel-head">
+            <span class="section-label">Multiple choice questions</span>
+            <span class="score-chip" id="mcqProgress">0 / 10 answered · 0 correct</span>
+          </div>
           <div id="mcqContainer"></div>
         </div>
 
-        <div class="quiz-panel" id="crqPanel">
-          <span class="section-label">Constructed Response Questions</span>
+        <div class="quiz-panel" id="crqPanel" role="tabpanel">
+          <div class="panel-head">
+            <span class="section-label">Constructed response questions</span>
+            <span class="score-chip">Model answers included</span>
+          </div>
           <div id="crqContainer"></div>
         </div>
 
-        <div class="quiz-panel" id="erqPanel">
-          <span class="section-label">Extended Response Question (Situation-Based)</span>
+        <div class="quiz-panel" id="erqPanel" role="tabpanel">
+          <div class="panel-head">
+            <span class="section-label">Extended response · situation-based</span>
+            <span class="score-chip">Keyword self-check</span>
+          </div>
           <div id="erqContainer"></div>
         </div>
       </div>
-    </div>
+    </section>
+
+    <footer class="note-footer">
+      <span>MUQABIL · Teaching License Master Notes · Classroom Management</span>
+      <span>10 interactive notes in this module · revision 3 of 10</span>
+    </footer>
   </div>
+
+  <button class="to-top" id="toTop" type="button" aria-label="Back to top">↑</button>
 
 <script>
     (function () {
-      // ================= LIVE SEARCH =================
+      'use strict';
+
+      /* ================= READING PROGRESS ================= */
+      var fill = document.getElementById('progressFill');
+      var toTop = document.getElementById('toTop');
+
+      function updateScroll() {
+        var doc = document.documentElement;
+        var max = doc.scrollHeight - doc.clientHeight;
+        var pct = max > 0 ? (doc.scrollTop / max) * 100 : 0;
+        if (fill) fill.style.width = pct + '%';
+        if (toTop) {
+          if (doc.scrollTop > 600) toTop.classList.add('visible');
+          else toTop.classList.remove('visible');
+        }
+      }
+      window.addEventListener('scroll', updateScroll, { passive: true });
+      updateScroll();
+
+      if (toTop) {
+        toTop.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      /* ================= LIVE SEARCH ================= */
       var searchInput = document.getElementById('searchInput');
       var countDisplay = document.getElementById('countDisplay');
-      var searchGrids = [
+      var grids = [
         document.getElementById('conceptGrid'),
+        document.getElementById('vocabGrid'),
         document.getElementById('misGrid')
       ].filter(Boolean);
-      var allCards = [];
-      searchGrids.forEach(function (grid) {
-        grid.querySelectorAll('[data-searchable]').forEach(function (card) {
-          allCards.push(card);
+
+      var cards = [];
+      grids.forEach(function (grid) {
+        Array.prototype.forEach.call(grid.querySelectorAll('[data-searchable]'), function (card) {
+          cards.push(card);
         });
       });
 
-      function applySearch(rawQuery) {
-        var q = (rawQuery || '').trim().toLowerCase();
+      function applySearch(raw) {
+        var q = (raw || '').trim().toLowerCase();
         var visible = 0;
-        allCards.forEach(function (card) {
-          var text = ((card.dataset.searchable || '') + ' ' + card.textContent).toLowerCase();
+        cards.forEach(function (card) {
+          var text = ((card.getAttribute('data-searchable') || '') + ' ' + card.textContent).toLowerCase();
           var matches = q === '' || text.indexOf(q) !== -1;
           card.style.display = matches ? '' : 'none';
           if (matches) visible++;
         });
-        document.querySelectorAll('.no-results').forEach(function (el) { el.remove(); });
-        searchGrids.forEach(function (grid) {
+        Array.prototype.forEach.call(document.querySelectorAll('.no-results'), function (el) {
+          el.parentNode.removeChild(el);
+        });
+        grids.forEach(function (grid) {
           var shown = Array.prototype.filter.call(
             grid.querySelectorAll('[data-searchable]'),
             function (card) { return card.style.display !== 'none'; }
@@ -1043,103 +1080,158 @@
         }
       }
 
-      var debounce;
+      var debounceTimer;
       if (searchInput) {
         searchInput.addEventListener('input', function (e) {
-          clearTimeout(debounce);
-          debounce = setTimeout(function () { applySearch(e.target.value); }, 150);
+          clearTimeout(debounceTimer);
+          debounceTimer = setTimeout(function () { applySearch(e.target.value); }, 140);
         });
         searchInput.addEventListener('search', function (e) {
           if (e.target.value === '') applySearch('');
         });
+        searchInput.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && searchInput.value !== '') {
+            searchInput.value = '';
+            applySearch('');
+          }
+        });
       }
       applySearch('');
 
-      // ================= QUIZ TABS =================
-      var tabs = document.querySelectorAll('.quiz-tab');
+      /* ================= QUIZ TABS ================= */
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.quiz-tab'));
       tabs.forEach(function (tab) {
         tab.addEventListener('click', function () {
-          tabs.forEach(function (t) { t.classList.remove('active'); });
-          document.querySelectorAll('.quiz-panel').forEach(function (p) {
+          tabs.forEach(function (t) {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          Array.prototype.forEach.call(document.querySelectorAll('.quiz-panel'), function (p) {
             p.classList.remove('active');
           });
           tab.classList.add('active');
-          var panel = document.getElementById(tab.dataset.panel);
+          tab.setAttribute('aria-selected', 'true');
+          var panel = document.getElementById(tab.getAttribute('data-panel'));
           if (panel) panel.classList.add('active');
         });
       });
 
-      // ================= DATA =================
+      /* ================= DATA ================= */
       var mcqs = [{"q": "Recording whether a learner is on task at every five-minute interval is called:", "options": ["Event sampling", "Time sampling", "Latency recording", "Anecdotal recording"], "answer": 1, "why": "Time sampling checks behaviour at fixed intervals."}, {"q": "ABC analysis stands for:", "options": ["Attention, Behaviour, Correction", "Antecedent, Behaviour, Consequence", "Assessment, Behaviour, Curriculum", "Activity, Belonging, Consistency"], "answer": 1, "why": "ABC records what happened before, during and after a behaviour."}, {"q": "Which method measures how long a behaviour lasts?", "options": ["Event sampling", "Duration recording", "Checklist", "Sociogram"], "answer": 1, "why": "Duration recording measures the length of a behaviour."}, {"q": "Learners behaving differently because they are being watched is called:", "options": ["Observer drift", "Reactivity", "Halo effect", "Triangulation"], "answer": 1, "why": "Reactivity is the change in behaviour caused by the awareness of observation."}, {"q": "The best reason to use more than one observer is to improve:", "options": ["Decoration", "Inter-rater reliability", "Lesson pacing", "Class size"], "answer": 1, "why": "Agreement between independent observers increases confidence in the data."}, {"q": "A behaviour is best defined for observation as:", "options": ["“Being rude”", "“Out of seat without permission for more than 10 seconds”", "“Not trying”", "“Bad attitude”"], "answer": 1, "why": "Operational definitions must be observable, specific and countable."}, {"q": "Which tool is most useful for a functional behaviour assessment?", "options": ["Running record with ABC notes", "Attendance register", "End-of-term exam", "Seating chart"], "answer": 0, "why": "Narrative ABC records reveal antecedents and consequences that indicate function."}, {"q": "Anecdotal records are limited mainly because they:", "options": ["Take too little time", "Rely on selective memory and interpretation", "Cannot be written", "Require software"], "answer": 1, "why": "Anecdotal records are written after the event, so they are selective and interpretive."}, {"q": "Triangulation in observation means:", "options": ["Using three observers in one lesson", "Combining multiple data sources to check findings", "Observing for three hours", "Recording three behaviours only"], "answer": 1, "why": "Triangulation combines sources such as observation, work samples and interviews."}, {"q": "Which statement is an ethical requirement for classroom observation?", "options": ["Share raw notes publicly", "Obtain consent and keep records confidential and anonymised", "Name learners in reports", "Observe without informing anyone"], "answer": 1, "why": "Consent, confidentiality and anonymisation are core ethical requirements."}];
       var crqs = [{"q": "Explain the difference between event sampling and time sampling, and state when each is preferable.", "hint": "Contrast what is counted and the recording schedule.", "model": "Event sampling records every occurrence of a defined behaviour and produces a frequency count; it is preferable for behaviours that are discrete, countable and not too frequent, such as leaving the seat or calling out. Time sampling checks whether a behaviour is occurring at fixed intervals (for example every five minutes) and produces a proportion or percentage; it is preferable for continuous states such as on-task engagement, where counting every instance is impractical. Event sampling risks undercounting bursts, while time sampling can miss behaviour that occurs between intervals."}, {"q": "Describe how you would carry out an ABC analysis for a learner who repeatedly refuses to start written work, and what the outcome would tell you.", "hint": "Explain the procedure, the recording format, and the possible functions.", "model": "Observe the learner across several lessons and record the antecedent (task type, instruction, time of day, grouping, peer proximity), the behaviour (exact actions, duration, what is said), and the consequence (teacher attention, removal of task, peer reaction, sent out). Repeat until a pattern appears. If refusal reliably follows long, unstructured writing tasks and is followed by removal from the task, the function is escape and the intervention should reduce task demand through scaffolding, chunking and choice while teaching help-seeking. If it reliably draws sustained adult or peer attention, the function is attention and the plan should reinforce appropriate requests for attention."}, {"q": "What threats to reliability and validity exist in classroom observation, and how can each be reduced?", "hint": "Name the threat and the safeguard.", "model": "Reactivity: learners and teachers change when observed, so observe repeatedly and allow a settling period. Observer drift: definitions shift over time, so write operational definitions and re-check them with a second observer. Rater bias and halo effects: judgements about one trait colour others, so use specific checklists and avoid global ratings. Sampling bias: observing only one lesson or one group, so sample across times and activities. Memory error: relying on recall, so record live with a tally or interval sheet. Triangulate with work samples, interviews and attendance or behaviour records to strengthen validity."}, {"q": "How can a teacher use self-observation to improve classroom management without formal external evaluation?", "hint": "Focus on practicality, ethics and the improvement cycle.", "model": "Self-observation begins with a narrow question, such as the length of transitions or the ratio of praise to correction. The teacher records a short audio or video segment with appropriate consent, or uses a simple tally sheet during the lesson. The data is reviewed against a clear target, one change is made (for example, scripting a two-minute entry routine), and the same measure is repeated after a week. Keeping records private initially reduces threat, while sharing selected findings with a trusted colleague or mentor adds perspective. The cycle — question, measure, change, re-measure — is what makes self-observation credible rather than self-justifying."}];
       var erq = {"scenario": "A Grade 6 teacher reports that “four boys are constantly disruptive” and wants them moved to a separate class. The head teacher asks for evidence before making any decision.", "task": "Design an observation plan that would produce defensible evidence. Specify the questions, definitions, tools, schedule, reliability safeguards, ethical arrangements and how the findings would be used.", "hint": "Move from general complaint to operational definitions, then to sampling and ethical use.", "keywords": ["operational definition", "frequency", "time sampling", "ABC", "antecedent", "consequence", "triangulation", "reliability", "consent", "confidentiality"], "model": "The first step is to convert the complaint into answerable questions: which specific behaviours occur, in which lessons and activities, at what frequency and duration, and what typically precedes and follows them. Each behaviour needs an operational definition — for example “leaving the seat without permission for more than ten seconds” or “speaking without raising a hand” — so that two observers would record the same thing and so that the record avoids labels about the learners. A suitable schedule would combine frequency counts for discrete behaviours, time sampling every five minutes for on-task engagement across at least three different subjects and two weeks, and ABC notes for two or three incidents to identify function. A comparison group of similar peers, and equivalent observations in a lesson where the behaviour is not reported, would control for observation bias. Reliability safeguards include a written definition sheet, a second observer for one session to check agreement, and consistent recording windows. Ethical arrangements require informing the head teacher and the learners in age-appropriate terms, obtaining consent where required, anonymising the sheets, storing them securely, and ensuring that no learner is identified in any circulation beyond those who need to act. The findings would then be used formatively: if the pattern shows escape from extended writing, the plan targets task design and scaffolding; if it shows attention maintained by peer laughter, the plan teaches and reinforces an alternative behaviour. Only if the data showed persistent high-risk behaviour after targeted support would a placement change be justified — and the evidence, not the initial complaint, would be the basis for that decision."};
 
-      // ================= MCQ RENDERING =================
+      /* ================= MCQs ================= */
       var mcqContainer = document.getElementById('mcqContainer');
+      var scoreChip = document.getElementById('mcqProgress');
+      var answered = 0;
+      var correctCount = 0;
+      var letters = ['A', 'B', 'C', 'D'];
+
+      function updateScore() {
+        if (!scoreChip) return;
+        scoreChip.textContent = answered + ' / ' + mcqs.length + ' answered · ' + correctCount + ' correct';
+      }
+
       mcqs.forEach(function (item, idx) {
         var wrap = document.createElement('div');
         wrap.className = 'mcq-item';
 
-        var q = document.createElement('div');
+        var q = document.createElement('p');
         q.className = 'mcq-question';
-        q.textContent = (idx + 1) + '. ' + item.q;
+        var num = document.createElement('span');
+        num.className = 'q-num';
+        num.textContent = (idx + 1) + '.';
+        var qtext = document.createElement('span');
+        qtext.textContent = item.q;
+        q.appendChild(num);
+        q.appendChild(qtext);
         wrap.appendChild(q);
 
         var options = document.createElement('div');
         options.className = 'mcq-options';
-        var letters = ['A', 'B', 'C', 'D'];
-        item.options.forEach(function (text, i) {
-          var btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = 'mcq-option';
-          btn.innerHTML = '<span class="option-letter">' + letters[i] + '</span><span>' +
-            text.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</span>';
-          btn.addEventListener('click', function () {
-            if (wrap.dataset.answered === 'true') return;
-            wrap.dataset.answered = 'true';
-            var correct = i === item.answer;
-            btn.classList.add(correct ? 'correct' : 'incorrect');
-            options.querySelectorAll('.mcq-option').forEach(function (other, j) {
-              other.disabled = true;
-              if (j === item.answer) other.classList.add('correct');
-            });
-            fb.className = 'mcq-feedback show ' + (correct ? 'correct-fb' : 'incorrect-fb');
-            fb.textContent = (correct ? '✅ Correct. ' : '❌ Not quite. ') + item.why;
-          });
-          options.appendChild(btn);
-        });
-        wrap.appendChild(options);
 
         var fb = document.createElement('div');
         fb.className = 'mcq-feedback';
-        wrap.appendChild(fb);
 
+        Array.prototype.forEach.call(item.options, function (text, i) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'mcq-option';
+          btn.setAttribute('aria-label', letters[i] + '. ' + text);
+
+          var letter = document.createElement('span');
+          letter.className = 'option-letter';
+          letter.textContent = letters[i];
+          var label = document.createElement('span');
+          label.textContent = text;
+          btn.appendChild(letter);
+          btn.appendChild(label);
+
+          btn.addEventListener('click', function () {
+            if (wrap.getAttribute('data-answered') === 'true') return;
+            wrap.setAttribute('data-answered', 'true');
+            answered++;
+            var isCorrect = i === item.answer;
+            if (isCorrect) correctCount++;
+            btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+            Array.prototype.forEach.call(options.querySelectorAll('.mcq-option'), function (other, j) {
+              other.disabled = true;
+              if (j === item.answer) other.classList.add('correct');
+            });
+            fb.className = 'mcq-feedback show ' + (isCorrect ? 'correct-fb' : 'incorrect-fb');
+            fb.textContent = (isCorrect ? '✅ Correct. ' : '❌ Not quite. ') + item.why;
+            updateScore();
+          });
+
+          options.appendChild(btn);
+        });
+
+        wrap.appendChild(options);
+        wrap.appendChild(fb);
         mcqContainer.appendChild(wrap);
       });
+      updateScore();
 
-      // ================= CRQ RENDERING =================
+      /* ================= CRQs ================= */
       var crqContainer = document.getElementById('crqContainer');
       crqs.forEach(function (item, idx) {
         var wrap = document.createElement('div');
         wrap.className = 'crq-item';
 
-        var q = document.createElement('div');
+        var q = document.createElement('p');
         q.className = 'crq-question';
         q.textContent = 'CRQ ' + (idx + 1) + '. ' + item.q;
         wrap.appendChild(q);
 
-        var hint = document.createElement('div');
+        var hint = document.createElement('p');
         hint.className = 'crq-hint';
         hint.textContent = 'Hint: ' + item.hint;
         wrap.appendChild(hint);
 
         var area = document.createElement('textarea');
         area.className = 'crq-textarea';
-        area.placeholder = 'Write your answer here, then reveal the model answer to self-check.';
+        area.setAttribute('aria-label', 'Your answer for CRQ ' + (idx + 1));
+        area.placeholder = 'Write your answer, then reveal the model answer to self-check.';
         wrap.appendChild(area);
 
+        var meta = document.createElement('div');
+        meta.className = 'answer-meta';
+        var words = document.createElement('span');
+        words.textContent = '0 words';
+        var target = document.createElement('span');
+        target.textContent = 'Target: 80–120 words';
+        meta.appendChild(words);
+        meta.appendChild(target);
+        wrap.appendChild(meta);
+
+        area.addEventListener('input', function () {
+          var count = area.value.trim() ? area.value.trim().split(/\s+/).length : 0;
+          words.textContent = count + ' word' + (count === 1 ? '' : 's');
+        });
+
         var actions = document.createElement('div');
-        actions.className = 'crq-actions';
+        actions.className = 'actions';
         var showBtn = document.createElement('button');
         showBtn.type = 'button';
         showBtn.className = 'btn btn-primary';
@@ -1157,12 +1249,20 @@
         wrap.appendChild(fb);
 
         showBtn.addEventListener('click', function () {
-          fb.className = 'crq-feedback show good';
-          fb.textContent = 'Model answer: ' + item.model;
-          showBtn.textContent = 'Hide model answer';
+          var open = fb.classList.contains('show');
+          if (open) {
+            fb.className = 'crq-feedback';
+            fb.textContent = '';
+            showBtn.textContent = 'Show model answer';
+          } else {
+            fb.className = 'crq-feedback show model';
+            fb.textContent = 'Model answer: ' + item.model;
+            showBtn.textContent = 'Hide model answer';
+          }
         });
         clearBtn.addEventListener('click', function () {
           area.value = '';
+          words.textContent = '0 words';
           fb.className = 'crq-feedback';
           fb.textContent = '';
           showBtn.textContent = 'Show model answer';
@@ -1171,33 +1271,49 @@
         crqContainer.appendChild(wrap);
       });
 
-      // ================= ERQ RENDERING =================
+      /* ================= ERQ ================= */
       var erqContainer = document.getElementById('erqContainer');
       var eWrap = document.createElement('div');
       eWrap.className = 'erq-item';
 
       var marks = document.createElement('span');
       marks.className = 'erq-marks';
-      marks.textContent = 'Long response · 10 marks';
+      marks.textContent = 'Extended response · 10 marks';
       eWrap.appendChild(marks);
 
-      var eq = document.createElement('div');
+      var eq = document.createElement('p');
       eq.className = 'erq-question';
       eq.textContent = erq.scenario + ' ' + erq.task;
       eWrap.appendChild(eq);
 
-      var ehint = document.createElement('div');
+      var ehint = document.createElement('p');
       ehint.className = 'crq-hint';
       ehint.textContent = 'Guidance: ' + erq.hint;
       eWrap.appendChild(ehint);
 
       var eArea = document.createElement('textarea');
       eArea.className = 'erq-textarea';
-      eArea.placeholder = 'Plan your response: identify the problem, apply the theory, then give concrete classroom actions.';
+      eArea.setAttribute('aria-label', 'Your extended response');
+      eArea.placeholder = 'Plan your response: identify the problem, apply the theory, then give concrete classroom actions and how you would evaluate them.';
       eWrap.appendChild(eArea);
 
+      var eMeta = document.createElement('div');
+      eMeta.className = 'answer-meta';
+      var eWords = document.createElement('span');
+      eWords.textContent = '0 words';
+      var eTarget = document.createElement('span');
+      eTarget.textContent = 'Target: 250–400 words';
+      eMeta.appendChild(eWords);
+      eMeta.appendChild(eTarget);
+      eWrap.appendChild(eMeta);
+
+      eArea.addEventListener('input', function () {
+        var count = eArea.value.trim() ? eArea.value.trim().split(/\s+/).length : 0;
+        eWords.textContent = count + ' word' + (count === 1 ? '' : 's');
+      });
+
       var eActions = document.createElement('div');
-      eActions.className = 'erq-actions';
+      eActions.className = 'actions';
       var checkBtn = document.createElement('button');
       checkBtn.type = 'button';
       checkBtn.className = 'btn btn-primary';
@@ -1216,29 +1332,39 @@
 
       checkBtn.addEventListener('click', function () {
         var answer = eArea.value.toLowerCase();
-        var hit = erq.keywords.filter(function (k) { return answer.indexOf(k.toLowerCase()) !== -1; });
         if (!answer.trim()) {
           eFb.className = 'erq-feedback show partial';
-          eFb.textContent = 'Write your response first — aim for at least 150 words before self-checking.';
+          eFb.textContent = 'Write your response first — aim for at least 250 words before self-checking.';
           return;
         }
-        var ratio = hit.length / erq.keywords.length;
+        var hits = erq.keywords.filter(function (k) {
+          return answer.indexOf(k.toLowerCase()) !== -1;
+        });
+        var ratio = hits.length / erq.keywords.length;
+        var missing = erq.keywords.filter(function (k) { return hits.indexOf(k) === -1; });
         if (ratio >= 0.6) {
           eFb.className = 'erq-feedback show good';
-          eFb.textContent = '✅ Strong coverage: you included ' + hit.length + ' of ' + erq.keywords.length +
-            ' expected ideas (' + hit.join(', ') + '). Now refine the structure: theory → diagnosis → actions → evaluation.';
+          eFb.textContent = '✅ Strong coverage: ' + hits.length + ' of ' + erq.keywords.length +
+            ' expected ideas present (' + hits.join(', ') + '). Now tighten the structure: theory → diagnosis → actions → evaluation.' +
+            (missing.length ? ' Still to consider: ' + missing.join(', ') + '.' : '');
         } else {
           eFb.className = 'erq-feedback show partial';
-          eFb.textContent = '⚠️ Partial coverage: ' + hit.length + ' of ' + erq.keywords.length +
-            ' expected ideas found. Consider adding: ' + erq.keywords.filter(function (k) {
-              return hit.indexOf(k) === -1;
-            }).join(', ') + '.';
+          eFb.textContent = '⚠️ Partial coverage: ' + hits.length + ' of ' + erq.keywords.length +
+            ' expected ideas found. Add: ' + missing.join(', ') + '.';
         }
       });
 
       modelBtn.addEventListener('click', function () {
-        eFb.className = 'erq-feedback show model';
-        eFb.textContent = 'Model answer: ' + erq.model;
+        var open = eFb.classList.contains('show') && eFb.classList.contains('model');
+        if (open) {
+          eFb.className = 'erq-feedback';
+          eFb.textContent = '';
+          modelBtn.textContent = 'Show model answer';
+        } else {
+          eFb.className = 'erq-feedback show model';
+          eFb.textContent = 'Model answer: ' + erq.model;
+          modelBtn.textContent = 'Hide model answer';
+        }
       });
 
       erqContainer.appendChild(eWrap);

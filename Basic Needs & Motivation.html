@@ -1,0 +1,1674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basic Needs &amp; Motivation · Educational Psychology</title>
+  <style>
+    /* ---------- GLOBAL ---------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+      color: #1e2b3c;
+    }
+    .main-wrapper { max-width: 1100px; width: 100%; }
+
+    /* ---------- HEADER ---------- */
+    .header-card {
+      background: white;
+      border-radius: 2rem 2rem 1.5rem 1.5rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      padding: 2rem 2rem 1.5rem 2rem;
+      margin-bottom: 1.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: transform 0.2s;
+    }
+    .header-card:hover { transform: scale(1.002); }
+    .badge {
+      display: inline-block;
+      background: #2a4b7c;
+      color: #f0f7ff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+      line-height: 1.25;
+    }
+    .subhead {
+      font-size: 1.05rem;
+      color: #2f5277;
+      font-weight: 400;
+      border-left: 5px solid #8bb3e0;
+      padding-left: 1.2rem;
+      margin: 1rem 0 0.2rem 0;
+      font-style: italic;
+    }
+    .intro-text {
+      background: #e6f0fc;
+      padding: 1rem 1.4rem;
+      border-radius: 1.2rem;
+      margin-top: 1.4rem;
+      font-size: 0.98rem;
+      color: #1d3a5c;
+      border-left: 5px solid #3b6ea5;
+    }
+
+    /* ---------- SECTION TITLE ---------- */
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #0e2a47;
+      margin: 2.2rem 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section-title .line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #8bb3e0, transparent);
+      border-radius: 2px;
+    }
+
+    /* ---------- NEED TYPE CARDS ---------- */
+    .need-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .need-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.4rem 1.4rem 1.3rem 1.4rem;
+      box-shadow: 0 8px 18px -10px rgba(20, 40, 70, 0.16);
+      transition: all 0.22s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .need-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      opacity: 0.9;
+    }
+    .need-card.physio::before { background: linear-gradient(90deg, #2e7d4f, #81c784); }
+    .need-card.psych::before { background: linear-gradient(90deg, #2a4b7c, #5a8ec9); }
+    .need-card.social::before { background: linear-gradient(90deg, #d4933a, #e8c08b); }
+    .need-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 24px -14px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .need-card:hover::before { height: 10px; }
+    .need-header {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.6rem;
+    }
+    .need-icon {
+      font-size: 1.8rem;
+      background: #e9f0fa;
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    .need-card:hover .need-icon { background: #d3e3f8; }
+    .need-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #0e2a47;
+    }
+    .need-examples {
+      font-size: 0.86rem;
+      color: #274e73;
+      line-height: 1.5;
+      margin-bottom: 0.5rem;
+    }
+    .need-examples strong { color: #0e2a47; }
+    .need-role {
+      background: #f6faff;
+      border-radius: 0.8rem;
+      padding: 0.6rem 0.9rem;
+      font-size: 0.85rem;
+      color: #183c5e;
+      border-left: 4px solid #3b7bb5;
+      line-height: 1.5;
+      margin-top: auto;
+    }
+
+    /* ---------- MASLOW PYRAMID ---------- */
+    .maslow-wrapper {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.5rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      border: 1px solid #e3ecf7;
+      margin-bottom: 0.5rem;
+    }
+    .maslow-pyramid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .maslow-level {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      border-radius: 0.8rem;
+      padding: 0.65rem 1rem;
+      color: white;
+      font-weight: 600;
+      font-size: 0.88rem;
+      transition: transform 0.2s;
+    }
+    .maslow-level:hover { transform: translateX(4px); }
+    .maslow-level .num {
+      font-size: 0.7rem;
+      font-weight: 800;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .maslow-level.l5 { background: #0e2a47; }
+    .maslow-level.l4 { background: #1a4170; }
+    .maslow-level.l3 { background: #2a5a8a; }
+    .maslow-level.l2 { background: #3b7bb5; }
+    .maslow-level.l1 { background: #5a9bd4; }
+    .maslow-level .level-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .maslow-level .level-name { font-weight: 700; }
+    .maslow-level .level-impl {
+      font-size: 0.75rem;
+      opacity: 0.9;
+      font-weight: 400;
+      line-height: 1.35;
+    }
+    .maslow-note {
+      background: #fff8e6;
+      border-radius: 0.9rem;
+      padding: 0.8rem 1rem;
+      font-size: 0.86rem;
+      color: #7a5a14;
+      border-left: 4px solid #e0a800;
+      margin-top: 1rem;
+      line-height: 1.55;
+    }
+
+    /* ---------- SDT CARDS ---------- */
+    .sdt-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    .sdt-card {
+      background: white;
+      border-radius: 1.4rem;
+      padding: 1.3rem 1.3rem;
+      box-shadow: 0 7px 16px -9px rgba(20, 40, 70, 0.15);
+      border: 1px solid #e3ecf7;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .sdt-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      opacity: 0.75;
+    }
+    .sdt-card.autonomy::before { background: linear-gradient(180deg, #2a4b7c, #5a8ec9); }
+    .sdt-card.competence::before { background: linear-gradient(180deg, #2e7d4f, #81c784); }
+    .sdt-card.relatedness::before { background: linear-gradient(180deg, #d4933a, #e8c08b); }
+    .sdt-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 22px -13px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .sdt-name {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #0e2a47;
+      margin-bottom: 0.3rem;
+    }
+    .sdt-def {
+      font-size: 0.86rem;
+      color: #274e73;
+      line-height: 1.5;
+      margin-bottom: 0.5rem;
+      flex: 1;
+    }
+    .sdt-app {
+      background: #f6faff;
+      border-radius: 0.8rem;
+      padding: 0.6rem 0.9rem;
+      font-size: 0.84rem;
+      color: #183c5e;
+      border-left: 4px solid #3b7bb5;
+      line-height: 1.5;
+    }
+    .sdt-app strong { color: #0e2a47; }
+
+    /* ---------- GLASSER CARDS ---------- */
+    .glasser-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    .glasser-card {
+      background: white;
+      border-radius: 1.2rem;
+      padding: 1rem 1.1rem;
+      box-shadow: 0 5px 12px -7px rgba(20, 40, 70, 0.14);
+      border: 1px solid #e3ecf7;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .glasser-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, #3f7cb0, #8bb3e0);
+      opacity: 0.7;
+    }
+    .glasser-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 20px -12px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .glasser-icon { font-size: 1.3rem; margin-bottom: 0.3rem; }
+    .glasser-name {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #0e2a47;
+      margin-bottom: 0.2rem;
+    }
+    .glasser-impl {
+      font-size: 0.82rem;
+      color: #274e73;
+      line-height: 1.45;
+    }
+
+    /* ---------- TABLE ---------- */
+    .matrix-wrapper {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.4rem 1.4rem 1.2rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      border: 1px solid #e3ecf7;
+      overflow-x: auto;
+      margin-bottom: 0.5rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.84rem;
+      min-width: 560px;
+    }
+    thead th {
+      text-align: left;
+      padding: 0.75rem 0.85rem;
+      font-weight: 700;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      color: white;
+      background: #0e2a47;
+    }
+    thead th:first-child {
+      border-radius: 0.9rem 0 0 0;
+      background: #2a4b7c;
+    }
+    thead th:last-child { border-radius: 0 0.9rem 0 0; }
+    tbody td {
+      padding: 0.65rem 0.85rem;
+      border-bottom: 1px solid #e8f0f9;
+      color: #1e3c5a;
+      vertical-align: top;
+      line-height: 1.45;
+      font-size: 0.83rem;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: #f6faff; }
+    tbody td:first-child {
+      font-weight: 700;
+      color: #0e2a47;
+      background: #f3f8fd;
+      white-space: nowrap;
+    }
+    tbody tr:hover td:first-child { background: #eaf3fc; }
+
+    /* ---------- MET/UNMET TABLE ---------- */
+    .met-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.84rem;
+      min-width: 480px;
+    }
+    .met-table thead th {
+      text-align: left;
+      padding: 0.7rem 0.85rem;
+      font-weight: 700;
+      font-size: 0.73rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      color: white;
+      background: #0e2a47;
+    }
+    .met-table thead th:first-child {
+      border-radius: 0.9rem 0 0 0;
+      background: #2a4b7c;
+    }
+    .met-table thead th:nth-child(2) { background: #2e7d4f; }
+    .met-table thead th:last-child { background: #b03a5b; border-radius: 0 0.9rem 0 0; }
+    .met-table tbody td {
+      padding: 0.6rem 0.85rem;
+      border-bottom: 1px solid #e8f0f9;
+      color: #1e3c5a;
+      vertical-align: top;
+      line-height: 1.45;
+      font-size: 0.83rem;
+    }
+    .met-table tbody tr:last-child td { border-bottom: none; }
+    .met-table tbody tr:hover td { background: #f6faff; }
+    .met-table tbody td:first-child {
+      font-weight: 700;
+      color: #0e2a47;
+      background: #f3f8fd;
+      white-space: nowrap;
+    }
+
+    /* ---------- PRACTICAL IMPLICATIONS ---------- */
+    .impl-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    .impl-card {
+      background: white;
+      border-radius: 1.3rem;
+      padding: 1.1rem 1.2rem;
+      box-shadow: 0 6px 14px -8px rgba(20, 40, 70, 0.14);
+      border: 1px solid #e3ecf7;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .impl-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      opacity: 0.8;
+    }
+    .impl-card.environment::before { background: linear-gradient(180deg, #2e7d4f, #81c784); }
+    .impl-card.design::before { background: linear-gradient(180deg, #2a4b7c, #5a8ec9); }
+    .impl-card.relationships::before { background: linear-gradient(180deg, #d4933a, #e8c08b); }
+    .impl-card.assessment::before { background: linear-gradient(180deg, #6a4c9c, #b39ddb); }
+    .impl-card.beyond::before { background: linear-gradient(180deg, #c94f7c, #e88bb0); }
+    .impl-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 20px -12px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .impl-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+    }
+    .impl-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .impl-list li {
+      padding: 0.25rem 0 0.25rem 1.3rem;
+      position: relative;
+      font-size: 0.83rem;
+      line-height: 1.5;
+      color: #1e3c5a;
+    }
+    .impl-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #2e9b5e;
+      font-weight: 700;
+      font-size: 0.75rem;
+      top: 0.35rem;
+    }
+
+    /* ---------- MISCONCEPTIONS ---------- */
+    .mis-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    .mis-card {
+      background: #fdf6f6;
+      border-radius: 1.2rem;
+      padding: 1rem 1.2rem;
+      box-shadow: 0 4px 10px -6px rgba(20, 40, 70, 0.12);
+      border: 1px solid #e8c8c8;
+      transition: all 0.2s;
+    }
+    .mis-card:hover {
+      transform: translateY(-2px);
+      border-color: #d45a5a;
+    }
+    .mis-claim {
+      font-size: 0.86rem;
+      color: #a83535;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
+    }
+    .mis-claim::before {
+      content: '✘';
+      color: #d45a5a;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .mis-correction {
+      font-size: 0.84rem;
+      color: #1e3c5a;
+      line-height: 1.5;
+      padding-left: 1.3rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
+    }
+    .mis-correction::before {
+      content: '✔';
+      color: #2e9b5e;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ---------- TAKEAWAY ---------- */
+    .takeaway-card {
+      background: #0e2a47;
+      color: white;
+      border-radius: 1.6rem;
+      padding: 1.6rem 2rem;
+      margin: 1.2rem 0 0.5rem 0;
+      font-size: 0.98rem;
+      line-height: 1.7;
+      box-shadow: 0 14px 26px -12px #0e2a47;
+      border-left: 6px solid #8bb3e0;
+    }
+    .takeaway-card strong { color: #b8d4f0; }
+    .takeaway-card ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+    }
+    .takeaway-card li {
+      padding-left: 1.5rem;
+      position: relative;
+      font-size: 0.92rem;
+      color: #d4e6fa;
+      line-height: 1.55;
+    }
+    .takeaway-card li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #8bb3e0;
+      font-weight: 700;
+    }
+
+    /* ---------- ONE-LINER ---------- */
+    .oneliner-card {
+      background: linear-gradient(135deg, #2e7d4f 0%, #3fa86a 100%);
+      color: white;
+      border-radius: 1.6rem;
+      padding: 1.6rem 2rem;
+      margin: 1.2rem 0 0.5rem 0;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      box-shadow: 0 14px 26px -12px #2e7d4f;
+      border-left: 6px solid #b8e0c8;
+      text-align: center;
+      font-weight: 500;
+    }
+    .oneliner-card strong { color: #d4f0e0; }
+
+    /* ---------- SEARCH & COUNT ---------- */
+    .filter-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 60px;
+      box-shadow: 0 8px 18px -8px rgba(0, 27, 45, 0.1);
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 40px;
+      padding: 0.3rem 0.3rem 0.3rem 1.2rem;
+      flex: 2;
+      min-width: 240px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      border: 1px solid #ccdcee;
+    }
+    .search-box span { font-size: 1.1rem; margin-right: 0.5rem; color: #4e6b8a; }
+    .search-box input {
+      border: none;
+      padding: 0.7rem 0.2rem;
+      width: 100%;
+      font-size: 0.95rem;
+      outline: none;
+      background: transparent;
+      color: #0c253b;
+    }
+    .search-box input::placeholder { color: #879eb6; font-weight: 300; }
+    .count-pill {
+      background: #0e2a47;
+      color: white;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ---------- QUIZ SECTION ---------- */
+    .quiz-section { margin-top: 2.5rem; }
+    .quiz-header {
+      background: #0e2a47;
+      border-radius: 2rem 2rem 0 0;
+      padding: 1.5rem 2rem;
+      color: white;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .quiz-header h2 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.3px; }
+    .quiz-header .quiz-badge {
+      background: #8bb3e0;
+      color: #0e2a47;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .quiz-body {
+      background: white;
+      border-radius: 0 0 2rem 2rem;
+      padding: 2rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      border: 1px solid #e3ecf7;
+      border-top: none;
+    }
+    .quiz-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #e3ecf7;
+      padding-bottom: 1rem;
+    }
+    .quiz-tab {
+      background: #f0f5fd;
+      border: 1px solid #d0e0f0;
+      color: #1b4670;
+      padding: 0.5rem 1.3rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .quiz-tab:hover { background: #e0ecfc; border-color: #a0c0e0; }
+    .quiz-tab.active { background: #0e2a47; color: white; border-color: #0e2a47; }
+    .quiz-panel { display: none; }
+    .quiz-panel.active { display: block; }
+    .section-label {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.2rem;
+    }
+
+    /* MCQ */
+    .mcq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+      transition: background 0.2s;
+    }
+    .mcq-item:hover { background: #f0f7fe; }
+    .mcq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.8rem;
+      line-height: 1.5;
+    }
+    .mcq-options { display: flex; flex-direction: column; gap: 0.5rem; }
+    .mcq-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 0.8rem;
+      background: white;
+      border: 1.5px solid #d9e8fc;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+    }
+    .mcq-option:hover { border-color: #8bb3e0; background: #eef6ff; }
+    .mcq-option.selected { border-color: #3b7bb5; background: #e4f0fe; font-weight: 500; }
+    .mcq-option.correct { border-color: #2e9b5e; background: #e6f7ee; font-weight: 600; }
+    .mcq-option.incorrect { border-color: #d45a5a; background: #fdeaea; font-weight: 500; }
+    .mcq-option .option-letter {
+      font-weight: 700;
+      color: #2a4b7c;
+      min-width: 1.4rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .mcq-option.correct .option-letter { color: #1b7a44; }
+    .mcq-option.incorrect .option-letter { color: #b03030; }
+    .mcq-feedback {
+      margin-top: 0.7rem;
+      font-size: 0.88rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: 0.8rem;
+      display: none;
+      font-weight: 500;
+    }
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.correct-fb {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .mcq-feedback.incorrect-fb {
+      background: #fdeaea;
+      color: #9e2a2a;
+      border-left: 4px solid #d45a5a;
+    }
+
+    /* CRQ / ERQ shared */
+    .crq-item, .erq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+    }
+    .erq-item { border: 2px solid #8bb3e0; background: #f5faff; }
+    .crq-question, .erq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+    .erq-question { font-size: 1.05rem; font-weight: 700; }
+    .erq-marks {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      margin-bottom: 0.8rem;
+    }
+    .crq-hint {
+      font-size: 0.85rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-bottom: 0.7rem;
+    }
+    .crq-textarea, .erq-textarea {
+      width: 100%;
+      border: 1.5px solid #d9e8fc;
+      border-radius: 0.9rem;
+      padding: 0.8rem 1rem;
+      font-family: inherit;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+      resize: vertical;
+      transition: border-color 0.2s;
+      background: white;
+    }
+    .crq-textarea { min-height: 90px; }
+    .erq-textarea { min-height: 160px; }
+    .crq-textarea:focus, .erq-textarea:focus {
+      outline: none;
+      border-color: #3b7bb5;
+      box-shadow: 0 0 0 3px rgba(59, 123, 181, 0.12);
+    }
+    .crq-actions, .erq-actions {
+      display: flex;
+      gap: 0.7rem;
+      margin-top: 0.7rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 0.55rem 1.4rem;
+      border-radius: 40px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      font-family: inherit;
+    }
+    .btn-primary { background: #0e2a47; color: white; }
+    .btn-primary:hover { background: #1a4170; transform: translateY(-1px); }
+    .btn-secondary { background: #e9f0fa; color: #1b4670; border: 1px solid #c0d8f0; }
+    .btn-secondary:hover { background: #d8e6f8; }
+    .crq-feedback, .erq-feedback {
+      margin-top: 0.8rem;
+      padding: 0.8rem 1rem;
+      border-radius: 0.9rem;
+      font-size: 0.9rem;
+      display: none;
+      line-height: 1.6;
+    }
+    .crq-feedback.show, .erq-feedback.show { display: block; }
+    .crq-feedback.good, .erq-feedback.good {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .crq-feedback.partial, .erq-feedback.partial {
+      background: #fff8e6;
+      color: #8a6d1f;
+      border-left: 4px solid #e0a800;
+    }
+    .erq-feedback.model {
+      background: #e6f0fc;
+      color: #1a3e62;
+      border-left: 5px solid #3b7bb5;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 700px) {
+      .mis-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .header-card { padding: 1.5rem 1.2rem; }
+      h1 { font-size: 1.6rem; }
+      .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: 2rem;
+        padding: 1rem;
+      }
+      .search-box { width: 100%; }
+      .count-pill { text-align: center; padding: 0.5rem; }
+      .quiz-body { padding: 1.2rem; }
+      .quiz-header { padding: 1.2rem; }
+      .quiz-header h2 { font-size: 1.3rem; }
+      .mcq-item, .crq-item, .erq-item { padding: 1rem; }
+      .quiz-tab { font-size: 0.8rem; padding: 0.4rem 1rem; }
+      .takeaway-card { padding: 1.3rem 1.2rem; }
+      .oneliner-card { padding: 1.3rem 1.2rem; }
+      .maslow-level { font-size: 0.8rem; padding: 0.55rem 0.8rem; }
+      .maslow-level .level-impl { font-size: 0.68rem; }
+    }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #dfe9f5; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: #94b0d1; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6d8fb4; }
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem 1rem;
+      background: #ffffffc9;
+      border-radius: 2rem;
+      font-size: 1.1rem;
+      color: #4b6888;
+      border: 2px dashed #b8cee8;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-wrapper">
+
+    <!-- HEADER -->
+    <div class="header-card">
+      <div class="badge">🧠 Educational Psychology</div>
+      <h1>Basic Needs &amp; Motivation</h1>
+      <div class="subhead">How meeting fundamental needs unlocks engagement, persistence, and learning</div>
+      <div class="intro-text">
+        <strong>💡 Core idea:</strong> Motivation is not just a trait learners "have" or "lack" — it is strongly influenced by whether their basic needs are satisfied in the learning environment. When basic needs are met, learners are more engaged, persistent, and able to learn; when they are unmet, motivation and learning suffer.
+      </div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="filter-section">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="Search needs, theories, implications, misconceptions..." autocomplete="off">
+      </div>
+      <div class="count-pill" id="countDisplay">30+ items</div>
+    </div>
+
+    <!-- WHAT ARE BASIC NEEDS -->
+    <div class="section-title">
+      🧩 What Are Basic Needs?
+      <span class="line"></span>
+    </div>
+
+    <div class="need-grid" id="needGrid">
+      <div class="need-card physio" data-searchable="physiological needs food water sleep shelter safety unmet dominate attention reduce capacity learn">
+        <div class="need-header">
+          <div class="need-icon">🍎</div>
+          <div class="need-name">Physiological</div>
+        </div>
+        <div class="need-examples"><strong>Examples:</strong> Food, water, sleep, shelter, safety</div>
+        <div class="need-role">Unmet physiological needs dominate attention and reduce capacity to learn.</div>
+      </div>
+      <div class="need-card psych" data-searchable="psychological needs autonomy competence relatedness belonging esteem fulfillment intrinsic motivation engagement well-being">
+        <div class="need-header">
+          <div class="need-icon">🧠</div>
+          <div class="need-name">Psychological</div>
+        </div>
+        <div class="need-examples"><strong>Examples:</strong> Autonomy, competence, relatedness, belonging, esteem</div>
+        <div class="need-role">Fulfillment supports intrinsic motivation, engagement, and well-being.</div>
+      </div>
+      <div class="need-card social" data-searchable="social needs acceptance connection respect inclusion shape identity belonging willingness engage">
+        <div class="need-header">
+          <div class="need-icon">🤝</div>
+          <div class="need-name">Social</div>
+        </div>
+        <div class="need-examples"><strong>Examples:</strong> Acceptance, connection, respect, inclusion</div>
+        <div class="need-role">Social needs shape identity, belonging, and willingness to engage.</div>
+      </div>
+    </div>
+
+    <!-- MASLOW'S HIERARCHY -->
+    <div class="section-title">
+      🔺 Maslow's Hierarchy of Needs
+      <span class="line"></span>
+    </div>
+
+    <div class="maslow-wrapper" data-searchable="maslow hierarchy physiological safety belonging love esteem self-actualization lower-level needs satisfied before higher-level motivate learning">
+      <div class="maslow-pyramid">
+        <div class="maslow-level l5">
+          <span class="num">5</span>
+          <div class="level-info">
+            <span class="level-name">Self-Actualization</span>
+            <span class="level-impl">Fulfilling potential, growth, creativity → Offer challenge, choice, self-direction</span>
+          </div>
+        </div>
+        <div class="maslow-level l4">
+          <span class="num">4</span>
+          <div class="level-info">
+            <span class="level-name">Esteem</span>
+            <span class="level-impl">Competence, recognition, respect → Meaningful feedback, recognition, mastery experiences</span>
+          </div>
+        </div>
+        <div class="maslow-level l3">
+          <span class="num">3</span>
+          <div class="level-info">
+            <span class="level-name">Belonging &amp; Love</span>
+            <span class="level-impl">Acceptance, friendship, connection → Inclusive, caring classroom communities</span>
+          </div>
+        </div>
+        <div class="maslow-level l2">
+          <span class="num">2</span>
+          <div class="level-info">
+            <span class="level-name">Safety</span>
+            <span class="level-impl">Physical and emotional safety, order, security → Safe, predictable, bully-free classrooms</span>
+          </div>
+        </div>
+        <div class="maslow-level l1">
+          <span class="num">1</span>
+          <div class="level-info">
+            <span class="level-name">Physiological</span>
+            <span class="level-impl">Food, water, sleep, warmth → Ensure students are fed, rested, comfortable</span>
+          </div>
+        </div>
+      </div>
+      <div class="maslow-note">
+        <strong>Key idea:</strong> Lower-level needs generally must be reasonably satisfied before higher-level needs can strongly motivate learning.<br>
+        <strong>⚠ Caution:</strong> The strict hierarchy is not fully supported by research; needs can operate simultaneously and vary by culture and individual.
+      </div>
+    </div>
+
+    <!-- SELF-DETERMINATION THEORY -->
+    <div class="section-title">
+      🎯 Self-Determination Theory (SDT) — Deci &amp; Ryan
+      <span class="line"></span>
+    </div>
+
+    <div class="intro-text" style="margin-bottom:1rem;background:#f0faf4;border-left-color:#2e7d4f;">
+      <strong>SDT identifies three basic psychological needs essential for intrinsic motivation and well-being.</strong> When these needs are met, learners are more intrinsically motivated, engaged, persistent, and satisfied. When thwarted, motivation shifts toward extrinsic control or amotivation.
+    </div>
+
+    <div class="sdt-grid" id="sdtGrid">
+      <div class="sdt-card autonomy" data-searchable="autonomy volitional self-directed responsible actions choice relevance controlling language">
+        <div class="sdt-name">Autonomy</div>
+        <div class="sdt-def">Feeling volitional, self-directed, and responsible for one's actions.</div>
+        <div class="sdt-app"><strong>Educational application:</strong> Offer choice, explain relevance, minimize controlling language.</div>
+      </div>
+      <div class="sdt-card competence" data-searchable="competence effective capable success optimal challenge scaffolding mastery experiences informative feedback">
+        <div class="sdt-name">Competence</div>
+        <div class="sdt-def">Feeling effective and capable of success.</div>
+        <div class="sdt-app"><strong>Educational application:</strong> Provide optimal challenge, scaffolding, mastery experiences, and informative feedback.</div>
+      </div>
+      <div class="sdt-card relatedness" data-searchable="relatedness connected accepted cared others warm teacher-student relationships cooperative learning inclusive climate">
+        <div class="sdt-name">Relatedness</div>
+        <div class="sdt-def">Feeling connected, accepted, and cared for by others.</div>
+        <div class="sdt-app"><strong>Educational application:</strong> Build warm teacher–student relationships, cooperative learning, inclusive climate.</div>
+      </div>
+    </div>
+
+    <!-- GLASSER'S CHOICE THEORY -->
+    <div class="section-title">
+      🧩 Glasser's Choice Theory — Five Basic Needs
+      <span class="line"></span>
+    </div>
+
+    <div class="intro-text" style="margin-bottom:1rem;background:#fff8e6;border-left-color:#e0a800;">
+      <strong>Key idea:</strong> Behavior is driven by attempts to meet these five needs; classrooms should be designed to meet them.
+    </div>
+
+    <div class="glasser-grid" id="glasserGrid">
+      <div class="glasser-card" data-searchable="survival physiological safety ensure safety basic comfort">
+        <div class="glasser-icon">🛡️</div>
+        <div class="glasser-name">Survival</div>
+        <div class="glasser-impl">Ensure safety and basic comfort.</div>
+      </div>
+      <div class="glasser-card" data-searchable="love belonging foster inclusion caring relationships">
+        <div class="glasser-icon">❤️</div>
+        <div class="glasser-name">Love &amp; Belonging</div>
+        <div class="glasser-impl">Foster inclusion and caring relationships.</div>
+      </div>
+      <div class="glasser-card" data-searchable="power competence influence voice responsibility mastery opportunities">
+        <div class="glasser-icon">💪</div>
+        <div class="glasser-name">Power</div>
+        <div class="glasser-impl">Give students voice, responsibility, and mastery opportunities.</div>
+      </div>
+      <div class="glasser-card" data-searchable="freedom autonomy choice self-direction">
+        <div class="glasser-icon">🕊️</div>
+        <div class="glasser-name">Freedom</div>
+        <div class="glasser-impl">Offer choice and self-direction.</div>
+      </div>
+      <div class="glasser-card" data-searchable="fun enjoyment learning engaging relevant enjoyable">
+        <div class="glasser-icon">🎉</div>
+        <div class="glasser-name">Fun</div>
+        <div class="glasser-impl">Make learning engaging, relevant, and enjoyable.</div>
+      </div>
+    </div>
+
+    <!-- OTHER FRAMEWORKS -->
+    <div class="section-title">
+      ⚖️ Other Relevant Frameworks
+      <span class="line"></span>
+    </div>
+
+    <div class="glasser-grid" id="otherGrid">
+      <div class="glasser-card" data-searchable="drive reduction theory hull biological needs drives motivate behavior homeostasis">
+        <div class="glasser-icon">⚖️</div>
+        <div class="glasser-name">Drive Reduction Theory (Hull)</div>
+        <div class="glasser-impl">Biological needs create drives that motivate behavior to restore balance (homeostasis).</div>
+      </div>
+      <div class="glasser-card" data-searchable="achievement motivation mcclelland atkinson need achievement affiliation power individual differences">
+        <div class="glasser-icon">🏆</div>
+        <div class="glasser-name">Achievement Motivation</div>
+        <div class="glasser-impl">Need for achievement, affiliation, and power shape motivation.</div>
+      </div>
+      <div class="glasser-card" data-searchable="expectancy-value theory expectation success value task competence autonomy needs">
+        <div class="glasser-icon">📊</div>
+        <div class="glasser-name">Expectancy-Value Theory</div>
+        <div class="glasser-impl">Motivation depends on expectation of success and value of task — linked to competence and autonomy needs.</div>
+      </div>
+      <div class="glasser-card" data-searchable="flow theory csikszentmihalyi optimal motivation challenge matches skill competence autonomy">
+        <div class="glasser-icon">🌊</div>
+        <div class="glasser-name">Flow Theory</div>
+        <div class="glasser-impl">Optimal motivation occurs when challenge matches skill — supports competence and autonomy.</div>
+      </div>
+    </div>
+
+    <!-- COMPARISON TABLE -->
+    <div class="section-title">
+      📊 Needs and Motivation — Comparison Table
+      <span class="line"></span>
+    </div>
+
+    <div class="matrix-wrapper" data-searchable="comparison maslow self-determination choice theory glasser achievement motivation basic needs focus educational relevance">
+      <table>
+        <thead>
+          <tr>
+            <th>Theory</th>
+            <th>Basic Needs Identified</th>
+            <th>Focus</th>
+            <th>Educational Relevance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Maslow</td><td>Physiological, safety, belonging, esteem, self-actualization</td><td>Hierarchical human needs</td><td>Ensure safety and belonging before higher learning.</td></tr>
+          <tr><td>Self-Determination Theory</td><td>Autonomy, competence, relatedness</td><td>Psychological needs for intrinsic motivation</td><td>Design for choice, mastery, and connection.</td></tr>
+          <tr><td>Choice Theory (Glasser)</td><td>Survival, love/belonging, power, freedom, fun</td><td>Behavioral choices to meet needs</td><td>Build classroom environments that meet all five.</td></tr>
+          <tr><td>Achievement Motivation</td><td>Need for achievement, affiliation, power</td><td>Individual differences in motivation</td><td>Recognize varied motivational profiles.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- HOW NEEDS AFFECT LEARNING -->
+    <div class="section-title">
+      📈 How Needs Affect Learning and Motivation
+      <span class="line"></span>
+    </div>
+
+    <div class="matrix-wrapper" data-searchable="needs affect learning met unmet physiological safety belonging esteem competence autonomy self-actualization">
+      <table class="met-table">
+        <thead>
+          <tr>
+            <th>Need Area</th>
+            <th>✔ When Met</th>
+            <th>✘ When Unmet</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Physiological</td><td>Learner is alert, calm, and ready to learn</td><td>Fatigue, hunger, stress reduce attention and memory</td></tr>
+          <tr><td>Safety</td><td>Learner feels secure and takes risks</td><td>Anxiety, fear, and hypervigilance block learning</td></tr>
+          <tr><td>Belonging</td><td>Learner engages, collaborates, and persists</td><td>Isolation, rejection, and disengagement</td></tr>
+          <tr><td>Esteem / Competence</td><td>Learner seeks challenge and shows persistence</td><td>Avoidance, helplessness, low self-efficacy</td></tr>
+          <tr><td>Autonomy</td><td>Learner takes ownership and self-regulates</td><td>Compliance, disengagement, or rebellion</td></tr>
+          <tr><td>Self-actualization</td><td>Learner pursues growth, creativity, and purpose</td><td>Lack of direction and fulfillment</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PRACTICAL IMPLICATIONS -->
+    <div class="section-title">
+      🎓 Practical Implications for Educators
+      <span class="line"></span>
+    </div>
+
+    <div class="impl-grid" id="implGrid">
+      <div class="impl-card environment" data-searchable="classroom environment physical safety emotional safety clear rules anti-bullying predictability caring inclusive community structure warmth authoritative">
+        <div class="impl-title">🏫 Classroom Environment</div>
+        <ul class="impl-list">
+          <li>Ensure physical and emotional safety (clear rules, anti-bullying, predictability).</li>
+          <li>Build a caring, inclusive community to meet belonging needs.</li>
+          <li>Provide structure with warmth (authoritative teaching).</li>
+        </ul>
+      </div>
+      <div class="impl-card design" data-searchable="instructional design choice tasks topics products autonomy optimal challenge scaffolding feedback competence cooperative learning peer interaction relatedness relevance fun">
+        <div class="impl-title">🎯 Instructional Design</div>
+        <ul class="impl-list">
+          <li>Offer choice in tasks, topics, or products (autonomy).</li>
+          <li>Provide optimal challenge with scaffolding and feedback (competence).</li>
+          <li>Use cooperative learning and peer interaction (relatedness).</li>
+          <li>Connect content to students' interests and real life (relevance and fun).</li>
+          <li>Recognize effort and progress specifically and meaningfully (esteem).</li>
+        </ul>
+      </div>
+      <div class="impl-card relationships" data-searchable="relationships positive teacher-student respect empathy high realistic expectations autonomy-supportive language controlling language">
+        <div class="impl-title">🤝 Relationships</div>
+        <ul class="impl-list">
+          <li>Build positive teacher–student relationships based on respect and empathy.</li>
+          <li>Communicate high but realistic expectations.</li>
+          <li>Use autonomy-supportive language ("You might consider…") rather than controlling language ("You must…").</li>
+        </ul>
+      </div>
+      <div class="impl-card assessment" data-searchable="assessment formative growth-oriented feedback avoid public comparison shame mastery personal improvement competition">
+        <div class="impl-title">📊 Assessment</div>
+        <ul class="impl-list">
+          <li>Use formative, growth-oriented feedback.</li>
+          <li>Avoid public comparison and shame.</li>
+          <li>Emphasize mastery and personal improvement over competition.</li>
+        </ul>
+      </div>
+      <div class="impl-card beyond" data-searchable="beyond classroom basic needs nutrition sleep safety school support services partner families communities holistic">
+        <div class="impl-title">🌍 Beyond the Classroom</div>
+        <ul class="impl-list">
+          <li>Address basic needs (nutrition, sleep, safety) through school support services.</li>
+          <li>Partner with families and communities to meet needs holistically.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- MISCONCEPTIONS -->
+    <div class="section-title">
+      ⚠️ Common Misconceptions
+      <span class="line"></span>
+    </div>
+
+    <div class="mis-grid" id="misGrid">
+      <div class="mis-card" data-searchable="motivation personal trait correction shaped by basic needs met environment">
+        <div class="mis-claim">"Motivation is simply a personal trait."</div>
+        <div class="mis-correction">Motivation is strongly shaped by whether basic needs are met in the environment.</div>
+      </div>
+      <div class="mis-card" data-searchable="maslow hierarchy strict sequence correction overlap flexible culturally variable">
+        <div class="mis-claim">"Maslow's hierarchy is a strict sequence."</div>
+        <div class="mis-correction">Needs can overlap; the hierarchy is flexible and culturally variable.</div>
+      </div>
+      <div class="mis-card" data-searchable="rewards always increase motivation correction external rewards undermine intrinsic autonomy">
+        <div class="mis-claim">"Rewards always increase motivation."</div>
+        <div class="mis-correction">External rewards can undermine intrinsic motivation when they reduce autonomy.</div>
+      </div>
+      <div class="mis-card" data-searchable="competence easy success correction optimal challenge support not trivial tasks">
+        <div class="mis-claim">"Competence means easy success."</div>
+        <div class="mis-correction">Competence grows from optimal challenge with support, not from trivial tasks.</div>
+      </div>
+      <div class="mis-card" data-searchable="belonging soft extra correction basic psychological need essential engagement learning">
+        <div class="mis-claim">"Belonging is a soft extra."</div>
+        <div class="mis-correction">Belonging is a basic psychological need essential for engagement and learning.</div>
+      </div>
+      <div class="mis-card" data-searchable="autonomy let students whatever they want correction meaningful choice structure not absence guidance">
+        <div class="mis-claim">"Autonomy means letting students do whatever they want."</div>
+        <div class="mis-correction">Autonomy means meaningful choice within structure, not absence of guidance.</div>
+      </div>
+    </div>
+
+    <!-- KEY TAKEAWAYS -->
+    <div class="section-title">
+      🔑 Key Takeaways
+      <span class="line"></span>
+    </div>
+
+    <div class="takeaway-card" data-searchable="key takeaways basic needs physiological psychological social foundational motivation learning maslow hierarchy self-determination autonomy competence relatedness glasser survival love belonging power freedom fun met engaged persistent self-regulated successful unmet decline disengagement suffer educators design classrooms instruction relationships assessment">
+      <ul>
+        <li>Basic needs — physiological, psychological, and social — are foundational to motivation and learning.</li>
+        <li>Maslow highlights a hierarchy from survival to self-actualization; lower needs generally must be reasonably met for higher motivation.</li>
+        <li>Self-Determination Theory identifies autonomy, competence, and relatedness as essential psychological needs for intrinsic motivation.</li>
+        <li>Glasser's Choice Theory adds survival, love/belonging, power, freedom, and fun as drivers of behavior.</li>
+        <li>When needs are met, learners are more engaged, persistent, self-regulated, and successful.</li>
+        <li>When needs are unmet, motivation declines, disengagement rises, and learning suffers.</li>
+        <li>Educators can design classrooms, instruction, relationships, and assessment to meet basic needs.</li>
+      </ul>
+    </div>
+
+    <!-- ONE-LINER -->
+    <div class="oneliner-card" data-searchable="one-line summary motivation flourishes learners feel safe connected capable autonomous meeting basic needs foundation effective learning">
+      <strong>📌 One-line summary:</strong> Motivation flourishes when learners feel safe, connected, capable, and autonomous — meeting basic needs is the foundation of effective learning.
+    </div>
+
+    <!-- ================= QUIZ SECTION ================= -->
+    <div class="quiz-section">
+      <div class="quiz-header">
+        <h2>📝 Practice Quiz</h2>
+        <span class="quiz-badge">Test Your Knowledge</span>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-tabs">
+          <button class="quiz-tab active" data-panel="mcqPanel">🔘 10 MCQs</button>
+          <button class="quiz-tab" data-panel="crqPanel">✍️ 4 CRQs</button>
+          <button class="quiz-tab" data-panel="erqPanel">📄 1 ERQ</button>
+        </div>
+
+        <div class="quiz-panel active" id="mcqPanel">
+          <span class="section-label">Multiple Choice Questions</span>
+          <div id="mcqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="crqPanel">
+          <span class="section-label">Constructed Response Questions</span>
+          <div id="crqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="erqPanel">
+          <span class="section-label">Extended Response Question (Situation-Based)</span>
+          <div id="erqContainer"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      // ================= SEARCH FILTER =================
+      const searchInput = document.getElementById('searchInput');
+      const countDisplay = document.getElementById('countDisplay');
+      const allSearchables = document.querySelectorAll('[data-searchable]');
+      const cardParents = new Map();
+      allSearchables.forEach(card => cardParents.set(card, card.parentNode));
+
+      function applySearch(query) {
+        const q = query.trim().toLowerCase();
+        let visibleCount = 0;
+        allSearchables.forEach(card => {
+          const searchText = (card.dataset.searchable || '').toLowerCase() + ' ' + card.textContent.toLowerCase();
+          const matches = q === '' || searchText.includes(q);
+          if (matches) {
+            visibleCount++;
+            if (!card.parentNode) cardParents.get(card).appendChild(card);
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        countDisplay.textContent = visibleCount + ' item' + (visibleCount !== 1 ? 's' : '');
+      }
+
+      let debounceTimer;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => applySearch(e.target.value), 180);
+      });
+      searchInput.addEventListener('search', (e) => { if (e.target.value === '') applySearch(''); });
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchInput.value !== '') { searchInput.value = ''; applySearch(''); }
+      });
+
+      // ================= QUIZ DATA =================
+      const mcqs = [
+        {
+          q: "What is the core idea of the notes on basic needs and motivation?",
+          options: [
+            "Motivation is purely a personal trait",
+            "Motivation is strongly influenced by whether basic needs are satisfied in the learning environment",
+            "Only physiological needs matter",
+            "Needs are irrelevant to learning"
+          ],
+          correct: 1,
+          feedback: "The core idea is that motivation is not just a trait learners 'have' or 'lack' — it is strongly influenced by whether their basic needs are satisfied in the learning environment."
+        },
+        {
+          q: "According to Maslow, which level must generally be reasonably satisfied before higher-level needs can strongly motivate learning?",
+          options: [
+            "Self-actualization",
+            "Esteem",
+            "Lower-level needs (physiological, safety, belonging)",
+            "Only esteem needs"
+          ],
+          correct: 2,
+          feedback: "Maslow proposed that lower-level needs (physiological, safety, belonging) generally must be reasonably satisfied before higher-level needs can strongly motivate learning."
+        },
+        {
+          q: "What are the three basic psychological needs identified by Self-Determination Theory?",
+          options: [
+            "Physiological, safety, belonging",
+            "Autonomy, competence, relatedness",
+            "Survival, power, freedom",
+            "Achievement, affiliation, power"
+          ],
+          correct: 1,
+          feedback: "Self-Determination Theory (Deci & Ryan) identifies autonomy, competence, and relatedness as the three basic psychological needs essential for intrinsic motivation."
+        },
+        {
+          q: "In Glasser's Choice Theory, what does 'power' refer to?",
+          options: [
+            "Physical strength",
+            "Competence, influence, voice, responsibility, and mastery opportunities",
+            "Control over others",
+            "Financial resources"
+          ],
+          correct: 1,
+          feedback: "In Glasser's Choice Theory, 'power' refers to competence, influence, voice, responsibility, and mastery opportunities — giving students meaningful agency."
+        },
+        {
+          q: "What happens when belonging needs are met?",
+          options: [
+            "Learner becomes isolated",
+            "Learner engages, collaborates, and persists",
+            "Learner becomes anxious",
+            "Learner avoids challenges"
+          ],
+          correct: 1,
+          feedback: "When belonging needs are met, the learner engages, collaborates, and persists. When unmet, isolation, rejection, and disengagement occur."
+        },
+        {
+          q: "Which framework suggests that biological needs create drives that motivate behavior to restore balance?",
+          options: [
+            "Self-Determination Theory",
+            "Drive Reduction Theory (Hull)",
+            "Choice Theory (Glasser)",
+            "Flow Theory"
+          ],
+          correct: 1,
+          feedback: "Drive Reduction Theory (Hull) suggests that biological needs create drives that motivate behavior to restore balance (homeostasis)."
+        },
+        {
+          q: "What is a key misconception about Maslow's hierarchy?",
+          options: [
+            "Needs can overlap",
+            "The hierarchy is flexible and culturally variable",
+            "It is a strict sequence",
+            "Lower needs must be reasonably met before higher needs"
+          ],
+          correct: 2,
+          feedback: "The misconception is that Maslow's hierarchy is a strict sequence. In reality, needs can overlap; the hierarchy is flexible and culturally variable."
+        },
+        {
+          q: "How can teachers support autonomy in the classroom?",
+          options: [
+            "Using controlling language ('You must...')",
+            "Offering meaningful choice within structure",
+            "Letting students do whatever they want",
+            "Removing all guidance"
+          ],
+          correct: 1,
+          feedback: "Autonomy means meaningful choice within structure, not absence of guidance. Teachers can offer choice in tasks, topics, or products and use autonomy-supportive language."
+        },
+        {
+          q: "What does Flow Theory suggest about optimal motivation?",
+          options: [
+            "Motivation is highest when tasks are very easy",
+            "Optimal motivation occurs when challenge matches skill",
+            "Motivation depends only on rewards",
+            "Motivation is fixed at birth"
+          ],
+          correct: 1,
+          feedback: "Flow Theory (Csikszentmihalyi) suggests that optimal motivation occurs when challenge matches skill — supporting competence and autonomy."
+        },
+        {
+          q: "What is the one-line summary of the notes?",
+          options: [
+            "Motivation is purely a personal trait",
+            "Motivation flourishes when learners feel safe, connected, capable, and autonomous — meeting basic needs is the foundation of effective learning",
+            "Only Maslow's hierarchy matters",
+            "Rewards always increase motivation"
+          ],
+          correct: 1,
+          feedback: "The one-line summary: Motivation flourishes when learners feel safe, connected, capable, and autonomous — meeting basic needs is the foundation of effective learning."
+        }
+      ];
+
+      const crqs = [
+        {
+          q: "Explain Maslow's hierarchy of needs and its educational implications. What is a key caution about this theory?",
+          hint: "Five levels; lower needs reasonably met; caution: not a strict sequence.",
+          keywords: ["maslow", "hierarchy", "physiological", "safety", "belonging", "esteem", "self-actualization", "lower-level", "educational", "caution", "strict sequence", "overlap", "culturally variable"],
+          model: "Maslow's hierarchy proposes five levels of needs: (1) Physiological — food, water, sleep; ensure students are fed, rested, comfortable. (2) Safety — physical and emotional safety; create safe, predictable, bully-free classrooms. (3) Belonging & Love — acceptance, friendship; build inclusive, caring communities. (4) Esteem — competence, recognition; provide meaningful feedback and mastery experiences. (5) Self-Actualization — fulfilling potential; offer challenge, choice, and self-direction. Lower-level needs generally must be reasonably satisfied before higher-level needs can strongly motivate learning. Caution: The strict hierarchy is not fully supported by research; needs can operate simultaneously and vary by culture and individual."
+        },
+        {
+          q: "Describe Self-Determination Theory (SDT) and explain each of its three basic psychological needs with an educational application.",
+          hint: "Autonomy, competence, relatedness; choice, mastery experiences, warm relationships.",
+          keywords: ["self-determination", "autonomy", "competence", "relatedness", "choice", "relevance", "controlling language", "optimal challenge", "scaffolding", "mastery experiences", "feedback", "warm relationships", "cooperative learning", "inclusive climate"],
+          model: "Self-Determination Theory (Deci & Ryan) identifies three basic psychological needs essential for intrinsic motivation: (1) Autonomy — feeling volitional, self-directed, and responsible for one's actions. Educational application: offer choice, explain relevance, minimize controlling language. (2) Competence — feeling effective and capable of success. Educational application: provide optimal challenge, scaffolding, mastery experiences, and informative feedback. (3) Relatedness — feeling connected, accepted, and cared for by others. Educational application: build warm teacher–student relationships, cooperative learning, inclusive climate. When these needs are met, learners are more intrinsically motivated, engaged, persistent, and satisfied."
+        },
+        {
+          q: "List and explain Glasser's five basic needs and their educational implications.",
+          hint: "Survival, love/belonging, power, freedom, fun.",
+          keywords: ["glasser", "choice theory", "survival", "safety", "love", "belonging", "power", "competence", "influence", "freedom", "autonomy", "fun", "enjoyment", "classroom", "meet"],
+          model: "Glasser's Choice Theory identifies five basic needs: (1) Survival (physiological safety) — ensure safety and basic comfort. (2) Love & Belonging — foster inclusion and caring relationships. (3) Power (competence, influence) — give students voice, responsibility, and mastery opportunities. (4) Freedom (autonomy) — offer choice and self-direction. (5) Fun (enjoyment, learning) — make learning engaging, relevant, and enjoyable. Glasser argued that behavior is driven by attempts to meet these five needs; classrooms should be designed to meet all of them."
+        },
+        {
+          q: "How do unmet basic needs affect learning and motivation? Give examples for at least three need areas.",
+          hint: "Physiological, safety, belonging, esteem/competence, autonomy.",
+          keywords: ["unmet", "physiological", "fatigue", "hunger", "stress", "safety", "anxiety", "fear", "belonging", "isolation", "rejection", "disengagement", "esteem", "avoidance", "helplessness", "autonomy", "compliance", "rebellion"],
+          model: "When basic needs are unmet, motivation declines and learning suffers. Examples: (1) Physiological — fatigue, hunger, and stress reduce attention and memory. (2) Safety — anxiety, fear, and hypervigilance block learning. (3) Belonging — isolation, rejection, and disengagement occur. (4) Esteem/Competence — avoidance, helplessness, and low self-efficacy emerge. (5) Autonomy — compliance, disengagement, or rebellion may result. Meeting these needs is foundational for effective learning."
+        }
+      ];
+
+      const erq = {
+        q: `Mr. Hassan teaches Grade 5 in a school where many students come from low-income families. He notices that:
+• Several students come to school hungry and tired.
+• Some students seem anxious and afraid to make mistakes.
+• Many students are disengaged and rarely participate.
+• A few students are often excluded by their peers.
+• The classroom is very teacher-controlled — students have no choices.
+
+Using the theories of basic needs and motivation, analyse Mr. Hassan's classroom. Identify which needs are unmet and propose FOUR practical strategies he could use. For each strategy, identify the need it addresses and explain why it would help.`,
+        marks: "10 marks",
+        model: `
+          <strong>Model Answer (key points):</strong><br><br>
+          <strong>1. Physiological needs:</strong> Several students come to school hungry and tired. Mr. Hassan or the school could provide a simple snack, water, or connect families with nutrition support. This addresses physiological needs — hungry, tired children cannot concentrate or learn effectively.<br><br>
+          <strong>2. Safety needs:</strong> Some students are anxious and afraid to make mistakes. Mr. Hassan should create a safe, predictable classroom where mistakes are normalized and constructive feedback is given. This addresses safety needs — anxiety and fear block learning.<br><br>
+          <strong>3. Belonging needs:</strong> A few students are excluded by peers. Mr. Hassan should build an inclusive classroom community — using cooperative learning, addressing exclusion promptly, and fostering caring relationships. This addresses belonging needs — isolation and rejection lead to disengagement.<br><br>
+          <strong>4. Autonomy needs:</strong> The classroom is very teacher-controlled with no choices. Mr. Hassan should offer meaningful choice in tasks, topics, or products and use autonomy-supportive language. This addresses autonomy needs — meaningful choice within structure supports intrinsic motivation and engagement.<br><br>
+          <em>Note: Esteem/competence needs could also be addressed through mastery experiences and specific recognition. Any four strategies with clear identification of the need they address are acceptable.</em>
+        `
+      };
+
+      // ================= RENDER MCQs =================
+      const mcqContainer = document.getElementById('mcqContainer');
+      let mcqHtml = '';
+      mcqs.forEach((item, idx) => {
+        const letters = ['A', 'B', 'C', 'D'];
+        let optionsHtml = '';
+        item.options.forEach((opt, oi) => {
+          optionsHtml += `
+            <div class="mcq-option" data-qidx="${idx}" data-oidx="${oi}">
+              <span class="option-letter">${letters[oi]}</span>
+              <span>${opt}</span>
+            </div>
+          `;
+        });
+        mcqHtml += `
+          <div class="mcq-item" id="mcq-${idx}">
+            <div class="mcq-question">${idx + 1}. ${item.q}</div>
+            <div class="mcq-options">${optionsHtml}</div>
+            <div class="mcq-feedback" id="mcq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      mcqContainer.innerHTML = mcqHtml;
+
+      mcqContainer.addEventListener('click', (e) => {
+        const option = e.target.closest('.mcq-option');
+        if (!option) return;
+        const qidx = parseInt(option.dataset.qidx);
+        const oidx = parseInt(option.dataset.oidx);
+        const mcq = mcqs[qidx];
+        const parentItem = document.getElementById(`mcq-${qidx}`);
+        const allOptions = parentItem.querySelectorAll('.mcq-option');
+        const feedbackEl = document.getElementById(`mcq-fb-${qidx}`);
+        if (parentItem.dataset.answered === 'correct') return;
+        allOptions.forEach(opt => opt.classList.remove('selected', 'correct', 'incorrect'));
+        option.classList.add('selected');
+        if (oidx === mcq.correct) {
+          option.classList.add('correct');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '✅ Correct! ' + mcq.feedback;
+          feedbackEl.className = 'mcq-feedback show correct-fb';
+          parentItem.dataset.answered = 'correct';
+        } else {
+          option.classList.add('incorrect');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '❌ Not quite. Try again!';
+          feedbackEl.className = 'mcq-feedback show incorrect-fb';
+          setTimeout(() => {
+            if (feedbackEl.classList.contains('incorrect-fb')) {
+              feedbackEl.classList.remove('show');
+            }
+          }, 1500);
+        }
+      });
+
+      // ================= RENDER CRQs =================
+      const crqContainer = document.getElementById('crqContainer');
+      let crqHtml = '';
+      crqs.forEach((item, idx) => {
+        crqHtml += `
+          <div class="crq-item" id="crq-${idx}">
+            <div class="crq-question">${idx + 1}. ${item.q}</div>
+            <div class="crq-hint">💡 Hint: ${item.hint}</div>
+            <textarea class="crq-textarea" id="crq-ta-${idx}" placeholder="Write your answer here..."></textarea>
+            <div class="crq-actions">
+              <button class="btn btn-primary" data-crq-check="${idx}">Check Answer</button>
+              <button class="btn btn-secondary" data-crq-clear="${idx}">Clear</button>
+            </div>
+            <div class="crq-feedback" id="crq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      crqContainer.innerHTML = crqHtml;
+
+      crqContainer.addEventListener('click', (e) => {
+        const checkBtn = e.target.closest('[data-crq-check]');
+        const clearBtn = e.target.closest('[data-crq-clear]');
+        if (checkBtn) {
+          const idx = parseInt(checkBtn.dataset.crqCheck);
+          const textarea = document.getElementById(`crq-ta-${idx}`);
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          const answer = textarea.value.trim().toLowerCase();
+          const crq = crqs[idx];
+          if (answer.length < 10) {
+            feedback.textContent = '⚠️ Please write a more complete answer (at least a sentence or two).';
+            feedback.className = 'crq-feedback show partial';
+            return;
+          }
+          const matched = crq.keywords.filter(kw => answer.includes(kw));
+          const ratio = matched.length / crq.keywords.length;
+          if (ratio >= 0.35) {
+            feedback.innerHTML = `✅ <strong>Good answer!</strong> You covered key ideas.<br><br><em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show good';
+          } else {
+            feedback.innerHTML = `📝 <strong>Partially correct.</strong> You mentioned some ideas. Try to include more key concepts.<br><br><em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show partial';
+          }
+        }
+        if (clearBtn) {
+          const idx = parseInt(clearBtn.dataset.crqClear);
+          document.getElementById(`crq-ta-${idx}`).value = '';
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          feedback.className = 'crq-feedback';
+          feedback.textContent = '';
+        }
+      });
+
+      // ================= RENDER ERQ =================
+      const erqContainer = document.getElementById('erqContainer');
+      erqContainer.innerHTML = `
+        <div class="erq-item">
+          <div class="erq-marks">${erq.marks}</div>
+          <div class="erq-question">${erq.q}</div>
+          <textarea class="erq-textarea" id="erq-ta" placeholder="Write your detailed answer here. Identify unmet needs and propose four strategies..."></textarea>
+          <div class="erq-actions">
+            <button class="btn btn-primary" id="erqCheck">Check Answer</button>
+            <button class="btn btn-secondary" id="erqClear">Clear</button>
+          </div>
+          <div class="erq-feedback" id="erq-fb"></div>
+        </div>
+      `;
+
+      document.getElementById('erqCheck').addEventListener('click', () => {
+        const ta = document.getElementById('erq-ta');
+        const fb = document.getElementById('erq-fb');
+        const answer = ta.value.trim().toLowerCase();
+        if (answer.length < 50) {
+          fb.textContent = '⚠️ Please write a more detailed answer. Identify unmet needs and propose four strategies.';
+          fb.className = 'erq-feedback show partial';
+          return;
+        }
+        const keywords = ['physiological', 'hunger', 'nutrition', 'safety', 'anxiety', 'fear', 'belonging', 'inclusion', 'exclusion', 'autonomy', 'choice', 'esteem', 'competence', 'mastery'];
+        const found = keywords.filter(k => answer.includes(k));
+        if (found.length >= 3) {
+          fb.innerHTML = `✅ <strong>Excellent effort!</strong> You identified unmet needs and proposed strategies. Compare your answer with the model below.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show model';
+        } else if (found.length >= 1) {
+          fb.innerHTML = `📝 <strong>Good start!</strong> Try to explicitly identify which needs are unmet and link each strategy to a specific need.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        } else {
+          fb.innerHTML = `⚠️ Make sure to identify unmet needs and propose four strategies, linking each to a need from the theories.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        }
+      });
+
+      document.getElementById('erqClear').addEventListener('click', () => {
+        document.getElementById('erq-ta').value = '';
+        const fb = document.getElementById('erq-fb');
+        fb.className = 'erq-feedback';
+        fb.textContent = '';
+      });
+
+      // ================= QUIZ TABS =================
+      const tabs = document.querySelectorAll('.quiz-tab');
+      const panels = document.querySelectorAll('.quiz-panel');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          panels.forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(tab.dataset.panel).classList.add('active');
+        });
+      });
+
+      // Initial count
+      countDisplay.textContent = allSearchables.length + ' items';
+    })();
+  </script>
+</body>
+</html>

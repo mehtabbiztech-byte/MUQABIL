@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Psychology vs. Educational Psychology · Comparative Notes</title>
+  <style>
+    /* ---------- GLOBAL ---------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+      color: #1e2b3c;
+    }
+    .main-wrapper { max-width: 1100px; width: 100%; }
+
+    /* ---------- HEADER ---------- */
+    .header-card {
+      background: white;
+      border-radius: 2rem 2rem 1.5rem 1.5rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      padding: 2rem 2rem 1.5rem 2rem;
+      margin-bottom: 1.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: transform 0.2s;
+    }
+    .header-card:hover { transform: scale(1.002); }
+    .badge {
+      display: inline-block;
+      background: #2a4b7c;
+      color: #f0f7ff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+      line-height: 1.25;
+    }
+    .subhead {
+      font-size: 1.05rem;
+      color: #2f5277;
+      font-weight: 400;
+      border-left: 5px solid #8bb3e0;
+      padding-left: 1.2rem;
+      margin: 1rem 0 0.2rem 0;
+      font-style: italic;
+    }
+    .intro-text {
+      background: #e6f0fc;
+      padding: 1rem 1.4rem;
+      border-radius: 1.2rem;
+      margin-top: 1.4rem;
+      font-size: 0.98rem;
+      color: #1d3a5c;
+      border-left: 5px solid #3b6ea5;
+    }
+
+    /* ---------- SECTION TITLE ---------- */
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #0e2a47;
+      margin: 2.2rem 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section-title .line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #8bb3e0, transparent);
+      border-radius: 2px;
+    }
+
+    /* ---------- DEFINITION CARDS ---------- */
+    .def-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+    .def-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.5rem 1.4rem 1.5rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      transition: all 0.25s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .def-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      opacity: 0.9;
+      transition: height 0.2s;
+    }
+    .def-card.psychology::before { background: linear-gradient(90deg, #2a4b7c, #5a8ec9); }
+    .def-card.edpsych::before { background: linear-gradient(90deg, #2e7d4f, #81c784); }
+    .def-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 22px 28px -16px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .def-card:hover::before { height: 10px; }
+    .def-header {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.6rem;
+    }
+    .def-icon {
+      font-size: 1.8rem;
+      background: #e9f0fa;
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    .def-card:hover .def-icon { background: #d3e3f8; }
+    .def-name {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #0e2a47;
+      line-height: 1.3;
+    }
+    .def-text {
+      font-size: 0.9rem;
+      color: #274e73;
+      line-height: 1.6;
+    }
+
+    /* ---------- COMPARISON TABLE ---------- */
+    .matrix-wrapper {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.4rem 1.4rem 1.2rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      border: 1px solid #e3ecf7;
+      overflow-x: auto;
+      margin-bottom: 0.5rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.85rem;
+      min-width: 560px;
+    }
+    thead th {
+      text-align: left;
+      padding: 0.75rem 0.85rem;
+      font-weight: 700;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      color: white;
+      background: #0e2a47;
+    }
+    thead th:first-child {
+      border-radius: 0.9rem 0 0 0;
+      background: #2a4b7c;
+    }
+    thead th:last-child {
+      border-radius: 0 0.9rem 0 0;
+      background: #2e7d4f;
+    }
+    tbody td {
+      padding: 0.65rem 0.85rem;
+      border-bottom: 1px solid #e8f0f9;
+      color: #1e3c5a;
+      vertical-align: top;
+      line-height: 1.45;
+      font-size: 0.84rem;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: #f6faff; }
+    tbody td:first-child {
+      font-weight: 700;
+      color: #0e2a47;
+      background: #f3f8fd;
+      white-space: nowrap;
+    }
+    tbody tr:hover td:first-child { background: #eaf3fc; }
+
+    /* ---------- FOCUS CARDS ---------- */
+    .focus-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+    .focus-card {
+      border-radius: 1.6rem;
+      padding: 1.4rem 1.5rem;
+      box-shadow: 0 8px 18px -10px rgba(20, 40, 70, 0.14);
+      border: 1px solid;
+      display: flex;
+      flex-direction: column;
+    }
+    .focus-card.psychology {
+      background: #f0f7ff;
+      border-color: #b8d0e9;
+    }
+    .focus-card.edpsych {
+      background: #f0faf4;
+      border-color: #b8e0c8;
+    }
+    .focus-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .focus-card.psychology h3 { color: #1b4670; }
+    .focus-card.edpsych h3 { color: #1b6e3e; }
+    .focus-card ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .focus-card li {
+      padding: 0.35rem 0 0.35rem 1.5rem;
+      position: relative;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: #1e3c5a;
+    }
+    .focus-card.psychology li::before {
+      content: '◆';
+      position: absolute;
+      left: 0;
+      color: #3b7bb5;
+      font-size: 0.68rem;
+      top: 0.5rem;
+    }
+    .focus-card.edpsych li::before {
+      content: '◆';
+      position: absolute;
+      left: 0;
+      color: #2e9b5e;
+      font-size: 0.68rem;
+      top: 0.5rem;
+    }
+
+    /* ---------- SIMILARITIES ---------- */
+    .sim-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    .sim-card {
+      background: white;
+      border-radius: 1.2rem;
+      padding: 1rem 1.2rem;
+      box-shadow: 0 5px 12px -7px rgba(20, 40, 70, 0.14);
+      border: 1px solid #e3ecf7;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .sim-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, #3f7cb0, #8bb3e0);
+      opacity: 0.7;
+    }
+    .sim-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 20px -12px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .sim-name {
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: #0e2a47;
+      margin-bottom: 0.25rem;
+    }
+    .sim-desc {
+      font-size: 0.85rem;
+      color: #274e73;
+      line-height: 1.5;
+    }
+
+    /* ---------- ANALOGY CARD ---------- */
+    .analogy-card {
+      background: linear-gradient(135deg, #0e2a47 0%, #1a4170 100%);
+      color: white;
+      border-radius: 1.6rem;
+      padding: 1.7rem 2rem;
+      margin: 1.2rem 0 0.5rem 0;
+      font-size: 1rem;
+      line-height: 1.7;
+      box-shadow: 0 14px 26px -12px #0e2a47;
+      border-left: 6px solid #8bb3e0;
+      text-align: center;
+    }
+    .analogy-card .big {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #b8d4f0;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ---------- MISCONCEPTIONS ---------- */
+    .mis-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    .mis-card {
+      background: #fdf6f6;
+      border-radius: 1.2rem;
+      padding: 1rem 1.2rem;
+      box-shadow: 0 4px 10px -6px rgba(20, 40, 70, 0.12);
+      border: 1px solid #e8c8c8;
+      transition: all 0.2s;
+    }
+    .mis-card:hover {
+      transform: translateY(-2px);
+      border-color: #d45a5a;
+    }
+    .mis-claim {
+      font-size: 0.87rem;
+      color: #a83535;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
+    }
+    .mis-claim::before {
+      content: '✘';
+      color: #d45a5a;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .mis-correction {
+      font-size: 0.85rem;
+      color: #1e3c5a;
+      line-height: 1.5;
+      padding-left: 1.3rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
+    }
+    .mis-correction::before {
+      content: '✔';
+      color: #2e9b5e;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ---------- TAKEAWAY ---------- */
+    .takeaway-card {
+      background: #0e2a47;
+      color: white;
+      border-radius: 1.6rem;
+      padding: 1.6rem 2rem;
+      margin: 1.2rem 0 0.5rem 0;
+      font-size: 0.98rem;
+      line-height: 1.7;
+      box-shadow: 0 14px 26px -12px #0e2a47;
+      border-left: 6px solid #8bb3e0;
+    }
+    .takeaway-card strong { color: #b8d4f0; }
+    .takeaway-card ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+    }
+    .takeaway-card li {
+      padding-left: 1.5rem;
+      position: relative;
+      font-size: 0.92rem;
+      color: #d4e6fa;
+      line-height: 1.55;
+    }
+    .takeaway-card li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #8bb3e0;
+      font-weight: 700;
+    }
+
+    /* ---------- SEARCH & COUNT ---------- */
+    .filter-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 60px;
+      box-shadow: 0 8px 18px -8px rgba(0, 27, 45, 0.1);
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 40px;
+      padding: 0.3rem 0.3rem 0.3rem 1.2rem;
+      flex: 2;
+      min-width: 240px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      border: 1px solid #ccdcee;
+    }
+    .search-box span { font-size: 1.1rem; margin-right: 0.5rem; color: #4e6b8a; }
+    .search-box input {
+      border: none;
+      padding: 0.7rem 0.2rem;
+      width: 100%;
+      font-size: 0.95rem;
+      outline: none;
+      background: transparent;
+      color: #0c253b;
+    }
+    .search-box input::placeholder { color: #879eb6; font-weight: 300; }
+    .count-pill {
+      background: #0e2a47;
+      color: white;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ---------- QUIZ SECTION ---------- */
+    .quiz-section { margin-top: 2.5rem; }
+    .quiz-header {
+      background: #0e2a47;
+      border-radius: 2rem 2rem 0 0;
+      padding: 1.5rem 2rem;
+      color: white;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .quiz-header h2 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.3px; }
+    .quiz-header .quiz-badge {
+      background: #8bb3e0;
+      color: #0e2a47;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .quiz-body {
+      background: white;
+      border-radius: 0 0 2rem 2rem;
+      padding: 2rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      border: 1px solid #e3ecf7;
+      border-top: none;
+    }
+    .quiz-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #e3ecf7;
+      padding-bottom: 1rem;
+    }
+    .quiz-tab {
+      background: #f0f5fd;
+      border: 1px solid #d0e0f0;
+      color: #1b4670;
+      padding: 0.5rem 1.3rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .quiz-tab:hover { background: #e0ecfc; border-color: #a0c0e0; }
+    .quiz-tab.active { background: #0e2a47; color: white; border-color: #0e2a47; }
+    .quiz-panel { display: none; }
+    .quiz-panel.active { display: block; }
+    .section-label {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.2rem;
+    }
+
+    /* MCQ */
+    .mcq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+      transition: background 0.2s;
+    }
+    .mcq-item:hover { background: #f0f7fe; }
+    .mcq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.8rem;
+      line-height: 1.5;
+    }
+    .mcq-options { display: flex; flex-direction: column; gap: 0.5rem; }
+    .mcq-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 0.8rem;
+      background: white;
+      border: 1.5px solid #d9e8fc;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+    }
+    .mcq-option:hover { border-color: #8bb3e0; background: #eef6ff; }
+    .mcq-option.selected { border-color: #3b7bb5; background: #e4f0fe; font-weight: 500; }
+    .mcq-option.correct { border-color: #2e9b5e; background: #e6f7ee; font-weight: 600; }
+    .mcq-option.incorrect { border-color: #d45a5a; background: #fdeaea; font-weight: 500; }
+    .mcq-option .option-letter {
+      font-weight: 700;
+      color: #2a4b7c;
+      min-width: 1.4rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .mcq-option.correct .option-letter { color: #1b7a44; }
+    .mcq-option.incorrect .option-letter { color: #b03030; }
+    .mcq-feedback {
+      margin-top: 0.7rem;
+      font-size: 0.88rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: 0.8rem;
+      display: none;
+      font-weight: 500;
+    }
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.correct-fb {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .mcq-feedback.incorrect-fb {
+      background: #fdeaea;
+      color: #9e2a2a;
+      border-left: 4px solid #d45a5a;
+    }
+
+    /* CRQ / ERQ shared */
+    .crq-item, .erq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+    }
+    .erq-item { border: 2px solid #8bb3e0; background: #f5faff; }
+    .crq-question, .erq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+    .erq-question { font-size: 1.05rem; font-weight: 700; }
+    .erq-marks {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      margin-bottom: 0.8rem;
+    }
+    .crq-hint {
+      font-size: 0.85rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-bottom: 0.7rem;
+    }
+    .crq-textarea, .erq-textarea {
+      width: 100%;
+      border: 1.5px solid #d9e8fc;
+      border-radius: 0.9rem;
+      padding: 0.8rem 1rem;
+      font-family: inherit;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+      resize: vertical;
+      transition: border-color 0.2s;
+      background: white;
+    }
+    .crq-textarea { min-height: 90px; }
+    .erq-textarea { min-height: 160px; }
+    .crq-textarea:focus, .erq-textarea:focus {
+      outline: none;
+      border-color: #3b7bb5;
+      box-shadow: 0 0 0 3px rgba(59, 123, 181, 0.12);
+    }
+    .crq-actions, .erq-actions {
+      display: flex;
+      gap: 0.7rem;
+      margin-top: 0.7rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 0.55rem 1.4rem;
+      border-radius: 40px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      font-family: inherit;
+    }
+    .btn-primary { background: #0e2a47; color: white; }
+    .btn-primary:hover { background: #1a4170; transform: translateY(-1px); }
+    .btn-secondary { background: #e9f0fa; color: #1b4670; border: 1px solid #c0d8f0; }
+    .btn-secondary:hover { background: #d8e6f8; }
+    .crq-feedback, .erq-feedback {
+      margin-top: 0.8rem;
+      padding: 0.8rem 1rem;
+      border-radius: 0.9rem;
+      font-size: 0.9rem;
+      display: none;
+      line-height: 1.6;
+    }
+    .crq-feedback.show, .erq-feedback.show { display: block; }
+    .crq-feedback.good, .erq-feedback.good {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .crq-feedback.partial, .erq-feedback.partial {
+      background: #fff8e6;
+      color: #8a6d1f;
+      border-left: 4px solid #e0a800;
+    }
+    .erq-feedback.model {
+      background: #e6f0fc;
+      color: #1a3e62;
+      border-left: 5px solid #3b7bb5;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 700px) {
+      .def-grid, .focus-grid, .mis-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .header-card { padding: 1.5rem 1.2rem; }
+      h1 { font-size: 1.6rem; }
+      .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: 2rem;
+        padding: 1rem;
+      }
+      .search-box { width: 100%; }
+      .count-pill { text-align: center; padding: 0.5rem; }
+      .quiz-body { padding: 1.2rem; }
+      .quiz-header { padding: 1.2rem; }
+      .quiz-header h2 { font-size: 1.3rem; }
+      .mcq-item, .crq-item, .erq-item { padding: 1rem; }
+      .quiz-tab { font-size: 0.8rem; padding: 0.4rem 1rem; }
+      .takeaway-card { padding: 1.3rem 1.2rem; }
+      .analogy-card { padding: 1.3rem 1.2rem; }
+    }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #dfe9f5; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: #94b0d1; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6d8fb4; }
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem 1rem;
+      background: #ffffffc9;
+      border-radius: 2rem;
+      font-size: 1.1rem;
+      color: #4b6888;
+      border: 2px dashed #b8cee8;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-wrapper">
+
+    <!-- HEADER -->
+    <div class="header-card">
+      <div class="badge">🧠 Psychology</div>
+      <h1>Psychology vs. Educational Psychology</h1>
+      <div class="subhead">The broad science of mind — and its focused application to learning</div>
+      <div class="intro-text">
+        <strong>💡 Key idea:</strong> Educational psychology is not a separate psychology; it is a <strong>specialized application of psychology to education</strong>. Psychology studies the mind and behavior broadly; educational psychology applies that knowledge specifically to improve learning and teaching.
+      </div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="filter-section">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="Search definitions, differences, misconceptions..." autocomplete="off">
+      </div>
+      <div class="count-pill" id="countDisplay">20+ items</div>
+    </div>
+
+    <!-- CORE DEFINITIONS -->
+    <div class="section-title">
+      📖 Core Definitions
+      <span class="line"></span>
+    </div>
+
+    <div class="def-grid" id="defGrid">
+      <div class="def-card psychology" data-searchable="psychology scientific study mind behavior mental processes perception cognition emotion motivation personality social interaction">
+        <div class="def-header">
+          <div class="def-icon">🧠</div>
+          <div class="def-name">Psychology</div>
+        </div>
+        <div class="def-text">The <strong>scientific study of the mind, behavior, and mental processes</strong> — including perception, cognition, emotion, motivation, personality, and social interaction.</div>
+      </div>
+      <div class="def-card edpsych" data-searchable="educational psychology branch applied field studies how people learn teach educational settings applying psychological principles improve learning outcomes instructional practice">
+        <div class="def-header">
+          <div class="def-icon">🏫</div>
+          <div class="def-name">Educational Psychology</div>
+        </div>
+        <div class="def-text">A <strong>branch/applied field of psychology</strong> that studies how people learn and teach in educational settings, applying psychological principles to improve learning outcomes and instructional practice.</div>
+      </div>
+    </div>
+
+    <!-- COMPARISON TABLE -->
+    <div class="section-title">
+      📊 Major Differences — Comparison Table
+      <span class="line"></span>
+    </div>
+
+    <div class="matrix-wrapper" data-searchable="comparison nature scope primary focus context target population main goal research questions methods relation practice examples subfields training work roles">
+      <table>
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>🧠 Psychology</th>
+            <th>🏫 Educational Psychology</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Nature</td><td>Broad, foundational discipline</td><td>Specialized branch / applied subfield</td></tr>
+          <tr><td>Scope</td><td>Entire range of human and animal behavior and mental processes</td><td>Learning, teaching, motivation, assessment, and learner development in educational contexts</td></tr>
+          <tr><td>Primary Focus</td><td>Understanding behavior and mind in general</td><td>Improving learning and instruction</td></tr>
+          <tr><td>Context</td><td>Clinical, social, organizational, developmental, biological, cognitive, etc.</td><td>Schools, classrooms, training environments, educational technology</td></tr>
+          <tr><td>Target Population</td><td>All humans and sometimes animals, across all settings</td><td>Primarily learners and teachers — students, educators, trainers</td></tr>
+          <tr><td>Main Goal</td><td>Describe, explain, predict, and influence behavior</td><td>Apply psychological knowledge to enhance learning, teaching, and educational outcomes</td></tr>
+          <tr><td>Research Questions</td><td>Why do people behave/think/feel as they do?</td><td>How do students learn? What teaching methods work best?</td></tr>
+          <tr><td>Methods</td><td>Experimental, correlational, observational, clinical, neuropsychological</td><td>Classroom experiments, longitudinal studies, action research, psychometrics, program evaluation</td></tr>
+          <tr><td>Relation to Practice</td><td>Can be basic/theoretical or applied</td><td>Strongly applied and practitioner-oriented</td></tr>
+          <tr><td>Examples of Subfields</td><td>Clinical, cognitive, developmental, social, biological, industrial-organizational</td><td>Learning theories, instructional design, classroom management, educational assessment, learner motivation, special education</td></tr>
+          <tr><td>Training/Work Roles</td><td>Psychologists, researchers, clinicians, counselors</td><td>Educational psychologists, teachers, instructional designers, school consultants, assessment specialists</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- FOCUS COMPARISON -->
+    <div class="section-title">
+      🎯 Focus Comparison
+      <span class="line"></span>
+    </div>
+
+    <div class="focus-grid" id="focusGrid">
+      <div class="focus-card psychology" data-searchable="psychology general principles behavior mental processes abnormal normal clinical diagnosis therapy personality neuroscience social behavior universal laws">
+        <h3>🧠 Psychology</h3>
+        <ul>
+          <li>Studies general principles of behavior and mental processes.</li>
+          <li>Covers abnormal and normal behavior.</li>
+          <li>Includes clinical diagnosis and therapy, personality, neuroscience, social behavior, etc.</li>
+          <li>Often seeks universal laws of behavior.</li>
+        </ul>
+      </div>
+      <div class="focus-card edpsych" data-searchable="educational psychology learning processes memory motivation cognition development instructional strategies classroom environment assessment learner differences practical educational problems real classrooms training settings">
+        <h3>🏫 Educational Psychology</h3>
+        <ul>
+          <li>Studies learning processes: memory, motivation, cognition, development.</li>
+          <li>Focuses on instructional strategies, classroom environment, assessment, and learner differences.</li>
+          <li>Concerned with practical educational problems.</li>
+          <li>Applies theories to real classrooms and training settings.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SIMILARITIES -->
+    <div class="section-title">
+      🔗 Similarities &amp; Relationship
+      <span class="line"></span>
+    </div>
+
+    <div class="sim-grid" id="simGrid">
+      <div class="sim-card" data-searchable="shared scientific base scientific methods psychological theory">
+        <div class="sim-name">Shared Scientific Base</div>
+        <div class="sim-desc">Both use scientific methods and psychological theory.</div>
+      </div>
+      <div class="sim-card" data-searchable="overlapping topics learning motivation development cognition individual differences">
+        <div class="sim-name">Overlapping Topics</div>
+        <div class="sim-desc">Learning, motivation, development, cognition, individual differences.</div>
+      </div>
+      <div class="sim-card" data-searchable="educational psychology depends on psychology draws cognitive developmental social behavioral">
+        <div class="sim-name">Dependence</div>
+        <div class="sim-desc">Educational psychology draws from cognitive, developmental, social, and behavioral psychology.</div>
+      </div>
+      <div class="sim-card" data-searchable="psychology informs education theories translate teaching practice">
+        <div class="sim-name">Informs Education</div>
+        <div class="sim-desc">General psychology provides theories; educational psychology translates them into teaching practice.</div>
+      </div>
+      <div class="sim-card" data-searchable="not mutually exclusive subfield interdisciplinary linked education">
+        <div class="sim-name">Not Mutually Exclusive</div>
+        <div class="sim-desc">Educational psychology is a subfield within psychology and also an interdisciplinary field linked to education.</div>
+      </div>
+    </div>
+
+    <!-- ANALOGY -->
+    <div class="section-title">
+      💡 Simple Analogy
+      <span class="line"></span>
+    </div>
+
+    <div class="analogy-card" data-searchable="analogy psychology broad science mind behavior educational psychology wearing teacher hat solve learning teaching problems">
+      <div class="big">Psychology = the broad science of the mind and behavior.</div>
+      <div>Educational Psychology = psychology wearing a teacher's hat — using psychological science to solve learning and teaching problems.</div>
+    </div>
+
+    <!-- MISCONCEPTIONS -->
+    <div class="section-title">
+      ⚠️ Common Misconceptions
+      <span class="line"></span>
+    </div>
+
+    <div class="mis-grid" id="misGrid">
+      <div class="mis-card" data-searchable="misconception completely different from psychology correction branch applied education">
+        <div class="mis-claim">"Educational psychology is completely different from psychology."</div>
+        <div class="mis-correction">It is a branch of psychology applied to education.</div>
+      </div>
+      <div class="mis-card" data-searchable="misconception only studies students correction teachers classrooms assessment curriculum learning environments">
+        <div class="mis-claim">"Educational psychology only studies students."</div>
+        <div class="mis-correction">It also studies teachers, classrooms, assessment, curriculum, and learning environments.</div>
+      </div>
+      <div class="mis-card" data-searchable="misconception psychology only clinical correction clinical just one subfield many areas">
+        <div class="mis-claim">"Psychology is only clinical."</div>
+        <div class="mis-correction">Clinical psychology is just one subfield; psychology includes many areas.</div>
+      </div>
+      <div class="mis-card" data-searchable="misconception educational psychology only theory correction highly applied real instructional practice">
+        <div class="mis-claim">"Educational psychology is only theory."</div>
+        <div class="mis-correction">It is highly applied and informs real instructional practice.</div>
+      </div>
+    </div>
+
+    <!-- KEY TAKEAWAYS -->
+    <div class="section-title">
+      🔑 Key Takeaways
+      <span class="line"></span>
+    </div>
+
+    <div class="takeaway-card" data-searchable="key takeaways psychology broad scientific study mind behavior educational psychology specialized application learning teaching scope focus general educational processes borrows cognitive developmental social behavioral practice-oriented classroom-focused">
+      <ul>
+        <li><strong>Psychology</strong> is the broad scientific study of mind and behavior.</li>
+        <li><strong>Educational psychology</strong> is the specialized application of psychology to learning and teaching.</li>
+        <li>The main difference is <strong>scope and focus</strong>: general behavior vs. educational processes.</li>
+        <li>Educational psychology borrows from multiple branches of psychology — cognitive, developmental, social, and behavioral.</li>
+        <li>Both are scientific, but educational psychology is more <strong>practice-oriented and classroom-focused</strong>.</li>
+      </ul>
+    </div>
+
+    <!-- ONE-LINE SUMMARY -->
+    <div class="analogy-card" style="background:linear-gradient(135deg, #2e7d4f 0%, #3fa86a 100%);border-left-color:#b8e0c8;" data-searchable="one-line summary psychology studies mind behavior broadly educational psychology applies knowledge improve learning teaching">
+      <div class="big" style="color:#d4f0e0;">📊 One-Line Summary</div>
+      <div style="color:#e6f7ee;">Psychology studies the mind and behavior broadly; educational psychology applies that knowledge specifically to improve learning and teaching.</div>
+    </div>
+
+    <!-- ================= QUIZ SECTION ================= -->
+    <div class="quiz-section">
+      <div class="quiz-header">
+        <h2>📝 Practice Quiz</h2>
+        <span class="quiz-badge">Test Your Knowledge</span>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-tabs">
+          <button class="quiz-tab active" data-panel="mcqPanel">🔘 10 MCQs</button>
+          <button class="quiz-tab" data-panel="crqPanel">✍️ 4 CRQs</button>
+          <button class="quiz-tab" data-panel="erqPanel">📄 1 ERQ</button>
+        </div>
+
+        <div class="quiz-panel active" id="mcqPanel">
+          <span class="section-label">Multiple Choice Questions</span>
+          <div id="mcqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="crqPanel">
+          <span class="section-label">Constructed Response Questions</span>
+          <div id="crqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="erqPanel">
+          <span class="section-label">Extended Response Question (Situation-Based)</span>
+          <div id="erqContainer"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      // ================= SEARCH FILTER =================
+      const searchInput = document.getElementById('searchInput');
+      const countDisplay = document.getElementById('countDisplay');
+      const allSearchables = document.querySelectorAll('[data-searchable]');
+      const cardParents = new Map();
+      allSearchables.forEach(card => cardParents.set(card, card.parentNode));
+
+      function applySearch(query) {
+        const q = query.trim().toLowerCase();
+        let visibleCount = 0;
+        allSearchables.forEach(card => {
+          const searchText = (card.dataset.searchable || '').toLowerCase() + ' ' + card.textContent.toLowerCase();
+          const matches = q === '' || searchText.includes(q);
+          if (matches) {
+            visibleCount++;
+            if (!card.parentNode) cardParents.get(card).appendChild(card);
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        countDisplay.textContent = visibleCount + ' item' + (visibleCount !== 1 ? 's' : '');
+      }
+
+      let debounceTimer;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => applySearch(e.target.value), 180);
+      });
+      searchInput.addEventListener('search', (e) => { if (e.target.value === '') applySearch(''); });
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchInput.value !== '') { searchInput.value = ''; applySearch(''); }
+      });
+
+      // ================= QUIZ DATA =================
+      const mcqs = [
+        {
+          q: "What is psychology?",
+          options: [
+            "The study of education only",
+            "The scientific study of the mind, behavior, and mental processes",
+            "A branch of educational psychology",
+            "The study of school management"
+          ],
+          correct: 1,
+          feedback: "Psychology is the scientific study of the mind, behavior, and mental processes — including perception, cognition, emotion, motivation, personality, and social interaction."
+        },
+        {
+          q: "What is educational psychology?",
+          options: [
+            "A completely separate field from psychology",
+            "A branch of psychology that studies how people learn and teach in educational settings",
+            "The study of school buildings",
+            "A type of clinical therapy"
+          ],
+          correct: 1,
+          feedback: "Educational psychology is a branch/applied field of psychology that studies how people learn and teach in educational settings."
+        },
+        {
+          q: "What is the relationship between psychology and educational psychology?",
+          options: [
+            "They are completely unrelated",
+            "Educational psychology is a subfield of psychology",
+            "Psychology is a subfield of educational psychology",
+            "They are the same thing"
+          ],
+          correct: 1,
+          feedback: "Educational psychology is a specialized branch/applied subfield of psychology — not a separate discipline."
+        },
+        {
+          q: "What is the primary focus of general psychology?",
+          options: [
+            "Improving teaching methods",
+            "Understanding behavior and mind in general",
+            "Designing classroom assessments",
+            "Managing schools"
+          ],
+          correct: 1,
+          feedback: "General psychology focuses on understanding behavior and mind in general, while educational psychology focuses on improving learning and instruction."
+        },
+        {
+          q: "What is the primary focus of educational psychology?",
+          options: [
+            "Understanding animal behavior",
+            "Improving learning and instruction",
+            "Clinical diagnosis of mental disorders",
+            "Studying personality only"
+          ],
+          correct: 1,
+          feedback: "Educational psychology's primary focus is improving learning and instruction in educational settings."
+        },
+        {
+          q: "Which of the following is a subfield of general psychology?",
+          options: [
+            "Instructional design",
+            "Classroom management",
+            "Clinical psychology",
+            "Educational assessment"
+          ],
+          correct: 2,
+          feedback: "Clinical psychology is a subfield of general psychology. Instructional design, classroom management, and educational assessment are areas of educational psychology."
+        },
+        {
+          q: "Which of the following is an area of educational psychology?",
+          options: [
+            "Neuropsychology",
+            "Clinical diagnosis",
+            "Instructional design",
+            "Industrial-organizational psychology"
+          ],
+          correct: 2,
+          feedback: "Instructional design is an area of educational psychology. Neuropsychology, clinical diagnosis, and I/O psychology are subfields of general psychology."
+        },
+        {
+          q: "What is the main goal of general psychology?",
+          options: [
+            "Apply psychological knowledge to enhance learning",
+            "Describe, explain, predict, and influence behavior",
+            "Design classroom assessments",
+            "Train teachers"
+          ],
+          correct: 1,
+          feedback: "The main goal of general psychology is to describe, explain, predict, and influence behavior. Educational psychology applies this knowledge to enhance learning and teaching."
+        },
+        {
+          q: "According to the analogy, educational psychology is like:",
+          options: [
+            "A completely different science",
+            "Psychology wearing a teacher's hat",
+            "A type of clinical therapy",
+            "The study of school buildings"
+          ],
+          correct: 1,
+          feedback: "The analogy: Psychology = the broad science of mind and behavior. Educational Psychology = psychology wearing a teacher's hat — using psychological science to solve learning and teaching problems."
+        },
+        {
+          q: "Which statement is a common misconception about educational psychology?",
+          options: [
+            "It is a branch of psychology",
+            "It studies how people learn",
+            "It is completely different from psychology",
+            "It applies psychological principles to education"
+          ],
+          correct: 2,
+          feedback: "The misconception is that educational psychology is completely different from psychology. In reality, it is a branch of psychology applied to education."
+        }
+      ];
+
+      const crqs = [
+        {
+          q: "Define psychology and educational psychology, and explain the relationship between them.",
+          hint: "Psychology = broad study of mind/behavior; Educational psychology = applied branch for learning/teaching.",
+          keywords: ["psychology", "scientific study", "mind", "behavior", "mental processes", "educational psychology", "branch", "applied", "learning", "teaching", "subfield", "relationship"],
+          model: "Psychology is the scientific study of the mind, behavior, and mental processes. Educational psychology is a branch/applied field of psychology that studies how people learn and teach in educational settings, applying psychological principles to improve learning outcomes. The relationship: educational psychology is a subfield of psychology — it borrows from cognitive, developmental, social, and behavioral psychology and translates general psychological theories into teaching practice."
+        },
+        {
+          q: "Compare psychology and educational psychology in terms of scope, primary focus, and main goal.",
+          hint: "Scope = broad vs. educational; Focus = general behavior vs. learning/instruction; Goal = understand behavior vs. improve learning.",
+          keywords: ["scope", "broad", "entire range", "educational contexts", "primary focus", "understanding behavior", "improving learning", "instruction", "main goal", "describe explain predict", "apply psychological knowledge", "enhance learning"],
+          model: "Scope: Psychology covers the entire range of human and animal behavior and mental processes; educational psychology focuses on learning, teaching, motivation, assessment, and learner development in educational contexts. Primary focus: Psychology seeks to understand behavior and mind in general; educational psychology seeks to improve learning and instruction. Main goal: Psychology aims to describe, explain, predict, and influence behavior; educational psychology applies psychological knowledge to enhance learning, teaching, and educational outcomes."
+        },
+        {
+          q: "List FIVE similarities between psychology and educational psychology.",
+          hint: "Shared scientific base, overlapping topics, dependence, informing education, not mutually exclusive.",
+          keywords: ["shared scientific base", "scientific methods", "overlapping topics", "learning", "motivation", "development", "depends", "draws from", "informs education", "translates", "not mutually exclusive", "subfield"],
+          model: "Five similarities: (1) Shared scientific base — both use scientific methods and psychological theory. (2) Overlapping topics — learning, motivation, development, cognition, individual differences. (3) Educational psychology depends on psychology — it draws from cognitive, developmental, social, and behavioral psychology. (4) Psychology informs education — general psychology provides theories; educational psychology translates them into practice. (5) Not mutually exclusive — educational psychology is a subfield within psychology and also an interdisciplinary field linked to education."
+        },
+        {
+          q: "Identify and correct THREE common misconceptions about psychology and educational psychology.",
+          hint: "Completely different, only studies students, only clinical, only theory.",
+          keywords: ["completely different", "branch", "applied", "only studies students", "teachers", "classrooms", "assessment", "only clinical", "subfield", "only theory", "highly applied"],
+          model: "Three misconceptions and corrections: (1) 'Educational psychology is completely different from psychology' — Correction: It is a branch of psychology applied to education. (2) 'Educational psychology only studies students' — Correction: It also studies teachers, classrooms, assessment, curriculum, and learning environments. (3) 'Psychology is only clinical' — Correction: Clinical psychology is just one subfield; psychology includes many areas. (A fourth: 'Educational psychology is only theory' — Correction: It is highly applied and informs real instructional practice.)"
+        }
+      ];
+
+      const erq = {
+        q: `A school principal is hiring a new staff member. Two candidates apply:
+• Candidate A has a degree in general psychology and experience in clinical counseling.
+• Candidate B has a degree in educational psychology and experience designing classroom assessments and instructional strategies.
+
+The principal is confused about the difference between the two fields and asks for your advice.
+
+Using the comparison between psychology and educational psychology, explain:
+• What each field focuses on.
+• Which candidate is better suited for a role focused on improving teaching and learning in the classroom, and why.
+• One area where Candidate A's expertise might still be valuable.`,
+        marks: "10 marks",
+        model: `
+          <strong>Model Answer (key points):</strong><br><br>
+          <strong>1. What each field focuses on:</strong> General psychology is the broad scientific study of the mind and behavior — covering clinical, social, developmental, cognitive, and other areas. It aims to describe, explain, predict, and influence behavior. Educational psychology is a specialized branch that applies psychological principles to learning and teaching — focusing on instructional strategies, assessment, classroom environment, learner differences, and motivation in educational settings.<br><br>
+          <strong>2. Which candidate is better suited:</strong> Candidate B (educational psychology) is better suited for a role focused on improving teaching and learning in the classroom. Their training specifically covers learning theories, instructional design, classroom assessment, and learner motivation — exactly what is needed to improve instruction. Candidate A's training in general psychology is broader and more clinically oriented, not specifically focused on classroom learning.<br><br>
+          <strong>3. Where Candidate A's expertise might still be valuable:</strong> Candidate A's clinical counseling background could be valuable for student mental health support, individual counseling, or identifying emotional barriers to learning. General psychology provides the foundational theories that educational psychology applies — so Candidate A's broad knowledge can complement Candidate B's specialized skills.<br><br>
+          <em>Note: The key idea is that educational psychology is an applied branch of psychology — both are valuable, but for different purposes.</em>
+        `
+      };
+
+      // ================= RENDER MCQs =================
+      const mcqContainer = document.getElementById('mcqContainer');
+      let mcqHtml = '';
+      mcqs.forEach((item, idx) => {
+        const letters = ['A', 'B', 'C', 'D'];
+        let optionsHtml = '';
+        item.options.forEach((opt, oi) => {
+          optionsHtml += `
+            <div class="mcq-option" data-qidx="${idx}" data-oidx="${oi}">
+              <span class="option-letter">${letters[oi]}</span>
+              <span>${opt}</span>
+            </div>
+          `;
+        });
+        mcqHtml += `
+          <div class="mcq-item" id="mcq-${idx}">
+            <div class="mcq-question">${idx + 1}. ${item.q}</div>
+            <div class="mcq-options">${optionsHtml}</div>
+            <div class="mcq-feedback" id="mcq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      mcqContainer.innerHTML = mcqHtml;
+
+      mcqContainer.addEventListener('click', (e) => {
+        const option = e.target.closest('.mcq-option');
+        if (!option) return;
+        const qidx = parseInt(option.dataset.qidx);
+        const oidx = parseInt(option.dataset.oidx);
+        const mcq = mcqs[qidx];
+        const parentItem = document.getElementById(`mcq-${qidx}`);
+        const allOptions = parentItem.querySelectorAll('.mcq-option');
+        const feedbackEl = document.getElementById(`mcq-fb-${qidx}`);
+        if (parentItem.dataset.answered === 'correct') return;
+        allOptions.forEach(opt => opt.classList.remove('selected', 'correct', 'incorrect'));
+        option.classList.add('selected');
+        if (oidx === mcq.correct) {
+          option.classList.add('correct');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '✅ Correct! ' + mcq.feedback;
+          feedbackEl.className = 'mcq-feedback show correct-fb';
+          parentItem.dataset.answered = 'correct';
+        } else {
+          option.classList.add('incorrect');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '❌ Not quite. Try again!';
+          feedbackEl.className = 'mcq-feedback show incorrect-fb';
+          setTimeout(() => {
+            if (feedbackEl.classList.contains('incorrect-fb')) {
+              feedbackEl.classList.remove('show');
+            }
+          }, 1500);
+        }
+      });
+
+      // ================= RENDER CRQs =================
+      const crqContainer = document.getElementById('crqContainer');
+      let crqHtml = '';
+      crqs.forEach((item, idx) => {
+        crqHtml += `
+          <div class="crq-item" id="crq-${idx}">
+            <div class="crq-question">${idx + 1}. ${item.q}</div>
+            <div class="crq-hint">💡 Hint: ${item.hint}</div>
+            <textarea class="crq-textarea" id="crq-ta-${idx}" placeholder="Write your answer here..."></textarea>
+            <div class="crq-actions">
+              <button class="btn btn-primary" data-crq-check="${idx}">Check Answer</button>
+              <button class="btn btn-secondary" data-crq-clear="${idx}">Clear</button>
+            </div>
+            <div class="crq-feedback" id="crq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      crqContainer.innerHTML = crqHtml;
+
+      crqContainer.addEventListener('click', (e) => {
+        const checkBtn = e.target.closest('[data-crq-check]');
+        const clearBtn = e.target.closest('[data-crq-clear]');
+        if (checkBtn) {
+          const idx = parseInt(checkBtn.dataset.crqCheck);
+          const textarea = document.getElementById(`crq-ta-${idx}`);
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          const answer = textarea.value.trim().toLowerCase();
+          const crq = crqs[idx];
+          if (answer.length < 10) {
+            feedback.textContent = '⚠️ Please write a more complete answer (at least a sentence or two).';
+            feedback.className = 'crq-feedback show partial';
+            return;
+          }
+          const matched = crq.keywords.filter(kw => answer.includes(kw));
+          const ratio = matched.length / crq.keywords.length;
+          if (ratio >= 0.35) {
+            feedback.innerHTML = `✅ <strong>Good answer!</strong> You covered key ideas.<br><br><em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show good';
+          } else {
+            feedback.innerHTML = `📝 <strong>Partially correct.</strong> You mentioned some ideas. Try to include more key concepts.<br><br><em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show partial';
+          }
+        }
+        if (clearBtn) {
+          const idx = parseInt(clearBtn.dataset.crqClear);
+          document.getElementById(`crq-ta-${idx}`).value = '';
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          feedback.className = 'crq-feedback';
+          feedback.textContent = '';
+        }
+      });
+
+      // ================= RENDER ERQ =================
+      const erqContainer = document.getElementById('erqContainer');
+      erqContainer.innerHTML = `
+        <div class="erq-item">
+          <div class="erq-marks">${erq.marks}</div>
+          <div class="erq-question">${erq.q}</div>
+          <textarea class="erq-textarea" id="erq-ta" placeholder="Write your detailed answer here. Explain each field, identify the better candidate, and note where the other's expertise is valuable..."></textarea>
+          <div class="erq-actions">
+            <button class="btn btn-primary" id="erqCheck">Check Answer</button>
+            <button class="btn btn-secondary" id="erqClear">Clear</button>
+          </div>
+          <div class="erq-feedback" id="erq-fb"></div>
+        </div>
+      `;
+
+      document.getElementById('erqCheck').addEventListener('click', () => {
+        const ta = document.getElementById('erq-ta');
+        const fb = document.getElementById('erq-fb');
+        const answer = ta.value.trim().toLowerCase();
+        if (answer.length < 50) {
+          fb.textContent = '⚠️ Please write a more detailed answer. Address all three parts of the question.';
+          fb.className = 'erq-feedback show partial';
+          return;
+        }
+        const keywords = ['psychology', 'broad', 'mind', 'behavior', 'educational psychology', 'applied', 'learning', 'teaching', 'candidate b', 'instructional', 'assessment', 'candidate a', 'counseling', 'mental health'];
+        const found = keywords.filter(k => answer.includes(k));
+        if (found.length >= 3) {
+          fb.innerHTML = `✅ <strong>Excellent effort!</strong> You distinguished the fields and applied them to the hiring scenario. Compare your answer with the model below.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show model';
+        } else if (found.length >= 1) {
+          fb.innerHTML = `📝 <strong>Good start!</strong> Try to address all three parts: what each field focuses on, which candidate is better suited, and where the other's expertise is valuable.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        } else {
+          fb.innerHTML = `⚠️ Make sure to explain both fields and apply the comparison to the hiring decision.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        }
+      });
+
+      document.getElementById('erqClear').addEventListener('click', () => {
+        document.getElementById('erq-ta').value = '';
+        const fb = document.getElementById('erq-fb');
+        fb.className = 'erq-feedback';
+        fb.textContent = '';
+      });
+
+      // ================= QUIZ TABS =================
+      const tabs = document.querySelectorAll('.quiz-tab');
+      const panels = document.querySelectorAll('.quiz-panel');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          panels.forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(tab.dataset.panel).classList.add('active');
+        });
+      });
+
+      // Initial count
+      countDisplay.textContent = allSearchables.length + ' items';
+    })();
+  </script>
+</body>
+</html>

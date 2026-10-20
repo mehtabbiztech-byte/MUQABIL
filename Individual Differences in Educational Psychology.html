@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Individual Differences in Educational Psychology · Study Guide</title>
+  <style>
+    /* ---------- GLOBAL ---------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+      color: #1e2b3c;
+    }
+    .main-wrapper { max-width: 1100px; width: 100%; }
+
+    /* ---------- HEADER ---------- */
+    .header-card {
+      background: white;
+      border-radius: 2rem 2rem 1.5rem 1.5rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      padding: 2rem 2rem 1.5rem 2rem;
+      margin-bottom: 1.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: transform 0.2s;
+    }
+    .header-card:hover { transform: scale(1.002); }
+    .badge {
+      display: inline-block;
+      background: #2a4b7c;
+      color: #f0f7ff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+      line-height: 1.25;
+    }
+    .subhead {
+      font-size: 1.05rem;
+      color: #2f5277;
+      font-weight: 400;
+      border-left: 5px solid #8bb3e0;
+      padding-left: 1.2rem;
+      margin: 1rem 0 0.2rem 0;
+      font-style: italic;
+    }
+    .intro-text {
+      background: #e6f0fc;
+      padding: 1rem 1.4rem;
+      border-radius: 1.2rem;
+      margin-top: 1.4rem;
+      font-size: 0.98rem;
+      color: #1d3a5c;
+      border-left: 5px solid #3b6ea5;
+    }
+
+    /* ---------- SECTION TITLE ---------- */
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #0e2a47;
+      margin: 2.2rem 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section-title .line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #8bb3e0, transparent);
+      border-radius: 2px;
+    }
+
+    /* ---------- DIMENSION CARDS ---------- */
+    .dim-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    .dim-card {
+      background: white;
+      border-radius: 1.4rem;
+      padding: 1.2rem 1.3rem;
+      box-shadow: 0 7px 16px -9px rgba(20, 40, 70, 0.15);
+      border: 1px solid #e3ecf7;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .dim-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      opacity: 0.75;
+      transition: opacity 0.2s;
+    }
+    .dim-card.cognitive::before { background: linear-gradient(180deg, #2a4b7c, #5a8ec9); }
+    .dim-card.prior::before { background: linear-gradient(180deg, #2e7d4f, #81c784); }
+    .dim-card.style::before { background: linear-gradient(180deg, #d4933a, #e8c08b); }
+    .dim-card.personality::before { background: linear-gradient(180deg, #6a4c9c, #b39ddb); }
+    .dim-card.motivation::before { background: linear-gradient(180deg, #c94f7c, #e88bb0); }
+    .dim-card.efficacy::before { background: linear-gradient(180deg, #3b7bb5, #8bb3e0); }
+    .dim-card.gender::before { background: linear-gradient(180deg, #b8860b, #e8c84a); }
+    .dim-card.ses::before { background: linear-gradient(180deg, #4a7a5c, #8bc09a); }
+    .dim-card.culture::before { background: linear-gradient(180deg, #b03a5b, #e88bb0); }
+    .dim-card.except::before { background: linear-gradient(180deg, #7a4e14, #d4a84a); }
+    .dim-card.interest::before { background: linear-gradient(180deg, #2a6a6a, #7ac0c0); }
+    .dim-card.pace::before { background: linear-gradient(180deg, #5a4a7a, #b39ddb); }
+    .dim-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 22px -13px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .dim-card:hover::before { opacity: 1; }
+    .dim-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.5rem;
+    }
+    .dim-icon {
+      font-size: 1.4rem;
+      background: #e9f0fa;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    .dim-card:hover .dim-icon { background: #d3e3f8; }
+    .dim-name {
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: #0e2a47;
+      line-height: 1.3;
+    }
+    .dim-includes {
+      font-size: 0.84rem;
+      color: #274e73;
+      line-height: 1.5;
+      margin-bottom: 0.4rem;
+      flex: 1;
+    }
+    .dim-implication {
+      background: #f6faff;
+      border-radius: 0.7rem;
+      padding: 0.5rem 0.8rem;
+      font-size: 0.82rem;
+      color: #183c5e;
+      border-left: 4px solid #3b7bb5;
+      line-height: 1.45;
+      margin-top: auto;
+    }
+    .dim-implication strong { color: #0e2a47; }
+
+    /* ---------- TABLE ---------- */
+    .matrix-wrapper {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.4rem 1.4rem 1.2rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      border: 1px solid #e3ecf7;
+      overflow-x: auto;
+      margin-bottom: 0.5rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.85rem;
+      min-width: 520px;
+    }
+    thead th {
+      text-align: left;
+      padding: 0.75rem 0.85rem;
+      font-weight: 700;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      color: white;
+      background: #0e2a47;
+    }
+    thead th:first-child {
+      border-radius: 0.9rem 0 0 0;
+      background: #2a4b7c;
+    }
+    thead th:last-child { border-radius: 0 0.9rem 0 0; }
+    tbody td {
+      padding: 0.65rem 0.85rem;
+      border-bottom: 1px solid #e8f0f9;
+      color: #1e3c5a;
+      vertical-align: top;
+      line-height: 1.45;
+      font-size: 0.84rem;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: #f6faff; }
+    tbody td:first-child {
+      font-weight: 700;
+      color: #0e2a47;
+      background: #f3f8fd;
+      white-space: nowrap;
+    }
+    tbody tr:hover td:first-child { background: #eaf3fc; }
+
+    /* ---------- CAUTION CARDS ---------- */
+    .caution-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    .caution-card {
+      background: #fdf6f6;
+      border-radius: 1.2rem;
+      padding: 1rem 1.2rem;
+      box-shadow: 0 4px 10px -6px rgba(20, 40, 70, 0.12);
+      border: 1px solid #e8c8c8;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      transition: all 0.2s;
+    }
+    .caution-card:hover {
+      transform: translateY(-2px);
+      border-color: #d45a5a;
+    }
+    .caution-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .caution-text {
+      font-size: 0.85rem;
+      color: #7a2a2a;
+      line-height: 1.5;
+    }
+    .caution-text strong { color: #5a1a1a; }
+
+    /* ---------- IMPLICATION CARDS ---------- */
+    .impl-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .impl-card {
+      background: white;
+      border-radius: 1.3rem;
+      padding: 1.1rem 1.2rem;
+      box-shadow: 0 6px 14px -8px rgba(20, 40, 70, 0.14);
+      border: 1px solid #e3ecf7;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .impl-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, #3f7cb0, #8bb3e0);
+      opacity: 0.7;
+    }
+    .impl-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 20px -12px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .impl-name {
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: #0e2a47;
+      margin-bottom: 0.25rem;
+    }
+    .impl-desc {
+      font-size: 0.85rem;
+      color: #274e73;
+      line-height: 1.5;
+    }
+
+    /* ---------- MISCONCEPTIONS ---------- */
+    .mis-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    .mis-card {
+      background: #fdf6f6;
+      border-radius: 1.2rem;
+      padding: 1rem 1.2rem;
+      box-shadow: 0 4px 10px -6px rgba(20, 40, 70, 0.12);
+      border: 1px solid #e8c8c8;
+      transition: all 0.2s;
+    }
+    .mis-card:hover {
+      transform: translateY(-2px);
+      border-color: #d45a5a;
+    }
+    .mis-claim {
+      font-size: 0.87rem;
+      color: #a83535;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
+    }
+    .mis-claim::before {
+      content: '✘';
+      color: #d45a5a;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .mis-correction {
+      font-size: 0.85rem;
+      color: #1e3c5a;
+      line-height: 1.5;
+      padding-left: 1.3rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
+    }
+    .mis-correction::before {
+      content: '✔';
+      color: #2e9b5e;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ---------- TAKEAWAY ---------- */
+    .takeaway-card {
+      background: #0e2a47;
+      color: white;
+      border-radius: 1.6rem;
+      padding: 1.6rem 2rem;
+      margin: 1.2rem 0 0.5rem 0;
+      font-size: 0.98rem;
+      line-height: 1.7;
+      box-shadow: 0 14px 26px -12px #0e2a47;
+      border-left: 6px solid #8bb3e0;
+    }
+    .takeaway-card strong { color: #b8d4f0; }
+    .takeaway-card ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+    }
+    .takeaway-card li {
+      padding-left: 1.5rem;
+      position: relative;
+      font-size: 0.92rem;
+      color: #d4e6fa;
+      line-height: 1.55;
+    }
+    .takeaway-card li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #8bb3e0;
+      font-weight: 700;
+    }
+
+    /* ---------- ONE-LINER ---------- */
+    .oneliner-card {
+      background: linear-gradient(135deg, #2e7d4f 0%, #3fa86a 100%);
+      color: white;
+      border-radius: 1.6rem;
+      padding: 1.6rem 2rem;
+      margin: 1.2rem 0 0.5rem 0;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      box-shadow: 0 14px 26px -12px #2e7d4f;
+      border-left: 6px solid #b8e0c8;
+      text-align: center;
+      font-weight: 500;
+    }
+    .oneliner-card strong { color: #d4f0e0; }
+
+    /* ---------- SEARCH & COUNT ---------- */
+    .filter-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 60px;
+      box-shadow: 0 8px 18px -8px rgba(0, 27, 45, 0.1);
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 40px;
+      padding: 0.3rem 0.3rem 0.3rem 1.2rem;
+      flex: 2;
+      min-width: 240px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      border: 1px solid #ccdcee;
+    }
+    .search-box span { font-size: 1.1rem; margin-right: 0.5rem; color: #4e6b8a; }
+    .search-box input {
+      border: none;
+      padding: 0.7rem 0.2rem;
+      width: 100%;
+      font-size: 0.95rem;
+      outline: none;
+      background: transparent;
+      color: #0c253b;
+    }
+    .search-box input::placeholder { color: #879eb6; font-weight: 300; }
+    .count-pill {
+      background: #0e2a47;
+      color: white;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ---------- QUIZ SECTION ---------- */
+    .quiz-section { margin-top: 2.5rem; }
+    .quiz-header {
+      background: #0e2a47;
+      border-radius: 2rem 2rem 0 0;
+      padding: 1.5rem 2rem;
+      color: white;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .quiz-header h2 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.3px; }
+    .quiz-header .quiz-badge {
+      background: #8bb3e0;
+      color: #0e2a47;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .quiz-body {
+      background: white;
+      border-radius: 0 0 2rem 2rem;
+      padding: 2rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      border: 1px solid #e3ecf7;
+      border-top: none;
+    }
+    .quiz-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #e3ecf7;
+      padding-bottom: 1rem;
+    }
+    .quiz-tab {
+      background: #f0f5fd;
+      border: 1px solid #d0e0f0;
+      color: #1b4670;
+      padding: 0.5rem 1.3rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .quiz-tab:hover { background: #e0ecfc; border-color: #a0c0e0; }
+    .quiz-tab.active { background: #0e2a47; color: white; border-color: #0e2a47; }
+    .quiz-panel { display: none; }
+    .quiz-panel.active { display: block; }
+    .section-label {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.2rem;
+    }
+
+    /* MCQ */
+    .mcq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+      transition: background 0.2s;
+    }
+    .mcq-item:hover { background: #f0f7fe; }
+    .mcq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.8rem;
+      line-height: 1.5;
+    }
+    .mcq-options { display: flex; flex-direction: column; gap: 0.5rem; }
+    .mcq-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 0.8rem;
+      background: white;
+      border: 1.5px solid #d9e8fc;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+    }
+    .mcq-option:hover { border-color: #8bb3e0; background: #eef6ff; }
+    .mcq-option.selected { border-color: #3b7bb5; background: #e4f0fe; font-weight: 500; }
+    .mcq-option.correct { border-color: #2e9b5e; background: #e6f7ee; font-weight: 600; }
+    .mcq-option.incorrect { border-color: #d45a5a; background: #fdeaea; font-weight: 500; }
+    .mcq-option .option-letter {
+      font-weight: 700;
+      color: #2a4b7c;
+      min-width: 1.4rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .mcq-option.correct .option-letter { color: #1b7a44; }
+    .mcq-option.incorrect .option-letter { color: #b03030; }
+    .mcq-feedback {
+      margin-top: 0.7rem;
+      font-size: 0.88rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: 0.8rem;
+      display: none;
+      font-weight: 500;
+    }
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.correct-fb {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .mcq-feedback.incorrect-fb {
+      background: #fdeaea;
+      color: #9e2a2a;
+      border-left: 4px solid #d45a5a;
+    }
+
+    /* CRQ / ERQ shared */
+    .crq-item, .erq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+    }
+    .erq-item { border: 2px solid #8bb3e0; background: #f5faff; }
+    .crq-question, .erq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+    .erq-question { font-size: 1.05rem; font-weight: 700; }
+    .erq-marks {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      margin-bottom: 0.8rem;
+    }
+    .crq-hint {
+      font-size: 0.85rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-bottom: 0.7rem;
+    }
+    .crq-textarea, .erq-textarea {
+      width: 100%;
+      border: 1.5px solid #d9e8fc;
+      border-radius: 0.9rem;
+      padding: 0.8rem 1rem;
+      font-family: inherit;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+      resize: vertical;
+      transition: border-color 0.2s;
+      background: white;
+    }
+    .crq-textarea { min-height: 90px; }
+    .erq-textarea { min-height: 160px; }
+    .crq-textarea:focus, .erq-textarea:focus {
+      outline: none;
+      border-color: #3b7bb5;
+      box-shadow: 0 0 0 3px rgba(59, 123, 181, 0.12);
+    }
+    .crq-actions, .erq-actions {
+      display: flex;
+      gap: 0.7rem;
+      margin-top: 0.7rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 0.55rem 1.4rem;
+      border-radius: 40px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      font-family: inherit;
+    }
+    .btn-primary { background: #0e2a47; color: white; }
+    .btn-primary:hover { background: #1a4170; transform: translateY(-1px); }
+    .btn-secondary { background: #e9f0fa; color: #1b4670; border: 1px solid #c0d8f0; }
+    .btn-secondary:hover { background: #d8e6f8; }
+    .crq-feedback, .erq-feedback {
+      margin-top: 0.8rem;
+      padding: 0.8rem 1rem;
+      border-radius: 0.9rem;
+      font-size: 0.9rem;
+      display: none;
+      line-height: 1.6;
+    }
+    .crq-feedback.show, .erq-feedback.show { display: block; }
+    .crq-feedback.good, .erq-feedback.good {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .crq-feedback.partial, .erq-feedback.partial {
+      background: #fff8e6;
+      color: #8a6d1f;
+      border-left: 4px solid #e0a800;
+    }
+    .erq-feedback.model {
+      background: #e6f0fc;
+      color: #1a3e62;
+      border-left: 5px solid #3b7bb5;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 700px) {
+      .mis-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .header-card { padding: 1.5rem 1.2rem; }
+      h1 { font-size: 1.6rem; }
+      .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: 2rem;
+        padding: 1rem;
+      }
+      .search-box { width: 100%; }
+      .count-pill { text-align: center; padding: 0.5rem; }
+      .quiz-body { padding: 1.2rem; }
+      .quiz-header { padding: 1.2rem; }
+      .quiz-header h2 { font-size: 1.3rem; }
+      .mcq-item, .crq-item, .erq-item { padding: 1rem; }
+      .quiz-tab { font-size: 0.8rem; padding: 0.4rem 1rem; }
+      .takeaway-card { padding: 1.3rem 1.2rem; }
+      .oneliner-card { padding: 1.3rem 1.2rem; }
+    }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #dfe9f5; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: #94b0d1; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6d8fb4; }
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem 1rem;
+      background: #ffffffc9;
+      border-radius: 2rem;
+      font-size: 1.1rem;
+      color: #4b6888;
+      border: 2px dashed #b8cee8;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-wrapper">
+
+    <!-- HEADER -->
+    <div class="header-card">
+      <div class="badge">🧠 Educational Psychology</div>
+      <h1>Individual Differences in Educational Psychology</h1>
+      <div class="subhead">Learners are not identical — effective teaching recognizes, respects, and responds to variability</div>
+      <div class="intro-text">
+        <strong>💡 Core idea:</strong> Individual differences refer to the variations among learners in abilities, interests, personality, motivation, background, learning pace, and styles of thinking. In educational psychology, the study of individual differences examines how these variations affect learning and how instruction can be adapted to meet diverse learner needs.
+      </div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="filter-section">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="Search dimensions, intelligence models, implications..." autocomplete="off">
+      </div>
+      <div class="count-pill" id="countDisplay">30+ items</div>
+    </div>
+
+    <!-- MAJOR DIMENSIONS -->
+    <div class="section-title">
+      🎯 Major Dimensions of Individual Differences
+      <span class="line"></span>
+    </div>
+
+    <div class="dim-grid" id="dimGrid">
+      <div class="dim-card cognitive" data-searchable="cognitive ability intelligence reasoning problem-solving memory verbal spatial ability varied tasks IQ measure">
+        <div class="dim-header">
+          <div class="dim-icon">🧠</div>
+          <div class="dim-name">Cognitive Ability / Intelligence</div>
+        </div>
+        <div class="dim-includes">Reasoning, problem-solving, memory, verbal and spatial ability.</div>
+        <div class="dim-implication"><strong>Implication:</strong> Use varied tasks; avoid over-reliance on one IQ measure.</div>
+      </div>
+
+      <div class="dim-card prior" data-searchable="prior knowledge what learners already know connect new content existing schemas pre-assess">
+        <div class="dim-header">
+          <div class="dim-icon">📚</div>
+          <div class="dim-name">Prior Knowledge</div>
+        </div>
+        <div class="dim-includes">What learners already know.</div>
+        <div class="dim-implication"><strong>Implication:</strong> Connect new content to existing schemas; pre-assess.</div>
+      </div>
+
+      <div class="dim-card style" data-searchable="cognitive learning styles preferred ways processing information field-dependent field-independent multiple representations avoid labeling">
+        <div class="dim-header">
+          <div class="dim-icon">🎨</div>
+          <div class="dim-name">Cognitive / Learning Styles</div>
+        </div>
+        <div class="dim-includes">Preferred ways of processing information (e.g., field-dependent/independent).</div>
+        <div class="dim-implication"><strong>Implication:</strong> Use multiple representations; avoid labeling learners by "style."</div>
+      </div>
+
+      <div class="dim-card personality" data-searchable="personality big five openness conscientiousness extraversion agreeableness neuroticism self-regulation grouping task structure">
+        <div class="dim-header">
+          <div class="dim-icon">🎭</div>
+          <div class="dim-name">Personality</div>
+        </div>
+        <div class="dim-includes">Big Five traits: openness, conscientiousness, extraversion, agreeableness, neuroticism.</div>
+        <div class="dim-implication"><strong>Implication:</strong> Support self-regulation; vary grouping and task structure.</div>
+      </div>
+
+      <div class="dim-card motivation" data-searchable="motivation intrinsic extrinsic goals interest self-efficacy relevance choice mastery experiences positive feedback">
+        <div class="dim-header">
+          <div class="dim-icon">🔥</div>
+          <div class="dim-name">Motivation</div>
+        </div>
+        <div class="dim-includes">Intrinsic vs. extrinsic; goals; interest; self-efficacy.</div>
+        <div class="dim-implication"><strong>Implication:</strong> Build relevance, choice, mastery experiences, and positive feedback.</div>
+      </div>
+
+      <div class="dim-card efficacy" data-searchable="self-efficacy belief ability succeed achievable challenges specific encouragement">
+        <div class="dim-header">
+          <div class="dim-icon">💪</div>
+          <div class="dim-name">Self-Efficacy</div>
+        </div>
+        <div class="dim-includes">Belief in one's ability to succeed.</div>
+        <div class="dim-implication"><strong>Implication:</strong> Provide achievable challenges and specific encouragement.</div>
+      </div>
+
+      <div class="dim-card gender" data-searchable="gender social biological influences interests confidence participation equitable challenge stereotypes">
+        <div class="dim-header">
+          <div class="dim-icon">⚖️</div>
+          <div class="dim-name">Gender</div>
+        </div>
+        <div class="dim-includes">Social and biological influences on interests, confidence, and participation.</div>
+        <div class="dim-implication"><strong>Implication:</strong> Ensure equitable participation and challenge stereotypes.</div>
+      </div>
+
+      <div class="dim-card ses" data-searchable="socioeconomic status ses family income resources stress opportunity gaps resources structure supportive relationships">
+        <div class="dim-header">
+          <div class="dim-icon">💰</div>
+          <div class="dim-name">Socioeconomic Status (SES)</div>
+        </div>
+        <div class="dim-includes">Family income, resources, stress, opportunity gaps.</div>
+        <div class="dim-implication"><strong>Implication:</strong> Provide resources, structure, and supportive relationships.</div>
+      </div>
+
+      <div class="dim-card culture" data-searchable="culture language values communication norms prior schooling language proficiency culturally responsive teaching language supports">
+        <div class="dim-header">
+          <div class="dim-icon">🌍</div>
+          <div class="dim-name">Culture &amp; Language</div>
+        </div>
+        <div class="dim-includes">Values, communication norms, prior schooling, language proficiency.</div>
+        <div class="dim-implication"><strong>Implication:</strong> Use culturally responsive teaching and language supports.</div>
+      </div>
+
+      <div class="dim-card except" data-searchable="exceptionalities giftedness learning disabilities adhd sensory physical disabilities differentiate accommodate individualized support">
+        <div class="dim-header">
+          <div class="dim-icon">🌟</div>
+          <div class="dim-name">Exceptionalities</div>
+        </div>
+        <div class="dim-includes">Giftedness, learning disabilities, ADHD, sensory or physical disabilities.</div>
+        <div class="dim-implication"><strong>Implication:</strong> Differentiate, accommodate, and use individualized support.</div>
+      </div>
+
+      <div class="dim-card interest" data-searchable="interest aptitude subject preferences natural strengths choice enrichment connect content">
+        <div class="dim-header">
+          <div class="dim-icon">❤️</div>
+          <div class="dim-name">Interest &amp; Aptitude</div>
+        </div>
+        <div class="dim-includes">Subject preferences and natural strengths.</div>
+        <div class="dim-implication"><strong>Implication:</strong> Offer choice and enrichment; connect content to interests.</div>
+      </div>
+
+      <div class="dim-card pace" data-searchable="learning pace speed processing mastery flexible pacing reteaching extension">
+        <div class="dim-header">
+          <div class="dim-icon">🐢</div>
+          <div class="dim-name">Learning Pace</div>
+        </div>
+        <div class="dim-includes">Speed of processing and mastery.</div>
+        <div class="dim-implication"><strong>Implication:</strong> Allow flexible pacing, reteaching, and extension.</div>
+      </div>
+    </div>
+
+    <!-- INTELLIGENCE MODELS -->
+    <div class="section-title">
+      🧠 Intelligence — Key Models
+      <span class="line"></span>
+    </div>
+
+    <div class="matrix-wrapper" data-searchable="intelligence models general g spearman multiple intelligences gardner triarchic sternberg chc cattell horn cattell fluid crystallized analytical creative practical linguistic logical spatial musical bodily kinesthetic interpersonal intrapersonal naturalistic">
+      <table>
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Theorist</th>
+            <th>Main Idea</th>
+            <th>Educational Relevance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>General intelligence (g)</td><td>Charles Spearman</td><td>One general factor underlies performance</td><td>Supports broad aptitude testing; but limited view of learners.</td></tr>
+          <tr><td>Multiple intelligences</td><td>Howard Gardner</td><td>Several relatively independent intelligences (linguistic, logical-mathematical, spatial, musical, bodily-kinesthetic, interpersonal, intrapersonal, naturalistic)</td><td>Encourages varied activities; caution: not a validated learning-style prescription.</td></tr>
+          <tr><td>Triarchic theory</td><td>Robert Sternberg</td><td>Analytical, creative, and practical intelligence</td><td>Teach for analysis, creativity, and real-world application.</td></tr>
+          <tr><td>CHC theory</td><td>Cattell–Horn–Cattell</td><td>Fluid and crystallized intelligence plus broad abilities</td><td>Informs cognitive assessment and instructional planning.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="intro-text" style="margin-bottom:1rem;background:#fff8e6;border-left-color:#e0a800;">
+      <strong>Note:</strong> Intelligence is influenced by both heredity and environment; it is <strong>not fixed</strong>.
+    </div>
+
+    <!-- LEARNING STYLES CAUTION -->
+    <div class="section-title">
+      ⚠️ Cognitive and Learning Styles — Use With Caution
+      <span class="line"></span>
+    </div>
+
+    <div class="caution-grid" id="cautionGrid">
+      <div class="caution-card" data-searchable="field dependence independence reliance context independent analysis evidence task preferences avoid rigid labeling">
+        <div class="caution-icon">🚫</div>
+        <div class="caution-text"><strong>Field dependence/independence:</strong> Some evidence for task preferences; avoid rigid labeling.</div>
+      </div>
+      <div class="caution-card" data-searchable="visual auditory kinesthetic learning styles sensory modality weak scientific evidence matching instruction style improves learning">
+        <div class="caution-icon">🚫</div>
+        <div class="caution-text"><strong>Visual/auditory/kinesthetic "learning styles":</strong> Weak scientific evidence that matching instruction to style improves learning.</div>
+      </div>
+      <div class="caution-card" data-searchable="deep surface processing understanding meaning memorizing encourage deep processing strategies">
+        <div class="caution-icon">✓</div>
+        <div class="caution-text"><strong>Deep vs. surface processing:</strong> Encourage deep processing strategies (understanding meaning vs. memorizing).</div>
+      </div>
+    </div>
+
+    <div class="intro-text" style="margin-bottom:1rem;background:#f0faf4;border-left-color:#2e7d4f;">
+      <strong>Best practice:</strong> Use multiple representations and varied modalities for all learners rather than matching instruction to supposed "styles."
+    </div>
+
+    <!-- DIFFERENTIATED INSTRUCTION -->
+    <div class="section-title">
+      🎓 Educational Implications — Differentiated Instruction
+      <span class="line"></span>
+    </div>
+
+    <div class="impl-grid" id="implGrid">
+      <div class="impl-card" data-searchable="pre-assessment readiness interests prior knowledge before teaching">
+        <div class="impl-name">Pre-Assessment</div>
+        <div class="impl-desc">Find out readiness, interests, and prior knowledge before teaching.</div>
+      </div>
+      <div class="impl-card" data-searchable="flexible grouping whole-class small-group pairs individual">
+        <div class="impl-name">Flexible Grouping</div>
+        <div class="impl-desc">Use whole-class, small-group, pairs, and individual work as needed.</div>
+      </div>
+      <div class="impl-card" data-searchable="tiered tasks different levels complexity same learning goal">
+        <div class="impl-name">Tiered Tasks</div>
+        <div class="impl-desc">Offer tasks at different levels of complexity toward the same learning goal.</div>
+      </div>
+      <div class="impl-card" data-searchable="choice topic product process increase motivation">
+        <div class="impl-name">Choice</div>
+        <div class="impl-desc">Allow choice in topic, product, or process to increase motivation.</div>
+      </div>
+      <div class="impl-card" data-searchable="multiple representations text visuals discussion models hands-on activities">
+        <div class="impl-name">Multiple Representations</div>
+        <div class="impl-desc">Use text, visuals, discussion, models, and hands-on activities.</div>
+      </div>
+      <div class="impl-card" data-searchable="scaffolding temporary supports gradually remove">
+        <div class="impl-name">Scaffolding</div>
+        <div class="impl-desc">Provide temporary supports and gradually remove them.</div>
+      </div>
+      <div class="impl-card" data-searchable="formative assessment check understanding frequently adjust instruction">
+        <div class="impl-name">Formative Assessment</div>
+        <div class="impl-desc">Check understanding frequently and adjust instruction.</div>
+      </div>
+      <div class="impl-card" data-searchable="universal design for learning udl multiple means engagement representation expression from the start">
+        <div class="impl-name">Universal Design for Learning (UDL)</div>
+        <div class="impl-desc">Design multiple means of engagement, representation, and expression from the start.</div>
+      </div>
+      <div class="impl-card" data-searchable="positive climate trust belonging unconditional positive regard">
+        <div class="impl-name">Positive Climate</div>
+        <div class="impl-desc">Build trust, belonging, and unconditional positive regard.</div>
+      </div>
+      <div class="impl-card" data-searchable="avoid labeling differences dynamic context-dependent not fixed categories">
+        <div class="impl-name">Avoid Labeling</div>
+        <div class="impl-desc">Treat differences as dynamic and context-dependent, not fixed categories.</div>
+      </div>
+    </div>
+
+    <!-- ATI -->
+    <div class="section-title">
+      🔗 Aptitude–Treatment Interaction (ATI)
+      <span class="line"></span>
+    </div>
+
+    <div class="intro-text" style="margin-bottom:1rem;background:#e6f0fc;border-left-color:#3b6ea5;">
+      <strong>ATI suggests</strong> that instruction is most effective when it matches learner characteristics (aptitude, prior knowledge, motivation). <strong>Implication:</strong> There is no single best teaching method for all learners; teachers must adapt methods to learners and contexts.
+    </div>
+
+    <!-- MISCONCEPTIONS -->
+    <div class="section-title">
+      ⚠️ Common Misconceptions
+      <span class="line"></span>
+    </div>
+
+    <div class="mis-grid" id="misGrid">
+      <div class="mis-card" data-searchable="learning styles should determine instruction weak evidence varied methods all">
+        <div class="mis-claim">"Learning styles should determine instruction."</div>
+        <div class="mis-correction">Evidence for matching sensory learning styles is weak; use varied methods for all.</div>
+      </div>
+      <div class="mis-card" data-searchable="intelligence fixed malleable environment effort">
+        <div class="mis-claim">"Intelligence is fixed."</div>
+        <div class="mis-correction">Intelligence is malleable and influenced by environment and effort.</div>
+      </div>
+      <div class="mis-card" data-searchable="individual differences lowering standards differentiation high expectations appropriate support">
+        <div class="mis-claim">"Individual differences mean lowering standards."</div>
+        <div class="mis-correction">Differentiation maintains high expectations while providing appropriate support.</div>
+      </div>
+      <div class="mis-card" data-searchable="one theory explains all learners integrate multiple perspectives adapt context">
+        <div class="mis-claim">"One theory explains all learners."</div>
+        <div class="mis-correction">Effective teaching integrates multiple perspectives and adapts to context.</div>
+      </div>
+      <div class="mis-card" data-searchable="differences deficits variations strengths support">
+        <div class="mis-claim">"Differences are deficits."</div>
+        <div class="mis-correction">Differences are variations; many can become strengths with support.</div>
+      </div>
+    </div>
+
+    <!-- KEY TAKEAWAYS -->
+    <div class="section-title">
+      🔑 Key Takeaways
+      <span class="line"></span>
+    </div>
+
+    <div class="takeaway-card" data-searchable="key takeaways individual differences variations ability motivation personality background culture needs affect process engage demonstrate intelligence prior knowledge self-efficacy exceptionalities differentiated instruction udl formative assessment supportive relationships avoid rigid labeling multiple representations flexible support respect differences high expectations">
+      <ul>
+        <li>Individual differences are variations in ability, motivation, personality, background, culture, and needs.</li>
+        <li>They affect how learners process, engage with, and demonstrate learning.</li>
+        <li>Major dimensions include intelligence, prior knowledge, motivation, self-efficacy, personality, culture, SES, language, and exceptionalities.</li>
+        <li>Differentiated instruction, UDL, formative assessment, and supportive relationships are core responses.</li>
+        <li>Avoid rigid labeling — especially learning-style matching — and use multiple representations and flexible support.</li>
+        <li>Effective teaching respects differences without lowering expectations.</li>
+      </ul>
+    </div>
+
+    <!-- ONE-LINER -->
+    <div class="oneliner-card" data-searchable="one-line summary learners vary ability background motivation needs effective teaching differentiates support high expectations all">
+      <strong>📌 One-line summary:</strong> Individual differences mean learners vary in ability, background, motivation, and needs — so effective teaching differentiates support while maintaining high expectations for all.
+    </div>
+
+    <!-- ================= QUIZ SECTION ================= -->
+    <div class="quiz-section">
+      <div class="quiz-header">
+        <h2>📝 Practice Quiz</h2>
+        <span class="quiz-badge">Test Your Knowledge</span>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-tabs">
+          <button class="quiz-tab active" data-panel="mcqPanel">🔘 10 MCQs</button>
+          <button class="quiz-tab" data-panel="crqPanel">✍️ 4 CRQs</button>
+          <button class="quiz-tab" data-panel="erqPanel">📄 1 ERQ</button>
+        </div>
+
+        <div class="quiz-panel active" id="mcqPanel">
+          <span class="section-label">Multiple Choice Questions</span>
+          <div id="mcqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="crqPanel">
+          <span class="section-label">Constructed Response Questions</span>
+          <div id="crqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="erqPanel">
+          <span class="section-label">Extended Response Question (Situation-Based)</span>
+          <div id="erqContainer"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      // ================= SEARCH FILTER =================
+      const searchInput = document.getElementById('searchInput');
+      const countDisplay = document.getElementById('countDisplay');
+      const allSearchables = document.querySelectorAll('[data-searchable]');
+      const cardParents = new Map();
+      allSearchables.forEach(card => cardParents.set(card, card.parentNode));
+
+      function applySearch(query) {
+        const q = query.trim().toLowerCase();
+        let visibleCount = 0;
+        allSearchables.forEach(card => {
+          const searchText = (card.dataset.searchable || '').toLowerCase() + ' ' + card.textContent.toLowerCase();
+          const matches = q === '' || searchText.includes(q);
+          if (matches) {
+            visibleCount++;
+            if (!card.parentNode) cardParents.get(card).appendChild(card);
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        countDisplay.textContent = visibleCount + ' item' + (visibleCount !== 1 ? 's' : '');
+      }
+
+      let debounceTimer;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => applySearch(e.target.value), 180);
+      });
+      searchInput.addEventListener('search', (e) => { if (e.target.value === '') applySearch(''); });
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchInput.value !== '') { searchInput.value = ''; applySearch(''); }
+      });
+
+      // ================= QUIZ DATA =================
+      const mcqs = [
+        {
+          q: "What are individual differences in educational psychology?",
+          options: [
+            "Only differences in intelligence",
+            "Variations among learners in abilities, interests, personality, motivation, background, and learning pace",
+            "Differences between schools",
+            "Differences between teachers"
+          ],
+          correct: 1,
+          feedback: "Individual differences refer to the variations among learners in abilities, interests, personality, motivation, background, learning pace, and styles of thinking."
+        },
+        {
+          q: "Which intelligence model proposes several relatively independent intelligences?",
+          options: [
+            "General intelligence (g)",
+            "Multiple intelligences",
+            "Triarchic theory",
+            "CHC theory"
+          ],
+          correct: 1,
+          feedback: "Howard Gardner's Multiple Intelligences model proposes several relatively independent intelligences (linguistic, logical-mathematical, spatial, musical, etc.)."
+        },
+        {
+          q: "What does the Triarchic theory of intelligence propose?",
+          options: [
+            "One general factor underlies performance",
+            "Several independent intelligences",
+            "Analytical, creative, and practical intelligence",
+            "Fluid and crystallized intelligence"
+          ],
+          correct: 2,
+          feedback: "Robert Sternberg's Triarchic theory proposes analytical, creative, and practical intelligence."
+        },
+        {
+          q: "What is the evidence for matching instruction to sensory learning styles (visual/auditory/kinesthetic)?",
+          options: [
+            "Strong evidence supports it",
+            "Weak scientific evidence that it improves learning",
+            "No research has been done",
+            "It only works for young children"
+          ],
+          correct: 1,
+          feedback: "There is weak scientific evidence that matching instruction to sensory learning styles improves learning. Best practice is to use multiple representations for all learners."
+        },
+        {
+          q: "What is self-efficacy?",
+          options: [
+            "Belief in one's ability to succeed",
+            "A type of learning style",
+            "A personality trait from the Big Five",
+            "A form of extrinsic motivation"
+          ],
+          correct: 0,
+          feedback: "Self-efficacy is the belief in one's ability to succeed — a key factor in motivation and learning."
+        },
+        {
+          q: "What does the Aptitude–Treatment Interaction (ATI) suggest?",
+          options: [
+            "One teaching method works for all learners",
+            "Instruction is most effective when it matches learner characteristics",
+            "Aptitude does not matter",
+            "Only intelligence matters"
+          ],
+          correct: 1,
+          feedback: "ATI suggests that instruction is most effective when it matches learner characteristics (aptitude, prior knowledge, motivation). There is no single best method for all learners."
+        },
+        {
+          q: "What is Universal Design for Learning (UDL)?",
+          options: [
+            "A single teaching method for all",
+            "Designing multiple means of engagement, representation, and expression from the start",
+            "A type of assessment",
+            "A classroom management system"
+          ],
+          correct: 1,
+          feedback: "UDL involves designing multiple means of engagement, representation, and expression from the start — proactively addressing learner variability."
+        },
+        {
+          q: "Which of the following is a common misconception about individual differences?",
+          options: [
+            "Learners vary in ability",
+            "Intelligence is malleable",
+            "Learning styles should determine instruction",
+            "Differentiation maintains high expectations"
+          ],
+          correct: 2,
+          feedback: "The misconception is that learning styles should determine instruction. Evidence for matching sensory learning styles is weak; use varied methods for all."
+        },
+        {
+          q: "What does the Big Five personality model include?",
+          options: [
+            "Visual, auditory, kinesthetic, tactile, verbal",
+            "Openness, conscientiousness, extraversion, agreeableness, neuroticism",
+            "Analytical, creative, practical, emotional, social",
+            "Fluid, crystallized, spatial, verbal, numerical"
+          ],
+          correct: 1,
+          feedback: "The Big Five traits are openness, conscientiousness, extraversion, agreeableness, and neuroticism."
+        },
+        {
+          q: "What is the key takeaway about individual differences and teaching?",
+          options: [
+            "Lower standards for diverse learners",
+            "Use the same method for everyone",
+            "Differentiate support while maintaining high expectations for all",
+            "Only focus on gifted students"
+          ],
+          correct: 2,
+          feedback: "Effective teaching respects differences without lowering expectations — differentiating support while maintaining high expectations for all learners."
+        }
+      ];
+
+      const crqs = [
+        {
+          q: "Define individual differences and explain why they matter in education.",
+          hint: "Variations in ability, background, motivation; one-size-fits-all fails; equity and inclusion.",
+          keywords: ["individual differences", "variations", "abilities", "interests", "personality", "motivation", "background", "learning pace", "one-size-fits-all", "equity", "inclusion", "assessment", "classroom management"],
+          model: "Individual differences refer to the variations among learners in abilities, interests, personality, motivation, background, learning pace, and styles of thinking. They matter because learning is personal, instruction must fit the learner, recognizing differences supports equity and inclusion, understanding differences improves assessment accuracy, and knowing learners helps teachers anticipate needs and prevent frustration."
+        },
+        {
+          q: "Describe any FIVE major dimensions of individual differences and give one educational implication for each.",
+          hint: "Cognitive ability, prior knowledge, personality, motivation, SES, culture, exceptionalities, etc.",
+          keywords: ["cognitive ability", "intelligence", "prior knowledge", "personality", "motivation", "self-efficacy", "gender", "socioeconomic", "culture", "language", "exceptionalities", "interest", "pace", "implication"],
+          model: "Five dimensions: (1) Cognitive ability/intelligence — use varied tasks; avoid over-reliance on one IQ measure. (2) Prior knowledge — connect new content to existing schemas; pre-assess. (3) Personality (Big Five) — support self-regulation; vary grouping and task structure. (4) Motivation — build relevance, choice, mastery experiences, and positive feedback. (5) Socioeconomic status — provide resources, structure, and supportive relationships. (Culture, exceptionalities, learning pace, and self-efficacy are also valid.)"
+        },
+        {
+          q: "Explain the caution around learning styles and describe the best practice recommended by educational psychology.",
+          hint: "Weak evidence for matching sensory styles; use multiple representations for all.",
+          keywords: ["learning styles", "visual", "auditory", "kinesthetic", "weak evidence", "matching", "multiple representations", "varied modalities", "all learners", "avoid labeling"],
+          model: "There is weak scientific evidence that matching instruction to a student's sensory learning style (visual, auditory, kinesthetic) improves learning. Field dependence/independence has some evidence for task preferences, but rigid labeling should be avoided. The best practice is to use multiple representations and varied modalities for all learners rather than matching instruction to supposed 'styles.'"
+        },
+        {
+          q: "List and explain any FIVE strategies for differentiated instruction.",
+          hint: "Pre-assessment, flexible grouping, tiered tasks, choice, multiple representations, scaffolding, formative assessment, UDL.",
+          keywords: ["pre-assessment", "flexible grouping", "tiered tasks", "choice", "multiple representations", "scaffolding", "formative assessment", "udl", "positive climate", "avoid labeling"],
+          model: "Five strategies: (1) Pre-assessment — find out readiness, interests, and prior knowledge before teaching. (2) Flexible grouping — use whole-class, small-group, pairs, and individual work as needed. (3) Tiered tasks — offer tasks at different levels of complexity toward the same learning goal. (4) Choice — allow choice in topic, product, or process to increase motivation. (5) Multiple representations — use text, visuals, discussion, models, and hands-on activities. (Scaffolding, formative assessment, UDL, positive climate, and avoiding labeling are also valid.)"
+        }
+      ];
+
+      const erq = {
+        q: `Ms. Zara teaches Grade 6 in a diverse classroom. She has noticed:
+• Some students learn quickly, while others need much more time.
+• One student, Sara, is very anxious and lacks confidence.
+• Several students come from low-income families and have limited resources at home.
+• One student, Ali, is gifted and finishes tasks quickly, then becomes bored.
+• The class includes students who speak different languages at home.
+
+Using what you have learned about individual differences, propose FOUR practical strategies Ms. Zara could use. For each strategy, identify which dimension of individual difference it addresses and explain why it would help.`,
+        marks: "10 marks",
+        model: `
+          <strong>Model Answer (key points):</strong><br><br>
+          <strong>1. Learning pace — Flexible pacing and tiered tasks:</strong> Ms. Zara can use tiered tasks at different levels of complexity toward the same learning goal, allowing slower learners more time and reteaching while fast learners move ahead. This addresses differences in learning pace.<br><br>
+          <strong>2. Self-efficacy and motivation (Sara) — Achievable challenges and specific encouragement:</strong> For Sara, Ms. Zara can provide small, achievable tasks that build mastery experiences, and give specific, encouraging feedback. This addresses low self-efficacy and anxiety.<br><br>
+          <strong>3. Socioeconomic status — Resources and supportive relationships:</strong> For students from low-income families, Ms. Zara can ensure access to classroom resources, provide structure, and build supportive relationships. This addresses SES-related opportunity gaps.<br><br>
+          <strong>4. Giftedness (Ali) — Enrichment and extension:</strong> For Ali, Ms. Zara can provide enrichment activities, independent projects, or extension tasks to prevent boredom. This addresses giftedness and advanced ability.<br><br>
+          <em>Note: Culture and language is also addressed through culturally responsive teaching and language scaffolds. Any four strategies with clear identification of the dimension they address are acceptable.</em>
+        `
+      };
+
+      // ================= RENDER MCQs =================
+      const mcqContainer = document.getElementById('mcqContainer');
+      let mcqHtml = '';
+      mcqs.forEach((item, idx) => {
+        const letters = ['A', 'B', 'C', 'D'];
+        let optionsHtml = '';
+        item.options.forEach((opt, oi) => {
+          optionsHtml += `
+            <div class="mcq-option" data-qidx="${idx}" data-oidx="${oi}">
+              <span class="option-letter">${letters[oi]}</span>
+              <span>${opt}</span>
+            </div>
+          `;
+        });
+        mcqHtml += `
+          <div class="mcq-item" id="mcq-${idx}">
+            <div class="mcq-question">${idx + 1}. ${item.q}</div>
+            <div class="mcq-options">${optionsHtml}</div>
+            <div class="mcq-feedback" id="mcq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      mcqContainer.innerHTML = mcqHtml;
+
+      mcqContainer.addEventListener('click', (e) => {
+        const option = e.target.closest('.mcq-option');
+        if (!option) return;
+        const qidx = parseInt(option.dataset.qidx);
+        const oidx = parseInt(option.dataset.oidx);
+        const mcq = mcqs[qidx];
+        const parentItem = document.getElementById(`mcq-${qidx}`);
+        const allOptions = parentItem.querySelectorAll('.mcq-option');
+        const feedbackEl = document.getElementById(`mcq-fb-${qidx}`);
+        if (parentItem.dataset.answered === 'correct') return;
+        allOptions.forEach(opt => opt.classList.remove('selected', 'correct', 'incorrect'));
+        option.classList.add('selected');
+        if (oidx === mcq.correct) {
+          option.classList.add('correct');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '✅ Correct! ' + mcq.feedback;
+          feedbackEl.className = 'mcq-feedback show correct-fb';
+          parentItem.dataset.answered = 'correct';
+        } else {
+          option.classList.add('incorrect');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '❌ Not quite. Try again!';
+          feedbackEl.className = 'mcq-feedback show incorrect-fb';
+          setTimeout(() => {
+            if (feedbackEl.classList.contains('incorrect-fb')) {
+              feedbackEl.classList.remove('show');
+            }
+          }, 1500);
+        }
+      });
+
+      // ================= RENDER CRQs =================
+      const crqContainer = document.getElementById('crqContainer');
+      let crqHtml = '';
+      crqs.forEach((item, idx) => {
+        crqHtml += `
+          <div class="crq-item" id="crq-${idx}">
+            <div class="crq-question">${idx + 1}. ${item.q}</div>
+            <div class="crq-hint">💡 Hint: ${item.hint}</div>
+            <textarea class="crq-textarea" id="crq-ta-${idx}" placeholder="Write your answer here..."></textarea>
+            <div class="crq-actions">
+              <button class="btn btn-primary" data-crq-check="${idx}">Check Answer</button>
+              <button class="btn btn-secondary" data-crq-clear="${idx}">Clear</button>
+            </div>
+            <div class="crq-feedback" id="crq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      crqContainer.innerHTML = crqHtml;
+
+      crqContainer.addEventListener('click', (e) => {
+        const checkBtn = e.target.closest('[data-crq-check]');
+        const clearBtn = e.target.closest('[data-crq-clear]');
+        if (checkBtn) {
+          const idx = parseInt(checkBtn.dataset.crqCheck);
+          const textarea = document.getElementById(`crq-ta-${idx}`);
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          const answer = textarea.value.trim().toLowerCase();
+          const crq = crqs[idx];
+          if (answer.length < 10) {
+            feedback.textContent = '⚠️ Please write a more complete answer (at least a sentence or two).';
+            feedback.className = 'crq-feedback show partial';
+            return;
+          }
+          const matched = crq.keywords.filter(kw => answer.includes(kw));
+          const ratio = matched.length / crq.keywords.length;
+          if (ratio >= 0.35) {
+            feedback.innerHTML = `✅ <strong>Good answer!</strong> You covered key ideas.<br><br><em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show good';
+          } else {
+            feedback.innerHTML = `📝 <strong>Partially correct.</strong> You mentioned some ideas. Try to include more key concepts.<br><br><em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show partial';
+          }
+        }
+        if (clearBtn) {
+          const idx = parseInt(clearBtn.dataset.crqClear);
+          document.getElementById(`crq-ta-${idx}`).value = '';
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          feedback.className = 'crq-feedback';
+          feedback.textContent = '';
+        }
+      });
+
+      // ================= RENDER ERQ =================
+      const erqContainer = document.getElementById('erqContainer');
+      erqContainer.innerHTML = `
+        <div class="erq-item">
+          <div class="erq-marks">${erq.marks}</div>
+          <div class="erq-question">${erq.q}</div>
+          <textarea class="erq-textarea" id="erq-ta" placeholder="Write your detailed answer here. Propose four strategies and link each to a dimension of individual difference..."></textarea>
+          <div class="erq-actions">
+            <button class="btn btn-primary" id="erqCheck">Check Answer</button>
+            <button class="btn btn-secondary" id="erqClear">Clear</button>
+          </div>
+          <div class="erq-feedback" id="erq-fb"></div>
+        </div>
+      `;
+
+      document.getElementById('erqCheck').addEventListener('click', () => {
+        const ta = document.getElementById('erq-ta');
+        const fb = document.getElementById('erq-fb');
+        const answer = ta.value.trim().toLowerCase();
+        if (answer.length < 50) {
+          fb.textContent = '⚠️ Please write a more detailed answer. Propose four strategies and link each to a dimension of individual difference.';
+          fb.className = 'erq-feedback show partial';
+          return;
+        }
+        const keywords = ['learning pace', 'self-efficacy', 'motivation', 'socioeconomic', 'ses', 'gifted', 'enrichment', 'culture', 'language', 'differentiated', 'tiered', 'scaffolding', 'mastery'];
+        const found = keywords.filter(k => answer.includes(k));
+        if (found.length >= 3) {
+          fb.innerHTML = `✅ <strong>Excellent effort!</strong> You linked strategies to specific dimensions of individual differences. Compare your answer with the model below.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show model';
+        } else if (found.length >= 1) {
+          fb.innerHTML = `📝 <strong>Good start!</strong> Try to explicitly link each of the four strategies to a specific dimension of individual difference.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        } else {
+          fb.innerHTML = `⚠️ Make sure to propose four strategies and identify the dimension of individual difference each one addresses.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        }
+      });
+
+      document.getElementById('erqClear').addEventListener('click', () => {
+        document.getElementById('erq-ta').value = '';
+        const fb = document.getElementById('erq-fb');
+        fb.className = 'erq-feedback';
+        fb.textContent = '';
+      });
+
+      // ================= QUIZ TABS =================
+      const tabs = document.querySelectorAll('.quiz-tab');
+      const panels = document.querySelectorAll('.quiz-panel');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          panels.forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(tab.dataset.panel).classList.add('active');
+        });
+      });
+
+      // Initial count
+      countDisplay.textContent = allSearchables.length + ' items';
+    })();
+  </script>
+</body>
+</html>

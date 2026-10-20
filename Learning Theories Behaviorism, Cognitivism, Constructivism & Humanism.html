@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learning Theories · Behaviorism, Cognitivism, Constructivism &amp; Humanism</title>
+  <style>
+    /* ---------- GLOBAL ---------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+      color: #1e2b3c;
+    }
+    .main-wrapper { max-width: 1100px; width: 100%; }
+
+    /* ---------- HEADER ---------- */
+    .header-card {
+      background: white;
+      border-radius: 2rem 2rem 1.5rem 1.5rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      padding: 2rem 2rem 1.5rem 2rem;
+      margin-bottom: 1.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: transform 0.2s;
+    }
+    .header-card:hover { transform: scale(1.002); }
+    .badge {
+      display: inline-block;
+      background: #2a4b7c;
+      color: #f0f7ff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+      line-height: 1.25;
+    }
+    .subhead {
+      font-size: 1.05rem;
+      color: #2f5277;
+      font-weight: 400;
+      border-left: 5px solid #8bb3e0;
+      padding-left: 1.2rem;
+      margin: 1rem 0 0.2rem 0;
+      font-style: italic;
+    }
+    .intro-text {
+      background: #e6f0fc;
+      padding: 1rem 1.4rem;
+      border-radius: 1.2rem;
+      margin-top: 1.4rem;
+      font-size: 0.98rem;
+      color: #1d3a5c;
+      border-left: 5px solid #3b6ea5;
+    }
+
+    /* ---------- SECTION TITLE ---------- */
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #0e2a47;
+      margin: 2.2rem 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section-title .line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #8bb3e0, transparent);
+      border-radius: 2px;
+    }
+
+    /* ---------- OVERVIEW CARDS (4 quick cards) ---------- */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .overview-card {
+      background: white;
+      border-radius: 1.3rem;
+      padding: 1.2rem 1.2rem 1.1rem 1.2rem;
+      box-shadow: 0 6px 14px -8px rgba(20, 40, 70, 0.14);
+      border: 1px solid #e3ecf7;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .overview-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      opacity: 0.8;
+    }
+    .overview-card.behaviorism::before { background: linear-gradient(180deg, #b03a5b, #e88bb0); }
+    .overview-card.cognitivism::before { background: linear-gradient(180deg, #2a4b7c, #5a8ec9); }
+    .overview-card.constructivism::before { background: linear-gradient(180deg, #2e7d4f, #81c784); }
+    .overview-card.humanism::before { background: linear-gradient(180deg, #6a4c9c, #b39ddb); }
+    .overview-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 20px -12px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .overview-icon { font-size: 1.6rem; margin-bottom: 0.4rem; }
+    .overview-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #0e2a47;
+      margin-bottom: 0.3rem;
+    }
+    .overview-desc {
+      font-size: 0.83rem;
+      color: #274e73;
+      line-height: 1.5;
+    }
+
+    /* ---------- THEORY DETAIL CARDS ---------- */
+    .theory-card {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.5rem 1.5rem 1.4rem 1.5rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      transition: all 0.25s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1.3rem;
+    }
+    .theory-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 7px;
+      opacity: 0.9;
+      transition: height 0.2s;
+    }
+    .theory-card.behaviorism::before { background: linear-gradient(90deg, #b03a5b, #e88bb0); }
+    .theory-card.cognitivism::before { background: linear-gradient(90deg, #2a4b7c, #5a8ec9); }
+    .theory-card.constructivism::before { background: linear-gradient(90deg, #2e7d4f, #81c784); }
+    .theory-card.humanism::before { background: linear-gradient(90deg, #6a4c9c, #b39ddb); }
+    .theory-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 22px 28px -16px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .theory-card:hover::before { height: 12px; }
+    .theory-header {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-bottom: 0.8rem;
+    }
+    .theory-icon {
+      font-size: 2rem;
+      line-height: 1;
+      background: #e9f0fa;
+      width: 56px;
+      height: 56px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #1b3c61;
+      transition: background 0.2s;
+    }
+    .theory-card:hover .theory-icon { background: #d3e3f8; }
+    .theory-name {
+      font-weight: 700;
+      font-size: 1.35rem;
+      color: #0e2a47;
+      line-height: 1.25;
+    }
+    .theory-core {
+      font-size: 0.88rem;
+      color: #274e73;
+      background: #f9fcff;
+      border-radius: 0.8rem;
+      padding: 0.65rem 0.95rem;
+      border-left: 4px solid #3b7bb5;
+      margin-bottom: 0.9rem;
+      line-height: 1.55;
+    }
+    .theory-core strong { color: #0e2a47; }
+    .theory-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+      margin-bottom: 0.8rem;
+    }
+    .theory-block {
+      background: #f9fcff;
+      border-radius: 0.9rem;
+      padding: 0.8rem 0.95rem;
+      border: 1px solid #e3ecf7;
+    }
+    .theory-block.full { grid-column: 1 / -1; }
+    .theory-block-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #1a4b7a;
+      background: #d7e6fa;
+      padding: 0.1rem 0.7rem;
+      border-radius: 30px;
+      display: inline-block;
+      margin-bottom: 0.4rem;
+    }
+    .theory-block-title.green { color: #1b6e3e; background: #d4f0e0; }
+    .theory-block-title.amber { color: #7a4e14; background: #fdeed8; }
+    .theory-block-title.pink { color: #8a3a55; background: #fce4ec; }
+    .theory-block-title.purple { color: #4a2e7a; background: #e8ddf7; }
+    .theory-block-text {
+      font-size: 0.86rem;
+      color: #274e73;
+      line-height: 1.5;
+    }
+    .theory-block-text strong { color: #0e2a47; }
+    .theory-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-top: 0.3rem;
+    }
+    .theory-tag {
+      background: #eef4fb;
+      color: #1b4670;
+      font-size: 0.73rem;
+      font-weight: 600;
+      padding: 0.16rem 0.65rem;
+      border-radius: 30px;
+      border: 1px solid #d0e0f0;
+    }
+    .strength-limit {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.7rem;
+      margin-top: 0.2rem;
+    }
+    .strength-box {
+      background: #f0faf4;
+      border-radius: 0.8rem;
+      padding: 0.7rem 0.9rem;
+      border-left: 4px solid #2e9b5e;
+      font-size: 0.83rem;
+      color: #1b4a33;
+      line-height: 1.5;
+    }
+    .strength-box strong { color: #1b5e35; }
+    .limit-box {
+      background: #fdf6f6;
+      border-radius: 0.8rem;
+      padding: 0.7rem 0.9rem;
+      border-left: 4px solid #d45a5a;
+      font-size: 0.83rem;
+      color: #7a2a2a;
+      line-height: 1.5;
+    }
+    .limit-box strong { color: #5a1a1a; }
+
+    /* ---------- COMPARISON TABLE ---------- */
+    .matrix-wrapper {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.4rem 1.4rem 1.2rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      border: 1px solid #e3ecf7;
+      overflow-x: auto;
+      margin-bottom: 0.5rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.82rem;
+      min-width: 700px;
+    }
+    thead th {
+      text-align: left;
+      padding: 0.75rem 0.7rem;
+      font-weight: 700;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      color: white;
+      background: #0e2a47;
+    }
+    thead th:first-child {
+      border-radius: 0.9rem 0 0 0;
+      background: #2a4b7c;
+    }
+    thead th:nth-child(2) { background: #b03a5b; }
+    thead th:nth-child(3) { background: #2a4b7c; }
+    thead th:nth-child(4) { background: #2e7d4f; }
+    thead th:last-child {
+      border-radius: 0 0.9rem 0 0;
+      background: #6a4c9c;
+    }
+    tbody td {
+      padding: 0.6rem 0.7rem;
+      border-bottom: 1px solid #e8f0f9;
+      color: #1e3c5a;
+      vertical-align: top;
+      line-height: 1.45;
+      font-size: 0.81rem;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: #f6faff; }
+    tbody td:first-child {
+      font-weight: 700;
+      color: #0e2a47;
+      background: #f3f8fd;
+      white-space: nowrap;
+    }
+    tbody tr:hover td:first-child { background: #eaf3fc; }
+
+    /* ---------- RELATIONSHIP CARDS ---------- */
+    .relation-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    .relation-card {
+      background: white;
+      border-radius: 1.2rem;
+      padding: 1rem 1.2rem;
+      box-shadow: 0 5px 12px -7px rgba(20, 40, 70, 0.14);
+      border: 1px solid #e3ecf7;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .relation-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, #3f7cb0, #8bb3e0);
+      opacity: 0.7;
+    }
+    .relation-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 20px -12px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .relation-name {
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: #0e2a47;
+      margin-bottom: 0.3rem;
+    }
+    .relation-desc {
+      font-size: 0.85rem;
+      color: #274e73;
+      line-height: 1.5;
+    }
+
+    /* ---------- TAKEAWAY ---------- */
+    .takeaway-card {
+      background: #0e2a47;
+      color: white;
+      border-radius: 1.6rem;
+      padding: 1.6rem 2rem;
+      margin: 1.2rem 0 0.5rem 0;
+      font-size: 0.98rem;
+      line-height: 1.7;
+      box-shadow: 0 14px 26px -12px #0e2a47;
+      border-left: 6px solid #8bb3e0;
+    }
+    .takeaway-card strong { color: #b8d4f0; }
+    .takeaway-card ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+    }
+    .takeaway-card li {
+      padding-left: 1.5rem;
+      position: relative;
+      font-size: 0.92rem;
+      color: #d4e6fa;
+      line-height: 1.55;
+    }
+    .takeaway-card li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #8bb3e0;
+      font-weight: 700;
+    }
+
+    /* ---------- ONE-LINE SUMMARY ---------- */
+    .oneliner-card {
+      background: linear-gradient(135deg, #2e7d4f 0%, #3fa86a 100%);
+      color: white;
+      border-radius: 1.6rem;
+      padding: 1.6rem 2rem;
+      margin: 1.2rem 0 0.5rem 0;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      box-shadow: 0 14px 26px -12px #2e7d4f;
+      border-left: 6px solid #b8e0c8;
+      text-align: center;
+      font-weight: 500;
+    }
+    .oneliner-card strong { color: #d4f0e0; }
+
+    /* ---------- SEARCH & COUNT ---------- */
+    .filter-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 60px;
+      box-shadow: 0 8px 18px -8px rgba(0, 27, 45, 0.1);
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 40px;
+      padding: 0.3rem 0.3rem 0.3rem 1.2rem;
+      flex: 2;
+      min-width: 240px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      border: 1px solid #ccdcee;
+    }
+    .search-box span { font-size: 1.1rem; margin-right: 0.5rem; color: #4e6b8a; }
+    .search-box input {
+      border: none;
+      padding: 0.7rem 0.2rem;
+      width: 100%;
+      font-size: 0.95rem;
+      outline: none;
+      background: transparent;
+      color: #0c253b;
+    }
+    .search-box input::placeholder { color: #879eb6; font-weight: 300; }
+    .count-pill {
+      background: #0e2a47;
+      color: white;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ---------- QUIZ SECTION ---------- */
+    .quiz-section { margin-top: 2.5rem; }
+    .quiz-header {
+      background: #0e2a47;
+      border-radius: 2rem 2rem 0 0;
+      padding: 1.5rem 2rem;
+      color: white;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .quiz-header h2 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.3px; }
+    .quiz-header .quiz-badge {
+      background: #8bb3e0;
+      color: #0e2a47;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .quiz-body {
+      background: white;
+      border-radius: 0 0 2rem 2rem;
+      padding: 2rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      border: 1px solid #e3ecf7;
+      border-top: none;
+    }
+    .quiz-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #e3ecf7;
+      padding-bottom: 1rem;
+    }
+    .quiz-tab {
+      background: #f0f5fd;
+      border: 1px solid #d0e0f0;
+      color: #1b4670;
+      padding: 0.5rem 1.3rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .quiz-tab:hover { background: #e0ecfc; border-color: #a0c0e0; }
+    .quiz-tab.active { background: #0e2a47; color: white; border-color: #0e2a47; }
+    .quiz-panel { display: none; }
+    .quiz-panel.active { display: block; }
+    .section-label {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.2rem;
+    }
+
+    /* MCQ */
+    .mcq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+      transition: background 0.2s;
+    }
+    .mcq-item:hover { background: #f0f7fe; }
+    .mcq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.8rem;
+      line-height: 1.5;
+    }
+    .mcq-options { display: flex; flex-direction: column; gap: 0.5rem; }
+    .mcq-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 0.8rem;
+      background: white;
+      border: 1.5px solid #d9e8fc;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+    }
+    .mcq-option:hover { border-color: #8bb3e0; background: #eef6ff; }
+    .mcq-option.selected { border-color: #3b7bb5; background: #e4f0fe; font-weight: 500; }
+    .mcq-option.correct { border-color: #2e9b5e; background: #e6f7ee; font-weight: 600; }
+    .mcq-option.incorrect { border-color: #d45a5a; background: #fdeaea; font-weight: 500; }
+    .mcq-option .option-letter {
+      font-weight: 700;
+      color: #2a4b7c;
+      min-width: 1.4rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .mcq-option.correct .option-letter { color: #1b7a44; }
+    .mcq-option.incorrect .option-letter { color: #b03030; }
+    .mcq-feedback {
+      margin-top: 0.7rem;
+      font-size: 0.88rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: 0.8rem;
+      display: none;
+      font-weight: 500;
+    }
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.correct-fb {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .mcq-feedback.incorrect-fb {
+      background: #fdeaea;
+      color: #9e2a2a;
+      border-left: 4px solid #d45a5a;
+    }
+
+    /* CRQ / ERQ shared */
+    .crq-item, .erq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+    }
+    .erq-item { border: 2px solid #8bb3e0; background: #f5faff; }
+    .crq-question, .erq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+    .erq-question { font-size: 1.05rem; font-weight: 700; }
+    .erq-marks {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      margin-bottom: 0.8rem;
+    }
+    .crq-hint {
+      font-size: 0.85rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-bottom: 0.7rem;
+    }
+    .crq-textarea, .erq-textarea {
+      width: 100%;
+      border: 1.5px solid #d9e8fc;
+      border-radius: 0.9rem;
+      padding: 0.8rem 1rem;
+      font-family: inherit;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+      resize: vertical;
+      transition: border-color 0.2s;
+      background: white;
+    }
+    .crq-textarea { min-height: 90px; }
+    .erq-textarea { min-height: 160px; }
+    .crq-textarea:focus, .erq-textarea:focus {
+      outline: none;
+      border-color: #3b7bb5;
+      box-shadow: 0 0 0 3px rgba(59, 123, 181, 0.12);
+    }
+    .crq-actions, .erq-actions {
+      display: flex;
+      gap: 0.7rem;
+      margin-top: 0.7rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 0.55rem 1.4rem;
+      border-radius: 40px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      font-family: inherit;
+    }
+    .btn-primary { background: #0e2a47; color: white; }
+    .btn-primary:hover { background: #1a4170; transform: translateY(-1px); }
+    .btn-secondary { background: #e9f0fa; color: #1b4670; border: 1px solid #c0d8f0; }
+    .btn-secondary:hover { background: #d8e6f8; }
+    .crq-feedback, .erq-feedback {
+      margin-top: 0.8rem;
+      padding: 0.8rem 1rem;
+      border-radius: 0.9rem;
+      font-size: 0.9rem;
+      display: none;
+      line-height: 1.6;
+    }
+    .crq-feedback.show, .erq-feedback.show { display: block; }
+    .crq-feedback.good, .erq-feedback.good {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .crq-feedback.partial, .erq-feedback.partial {
+      background: #fff8e6;
+      color: #8a6d1f;
+      border-left: 4px solid #e0a800;
+    }
+    .erq-feedback.model {
+      background: #e6f0fc;
+      color: #1a3e62;
+      border-left: 5px solid #3b7bb5;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 700px) {
+      .theory-grid-2 { grid-template-columns: 1fr; }
+      .strength-limit { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .header-card { padding: 1.5rem 1.2rem; }
+      h1 { font-size: 1.6rem; }
+      .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: 2rem;
+        padding: 1rem;
+      }
+      .search-box { width: 100%; }
+      .count-pill { text-align: center; padding: 0.5rem; }
+      .quiz-body { padding: 1.2rem; }
+      .quiz-header { padding: 1.2rem; }
+      .quiz-header h2 { font-size: 1.3rem; }
+      .mcq-item, .crq-item, .erq-item { padding: 1rem; }
+      .quiz-tab { font-size: 0.8rem; padding: 0.4rem 1rem; }
+      .takeaway-card { padding: 1.3rem 1.2rem; }
+      .oneliner-card { padding: 1.3rem 1.2rem; }
+    }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #dfe9f5; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: #94b0d1; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6d8fb4; }
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem 1rem;
+      background: #ffffffc9;
+      border-radius: 2rem;
+      font-size: 1.1rem;
+      color: #4b6888;
+      border: 2px dashed #b8cee8;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-wrapper">
+
+    <!-- HEADER -->
+    <div class="header-card">
+      <div class="badge">🧠 Learning Theories</div>
+      <h1>Learning Theories: Behaviorism, Cognitivism, Constructivism &amp; Humanism</h1>
+      <div class="subhead">Four lenses on how learning happens — and how each shapes the classroom</div>
+      <div class="intro-text">
+        <strong>💡 Big picture:</strong> No single theory is sufficient. Good teaching draws on multiple perspectives depending on the learner, content, and context. <em>Behaviorism shapes behavior, cognitivism explains thinking, constructivism builds meaning, and humanism nurtures the whole person.</em>
+      </div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="filter-section">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="Search theories, theorists, principles, strategies..." autocomplete="off">
+      </div>
+      <div class="count-pill" id="countDisplay">30+ items</div>
+    </div>
+
+    <!-- OVERVIEW -->
+    <div class="section-title">
+      🎯 Overview — Core Idea in One Sentence
+      <span class="line"></span>
+    </div>
+
+    <div class="overview-grid" id="overviewGrid">
+      <div class="overview-card behaviorism" data-searchable="behaviorism observable behavior environmental stimuli reinforcement pavlov watson thorndike skinner">
+        <div class="overview-icon">🔔</div>
+        <div class="overview-name">Behaviorism</div>
+        <div class="overview-desc">Learning is a change in <strong>observable behavior</strong> caused by environmental stimuli and reinforcement.</div>
+      </div>
+      <div class="overview-card cognitivism" data-searchable="cognitivism mental processes associations information received organized stored retrieved piaget ausubel bruner chomsky">
+        <div class="overview-icon">💾</div>
+        <div class="overview-name">Cognitivism</div>
+        <div class="overview-desc">Learning is a change in <strong>mental processes and associations</strong> — how information is received, organized, stored, and retrieved.</div>
+      </div>
+      <div class="overview-card constructivism" data-searchable="constructivism actively construct knowledge prior experience social interaction piaget vygotsky bruner">
+        <div class="overview-icon">🏗️</div>
+        <div class="overview-name">Constructivism</div>
+        <div class="overview-desc">Learners <strong>actively construct knowledge</strong> by connecting new information to prior experience and through social interaction.</div>
+      </div>
+      <div class="overview-card humanism" data-searchable="humanism holistic personal self-actualization growth potential maslow rogers">
+        <div class="overview-icon">💖</div>
+        <div class="overview-name">Humanism</div>
+        <div class="overview-desc">Learning is a <strong>holistic, personal process</strong> aimed at self-actualization, growth, and fulfilling individual potential.</div>
+      </div>
+    </div>
+
+    <!-- THEORY 1: BEHAVIORISM -->
+    <div class="section-title">
+      🔔 1. Behaviorism
+      <span class="line"></span>
+    </div>
+
+    <div class="theory-card behaviorism" data-searchable="behaviorism observable behavior pavlov watson thorndike skinner classical conditioning operant conditioning reinforcement punishment shaping extinction passive responder director reinforcer direct instruction drills repetition programmed instruction behavior contracts token systems praise rewards clear rules immediate feedback step-by-step behavior management strengths clear measurable basic skills limitations ignores mental processes creativity deeper understanding rote learning">
+      <div class="theory-header">
+        <div class="theory-icon">🔔</div>
+        <div class="theory-name">Behaviorism</div>
+      </div>
+      <div class="theory-core">
+        <strong>Core Premise:</strong> Learning is a relatively permanent change in <strong>observable behavior</strong> produced by experience. Mental processes are not the focus.
+      </div>
+      <div class="theory-grid-2">
+        <div class="theory-block">
+          <div class="theory-block-title pink">Key Theorists</div>
+          <div class="theory-block-text">Ivan Pavlov, John B. Watson, Edward Thorndike, B.F. Skinner</div>
+          <div class="theory-tags">
+            <span class="theory-tag">Pavlov</span>
+            <span class="theory-tag">Watson</span>
+            <span class="theory-tag">Thorndike</span>
+            <span class="theory-tag">Skinner</span>
+          </div>
+        </div>
+        <div class="theory-block">
+          <div class="theory-block-title">View of Learning</div>
+          <div class="theory-block-text">Passive absorption; learning occurs through <strong>stimulus–response associations</strong>, repetition, and reinforcement.</div>
+        </div>
+        <div class="theory-block">
+          <div class="theory-block-title amber">Key Principles</div>
+          <div class="theory-block-text">Classical conditioning, operant conditioning, reinforcement (positive/negative), punishment, shaping, extinction.</div>
+        </div>
+        <div class="theory-block">
+          <div class="theory-block-title green">Roles</div>
+          <div class="theory-block-text"><strong>Learner:</strong> Passive responder<br><strong>Teacher:</strong> Director, controller, reinforcer</div>
+        </div>
+        <div class="theory-block full">
+          <div class="theory-block-title">Instructional Strategies &amp; Classroom Application</div>
+          <div class="theory-block-text">Direct instruction, drills, repetition, programmed instruction, behavior contracts, token systems. <em>In class:</em> praise and rewards for desired behavior, clear rules, immediate feedback, step-by-step tasks, behavior management systems.</div>
+        </div>
+      </div>
+      <div class="strength-limit">
+        <div class="strength-box"><strong>✔ Strength:</strong> Clear, measurable, effective for basic skills and behavior management.</div>
+        <div class="limit-box"><strong>⚠ Limitation:</strong> Ignores mental processes, creativity, and deeper understanding; can encourage rote learning.</div>
+      </div>
+    </div>
+
+    <!-- THEORY 2: COGNITIVISM -->
+    <div class="section-title">
+      💾 2. Cognitivism
+      <span class="line"></span>
+    </div>
+
+    <div class="theory-card cognitivism" data-searchable="cognitivism mental associations cognitive structures piaget ausubel bruner chomsky encoding storage retrieval schemas information processing schema theory meaningful learning advance organizers metacognition cognitive development stages active information processor guide organizer explainer concept maps chunking structured problem-solving connecting prior knowledge study strategies cognitive overload outlines graphic organizers strengths complex learning memory problem-solving understanding limitations underestimate social emotional harder observe">
+      <div class="theory-header">
+        <div class="theory-icon">💾</div>
+        <div class="theory-name">Cognitivism</div>
+      </div>
+      <div class="theory-core">
+        <strong>Core Premise:</strong> Learning is a change in <strong>mental associations and cognitive structures</strong>. Learners actively process information rather than merely responding to stimuli.
+      </div>
+      <div class="theory-grid-2">
+        <div class="theory-block">
+          <div class="theory-block-title">Key Theorists</div>
+          <div class="theory-block-text">Jean Piaget, David Ausubel, Jerome Bruner, Noam Chomsky</div>
+          <div class="theory-tags">
+            <span class="theory-tag">Piaget</span>
+            <span class="theory-tag">Ausubel</span>
+            <span class="theory-tag">Bruner</span>
+            <span class="theory-tag">Chomsky</span>
+          </div>
+        </div>
+        <div class="theory-block">
+          <div class="theory-block-title">View of Learning</div>
+          <div class="theory-block-text">Active internal processing: <strong>encoding, storage, retrieval</strong>; new knowledge is linked to existing schemas.</div>
+        </div>
+        <div class="theory-block">
+          <div class="theory-block-title amber">Key Principles</div>
+          <div class="theory-block-text">Information processing, schema theory, meaningful learning, advance organizers, metacognition, cognitive development stages.</div>
+        </div>
+        <div class="theory-block">
+          <div class="theory-block-title green">Roles</div>
+          <div class="theory-block-text"><strong>Learner:</strong> Active information processor<br><strong>Teacher:</strong> Guide, organizer, explainer</div>
+        </div>
+        <div class="theory-block full">
+          <div class="theory-block-title">Instructional Strategies &amp; Classroom Application</div>
+          <div class="theory-block-text">Advance organizers, concept maps, chunking, metacognitive strategies, structured problem-solving, meaningful learning activities. <em>In class:</em> connecting new content to prior knowledge, teaching study strategies, reducing cognitive overload, using outlines and graphic organizers.</div>
+        </div>
+      </div>
+      <div class="strength-limit">
+        <div class="strength-box"><strong>✔ Strength:</strong> Explains complex learning, memory, and problem-solving; emphasizes understanding.</div>
+        <div class="limit-box"><strong>⚠ Limitation:</strong> Can underestimate social and emotional factors; mental processes are harder to observe.</div>
+      </div>
+    </div>
+
+    <!-- THEORY 3: CONSTRUCTIVISM -->
+    <div class="section-title">
+      🏗️ 3. Constructivism
+      <span class="line"></span>
+    </div>
+
+    <div class="theory-card constructivism" data-searchable="constructivism active construct knowledge experience reflection interaction piaget vygotsky bruner cognitive constructivism social constructivism assimilation accommodation zpd scaffolding contextual learning active constructor facilitator scaffolder co-learner inquiry-based problem-based cooperative discovery hands-on projects group discussions real-world problems collaborative reflection strengths deep understanding critical thinking autonomy collaboration limitations time-consuming prior knowledge assessment complex">
+      <div class="theory-header">
+        <div class="theory-icon">🏗️</div>
+        <div class="theory-name">Constructivism</div>
+      </div>
+      <div class="theory-core">
+        <strong>Core Premise:</strong> Learners <strong>actively construct their own knowledge</strong> through experience, reflection, and interaction. Knowledge is not passively received; it is built upon existing schemas.
+      </div>
+      <div class="theory-grid-2">
+        <div class="theory-block">
+          <div class="theory-block-title green">Key Theorists</div>
+          <div class="theory-block-text">Jean Piaget (cognitive constructivism), Lev Vygotsky (social constructivism), Jerome Bruner</div>
+          <div class="theory-tags">
+            <span class="theory-tag">Piaget</span>
+            <span class="theory-tag">Vygotsky</span>
+            <span class="theory-tag">Bruner</span>
+          </div>
+        </div>
+        <div class="theory-block">
+          <div class="theory-block-title">View of Learning</div>
+          <div class="theory-block-text"><strong>Active meaning-making</strong>; learners interpret new information through prior knowledge and social context.</div>
+        </div>
+        <div class="theory-block">
+          <div class="theory-block-title amber">Key Principles</div>
+          <div class="theory-block-text">Active construction, assimilation and accommodation, <strong>ZPD</strong>, scaffolding, social interaction, contextual learning.</div>
+        </div>
+        <div class="theory-block">
+          <div class="theory-block-title green">Roles</div>
+          <div class="theory-block-text"><strong>Learner:</strong> Active constructor<br><strong>Teacher:</strong> Facilitator, scaffolder, co-learner</div>
+        </div>
+        <div class="theory-block full">
+          <div class="theory-block-title">Instructional Strategies &amp; Classroom Application</div>
+          <div class="theory-block-text">Inquiry-based learning, problem-based learning, cooperative learning, discovery learning, hands-on activities, projects. <em>In class:</em> group discussions, real-world problems, collaborative projects, teacher scaffolding, reflection activities.</div>
+        </div>
+      </div>
+      <div class="strength-limit">
+        <div class="strength-box"><strong>✔ Strength:</strong> Promotes deep understanding, critical thinking, autonomy, and collaboration.</div>
+        <div class="limit-box"><strong>⚠ Limitation:</strong> Can be time-consuming; may disadvantage learners lacking prior knowledge; assessment can be complex.</div>
+      </div>
+      <div class="theory-core" style="margin-top:0.8rem;margin-bottom:0;">
+        <strong>🔑 Key Distinction:</strong> Cognitive constructivism (Piaget) focuses on <em>individual</em> meaning-making; social constructivism (Vygotsky) emphasizes <em>culture, language, and guided social interaction</em>.
+      </div>
+    </div>
+
+    <!-- THEORY 4: HUMANISM -->
+    <div class="section-title">
+      💖 4. Humanism
+      <span class="line"></span>
+    </div>
+
+    <div class="theory-card humanism" data-searchable="humanism holistic whole person intellectual emotional social personal growth self-actualization maslow rogers hierarchy of needs self-concept self-direction unconditional positive regard empathy student-centered self-directed facilitator empathizer supporter choice autonomy cooperative reflective supportive climate meeting basic needs trust personal growth safe strengths motivation well-being self-esteem relationships limitations less structured hard measure exam-focused">
+      <div class="theory-header">
+        <div class="theory-icon">💖</div>
+        <div class="theory-name">Humanism</div>
+      </div>
+      <div class="theory-core">
+        <strong>Core Premise:</strong> Learning is a <strong>holistic process</strong> involving the whole person — intellectual, emotional, social, and personal growth. The goal is <strong>self-actualization</strong>.
+      </div>
+      <div class="theory-grid-2">
+        <div class="theory-block">
+          <div class="theory-block-title purple">Key Theorists</div>
+          <div class="theory-block-text">Abraham Maslow, Carl Rogers</div>
+          <div class="theory-tags">
+            <span class="theory-tag">Maslow</span>
+            <span class="theory-tag">Rogers</span>
+          </div>
+        </div>
+        <div class="theory-block">
+          <div class="theory-block-title">View of Learning</div>
+          <div class="theory-block-text">Personal, <strong>self-directed</strong>, and meaningful; learning is most effective when personally relevant and emotionally supportive.</div>
+        </div>
+        <div class="theory-block">
+          <div class="theory-block-title amber">Key Principles</div>
+          <div class="theory-block-text">Hierarchy of needs, self-concept, self-direction, unconditional positive regard, empathy, student-centered learning.</div>
+        </div>
+        <div class="theory-block">
+          <div class="theory-block-title green">Roles</div>
+          <div class="theory-block-text"><strong>Learner:</strong> Self-directed, responsible for growth<br><strong>Teacher:</strong> Facilitator, empathizer, supporter</div>
+        </div>
+        <div class="theory-block full">
+          <div class="theory-block-title">Instructional Strategies &amp; Classroom Application</div>
+          <div class="theory-block-text">Student-centered teaching, choice and autonomy, cooperative learning, reflective activities, supportive classroom climate. <em>In class:</em> meeting basic needs, building trust and empathy, offering choices, focusing on personal growth, creating safe learning environments.</div>
+        </div>
+      </div>
+      <div class="strength-limit">
+        <div class="strength-box"><strong>✔ Strength:</strong> Supports motivation, well-being, self-esteem, and positive teacher–student relationships.</div>
+        <div class="limit-box"><strong>⚠ Limitation:</strong> Less structured; difficult to measure outcomes; may be challenging in large or exam-focused classes.</div>
+      </div>
+    </div>
+
+    <!-- COMPARISON TABLE -->
+    <div class="section-title">
+      📊 Quick Comparison Table
+      <span class="line"></span>
+    </div>
+
+    <div class="matrix-wrapper" data-searchable="comparison table learning is learner role teacher role focus key strategy main strength main limitation behaviorism cognitivism constructivism humanism">
+      <table>
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Behaviorism</th>
+            <th>Cognitivism</th>
+            <th>Constructivism</th>
+            <th>Humanism</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Learning is…</td><td>Change in observable behavior</td><td>Change in mental processes</td><td>Active construction of knowledge</td><td>Holistic personal growth</td></tr>
+          <tr><td>Learner role</td><td>Passive responder</td><td>Active processor</td><td>Active constructor</td><td>Self-directed person</td></tr>
+          <tr><td>Teacher role</td><td>Director/reinforcer</td><td>Guide/organizer</td><td>Facilitator/scaffolder</td><td>Facilitator/empathizer</td></tr>
+          <tr><td>Focus</td><td>External behavior</td><td>Internal cognition</td><td>Meaning-making &amp; social context</td><td>Whole person &amp; self-actualization</td></tr>
+          <tr><td>Key Strategy</td><td>Reinforcement, drills</td><td>Organizers, metacognition</td><td>Inquiry, PBL, collaboration</td><td>Choice, empathy, student-centeredness</td></tr>
+          <tr><td>Main Strength</td><td>Clear &amp; measurable</td><td>Explains memory &amp; understanding</td><td>Deep, authentic learning</td><td>Motivation &amp; well-being</td></tr>
+          <tr><td>Main Limitation</td><td>Ignores mental processes</td><td>Underplays social/emotional factors</td><td>Time-consuming; complex assessment</td><td>Less structured; hard to measure</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- RELATIONSHIPS -->
+    <div class="section-title">
+      🔗 How the Theories Relate
+      <span class="line"></span>
+    </div>
+
+    <div class="relation-grid" id="relationGrid">
+      <div class="relation-card" data-searchable="behaviorism cognitivism reaction neglect mental processes">
+        <div class="relation-name">Behaviorism → Cognitivism</div>
+        <div class="relation-desc">Cognitivism emerged as a reaction to behaviorism's neglect of mental processes.</div>
+      </div>
+      <div class="relation-card" data-searchable="cognitivism constructivism extends active meaning-making social context">
+        <div class="relation-name">Cognitivism → Constructivism</div>
+        <div class="relation-desc">Constructivism extends cognitivism by emphasizing active meaning-making and social context.</div>
+      </div>
+      <div class="relation-card" data-searchable="humanism overlaps constructivism student-centered learner experience emotional growth self-actualization">
+        <div class="relation-name">Humanism Overlaps Constructivism</div>
+        <div class="relation-desc">Both are student-centered and focus on the learner's experience, but humanism emphasizes emotional growth and self-actualization more strongly.</div>
+      </div>
+      <div class="relation-card" data-searchable="complementary integrate all four reinforcement routines cognitive strategies understanding constructivist deep learning humanistic supportive climate">
+        <div class="relation-name">They Are Complementary</div>
+        <div class="relation-desc">Effective teaching often integrates all four: reinforcement for routines, cognitive strategies for understanding, constructivist tasks for deep learning, and humanistic approaches for a supportive climate.</div>
+      </div>
+    </div>
+
+    <!-- KEY TAKEAWAYS -->
+    <div class="section-title">
+      🔑 Key Takeaways
+      <span class="line"></span>
+    </div>
+
+    <div class="takeaway-card" data-searchable="key takeaways behaviorism observable behavior change reinforcement cognitivism mental processing organization constructivism active knowledge construction experience interaction humanism personal growth self-actualization no single theory sufficient good teaching multiple perspectives">
+      <ul>
+        <li><strong>Behaviorism</strong> = learning as observable behavior change through reinforcement.</li>
+        <li><strong>Cognitivism</strong> = learning as mental processing and organization of information.</li>
+        <li><strong>Constructivism</strong> = learning as active knowledge construction through experience and interaction.</li>
+        <li><strong>Humanism</strong> = learning as personal growth and self-actualization.</li>
+        <li>No single theory is sufficient — good teaching draws on multiple perspectives depending on the learner, content, and context.</li>
+      </ul>
+    </div>
+
+    <!-- ONE-LINE SUMMARY -->
+    <div class="oneliner-card" data-searchable="one-line summary behaviorism shapes behavior cognitivism explains thinking constructivism builds meaning humanism nurtures whole person">
+      <strong>📌 One-line summary:</strong> Behaviorism shapes behavior, cognitivism explains thinking, constructivism builds meaning, and humanism nurtures the whole person.
+    </div>
+
+    <!-- ================= QUIZ SECTION ================= -->
+    <div class="quiz-section">
+      <div class="quiz-header">
+        <h2>📝 Practice Quiz</h2>
+        <span class="quiz-badge">Test Your Knowledge</span>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-tabs">
+          <button class="quiz-tab active" data-panel="mcqPanel">🔘 10 MCQs</button>
+          <button class="quiz-tab" data-panel="crqPanel">✍️ 4 CRQs</button>
+          <button class="quiz-tab" data-panel="erqPanel">📄 1 ERQ</button>
+        </div>
+
+        <div class="quiz-panel active" id="mcqPanel">
+          <span class="section-label">Multiple Choice Questions</span>
+          <div id="mcqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="crqPanel">
+          <span class="section-label">Constructed Response Questions</span>
+          <div id="crqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="erqPanel">
+          <span class="section-label">Extended Response Question (Situation-Based)</span>
+          <div id="erqContainer"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      // ================= SEARCH FILTER =================
+      const searchInput = document.getElementById('searchInput');
+      const countDisplay = document.getElementById('countDisplay');
+      const allSearchables = document.querySelectorAll('[data-searchable]');
+      const cardParents = new Map();
+      allSearchables.forEach(card => cardParents.set(card, card.parentNode));
+
+      function applySearch(query) {
+        const q = query.trim().toLowerCase();
+        let visibleCount = 0;
+        allSearchables.forEach(card => {
+          const searchText = (card.dataset.searchable || '').toLowerCase() + ' ' + card.textContent.toLowerCase();
+          const matches = q === '' || searchText.includes(q);
+          if (matches) {
+            visibleCount++;
+            if (!card.parentNode) cardParents.get(card).appendChild(card);
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        countDisplay.textContent = visibleCount + ' item' + (visibleCount !== 1 ? 's' : '');
+      }
+
+      let debounceTimer;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => applySearch(e.target.value), 180);
+      });
+      searchInput.addEventListener('search', (e) => { if (e.target.value === '') applySearch(''); });
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchInput.value !== '') { searchInput.value = ''; applySearch(''); }
+      });
+
+      // ================= QUIZ DATA =================
+      const mcqs = [
+        {
+          q: "Which theory defines learning as a change in observable behavior caused by environmental stimuli and reinforcement?",
+          options: ["Cognitivism", "Constructivism", "Behaviorism", "Humanism"],
+          correct: 2,
+          feedback: "Behaviorism focuses on observable behavior — learning is a change in behavior caused by stimuli and reinforcement."
+        },
+        {
+          q: "Which theorist is associated with operant conditioning?",
+          options: ["Pavlov", "Watson", "Skinner", "Thorndike"],
+          correct: 2,
+          feedback: "B.F. Skinner is associated with operant conditioning — reinforcement and punishment shape behavior."
+        },
+        {
+          q: "Cognitivism views learning primarily as:",
+          options: [
+            "A change in observable behavior",
+            "Active construction of knowledge",
+            "A change in mental processes and associations",
+            "Holistic personal growth"
+          ],
+          correct: 2,
+          feedback: "Cognitivism views learning as a change in mental processes and associations — information is received, organized, stored, and retrieved."
+        },
+        {
+          q: "The Zone of Proximal Development (ZPD) and scaffolding are associated with which theory?",
+          options: ["Behaviorism", "Cognitivism", "Constructivism", "Humanism"],
+          correct: 2,
+          feedback: "The ZPD and scaffolding are key concepts of Constructivism (specifically Vygotsky's social constructivism)."
+        },
+        {
+          q: "What is the learner's role in Constructivism?",
+          options: ["Passive responder", "Active processor", "Active constructor of knowledge", "Self-directed person"],
+          correct: 2,
+          feedback: "In Constructivism, the learner is an active constructor of knowledge — building understanding through experience and interaction."
+        },
+        {
+          q: "Which theory emphasizes self-actualization, unconditional positive regard, and the whole person?",
+          options: ["Behaviorism", "Cognitivism", "Constructivism", "Humanism"],
+          correct: 3,
+          feedback: "Humanism (Maslow, Rogers) emphasizes the whole person, self-actualization, and unconditional positive regard."
+        },
+        {
+          q: "What is a key limitation of Behaviorism?",
+          options: [
+            "It is difficult to measure",
+            "It ignores mental processes and deeper understanding",
+            "It is too student-centered",
+            "It requires too many resources"
+          ],
+          correct: 1,
+          feedback: "Behaviorism ignores mental processes, creativity, and deeper understanding — it can encourage rote learning."
+        },
+        {
+          q: "Which theory extended cognitivism by emphasizing active meaning-making and social context?",
+          options: ["Behaviorism", "Constructivism", "Humanism", "Psychoanalysis"],
+          correct: 1,
+          feedback: "Constructivism extends cognitivism by emphasizing active meaning-making and social context."
+        },
+        {
+          q: "In Humanism, what is the teacher's role?",
+          options: ["Director and reinforcer", "Guide and organizer", "Facilitator and empathizer", "Co-learner and scaffolder"],
+          correct: 2,
+          feedback: "In Humanism, the teacher is a facilitator and empathizer — supporting personal growth, not directing."
+        },
+        {
+          q: "Why does the notes say 'no single theory is sufficient'?",
+          options: [
+            "Because theories are all wrong",
+            "Because good teaching draws on multiple perspectives depending on learner, content, and context",
+            "Because only behaviorism is correct",
+            "Because theories cannot be combined"
+          ],
+          correct: 1,
+          feedback: "No single theory is sufficient — good teaching draws on multiple perspectives. Each theory offers a partial view of the complex process of learning."
+        }
+      ];
+
+      const crqs = [
+        {
+          q: "Compare Behaviorism and Cognitivism in terms of their view of learning, key theorists, and role of the learner.",
+          hint: "Behaviorism = observable behavior; Cognitivism = mental processes.",
+          keywords: ["behaviorism", "observable", "stimuli", "reinforcement", "pavlov", "skinner", "watson", "thorndike", "passive responder", "cognitivism", "mental", "associations", "encoding", "storage", "retrieval", "piaget", "ausubel", "bruner", "chomsky", "active processor"],
+          model: "Behaviorism views learning as a change in observable behavior caused by stimuli and reinforcement; its theorists include Pavlov, Watson, Thorndike, and Skinner; the learner is a passive responder. Cognitivism views learning as a change in mental processes and associations, focusing on encoding, storage, and retrieval; its theorists include Piaget, Ausubel, Bruner, and Chomsky; the learner is an active information processor."
+        },
+        {
+          q: "Explain the difference between cognitive constructivism (Piaget) and social constructivism (Vygotsky).",
+          hint: "Piaget = individual meaning-making; Vygotsky = social and cultural dimensions.",
+          keywords: ["cognitive constructivism", "piaget", "individual", "meaning-making", "assimilation", "accommodation", "social constructivism", "vygotsky", "social", "cultural", "language", "zpd", "scaffolding", "guided interaction"],
+          model: "Cognitive constructivism (Piaget) focuses on individual meaning-making — learners construct knowledge through assimilation and accommodation of new experiences into existing schemas. Social constructivism (Vygotsky) emphasizes social and cultural dimensions of learning — language, collaboration, guided interaction, the Zone of Proximal Development (ZPD), and scaffolding. Both agree learners actively construct knowledge, but Vygotsky places greater emphasis on social interaction as the driver of development."
+        },
+        {
+          q: "Describe the key principles and classroom applications of Humanism.",
+          hint: "Maslow's hierarchy, Rogers' unconditional positive regard, student-centeredness, choice, empathy.",
+          keywords: ["humanism", "maslow", "hierarchy of needs", "rogers", "unconditional positive regard", "empathy", "self-actualization", "self-concept", "self-direction", "student-centered", "choice", "autonomy", "safe", "supportive", "trust", "personal growth"],
+          model: "Humanism's key principles include Maslow's hierarchy of needs, self-concept, self-direction, unconditional positive regard, empathy, and student-centered learning. In the classroom, teachers can apply these by meeting students' basic needs, building trust and empathy, offering choices and autonomy, using cooperative learning, focusing on personal growth rather than just academic outcomes, and creating safe learning environments."
+        },
+        {
+          q: "How do the four learning theories relate to each other? Why is no single theory sufficient?",
+          hint: "Behaviorism → Cognitivism → Constructivism; Humanism overlaps; they are complementary.",
+          keywords: ["behaviorism", "cognitivism", "reaction", "mental processes", "constructivism", "extends", "meaning-making", "social context", "humanism", "overlaps", "student-centered", "complementary", "integrate", "no single theory", "multiple perspectives"],
+          model: "Behaviorism → Cognitivism: Cognitivism emerged as a reaction to behaviorism's neglect of mental processes. Cognitivism → Constructivism: Constructivism extends cognitivism by emphasizing active meaning-making and social context. Humanism overlaps with Constructivism: both are student-centered, but humanism emphasizes emotional growth and self-actualization more strongly. They are complementary: effective teaching integrates all four — reinforcement for routines, cognitive strategies for understanding, constructivist tasks for deep learning, and humanistic approaches for a supportive climate. No single theory is sufficient because learning is complex and different contexts, learners, and content require different approaches."
+        }
+      ];
+
+      const erq = {
+        q: `Mr. Ahmed teaches Grade 7. He notices:
+• Students forget basic facts quickly and need constant repetition.
+• They struggle to connect new topics to what they already know.
+• They rarely engage in deep discussion or inquiry.
+• Some students seem anxious and disengaged, lacking confidence.
+• One student, Bilal, gives up easily and says "I can't do this."
+
+Using the four learning theories (Behaviorism, Cognitivism, Constructivism, Humanism), propose FOUR specific strategies Mr. Ahmed could use. For each strategy, identify the theory it draws from and explain why it would help.`,
+        marks: "10 marks",
+        model: `
+          <strong>Model Answer (key points):</strong><br><br>
+          <strong>1. Behaviorism — Reinforcement and practice:</strong> Mr. Ahmed can use immediate feedback, praise, and repeated practice with small steps to build fluency in foundational facts. This addresses the forgetting and need for repetition, because reinforcement and practice strengthen observable behavior.<br><br>
+          <strong>2. Cognitivism — Advance organizers and meaningful learning:</strong> He can use concept maps and outlines to connect new material to prior knowledge. This addresses the struggle to connect topics, because meaningful learning occurs when new information is linked to existing schemas.<br><br>
+          <strong>3. Constructivism — Inquiry and group discussion:</strong> He can design inquiry-based activities and collaborative projects. This addresses the lack of deep discussion, because learners actively construct understanding through interaction and reflection.<br><br>
+          <strong>4. Humanism — Safe, supportive environment and autonomy:</strong> He can create a supportive classroom, offer choices, and show empathy. This addresses anxiety and disengagement, because unmet emotional needs block learning and unconditional positive regard builds confidence — particularly for Bilal, who gives up easily.<br><br>
+          <em>Note: Any valid combination of theory + strategy + explanation is acceptable. The key is linking each strategy to a specific learning theory.</em>
+        `
+      };
+
+      // ================= RENDER MCQs =================
+      const mcqContainer = document.getElementById('mcqContainer');
+      let mcqHtml = '';
+      mcqs.forEach((item, idx) => {
+        const letters = ['A', 'B', 'C', 'D'];
+        let optionsHtml = '';
+        item.options.forEach((opt, oi) => {
+          optionsHtml += `
+            <div class="mcq-option" data-qidx="${idx}" data-oidx="${oi}">
+              <span class="option-letter">${letters[oi]}</span>
+              <span>${opt}</span>
+            </div>
+          `;
+        });
+        mcqHtml += `
+          <div class="mcq-item" id="mcq-${idx}">
+            <div class="mcq-question">${idx + 1}. ${item.q}</div>
+            <div class="mcq-options">${optionsHtml}</div>
+            <div class="mcq-feedback" id="mcq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      mcqContainer.innerHTML = mcqHtml;
+
+      mcqContainer.addEventListener('click', (e) => {
+        const option = e.target.closest('.mcq-option');
+        if (!option) return;
+        const qidx = parseInt(option.dataset.qidx);
+        const oidx = parseInt(option.dataset.oidx);
+        const mcq = mcqs[qidx];
+        const parentItem = document.getElementById(`mcq-${qidx}`);
+        const allOptions = parentItem.querySelectorAll('.mcq-option');
+        const feedbackEl = document.getElementById(`mcq-fb-${qidx}`);
+        if (parentItem.dataset.answered === 'correct') return;
+        allOptions.forEach(opt => opt.classList.remove('selected', 'correct', 'incorrect'));
+        option.classList.add('selected');
+        if (oidx === mcq.correct) {
+          option.classList.add('correct');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '✅ Correct! ' + mcq.feedback;
+          feedbackEl.className = 'mcq-feedback show correct-fb';
+          parentItem.dataset.answered = 'correct';
+        } else {
+          option.classList.add('incorrect');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '❌ Not quite. Try again!';
+          feedbackEl.className = 'mcq-feedback show incorrect-fb';
+          setTimeout(() => {
+            if (feedbackEl.classList.contains('incorrect-fb')) {
+              feedbackEl.classList.remove('show');
+            }
+          }, 1500);
+        }
+      });
+
+      // ================= RENDER CRQs =================
+      const crqContainer = document.getElementById('crqContainer');
+      let crqHtml = '';
+      crqs.forEach((item, idx) => {
+        crqHtml += `
+          <div class="crq-item" id="crq-${idx}">
+            <div class="crq-question">${idx + 1}. ${item.q}</div>
+            <div class="crq-hint">💡 Hint: ${item.hint}</div>
+            <textarea class="crq-textarea" id="crq-ta-${idx}" placeholder="Write your answer here..."></textarea>
+            <div class="crq-actions">
+              <button class="btn btn-primary" data-crq-check="${idx}">Check Answer</button>
+              <button class="btn btn-secondary" data-crq-clear="${idx}">Clear</button>
+            </div>
+            <div class="crq-feedback" id="crq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      crqContainer.innerHTML = crqHtml;
+
+      crqContainer.addEventListener('click', (e) => {
+        const checkBtn = e.target.closest('[data-crq-check]');
+        const clearBtn = e.target.closest('[data-crq-clear]');
+        if (checkBtn) {
+          const idx = parseInt(checkBtn.dataset.crqCheck);
+          const textarea = document.getElementById(`crq-ta-${idx}`);
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          const answer = textarea.value.trim().toLowerCase();
+          const crq = crqs[idx];
+          if (answer.length < 10) {
+            feedback.textContent = '⚠️ Please write a more complete answer (at least a sentence or two).';
+            feedback.className = 'crq-feedback show partial';
+            return;
+          }
+          const matched = crq.keywords.filter(kw => answer.includes(kw));
+          const ratio = matched.length / crq.keywords.length;
+          if (ratio >= 0.35) {
+            feedback.innerHTML = `✅ <strong>Good answer!</strong> You covered key ideas.<br><br><em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show good';
+          } else {
+            feedback.innerHTML = `📝 <strong>Partially correct.</strong> You mentioned some ideas. Try to include more key concepts.<br><br><em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show partial';
+          }
+        }
+        if (clearBtn) {
+          const idx = parseInt(clearBtn.dataset.crqClear);
+          document.getElementById(`crq-ta-${idx}`).value = '';
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          feedback.className = 'crq-feedback';
+          feedback.textContent = '';
+        }
+      });
+
+      // ================= RENDER ERQ =================
+      const erqContainer = document.getElementById('erqContainer');
+      erqContainer.innerHTML = `
+        <div class="erq-item">
+          <div class="erq-marks">${erq.marks}</div>
+          <div class="erq-question">${erq.q}</div>
+          <textarea class="erq-textarea" id="erq-ta" placeholder="Write your detailed answer here. Propose four strategies and link each to a theory..."></textarea>
+          <div class="erq-actions">
+            <button class="btn btn-primary" id="erqCheck">Check Answer</button>
+            <button class="btn btn-secondary" id="erqClear">Clear</button>
+          </div>
+          <div class="erq-feedback" id="erq-fb"></div>
+        </div>
+      `;
+
+      document.getElementById('erqCheck').addEventListener('click', () => {
+        const ta = document.getElementById('erq-ta');
+        const fb = document.getElementById('erq-fb');
+        const answer = ta.value.trim().toLowerCase();
+        if (answer.length < 50) {
+          fb.textContent = '⚠️ Please write a more detailed answer. Propose four strategies and link each to a theory.';
+          fb.className = 'erq-feedback show partial';
+          return;
+        }
+        const keywords = ['behaviorism', 'reinforcement', 'practice', 'cognitivism', 'advance organizers', 'prior knowledge', 'constructivism', 'inquiry', 'group discussion', 'humanism', 'safe', 'autonomy', 'empathy'];
+        const found = keywords.filter(k => answer.includes(k));
+        if (found.length >= 3) {
+          fb.innerHTML = `✅ <strong>Excellent effort!</strong> You linked strategies to multiple theories. Compare your answer with the model below.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show model';
+        } else if (found.length >= 1) {
+          fb.innerHTML = `📝 <strong>Good start!</strong> Try to explicitly link each of the four strategies to a specific learning theory.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        } else {
+          fb.innerHTML = `⚠️ Make sure to propose four strategies and identify the theory behind each one.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        }
+      });
+
+      document.getElementById('erqClear').addEventListener('click', () => {
+        document.getElementById('erq-ta').value = '';
+        const fb = document.getElementById('erq-fb');
+        fb.className = 'erq-feedback';
+        fb.textContent = '';
+      });
+
+      // ================= QUIZ TABS =================
+      const tabs = document.querySelectorAll('.quiz-tab');
+      const panels = document.querySelectorAll('.quiz-panel');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          panels.forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(tab.dataset.panel).classList.add('active');
+        });
+      });
+
+      // Initial count
+      countDisplay.textContent = allSearchables.length + ' items';
+    })();
+  </script>
+</body>
+</html>

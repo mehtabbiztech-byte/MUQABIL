@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learning &amp; Motivation in Home, School &amp; Community · Study Guide</title>
+  <style>
+    /* ---------- GLOBAL ---------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+      color: #1e2b3c;
+    }
+    .main-wrapper { max-width: 1100px; width: 100%; }
+
+    /* ---------- HEADER ---------- */
+    .header-card {
+      background: white;
+      border-radius: 2rem 2rem 1.5rem 1.5rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      padding: 2rem 2rem 1.5rem 2rem;
+      margin-bottom: 1.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: transform 0.2s;
+    }
+    .header-card:hover { transform: scale(1.002); }
+    .badge {
+      display: inline-block;
+      background: #2a4b7c;
+      color: #f0f7ff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+      line-height: 1.25;
+    }
+    .subhead {
+      font-size: 1.05rem;
+      color: #2f5277;
+      font-weight: 400;
+      border-left: 5px solid #8bb3e0;
+      padding-left: 1.2rem;
+      margin: 1rem 0 0.2rem 0;
+      font-style: italic;
+    }
+    .intro-text {
+      background: #e6f0fc;
+      padding: 1rem 1.4rem;
+      border-radius: 1.2rem;
+      margin-top: 1.4rem;
+      font-size: 0.98rem;
+      color: #1d3a5c;
+      border-left: 5px solid #3b6ea5;
+    }
+
+    /* ---------- SECTION TITLE ---------- */
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #0e2a47;
+      margin: 2.2rem 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section-title .line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #8bb3e0, transparent);
+      border-radius: 2px;
+    }
+
+    /* ---------- ECOLOGICAL SYSTEM CARDS ---------- */
+    .eco-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .eco-card {
+      background: white;
+      border-radius: 1.3rem;
+      padding: 1.2rem 1.2rem 1.1rem 1.2rem;
+      box-shadow: 0 6px 14px -8px rgba(20, 40, 70, 0.14);
+      border: 1px solid #e3ecf7;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .eco-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      opacity: 0.8;
+    }
+    .eco-card.micro::before { background: linear-gradient(180deg, #2a4b7c, #5a8ec9); }
+    .eco-card.meso::before { background: linear-gradient(180deg, #2e7d4f, #81c784); }
+    .eco-card.exo::before { background: linear-gradient(180deg, #d4933a, #e8c08b); }
+    .eco-card.macro::before { background: linear-gradient(180deg, #6a4c9c, #b39ddb); }
+    .eco-card.chrono::before { background: linear-gradient(180deg, #c94f7c, #e88bb0); }
+    .eco-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 20px -12px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .eco-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #0e2a47;
+      margin-bottom: 0.25rem;
+    }
+    .eco-desc {
+      font-size: 0.84rem;
+      color: #274e73;
+      line-height: 1.5;
+      margin-bottom: 0.4rem;
+      flex: 1;
+    }
+    .eco-example {
+      background: #f6faff;
+      border-radius: 0.7rem;
+      padding: 0.45rem 0.75rem;
+      font-size: 0.79rem;
+      color: #183c5e;
+      border-left: 3px solid #3b7bb5;
+      line-height: 1.45;
+    }
+
+    /* ---------- CONTEXT CARDS (Home/School/Community) ---------- */
+    .context-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+    .context-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.4rem 1.4rem 1.3rem 1.4rem;
+      box-shadow: 0 8px 18px -10px rgba(20, 40, 70, 0.16);
+      transition: all 0.22s ease;
+      border: 1px solid #e3ecf7;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .context-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      opacity: 0.9;
+    }
+    .context-card.home::before { background: linear-gradient(90deg, #2e7d4f, #81c784); }
+    .context-card.school::before { background: linear-gradient(90deg, #2a4b7c, #5a8ec9); }
+    .context-card.community::before { background: linear-gradient(90deg, #d4933a, #e8c08b); }
+    .context-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 24px -14px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .context-card:hover::before { height: 10px; }
+    .context-header {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.6rem;
+    }
+    .context-icon {
+      font-size: 1.8rem;
+      background: #e9f0fa;
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    .context-card:hover .context-icon { background: #d3e3f8; }
+    .context-name {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #0e2a47;
+    }
+    .context-factors {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .context-factors li {
+      padding: 0.3rem 0 0.3rem 1.4rem;
+      position: relative;
+      font-size: 0.86rem;
+      line-height: 1.5;
+      color: #1e3c5a;
+    }
+    .context-factors li::before {
+      content: '◆';
+      position: absolute;
+      left: 0;
+      color: #3b7bb5;
+      font-size: 0.66rem;
+      top: 0.5rem;
+    }
+    .context-factors li strong { color: #0e2a47; }
+
+    /* ---------- MOTIVATION THEORY CARDS ---------- */
+    .motiv-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .motiv-card {
+      background: white;
+      border-radius: 1.3rem;
+      padding: 1.1rem 1.2rem;
+      box-shadow: 0 6px 14px -8px rgba(20, 40, 70, 0.14);
+      border: 1px solid #e3ecf7;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .motiv-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, #3f7cb0, #8bb3e0);
+      opacity: 0.7;
+    }
+    .motiv-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 20px -12px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .motiv-name {
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: #0e2a47;
+      margin-bottom: 0.25rem;
+    }
+    .motiv-desc {
+      font-size: 0.84rem;
+      color: #274e73;
+      line-height: 1.5;
+    }
+    .motiv-context {
+      background: #f6faff;
+      border-radius: 0.7rem;
+      padding: 0.45rem 0.75rem;
+      font-size: 0.8rem;
+      color: #183c5e;
+      border-left: 3px solid #3b7bb5;
+      margin-top: 0.5rem;
+      line-height: 1.45;
+    }
+
+    /* ---------- TABLE ---------- */
+    .matrix-wrapper {
+      background: white;
+      border-radius: 1.6rem;
+      padding: 1.4rem 1.4rem 1.2rem 1.4rem;
+      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
+      border: 1px solid #e3ecf7;
+      overflow-x: auto;
+      margin-bottom: 0.5rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.84rem;
+      min-width: 560px;
+    }
+    thead th {
+      text-align: left;
+      padding: 0.75rem 0.85rem;
+      font-weight: 700;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      color: white;
+      background: #0e2a47;
+    }
+    thead th:first-child {
+      border-radius: 0.9rem 0 0 0;
+      background: #2a4b7c;
+    }
+    thead th:nth-child(2) { background: #2e7d4f; }
+    thead th:nth-child(3) { background: #2a4b7c; }
+    thead th:last-child {
+      border-radius: 0 0.9rem 0 0;
+      background: #d4933a;
+    }
+    tbody td {
+      padding: 0.65rem 0.85rem;
+      border-bottom: 1px solid #e8f0f9;
+      color: #1e3c5a;
+      vertical-align: top;
+      line-height: 1.45;
+      font-size: 0.83rem;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: #f6faff; }
+    tbody td:first-child {
+      font-weight: 700;
+      color: #0e2a47;
+      background: #f3f8fd;
+      white-space: nowrap;
+    }
+    tbody tr:hover td:first-child { background: #eaf3fc; }
+
+    /* ---------- INTERACTION CARDS ---------- */
+    .inter-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .inter-card {
+      background: white;
+      border-radius: 1.3rem;
+      padding: 1.1rem 1.2rem;
+      box-shadow: 0 6px 14px -8px rgba(20, 40, 70, 0.14);
+      border: 1px solid #e3ecf7;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .inter-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, #3f7cb0, #8bb3e0);
+      opacity: 0.7;
+    }
+    .inter-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 20px -12px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .inter-name {
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: #0e2a47;
+      margin-bottom: 0.3rem;
+    }
+    .inter-positive {
+      font-size: 0.83rem;
+      color: #1b6e3e;
+      line-height: 1.45;
+      margin-bottom: 0.35rem;
+    }
+    .inter-positive::before { content: '✔ '; font-weight: 700; }
+    .inter-risk {
+      font-size: 0.83rem;
+      color: #a83535;
+      line-height: 1.45;
+    }
+    .inter-risk::before { content: '⚠ '; font-weight: 700; }
+
+    /* ---------- IMPLICATION TABS ---------- */
+    .impl-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .impl-card {
+      background: white;
+      border-radius: 1.3rem;
+      padding: 1.1rem 1.2rem;
+      box-shadow: 0 6px 14px -8px rgba(20, 40, 70, 0.14);
+      border: 1px solid #e3ecf7;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .impl-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      opacity: 0.8;
+    }
+    .impl-card.parents::before { background: linear-gradient(180deg, #2e7d4f, #81c784); }
+    .impl-card.teachers::before { background: linear-gradient(180deg, #2a4b7c, #5a8ec9); }
+    .impl-card.communities::before { background: linear-gradient(180deg, #d4933a, #e8c08b); }
+    .impl-card.policy::before { background: linear-gradient(180deg, #6a4c9c, #b39ddb); }
+    .impl-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 20px -12px #1e3f5e;
+      border-color: #b8d0e9;
+    }
+    .impl-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #0e2a47;
+      margin-bottom: 0.4rem;
+    }
+    .impl-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .impl-list li {
+      padding: 0.25rem 0 0.25rem 1.3rem;
+      position: relative;
+      font-size: 0.83rem;
+      line-height: 1.5;
+      color: #1e3c5a;
+    }
+    .impl-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #2e9b5e;
+      font-weight: 700;
+      font-size: 0.75rem;
+      top: 0.35rem;
+    }
+
+    /* ---------- MISCONCEPTIONS ---------- */
+    .mis-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    .mis-card {
+      background: #fdf6f6;
+      border-radius: 1.2rem;
+      padding: 1rem 1.2rem;
+      box-shadow: 0 4px 10px -6px rgba(20, 40, 70, 0.12);
+      border: 1px solid #e8c8c8;
+      transition: all 0.2s;
+    }
+    .mis-card:hover {
+      transform: translateY(-2px);
+      border-color: #d45a5a;
+    }
+    .mis-claim {
+      font-size: 0.86rem;
+      color: #a83535;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
+    }
+    .mis-claim::before {
+      content: '✘';
+      color: #d45a5a;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .mis-correction {
+      font-size: 0.84rem;
+      color: #1e3c5a;
+      line-height: 1.5;
+      padding-left: 1.3rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
+    }
+    .mis-correction::before {
+      content: '✔';
+      color: #2e9b5e;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ---------- TAKEAWAY ---------- */
+    .takeaway-card {
+      background: #0e2a47;
+      color: white;
+      border-radius: 1.6rem;
+      padding: 1.6rem 2rem;
+      margin: 1.2rem 0 0.5rem 0;
+      font-size: 0.98rem;
+      line-height: 1.7;
+      box-shadow: 0 14px 26px -12px #0e2a47;
+      border-left: 6px solid #8bb3e0;
+    }
+    .takeaway-card strong { color: #b8d4f0; }
+    .takeaway-card ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+    }
+    .takeaway-card li {
+      padding-left: 1.5rem;
+      position: relative;
+      font-size: 0.92rem;
+      color: #d4e6fa;
+      line-height: 1.55;
+    }
+    .takeaway-card li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #8bb3e0;
+      font-weight: 700;
+    }
+
+    /* ---------- ONE-LINER ---------- */
+    .oneliner-card {
+      background: linear-gradient(135deg, #2e7d4f 0%, #3fa86a 100%);
+      color: white;
+      border-radius: 1.6rem;
+      padding: 1.6rem 2rem;
+      margin: 1.2rem 0 0.5rem 0;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      box-shadow: 0 14px 26px -12px #2e7d4f;
+      border-left: 6px solid #b8e0c8;
+      text-align: center;
+      font-weight: 500;
+    }
+    .oneliner-card strong { color: #d4f0e0; }
+
+    /* ---------- SEARCH & COUNT ---------- */
+    .filter-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 60px;
+      box-shadow: 0 8px 18px -8px rgba(0, 27, 45, 0.1);
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 40px;
+      padding: 0.3rem 0.3rem 0.3rem 1.2rem;
+      flex: 2;
+      min-width: 240px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      border: 1px solid #ccdcee;
+    }
+    .search-box span { font-size: 1.1rem; margin-right: 0.5rem; color: #4e6b8a; }
+    .search-box input {
+      border: none;
+      padding: 0.7rem 0.2rem;
+      width: 100%;
+      font-size: 0.95rem;
+      outline: none;
+      background: transparent;
+      color: #0c253b;
+    }
+    .search-box input::placeholder { color: #879eb6; font-weight: 300; }
+    .count-pill {
+      background: #0e2a47;
+      color: white;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ---------- QUIZ SECTION ---------- */
+    .quiz-section { margin-top: 2.5rem; }
+    .quiz-header {
+      background: #0e2a47;
+      border-radius: 2rem 2rem 0 0;
+      padding: 1.5rem 2rem;
+      color: white;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .quiz-header h2 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.3px; }
+    .quiz-header .quiz-badge {
+      background: #8bb3e0;
+      color: #0e2a47;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .quiz-body {
+      background: white;
+      border-radius: 0 0 2rem 2rem;
+      padding: 2rem;
+      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
+      border: 1px solid #e3ecf7;
+      border-top: none;
+    }
+    .quiz-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #e3ecf7;
+      padding-bottom: 1rem;
+    }
+    .quiz-tab {
+      background: #f0f5fd;
+      border: 1px solid #d0e0f0;
+      color: #1b4670;
+      padding: 0.5rem 1.3rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .quiz-tab:hover { background: #e0ecfc; border-color: #a0c0e0; }
+    .quiz-tab.active { background: #0e2a47; color: white; border-color: #0e2a47; }
+    .quiz-panel { display: none; }
+    .quiz-panel.active { display: block; }
+    .section-label {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.2rem;
+    }
+
+    /* MCQ */
+    .mcq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+      transition: background 0.2s;
+    }
+    .mcq-item:hover { background: #f0f7fe; }
+    .mcq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.8rem;
+      line-height: 1.5;
+    }
+    .mcq-options { display: flex; flex-direction: column; gap: 0.5rem; }
+    .mcq-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 0.8rem;
+      background: white;
+      border: 1.5px solid #d9e8fc;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+    }
+    .mcq-option:hover { border-color: #8bb3e0; background: #eef6ff; }
+    .mcq-option.selected { border-color: #3b7bb5; background: #e4f0fe; font-weight: 500; }
+    .mcq-option.correct { border-color: #2e9b5e; background: #e6f7ee; font-weight: 600; }
+    .mcq-option.incorrect { border-color: #d45a5a; background: #fdeaea; font-weight: 500; }
+    .mcq-option .option-letter {
+      font-weight: 700;
+      color: #2a4b7c;
+      min-width: 1.4rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .mcq-option.correct .option-letter { color: #1b7a44; }
+    .mcq-option.incorrect .option-letter { color: #b03030; }
+    .mcq-feedback {
+      margin-top: 0.7rem;
+      font-size: 0.88rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: 0.8rem;
+      display: none;
+      font-weight: 500;
+    }
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.correct-fb {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .mcq-feedback.incorrect-fb {
+      background: #fdeaea;
+      color: #9e2a2a;
+      border-left: 4px solid #d45a5a;
+    }
+
+    /* CRQ / ERQ shared */
+    .crq-item, .erq-item {
+      background: #f9fcff;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9e8fc;
+    }
+    .erq-item { border: 2px solid #8bb3e0; background: #f5faff; }
+    .crq-question, .erq-question {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0e2a47;
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+    .erq-question { font-size: 1.05rem; font-weight: 700; }
+    .erq-marks {
+      display: inline-block;
+      background: #0e2a47;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      margin-bottom: 0.8rem;
+    }
+    .crq-hint {
+      font-size: 0.85rem;
+      color: #4e6b8a;
+      font-style: italic;
+      margin-bottom: 0.7rem;
+    }
+    .crq-textarea, .erq-textarea {
+      width: 100%;
+      border: 1.5px solid #d9e8fc;
+      border-radius: 0.9rem;
+      padding: 0.8rem 1rem;
+      font-family: inherit;
+      font-size: 0.93rem;
+      color: #1e3c5a;
+      resize: vertical;
+      transition: border-color 0.2s;
+      background: white;
+    }
+    .crq-textarea { min-height: 90px; }
+    .erq-textarea { min-height: 160px; }
+    .crq-textarea:focus, .erq-textarea:focus {
+      outline: none;
+      border-color: #3b7bb5;
+      box-shadow: 0 0 0 3px rgba(59, 123, 181, 0.12);
+    }
+    .crq-actions, .erq-actions {
+      display: flex;
+      gap: 0.7rem;
+      margin-top: 0.7rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 0.55rem 1.4rem;
+      border-radius: 40px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      font-family: inherit;
+    }
+    .btn-primary { background: #0e2a47; color: white; }
+    .btn-primary:hover { background: #1a4170; transform: translateY(-1px); }
+    .btn-secondary { background: #e9f0fa; color: #1b4670; border: 1px solid #c0d8f0; }
+    .btn-secondary:hover { background: #d8e6f8; }
+    .crq-feedback, .erq-feedback {
+      margin-top: 0.8rem;
+      padding: 0.8rem 1rem;
+      border-radius: 0.9rem;
+      font-size: 0.9rem;
+      display: none;
+      line-height: 1.6;
+    }
+    .crq-feedback.show, .erq-feedback.show { display: block; }
+    .crq-feedback.good, .erq-feedback.good {
+      background: #e6f7ee;
+      color: #1b6e3e;
+      border-left: 4px solid #2e9b5e;
+    }
+    .crq-feedback.partial, .erq-feedback.partial {
+      background: #fff8e6;
+      color: #8a6d1f;
+      border-left: 4px solid #e0a800;
+    }
+    .erq-feedback.model {
+      background: #e6f0fc;
+      color: #1a3e62;
+      border-left: 5px solid #3b7bb5;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 700px) {
+      .mis-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .header-card { padding: 1.5rem 1.2rem; }
+      h1 { font-size: 1.6rem; }
+      .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: 2rem;
+        padding: 1rem;
+      }
+      .search-box { width: 100%; }
+      .count-pill { text-align: center; padding: 0.5rem; }
+      .quiz-body { padding: 1.2rem; }
+      .quiz-header { padding: 1.2rem; }
+      .quiz-header h2 { font-size: 1.3rem; }
+      .mcq-item, .crq-item, .erq-item { padding: 1rem; }
+      .quiz-tab { font-size: 0.8rem; padding: 0.4rem 1rem; }
+      .takeaway-card { padding: 1.3rem 1.2rem; }
+      .oneliner-card { padding: 1.3rem 1.2rem; }
+    }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #dfe9f5; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: #94b0d1; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6d8fb4; }
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem 1rem;
+      background: #ffffffc9;
+      border-radius: 2rem;
+      font-size: 1.1rem;
+      color: #4b6888;
+      border: 2px dashed #b8cee8;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-wrapper">
+
+    <!-- HEADER -->
+    <div class="header-card">
+      <div class="badge">🧠 Educational Psychology</div>
+      <h1>Learning &amp; Motivation in the Context of Home, School, and Community</h1>
+      <div class="subhead">How overlapping environments shape engagement, persistence, and achievement</div>
+      <div class="intro-text">
+        <strong>💡 Core idea:</strong> Learning and motivation do not occur in isolation. They are shaped by the multiple environments in which learners live. The home, school, and community are the three primary contexts that interact to influence a learner's engagement, persistence, and achievement. <em>Motivation is best understood as a product of overlapping and interacting contexts — not of the individual alone.</em>
+      </div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="filter-section">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="Search frameworks, contexts, factors, implications..." autocomplete="off">
+      </div>
+      <div class="count-pill" id="countDisplay">40+ items</div>
+    </div>
+
+    <!-- THEORETICAL FRAMEWORKS -->
+    <div class="section-title">
+      🔄 Key Theoretical Frameworks
+      <span class="line"></span>
+    </div>
+
+    <!-- Bronfenbrenner -->
+    <div class="intro-text" style="margin-bottom:0.8rem;background:#e6f0fc;border-left-color:#3b6ea5;">
+      <strong>Bronfenbrenner's Ecological Systems Theory:</strong> Learning and motivation are influenced by nested systems surrounding the learner. The <strong>mesosystem</strong> — connections between home, school, and community — is especially powerful for learning and motivation.
+    </div>
+
+    <div class="eco-grid" id="ecoGrid">
+      <div class="eco-card micro" data-searchable="microsystem immediate environments home classroom peer group neighborhood">
+        <div class="eco-name">Microsystem</div>
+        <div class="eco-desc">Immediate environments the learner directly interacts with.</div>
+        <div class="eco-example"><strong>Examples:</strong> Home, classroom, peer group, neighborhood</div>
+      </div>
+      <div class="eco-card meso" data-searchable="mesosystem interactions between microsystems parent-teacher communication home-school partnership">
+        <div class="eco-name">Mesosystem</div>
+        <div class="eco-desc">Interactions between microsystems.</div>
+        <div class="eco-example"><strong>Examples:</strong> Parent–teacher communication, home–school partnership</div>
+      </div>
+      <div class="eco-card exo" data-searchable="exosystem indirect environments parent workplace school board policy community services">
+        <div class="eco-name">Exosystem</div>
+        <div class="eco-desc">Indirect environments affecting the learner.</div>
+        <div class="eco-example"><strong>Examples:</strong> Parent's workplace, school board policy, community services</div>
+      </div>
+      <div class="eco-card macro" data-searchable="macrosystem broader cultural societal values cultural norms education national policy">
+        <div class="eco-name">Macrosystem</div>
+        <div class="eco-desc">Broader cultural and societal values.</div>
+        <div class="eco-example"><strong>Examples:</strong> Cultural norms about education, national education policy</div>
+      </div>
+      <div class="eco-card chrono" data-searchable="chronosystem changes over time family transitions economic shifts developmental stages">
+        <div class="eco-name">Chronosystem</div>
+        <div class="eco-desc">Changes over time.</div>
+        <div class="eco-example"><strong>Examples:</strong> Family transitions, economic shifts, developmental stages</div>
+      </div>
+    </div>
+
+    <!-- Epstein's Model -->
+    <div class="intro-text" style="margin-bottom:0.8rem;background:#f0faf4;border-left-color:#2e7d4f;">
+      <strong>Epstein's Model of Overlapping Spheres of Influence:</strong> Family, school, and community are three overlapping spheres. Epstein identifies <strong>six types of involvement</strong>: parenting, communicating, volunteering, learning at home, decision-making, and collaborating with the community.
+    </div>
+
+    <!-- Motivation Theories -->
+    <div class="section-title">
+      🎯 Motivation Theories in Context
+      <span class="line"></span>
+    </div>
+
+    <div class="motiv-grid" id="motivGrid">
+      <div class="motiv-card" data-searchable="self-determination theory deci ryan autonomy competence relatedness intrinsic motivation">
+        <div class="motiv-name">Self-Determination Theory</div>
+        <div class="motiv-desc">Motivation thrives when <strong>autonomy, competence, and relatedness</strong> are met.</div>
+        <div class="motiv-context"><strong>Home:</strong> choices · <strong>School:</strong> mastery experiences · <strong>Community:</strong> belonging</div>
+      </div>
+      <div class="motiv-card" data-searchable="expectancy-value theory wigfield eccles expectation of success value of task parents teachers beliefs">
+        <div class="motiv-name">Expectancy-Value Theory</div>
+        <div class="motiv-desc">Motivation depends on <strong>expectation of success</strong> and <strong>value of the task</strong>.</div>
+        <div class="motiv-context">Parents and teachers shape both beliefs.</div>
+      </div>
+      <div class="motiv-card" data-searchable="achievement goal theory mastery goals performance goals engagement home school promote mastery orientation">
+        <div class="motiv-name">Achievement Goal Theory</div>
+        <div class="motiv-desc"><strong>Mastery goals</strong> vs. <strong>performance goals</strong> influence engagement.</div>
+        <div class="motiv-context">Home and school can promote mastery orientation.</div>
+      </div>
+      <div class="motiv-card" data-searchable="social cognitive theory bandura self-efficacy modeling motivation role models family community confidence">
+        <div class="motiv-name">Social Cognitive Theory</div>
+        <div class="motiv-desc"><strong>Self-efficacy</strong> and <strong>modeling</strong> drive motivation.</div>
+        <div class="motiv-context">Role models in family and community build confidence.</div>
+      </div>
+      <div class="motiv-card" data-searchable="attribution theory weiner explain success failure future motivation supportive adults reframe failure learning">
+        <div class="motiv-name">Attribution Theory</div>
+        <div class="motiv-desc">How learners <strong>explain success/failure</strong> affects future motivation.</div>
+        <div class="motiv-context">Supportive adults help reframe failure as learning.</div>
+      </div>
+    </div>
+
+    <!-- THE THREE CONTEXTS -->
+    <div class="section-title">
+      🏠🏫🌍 The Three Contexts
+      <span class="line"></span>
+    </div>
+
+    <div class="context-grid" id="contextGrid">
+      <!-- HOME -->
+      <div class="context-card home" data-searchable="home context parental involvement expectations home learning environment parenting style authoritative socioeconomic status language culture early literacy numeracy emotional climate homework environment">
+        <div class="context-header">
+          <div class="context-icon">🏠</div>
+          <div class="context-name">The Home Context</div>
+        </div>
+        <ul class="context-factors">
+          <li><strong>Parental involvement:</strong> Strong positive link to achievement, engagement, and motivation — homework support, reading together, attending school events.</li>
+          <li><strong>Parental expectations:</strong> High but realistic expectations predict higher achievement and motivation.</li>
+          <li><strong>Home learning environment:</strong> Books, educational materials, quiet study space, routines, conversations about learning.</li>
+          <li><strong>Parenting style:</strong> Authoritative (warm + structured) supports motivation best; authoritarian or neglectful styles hinder it.</li>
+          <li><strong>Socioeconomic status:</strong> Affects resources, stress, opportunity — but parental involvement can buffer SES effects.</li>
+          <li><strong>Language &amp; culture:</strong> Home language and cultural values shape learning approaches.</li>
+          <li><strong>Early literacy &amp; numeracy:</strong> Parent–child reading, counting, and play build foundational skills.</li>
+          <li><strong>Emotional climate:</strong> A safe, supportive home fosters self-efficacy and resilience.</li>
+          <li><strong>Homework environment:</strong> Appropriate support (not over-control) promotes autonomy and responsibility.</li>
+        </ul>
+      </div>
+
+      <!-- SCHOOL -->
+      <div class="context-card school" data-searchable="school context teacher quality expectations classroom climate teaching strategies peer influence assessment practices school culture autonomy support teacher-student relationships curriculum relevance">
+        <div class="context-header">
+          <div class="context-icon">🏫</div>
+          <div class="context-name">The School Context</div>
+        </div>
+        <ul class="context-factors">
+          <li><strong>Teacher quality &amp; expectations:</strong> High expectations, clarity, warmth increase motivation and achievement.</li>
+          <li><strong>Classroom climate:</strong> Safe, supportive, inclusive climates foster belonging and engagement.</li>
+          <li><strong>Teaching strategies:</strong> Relevance, choice, challenge, and feedback promote intrinsic motivation.</li>
+          <li><strong>Peer influence:</strong> Peers shape motivation through modeling, norms, social comparison — positively or negatively.</li>
+          <li><strong>Assessment practices:</strong> Formative, growth-oriented feedback supports motivation; high-stakes testing can undermine it.</li>
+          <li><strong>School culture:</strong> Shared values, belonging, and safety affect engagement and persistence.</li>
+          <li><strong>Autonomy support:</strong> Opportunities for choice and self-direction build intrinsic motivation.</li>
+          <li><strong>Teacher–student relationships:</strong> Strong, caring relationships predict engagement.</li>
+          <li><strong>Curriculum relevance:</strong> Connecting content to students' lives and goals increases value and interest.</li>
+        </ul>
+      </div>
+
+      <!-- COMMUNITY -->
+      <div class="context-card community" data-searchable="community context resources libraries museums after-school programs role models mentors social capital cultural values neighborhood safety extracurricular activities service learning economic opportunities partnerships">
+        <div class="context-header">
+          <div class="context-icon">🌍</div>
+          <div class="context-name">The Community Context</div>
+        </div>
+        <ul class="context-factors">
+          <li><strong>Community resources:</strong> Libraries, museums, after-school programs, sports, arts enrich learning.</li>
+          <li><strong>Role models &amp; mentors:</strong> Adults in the community inspire aspirations and self-efficacy.</li>
+          <li><strong>Social capital:</strong> Networks of trust and support help families access opportunities.</li>
+          <li><strong>Cultural values:</strong> Community norms about education shape learner identity and motivation.</li>
+          <li><strong>Neighborhood safety:</strong> Safe neighborhoods support focus; unsafe ones create stress.</li>
+          <li><strong>Extracurricular activities:</strong> Sports, clubs, volunteering build competence and belonging.</li>
+          <li><strong>Service learning:</strong> Connects learning to real-world community needs.</li>
+          <li><strong>Economic opportunities:</strong> Perceived future opportunities affect motivation and goal-setting.</li>
+          <li><strong>Community partnerships:</strong> Businesses, universities, organizations support schools and families.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- INTERACTIONS -->
+    <div class="section-title">
+      🔗 Interactions Between Contexts
+      <span class="line"></span>
+    </div>
+
+    <div class="intro-text" style="margin-bottom:0.8rem;background:#fff8e6;border-left-color:#e0a800;">
+      <strong>Key concept:</strong> Consistency and coherence across contexts amplify motivation; conflict or disconnect across contexts undermines it.
+    </div>
+
+    <div class="inter-grid" id="interGrid">
+      <div class="inter-card" data-searchable="home school shared expectations consistent support parent-teacher communication misalignment confusion lower engagement">
+        <div class="inter-name">🏠 ↔ 🏫 Home &amp; School</div>
+        <div class="inter-positive">Shared expectations, consistent support, parent–teacher communication.</div>
+        <div class="inter-risk">Misalignment, confusion, lower engagement.</div>
+      </div>
+      <div class="inter-card" data-searchable="school community real-world learning mentors resources disconnected from life">
+        <div class="inter-name">🏫 ↔ 🌍 School &amp; Community</div>
+        <div class="inter-positive">Real-world learning, mentors, resources.</div>
+        <div class="inter-risk">Learning feels disconnected from life.</div>
+      </div>
+      <div class="inter-card" data-searchable="home community access to resources social support isolation limited opportunities">
+        <div class="inter-name">🏠 ↔ 🌍 Home &amp; Community</div>
+        <div class="inter-positive">Access to resources, social support.</div>
+        <div class="inter-risk">Isolation, limited opportunities.</div>
+      </div>
+      <div class="inter-card" data-searchable="all three aligned strongest motivation belonging achievement fragmented support mixed messages">
+        <div class="inter-name">✨ All Three Aligned</div>
+        <div class="inter-positive">Strongest motivation, belonging, and achievement.</div>
+        <div class="inter-risk">Fragmented support, mixed messages.</div>
+      </div>
+    </div>
+
+    <!-- COMPARATIVE TABLE -->
+    <div class="section-title">
+      📊 Motivation Across Contexts — Comparative Table
+      <span class="line"></span>
+    </div>
+
+    <div class="matrix-wrapper" data-searchable="comparison autonomy competence relatedness expectancy of success task value goal orientation home school community">
+      <table>
+        <thead>
+          <tr>
+            <th>Motivation Factor</th>
+            <th>🏠 Home</th>
+            <th>🏫 School</th>
+            <th>🌍 Community</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Autonomy</td><td>Choices in activities, routines</td><td>Choice in tasks, self-direction</td><td>Independent participation, volunteering</td></tr>
+          <tr><td>Competence</td><td>Encouragement, early success</td><td>Mastery experiences, feedback</td><td>Skill-building programs, sports, arts</td></tr>
+          <tr><td>Relatedness</td><td>Family warmth, belonging</td><td>Teacher–peer relationships</td><td>Mentors, community groups</td></tr>
+          <tr><td>Expectancy of success</td><td>Parental beliefs, encouragement</td><td>Teacher expectations, scaffolding</td><td>Role models, visible pathways</td></tr>
+          <tr><td>Task value</td><td>Family values about education</td><td>Relevance of curriculum</td><td>Real-world applications, future opportunities</td></tr>
+          <tr><td>Goal orientation</td><td>Mastery vs. performance messages</td><td>Classroom goal structures</td><td>Community norms about effort and achievement</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PRACTICAL IMPLICATIONS -->
+    <div class="section-title">
+      🎓 Practical Implications
+      <span class="line"></span>
+    </div>
+
+    <div class="impl-grid" id="implGrid">
+      <div class="impl-card parents" data-searchable="parents families structured supportive home learning environment high realistic expectations daily conversations reading autonomy communicate teachers">
+        <div class="impl-name">👨‍👩‍👧 For Parents / Families</div>
+        <ul class="impl-list">
+          <li>Create a structured, supportive home learning environment.</li>
+          <li>Hold high but realistic expectations.</li>
+          <li>Engage in daily conversations and reading with children.</li>
+          <li>Support autonomy rather than over-controlling homework.</li>
+          <li>Communicate regularly with teachers.</li>
+        </ul>
+      </div>
+      <div class="impl-card teachers" data-searchable="teachers schools caring high-expectation relationships relevant choice-rich mastery-oriented instruction communicate partner families connect community resources inclusive safe classroom climates">
+        <div class="impl-name">🧑‍🏫 For Teachers / Schools</div>
+        <ul class="impl-list">
+          <li>Build caring, high-expectation relationships with all students.</li>
+          <li>Use relevant, choice-rich, mastery-oriented instruction.</li>
+          <li>Communicate and partner with families.</li>
+          <li>Connect learning to community resources and real-world problems.</li>
+          <li>Create inclusive, safe classroom climates.</li>
+        </ul>
+      </div>
+      <div class="impl-card communities" data-searchable="communities accessible learning resources libraries programs mentors after-school extracurricular partnerships schools families role models pathways future opportunities">
+        <div class="impl-name">🌍 For Communities</div>
+        <ul class="impl-list">
+          <li>Provide accessible learning resources (libraries, programs, mentors).</li>
+          <li>Support after-school and extracurricular opportunities.</li>
+          <li>Build partnerships with schools and families.</li>
+          <li>Offer positive role models and pathways to future opportunities.</li>
+        </ul>
+      </div>
+      <div class="impl-card policy" data-searchable="policy makers family engagement programs fund community learning resources school-family-community partnerships address ses opportunity gaps">
+        <div class="impl-name">📜 For Policy Makers</div>
+        <ul class="impl-list">
+          <li>Support family engagement programs.</li>
+          <li>Fund community learning resources.</li>
+          <li>Promote school–family–community partnerships.</li>
+          <li>Address SES and opportunity gaps.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- MISCONCEPTIONS -->
+    <div class="section-title">
+      ⚠️ Common Misconceptions
+      <span class="line"></span>
+    </div>
+
+    <div class="mis-grid" id="misGrid">
+      <div class="mis-card" data-searchable="motivation purely individual trait correction shaped by context home school community">
+        <div class="mis-claim">"Motivation is purely an individual trait."</div>
+        <div class="mis-correction">Motivation is strongly shaped by context — home, school, and community.</div>
+      </div>
+      <div class="mis-card" data-searchable="parental involvement helping homework correction expectations communication encouragement participation school life">
+        <div class="mis-claim">"Parental involvement means helping with homework."</div>
+        <div class="mis-correction">Involvement includes expectations, communication, encouragement, and participation in school life.</div>
+      </div>
+      <div class="mis-card" data-searchable="schools alone determine achievement correction home community powerful roles partnerships matter">
+        <div class="mis-claim">"Schools alone determine achievement."</div>
+        <div class="mis-correction">Home and community play powerful roles; partnerships matter.</div>
+      </div>
+      <div class="mis-card" data-searchable="low ses inevitably low motivation correction supportive relationships involvement buffer socioeconomic risk">
+        <div class="mis-claim">"Low SES inevitably means low motivation."</div>
+        <div class="mis-correction">Supportive relationships and involvement can buffer socioeconomic risk.</div>
+      </div>
+      <div class="mis-card" data-searchable="community irrelevant academic learning correction relevance role models real-world contexts">
+        <div class="mis-claim">"Community is irrelevant to academic learning."</div>
+        <div class="mis-correction">Community provides relevance, role models, and real-world contexts for learning.</div>
+      </div>
+    </div>
+
+    <!-- KEY TAKEAWAYS -->
+    <div class="section-title">
+      🔑 Key Takeaways
+      <span class="line"></span>
+    </div>
+
+    <div class="takeaway-card" data-searchable="key takeaways learning motivation interacting contexts home school community bronfenbrenner ecological model epstein overlapping spheres alignment partnerships sustained learning">
+      <ul>
+        <li>Learning and motivation are shaped by interacting contexts: home, school, and community.</li>
+        <li>Bronfenbrenner's ecological model and Epstein's overlapping spheres explain how these contexts connect.</li>
+        <li>The home builds values, self-concept, and early motivation.</li>
+        <li>The school provides structure, relationships, and instructional conditions for motivation.</li>
+        <li>The community offers resources, role models, and real-world relevance.</li>
+        <li>Alignment across contexts strengthens motivation; disconnection weakens it.</li>
+        <li>Partnerships among families, schools, and communities are essential for sustained learning and motivation.</li>
+      </ul>
+    </div>
+
+    <!-- ONE-LINER -->
+    <div class="oneliner-card" data-searchable="one-line summary learning motivation flourish home school community consistent support high expectations meaningful opportunities strong relationships">
+      <strong>📌 One-line summary:</strong> Learning and motivation flourish when home, school, and community provide consistent support, high expectations, meaningful opportunities, and strong relationships.
+    </div>
+
+    <!-- ================= QUIZ SECTION ================= -->
+    <div class="quiz-section">
+      <div class="quiz-header">
+        <h2>📝 Practice Quiz</h2>
+        <span class="quiz-badge">Test Your Knowledge</span>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-tabs">
+          <button class="quiz-tab active" data-panel="mcqPanel">🔘 10 MCQs</button>
+          <button class="quiz-tab" data-panel="crqPanel">✍️ 4 CRQs</button>
+          <button class="quiz-tab" data-panel="erqPanel">📄 1 ERQ</button>
+        </div>
+
+        <div class="quiz-panel active" id="mcqPanel">
+          <span class="section-label">Multiple Choice Questions</span>
+          <div id="mcqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="crqPanel">
+          <span class="section-label">Constructed Response Questions</span>
+          <div id="crqContainer"></div>
+        </div>
+
+        <div class="quiz-panel" id="erqPanel">
+          <span class="section-label">Extended Response Question (Situation-Based)</span>
+          <div id="erqContainer"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      // ================= SEARCH FILTER =================
+      const searchInput = document.getElementById('searchInput');
+      const countDisplay = document.getElementById('countDisplay');
+      const allSearchables = document.querySelectorAll('[data-searchable]');
+      const cardParents = new Map();
+      allSearchables.forEach(card => cardParents.set(card, card.parentNode));
+
+      function applySearch(query) {
+        const q = query.trim().toLowerCase();
+        let visibleCount = 0;
+        allSearchables.forEach(card => {
+          const searchText = (card.dataset.searchable || '').toLowerCase() + ' ' + card.textContent.toLowerCase();
+          const matches = q === '' || searchText.includes(q);
+          if (matches) {
+            visibleCount++;
+            if (!card.parentNode) cardParents.get(card).appendChild(card);
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        countDisplay.textContent = visibleCount + ' item' + (visibleCount !== 1 ? 's' : '');
+      }
+
+      let debounceTimer;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => applySearch(e.target.value), 180);
+      });
+      searchInput.addEventListener('search', (e) => { if (e.target.value === '') applySearch(''); });
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchInput.value !== '') { searchInput.value = ''; applySearch(''); }
+      });
+
+      // ================= QUIZ DATA =================
+      const mcqs = [
+        {
+          q: "What is the core idea of the notes on learning and motivation?",
+          options: [
+            "Motivation is purely an individual trait",
+            "Learning and motivation are shaped by interacting contexts — home, school, and community",
+            "Only schools determine achievement",
+            "Community is irrelevant to learning"
+          ],
+          correct: 1,
+          feedback: "The core idea is that a learner's motivation and learning outcomes are best understood as products of overlapping and interacting contexts — not of the individual alone."
+        },
+        {
+          q: "In Bronfenbrenner's ecological systems theory, which system involves interactions between microsystems like parent–teacher communication?",
+          options: ["Microsystem", "Mesosystem", "Exosystem", "Macrosystem"],
+          correct: 1,
+          feedback: "The mesosystem involves interactions between microsystems — such as parent–teacher communication and home–school partnership."
+        },
+        {
+          q: "What does Epstein's model of overlapping spheres identify?",
+          options: [
+            "Only the school's role in learning",
+            "Six types of involvement: parenting, communicating, volunteering, learning at home, decision-making, and collaborating with the community",
+            "The five systems of Bronfenbrenner",
+            "The stages of cognitive development"
+          ],
+          correct: 1,
+          feedback: "Epstein identifies six types of involvement: parenting, communicating, volunteering, learning at home, decision-making, and collaborating with the community."
+        },
+        {
+          q: "According to Self-Determination Theory, what three needs must be met for motivation to thrive?",
+          options: [
+            "Autonomy, competence, relatedness",
+            "Expectancy, value, goals",
+            "Attention, retention, motivation",
+            "Mastery, performance, avoidance"
+          ],
+          correct: 0,
+          feedback: "Self-Determination Theory (Deci & Ryan) states that motivation thrives when autonomy, competence, and relatedness are met."
+        },
+        {
+          q: "Which parenting style supports motivation best?",
+          options: ["Authoritarian", "Authoritative (warm + structured)", "Neglectful", "Permissive"],
+          correct: 1,
+          feedback: "Authoritative parenting (warm + structured) supports motivation best; authoritarian or neglectful styles can hinder it."
+        },
+        {
+          q: "Which assessment practice supports motivation in the school context?",
+          options: [
+            "High-stakes testing only",
+            "Formative, growth-oriented feedback",
+            "No assessment at all",
+            "Public ranking of students"
+          ],
+          correct: 1,
+          feedback: "Formative, growth-oriented feedback supports motivation, while high-stakes testing can undermine it."
+        },
+        {
+          q: "Which of the following is a community factor that influences learning and motivation?",
+          options: [
+            "Parental expectations",
+            "Role models and mentors",
+            "Teacher quality",
+            "Classroom climate"
+          ],
+          correct: 1,
+          feedback: "Role models and mentors are community factors. Parental expectations and home environment are home factors; teacher quality and classroom climate are school factors."
+        },
+        {
+          q: "What happens when all three contexts (home, school, community) are aligned?",
+          options: [
+            "Motivation decreases",
+            "Strongest motivation, belonging, and achievement",
+            "Learning becomes irrelevant",
+            "Students become confused"
+          ],
+          correct: 1,
+          feedback: "When all three contexts are aligned, students experience the strongest motivation, belonging, and achievement."
+        },
+        {
+          q: "Which of the following is a misconception about learning and motivation?",
+          options: [
+            "Motivation is shaped by context",
+            "Home and community play powerful roles",
+            "Motivation is purely an individual trait",
+            "Partnerships matter"
+          ],
+          correct: 2,
+          feedback: "The misconception is that motivation is purely an individual trait. In reality, motivation is strongly shaped by context — home, school, and community."
+        },
+        {
+          q: "What is the one-line summary of the notes?",
+          options: [
+            "Schools alone determine achievement",
+            "Learning and motivation flourish when home, school, and community provide consistent support, high expectations, meaningful opportunities, and strong relationships",
+            "Motivation is fixed at birth",
+            "Only parental involvement matters"
+          ],
+          correct: 1,
+          feedback: "The one-line summary: Learning and motivation flourish when home, school, and community provide consistent support, high expectations, meaningful opportunities, and strong relationships."
+        }
+      ];
+
+      const crqs = [
+        {
+          q: "Explain Bronfenbrenner's ecological systems theory and identify the five systems with an example of each.",
+          hint: "Microsystem, mesosystem, exosystem, macrosystem, chronosystem.",
+          keywords: ["bronfenbrenner", "ecological", "microsystem", "home", "classroom", "mesosystem", "parent-teacher", "home-school", "exosystem", "parent workplace", "macrosystem", "cultural norms", "chronosystem", "changes over time"],
+          model: "Bronfenbrenner's ecological systems theory proposes that learning and motivation are influenced by nested systems. (1) Microsystem — immediate environments: home, classroom, peer group. (2) Mesosystem — interactions between microsystems: parent–teacher communication, home–school partnership. (3) Exosystem — indirect environments: parent's workplace, school board policy. (4) Macrosystem — broader cultural and societal values: cultural norms about education, national policy. (5) Chronosystem — changes over time: family transitions, economic shifts, developmental stages."
+        },
+        {
+          q: "Describe the key factors in the home context that influence learning and motivation.",
+          hint: "Parental involvement, expectations, home learning environment, parenting style, SES, language/culture.",
+          keywords: ["parental involvement", "expectations", "home learning environment", "parenting style", "authoritative", "socioeconomic status", "language", "culture", "early literacy", "emotional climate", "homework"],
+          model: "Key home factors: (1) Parental involvement — strong positive link to achievement and motivation (homework support, reading together, attending school events). (2) Parental expectations — high but realistic expectations predict higher achievement. (3) Home learning environment — books, study space, routines, conversations about learning. (4) Parenting style — authoritative (warm + structured) supports motivation best. (5) Socioeconomic status — affects resources and stress, but involvement can buffer SES effects. (6) Language and culture — shape learning approaches and motivation. (7) Early literacy and numeracy — build foundational skills. (8) Emotional climate — a safe, supportive home fosters self-efficacy. (9) Homework environment — appropriate support promotes autonomy."
+        },
+        {
+          q: "Explain Self-Determination Theory and how it applies across home, school, and community contexts.",
+          hint: "Autonomy, competence, relatedness; home choices, school mastery experiences, community belonging.",
+          keywords: ["self-determination", "autonomy", "competence", "relatedness", "intrinsic motivation", "home", "choices", "school", "mastery experiences", "feedback", "community", "belonging", "mentors"],
+          model: "Self-Determination Theory (Deci & Ryan) states that motivation thrives when three basic needs are met: autonomy, competence, and relatedness. Across contexts: (1) Home — providing choices in activities and routines supports autonomy; encouragement and early success build competence; family warmth supports relatedness. (2) School — choice in tasks supports autonomy; mastery experiences and feedback build competence; teacher–peer relationships support relatedness. (3) Community — independent participation and volunteering support autonomy; skill-building programs build competence; mentors and community groups support relatedness."
+        },
+        {
+          q: "Why is alignment across home, school, and community important for motivation? What happens when contexts are misaligned?",
+          hint: "Alignment amplifies motivation; misalignment undermines it with mixed messages.",
+          keywords: ["alignment", "consistency", "coherence", "amplify", "motivation", "belonging", "achievement", "misalignment", "confusion", "mixed messages", "disconnection", "fragmented support"],
+          model: "Alignment across contexts is important because consistency and coherence amplify motivation, belonging, and achievement. When home, school, and community share expectations and communicate effectively, students receive clear, reinforcing messages about learning. When contexts are misaligned, students receive mixed messages — for example, if parents value effort but the school emphasizes only performance, or if community opportunities are disconnected from school learning. This leads to confusion, lower engagement, and fragmented support, which undermines motivation."
+        }
+      ];
+
+      const erq = {
+        q: `Aisha is a Grade 8 student who has recently become disengaged at school. Her teacher notices that:
+• Her parents both work long hours and rarely attend school events.
+• She spends most afternoons unsupervised at home.
+• The school uses high-stakes testing and ranks students publicly.
+• Her neighborhood has a library and a sports club, but she doesn't participate.
+• A local mentor program exists at a nearby community center.
+
+Using what you have learned about learning and motivation across home, school, and community, analyse Aisha's situation. Identify the factors affecting her motivation in each context and propose FOUR practical strategies — from home, school, and community — to re-engage her. For each strategy, explain why it would help.`,
+        marks: "10 marks",
+        model: `
+          <strong>Model Answer (key points):</strong><br><br>
+          <strong>1. Home context — Parental involvement and communication:</strong> Aisha's parents rarely attend school events and she is unsupervised after school. The school could communicate with parents about the importance of involvement (even small actions like checking in on homework or attending one event). Parents could arrange a structured after-school routine or check in regularly. This addresses the home factor of parental involvement and support.<br><br>
+          <strong>2. School context — Assessment practices and autonomy:</strong> The school's high-stakes testing and public ranking undermine motivation. The teacher could use more formative, growth-oriented feedback and provide some choice in tasks. This addresses the school factor of assessment practices and autonomy support.<br><br>
+          <strong>3. School context — Teacher–student relationships:</strong> The teacher can build a caring relationship with Aisha — showing interest, offering specific encouragement, and creating a safe classroom climate. This addresses the school factor of teacher–student relationships, which predicts engagement.<br><br>
+          <strong>4. Community context — Mentors and extracurricular activities:</strong> The community center mentor program and the sports club are untapped resources. The teacher or counselor could connect Aisha with a mentor and encourage her to join the sports club. This addresses the community factors of role models and extracurricular activities, building competence, belonging, and motivation.<br><br>
+          <em>Note: Any four strategies from different contexts, with clear justification, are acceptable. The key is identifying factors across home, school, and community and showing how each strategy addresses them.</em>
+        `
+      };
+
+      // ================= RENDER MCQs =================
+      const mcqContainer = document.getElementById('mcqContainer');
+      let mcqHtml = '';
+      mcqs.forEach((item, idx) => {
+        const letters = ['A', 'B', 'C', 'D'];
+        let optionsHtml = '';
+        item.options.forEach((opt, oi) => {
+          optionsHtml += `
+            <div class="mcq-option" data-qidx="${idx}" data-oidx="${oi}">
+              <span class="option-letter">${letters[oi]}</span>
+              <span>${opt}</span>
+            </div>
+          `;
+        });
+        mcqHtml += `
+          <div class="mcq-item" id="mcq-${idx}">
+            <div class="mcq-question">${idx + 1}. ${item.q}</div>
+            <div class="mcq-options">${optionsHtml}</div>
+            <div class="mcq-feedback" id="mcq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      mcqContainer.innerHTML = mcqHtml;
+
+      mcqContainer.addEventListener('click', (e) => {
+        const option = e.target.closest('.mcq-option');
+        if (!option) return;
+        const qidx = parseInt(option.dataset.qidx);
+        const oidx = parseInt(option.dataset.oidx);
+        const mcq = mcqs[qidx];
+        const parentItem = document.getElementById(`mcq-${qidx}`);
+        const allOptions = parentItem.querySelectorAll('.mcq-option');
+        const feedbackEl = document.getElementById(`mcq-fb-${qidx}`);
+        if (parentItem.dataset.answered === 'correct') return;
+        allOptions.forEach(opt => opt.classList.remove('selected', 'correct', 'incorrect'));
+        option.classList.add('selected');
+        if (oidx === mcq.correct) {
+          option.classList.add('correct');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '✅ Correct! ' + mcq.feedback;
+          feedbackEl.className = 'mcq-feedback show correct-fb';
+          parentItem.dataset.answered = 'correct';
+        } else {
+          option.classList.add('incorrect');
+          option.classList.remove('selected');
+          feedbackEl.textContent = '❌ Not quite. Try again!';
+          feedbackEl.className = 'mcq-feedback show incorrect-fb';
+          setTimeout(() => {
+            if (feedbackEl.classList.contains('incorrect-fb')) {
+              feedbackEl.classList.remove('show');
+            }
+          }, 1500);
+        }
+      });
+
+      // ================= RENDER CRQs =================
+      const crqContainer = document.getElementById('crqContainer');
+      let crqHtml = '';
+      crqs.forEach((item, idx) => {
+        crqHtml += `
+          <div class="crq-item" id="crq-${idx}">
+            <div class="crq-question">${idx + 1}. ${item.q}</div>
+            <div class="crq-hint">💡 Hint: ${item.hint}</div>
+            <textarea class="crq-textarea" id="crq-ta-${idx}" placeholder="Write your answer here..."></textarea>
+            <div class="crq-actions">
+              <button class="btn btn-primary" data-crq-check="${idx}">Check Answer</button>
+              <button class="btn btn-secondary" data-crq-clear="${idx}">Clear</button>
+            </div>
+            <div class="crq-feedback" id="crq-fb-${idx}"></div>
+          </div>
+        `;
+      });
+      crqContainer.innerHTML = crqHtml;
+
+      crqContainer.addEventListener('click', (e) => {
+        const checkBtn = e.target.closest('[data-crq-check]');
+        const clearBtn = e.target.closest('[data-crq-clear]');
+        if (checkBtn) {
+          const idx = parseInt(checkBtn.dataset.crqCheck);
+          const textarea = document.getElementById(`crq-ta-${idx}`);
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          const answer = textarea.value.trim().toLowerCase();
+          const crq = crqs[idx];
+          if (answer.length < 10) {
+            feedback.textContent = '⚠️ Please write a more complete answer (at least a sentence or two).';
+            feedback.className = 'crq-feedback show partial';
+            return;
+          }
+          const matched = crq.keywords.filter(kw => answer.includes(kw));
+          const ratio = matched.length / crq.keywords.length;
+          if (ratio >= 0.35) {
+            feedback.innerHTML = `✅ <strong>Good answer!</strong> You covered key ideas.<br><br><em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show good';
+          } else {
+            feedback.innerHTML = `📝 <strong>Partially correct.</strong> You mentioned some ideas. Try to include more key concepts.<br><br><em>Model answer:</em> ${crq.model}`;
+            feedback.className = 'crq-feedback show partial';
+          }
+        }
+        if (clearBtn) {
+          const idx = parseInt(clearBtn.dataset.crqClear);
+          document.getElementById(`crq-ta-${idx}`).value = '';
+          const feedback = document.getElementById(`crq-fb-${idx}`);
+          feedback.className = 'crq-feedback';
+          feedback.textContent = '';
+        }
+      });
+
+      // ================= RENDER ERQ =================
+      const erqContainer = document.getElementById('erqContainer');
+      erqContainer.innerHTML = `
+        <div class="erq-item">
+          <div class="erq-marks">${erq.marks}</div>
+          <div class="erq-question">${erq.q}</div>
+          <textarea class="erq-textarea" id="erq-ta" placeholder="Write your detailed answer here. Identify factors across contexts and propose four strategies..."></textarea>
+          <div class="erq-actions">
+            <button class="btn btn-primary" id="erqCheck">Check Answer</button>
+            <button class="btn btn-secondary" id="erqClear">Clear</button>
+          </div>
+          <div class="erq-feedback" id="erq-fb"></div>
+        </div>
+      `;
+
+      document.getElementById('erqCheck').addEventListener('click', () => {
+        const ta = document.getElementById('erq-ta');
+        const fb = document.getElementById('erq-fb');
+        const answer = ta.value.trim().toLowerCase();
+        if (answer.length < 50) {
+          fb.textContent = '⚠️ Please write a more detailed answer. Address factors across contexts and propose four strategies.';
+          fb.className = 'erq-feedback show partial';
+          return;
+        }
+        const keywords = ['parental involvement', 'home', 'school', 'community', 'assessment', 'feedback', 'autonomy', 'teacher-student', 'relationships', 'mentor', 'extracurricular', 'sports club', 'engagement'];
+        const found = keywords.filter(k => answer.includes(k));
+        if (found.length >= 3) {
+          fb.innerHTML = `✅ <strong>Excellent effort!</strong> You addressed factors across home, school, and community and proposed strategies. Compare your answer with the model below.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show model';
+        } else if (found.length >= 1) {
+          fb.innerHTML = `📝 <strong>Good start!</strong> Try to explicitly identify factors in each context and link each strategy to a specific factor.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        } else {
+          fb.innerHTML = `⚠️ Make sure to identify factors across home, school, and community and propose four practical strategies.<br><br><em>${erq.model}</em>`;
+          fb.className = 'erq-feedback show partial';
+        }
+      });
+
+      document.getElementById('erqClear').addEventListener('click', () => {
+        document.getElementById('erq-ta').value = '';
+        const fb = document.getElementById('erq-fb');
+        fb.className = 'erq-feedback';
+        fb.textContent = '';
+      });
+
+      // ================= QUIZ TABS =================
+      const tabs = document.querySelectorAll('.quiz-tab');
+      const panels = document.querySelectorAll('.quiz-panel');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          panels.forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(tab.dataset.panel).classList.add('active');
+        });
+      });
+
+      // Initial count
+      countDisplay.textContent = allSearchables.length + ' items';
+    })();
+  </script>
+</body>
+</html>

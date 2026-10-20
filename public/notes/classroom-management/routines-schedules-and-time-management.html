@@ -3,1028 +3,1061 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Routines, Schedules, and Time Management in Diverse Classrooms — Classroom Management study note for the MUQABIL Teaching License hub: concepts, key vocabulary, comparison table, classroom application, misconceptions, takeaways and a practice quiz.">
   <title>Routines, Schedules, and Time Management in Diverse Classrooms · Classroom Management</title>
   <style>
-    /* ---------- GLOBAL ---------- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    /* ================= DESIGN TOKENS ================= */
+    :root {
+      --navy: #0e2a47;
+      --navy-2: #12365c;
+      --blue: #2f6ca8;
+      --blue-soft: #8bb3e0;
+      --blue-tint: #eaf2fb;
+      --mark: #dbeafe;
+      --ink: #0b2138;
+      --ink-2: #1c3f60;
+      --body: #35536f;
+      --muted: #5d7893;
+      --line: #dfe9f5;
+      --paper: #ffffff;
+      --wash: #f5faff;
+      --amber: #b8860b;
+      --amber-tint: #fff8e6;
+      --green: #1f7a4d;
+      --green-tint: #eaf8f0;
+      --red: #a83535;
+      --red-tint: #fdf1f1;
+      --shadow-sm: 0 6px 16px -10px rgba(12, 38, 66, 0.35);
+      --shadow-md: 0 18px 36px -22px rgba(12, 38, 66, 0.45);
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
     }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
 
     body {
       font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
       background: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      padding: 2rem 1rem;
-      line-height: 1.6;
-      color: #1e2b3c;
+      color: var(--body);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 4rem;
     }
 
-    .main-wrapper {
-      max-width: 1100px;
-      width: 100%;
+    /* ================= READING PROGRESS ================= */
+    .progress-track {
+      position: fixed; top: 0; left: 0; right: 0; height: 4px;
+      background: rgba(14, 42, 71, 0.08); z-index: 90;
+    }
+    .progress-fill {
+      display: block; height: 100%; width: 0%;
+      background: linear-gradient(90deg, #2f6ca8, #6aa9dd, #9cc7ee);
+      border-radius: 0 4px 4px 0; transition: width 0.12s linear;
     }
 
-    /* ---------- HEADER ---------- */
-    .header-card {
-      background: white;
-      border-radius: 2rem 2rem 1.5rem 1.5rem;
-      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
-      padding: 2rem 2rem 1.5rem 2rem;
-      margin-bottom: 1.8rem;
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      transition: transform 0.2s;
-    }
+    .shell { max-width: 1080px; margin: 0 auto; padding: 0 1.1rem; }
 
-    .header-card:hover {
-      transform: scale(1.002);
+    /* ================= HERO ================= */
+    .hero {
+      position: relative; overflow: hidden;
+      margin-top: 1.6rem;
+      border-radius: 30px;
+      padding: 2.4rem 2.2rem 3.4rem;
+      background: radial-gradient(120% 140% at 0% 0%, #163b63 0%, #0e2a47 55%, #0a1f36 100%);
+      color: #fff;
+      box-shadow: var(--shadow-md);
     }
-
+    .hero::after {
+      content: ''; position: absolute; right: -120px; top: -120px;
+      width: 340px; height: 340px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(139, 179, 224, 0.28), transparent 68%);
+      pointer-events: none;
+    }
+    .hero-top { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-bottom: 1.1rem; }
     .badge {
-      display: inline-block;
-      background: #2a4b7c;
-      color: #f0f7ff;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      padding: 0.3rem 1rem;
-      border-radius: 40px;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #eaf4ff; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      padding: 0.32rem 0.85rem; border-radius: 999px;
+    }
+    .hero-top .hero-track { font-size: 0.74rem; color: #a9c8e6; font-weight: 600; letter-spacing: 0.04em; }
+    .hero h1 {
+      font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+      line-height: 1.16; font-weight: 800; letter-spacing: -0.02em;
+      color: #ffffff; max-width: 22ch;
+    }
+    .tagline {
+      margin-top: 0.85rem; max-width: 62ch;
+      font-size: 1.02rem; color: #c9def3;
+      border-left: 3px solid var(--blue-soft); padding-left: 1rem;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.4rem; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px; padding: 0.34rem 0.8rem;
+      font-size: 0.76rem; font-weight: 600; color: #dceafa;
     }
 
-    h1 {
-      font-size: 2.1rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: #0e2a47;
-      margin-bottom: 0.4rem;
-      line-height: 1.25;
+    /* ================= BIG IDEA + OBJECTIVES ================= */
+    .brief {
+      display: grid; grid-template-columns: 1.35fr 1fr; gap: 1.1rem;
+      margin: -2.2rem 1.4rem 0; position: relative; z-index: 2;
+    }
+    .brief-card {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-lg); padding: 1.4rem 1.5rem;
+      box-shadow: var(--shadow-md);
+    }
+    .brief-label {
+      display: inline-block; margin: 0; line-height: 1.2;
+      font-size: 0.68rem; font-weight: 800;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue);
+      margin-bottom: 0.55rem;
+    }
+    .brief-card p { font-size: 0.96rem; color: var(--ink-2); }
+    .objectives { list-style: none; counter-reset: obj; display: grid; gap: 0.7rem; }
+    .objectives li {
+      position: relative; padding-left: 2.1rem; font-size: 0.9rem;
+      color: var(--ink-2); line-height: 1.55;
+    }
+    .objectives li::before {
+      counter-increment: obj; content: counter(obj);
+      position: absolute; left: 0; top: 0.05rem;
+      width: 1.4rem; height: 1.4rem; border-radius: 50%;
+      display: grid; place-items: center;
+      background: var(--blue-tint); color: var(--blue);
+      font-size: 0.72rem; font-weight: 800;
     }
 
-    .subhead {
-      font-size: 1.05rem;
-      color: #2f5277;
-      font-weight: 400;
-      border-left: 5px solid #8bb3e0;
-      padding-left: 1.2rem;
-      margin: 1rem 0 0.2rem 0;
-      font-style: italic;
+    /* ================= TABLE OF CONTENTS ================= */
+    .toc {
+      margin: 1.6rem 0 0; background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--line); border-radius: var(--radius-lg);
+      padding: 1.1rem 1.2rem; backdrop-filter: blur(4px);
     }
-
-    .intro-text {
-      background: #e6f0fc;
-      padding: 1rem 1.4rem;
-      border-radius: 1.2rem;
-      margin-top: 1.4rem;
-      font-size: 0.98rem;
-      color: #1d3a5c;
-      border-left: 5px solid #3b6ea5;
+    .toc-title {
+      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem;
     }
-
-    /* ---------- SECTION TITLE ---------- */
-    .section-title {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #0e2a47;
-      margin: 2.2rem 0 1rem 0;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
+    .toc-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0.35rem; }
+    .toc-list a {
+      display: flex; align-items: baseline; gap: 0.55rem;
+      padding: 0.42rem 0.5rem; border-radius: 10px;
+      text-decoration: none; color: var(--ink-2);
+      font-size: 0.88rem; font-weight: 600; transition: background 0.15s, color 0.15s;
     }
-
-    .section-title .line {
-      flex: 1;
-      height: 2px;
-      background: linear-gradient(90deg, #8bb3e0, transparent);
-      border-radius: 2px;
-    }
-
-    /* ---------- CARD GRID (general) ---------- */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.4rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .info-card {
-      background: white;
-      border-radius: 1.6rem;
-      padding: 1.5rem 1.4rem 1.4rem 1.4rem;
-      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
-      transition: all 0.25s ease;
-      border: 1px solid #e3ecf7;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .info-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 6px;
-      background: linear-gradient(90deg, #3f7cb0, #8bb3e0, #b8d4f0);
-      opacity: 0.75;
-      transition: height 0.2s;
-    }
-
-    .info-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 22px 28px -16px #1e3f5e;
-      border-color: #b8d0e9;
-    }
-
-    .info-card:hover::before {
-      height: 10px;
-      opacity: 1;
-    }
-
-    .card-icon-lg {
-      font-size: 2rem;
-      line-height: 1;
-      background: #e9f0fa;
-      width: 54px;
-      height: 54px;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .toc-list a:hover, .toc-list a:focus-visible { background: var(--blue-tint); color: var(--navy); }
+    .toc-num {
+      font-size: 0.68rem; font-weight: 800; color: var(--blue);
+      background: var(--blue-tint); border-radius: 6px; padding: 0.1rem 0.4rem;
       flex-shrink: 0;
-      color: #1b3c61;
-      margin-bottom: 0.8rem;
-      transition: background 0.2s;
     }
 
-    .info-card:hover .card-icon-lg {
-      background: #d3e3f8;
+    /* ================= TOOLBAR / SEARCH ================= */
+    .toolbar {
+      position: sticky; top: 0; z-index: 60;
+      margin: 1.6rem 0 0.4rem; padding: 0.6rem 0;
+      background: linear-gradient(180deg, rgba(243, 246, 253, 0.97) 65%, rgba(243, 246, 253, 0));
     }
-
-    .card-title-md {
-      font-weight: 700;
-      font-size: 1.2rem;
-      color: #0e2a47;
-      letter-spacing: -0.3px;
-      line-height: 1.3;
-      margin-bottom: 0.5rem;
+    .toolbar-inner {
+      display: flex; align-items: center; gap: 0.7rem;
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: 999px; padding: 0.45rem 0.55rem 0.45rem 1rem;
+      box-shadow: var(--shadow-sm);
     }
-
-    .card-desc-sm {
-      font-size: 0.93rem;
-      color: #274e73;
-      line-height: 1.6;
-      opacity: 0.94;
-      flex: 1;
-    }
-
-    /* ---------- STRATEGY CARDS ---------- */
-    .strategy-card {
-      background: white;
-      border-radius: 1.6rem;
-      padding: 1.5rem 1.5rem 1.4rem 1.5rem;
-      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
-      transition: all 0.25s ease;
-      border: 1px solid #e3ecf7;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .strategy-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 6px;
-      background: linear-gradient(90deg, #3f7cb0, #8bb3e0, #b8d4f0);
-      opacity: 0.75;
-      transition: height 0.2s;
-    }
-
-    .strategy-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 22px 28px -16px #1e3f5e;
-      border-color: #b8d0e9;
-    }
-
-    .strategy-card:hover::before {
-      height: 10px;
-      opacity: 1;
-    }
-
-    .strategy-num {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: white;
-      background: #0e2a47;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 0.6rem;
-    }
-
-    .strategy-title {
-      font-weight: 700;
-      font-size: 1.15rem;
-      color: #0e2a47;
-      margin-bottom: 0.4rem;
-    }
-
-    .strategy-concept {
-      font-size: 0.91rem;
-      color: #274e73;
-      margin-bottom: 0.8rem;
-      line-height: 1.55;
-    }
-
-    .impact-block {
-      background: #f6faff;
-      border-radius: 1rem;
-      padding: 0.8rem 1rem;
-      margin-top: auto;
-      border-left: 5px solid #3b7bb5;
-      font-size: 0.88rem;
-      color: #183c5e;
-      box-shadow: inset 0 0 0 1px #d9e8fc;
-      transition: background 0.2s;
-    }
-
-    .strategy-card:hover .impact-block {
-      background: #ecf4fe;
-    }
-
-    .impact-label {
-      display: inline-block;
-      font-weight: 700;
-      color: #1a4b7a;
-      font-size: 0.7rem;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      margin-bottom: 0.3rem;
-      background: #d7e6fa;
-      padding: 0.1rem 0.7rem;
-      border-radius: 30px;
-    }
-
-    /* ---------- DO / DON'T ---------- */
-    .dodont-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.2rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .do-card, .dont-card {
-      border-radius: 1.6rem;
-      padding: 1.5rem 1.5rem;
-      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.12);
-      border: 1px solid;
-    }
-
-    .do-card {
-      background: #f0faf4;
-      border-color: #b8e0c8;
-    }
-
-    .dont-card {
-      background: #fdf6f6;
-      border-color: #e8c8c8;
-    }
-
-    .do-card h3, .dont-card h3 {
-      font-size: 1.15rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .do-card h3 { color: #1b6e3e; }
-    .dont-card h3 { color: #a83535; }
-
-    .do-card ul, .dont-card ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .do-card li, .dont-card li {
-      padding: 0.45rem 0 0.45rem 1.7rem;
-      position: relative;
-      font-size: 0.92rem;
-      line-height: 1.55;
-      color: #1e3c5a;
-    }
-
-    .do-card li::before {
-      content: '✔';
-      position: absolute;
-      left: 0;
-      color: #2e9b5e;
-      font-weight: 700;
-    }
-
-    .dont-card li::before {
-      content: '✘';
-      position: absolute;
-      left: 0;
-      color: #d45a5a;
-      font-weight: 700;
-    }
-
-    /* ---------- KEY TAKEAWAY ---------- */
-    .takeaway-card {
-      background: #0e2a47;
-      color: white;
-      border-radius: 1.6rem;
-      padding: 1.6rem 2rem;
-      margin: 1.5rem 0 0.5rem 0;
-      font-size: 1rem;
-      line-height: 1.6;
-      box-shadow: 0 14px 26px -12px #0e2a47;
-      border-left: 6px solid #8bb3e0;
-    }
-
-    .takeaway-card strong {
-      color: #b8d4f0;
-    }
-
-    /* ---------- SEARCH & COUNT ---------- */
-    .filter-section {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1.5rem;
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(8px);
-      padding: 0.8rem 1.5rem;
-      border-radius: 60px;
-      box-shadow: 0 8px 18px -8px rgba(0, 27, 45, 0.1);
-    }
-
-    .search-box {
-      display: flex;
-      align-items: center;
-      background: white;
-      border-radius: 40px;
-      padding: 0.3rem 0.3rem 0.3rem 1.2rem;
-      flex: 2;
-      min-width: 240px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
-      border: 1px solid #ccdcee;
-    }
-
-    .search-box span {
-      font-size: 1.1rem;
-      margin-right: 0.5rem;
-      color: #4e6b8a;
-    }
-
+    .search-box { display: flex; align-items: center; gap: 0.55rem; flex: 1; min-width: 0; }
+    .search-box span { font-size: 0.95rem; opacity: 0.7; }
     .search-box input {
-      border: none;
-      padding: 0.7rem 0.2rem;
-      width: 100%;
-      font-size: 0.95rem;
-      outline: none;
-      background: transparent;
-      color: #0c253b;
+      border: none; outline: none; background: transparent;
+      font: inherit; font-size: 0.92rem; color: var(--ink);
+      width: 100%; padding: 0.3rem 0;
     }
-
-    .search-box input::placeholder {
-      color: #879eb6;
-      font-weight: 300;
-    }
-
+    .search-box input::placeholder { color: #93a8bd; }
     .count-pill {
-      background: #0e2a47;
-      color: white;
-      padding: 0.4rem 1.2rem;
-      border-radius: 30px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      white-space: nowrap;
+      flex-shrink: 0; background: var(--navy); color: #fff;
+      font-size: 0.75rem; font-weight: 700;
+      padding: 0.4rem 0.85rem; border-radius: 999px; white-space: nowrap;
     }
 
-    /* ---------- QUIZ SECTION ---------- */
-    .quiz-section {
-      margin-top: 2.5rem;
+    /* ================= SECTION HEADERS ================= */
+    .section { margin-top: 3rem; scroll-margin-top: 90px; }
+    .section-head { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.3rem; }
+    .section-num {
+      flex-shrink: 0; width: 46px; height: 46px; border-radius: 15px;
+      display: grid; place-items: center;
+      background: var(--navy); color: #fff;
+      font-size: 0.9rem; font-weight: 800; letter-spacing: 0.02em;
+      box-shadow: 0 8px 18px -10px rgba(14, 42, 71, 0.9);
+    }
+    .eyebrow {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 0.18rem;
+    }
+    .section-head h2 {
+      font-size: clamp(1.25rem, 2.2vw, 1.6rem); font-weight: 800;
+      color: var(--ink); letter-spacing: -0.015em; line-height: 1.25;
+    }
+    .section-lead {
+      margin-top: 0.3rem; font-size: 0.92rem; color: var(--muted); max-width: 68ch;
     }
 
-    .quiz-header {
-      background: #0e2a47;
-      border-radius: 2rem 2rem 0 0;
-      padding: 1.5rem 2rem;
-      color: white;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
+    /* ================= CONCEPT CARDS ================= */
+    .concept-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
+    .concept-card {
+      position: relative; display: flex; flex-direction: column;
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-md); padding: 1.25rem 1.25rem 1.1rem;
+      box-shadow: var(--shadow-sm); overflow: hidden;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+    .concept-card::before {
+      content: ''; position: absolute; inset: 0 0 auto 0; height: 4px;
+      background: linear-gradient(90deg, var(--blue), var(--blue-soft), #cfe2f5);
+    }
+    .concept-card:hover {
+      transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: #c4dcf2;
+    }
+    .concept-top { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; }
+    .concept-icon {
+      width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center;
+      background: var(--blue-tint); font-size: 1.2rem;
+    }
+    .concept-index {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em;
+      color: #9fb6cc; border: 1px solid var(--line); border-radius: 999px;
+      padding: 0.12rem 0.5rem;
+    }
+    .concept-title {
+      margin: 0.75rem 0 0.4rem; font-size: 1.02rem; font-weight: 800;
+      color: var(--ink); line-height: 1.35;
+    }
+    .concept-desc { font-size: 0.9rem; color: var(--body); }
+    .concept-desc strong, .vocab-def strong, .myth-reality strong, .takeaways strong, .lead-para strong {
+      color: #0a3a68; font-weight: 700;
+      background: linear-gradient(transparent 64%, var(--mark) 64%);
+      padding: 0 1px; border-radius: 2px;
+    }
+    .practice {
+      margin-top: auto; padding-top: 0.9rem;
+    }
+    .practice-box {
+      background: var(--wash); border: 1px solid #e2eefa;
+      border-left: 3px solid var(--blue); border-radius: 10px;
+      padding: 0.65rem 0.8rem;
+    }
+    .practice-label {
+      display: block; font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue);
+      margin-bottom: 0.18rem;
+    }
+    .practice-box p { font-size: 0.85rem; color: var(--ink-2); line-height: 1.5; }
+
+    /* ================= VOCABULARY ================= */
+    .vocab-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 0.75rem; margin: 0;
+    }
+    .vocab-card {
+      background: var(--paper); border: 1px solid var(--line);
+      border-left: 4px solid var(--blue-soft);
+      border-radius: var(--radius-sm); padding: 0.85rem 1rem;
+      box-shadow: 0 4px 12px -10px rgba(12, 38, 66, 0.4);
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .vocab-card:hover { border-left-color: var(--blue); transform: translateY(-2px); }
+    .vocab-term {
+      font-size: 0.9rem; font-weight: 800; color: var(--navy);
+      display: block; margin-bottom: 0.22rem; line-height: 1.35;
+    }
+    .vocab-def { font-size: 0.85rem; color: var(--body); line-height: 1.55; }
+
+    /* ================= TABLE ================= */
+    .table-shell {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .table-caption {
+      display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+      padding: 0.9rem 1.1rem; border-bottom: 1px solid var(--line);
+      background: #fbfdff;
+    }
+    .table-caption strong { font-size: 0.92rem; font-weight: 800; color: var(--ink); }
+    .table-caption span { font-size: 0.72rem; font-weight: 700; color: var(--muted); white-space: nowrap; }
+    .table-scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.86rem; min-width: 640px; }
+    thead th {
+      position: sticky; top: 0; z-index: 1;
+      background: var(--navy); color: #fff; text-align: left;
+      padding: 0.7rem 0.9rem; font-size: 0.76rem; font-weight: 700;
+      letter-spacing: 0.045em; text-transform: uppercase; white-space: nowrap;
+    }
+    tbody td { padding: 0.7rem 0.9rem; border-bottom: 1px solid #eef4fb; vertical-align: top; line-height: 1.5; }
+    tbody td:first-child { font-weight: 700; color: var(--navy); background: #fbfdff; }
+    tbody tr:nth-child(even) td { background: #f7fbff; }
+    tbody tr:nth-child(even) td:first-child { background: #f1f8ff; }
+    tbody tr:last-child td { border-bottom: none; }
+
+    /* ================= DO / AVOID ================= */
+    .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .dd-card {
+      border-radius: var(--radius-md); padding: 1.2rem 1.3rem;
+      border: 1px solid; box-shadow: var(--shadow-sm);
+    }
+    .dd-card.do { background: var(--green-tint); border-color: #bfe6d1; }
+    .dd-card.avoid { background: var(--red-tint); border-color: #efc9c9; }
+    .dd-card h3 {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.95rem; font-weight: 800; margin-bottom: 0.8rem;
+      letter-spacing: 0.01em;
+    }
+    .dd-card.do h3 { color: var(--green); }
+    .dd-card.avoid h3 { color: var(--red); }
+    .dd-card ul { list-style: none; display: grid; gap: 0.45rem; }
+    .dd-card li { position: relative; padding-left: 1.45rem; font-size: 0.87rem; color: var(--ink-2); line-height: 1.55; }
+    .dd-card.do li::before { content: '✔'; position: absolute; left: 0; color: var(--green); font-weight: 800; }
+    .dd-card.avoid li::before { content: '✕'; position: absolute; left: 0; color: var(--red); font-weight: 800; }
+
+    /* ================= MYTHS ================= */
+    .myth-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
+    .myth-card {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-md); padding: 1.1rem 1.2rem;
+      box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 0.55rem;
+    }
+    .myth-tag {
+      align-self: flex-start; display: inline-flex; align-items: center; gap: 0.35rem;
+      background: var(--red-tint); color: var(--red); border: 1px solid #f0cfcf;
+      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.18rem 0.55rem; border-radius: 999px;
+    }
+    .myth-claim { font-size: 0.93rem; font-weight: 700; color: var(--ink); line-height: 1.45; }
+    .myth-reality {
+      border-top: 1px dashed var(--line); padding-top: 0.55rem;
+      font-size: 0.86rem; color: var(--body);
+    }
+    .reality-tag {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      color: var(--green); font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.2rem;
     }
 
-    .quiz-header h2 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      letter-spacing: -0.3px;
+    /* ================= TAKEAWAYS ================= */
+    .takeaways {
+      background: linear-gradient(135deg, #12365c 0%, #0e2a47 100%);
+      color: #eaf4ff; border-radius: var(--radius-lg);
+      padding: 1.6rem 1.7rem; box-shadow: var(--shadow-md);
+      counter-reset: take;
     }
-
-    .quiz-header .quiz-badge {
-      background: #8bb3e0;
-      color: #0e2a47;
-      padding: 0.3rem 1.2rem;
-      border-radius: 40px;
-      font-size: 0.85rem;
-      font-weight: 700;
+    .takeaways h3 {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.16em;
+      text-transform: uppercase; color: #9cc7ee; margin-bottom: 0.9rem;
     }
-
-    .quiz-body {
-      background: white;
-      border-radius: 0 0 2rem 2rem;
-      padding: 2rem;
-      box-shadow: 0 18px 30px -10px rgba(0, 20, 50, 0.15);
-      border: 1px solid #e3ecf7;
-      border-top: none;
+    .takeaways ol { list-style: none; display: grid; gap: 0.6rem; }
+    .takeaways li {
+      counter-increment: take; position: relative; padding-left: 2.2rem;
+      font-size: 0.9rem; line-height: 1.55;
     }
-
-    .quiz-tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-bottom: 2rem;
-      border-bottom: 2px solid #e3ecf7;
-      padding-bottom: 1rem;
+    .takeaways li::before {
+      content: counter(take, decimal-leading-zero);
+      position: absolute; left: 0; top: 0.12rem;
+      font-size: 0.72rem; font-weight: 800; color: #8bb3e0;
+      border: 1px solid rgba(139, 179, 224, 0.4);
+      border-radius: 6px; padding: 0.05rem 0.35rem;
     }
+    .takeaways strong { color: #ffffff; background: none; }
 
+    /* ================= SUMMARY + EXAM TIP ================= */
+    .summary {
+      margin-top: 1rem; display: flex; gap: 0.9rem;
+      background: var(--paper); border: 1px solid var(--line);
+      border-left: 5px solid var(--blue);
+      border-radius: var(--radius-md); padding: 1.1rem 1.3rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .summary-label {
+      flex-shrink: 0; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--blue);
+      writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);
+    }
+    .summary p { font-size: 0.95rem; color: var(--ink-2); }
+
+    .exam-tip {
+      margin-top: 1rem; display: flex; gap: 0.8rem;
+      background: var(--amber-tint); border: 1px solid #f2e0b3;
+      border-radius: var(--radius-md); padding: 1rem 1.2rem;
+    }
+    .exam-tip .tip-icon { font-size: 1.1rem; line-height: 1.4; }
+    .exam-tip .tip-label {
+      display: block; font-size: 0.64rem; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--amber); margin-bottom: 0.15rem;
+    }
+    .exam-tip p { font-size: 0.88rem; color: #6b5310; }
+
+    /* ================= QUIZ ================= */
+    .quiz {
+      margin-top: 3rem; border-radius: var(--radius-lg);
+      overflow: hidden; box-shadow: var(--shadow-md); scroll-margin-top: 90px;
+    }
+    .quiz-head {
+      background: radial-gradient(120% 140% at 100% 0%, #1a4470 0%, #0e2a47 62%);
+      color: #fff; padding: 1.5rem 1.7rem;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.9rem;
+    }
+    .quiz-head .eyebrow { color: #9cc7ee; }
+    .quiz-head h2 { font-size: 1.35rem; font-weight: 800; color: #fff; }
+    .quiz-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .quiz-chips span {
+      background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px; padding: 0.28rem 0.7rem; font-size: 0.74rem; font-weight: 700; color: #dceafa;
+    }
+    .quiz-body { background: var(--paper); padding: 1.5rem 1.7rem 1.8rem; }
+
+    .quiz-tabs { display: flex; flex-wrap: wrap; gap: 0.45rem; border-bottom: 1px solid var(--line); padding-bottom: 0.9rem; margin-bottom: 1.2rem; }
     .quiz-tab {
-      background: #f0f5fd;
-      border: 1px solid #d0e0f0;
-      color: #1b4670;
-      padding: 0.5rem 1.3rem;
-      border-radius: 40px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
+      font: inherit; font-size: 0.84rem; font-weight: 700; cursor: pointer;
+      color: var(--ink-2); background: #f2f7fd; border: 1px solid var(--line);
+      border-radius: 999px; padding: 0.42rem 1rem; transition: all 0.15s;
     }
+    .quiz-tab:hover { background: var(--blue-tint); border-color: #bcd8f0; }
+    .quiz-tab.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+    .quiz-tab:focus-visible { outline: 3px solid rgba(47, 108, 168, 0.35); outline-offset: 2px; }
 
-    .quiz-tab:hover {
-      background: #e0ecfc;
-      border-color: #a0c0e0;
-    }
-
-    .quiz-tab.active {
-      background: #0e2a47;
-      color: white;
-      border-color: #0e2a47;
-    }
-
-    .quiz-panel {
-      display: none;
-    }
-
-    .quiz-panel.active {
-      display: block;
-    }
-
+    .quiz-panel { display: none; }
+    .quiz-panel.active { display: block; }
+    .panel-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem; margin-bottom: 1rem; }
     .section-label {
-      display: inline-block;
-      background: #0e2a47;
-      color: white;
-      padding: 0.3rem 1rem;
-      border-radius: 40px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 1.2rem;
+      display: inline-block; background: var(--navy); color: #fff;
+      font-size: 0.66rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.28rem 0.75rem; border-radius: 999px;
+    }
+    .score-chip {
+      font-size: 0.76rem; font-weight: 700; color: var(--blue);
+      background: var(--blue-tint); border-radius: 999px; padding: 0.28rem 0.8rem;
     }
 
-    /* MCQ */
     .mcq-item {
-      background: #f9fcff;
-      border-radius: 1.2rem;
-      padding: 1.3rem 1.5rem;
-      margin-bottom: 1.2rem;
-      border: 1px solid #d9e8fc;
-      transition: background 0.2s;
+      background: #fbfdff; border: 1px solid #e4eefa;
+      border-radius: var(--radius-md); padding: 1rem 1.1rem; margin-bottom: 0.85rem;
     }
-
-    .mcq-item:hover {
-      background: #f0f7fe;
-    }
-
     .mcq-question {
-      font-weight: 600;
-      font-size: 1rem;
-      color: #0e2a47;
-      margin-bottom: 0.8rem;
-      line-height: 1.5;
+      display: flex; gap: 0.6rem; font-size: 0.93rem; font-weight: 700;
+      color: var(--ink); line-height: 1.5; margin-bottom: 0.75rem;
     }
-
-    .mcq-options {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
+    .mcq-question .q-num { color: var(--blue); font-weight: 800; }
+    .mcq-options { display: grid; gap: 0.45rem; }
     .mcq-option {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.6rem;
-      padding: 0.6rem 0.9rem;
-      border-radius: 0.8rem;
-      background: white;
-      border: 1.5px solid #d9e8fc;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-size: 0.93rem;
-      color: #1e3c5a;
+      display: flex; align-items: flex-start; gap: 0.6rem; width: 100%;
+      text-align: left; font: inherit; font-size: 0.87rem; color: var(--ink-2);
+      background: #fff; border: 1.5px solid #e2edf9; border-radius: 11px;
+      padding: 0.55rem 0.75rem; cursor: pointer; transition: all 0.15s;
     }
-
-    .mcq-option:hover {
-      border-color: #8bb3e0;
-      background: #eef6ff;
+    .mcq-option:hover:not(:disabled) { border-color: #b7d4ee; background: #f7fbff; }
+    .mcq-option:disabled { cursor: default; }
+    .option-letter {
+      flex-shrink: 0; width: 1.35rem; height: 1.35rem; border-radius: 50%;
+      display: grid; place-items: center; font-size: 0.7rem; font-weight: 800;
+      background: #eef5fd; color: var(--blue);
     }
-
-    .mcq-option.selected {
-      border-color: #3b7bb5;
-      background: #e4f0fe;
-      font-weight: 500;
-    }
-
-    .mcq-option.correct {
-      border-color: #2e9b5e;
-      background: #e6f7ee;
-      font-weight: 600;
-    }
-
-    .mcq-option.incorrect {
-      border-color: #d45a5a;
-      background: #fdeaea;
-      font-weight: 500;
-    }
-
-    .mcq-option .option-letter {
-      font-weight: 700;
-      color: #2a4b7c;
-      min-width: 1.4rem;
-      text-align: center;
-      flex-shrink: 0;
-    }
-
-    .mcq-option.correct .option-letter { color: #1b7a44; }
-    .mcq-option.incorrect .option-letter { color: #b03030; }
-
+    .mcq-option.correct { border-color: #7fc7a1; background: var(--green-tint); font-weight: 600; }
+    .mcq-option.correct .option-letter { background: #cdeedb; color: #14603c; }
+    .mcq-option.incorrect { border-color: #e0a3a3; background: var(--red-tint); }
+    .mcq-option.incorrect .option-letter { background: #f4d4d4; color: #8f2b2b; }
     .mcq-feedback {
-      margin-top: 0.7rem;
-      font-size: 0.88rem;
-      padding: 0.5rem 0.9rem;
-      border-radius: 0.8rem;
-      display: none;
-      font-weight: 500;
+      display: none; margin-top: 0.65rem; font-size: 0.85rem;
+      border-radius: 10px; padding: 0.55rem 0.8rem; line-height: 1.5;
     }
-
     .mcq-feedback.show { display: block; }
-    .mcq-feedback.correct-fb {
-      background: #e6f7ee;
-      color: #1b6e3e;
-      border-left: 4px solid #2e9b5e;
-    }
-    .mcq-feedback.incorrect-fb {
-      background: #fdeaea;
-      color: #9e2a2a;
-      border-left: 4px solid #d45a5a;
-    }
+    .mcq-feedback.correct-fb { background: var(--green-tint); color: #14603c; border-left: 3px solid #2e9b5e; }
+    .mcq-feedback.incorrect-fb { background: var(--red-tint); color: #8f2b2b; border-left: 3px solid #d45a5a; }
 
-    /* CRQ / ERQ shared */
     .crq-item, .erq-item {
-      background: #f9fcff;
-      border-radius: 1.2rem;
-      padding: 1.3rem 1.5rem;
-      margin-bottom: 1.2rem;
-      border: 1px solid #d9e8fc;
+      background: #fbfdff; border: 1px solid #e4eefa;
+      border-radius: var(--radius-md); padding: 1.1rem 1.2rem; margin-bottom: 0.9rem;
     }
-
-    .erq-item {
-      border: 2px solid #8bb3e0;
-      background: #f5faff;
-    }
-
+    .erq-item { border: 2px solid var(--blue-soft); background: #f7fbff; }
     .crq-question, .erq-question {
-      font-weight: 600;
-      font-size: 1rem;
-      color: #0e2a47;
-      margin-bottom: 0.5rem;
-      line-height: 1.5;
+      font-size: 0.95rem; font-weight: 700; color: var(--ink); line-height: 1.5; margin-bottom: 0.4rem;
     }
-
-    .erq-question {
-      font-size: 1.05rem;
-      font-weight: 700;
-    }
-
     .erq-marks {
-      display: inline-block;
-      background: #0e2a47;
-      color: white;
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 0.2rem 0.9rem;
-      border-radius: 40px;
-      margin-bottom: 0.8rem;
+      display: inline-block; background: var(--navy); color: #fff;
+      font-size: 0.65rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.22rem 0.7rem; border-radius: 999px; margin-bottom: 0.6rem;
     }
-
-    .crq-hint {
-      font-size: 0.85rem;
-      color: #4e6b8a;
-      font-style: italic;
-      margin-bottom: 0.7rem;
-    }
-
+    .crq-hint { font-size: 0.82rem; color: var(--muted); font-style: italic; margin-bottom: 0.6rem; }
     .crq-textarea, .erq-textarea {
-      width: 100%;
-      border: 1.5px solid #d9e8fc;
-      border-radius: 0.9rem;
-      padding: 0.8rem 1rem;
-      font-family: inherit;
-      font-size: 0.93rem;
-      color: #1e3c5a;
-      resize: vertical;
-      transition: border-color 0.2s;
-      background: white;
+      width: 100%; font: inherit; font-size: 0.88rem; color: var(--ink-2);
+      background: #fff; border: 1.5px solid #dbe8f6; border-radius: 11px;
+      padding: 0.7rem 0.85rem; resize: vertical; transition: border-color 0.15s, box-shadow 0.15s;
     }
-
-    .crq-textarea { min-height: 90px; }
-    .erq-textarea { min-height: 160px; }
-
+    .crq-textarea { min-height: 96px; }
+    .erq-textarea { min-height: 170px; }
     .crq-textarea:focus, .erq-textarea:focus {
-      outline: none;
-      border-color: #3b7bb5;
-      box-shadow: 0 0 0 3px rgba(59, 123, 181, 0.12);
+      outline: none; border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(47, 108, 168, 0.13);
     }
-
-    .crq-actions, .erq-actions {
-      display: flex;
-      gap: 0.7rem;
-      margin-top: 0.7rem;
-      flex-wrap: wrap;
+    .answer-meta {
+      display: flex; justify-content: space-between; gap: 0.6rem;
+      font-size: 0.74rem; color: var(--muted); margin-top: 0.35rem;
     }
-
+    .actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.65rem; }
     .btn {
-      padding: 0.55rem 1.4rem;
-      border-radius: 40px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      border: none;
-      font-family: inherit;
+      font: inherit; font-size: 0.83rem; font-weight: 700; cursor: pointer;
+      border-radius: 999px; padding: 0.48rem 1.1rem; border: 1px solid transparent;
+      transition: all 0.15s;
     }
-
-    .btn-primary {
-      background: #0e2a47;
-      color: white;
-    }
-    .btn-primary:hover {
-      background: #1a4170;
-      transform: translateY(-1px);
-    }
-
-    .btn-secondary {
-      background: #e9f0fa;
-      color: #1b4670;
-      border: 1px solid #c0d8f0;
-    }
-    .btn-secondary:hover { background: #d8e6f8; }
-
+    .btn-primary { background: var(--navy); color: #fff; }
+    .btn-primary:hover { background: #16406c; transform: translateY(-1px); }
+    .btn-secondary { background: #eef5fd; color: #1b4670; border-color: #cfe2f4; }
+    .btn-secondary:hover { background: #e0edfa; }
+    .btn:focus-visible { outline: 3px solid rgba(47, 108, 168, 0.35); outline-offset: 2px; }
     .crq-feedback, .erq-feedback {
-      margin-top: 0.8rem;
-      padding: 0.8rem 1rem;
-      border-radius: 0.9rem;
-      font-size: 0.9rem;
-      display: none;
-      line-height: 1.6;
+      display: none; margin-top: 0.7rem; border-radius: 10px;
+      padding: 0.7rem 0.9rem; font-size: 0.86rem; line-height: 1.6;
     }
-
     .crq-feedback.show, .erq-feedback.show { display: block; }
+    .crq-feedback.model, .erq-feedback.model { background: var(--blue-tint); color: #143c62; border-left: 3px solid var(--blue); }
+    .crq-feedback.good, .erq-feedback.good { background: var(--green-tint); color: #14603c; border-left: 3px solid #2e9b5e; }
+    .crq-feedback.partial, .erq-feedback.partial { background: var(--amber-tint); color: #6b5310; border-left: 3px solid #e0a800; }
 
-    .crq-feedback.good, .erq-feedback.good {
-      background: #e6f7ee;
-      color: #1b6e3e;
-      border-left: 4px solid #2e9b5e;
+    /* ================= FOOTER + TOP BUTTON ================= */
+    .note-footer {
+      margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid var(--line);
+      display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem;
+      font-size: 0.76rem; color: var(--muted);
+    }
+    .to-top {
+      position: fixed; right: 1.1rem; bottom: 1.1rem; z-index: 70;
+      width: 44px; height: 44px; border-radius: 50%; border: none; cursor: pointer;
+      background: var(--navy); color: #fff; font-size: 1.05rem;
+      box-shadow: var(--shadow-md); opacity: 0; pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .to-top.visible { opacity: 1; pointer-events: auto; }
+    .to-top:hover { transform: translateY(-2px); }
+
+    .no-results {
+      grid-column: 1 / -1; text-align: center; padding: 2rem 1rem;
+      background: rgba(255, 255, 255, 0.8); border: 2px dashed #c3d8ee;
+      border-radius: var(--radius-md); color: var(--muted); font-weight: 600; font-size: 0.9rem;
     }
 
-    .crq-feedback.partial, .erq-feedback.partial {
-      background: #fff8e6;
-      color: #8a6d1f;
-      border-left: 4px solid #e0a800;
-    }
-
-    .erq-feedback.model {
-      background: #e6f0fc;
-      color: #1a3e62;
-      border-left: 5px solid #3b7bb5;
-    }
-
-    /* ---------- RESPONSIVE ---------- */
-    @media (max-width: 700px) {
-      .dodont-grid { grid-template-columns: 1fr; }
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 900px) {
+      .brief { grid-template-columns: 1fr; margin: -1.6rem 0.8rem 0; }
+      .do-dont { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 600px) {
-      .header-card { padding: 1.5rem 1.2rem; }
-      h1 { font-size: 1.7rem; }
-      .filter-section {
-        flex-direction: column;
-        align-items: stretch;
-        border-radius: 2rem;
-        padding: 1rem;
+      .hero { padding: 1.7rem 1.25rem 2.8rem; border-radius: 24px; }
+      .hero h1 { max-width: none; }
+      .brief { margin: -1.4rem 0.5rem 0; }
+      .brief-card { padding: 1.1rem 1.15rem; border-radius: 18px; }
+      .section-head { gap: 0.7rem; }
+      .section-num { width: 38px; height: 38px; border-radius: 12px; font-size: 0.8rem; }
+      .concept-grid, .vocab-grid, .myth-grid { grid-template-columns: 1fr; }
+      .toolbar-inner { border-radius: 18px; padding: 0.55rem 0.75rem; }
+      .quiz-body { padding: 1.1rem 1rem 1.4rem; }
+      .quiz-head { padding: 1.2rem 1.1rem; }
+      .takeaways { padding: 1.2rem 1.1rem; }
+      .summary { flex-direction: column; gap: 0.5rem; }
+      .summary-label { writing-mode: horizontal-tb; transform: none; }
+    }
+
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-track { background: #e4ecf6; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: #a9c0d8; border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: #7f9cba; }
+
+    ::selection { background: #cfe3f8; color: #0b2138; }
+
+    .toc-list a:focus-visible,
+    .mcq-option:focus-visible,
+    .quiz-tab:focus-visible,
+    .btn:focus-visible,
+    .to-top:focus-visible {
+      outline: 3px solid rgba(47, 108, 168, 0.4);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
       }
-      .search-box { width: 100%; }
-      .count-pill { text-align: center; padding: 0.5rem; }
-      .cards-grid { grid-template-columns: 1fr; }
-      .quiz-body { padding: 1.2rem; }
-      .quiz-header { padding: 1.2rem; }
-      .quiz-header h2 { font-size: 1.3rem; }
-      .mcq-item, .crq-item, .erq-item { padding: 1rem; }
-      .quiz-tab { font-size: 0.8rem; padding: 0.4rem 1rem; }
     }
 
-    ::-webkit-scrollbar { width: 10px; }
-    ::-webkit-scrollbar-track { background: #dfe9f5; border-radius: 20px; }
-    ::-webkit-scrollbar-thumb { background: #94b0d1; border-radius: 20px; }
-    ::-webkit-scrollbar-thumb:hover { background: #6d8fb4; }
-
-    .no-results {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 3rem 1rem;
-      background: #ffffffc9;
-      border-radius: 2rem;
-      font-size: 1.1rem;
-      color: #4b6888;
-      border: 2px dashed #b8cee8;
-      font-weight: 500;
+    /* ================= PRINT ================= */
+    @media print {
+      body { background: #fff; padding: 0; }
+      .progress-track, .toolbar, .to-top, .quiz-tabs { display: none !important; }
+      .hero { box-shadow: none; border-radius: 0; }
+      .quiz-panel { display: block !important; }
+      .concept-card, .vocab-card, .myth-card, .table-shell { break-inside: avoid; }
     }
-
-    /* ---------- TABLES ---------- */
-    .table-wrapper {
-      background: white;
-      border-radius: 1.6rem;
-      padding: 1.2rem;
-      border: 1px solid #e3ecf7;
-      box-shadow: 0 10px 20px -12px rgba(20, 40, 70, 0.18);
-      overflow-x: auto;
-      margin-bottom: 0.5rem;
-    }
-
-    .table-wrapper table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9rem;
-      min-width: 620px;
-    }
-
-    .table-wrapper caption {
-      text-align: left;
-      font-weight: 700;
-      color: #0e2a47;
-      font-size: 0.95rem;
-      padding: 0.2rem 0.2rem 0.8rem 0.2rem;
-    }
-
-    .table-wrapper thead th {
-      background: #0e2a47;
-      color: #ffffff;
-      text-align: left;
-      padding: 0.75rem 0.9rem;
-      font-weight: 700;
-      font-size: 0.85rem;
-      letter-spacing: 0.2px;
-    }
-
-    .table-wrapper tbody td {
-      padding: 0.75rem 0.9rem;
-      border-bottom: 1px solid #e3ecf7;
-      vertical-align: top;
-      color: #274e73;
-      line-height: 1.55;
-    }
-
-    .table-wrapper tbody tr:nth-child(even) { background: #f7faff; }
-    .table-wrapper tbody tr:last-child td { border-bottom: none; }
-
-    /* ---------- SUMMARY STRIP ---------- */
-    .summary-card {
-      background: #e6f0fc;
-      border-left: 6px solid #3b7cb0;
-      border-radius: 1.4rem;
-      padding: 1.3rem 1.6rem;
-      margin-top: 1rem;
-      font-size: 1rem;
-      color: #1d3a5c;
-      box-shadow: inset 0 0 0 1px #d9e8fc;
-    }
-
-    .summary-card strong { color: #0e2a47; }
-
-    .takeaway-card ul { margin: 0; padding-left: 1.2rem; }
-    .takeaway-card li { margin-bottom: 0.45rem; }
 
   </style>
 </head>
 <body>
-  <div class="main-wrapper">
-    <!-- ================= HEADER ================= -->
-    <div class="header-card">
-      <span class="badge">🏫 Classroom Management</span>
+  <div class="progress-track" aria-hidden="true"><span class="progress-fill" id="progressFill"></span></div>
+
+  <div class="shell">
+    <!-- ================= HERO ================= -->
+    <header class="hero">
+      <div class="hero-top">
+        <span class="badge">🏫 Classroom Management</span>
+        <span class="hero-track">Teaching License · Part II · Note 6 of 10</span>
+      </div>
       <h1>Routines, Schedules, and Time Management in Diverse Classrooms</h1>
-      <p class="subhead">Predictability is a form of respect — routines free attention for learning and protect the time that behaviour problems consume</p>
-      <div class="intro-text"><strong>💡 Core idea:</strong> Routines, schedules and time management make up the temporal environment of the classroom. Routines are repeated procedures for recurring events; schedules are the predictable map of the day; time management is how allocated time becomes engaged learning time. In diverse classrooms — multilingual, multigrade, inclusive, or shaped by different cultural and family rhythms — routines are also the fairest form of structure, because they make expectations visible and repeatable rather than dependent on prior knowledge of school culture.</div>
+      <p class="tagline">Predictability is a form of respect — routines free attention for learning and protect the time that behaviour problems consume</p>
+      <div class="chips">
+        <span class="chip">⏱️ 8 min read</span>
+        <span class="chip">📚 7 sections</span>
+        <span class="chip">🔑 11 key terms</span>
+        <span class="chip">📝 10 MCQs · 4 CRQs · 1 ERQ</span>
+      </div>
+    </header>
+
+    <!-- ================= BIG IDEA + OBJECTIVES ================= -->
+    <div class="brief">
+      <section class="brief-card" aria-labelledby="bigidea-title">
+        <h2 class="brief-label" id="bigidea-title">The big idea</h2>
+        <p><strong>Routines</strong>, <strong>schedules</strong> and time management make up the temporal environment of the classroom. <strong>Routines</strong> are repeated procedures for recurring events; <strong>schedules</strong> are the predictable map of the day; time management is how allocated time becomes engaged learning time. In diverse classrooms — multilingual, multigrade, inclusive, or shaped by different cultural and family rhythms — routines are also the fairest form of structure, because they make expectations visible and repeatable rather than dependent on prior knowledge of school culture.</p>
+      </section>
+      <section class="brief-card" aria-labelledby="objectives-title">
+        <h2 class="brief-label" id="objectives-title">What you will master</h2>
+        <ol class="objectives"><li>Distinguish allocated, engaged and <strong>academic learning time</strong> and explain how to convert one into the other.</li><li>Design <strong>routines</strong> and a <strong>visual schedule</strong> that work for multilingual and inclusive classrooms.</li><li>Protect essential <strong>routines</strong> while flexing low-cost points for learners’ real lives.</li></ol>
+      </section>
     </div>
+
+    <!-- ================= TABLE OF CONTENTS ================= -->
+    <nav class="toc" aria-label="Sections in this note">
+      <p class="toc-title">On this page</p>
+      <ol class="toc-list">
+        <li><a href="#concepts"><span class="toc-num">01</span> Core concepts</a></li>
+        <li><a href="#vocabulary"><span class="toc-num">02</span> Key vocabulary</a></li>
+        <li><a href="#comparison"><span class="toc-num">03</span> Comparison table</a></li>
+        <li><a href="#application"><span class="toc-num">04</span> Classroom application</a></li>
+        <li><a href="#misconceptions"><span class="toc-num">05</span> Misconceptions</a></li>
+        <li><a href="#takeaways"><span class="toc-num">06</span> Takeaways &amp; exam tip</a></li>
+        <li><a href="#practice"><span class="toc-num">07</span> Practice quiz</a></li>
+      </ol>
+    </nav>
 
     <!-- ================= SEARCH ================= -->
-    <div class="filter-section">
-      <div class="search-box">
-        <span>🔍</span>
-        <input id="searchInput" type="search" placeholder="Search concepts and misconceptions..." aria-label="Search this note">
-      </div>
-      <div class="count-pill" id="countDisplay">10 items</div>
-    </div>
-
-    <!-- ================= CONCEPTS ================= -->
-    <h2 class="section-title">🎯 Core Concepts <span class="line"></span></h2>
-    <div class="cards-grid" id="conceptGrid">
-        <div class="info-card" data-searchable="What makes a routine work">
-          <div class="card-icon-lg">🔁</div>
-          <div class="card-title-md">What makes a routine work</div>
-          <div class="card-desc-sm">Effective routines are few, explicit, rehearsed and reinforced. They are taught like content: explain the purpose, model it, rehearse it, give feedback, and revisit after holidays. Cue, sequence and expected end-state should be visible.</div>
-          <div class="impact-block"><span class="impact-label">In practice</span>Teach one routine at a time (entry, attention signal, materials, exit) and rehearse it for three consecutive days.</div>
+    <div class="toolbar">
+      <div class="toolbar-inner">
+        <div class="search-box">
+          <span aria-hidden="true">🔍</span>
+          <input id="searchInput" type="search" placeholder="Search concepts, key terms and misconceptions…" aria-label="Search this note">
         </div>
-        <div class="info-card" data-searchable="Schedules and predictability">
-          <div class="card-icon-lg">🕒</div>
-          <div class="card-title-md">Schedules and predictability</div>
-          <div class="card-desc-sm">A posted daily schedule reduces uncertainty, supports learners with anxiety or attention difficulties, and lets substitute teachers maintain continuity. Predictability should be visible (pictures and words) and reviewed at the start of the day.</div>
-          <div class="impact-block"><span class="impact-label">In practice</span>Display the day’s schedule with icons and review the two upcoming changes aloud each morning.</div>
-        </div>
-        <div class="info-card" data-searchable="Allocated time, engaged time and academic learning time">
-          <div class="card-icon-lg">⏳</div>
-          <div class="card-title-md">Allocated time, engaged time and academic learning time</div>
-          <div class="card-desc-sm">Allocated time is what the timetable assigns; engaged time is what learners actually spend on task; academic learning time is engaged time at an appropriate success rate. Management exists to convert the first into the third by reducing transition and dead time.</div>
-          <div class="impact-block"><span class="impact-label">In practice</span>Measure the first five minutes and the last five minutes for a week; most lost time hides there.</div>
-        </div>
-        <div class="info-card" data-searchable="Time-management techniques">
-          <div class="card-icon-lg">🧩</div>
-          <div class="card-title-md">Time-management techniques</div>
-          <div class="card-desc-sm">Chunk tasks, use visible timers, post a “do now” on entry, prepare early-finisher tasks, batch administrative tasks, and use wait time deliberately. Brisk transitions with a countdown protect momentum.</div>
-          <div class="impact-block"><span class="impact-label">In practice</span>Use a visible countdown for transitions; target two minutes for entry and one minute for materials.</div>
-        </div>
-        <div class="info-card" data-searchable="Diversity and the temporal environment">
-          <div class="card-icon-lg">🌍</div>
-          <div class="card-title-md">Diversity and the temporal environment</div>
-          <div class="card-desc-sm">Learners may observe prayer times, fasting, caregiving duties, long commutes or seasonal work. Multilingual learners need processing time; learners with disabilities may need movement, sensory or medical routines. Rigid timing without flexibility becomes exclusion.</div>
-          <div class="impact-block"><span class="impact-label">In practice</span>Build flexibility into the schedule where it costs nothing, and protect high-stakes routines (medication, prayer, sensory breaks) as non-negotiable.</div>
-        </div>
-        <div class="info-card" data-searchable="Shared responsibility for time">
-          <div class="card-icon-lg">🧑‍🤝‍🧑</div>
-          <div class="card-title-md">Shared responsibility for time</div>
-          <div class="card-desc-sm">Time is managed by the whole class when roles are assigned: timekeepers, materials monitors, attendance helpers, transition leaders. Shared responsibility increases belonging and reduces the teacher’s cognitive load.</div>
-          <div class="impact-block"><span class="impact-label">In practice</span>Rotate classroom jobs weekly and make the timekeeper’s signal a public, non-verbal cue.</div>
-        </div>
-    </div>
-
-    <!-- ================= COMPARISON TABLE ================= -->
-    <h2 class="section-title">📊 Routines, Schedules and Time: Purpose and Diversity Lens <span class="line"></span></h2>
-    <div class="table-wrapper" id="compareGrid">
-      <table>
-        <caption>Routines, Schedules and Time: Purpose and Diversity Lens</caption>
-        <thead><tr><th>Element</th><th>Purpose</th><th>Example</th><th>Diversity consideration</th></tr></thead>
-        <tbody>
-          <tr><td>Entry routine</td><td>Start learning within two minutes</td><td>Do-now task on the board as learners enter</td><td>Allow for staggered arrival and transport delays</td></tr>
-          <tr><td>Attention signal</td><td>Rapid, calm whole-class focus</td><td>Teacher raises hand; learners stop, look, listen</td><td>Pair with a visual cue for hearing differences</td></tr>
-          <tr><td>Materials routine</td><td>Avoid dead time and disputes</td><td>Group monitors collect and return trays</td><td>Keep spares for learners without materials</td></tr>
-          <tr><td>Transition routine</td><td>Protect momentum</td><td>Countdown, then move in table order</td><td>Allow extra time for mobility needs</td></tr>
-          <tr><td>Exit routine</td><td>Consolidate and dismiss calmly</td><td>Exit ticket, then row-by-row dismissal</td><td>Account for buses, caregiving duties, prayer</td></tr>
-          <tr><td>Visual schedule</td><td>Reduce uncertainty and anxiety</td><td>Icons plus words for each block</td><td>Support multilingual and neurodiverse learners</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- ================= APPLICATION ================= -->
-    <h2 class="section-title">🏫 Classroom Application <span class="line"></span></h2>
-    <div class="dodont-grid" id="applyGrid">
-      <div class="do-card">
-        <h3>✅ Do this</h3>
-        <ul><li>Teach and rehearse routines rather than announcing them once.</li><li>Post the schedule and review the day’s changes each morning.</li><li>Use a visible timer or countdown for transitions.</li><li>Plan the first five and last five minutes explicitly.</li><li>Prepare early-finisher tasks so finished learners never become idle.</li><li>Protect prayer, medication, sensory and mobility routines as non-negotiable.</li></ul>
-      </div>
-      <div class="dont-card">
-        <h3>🚫 Avoid this</h3>
-        <ul><li>Do not introduce five new routines on the same day; prioritise and sequence.</li><li>Do not confiscate break time as a routine sanction; it creates resentment and returns learners less ready to learn.</li><li>Do not treat lateness from long commutes or caregiving as defiance.</li><li>Do not leave the last five minutes unstructured.</li><li>Do not rely on verbal reminders alone; use visible cues.</li><li>Do not confuse a busy classroom with a productive one.</li></ul>
+        <div class="count-pill" id="countDisplay" role="status" aria-live="polite">21 items</div>
       </div>
     </div>
 
-    <!-- ================= MISCONCEPTIONS ================= -->
-    <h2 class="section-title">⚠️ Common Misconceptions <span class="line"></span></h2>
-    <div class="cards-grid" id="misGrid">
-        <div class="info-card" data-searchable="Routines are only for young children.">
-          <div class="card-icon-lg">❌</div>
-          <div class="card-title-md">&ldquo;Routines are only for young children.&rdquo;</div>
-          <div class="card-desc-sm">Adolescents and adults rely on routines too. Predictability reduces the cognitive load of figuring out what to do, freeing attention for content.</div>
-        </div>        <div class="info-card" data-searchable="A tight schedule leaves no room for flexibility.">
-          <div class="card-icon-lg">❌</div>
-          <div class="card-title-md">&ldquo;A tight schedule leaves no room for flexibility.&rdquo;</div>
-          <div class="card-desc-sm">Good schedules build in flexibility at low-cost points while protecting high-value routines — that is what makes them sustainable.</div>
-        </div>        <div class="info-card" data-searchable="Time management means teaching faster.">
-          <div class="card-icon-lg">❌</div>
-          <div class="card-title-md">&ldquo;Time management means teaching faster.&rdquo;</div>
-          <div class="card-desc-sm">It means reducing dead time and increasing engaged learning time, not accelerating coverage beyond comprehension.</div>
-        </div>        <div class="info-card" data-searchable="Learners who arrive late are simply undisciplined.">
-          <div class="card-icon-lg">❌</div>
-          <div class="card-title-md">&ldquo;Learners who arrive late are simply undisciplined.&rdquo;</div>
-          <div class="card-desc-sm">Lateness often reflects transport, caregiving, work or safety realities. A re-entry routine that allows learners to join without humiliation is better management than public sanction.</div>
+    <!-- ================= 01 CONCEPTS ================= -->
+    <section class="section" id="concepts" aria-labelledby="concepts-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">01</span>
+        <div>
+          <p class="eyebrow">Foundations</p>
+          <h2 id="concepts-title">Core concepts</h2>
+          <p class="section-lead">Each card isolates one idea examiners test. Read the definition first, then the <em>In practice</em> line — that is where scenario questions begin.</p>
         </div>
-    </div>
+      </div>
+      <div class="concept-grid" id="conceptGrid">
+        <article class="concept-card" data-searchable="What makes a routine work">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🔁</span>
+            <span class="concept-index">01</span>
+          </div>
+          <h3 class="concept-title">What makes a routine work</h3>
+          <p class="concept-desc">Effective <strong>routines</strong> are few, explicit, rehearsed and reinforced. They are taught like content: explain the purpose, model it, rehearse it, give feedback, and revisit after holidays. Cue, sequence and expected end-state should be visible.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Teach one <strong>routine</strong> at a time (entry, attention signal, materials, exit) and rehearse it for three consecutive days.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Schedules and predictability">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🕒</span>
+            <span class="concept-index">02</span>
+          </div>
+          <h3 class="concept-title">Schedules and predictability</h3>
+          <p class="concept-desc">A posted daily <strong>schedule</strong> reduces uncertainty, supports learners with anxiety or attention difficulties, and lets substitute teachers maintain continuity. Predictability should be visible (pictures and words) and reviewed at the start of the day.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Display the day’s <strong>schedule</strong> with icons and review the two upcoming changes aloud each morning.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Allocated time, engaged time and academic learning time">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">⏳</span>
+            <span class="concept-index">03</span>
+          </div>
+          <h3 class="concept-title">Allocated time, engaged time and academic learning time</h3>
+          <p class="concept-desc"><strong>Allocated time</strong> is what the timetable assigns; <strong>engaged time</strong> is what learners actually spend on task; <strong>academic learning time</strong> is <strong>engaged time</strong> at an appropriate success rate. Management exists to convert the first into the third by reducing transition and dead time.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Measure the first five minutes and the last five minutes for a week; most lost time hides there.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Time-management techniques">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🧩</span>
+            <span class="concept-index">04</span>
+          </div>
+          <h3 class="concept-title">Time-management techniques</h3>
+          <p class="concept-desc">Chunk tasks, use visible timers, post a “do now” on entry, prepare early-finisher tasks, batch administrative tasks, and use wait time deliberately. Brisk <strong>transitions</strong> with a <strong>countdown</strong> protect <strong>momentum</strong>.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Use a visible <strong>countdown</strong> for <strong>transitions</strong>; target two minutes for entry and one minute for materials.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Diversity and the temporal environment">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🌍</span>
+            <span class="concept-index">05</span>
+          </div>
+          <h3 class="concept-title">Diversity and the temporal environment</h3>
+          <p class="concept-desc">Learners may observe prayer times, fasting, caregiving duties, long commutes or seasonal work. Multilingual learners need processing time; learners with disabilities may need movement, sensory or medical <strong>routines</strong>. Rigid timing without flexibility becomes exclusion.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Build flexibility into the <strong>schedule</strong> where it costs nothing, and protect high-stakes <strong>routines</strong> (medication, prayer, sensory breaks) as non-negotiable.</p>
+            </div>
+          </div>
+        </article>
+        <article class="concept-card" data-searchable="Shared responsibility for time">
+          <div class="concept-top">
+            <span class="concept-icon" aria-hidden="true">🧑‍🤝‍🧑</span>
+            <span class="concept-index">06</span>
+          </div>
+          <h3 class="concept-title">Shared responsibility for time</h3>
+          <p class="concept-desc">Time is managed by the whole class when roles are assigned: timekeepers, materials monitors, attendance helpers, <strong>transition</strong> leaders. Shared responsibility increases belonging and reduces the teacher’s cognitive load.</p>
+          <div class="practice">
+            <div class="practice-box">
+              <span class="practice-label">In practice</span>
+              <p>Rotate classroom jobs weekly and make the timekeeper’s signal a public, non-verbal cue.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
 
-    <!-- ================= TAKEAWAYS ================= -->
-    <h2 class="section-title">🔑 Key Takeaways <span class="line"></span></h2>
-    <div class="takeaway-card">
-      <strong>Remember these points for the exam:</strong>
-      <ul><li>Routines are taught like content: explain, model, rehearse, reinforce and revisit.</li><li>A visible, predictable schedule reduces anxiety and supports learners with additional needs.</li><li>Management converts allocated time into engaged and academic learning time by cutting transition and dead time.</li><li>The first and last five minutes of a lesson are where most time is lost and most behaviour begins.</li><li>In diverse classrooms, flexibility at low-cost points and protection of essential routines prevent exclusion.</li><li>Distributing time-keeping roles builds belonging and reduces teacher load.</li></ul>
-    </div>
-    <div class="summary-card"><strong>📌 One-line summary:</strong> Routines, visible schedules and disciplined time management turn allocated time into learning time — and in diverse classrooms they must be taught explicitly, displayed clearly and flexed respectfully around learners’ real lives.</div>
+    <!-- ================= 02 VOCABULARY ================= -->
+    <section class="section" id="vocabulary" aria-labelledby="vocab-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">02</span>
+        <div>
+          <p class="eyebrow">Precision</p>
+          <h2 id="vocab-title">Key vocabulary</h2>
+          <p class="section-lead">Be able to define each term in one sentence. Bold terms below also appear highlighted inside the notes, so you can meet them in context.</p>
+        </div>
+      </div>
+      <dl class="vocab-grid" id="vocabGrid">
+        <div class="vocab-card" data-searchable="Routine">
+          <dt class="vocab-term">Routine</dt>
+          <dd class="vocab-def">A repeated, taught procedure for a recurring classroom event.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Schedule">
+          <dt class="vocab-term">Schedule</dt>
+          <dd class="vocab-def">The posted, predictable map of the day’s activities.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Allocated time">
+          <dt class="vocab-term">Allocated time</dt>
+          <dd class="vocab-def">The time the timetable assigns to a subject or activity.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Engaged time">
+          <dt class="vocab-term">Engaged time</dt>
+          <dd class="vocab-def">The time learners actually spend actively working on the task.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Academic learning time">
+          <dt class="vocab-term">Academic learning time</dt>
+          <dd class="vocab-def"><strong>Engaged time</strong> at an appropriate rate of success.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Transition">
+          <dt class="vocab-term">Transition</dt>
+          <dd class="vocab-def">Movement between activities, places or materials; the main source of lost instructional time.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Dead time">
+          <dt class="vocab-term">Dead time</dt>
+          <dd class="vocab-def">Unstructured minutes when learners are waiting and no learning is occurring.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Countdown">
+          <dt class="vocab-term">Countdown</dt>
+          <dd class="vocab-def">A visible or spoken cue that makes the end of a <strong>transition</strong> predictable.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Visual schedule">
+          <dt class="vocab-term">Visual schedule</dt>
+          <dd class="vocab-def">A <strong>schedule</strong> displayed with icons and words so that it is accessible to all learners.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Bell-ringer (do now)">
+          <dt class="vocab-term">Bell-ringer (do now)</dt>
+          <dd class="vocab-def">A short task begun immediately on entry that converts entry time into learning time.</dd>
+        </div>
+        <div class="vocab-card" data-searchable="Momentum">
+          <dt class="vocab-term">Momentum</dt>
+          <dd class="vocab-def">Sustained, purposeful pacing with no interruptions or gaps.</dd>
+        </div>
+      </dl>
+    </section>
 
-    <!-- ================= QUIZ ================= -->
-    <div class="quiz-section">
-      <div class="quiz-header">
-        <h2>📝 Practice Quiz</h2>
-        <span class="quiz-badge">10 MCQs · 4 CRQs · 1 ERQ</span>
+    <!-- ================= 03 COMPARISON ================= -->
+    <section class="section" id="comparison" aria-labelledby="comparison-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">03</span>
+        <div>
+          <p class="eyebrow">Distinctions</p>
+          <h2 id="comparison-title">Comparison table</h2>
+          <p class="section-lead">Use this table for “differentiate between”, “compare” and “which is most appropriate” questions — name the dimension, then the contrast.</p>
+        </div>
+      </div>
+      <div class="table-shell" id="compareGrid">
+        <div class="table-caption">
+          <strong>Routines, Schedules and Time: Purpose and Diversity Lens</strong>
+          <span>Swipe to view all columns →</span>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr><th scope="col">Element</th><th scope="col">Purpose</th><th scope="col">Example</th><th scope="col">Diversity consideration</th></tr>
+            </thead>
+            <tbody>
+            <tr><td>Entry <strong>routine</strong></td><td>Start learning within two minutes</td><td>Do-now task on the board as learners enter</td><td>Allow for staggered arrival and transport delays</td></tr>
+            <tr><td>Attention signal</td><td>Rapid, calm whole-class focus</td><td>Teacher raises hand; learners stop, look, listen</td><td>Pair with a visual cue for hearing differences</td></tr>
+            <tr><td>Materials <strong>routine</strong></td><td>Avoid <strong>dead time</strong> and disputes</td><td>Group monitors collect and return trays</td><td>Keep spares for learners without materials</td></tr>
+            <tr><td><strong>Transition</strong> <strong>routine</strong></td><td>Protect <strong>momentum</strong></td><td><strong>Countdown</strong>, then move in table order</td><td>Allow extra time for mobility needs</td></tr>
+            <tr><td>Exit <strong>routine</strong></td><td>Consolidate and dismiss calmly</td><td>Exit ticket, then row-by-row dismissal</td><td>Account for buses, caregiving duties, prayer</td></tr>
+            <tr><td><strong>Visual schedule</strong></td><td>Reduce uncertainty and anxiety</td><td>Icons plus words for each block</td><td>Support multilingual and neurodiverse learners</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 04 APPLICATION ================= -->
+    <section class="section" id="application" aria-labelledby="application-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">04</span>
+        <div>
+          <p class="eyebrow">Practice</p>
+          <h2 id="application-title">Classroom application</h2>
+          <p class="section-lead">What to do, and what to avoid, in a real classroom. The left column is the standard to teach; the right column lists the errors that create management problems.</p>
+        </div>
+      </div>
+      <div class="do-dont" id="applyGrid">
+        <div class="dd-card do">
+          <h3><span aria-hidden="true">✅</span> Do this</h3>
+          <ul><li>Teach and rehearse <strong>routines</strong> rather than announcing them once.</li><li>Post the <strong>schedule</strong> and review the day’s changes each morning.</li><li>Use a visible timer or <strong>countdown</strong> for <strong>transitions</strong>.</li><li>Plan the first five and last five minutes explicitly.</li><li>Prepare early-finisher tasks so finished learners never become idle.</li><li>Protect prayer, medication, sensory and mobility <strong>routines</strong> as non-negotiable.</li></ul>
+        </div>
+        <div class="dd-card avoid">
+          <h3><span aria-hidden="true">🚫</span> Avoid this</h3>
+          <ul><li>Do not introduce five new <strong>routines</strong> on the same day; prioritise and sequence.</li><li>Do not confiscate break time as a <strong>routine</strong> sanction; it creates resentment and returns learners less ready to learn.</li><li>Do not treat lateness from long commutes or caregiving as defiance.</li><li>Do not leave the last five minutes unstructured.</li><li>Do not rely on verbal reminders alone; use visible cues.</li><li>Do not confuse a busy classroom with a productive one.</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 05 MISCONCEPTIONS ================= -->
+    <section class="section" id="misconceptions" aria-labelledby="misconceptions-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">05</span>
+        <div>
+          <p class="eyebrow">Exam traps</p>
+          <h2 id="misconceptions-title">Common misconceptions</h2>
+          <p class="section-lead">Each misconception below is a plausible-sounding statement that loses marks. Learn the reality column as a correction you can write.</p>
+        </div>
+      </div>
+      <div class="myth-grid" id="misGrid">
+        <article class="myth-card" data-searchable="Routines are only for young children.">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;Routines are only for young children.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>Adolescents and adults rely on <strong>routines</strong> too. Predictability reduces the cognitive load of figuring out what to do, freeing attention for content.</p>
+          </div>
+        </article>
+        <article class="myth-card" data-searchable="A tight schedule leaves no room for flexibility.">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;A tight schedule leaves no room for flexibility.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>Good <strong>schedules</strong> build in flexibility at low-cost points while protecting high-value <strong>routines</strong> — that is what makes them sustainable.</p>
+          </div>
+        </article>
+        <article class="myth-card" data-searchable="Time management means teaching faster.">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;Time management means teaching faster.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>It means reducing <strong>dead time</strong> and increasing engaged learning time, not accelerating coverage beyond comprehension.</p>
+          </div>
+        </article>
+        <article class="myth-card" data-searchable="Learners who arrive late are simply undisciplined.">
+          <span class="myth-tag">Myth</span>
+          <p class="myth-claim">&ldquo;Learners who arrive late are simply undisciplined.&rdquo;</p>
+          <div class="myth-reality">
+            <span class="reality-tag">✔ Reality</span>
+            <p>Lateness often reflects transport, caregiving, work or safety realities. A re-entry <strong>routine</strong> that allows learners to join without humiliation is better management than public sanction.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= 06 TAKEAWAYS ================= -->
+    <section class="section" id="takeaways" aria-labelledby="takeaways-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">06</span>
+        <div>
+          <p class="eyebrow">Compress</p>
+          <h2 id="takeaways-title">Key takeaways</h2>
+          <p class="section-lead">Revise these lines the night before the paper — they compress the whole note into recall-ready statements.</p>
+        </div>
+      </div>
+      <div class="takeaways">
+        <h3>Six things to remember</h3>
+        <ol><li><strong>Routines</strong> are taught like content: explain, model, rehearse, reinforce and revisit.</li><li>A visible, predictable <strong>schedule</strong> reduces anxiety and supports learners with additional needs.</li><li>Management converts <strong>allocated time</strong> into engaged and <strong>academic learning time</strong> by cutting <strong>transition</strong> and <strong>dead time</strong>.</li><li>The first and last five minutes of a lesson are where most time is lost and most behaviour begins.</li><li>In diverse classrooms, flexibility at low-cost points and protection of essential <strong>routines</strong> prevent exclusion.</li><li>Distributing time-keeping roles builds belonging and reduces teacher load.</li></ol>
+      </div>
+      <div class="summary">
+        <span class="summary-label">One-line summary</span>
+        <p><strong>Routines</strong>, visible <strong>schedules</strong> and disciplined time management turn <strong>allocated time</strong> into learning time — and in diverse classrooms they must be taught explicitly, displayed clearly and flexed respectfully around learners’ real lives.</p>
+      </div>
+      <div class="exam-tip">
+        <span class="tip-icon" aria-hidden="true">💡</span>
+        <div>
+          <span class="tip-label">Exam tip</span>
+          <p>Three time types are a classic multiple-choice set: allocated time is what the timetable gives you, engaged time is what learners actually do, academic learning time is engaged time at the right success rate.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 07 QUIZ ================= -->
+    <section class="quiz" id="practice" aria-labelledby="quiz-title">
+      <div class="quiz-head">
+        <div>
+          <p class="eyebrow">Practice</p>
+          <h2 id="quiz-title">Test yourself</h2>
+        </div>
+        <div class="quiz-chips">
+          <span>10 MCQs</span>
+          <span>4 CRQs</span>
+          <span>1 ERQ</span>
+        </div>
       </div>
       <div class="quiz-body">
-        <div class="quiz-tabs" role="tablist">
-          <button class="quiz-tab active" data-panel="mcqPanel" role="tab">🔘 10 MCQs</button>
-          <button class="quiz-tab" data-panel="crqPanel" role="tab">✍️ 4 CRQs</button>
-          <button class="quiz-tab" data-panel="erqPanel" role="tab">📄 1 ERQ</button>
+        <div class="quiz-tabs" role="tablist" aria-label="Quiz sections">
+          <button class="quiz-tab active" role="tab" aria-selected="true" data-panel="mcqPanel">🔘 10 MCQs</button>
+          <button class="quiz-tab" role="tab" aria-selected="false" data-panel="crqPanel">✍️ 4 CRQs</button>
+          <button class="quiz-tab" role="tab" aria-selected="false" data-panel="erqPanel">📄 1 ERQ</button>
         </div>
 
-        <div class="quiz-panel active" id="mcqPanel">
-          <span class="section-label">Multiple Choice Questions</span>
+        <div class="quiz-panel active" id="mcqPanel" role="tabpanel">
+          <div class="panel-head">
+            <span class="section-label">Multiple choice questions</span>
+            <span class="score-chip" id="mcqProgress">0 / 10 answered · 0 correct</span>
+          </div>
           <div id="mcqContainer"></div>
         </div>
 
-        <div class="quiz-panel" id="crqPanel">
-          <span class="section-label">Constructed Response Questions</span>
+        <div class="quiz-panel" id="crqPanel" role="tabpanel">
+          <div class="panel-head">
+            <span class="section-label">Constructed response questions</span>
+            <span class="score-chip">Model answers included</span>
+          </div>
           <div id="crqContainer"></div>
         </div>
 
-        <div class="quiz-panel" id="erqPanel">
-          <span class="section-label">Extended Response Question (Situation-Based)</span>
+        <div class="quiz-panel" id="erqPanel" role="tabpanel">
+          <div class="panel-head">
+            <span class="section-label">Extended response · situation-based</span>
+            <span class="score-chip">Keyword self-check</span>
+          </div>
           <div id="erqContainer"></div>
         </div>
       </div>
-    </div>
+    </section>
+
+    <footer class="note-footer">
+      <span>MUQABIL · Teaching License Master Notes · Classroom Management</span>
+      <span>10 interactive notes in this module · revision 6 of 10</span>
+    </footer>
   </div>
+
+  <button class="to-top" id="toTop" type="button" aria-label="Back to top">↑</button>
 
 <script>
     (function () {
-      // ================= LIVE SEARCH =================
+      'use strict';
+
+      /* ================= READING PROGRESS ================= */
+      var fill = document.getElementById('progressFill');
+      var toTop = document.getElementById('toTop');
+
+      function updateScroll() {
+        var doc = document.documentElement;
+        var max = doc.scrollHeight - doc.clientHeight;
+        var pct = max > 0 ? (doc.scrollTop / max) * 100 : 0;
+        if (fill) fill.style.width = pct + '%';
+        if (toTop) {
+          if (doc.scrollTop > 600) toTop.classList.add('visible');
+          else toTop.classList.remove('visible');
+        }
+      }
+      window.addEventListener('scroll', updateScroll, { passive: true });
+      updateScroll();
+
+      if (toTop) {
+        toTop.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      /* ================= LIVE SEARCH ================= */
       var searchInput = document.getElementById('searchInput');
       var countDisplay = document.getElementById('countDisplay');
-      var searchGrids = [
+      var grids = [
         document.getElementById('conceptGrid'),
+        document.getElementById('vocabGrid'),
         document.getElementById('misGrid')
       ].filter(Boolean);
-      var allCards = [];
-      searchGrids.forEach(function (grid) {
-        grid.querySelectorAll('[data-searchable]').forEach(function (card) {
-          allCards.push(card);
+
+      var cards = [];
+      grids.forEach(function (grid) {
+        Array.prototype.forEach.call(grid.querySelectorAll('[data-searchable]'), function (card) {
+          cards.push(card);
         });
       });
 
-      function applySearch(rawQuery) {
-        var q = (rawQuery || '').trim().toLowerCase();
+      function applySearch(raw) {
+        var q = (raw || '').trim().toLowerCase();
         var visible = 0;
-        allCards.forEach(function (card) {
-          var text = ((card.dataset.searchable || '') + ' ' + card.textContent).toLowerCase();
+        cards.forEach(function (card) {
+          var text = ((card.getAttribute('data-searchable') || '') + ' ' + card.textContent).toLowerCase();
           var matches = q === '' || text.indexOf(q) !== -1;
           card.style.display = matches ? '' : 'none';
           if (matches) visible++;
         });
-        document.querySelectorAll('.no-results').forEach(function (el) { el.remove(); });
-        searchGrids.forEach(function (grid) {
+        Array.prototype.forEach.call(document.querySelectorAll('.no-results'), function (el) {
+          el.parentNode.removeChild(el);
+        });
+        grids.forEach(function (grid) {
           var shown = Array.prototype.filter.call(
             grid.querySelectorAll('[data-searchable]'),
             function (card) { return card.style.display !== 'none'; }
@@ -1041,103 +1074,158 @@
         }
       }
 
-      var debounce;
+      var debounceTimer;
       if (searchInput) {
         searchInput.addEventListener('input', function (e) {
-          clearTimeout(debounce);
-          debounce = setTimeout(function () { applySearch(e.target.value); }, 150);
+          clearTimeout(debounceTimer);
+          debounceTimer = setTimeout(function () { applySearch(e.target.value); }, 140);
         });
         searchInput.addEventListener('search', function (e) {
           if (e.target.value === '') applySearch('');
         });
+        searchInput.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && searchInput.value !== '') {
+            searchInput.value = '';
+            applySearch('');
+          }
+        });
       }
       applySearch('');
 
-      // ================= QUIZ TABS =================
-      var tabs = document.querySelectorAll('.quiz-tab');
+      /* ================= QUIZ TABS ================= */
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.quiz-tab'));
       tabs.forEach(function (tab) {
         tab.addEventListener('click', function () {
-          tabs.forEach(function (t) { t.classList.remove('active'); });
-          document.querySelectorAll('.quiz-panel').forEach(function (p) {
+          tabs.forEach(function (t) {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          Array.prototype.forEach.call(document.querySelectorAll('.quiz-panel'), function (p) {
             p.classList.remove('active');
           });
           tab.classList.add('active');
-          var panel = document.getElementById(tab.dataset.panel);
+          tab.setAttribute('aria-selected', 'true');
+          var panel = document.getElementById(tab.getAttribute('data-panel'));
           if (panel) panel.classList.add('active');
         });
       });
 
-      // ================= DATA =================
+      /* ================= DATA ================= */
       var mcqs = [{"q": "Allocated time, engaged time and academic learning time differ because:", "options": ["They are synonyms", "Only some allocated time is spent on task at an appropriate success rate", "Engaged time is always higher than allocated time", "Academic learning time excludes assessment"], "answer": 1, "why": "Management aims to convert allocated time into engaged learning time."}, {"q": "The most effective way to establish a new routine is to:", "options": ["Announce it once", "Explain, model, rehearse and reinforce it", "Punish learners who forget it", "Post it on the wall only"], "answer": 1, "why": "Routines are taught like content, with modelling and rehearsal."}, {"q": "A visual schedule is particularly valuable for:", "options": ["Reducing uncertainty for anxious, multilingual and neurodiverse learners", "Increasing homework", "Replacing instruction", "Ranking learners"], "answer": 0, "why": "Visual schedules make the day predictable and reduce anxiety."}, {"q": "Dead time most often occurs:", "options": ["During examinations", "During transitions, distribution of materials and the last five minutes", "During group work", "In the middle of explanations"], "answer": 1, "why": "Unstructured transitions and end-of-lesson time are the main losses."}, {"q": "Which practice protects momentum during a transition?", "options": ["Waiting silently for several minutes", "Using a visible countdown and a rehearsed sequence", "Re-explaining the whole lesson", "Removing the schedule"], "answer": 1, "why": "A countdown plus a rehearsed sequence keeps transitions brisk."}, {"q": "Treating lateness from a long commute as defiance is a problem because it:", "options": ["Ignores material reality and damages belonging", "Improves punctuality", "Has no effect", "Supports inclusion"], "answer": 0, "why": "Lateness often has structural causes; public sanction damages trust."}, {"q": "Which is an appropriate diversity adjustment to the temporal environment?", "options": ["Removing all breaks", "Protecting prayer, medication and sensory routines", "Ignoring mobility needs", "Forbidding multilingual cues"], "answer": 1, "why": "Essential routines must be protected as non-negotiable."}, {"q": "Assigning a class timekeeper mainly helps by:", "options": ["Reducing belonging", "Sharing responsibility and lowering teacher cognitive load", "Increasing punishment", "Replacing the schedule"], "answer": 1, "why": "Shared roles build ownership and reduce teacher load."}, {"q": "The “do now” or bell-ringer task exists to:", "options": ["Fill time randomly", "Start learning immediately on entry", "Test learners without warning", "Replace the lesson objective"], "answer": 1, "why": "It converts entry time into immediate engaged learning."}, {"q": "Which statement about routines and older learners is accurate?", "options": ["Routines are unnecessary after primary school", "Routines reduce cognitive load for learners of all ages", "Routines only help weak learners", "Routines increase misbehaviour"], "answer": 1, "why": "Predictable procedures free attention for content at every age."}];
       var crqs = [{"q": "Explain how a teacher converts allocated time into academic learning time, giving four concrete techniques.", "hint": "Define the three types of time, then the techniques.", "model": "Allocated time is what the timetable assigns; engaged time is time actually spent on task; academic learning time is engaged time at an appropriate success rate. Techniques: (1) an entry “do now” so learning starts immediately; (2) rehearsed transitions with a visible countdown to cut dead time; (3) prepared materials and group monitors to avoid distribution delays; (4) early-finisher tasks and a planned closing activity so no segment is left unstructured. Frequent checks for understanding keep engaged time productive rather than merely busy."}, {"q": "Design an entry routine for a multilingual Grade 6 class that includes learners who arrive late because of transport.", "hint": "Consider speed, inclusivity, dignity and independence.", "model": "The routine should be visible and independent of the teacher: a posted “do now” with an icon and simple language, materials already on desks, and a labelled tray for late arrivals. As learners enter they read the board, begin the task and check the day’s schedule. Late arrivals join silently, take the task from the tray, and are briefed by a partner rather than being questioned publicly. The teacher circulates, greets briefly and praises on-task entry. Rehearsal happens for three days with feedback; the target is full engagement within two minutes, with late arrivals integrated without loss of dignity."}, {"q": "What diversity considerations must shape routines and schedules, and how can a teacher avoid turning structure into exclusion?", "hint": "Discuss several learner realities and the principle behind adjustments.", "model": "Consider prayer and fasting, caregiving and work duties, long or unsafe commutes, multilingual processing time, mobility and sensory needs, medication schedules and seasonal agricultural work. Structure becomes exclusion when a single rigid timeline is treated as morally superior and deviations are punished publicly. The teacher avoids this by protecting essential routines, building flexibility at low-cost points, offering alternative entry points for late arrivals, allowing extra processing and movement time, and checking with families about constraints. The principle is that routines exist to protect learning, not to sort learners by compliance."}, {"q": "How would you evaluate whether your routines and time management are working?", "hint": "Give measurable indicators and a review cycle.", "model": "Measure transition duration for entry, materials and exit over a week; sample on-task behaviour at five-minute intervals; record how many minutes of the lesson are lost to administrative tasks; track the number of learners still not started five minutes into the lesson. Collect learner feedback on clarity. Compare against a target (for example, entry complete in two minutes, ninety percent on task), make one change, and re-measure. Reviewing the data with the class turns time management into a shared project."}];
       var erq = {"scenario": "A multigrade classroom of 42 learners in Grades 4 and 5 has one teacher, frequent interruptions for administrative errands, learners arriving at different times from a nearby market, and a timetable that allocates 35-minute periods. Teachers report that “nothing gets finished” and that noise rises whenever the teacher turns to the other grade.", "task": "Propose a routines-and-time plan that increases engaged learning time and reduces noise, while respecting the learners’ realities and the multigrade structure.", "hint": "Address entry, attention signal, independent routines, schedule design, roles and measurement.", "keywords": ["routine", "schedule", "transition", "engaged time", "roles", "independence", "flexibility", "visual", "signal", "measurement"], "model": "The core problem is that the teacher is the only transition mechanism in the room, so every switch between grades produces dead time and noise. The plan should therefore build independence into the structure. First, establish a single entry routine: a posted visual “do now” for each grade, materials prepared in labelled trays, and a partner-briefing arrangement for learners arriving late from the market so that late entry is silent and dignified. Second, teach one attention signal and rehearse it until it works in under five seconds, so the teacher does not have to raise their voice across the room. Third, design the 35-minute period around two short teacher-led segments and two longer independent segments: while Grade 4 receives direct instruction, Grade 5 works on a clearly displayed independent task with a visible timer and success criteria, and then the groups swap. Fourth, assign roles — timekeepers, materials monitors, question captains who collect and answer routine queries — so learners do not need the teacher for every procedural issue. Fifth, reduce interruption damage by batching administrative errands at set times where possible, or negotiating with the office. Sixth, build in flexibility for prayer, fasting and market-day arrivals without treating them as violations. Finally, measure: transition times, minutes of teacher-led versus independent work, on-task sampling during independent segments, and a simple learner survey. If noise rises during independent work, the first response should be to check whether the task was clear and appropriately challenging rather than to add sanctions."};
 
-      // ================= MCQ RENDERING =================
+      /* ================= MCQs ================= */
       var mcqContainer = document.getElementById('mcqContainer');
+      var scoreChip = document.getElementById('mcqProgress');
+      var answered = 0;
+      var correctCount = 0;
+      var letters = ['A', 'B', 'C', 'D'];
+
+      function updateScore() {
+        if (!scoreChip) return;
+        scoreChip.textContent = answered + ' / ' + mcqs.length + ' answered · ' + correctCount + ' correct';
+      }
+
       mcqs.forEach(function (item, idx) {
         var wrap = document.createElement('div');
         wrap.className = 'mcq-item';
 
-        var q = document.createElement('div');
+        var q = document.createElement('p');
         q.className = 'mcq-question';
-        q.textContent = (idx + 1) + '. ' + item.q;
+        var num = document.createElement('span');
+        num.className = 'q-num';
+        num.textContent = (idx + 1) + '.';
+        var qtext = document.createElement('span');
+        qtext.textContent = item.q;
+        q.appendChild(num);
+        q.appendChild(qtext);
         wrap.appendChild(q);
 
         var options = document.createElement('div');
         options.className = 'mcq-options';
-        var letters = ['A', 'B', 'C', 'D'];
-        item.options.forEach(function (text, i) {
-          var btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = 'mcq-option';
-          btn.innerHTML = '<span class="option-letter">' + letters[i] + '</span><span>' +
-            text.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</span>';
-          btn.addEventListener('click', function () {
-            if (wrap.dataset.answered === 'true') return;
-            wrap.dataset.answered = 'true';
-            var correct = i === item.answer;
-            btn.classList.add(correct ? 'correct' : 'incorrect');
-            options.querySelectorAll('.mcq-option').forEach(function (other, j) {
-              other.disabled = true;
-              if (j === item.answer) other.classList.add('correct');
-            });
-            fb.className = 'mcq-feedback show ' + (correct ? 'correct-fb' : 'incorrect-fb');
-            fb.textContent = (correct ? '✅ Correct. ' : '❌ Not quite. ') + item.why;
-          });
-          options.appendChild(btn);
-        });
-        wrap.appendChild(options);
 
         var fb = document.createElement('div');
         fb.className = 'mcq-feedback';
-        wrap.appendChild(fb);
 
+        Array.prototype.forEach.call(item.options, function (text, i) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'mcq-option';
+          btn.setAttribute('aria-label', letters[i] + '. ' + text);
+
+          var letter = document.createElement('span');
+          letter.className = 'option-letter';
+          letter.textContent = letters[i];
+          var label = document.createElement('span');
+          label.textContent = text;
+          btn.appendChild(letter);
+          btn.appendChild(label);
+
+          btn.addEventListener('click', function () {
+            if (wrap.getAttribute('data-answered') === 'true') return;
+            wrap.setAttribute('data-answered', 'true');
+            answered++;
+            var isCorrect = i === item.answer;
+            if (isCorrect) correctCount++;
+            btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+            Array.prototype.forEach.call(options.querySelectorAll('.mcq-option'), function (other, j) {
+              other.disabled = true;
+              if (j === item.answer) other.classList.add('correct');
+            });
+            fb.className = 'mcq-feedback show ' + (isCorrect ? 'correct-fb' : 'incorrect-fb');
+            fb.textContent = (isCorrect ? '✅ Correct. ' : '❌ Not quite. ') + item.why;
+            updateScore();
+          });
+
+          options.appendChild(btn);
+        });
+
+        wrap.appendChild(options);
+        wrap.appendChild(fb);
         mcqContainer.appendChild(wrap);
       });
+      updateScore();
 
-      // ================= CRQ RENDERING =================
+      /* ================= CRQs ================= */
       var crqContainer = document.getElementById('crqContainer');
       crqs.forEach(function (item, idx) {
         var wrap = document.createElement('div');
         wrap.className = 'crq-item';
 
-        var q = document.createElement('div');
+        var q = document.createElement('p');
         q.className = 'crq-question';
         q.textContent = 'CRQ ' + (idx + 1) + '. ' + item.q;
         wrap.appendChild(q);
 
-        var hint = document.createElement('div');
+        var hint = document.createElement('p');
         hint.className = 'crq-hint';
         hint.textContent = 'Hint: ' + item.hint;
         wrap.appendChild(hint);
 
         var area = document.createElement('textarea');
         area.className = 'crq-textarea';
-        area.placeholder = 'Write your answer here, then reveal the model answer to self-check.';
+        area.setAttribute('aria-label', 'Your answer for CRQ ' + (idx + 1));
+        area.placeholder = 'Write your answer, then reveal the model answer to self-check.';
         wrap.appendChild(area);
 
+        var meta = document.createElement('div');
+        meta.className = 'answer-meta';
+        var words = document.createElement('span');
+        words.textContent = '0 words';
+        var target = document.createElement('span');
+        target.textContent = 'Target: 80–120 words';
+        meta.appendChild(words);
+        meta.appendChild(target);
+        wrap.appendChild(meta);
+
+        area.addEventListener('input', function () {
+          var count = area.value.trim() ? area.value.trim().split(/\s+/).length : 0;
+          words.textContent = count + ' word' + (count === 1 ? '' : 's');
+        });
+
         var actions = document.createElement('div');
-        actions.className = 'crq-actions';
+        actions.className = 'actions';
         var showBtn = document.createElement('button');
         showBtn.type = 'button';
         showBtn.className = 'btn btn-primary';
@@ -1155,12 +1243,20 @@
         wrap.appendChild(fb);
 
         showBtn.addEventListener('click', function () {
-          fb.className = 'crq-feedback show good';
-          fb.textContent = 'Model answer: ' + item.model;
-          showBtn.textContent = 'Hide model answer';
+          var open = fb.classList.contains('show');
+          if (open) {
+            fb.className = 'crq-feedback';
+            fb.textContent = '';
+            showBtn.textContent = 'Show model answer';
+          } else {
+            fb.className = 'crq-feedback show model';
+            fb.textContent = 'Model answer: ' + item.model;
+            showBtn.textContent = 'Hide model answer';
+          }
         });
         clearBtn.addEventListener('click', function () {
           area.value = '';
+          words.textContent = '0 words';
           fb.className = 'crq-feedback';
           fb.textContent = '';
           showBtn.textContent = 'Show model answer';
@@ -1169,33 +1265,49 @@
         crqContainer.appendChild(wrap);
       });
 
-      // ================= ERQ RENDERING =================
+      /* ================= ERQ ================= */
       var erqContainer = document.getElementById('erqContainer');
       var eWrap = document.createElement('div');
       eWrap.className = 'erq-item';
 
       var marks = document.createElement('span');
       marks.className = 'erq-marks';
-      marks.textContent = 'Long response · 10 marks';
+      marks.textContent = 'Extended response · 10 marks';
       eWrap.appendChild(marks);
 
-      var eq = document.createElement('div');
+      var eq = document.createElement('p');
       eq.className = 'erq-question';
       eq.textContent = erq.scenario + ' ' + erq.task;
       eWrap.appendChild(eq);
 
-      var ehint = document.createElement('div');
+      var ehint = document.createElement('p');
       ehint.className = 'crq-hint';
       ehint.textContent = 'Guidance: ' + erq.hint;
       eWrap.appendChild(ehint);
 
       var eArea = document.createElement('textarea');
       eArea.className = 'erq-textarea';
-      eArea.placeholder = 'Plan your response: identify the problem, apply the theory, then give concrete classroom actions.';
+      eArea.setAttribute('aria-label', 'Your extended response');
+      eArea.placeholder = 'Plan your response: identify the problem, apply the theory, then give concrete classroom actions and how you would evaluate them.';
       eWrap.appendChild(eArea);
 
+      var eMeta = document.createElement('div');
+      eMeta.className = 'answer-meta';
+      var eWords = document.createElement('span');
+      eWords.textContent = '0 words';
+      var eTarget = document.createElement('span');
+      eTarget.textContent = 'Target: 250–400 words';
+      eMeta.appendChild(eWords);
+      eMeta.appendChild(eTarget);
+      eWrap.appendChild(eMeta);
+
+      eArea.addEventListener('input', function () {
+        var count = eArea.value.trim() ? eArea.value.trim().split(/\s+/).length : 0;
+        eWords.textContent = count + ' word' + (count === 1 ? '' : 's');
+      });
+
       var eActions = document.createElement('div');
-      eActions.className = 'erq-actions';
+      eActions.className = 'actions';
       var checkBtn = document.createElement('button');
       checkBtn.type = 'button';
       checkBtn.className = 'btn btn-primary';
@@ -1214,29 +1326,39 @@
 
       checkBtn.addEventListener('click', function () {
         var answer = eArea.value.toLowerCase();
-        var hit = erq.keywords.filter(function (k) { return answer.indexOf(k.toLowerCase()) !== -1; });
         if (!answer.trim()) {
           eFb.className = 'erq-feedback show partial';
-          eFb.textContent = 'Write your response first — aim for at least 150 words before self-checking.';
+          eFb.textContent = 'Write your response first — aim for at least 250 words before self-checking.';
           return;
         }
-        var ratio = hit.length / erq.keywords.length;
+        var hits = erq.keywords.filter(function (k) {
+          return answer.indexOf(k.toLowerCase()) !== -1;
+        });
+        var ratio = hits.length / erq.keywords.length;
+        var missing = erq.keywords.filter(function (k) { return hits.indexOf(k) === -1; });
         if (ratio >= 0.6) {
           eFb.className = 'erq-feedback show good';
-          eFb.textContent = '✅ Strong coverage: you included ' + hit.length + ' of ' + erq.keywords.length +
-            ' expected ideas (' + hit.join(', ') + '). Now refine the structure: theory → diagnosis → actions → evaluation.';
+          eFb.textContent = '✅ Strong coverage: ' + hits.length + ' of ' + erq.keywords.length +
+            ' expected ideas present (' + hits.join(', ') + '). Now tighten the structure: theory → diagnosis → actions → evaluation.' +
+            (missing.length ? ' Still to consider: ' + missing.join(', ') + '.' : '');
         } else {
           eFb.className = 'erq-feedback show partial';
-          eFb.textContent = '⚠️ Partial coverage: ' + hit.length + ' of ' + erq.keywords.length +
-            ' expected ideas found. Consider adding: ' + erq.keywords.filter(function (k) {
-              return hit.indexOf(k) === -1;
-            }).join(', ') + '.';
+          eFb.textContent = '⚠️ Partial coverage: ' + hits.length + ' of ' + erq.keywords.length +
+            ' expected ideas found. Add: ' + missing.join(', ') + '.';
         }
       });
 
       modelBtn.addEventListener('click', function () {
-        eFb.className = 'erq-feedback show model';
-        eFb.textContent = 'Model answer: ' + erq.model;
+        var open = eFb.classList.contains('show') && eFb.classList.contains('model');
+        if (open) {
+          eFb.className = 'erq-feedback';
+          eFb.textContent = '';
+          modelBtn.textContent = 'Show model answer';
+        } else {
+          eFb.className = 'erq-feedback show model';
+          eFb.textContent = 'Model answer: ' + erq.model;
+          modelBtn.textContent = 'Hide model answer';
+        }
       });
 
       erqContainer.appendChild(eWrap);

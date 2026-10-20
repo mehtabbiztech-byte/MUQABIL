@@ -1,4 +1,4 @@
-const CACHE_NAME = 'muqabil-shell-v4';
+const CACHE_NAME = 'muqabil-shell-v5';
 const BASE_URL = new URL('./', self.registration.scope).toString();
 const APP_SHELL = [BASE_URL, new URL('manifest.webmanifest', BASE_URL).toString(), new URL('muqabil-icon.svg', BASE_URL).toString()];
 

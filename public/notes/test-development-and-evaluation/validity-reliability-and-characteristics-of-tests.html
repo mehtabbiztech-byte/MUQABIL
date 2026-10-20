@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Validity, Reliability and Characteristics of Tests — Test Development and Evaluation study note for the MUQABIL Teaching License hub: concepts, key vocabulary, comparison tables, worked examples, misconceptions, exam-style questions with model answers and a practice quiz.">
+  <title>Validity, Reliability and Characteristics of Tests · Test Development &amp; Evaluation</title>
+  <style>
+    /* ================= DESIGN TOKENS ================= */
+    :root {
+      --ink: #101a2b;
+      --ink-soft: #33415c;
+      --muted: #5c6b82;
+      --line: #dbe4ef;
+      --surface: #ffffff;
+      --surface-alt: #f7f9fc;
+      --page: #eef2f8;
+      --indigo-900: #131b3a;
+      --indigo-800: #1b2450;
+      --indigo-600: #4338ca;
+      --indigo-500: #4f46e5;
+      --teal-600: #0f766e;
+      --teal-500: #14b8a6;
+      --amber-600: #b45309;
+      --amber-50: #fffbeb;
+      --green-700: #166534;
+      --green-50: #f0fdf4;
+      --red-700: #991b1b;
+      --red-50: #fef2f2;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+      --shadow-sm: 0 1px 2px rgba(16, 26, 43, 0.06), 0 2px 8px rgba(16, 26, 43, 0.05);
+      --shadow-md: 0 8px 24px rgba(16, 26, 43, 0.09);
+      --shadow-lg: 0 24px 60px rgba(16, 26, 43, 0.16);
+      --font: "Segoe UI", "Inter", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+
+    body {
+      margin: 0;
+      font-family: var(--font);
+      color: var(--ink);
+      background-color: var(--page);
+      background-image: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
+      background-attachment: fixed;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    h1, h2, h3, h4, p, ul, ol, dl, dd, figure { margin: 0; }
+    ul, ol { padding-left: 0; list-style: none; }
+    strong { color: #0b1526; font-weight: 700; }
+    a { color: var(--indigo-600); }
+
+    ::selection { background: #d9defb; color: #14183a; }
+
+    /* ================= READING PROGRESS ================= */
+    .progress-track {
+      position: fixed; inset: 0 0 auto 0; height: 4px;
+      background: rgba(19, 27, 58, 0.08); z-index: 60;
+    }
+    .progress-fill {
+      display: block; height: 100%; width: 0;
+      background: linear-gradient(90deg, var(--indigo-500), var(--teal-500));
+      transition: width 0.12s linear;
+    }
+
+    .skip-link {
+      position: absolute; left: -999px; top: 0; z-index: 80;
+      background: #fff; color: var(--indigo-600);
+      padding: 0.7rem 1.1rem; border-radius: 0 0 10px 0; font-weight: 700;
+    }
+    .skip-link:focus { left: 0; }
+
+    .shell { max-width: 1180px; margin: 0 auto; padding: 1.4rem 1.1rem 3.5rem; }
+
+    /* ================= HERO ================= */
+    .hero {
+      position: relative; overflow: hidden;
+      border-radius: 26px; padding: 2.2rem 2.2rem 2rem;
+      color: #eef2ff;
+      background:
+        radial-gradient(1100px 380px at 88% -30%, rgba(20, 184, 166, 0.34), transparent 62%),
+        radial-gradient(760px 320px at 4% 0%, rgba(79, 70, 229, 0.55), transparent 60%),
+        linear-gradient(155deg, var(--indigo-900) 0%, var(--indigo-800) 58%, #16305a 100%);
+      box-shadow: var(--shadow-lg);
+    }
+    .hero::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+      background-size: 46px 46px;
+      mask-image: radial-gradient(620px 300px at 82% 12%, #000 0%, transparent 78%);
+    }
+    .hero > * { position: relative; z-index: 1; }
+
+    .hero-kicker {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem;
+      font-size: 0.76rem; letter-spacing: 0.05em; text-transform: uppercase;
+      color: #b9c6ee; font-weight: 700;
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.22);
+      padding: 0.34rem 0.72rem; border-radius: 999px;
+      color: #ffffff; text-transform: none; letter-spacing: 0; font-size: 0.76rem;
+    }
+    .kicker-sep { width: 4px; height: 4px; border-radius: 50%; background: rgba(255, 255, 255, 0.45); }
+
+    .hero h1 {
+      margin-top: 1rem; max-width: 26ch;
+      font-size: clamp(1.85rem, 3.6vw, 2.75rem); line-height: 1.12;
+      font-weight: 800; letter-spacing: -0.022em; color: #ffffff;
+      text-wrap: balance;
+    }
+    .hero .tagline {
+      margin-top: 0.9rem; max-width: 66ch; font-size: 1.03rem; line-height: 1.6;
+      color: #cdd8f5; border-left: 3px solid rgba(20, 184, 166, 0.85); padding-left: 0.95rem;
+    }
+
+    .meta-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.35rem; }
+    .meta-chips li {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(9, 14, 33, 0.42); border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #dbe4ff; font-size: 0.78rem; font-weight: 600;
+      padding: 0.36rem 0.72rem; border-radius: 999px;
+    }
+
+    .hero-cards {
+      display: grid; gap: 1rem; margin-top: 1.7rem;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    }
+    .hero-card {
+      background: rgba(255, 255, 255, 0.96); color: var(--ink);
+      border-radius: var(--radius-lg); padding: 1.3rem 1.35rem;
+      box-shadow: 0 18px 40px rgba(6, 11, 28, 0.28);
+    }
+    .hero-card h2 {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.71rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--indigo-600);
+    }
+    .hero-card h2::before {
+      content: ""; width: 22px; height: 3px; border-radius: 2px;
+      background: linear-gradient(90deg, var(--indigo-500), var(--teal-500));
+    }
+    .hero-card p { margin-top: 0.65rem; font-size: 0.96rem; color: #263449; }
+    .objectives { margin-top: 0.7rem; display: grid; gap: 0.5rem; counter-reset: obj; }
+    .objectives li {
+      position: relative; padding-left: 1.85rem; font-size: 0.92rem; color: #263449;
+      counter-increment: obj;
+    }
+    .objectives li::before {
+      content: counter(obj); position: absolute; left: 0; top: 0.1rem;
+      width: 1.25rem; height: 1.25rem; border-radius: 50%;
+      display: grid; place-items: center;
+      font-size: 0.68rem; font-weight: 800; color: #fff;
+      background: linear-gradient(135deg, var(--indigo-500), var(--teal-600));
+    }
+
+    /* ================= LAYOUT ================= */
+    .layout {
+      display: grid; gap: 1.6rem; margin-top: 1.6rem;
+      grid-template-columns: 232px minmax(0, 1fr);
+      align-items: start;
+    }
+
+    .rail {
+      position: sticky; top: 1.4rem;
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius-lg); padding: 1.05rem 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .rail-title {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.11em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .rail-list { margin-top: 0.7rem; display: grid; gap: 0.18rem; }
+    .rail-list a {
+      display: flex; align-items: baseline; gap: 0.5rem;
+      padding: 0.34rem 0.45rem; border-radius: 8px;
+      font-size: 0.83rem; font-weight: 600; color: #41506a;
+      text-decoration: none; line-height: 1.35;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .rail-list a:hover { background: #eef1fb; color: var(--indigo-600); }
+    .rail-list a[aria-current="true"] { background: #e8ecfd; color: var(--indigo-600); }
+    .rail-list .n {
+      font-variant-numeric: tabular-nums; font-size: 0.7rem; font-weight: 800;
+      color: #94a0b8; min-width: 1.35rem;
+    }
+    .rail-list a[aria-current="true"] .n { color: var(--indigo-500); }
+    .rail-progress { margin-top: 1rem; padding-top: 0.85rem; border-top: 1px dashed var(--line); }
+    .rail-progress-label {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-size: 0.68rem; font-weight: 700; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .rail-progress-label span:last-child { color: var(--indigo-600); font-size: 0.72rem; }
+    .rail-bar { margin-top: 0.4rem; height: 6px; border-radius: 999px; background: #e6ebf5; overflow: hidden; }
+    .rail-bar > span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--indigo-500), var(--teal-500)); }
+    .rail-note { margin-top: 0.9rem; font-size: 0.72rem; line-height: 1.5; color: var(--muted); }
+
+    main { min-width: 0; }
+
+    /* ================= TOOLBAR ================= */
+    .toolbar {
+      position: sticky; top: 0.6rem; z-index: 30;
+      display: flex; gap: 0.7rem; align-items: center;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--line); border-radius: 999px;
+      padding: 0.5rem 0.6rem 0.5rem 0.95rem;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 1.4rem;
+    }
+    .search-box { display: flex; align-items: center; gap: 0.5rem; flex: 1; min-width: 0; color: var(--muted); }
+    .search-box input {
+      flex: 1; min-width: 0; border: 0; background: transparent;
+      font: inherit; font-size: 0.88rem; color: var(--ink); padding: 0.35rem 0;
+    }
+    .search-box input:focus { outline: none; }
+    .search-box input::placeholder { color: #94a3b8; }
+    .count-pill {
+      flex-shrink: 0; font-size: 0.73rem; font-weight: 700; color: var(--indigo-600);
+      background: #eaedfd; border-radius: 999px; padding: 0.3rem 0.7rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ================= SECTIONS ================= */
+    .section { margin-bottom: 1.5rem; scroll-margin-top: 84px; }
+    .section-head {
+      display: flex; align-items: flex-start; gap: 0.9rem;
+      padding: 0.2rem 0.1rem 0.9rem;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 1.1rem;
+    }
+    .section-num {
+      flex-shrink: 0; width: 2.5rem; height: 2.5rem; border-radius: 12px;
+      display: grid; place-items: center;
+      font-size: 0.86rem; font-weight: 800; font-variant-numeric: tabular-nums;
+      color: #ffffff;
+      background: linear-gradient(140deg, var(--indigo-600), #1e3a8a);
+      box-shadow: 0 6px 16px rgba(67, 56, 202, 0.28);
+    }
+    .section-heading { flex: 1; min-width: 0; }
+    .eyebrow {
+      font-size: 0.66rem; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--teal-600);
+    }
+    .section-head h2 {
+      margin-top: 0.12rem; font-size: clamp(1.25rem, 2.1vw, 1.55rem);
+      line-height: 1.25; font-weight: 800; letter-spacing: -0.015em; text-wrap: balance;
+    }
+    .section-lead { margin-top: 0.35rem; font-size: 0.9rem; color: var(--muted); max-width: 72ch; }
+    .section-time {
+      flex-shrink: 0; align-self: center;
+      font-size: 0.68rem; font-weight: 700; color: #64748b;
+      background: #f1f5f9; border: 1px solid var(--line);
+      padding: 0.24rem 0.55rem; border-radius: 999px; white-space: nowrap;
+    }
+
+    /* ================= CARDS ================= */
+    .card-grid { display: grid; gap: 0.9rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .card {
+      position: relative; background: var(--surface);
+      border: 1px solid var(--line); border-radius: var(--radius-md);
+      padding: 1.15rem 1.2rem 1.1rem;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+    }
+    .card::before {
+      content: ""; position: absolute; inset: 0 0 auto 0; height: 3px;
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+      background: linear-gradient(90deg, var(--indigo-500), var(--teal-500));
+      opacity: 0.85;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: #c8d4e6; }
+    .card-top { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; }
+    .card-icon {
+      width: 2.1rem; height: 2.1rem; border-radius: 10px;
+      display: grid; place-items: center; font-size: 1rem;
+      background: #eef1fd; border: 1px solid #dfe5fb;
+    }
+    .card-index {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em;
+      color: #9aa6ba; font-variant-numeric: tabular-nums;
+    }
+    .card h3 {
+      margin-top: 0.75rem; font-size: 1rem; line-height: 1.35;
+      font-weight: 750; letter-spacing: -0.008em;
+    }
+    .card p { margin-top: 0.45rem; font-size: 0.88rem; color: #3a485e; }
+    .card .exam-wording {
+      margin-top: 0.7rem; font-size: 0.78rem; line-height: 1.5;
+      color: #4338ca; background: #eef0fe; border-radius: 8px; padding: 0.5rem 0.6rem;
+    }
+    .card .exam-wording b { font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.64rem; }
+    .card .practice {
+      margin-top: 0.7rem; padding: 0.6rem 0.7rem; border-radius: 9px;
+      background: #f1f7f5; border: 1px dashed #c6e3da;
+      font-size: 0.83rem; color: #22504a;
+    }
+    .card .practice b {
+      display: block; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--teal-600); margin-bottom: 0.15rem;
+    }
+
+    /* ================= GLOSSARY ================= */
+    .glossary { display: grid; gap: 0.7rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .term {
+      background: var(--surface); border: 1px solid var(--line);
+      border-left: 3px solid var(--teal-500);
+      border-radius: var(--radius-sm); padding: 0.85rem 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .term dt {
+      font-size: 0.9rem; font-weight: 800; color: #0f172a;
+      display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem;
+    }
+    .term .tag {
+      font-size: 0.6rem; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase;
+      color: #0f766e; background: #e6f7f3; border-radius: 999px; padding: 0.1rem 0.42rem;
+    }
+    .term dd { margin-top: 0.32rem; font-size: 0.855rem; color: #3f4c61; }
+
+    /* ================= TABLES ================= */
+    .table-card {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm);
+    }
+    .table-card + .table-card { margin-top: 0.9rem; }
+    .table-caption {
+      display: flex; justify-content: space-between; align-items: center; gap: 0.8rem;
+      padding: 0.8rem 1rem; background: #f8fafc; border-bottom: 1px solid var(--line);
+    }
+    .table-caption strong { font-size: 0.83rem; letter-spacing: -0.005em; }
+    .table-caption span { font-size: 0.68rem; color: var(--muted); white-space: nowrap; }
+    .table-scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.83rem; min-width: 540px; }
+    thead th {
+      position: sticky; top: 0; z-index: 1;
+      background: linear-gradient(160deg, #1c2445, #22305c);
+      color: #e8eeff; text-align: left; font-weight: 700; font-size: 0.72rem;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      padding: 0.62rem 0.85rem; white-space: nowrap;
+    }
+    tbody td {
+      padding: 0.62rem 0.85rem; border-top: 1px solid #e9eef6;
+      vertical-align: top; color: #33415c; line-height: 1.5;
+    }
+    tbody tr:nth-child(even) td { background: #fbfcfe; }
+    tbody td:first-child { font-weight: 650; color: #1c2740; }
+
+    /* ================= WORKED EXAMPLES ================= */
+    .example {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius-md); padding: 1.15rem 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .example + .example { margin-top: 0.9rem; }
+    .example-head { display: flex; flex-wrap: wrap; align-items: center; gap: 0.55rem; }
+    .example-head h3 { font-size: 0.98rem; font-weight: 800; letter-spacing: -0.01em; }
+    .example-tag {
+      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--indigo-600); background: #eceffe; border-radius: 999px; padding: 0.16rem 0.5rem;
+    }
+    .example-prompt { margin-top: 0.55rem; font-size: 0.88rem; color: #3b4a61; }
+    .steps { margin-top: 0.8rem; display: grid; gap: 0.55rem; counter-reset: step; }
+    .steps li {
+      position: relative; padding-left: 2.1rem; font-size: 0.86rem; color: #33415c;
+      counter-increment: step;
+    }
+    .steps li::before {
+      content: counter(step); position: absolute; left: 0; top: 0.05rem;
+      width: 1.45rem; height: 1.45rem; border-radius: 8px;
+      display: grid; place-items: center;
+      font-size: 0.68rem; font-weight: 800; color: var(--indigo-600);
+      background: #edf0fd; border: 1px solid #dfe4fb;
+    }
+    .steps li b { color: #101a2b; }
+    .result {
+      margin-top: 0.85rem; padding: 0.7rem 0.85rem; border-radius: 10px;
+      background: #f0f7ff; border: 1px solid #d7e6f8;
+      font-size: 0.85rem; color: #1e3a5f;
+    }
+    .result b { color: #0c2f57; }
+    details.reasoning { margin-top: 0.75rem; }
+    details.reasoning summary {
+      cursor: pointer; font-size: 0.8rem; font-weight: 700; color: var(--indigo-600);
+      list-style: none; display: inline-flex; align-items: center; gap: 0.35rem;
+    }
+    details.reasoning summary::-webkit-details-marker { display: none; }
+    details.reasoning summary::before { content: "＋"; font-weight: 800; }
+    details.reasoning[open] summary::before { content: "－"; }
+    details.reasoning p { margin-top: 0.5rem; font-size: 0.84rem; color: #46536a; }
+
+    /* ================= DO / AVOID ================= */
+    .do-avoid { display: grid; gap: 0.9rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .panel { border-radius: var(--radius-md); padding: 1.1rem 1.2rem; border: 1px solid; }
+    .panel h3 {
+      display: flex; align-items: center; gap: 0.45rem;
+      font-size: 0.85rem; font-weight: 800; letter-spacing: 0.02em; text-transform: uppercase;
+    }
+    .panel ul { margin-top: 0.7rem; display: grid; gap: 0.45rem; }
+    .panel li { position: relative; padding-left: 1.15rem; font-size: 0.86rem; line-height: 1.5; }
+    .panel li::before { position: absolute; left: 0; top: 0; font-weight: 800; }
+    .panel.do { background: var(--green-50); border-color: #bbf7d0; color: #14532d; }
+    .panel.do h3 { color: var(--green-700); }
+    .panel.do li::before { content: "✓"; color: #16a34a; }
+    .panel.avoid { background: var(--red-50); border-color: #fecaca; color: #7f1d1d; }
+    .panel.avoid h3 { color: var(--red-700); }
+    .panel.avoid li::before { content: "✕"; color: #dc2626; }
+
+    /* ================= MYTHS ================= */
+    .myths { display: grid; gap: 0.8rem; }
+    .myth {
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-md);
+      padding: 1rem 1.15rem; box-shadow: var(--shadow-sm);
+      display: grid; gap: 0.5rem; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    }
+    .myth-claim { font-size: 0.88rem; color: #7c2d12; }
+    .myth-claim span {
+      display: inline-block; margin-bottom: 0.3rem;
+      font-size: 0.6rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #b45309; background: #fef3c7; border-radius: 999px; padding: 0.1rem 0.45rem;
+    }
+    .myth-fix { font-size: 0.86rem; color: #14532d; border-left: 2px solid #86efac; padding-left: 0.75rem; }
+    .myth-fix span {
+      display: inline-block; margin-bottom: 0.3rem;
+      font-size: 0.6rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #15803d; background: #dcfce7; border-radius: 999px; padding: 0.1rem 0.45rem;
+    }
+
+    /* ================= EXAM ROOM ================= */
+    .exam-q {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius-md); padding: 1.05rem 1.15rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .exam-q + .exam-q { margin-top: 0.8rem; }
+    .exam-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem; }
+    .chip {
+      font-size: 0.64rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+      border-radius: 999px; padding: 0.16rem 0.5rem;
+    }
+    .chip.command { color: #4338ca; background: #eceffe; }
+    .chip.marks { color: #0f766e; background: #e6f7f3; }
+    .chip.level { color: #92400e; background: #fef3c7; }
+    .exam-q p { margin-top: 0.55rem; font-size: 0.9rem; color: #2c3a50; }
+    details.model { margin-top: 0.65rem; border-top: 1px dashed var(--line); padding-top: 0.55rem; }
+    details.model summary {
+      cursor: pointer; list-style: none; font-size: 0.8rem; font-weight: 700; color: var(--indigo-600);
+      display: inline-flex; align-items: center; gap: 0.35rem;
+    }
+    details.model summary::-webkit-details-marker { display: none; }
+    details.model summary::before { content: "▸"; }
+    details.model[open] summary::before { content: "▾"; }
+    details.model p { margin-top: 0.5rem; font-size: 0.855rem; color: #3b4a61; }
+
+    /* ================= TAKEAWAYS + CHECKLIST ================= */
+    .takeaways {
+      border-radius: var(--radius-lg); padding: 1.35rem 1.45rem;
+      background: linear-gradient(155deg, #151d3c, #1d2a52);
+      color: #e6ecff; box-shadow: var(--shadow-md);
+    }
+    .takeaways h3 {
+      font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #9fb2e6; font-weight: 800;
+    }
+    .takeaways ol { margin-top: 0.85rem; display: grid; gap: 0.55rem; counter-reset: tk; }
+    .takeaways li {
+      position: relative; padding-left: 2rem; font-size: 0.89rem; color: #dbe4ff;
+      counter-increment: tk;
+    }
+    .takeaways li::before {
+      content: counter(tk, decimal-leading-zero); position: absolute; left: 0; top: 0.05rem;
+      font-size: 0.72rem; font-weight: 800; color: #7dd3c0; font-variant-numeric: tabular-nums;
+    }
+    .takeaways strong { color: #ffffff; }
+
+    .summary {
+      margin-top: 0.9rem; background: var(--surface); border: 1px solid var(--line);
+      border-left: 4px solid var(--indigo-500); border-radius: var(--radius-md);
+      padding: 0.95rem 1.1rem; box-shadow: var(--shadow-sm);
+    }
+    .summary span {
+      font-size: 0.63rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--indigo-600);
+    }
+    .summary p { margin-top: 0.3rem; font-size: 0.9rem; color: #2f3d53; }
+
+    .exam-tip {
+      margin-top: 0.9rem; display: flex; gap: 0.8rem;
+      background: var(--amber-50); border: 1px solid #fde68a;
+      border-radius: var(--radius-md); padding: 0.95rem 1.1rem;
+    }
+    .exam-tip .tip-icon { font-size: 1.15rem; line-height: 1; }
+    .exam-tip span.tip-label {
+      font-size: 0.63rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--amber-600);
+    }
+    .exam-tip p { margin-top: 0.25rem; font-size: 0.88rem; color: #78350f; }
+
+    .checklist {
+      margin-top: 0.9rem; background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius-md); padding: 1rem 1.1rem; box-shadow: var(--shadow-sm);
+    }
+    .checklist-head { display: flex; justify-content: space-between; align-items: baseline; gap: 0.8rem; }
+    .checklist-head h3 { font-size: 0.8rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #334155; }
+    .checklist-head span { font-size: 0.74rem; font-weight: 700; color: var(--indigo-600); font-variant-numeric: tabular-nums; }
+    .checklist ul { margin-top: 0.65rem; display: grid; gap: 0.35rem; }
+    .checklist label {
+      display: flex; gap: 0.6rem; align-items: flex-start;
+      font-size: 0.86rem; color: #3a485e; cursor: pointer; padding: 0.2rem 0;
+    }
+    .checklist input { margin-top: 0.28rem; accent-color: var(--indigo-500); width: 15px; height: 15px; flex-shrink: 0; }
+    .checklist input:checked + span { color: #94a3b8; text-decoration: line-through; }
+
+    /* ================= QUIZ ================= */
+    .quiz {
+      margin-top: 1.6rem; background: var(--surface);
+      border: 1px solid var(--line); border-radius: 24px;
+      box-shadow: var(--shadow-md); overflow: hidden;
+    }
+    .quiz-head {
+      display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: center;
+      padding: 1.35rem 1.5rem 1.1rem;
+      background: linear-gradient(150deg, #f7f9ff, #eef3fb);
+      border-bottom: 1px solid var(--line);
+    }
+    .quiz-head h2 { font-size: clamp(1.2rem, 2vw, 1.45rem); font-weight: 800; letter-spacing: -0.015em; }
+    .quiz-chips { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .quiz-chips span {
+      font-size: 0.7rem; font-weight: 700; color: #3730a3; background: #e8ecfd;
+      border-radius: 999px; padding: 0.22rem 0.6rem;
+    }
+    .quiz-body { padding: 1.2rem 1.5rem 1.5rem; }
+    .quiz-tabs { display: flex; gap: 0.45rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .quiz-tab {
+      font: inherit; font-size: 0.8rem; font-weight: 700; cursor: pointer;
+      border: 1px solid var(--line); background: #fff; color: #475569;
+      padding: 0.45rem 0.85rem; border-radius: 999px;
+      transition: all 0.15s ease;
+    }
+    .quiz-tab:hover { border-color: #c7d2fe; color: var(--indigo-600); }
+    .quiz-tab.active {
+      background: linear-gradient(140deg, var(--indigo-600), #1e3a8a);
+      border-color: transparent; color: #fff; box-shadow: 0 6px 16px rgba(67, 56, 202, 0.3);
+    }
+    .quiz-panel { display: none; }
+    .quiz-panel.active { display: block; }
+    .panel-head {
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.6rem;
+      margin-bottom: 0.9rem;
+    }
+    .panel-head .section-label {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+    }
+    .score-chip {
+      font-size: 0.72rem; font-weight: 700; color: #0f766e; background: #e6f7f3;
+      border-radius: 999px; padding: 0.24rem 0.6rem; font-variant-numeric: tabular-nums;
+    }
+
+    .mcq {
+      border: 1px solid var(--line); border-radius: var(--radius-md);
+      padding: 0.95rem 1.05rem; background: #fff;
+    }
+    .mcq + .mcq { margin-top: 0.65rem; }
+    .mcq-q { font-size: 0.89rem; font-weight: 650; color: #1b2740; display: flex; gap: 0.55rem; }
+    .mcq-q .qnum {
+      flex-shrink: 0; width: 1.35rem; height: 1.35rem; border-radius: 6px;
+      display: grid; place-items: center; font-size: 0.68rem; font-weight: 800;
+      color: var(--indigo-600); background: #eef1fd;
+    }
+    .options { margin-top: 0.65rem; display: grid; gap: 0.35rem; }
+    .option {
+      display: flex; gap: 0.55rem; align-items: flex-start;
+      font: inherit; font-size: 0.845rem; text-align: left; cursor: pointer;
+      border: 1px solid #e4eaf4; background: #fbfcfe; color: #334155;
+      border-radius: 9px; padding: 0.45rem 0.6rem;
+      transition: all 0.12s ease;
+    }
+    .option:hover:not(:disabled) { border-color: #c7d2fe; background: #f5f7ff; }
+    .option .letter {
+      flex-shrink: 0; width: 1.15rem; height: 1.15rem; border-radius: 50%;
+      display: grid; place-items: center; font-size: 0.65rem; font-weight: 800;
+      background: #e8edf7; color: #475569;
+    }
+    .option.correct { border-color: #86efac; background: #f0fdf4; color: #14532d; }
+    .option.correct .letter { background: #16a34a; color: #fff; }
+    .option.wrong { border-color: #fca5a5; background: #fef2f2; color: #7f1d1d; }
+    .option.wrong .letter { background: #dc2626; color: #fff; }
+    .option:disabled { cursor: default; }
+    .mcq-feedback {
+      margin-top: 0.55rem; font-size: 0.8rem; border-radius: 8px; padding: 0.5rem 0.65rem;
+      display: none;
+    }
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.good { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+    .mcq-feedback.bad { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+
+    .crq, .erq { border: 1px solid var(--line); border-radius: var(--radius-md); background: #fff; padding: 1rem 1.1rem; }
+    .crq + .crq { margin-top: 0.7rem; }
+    .crq h4, .erq h4 { font-size: 0.9rem; font-weight: 700; color: #1b2740; }
+    .hint { margin-top: 0.3rem; font-size: 0.79rem; color: #64748b; font-style: italic; }
+    .word-row { margin-top: 0.6rem; display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; font-size: 0.75rem; color: #64748b; }
+    .word-count.ok { color: #15803d; font-weight: 700; }
+    textarea, .erq textarea {
+      width: 100%; margin-top: 0.5rem; min-height: 96px; resize: vertical;
+      font: inherit; font-size: 0.85rem; color: #1e293b;
+      border: 1px solid #dbe4ef; border-radius: 9px; padding: 0.6rem 0.7rem;
+      background: #fcfdff;
+    }
+    textarea:focus { outline: 2px solid #c7d2fe; border-color: #a5b4fc; }
+    .btn-row { margin-top: 0.55rem; display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .btn {
+      font: inherit; font-size: 0.78rem; font-weight: 700; cursor: pointer;
+      border-radius: 999px; padding: 0.42rem 0.85rem;
+      border: 1px solid transparent;
+      background: linear-gradient(140deg, var(--indigo-600), #1e3a8a); color: #fff;
+    }
+    .btn.secondary { background: #fff; color: var(--indigo-600); border-color: #c7d2fe; }
+    .feedback { display: none; margin-top: 0.6rem; font-size: 0.82rem; border-radius: 9px; padding: 0.6rem 0.7rem; }
+    .feedback.show { display: block; }
+    .feedback.good { background: #f0fdf4; color: #14532d; border: 1px solid #bbf7d0; }
+    .feedback.partial { background: #fffbeb; color: #78350f; border: 1px solid #fde68a; }
+    .feedback.model { background: #f5f7ff; color: #312e81; border: 1px solid #c7d2fe; }
+    .erq .scenario {
+      margin-top: 0.6rem; background: #f8fafc; border: 1px solid var(--line);
+      border-radius: 9px; padding: 0.7rem 0.8rem; font-size: 0.85rem; color: #334155;
+    }
+    .erq .task { margin-top: 0.6rem; font-size: 0.86rem; color: #1e293b; }
+    .keyword-row { margin-top: 0.6rem; display: flex; flex-wrap: wrap; gap: 0.3rem; }
+    .keyword {
+      font-size: 0.68rem; font-weight: 600; color: #475569; background: #f1f5f9;
+      border: 1px solid #e2e8f0; border-radius: 999px; padding: 0.12rem 0.45rem;
+    }
+    .keyword.hit { background: #dcfce7; border-color: #86efac; color: #166534; }
+
+    .no-results {
+      grid-column: 1 / -1; text-align: center; font-size: 0.85rem; color: var(--muted);
+      padding: 1.4rem; border: 1px dashed var(--line); border-radius: var(--radius-md);
+    }
+
+    /* ================= FOOTER + TOP ================= */
+    .note-footer {
+      margin-top: 1.6rem; padding: 1.1rem 0.2rem;
+      display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: space-between;
+      font-size: 0.73rem; color: #64748b; border-top: 1px solid var(--line);
+    }
+    .to-top {
+      position: fixed; right: 1.1rem; bottom: 1.1rem; z-index: 40;
+      width: 2.6rem; height: 2.6rem; border-radius: 50%; border: 1px solid var(--line);
+      background: #fff; color: var(--indigo-600); font-size: 1rem; cursor: pointer;
+      box-shadow: var(--shadow-md); opacity: 0; pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+    .to-top.visible { opacity: 1; pointer-events: auto; }
+    .to-top:hover { transform: translateY(-2px); }
+
+    /* ================= FOCUS / MOTION ================= */
+    .rail-list a:focus-visible,
+    .quiz-tab:focus-visible,
+    .option:focus-visible,
+    .btn:focus-visible,
+    .to-top:focus-visible,
+    details summary:focus-visible,
+    .checklist input:focus-visible {
+      outline: 3px solid rgba(79, 70, 229, 0.4);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 1000px) {
+      .layout { grid-template-columns: minmax(0, 1fr); }
+      .rail { position: static; order: 2; }
+      .rail-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .rail-progress, .rail-note { display: none; }
+      main { order: 1; }
+    }
+
+    @media (max-width: 760px) {
+      .hero { padding: 1.6rem 1.3rem 1.5rem; border-radius: 20px; }
+      .hero-cards { grid-template-columns: minmax(0, 1fr); }
+      .card-grid, .glossary, .do-avoid { grid-template-columns: minmax(0, 1fr); }
+      .myth { grid-template-columns: minmax(0, 1fr); }
+      .section-time { display: none; }
+      .quiz-body, .quiz-head { padding-left: 1.1rem; padding-right: 1.1rem; }
+    }
+
+    @media (max-width: 600px) {
+      .shell { padding: 0.9rem 0.75rem 2.5rem; }
+      .toolbar { position: static; border-radius: 14px; }
+      .rail-list { grid-template-columns: minmax(0, 1fr); }
+      .section-head { gap: 0.7rem; }
+      .section-num { width: 2.2rem; height: 2.2rem; font-size: 0.78rem; }
+      .hero h1 { font-size: 1.6rem; }
+      .hero .tagline { font-size: 0.95rem; }
+      .takeaways { padding: 1.1rem 1.15rem; }
+    }
+
+    /* ================= PRINT ================= */
+    @media print {
+      body { background: #fff; }
+      .progress-track, .toolbar, .to-top, .rail, .quiz-tabs, .btn-row { display: none !important; }
+      .shell { max-width: none; padding: 0; }
+      .hero { box-shadow: none; border-radius: 0; color: #000; background: #fff; border-bottom: 2px solid #000; }
+      .hero h1, .hero .tagline, .hero-kicker { color: #000; }
+      .hero-card { box-shadow: none; border: 1px solid #999; }
+      .layout { grid-template-columns: 1fr; }
+      .quiz-panel { display: block !important; }
+      details { open: true; }
+      .card, .term, .myth, .example, .exam-q, .table-card { break-inside: avoid; box-shadow: none; }
+      .takeaways { background: #f3f4f6; color: #000; }
+      .takeaways li, .takeaways strong { color: #000; }
+    }
+</style>
+</head>
+<body>
+  <a class="skip-link" href="#concepts">Skip to the first section</a>
+  <div class="progress-track" aria-hidden="true"><span class="progress-fill" id="progressFill"></span></div>
+
+  <div class="shell">
+    <!-- ================= HERO ================= -->
+    <header class="hero">
+      <p class="hero-kicker">
+        <span class="badge">🧪 Test Development & Evaluation</span>
+        <span class="kicker-sep" aria-hidden="true"></span>
+        <span>Teaching License · Part II · Module 13 · Note 4 of 5</span>
+      </p>
+      <h1>Validity, Reliability and Characteristics of Tests</h1>
+      <p class="tagline">Reliability tells you the score is stable; validity tells you the score means what you claim — you need both, in that order</p>
+      <ul class="meta-chips">
+        <li>⏱️ 15 min read</li>
+        <li>📚 8 sections</li>
+        <li>🔑 12 key terms</li>
+        <li>🧩 3 worked examples</li>
+        <li>📝 10 MCQs · 4 CRQs · 1 ERQ</li>
+      </ul>
+
+      <div class="hero-cards">
+        <section class="hero-card" aria-labelledby="bigidea-title">
+          <h2 id="bigidea-title">The big idea</h2>
+          <p><strong>Validity</strong> is the extent to which a test measures what it claims to measure for the purpose intended; <strong>reliability</strong> is the consistency of its results. They are related but not interchangeable: reliability is necessary for validity, and validity is capped by reliability, yet a test can be perfectly reliable and still measure the wrong thing. Both are properties of <strong>interpretations and uses</strong>, not of paper. Alongside them sit the other <strong>characteristics of a good test</strong> — objectivity, usability, fairness, discrimination, comprehensiveness and adequate norms. In practice these are ensured by a <strong>table of specifications</strong>, careful item writing, a marking scheme or rubric, piloting, <strong>item analysis</strong>, moderation and honest reporting that acknowledges measurement error.</p>
+        </section>
+        <section class="hero-card" aria-labelledby="objectives-title">
+          <h2 id="objectives-title">What you will master</h2>
+          <ol class="objectives"><li>Distinguish the main types of <strong>validity</strong> and <strong>reliability</strong> and the evidence each requires.</li><li>Explain the relationship between the two, including why reliability limits validity.</li><li>Apply the characteristics of a good test to evaluate and improve a real paper.</li></ol>
+        </section>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="rail" aria-label="Contents of this note">
+        <p class="rail-title">On this page</p>
+        <nav aria-label="Sections">
+          <ol class="rail-list">
+          <li><a href="#concepts"><span class="n">01</span>Core concepts</a></li>          <li><a href="#vocabulary"><span class="n">02</span>Key vocabulary</a></li>          <li><a href="#comparisons"><span class="n">03</span>Comparisons that decide marks</a></li>          <li><a href="#worked-examples"><span class="n">04</span>Worked examples</a></li>          <li><a href="#application"><span class="n">05</span>Classroom and test-room application</a></li>          <li><a href="#misconceptions"><span class="n">06</span>Misconceptions</a></li>          <li><a href="#exam"><span class="n">07</span>Exam-style questions</a></li>          <li><a href="#takeaways"><span class="n">08</span>Takeaways and revision</a></li>          <li><a href="#practice"><span class="n">09</span>Practice quiz</a></li>
+          </ol>
+        </nav>
+        <div class="rail-progress">
+          <p class="rail-progress-label"><span>Read</span><span id="railPct">0%</span></p>
+          <div class="rail-bar" aria-hidden="true"><span id="railFill"></span></div>
+        </div>
+        <p class="rail-note">Tip: use the search box to jump straight to a term, then answer the quiz without looking back.</p>
+      </aside>
+
+      <main>
+        <div class="toolbar" role="search">
+          <div class="search-box">
+            <span aria-hidden="true">🔍</span>
+            <input id="searchInput" type="search" placeholder="Search concepts, key terms and misconceptions…" aria-label="Search this note">
+          </div>
+          <div class="count-pill" id="countDisplay" role="status" aria-live="polite">22 items</div>
+        </div>
+
+        <!-- ================= 01 CONCEPTS ================= -->
+        <section class="section" id="concepts" aria-labelledby="concepts-title" data-section>
+          <div class="section-head">
+            <span class="section-num" aria-hidden="true">01</span>
+            <div class="section-heading">
+              <p class="eyebrow">Foundations</p>
+              <h2 id="concepts-title">Core concepts</h2>
+              <p class="section-lead">Six ideas carry this topic. Each card gives the definition, the wording examiners use, and what the idea looks like in a real test.</p>
+            </div>
+            <span class="section-time">6 cards</span>
+          </div>
+          <div class="card-grid searchable-grid" id="conceptGrid">
+        <article class="card" data-searchable="Validity: what the score means">
+          <div class="card-top">
+            <span class="card-icon" aria-hidden="true">🎯</span>
+            <span class="card-index">01 / 06</span>
+          </div>
+          <h3>Validity: what the score means</h3>
+          <p><strong>Validity</strong> is the degree to which a test measures what it is intended to measure, and it applies to the interpretation of scores rather than to the paper itself. The main forms are <strong>content</strong> (representative coverage of the domain), <strong>construct</strong> (measuring the intended trait rather than something else), <strong>criterion</strong> (correlating with a concurrent or future criterion) and <strong>face</strong> (appearing appropriate to learners and users). Each form needs different evidence.</p>
+          <p class="exam-wording"><b>Exam wording</b>“Validity is the extent to which a test measures what it is intended to measure.”</p>
+          <div class="practice"><b>In practice</b>Write the validity claim in one sentence — “this test measures X for purpose Y” — then list the evidence you actually have for it.</div>
+        </article>
+        <article class="card" data-searchable="Reliability: consistency of the score">
+          <div class="card-top">
+            <span class="card-icon" aria-hidden="true">📏</span>
+            <span class="card-index">02 / 06</span>
+          </div>
+          <h3>Reliability: consistency of the score</h3>
+          <p><strong>Reliability</strong> is the consistency of results across occasions, forms and markers. It is estimated by <strong>test-retest</strong> (same test, two occasions), <strong>parallel forms</strong> (equivalent tests), <strong>internal consistency</strong> (split-half, KR-20, Cronbach’s alpha) and <strong>inter-rater</strong> agreement. A reliability coefficient runs from 0 to 1; higher is better, and the <strong>standard error of measurement</strong> converts it into a band around an individual score.</p>
+          <p class="exam-wording"><b>Exam wording</b>“Reliability refers to the consistency of a test in producing comparable results on repeated occasions.”</p>
+          <div class="practice"><b>In practice</b>Report scores with a band, not a point: a mark of 62 with an SEM of 3 means 59–65.</div>
+        </article>
+        <article class="card" data-searchable="The relationship: necessary, not sufficient">
+          <div class="card-top">
+            <span class="card-icon" aria-hidden="true">🔗</span>
+            <span class="card-index">03 / 06</span>
+          </div>
+          <h3>The relationship: necessary, not sufficient</h3>
+          <p>Reliability is necessary for validity because an inconsistent test cannot support any stable interpretation, and validity is bounded by reliability: the correlation of a test with any criterion cannot exceed the square root of its reliability. But reliability does not guarantee validity — a reliable spelling test is still an invalid measure of essay writing. Conversely, a test can be aimed at the right construct yet be unreliable if it is short or inconsistently marked.</p>
+          <p class="exam-wording"><b>Exam wording</b>“Reliability is a necessary but not sufficient condition for validity.”</p>
+          <div class="practice"><b>In practice</b>When a test shows poor validity, check reliability first; when it shows good reliability, do not assume validity.</div>
+        </article>
+        <article class="card" data-searchable="The other characteristics of a good test">
+          <div class="card-top">
+            <span class="card-icon" aria-hidden="true">🧾</span>
+            <span class="card-index">04 / 06</span>
+          </div>
+          <h3>The other characteristics of a good test</h3>
+          <p>Beyond the two central properties, a good test is <strong>objective</strong> (scoring is independent of marker judgement), <strong>usable</strong> or practical (time, cost, administration), <strong>fair</strong> (no bias against groups), <strong>discriminating</strong> (it separates secure from insecure performance), <strong>comprehensive</strong> (proportionate coverage) and, where relevant, supported by <strong>adequate norms</strong> for the group being compared.</p>
+          <p class="exam-wording"><b>Exam wording</b>“A good test is valid, reliable, objective, practical, fair and comprehensive.”</p>
+          <div class="practice"><b>In practice</b>Audit a recent paper on all seven characteristics and write one improvement for the weakest.</div>
+        </article>
+        <article class="card" data-searchable="What raises and lowers reliability">
+          <div class="card-top">
+            <span class="card-icon" aria-hidden="true">🧩</span>
+            <span class="card-index">05 / 06</span>
+          </div>
+          <h3>What raises and lowers reliability</h3>
+          <p>Reliability increases with <strong>test length</strong> (more items sample better), a <strong>spread of difficulty</strong> that produces variance, <strong>homogeneous</strong> items measuring one construct, <strong>standard conditions</strong>, <strong>clear instructions</strong> and <strong>consistent scoring</strong> with rubrics and moderation. It falls with very short tests, ambiguous items, guessing, fatigue, poor administration and marker drift.</p>
+          <p class="exam-wording"><b>Exam wording</b>“Other things being equal, a longer test is more reliable than a shorter one.”</p>
+          <div class="practice"><b>In practice</b>Before lengthening a test, check whether the extra items measure the same construct; length without homogeneity adds noise.</div>
+        </article>
+        <article class="card" data-searchable="What raises and lowers validity">
+          <div class="card-top">
+            <span class="card-icon" aria-hidden="true">🔧</span>
+            <span class="card-index">06 / 06</span>
+          </div>
+          <h3>What raises and lowers validity</h3>
+          <p>Validity is improved by a <strong>blueprint</strong> tied to outcomes, removing construct-irrelevant difficulty (reading load, cultural references), writing unambiguous items, piloting and reviewing with colleagues, and aligning the scoring rubric with the outcome. It is threatened by poor alignment, biased content, coaching that inflates scores without learning, and decisions made beyond the range the test can support.</p>
+          <p class="exam-wording"><b>Exam wording</b>“Construct-irrelevant variance lowers validity because the score reflects something other than the intended construct.”</p>
+          <div class="practice"><b>In practice</b>For every item ask: what else could a learner need to answer this correctly, and is that part of the construct?</div>
+        </article>
+          </div>
+        </section>
+
+        <!-- ================= 02 VOCABULARY ================= -->
+        <section class="section" id="vocabulary" aria-labelledby="vocab-title" data-section>
+          <div class="section-head">
+            <span class="section-num" aria-hidden="true">02</span>
+            <div class="section-heading">
+              <p class="eyebrow">Precision</p>
+              <h2 id="vocab-title">Key vocabulary</h2>
+              <p class="section-lead">Definitions are one sentence each so you can reproduce them under pressure. Bold terms recur highlighted in the rest of the note.</p>
+            </div>
+            <span class="section-time">12 terms</span>
+          </div>
+          <dl class="glossary searchable-grid" id="vocabGrid">
+        <div class="term" data-searchable="Validity">
+          <dt>Validity<span class="tag">Property</span></dt>
+          <dd>The degree to which a test measures what it is intended to measure for a given purpose.</dd>
+        </div>
+        <div class="term" data-searchable="Content validity">
+          <dt>Content validity<span class="tag">Validity</span></dt>
+          <dd>The extent to which items represent the domain and outcomes they are meant to cover.</dd>
+        </div>
+        <div class="term" data-searchable="Construct validity">
+          <dt>Construct validity<span class="tag">Validity</span></dt>
+          <dd>The extent to which a test measures the intended underlying trait rather than another.</dd>
+        </div>
+        <div class="term" data-searchable="Criterion validity">
+          <dt>Criterion validity<span class="tag">Validity</span></dt>
+          <dd>The extent to which scores predict or agree with a criterion measure, concurrently or predictively.</dd>
+        </div>
+        <div class="term" data-searchable="Face validity">
+          <dt>Face validity<span class="tag">Validity</span></dt>
+          <dd>The extent to which a test appears relevant and appropriate to learners and users.</dd>
+        </div>
+        <div class="term" data-searchable="Reliability">
+          <dt>Reliability<span class="tag">Property</span></dt>
+          <dd>The consistency of test results across occasions, forms and markers.</dd>
+        </div>
+        <div class="term" data-searchable="Internal consistency">
+          <dt>Internal consistency<span class="tag">Reliability</span></dt>
+          <dd>The degree to which items measuring the same construct produce consistent responses, estimated by split-half, KR-20 or alpha.</dd>
+        </div>
+        <div class="term" data-searchable="Inter-rater reliability">
+          <dt>Inter-rater reliability<span class="tag">Reliability</span></dt>
+          <dd>The agreement between different markers scoring the same work.</dd>
+        </div>
+        <div class="term" data-searchable="Standard error of measurement">
+          <dt>Standard error of measurement<span class="tag">Statistic</span></dt>
+          <dd>The estimated spread of a learner’s scores around their true score, derived from reliability.</dd>
+        </div>
+        <div class="term" data-searchable="Objectivity">
+          <dt>Objectivity<span class="tag">Property</span></dt>
+          <dd>The degree to which scoring is independent of the marker’s judgement.</dd>
+        </div>
+        <div class="term" data-searchable="Usability">
+          <dt>Usability<span class="tag">Property</span></dt>
+          <dd>The practicality of a test in terms of time, cost, administration and scoring.</dd>
+        </div>
+        <div class="term" data-searchable="Construct-irrelevant variance">
+          <dt>Construct-irrelevant variance<span class="tag">Threat</span></dt>
+          <dd>Score variance produced by factors unrelated to the intended construct, such as reading load.</dd>
+        </div>
+          </dl>
+        </section>
+
+        <!-- ================= 03 COMPARISONS ================= -->
+        <section class="section" id="comparisons" aria-labelledby="comparisons-title" data-section>
+          <div class="section-head">
+            <span class="section-num" aria-hidden="true">03</span>
+            <div class="section-heading">
+              <p class="eyebrow">Distinctions</p>
+              <h2 id="comparisons-title">Comparisons that decide marks</h2>
+              <p class="section-lead">Most lost marks come from near-misses between paired terms. Learn the dimension first, then the contrast — that is the structure full-mark answers use.</p>
+            </div>
+            <span class="section-time">2 tables</span>
+          </div>
+<div id="compareGrid">
+        <div class="table-card">
+          <div class="table-caption">
+            <strong>Types of Validity and the Evidence They Need</strong>
+            <span>Swipe to view all columns →</span>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th scope="col">Type</th><th scope="col">Question answered</th><th scope="col">Evidence required</th><th scope="col">Classroom example</th></tr></thead>
+              <tbody>
+              <tr><td>Content</td><td>Does the test cover the domain adequately?</td><td>Blueprint; expert review of items against outcomes</td><td>Items traceable to every unit outcome at the right level</td></tr>
+              <tr><td>Construct</td><td>Does it measure the intended trait?</td><td>Correlation with related and unrelated measures; factor analysis; think-aloud</td><td>Reasoning items correlate with reasoning tasks, not with reading speed</td></tr>
+              <tr><td>Criterion (concurrent)</td><td>Does it agree with an existing measure?</td><td>Correlation with a validated test or teacher judgement</td><td>New test agrees with moderated school examination</td></tr>
+              <tr><td>Criterion (predictive)</td><td>Does it forecast later performance?</td><td>Correlation with a future outcome</td><td>Grade 9 score predicts Grade 10 achievement</td></tr>
+              <tr><td>Face</td><td>Does it look appropriate to users?</td><td>Review by teachers, learners and parents</td><td>Items clearly relate to taught content</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="table-card">
+          <div class="table-caption">
+            <strong>Types of Reliability and How They Are Estimated</strong>
+            <span>Swipe to view all columns →</span>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th scope="col">Type</th><th scope="col">Method</th><th scope="col">Coefficient</th><th scope="col">Main threat</th></tr></thead>
+              <tbody>
+              <tr><td>Test-retest</td><td>Same test administered twice, with an interval</td><td>Correlation between the two sets of scores</td><td>Memory effects or genuine learning between sittings</td></tr>
+              <tr><td>Parallel forms</td><td>Two equivalent versions administered</td><td>Correlation between forms</td><td>Forms that differ in difficulty</td></tr>
+              <tr><td>Split-half</td><td>Odd and even items compared, then corrected by Spearman–Brown</td><td>Corrected correlation</td><td>Items not homogeneous</td></tr>
+              <tr><td>Internal consistency</td><td>KR-20 for dichotomous items; Cronbach’s alpha for rated items</td><td>KR-20 or alpha</td><td>Very short tests underestimate consistency</td></tr>
+              <tr><td>Inter-rater</td><td>Two markers score the same scripts</td><td>Percentage agreement or correlation</td><td>Unclear rubric or untrained markers</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        </div>
+        </section>
+
+        <!-- ================= 04 WORKED EXAMPLES ================= -->
+        <section class="section" id="worked-examples" aria-labelledby="examples-title" data-section>
+          <div class="section-head">
+            <span class="section-num" aria-hidden="true">04</span>
+            <div class="section-heading">
+              <p class="eyebrow">Application</p>
+              <h2 id="examples-title">Worked examples</h2>
+              <p class="section-lead">Three walkthroughs take the definitions to the level the paper asks for: a calculation, a judgement and a repair.</p>
+            </div>
+            <span class="section-time">3 walkthroughs</span>
+          </div>
+        <article class="example">
+          <div class="example-head">
+            <span class="example-tag">Calculation</span>
+            <h3>Split-half reliability with the Spearman–Brown correction</h3>
+          </div>
+          <p class="example-prompt">A 20-item test is split into odd and even items. The correlation between the two halves is 0.64. Estimate the reliability of the full test.</p>
+          <ol class="steps">
+            <li><strong>Recognise the problem:</strong> the observed 0.64 is the reliability of a 10-item half, not of the 20-item test.</li>
+            <li><strong>Apply the Spearman–Brown formula:</strong> r_full = 2r ÷ (1 + r), where r is the half-test correlation.</li>
+            <li><strong>Substitute:</strong> 2 × 0.64 ÷ (1 + 0.64) = 1.28 ÷ 1.64 ≈ 0.78.</li>
+            <li><strong>Interpret:</strong> 0.78 is acceptable for a classroom test but not for high-stakes individual decisions; the standard error of measurement would still be substantial.</li>
+          </ol>
+          <div class="result"><b>Result</b> Full-test reliability ≈ 0.78, obtained by correcting the half-test correlation upward.</div>
+          <details class="reasoning">
+            <summary>Why this works</summary>
+            <p>Reliability rises with length. Reporting the uncorrected half-test value would understate the test’s consistency, which is why split-half estimates must always be corrected.</p>
+          </details>
+        </article>
+        <article class="example">
+          <div class="example-head">
+            <span class="example-tag">Judgement</span>
+            <h3>Reading a reliability coefficient honestly</h3>
+          </div>
+          <p class="example-prompt">A test has a reliability of 0.62 and a standard deviation of 8. A learner scores 54; the pass mark is 50. Should the school treat the learner as having passed?</p>
+          <ol class="steps">
+            <li><strong>Translate reliability into error:</strong> SEM = SD × √(1 − r) = 8 × √0.38 ≈ 4.9.</li>
+            <li><strong>Build the band:</strong> the learner’s true score is likely to lie within roughly ±1 SEM, so about 49 to 59.</li>
+            <li><strong>Compare with the cut-off:</strong> the band straddles the pass mark of 50, so the pass decision is not secure on this evidence.</li>
+            <li><strong>Act defensibly:</strong> use a second source of evidence — classwork, a practical, a retest — rather than deciding on a score that is within error of the boundary.</li>
+          </ol>
+          <div class="result"><b>Result</b> SEM ≈ 4.9; the band 49–59 crosses the cut-off, so the decision needs corroborating evidence.</div>
+          <details class="reasoning">
+            <summary>Why this works</summary>
+            <p>Reliability coefficients are not administrative decoration: they determine how finely a score may be used. Decisions near a boundary are the most sensitive to error.</p>
+          </details>
+        </article>
+        <article class="example">
+          <div class="example-head">
+            <span class="example-tag">Repair</span>
+            <h3>Diagnosing a validity problem</h3>
+          </div>
+          <p class="example-prompt">A mathematics test correlates strongly with a reading-comprehension test (r = 0.71) but only weakly with a practical numeracy task (r = 0.28). Items contain long word problems.</p>
+          <ol class="steps">
+            <li><strong>Read the pattern:</strong> high correlation with reading and low with numeracy suggests the test is measuring reading as much as mathematics.</li>
+            <li><strong>Identify construct-irrelevant variance:</strong> long, complex stems add a reading demand that is not part of the mathematics construct.</li>
+            <li><strong>Check the blueprint:</strong> count how many items require multi-sentence interpretation before any calculation.</li>
+            <li><strong>Repair:</strong> shorten stems, separate context from the operation, allow a reader where appropriate, and add items that assess the same operations with minimal reading.</li>
+          </ol>
+          <div class="result"><b>Result</b> The test is reliable but not valid for mathematics; stem length and reading load are the likely cause, and the repair is textual, not statistical.</div>
+          <details class="reasoning">
+            <summary>Why this works</summary>
+            <p>Correlation patterns are validity evidence. A test that tracks the wrong construct will predict the wrong things, however consistent its scores are.</p>
+          </details>
+        </article>
+        </section>
+
+        <!-- ================= 05 APPLICATION ================= -->
+        <section class="section" id="application" aria-labelledby="application-title" data-section>
+          <div class="section-head">
+            <span class="section-num" aria-hidden="true">05</span>
+            <div class="section-heading">
+              <p class="eyebrow">Practice</p>
+              <h2 id="application-title">Classroom and test-room application</h2>
+              <p class="section-lead">The left column is the professional standard; the right column lists the errors that cost marks and damage results.</p>
+            </div>
+            <span class="section-time">do / avoid</span>
+          </div>
+          <div class="do-avoid" id="applyGrid">
+            <div class="panel do">
+              <h3><span aria-hidden="true">✅</span> Do this</h3>
+              <ul><li>State the validity claim and the purpose before collecting any evidence.</li><li>Build the paper from a <strong>table of specifications</strong> so content validity is designed in.</li><li>Estimate <strong>reliability</strong> with the method that fits the test: retest, parallel forms, split-half or inter-rater.</li><li>Report scores with a <strong>standard error of measurement</strong> band when decisions matter.</li><li>Train markers, use a rubric and moderate a sample to raise <strong>inter-rater reliability</strong>.</li><li>Audit the paper against objectivity, usability, fairness, discrimination, comprehensiveness and norms.</li></ul>
+            </div>
+            <div class="panel avoid">
+              <h3><span aria-hidden="true">🚫</span> Avoid this</h3>
+              <ul><li>Do not treat validity and reliability as synonyms or as opposites.</li><li>Do not claim validity on the basis of a single correlation or of expert approval alone.</li><li>Do not report a split-half coefficient without the Spearman–Brown correction.</li><li>Do not use a score within one standard error of a cut-off to make a high-stakes decision alone.</li><li>Do not raise reliability by lengthening the test with items that measure something else.</li><li>Do not describe a paper as objective when it contains essay items without a rubric.</li></ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= 06 MISCONCEPTIONS ================= -->
+        <section class="section" id="misconceptions" aria-labelledby="myths-title" data-section>
+          <div class="section-head">
+            <span class="section-num" aria-hidden="true">06</span>
+            <div class="section-heading">
+              <p class="eyebrow">Exam traps</p>
+              <h2 id="myths-title">Misconceptions</h2>
+              <p class="section-lead">Each myth is a plausible sentence that loses marks. Learn the reality column as the correction you can write.</p>
+            </div>
+            <span class="section-time">4 corrections</span>
+          </div>
+          <div class="myths searchable-grid" id="misGrid">
+        <article class="myth" data-searchable="A reliable test is a valid test.">
+          <div class="myth-claim"><span>Myth</span>A reliable test is a valid test.</div>
+          <div class="myth-fix"><span>Reality</span><strong>Reliability</strong> is consistency; <strong>validity</strong> is meaning. A test can consistently measure the wrong construct, and a valid intention can be undermined by unreliable marking.</div>
+        </article>
+        <article class="myth" data-searchable="Validity is a fixed property of the paper.">
+          <div class="myth-claim"><span>Myth</span>Validity is a fixed property of the paper.</div>
+          <div class="myth-fix"><span>Reality</span>Validity belongs to <strong>interpretations and uses</strong>. The same scores may be valid for describing class progress and invalid for certifying individual competence or predicting future success.</div>
+        </article>
+        <article class="myth" data-searchable="Content validity is guaranteed by covering every chapter.">
+          <div class="myth-claim"><span>Myth</span>Content validity is guaranteed by covering every chapter.</div>
+          <div class="myth-fix"><span>Reality</span>Coverage must be <strong>proportionate</strong> to emphasis and cognitive level, not merely present. One recall item per chapter can still misrepresent the curriculum.</div>
+        </article>
+        <article class="myth" data-searchable="Reliability can be judged by looking at the paper.">
+          <div class="myth-claim"><span>Myth</span>Reliability can be judged by looking at the paper.</div>
+          <div class="myth-fix"><span>Reality</span>Reliability is estimated empirically — by retest, parallel forms, internal consistency or inter-rater agreement — and different methods answer different questions.</div>
+        </article>
+          </div>
+        </section>
+
+        <!-- ================= 07 EXAM ROOM ================= -->
+        <section class="section" id="exam" aria-labelledby="exam-title" data-section>
+          <div class="section-head">
+            <span class="section-num" aria-hidden="true">07</span>
+            <div class="section-heading">
+              <p class="eyebrow">Exam room</p>
+              <h2 id="exam-title">Exam-style questions</h2>
+              <p class="section-lead">Answer first, then open the model. The chips show the command word, the mark value and the cognitive level being tested.</p>
+            </div>
+            <span class="section-time">2 questions</span>
+          </div>
+        <article class="exam-q">
+          <div class="exam-meta">
+            <span class="chip command">Explain</span>
+            <span class="chip marks">8 marks</span>
+            <span class="chip level">Understand</span>
+          </div>
+          <p>Explain the relationship between reliability and validity, and why reliability is described as necessary but not sufficient.</p>
+          <details class="model">
+            <summary>Model answer</summary>
+            <p>Reliability is the consistency of a test’s results across occasions, forms and markers; validity is the extent to which the test measures what it claims for the intended purpose. Reliability is necessary because an inconsistent instrument cannot support a stable interpretation: if the same learner would score very differently on a retest or under a different marker, no claim about their achievement is defensible. Reliability also limits validity mathematically, since a test’s correlation with a criterion cannot exceed the square root of its reliability. But reliability is not sufficient: a spelling test marked with a perfect key is highly consistent yet invalid as a measure of essay-writing competence, because it measures a different construct. Validity therefore requires separate evidence about what the scores mean — content coverage, construct relationships or criterion agreement — while reliability only establishes that the numbers are stable.</p>
+          </details>
+        </article>
+        <article class="exam-q">
+          <div class="exam-meta">
+            <span class="chip command">Evaluate</span>
+            <span class="chip marks">10 marks</span>
+            <span class="chip level">Evaluate</span>
+          </div>
+          <p>A school uses a 15-item multiple-choice test with a reliability of 0.55 to decide which learners enter an advanced stream. Evaluate the decision.</p>
+          <details class="model">
+            <summary>Model answer</summary>
+            <p>The decision is not defensible on this evidence. A reliability of 0.55 means that a substantial proportion of the variance in scores is error, and with a short 15-item test the standard error of measurement will be large relative to the spread of scores. Learners near the cut-off cannot be distinguished reliably, so placement will partly reflect measurement error. Validity is also questionable: if the outcome for the advanced stream involves reasoning or extended work, a multiple-choice test may not represent it, and its correlation with later performance is unknown. Fairness concerns arise because a single short test gives no opportunity for access arrangements or alternative evidence, and the consequence is high for the learner. A defensible process would lengthen and broaden the test from a blueprint, raise reliability through more items and moderation, combine the score with teacher assessment and a performance task, set a band around the cut-off where additional evidence is collected, and review the placement decisions against later outcomes to establish predictive validity.</p>
+          </details>
+        </article>
+        </section>
+
+        <!-- ================= 08 TAKEAWAYS ================= -->
+        <section class="section" id="takeaways" aria-labelledby="takeaways-title" data-section>
+          <div class="section-head">
+            <span class="section-num" aria-hidden="true">08</span>
+            <div class="section-heading">
+              <p class="eyebrow">Compress</p>
+              <h2 id="takeaways-title">Takeaways and revision</h2>
+              <p class="section-lead">Revise these six lines the night before the paper, then tick the checklist once each one is retrievable without notes.</p>
+            </div>
+            <span class="section-time">6 lines</span>
+          </div>
+          <div class="takeaways">
+            <h3>Six things to remember</h3>
+            <ol><li><strong>Validity</strong> concerns what the score means; <strong>reliability</strong> concerns how consistent it is.</li><li>Reliability is necessary but not sufficient for validity, and validity is capped by reliability.</li><li>Content, construct, criterion and face validity each require different evidence.</li><li>Reliability is estimated by retest, parallel forms, internal consistency or inter-rater agreement.</li><li>The <strong>standard error of measurement</strong> turns reliability into a band that should inform decisions.</li><li>A good test is also objective, usable, fair, discriminating, comprehensive and appropriately normed.</li></ol>
+          </div>
+          <div class="summary">
+            <span>One-line summary</span>
+            <p>Validity is the meaning of a score and reliability is its consistency; reliability bounds validity, and both must be designed in through blueprints, careful items, rubrics, piloting and moderation rather than assumed.</p>
+          </div>
+          <div class="exam-tip">
+            <span class="tip-icon" aria-hidden="true">💡</span>
+            <div>
+              <span class="tip-label">Exam tip</span>
+              <p>If a question supplies a reliability coefficient and a standard deviation, it is inviting an SEM calculation: SEM = SD × √(1 − r). Show the formula, then interpret the band — that interpretation is where most marks sit.</p>
+            </div>
+          </div>
+          <div class="checklist" id="checklist">
+            <div class="checklist-head">
+              <h3>Revision checklist</h3>
+              <span id="checklistCount">0 of 6 done</span>
+            </div>
+            <ul>
+          <li>
+            <label>
+              <input type="checkbox" data-key="check-1">
+              <span>I can define validity and name its four main types with the evidence each needs.</span>
+            </label>
+          </li>          <li>
+            <label>
+              <input type="checkbox" data-key="check-2">
+              <span>I can define reliability and name four methods of estimating it.</span>
+            </label>
+          </li>          <li>
+            <label>
+              <input type="checkbox" data-key="check-3">
+              <span>I can explain why reliability is necessary but not sufficient for validity.</span>
+            </label>
+          </li>          <li>
+            <label>
+              <input type="checkbox" data-key="check-4">
+              <span>I can calculate and interpret a standard error of measurement.</span>
+            </label>
+          </li>          <li>
+            <label>
+              <input type="checkbox" data-key="check-5">
+              <span>I can apply the Spearman–Brown correction to a split-half correlation.</span>
+            </label>
+          </li>          <li>
+            <label>
+              <input type="checkbox" data-key="check-6">
+              <span>I can audit a test against objectivity, usability, fairness, discrimination and comprehensiveness.</span>
+            </label>
+          </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ================= 09 QUIZ ================= -->
+        <section class="quiz" id="practice" aria-labelledby="quiz-title" data-section>
+          <div class="quiz-head">
+            <div>
+              <p class="eyebrow">Practice</p>
+              <h2 id="quiz-title">Test yourself</h2>
+            </div>
+            <div class="quiz-chips">
+              <span>10 MCQs</span>
+              <span>4 CRQs</span>
+              <span>1 ERQ</span>
+            </div>
+          </div>
+          <div class="quiz-body">
+            <div class="quiz-tabs" role="tablist" aria-label="Quiz sections">
+              <button class="quiz-tab active" role="tab" aria-selected="true" data-panel="mcqPanel">🔘 10 MCQs</button>
+              <button class="quiz-tab" role="tab" aria-selected="false" data-panel="crqPanel">✍️ 4 CRQs</button>
+              <button class="quiz-tab" role="tab" aria-selected="false" data-panel="erqPanel">📄 1 ERQ</button>
+            </div>
+
+            <div class="quiz-panel active" id="mcqPanel" role="tabpanel">
+              <div class="panel-head">
+                <span class="section-label">Multiple choice questions</span>
+                <span class="score-chip" id="mcqProgress">0 / 10 answered · 0 correct</span>
+              </div>
+              <div id="mcqContainer"></div>
+            </div>
+
+            <div class="quiz-panel" id="crqPanel" role="tabpanel">
+              <div class="panel-head">
+                <span class="section-label">Constructed response questions</span>
+                <span class="score-chip">Model answers included</span>
+              </div>
+              <div id="crqContainer"></div>
+            </div>
+
+            <div class="quiz-panel" id="erqPanel" role="tabpanel">
+              <div class="panel-head">
+                <span class="section-label">Extended response · situation-based</span>
+                <span class="score-chip">Keyword self-check</span>
+              </div>
+              <div id="erqContainer"></div>
+            </div>
+          </div>
+        </section>
+
+        <footer class="note-footer">
+          <span>MUQABIL · Teaching License Master Notes · Test Development & Evaluation</span>
+          <span>5 interactive notes in this module · revision 4 of 5</span>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <button class="to-top" id="toTop" type="button" aria-label="Back to top">↑</button>
+
+<script>
+    (function () {
+      'use strict';
+
+      var SLUG = 'validity-reliability-and-characteristics-of-tests';
+
+      /* ================= READING PROGRESS + BACK TO TOP ================= */
+      var fill = document.getElementById('progressFill');
+      var railFill = document.getElementById('railFill');
+      var railPct = document.getElementById('railPct');
+      var toTop = document.getElementById('toTop');
+
+      function updateScroll() {
+        var doc = document.documentElement;
+        var max = doc.scrollHeight - doc.clientHeight;
+        var pct = max > 0 ? Math.min(100, Math.max(0, (doc.scrollTop / max) * 100)) : 0;
+        if (fill) fill.style.width = pct + '%';
+        if (railFill) railFill.style.width = pct + '%';
+        if (railPct) railPct.textContent = Math.round(pct) + '%';
+        if (toTop) {
+          if (doc.scrollTop > 600) toTop.classList.add('visible');
+          else toTop.classList.remove('visible');
+        }
+      }
+      window.addEventListener('scroll', updateScroll, { passive: true });
+      updateScroll();
+
+      if (toTop) {
+        toTop.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      /* ================= SIDE NAV: ACTIVE SECTION ================= */
+      var railLinks = Array.prototype.slice.call(document.querySelectorAll('.rail-list a'));
+      var sections = railLinks
+        .map(function (link) {
+          var id = link.getAttribute('href').slice(1);
+          return document.getElementById(id);
+        })
+        .filter(Boolean);
+
+      function setActive(id) {
+        railLinks.forEach(function (link) {
+          if (link.getAttribute('href') === '#' + id) link.setAttribute('aria-current', 'true');
+          else link.removeAttribute('aria-current');
+        });
+      }
+
+      if ('IntersectionObserver' in window && sections.length) {
+        var visible = {};
+        var observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              visible[entry.target.id] = entry.isIntersecting ? entry.intersectionRatio : 0;
+            });
+            var best = null;
+            var bestRatio = 0;
+            sections.forEach(function (section) {
+              var ratio = visible[section.id] || 0;
+              if (ratio > bestRatio) { bestRatio = ratio; best = section.id; }
+            });
+            if (best) setActive(best);
+          },
+          { rootMargin: '-96px 0px -55% 0px', threshold: [0, 0.15, 0.4, 0.75] }
+        );
+        sections.forEach(function (section) { observer.observe(section); });
+      }
+
+      railLinks.forEach(function (link) {
+        link.addEventListener('click', function () {
+          setActive(link.getAttribute('href').slice(1));
+        });
+      });
+
+      /* ================= LIVE SEARCH ================= */
+      var searchInput = document.getElementById('searchInput');
+      var countDisplay = document.getElementById('countDisplay');
+      var grids = Array.prototype.slice.call(document.querySelectorAll('.searchable-grid'));
+
+      var cards = [];
+      grids.forEach(function (grid) {
+        Array.prototype.forEach.call(grid.querySelectorAll('[data-searchable]'), function (card) {
+          cards.push(card);
+        });
+      });
+
+      function applySearch(raw) {
+        var q = (raw || '').trim().toLowerCase();
+        var shown = 0;
+        cards.forEach(function (card) {
+          var text = ((card.getAttribute('data-searchable') || '') + ' ' + card.textContent).toLowerCase();
+          var hit = q === '' || text.indexOf(q) !== -1;
+          card.style.display = hit ? '' : 'none';
+          if (hit) shown++;
+        });
+        Array.prototype.forEach.call(document.querySelectorAll('.no-results'), function (node) {
+          node.parentNode.removeChild(node);
+        });
+        grids.forEach(function (grid) {
+          var any = Array.prototype.filter.call(
+            grid.querySelectorAll('[data-searchable]'),
+            function (card) { return card.style.display !== 'none'; }
+          ).length;
+          if (any === 0) {
+            var note = document.createElement('div');
+            note.className = 'no-results';
+            note.textContent = 'No matching items in this section.';
+            grid.appendChild(note);
+          }
+        });
+        if (countDisplay) {
+          countDisplay.textContent = shown + (shown === 1 ? ' match' : ' matches');
+        }
+      }
+
+      var debounce;
+      if (searchInput) {
+        searchInput.addEventListener('input', function (event) {
+          clearTimeout(debounce);
+          var value = event.target.value;
+          debounce = setTimeout(function () { applySearch(value); }, 130);
+        });
+        searchInput.addEventListener('search', function (event) {
+          if (event.target.value === '') applySearch('');
+        });
+        searchInput.addEventListener('keydown', function (event) {
+          if (event.key === 'Escape' && searchInput.value !== '') {
+            searchInput.value = '';
+            applySearch('');
+          }
+        });
+      }
+      applySearch('');
+
+      /* ================= REVISION CHECKLIST ================= */
+      var checklist = document.getElementById('checklist');
+      var checklistCount = document.getElementById('checklistCount');
+      var storageKey = 'muqabil-checklist-' + SLUG;
+
+      function readStore() {
+        try {
+          var raw = window.localStorage.getItem(storageKey);
+          return raw ? JSON.parse(raw) : {};
+        } catch (error) {
+          return {};
+        }
+      }
+
+      function writeStore(value) {
+        try {
+          window.localStorage.setItem(storageKey, JSON.stringify(value));
+        } catch (error) {
+          /* storage unavailable: the checklist still works for this visit */
+        }
+      }
+
+      function refreshChecklist() {
+        if (!checklist) return;
+        var boxes = Array.prototype.slice.call(checklist.querySelectorAll('input[type="checkbox"]'));
+        var done = boxes.filter(function (box) { return box.checked; }).length;
+        if (checklistCount) checklistCount.textContent = done + ' of ' + boxes.length + ' done';
+      }
+
+      if (checklist) {
+        var stored = readStore();
+        Array.prototype.forEach.call(checklist.querySelectorAll('input[type="checkbox"]'), function (box) {
+          box.checked = Boolean(stored[box.getAttribute('data-key')]);
+          box.addEventListener('change', function () {
+            var state = readStore();
+            state[box.getAttribute('data-key')] = box.checked;
+            writeStore(state);
+            refreshChecklist();
+          });
+        });
+        refreshChecklist();
+      }
+
+      /* ================= QUIZ TABS ================= */
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.quiz-tab'));
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          tabs.forEach(function (item) {
+            item.classList.remove('active');
+            item.setAttribute('aria-selected', 'false');
+          });
+          Array.prototype.forEach.call(document.querySelectorAll('.quiz-panel'), function (panel) {
+            panel.classList.remove('active');
+          });
+          tab.classList.add('active');
+          tab.setAttribute('aria-selected', 'true');
+          var panel = document.getElementById(tab.getAttribute('data-panel'));
+          if (panel) panel.classList.add('active');
+        });
+      });
+
+      /* ================= DATA ================= */
+      var mcqs = [{"q": "Validity is best defined as:", "options": ["Consistency of scores", "The extent to which a test measures what it claims for its purpose", "Ease of marking", "Agreement between markers"], "answer": 1, "why": "Validity concerns meaning and purpose."}, {"q": "Which is a form of reliability rather than validity?", "options": ["Content validity", "Construct validity", "Inter-rater agreement", "Predictive validity"], "answer": 2, "why": "Inter-rater agreement is a reliability estimate."}, {"q": "Split-half reliability must be corrected using:", "options": ["Cronbach’s alpha", "The Spearman–Brown formula", "The standard error of measurement", "A z-score"], "answer": 1, "why": "The correction estimates full-test reliability from half-test correlation."}, {"q": "The standard error of measurement is used to:", "options": ["Compare two classes", "Estimate the band around an individual score", "Calculate a percentage", "Rank learners"], "answer": 1, "why": "SEM expresses the error attached to a score."}, {"q": "Reliability is necessary for validity because:", "options": ["Reliable tests are always valid", "An inconsistent test cannot support a stable interpretation", "Validity is a type of reliability", "Both are estimated by correlation only"], "answer": 1, "why": "Consistency is a precondition for meaningful interpretation."}, {"q": "Content validity is best established by:", "options": ["A retest", "A table of specifications and expert review of items", "Inter-rater correlation", "Comparing with a norm group"], "answer": 1, "why": "Content validity is about representative coverage."}, {"q": "A test correlating highly with a reading test but weakly with numeracy is likely to have:", "options": ["High reliability and high validity", "Construct-irrelevant variance", "A low standard deviation", "Too many items"], "answer": 1, "why": "The test is measuring reading as well as mathematics."}, {"q": "Which factor most directly increases internal-consistency reliability?", "options": ["Making items harder", "Increasing the number of homogeneous items", "Shortening the test", "Increasing stakes"], "answer": 1, "why": "Length and homogeneity raise consistency."}, {"q": "A test with a reliability of 0.90 but items that all test recall of definitions is:", "options": ["Valid and reliable", "Reliable but invalid for application outcomes", "Invalid and unreliable", "Fair but impractical"], "answer": 1, "why": "Consistency does not guarantee the right construct."}, {"q": "Usability of a test refers to:", "options": ["Its difficulty", "Its practicality in time, cost, administration and scoring", "Its norm group", "Its face validity"], "answer": 1, "why": "Usability is the practical characteristic."}];
+      var crqs = [{"q": "Explain content, construct, criterion and face validity, with the evidence each requires.", "hint": "Give the question each answers and its evidence.", "model": "Content validity asks whether the test represents the domain and outcomes it is meant to cover; the evidence is a table of specifications and expert review of items against outcomes. Construct validity asks whether the test measures the intended trait rather than another; evidence comes from correlations with related and unrelated measures, factor analysis or think-aloud studies. Criterion validity asks whether scores agree with or predict a criterion; concurrent validity compares with an existing measure and predictive validity compares with a future outcome. Face validity asks whether the test appears relevant and appropriate to learners and users; evidence is review by teachers, learners and parents. All four are claims about interpretation rather than properties of the paper, and each requires its own evidence."}, {"q": "Describe four methods of estimating reliability and state when each is appropriate.", "hint": "Give the method, the coefficient and the limitation.", "model": "Test-retest reliability administers the same test twice and correlates the scores; it suits stable traits but is affected by memory and genuine learning between sittings. Parallel-forms reliability administers two equivalent versions and correlates them; it is appropriate when practice effects must be avoided but requires genuinely equivalent forms. Internal consistency uses split-half with the Spearman–Brown correction, KR-20 for dichotomous items or Cronbach’s alpha for rated items; it is appropriate for a single administration measuring one construct, but it underestimates reliability in very short or heterogeneous tests. Inter-rater reliability compares the marks of two or more markers on the same work using agreement rates or correlations; it is essential for essays, practicals and any constructed response, and depends on a clear rubric and marker training."}, {"q": "A colleague claims that a test with a reliability of 0.85 needs no further quality checks. Respond.", "hint": "Address the limits of reliability evidence and the other characteristics.", "model": "A reliability of 0.85 is respectable and gives a relatively small standard error, but it says nothing about what the test measures. The test could be consistently measuring recall when the outcome requires application, or consistently favouring learners with stronger reading, in which case validity and fairness are both compromised. Reliability also does not establish objectivity if constructed responses are marked without a rubric, nor comprehensiveness if the blueprint is thin, nor usability if the paper cannot be marked in time. Nor does a single coefficient tell us about subgroups: a test can be reliable overall while functioning differently for learners with access needs. The appropriate response is to accept the reliability evidence and ask for the rest: the blueprint, the item review, the bias review, the marking scheme and the evidence about what the scores predict or mean."}, {"q": "How would you raise the reliability of an essay-based examination without reducing its validity?", "hint": "Address rubric, anchors, training, moderation, item design and length.", "model": "Begin with the rubric: derive analytic criteria from the outcomes and write observable level descriptors, so that marking is a series of bounded judgements rather than a global impression. Calibrate markers with anchor scripts at each level and run a short training session on borderline cases. Increase the number of independent judgements by requiring two essays or more rather than one, since reliability rises with the amount of evidence. Separate the scoring of content from expression so that one does not contaminate the other. Moderate: second-mark a random sample, compare criterion by criterion, discuss discrepancies and record the agreed standard. Standardise conditions, time and choice of questions so that candidates are not answering differently weighted tasks. Finally, review items for ambiguity, since unclear prompts produce inconsistent responses. None of these changes the construct being assessed, so validity is preserved while the consistency of judgement improves."}];
+      var erq = {"scenario": "A school’s annual examination consists of one three-hour paper per subject. Essays are marked by the subject teacher, and the school reports only percentages. Two sections of Grade 9 are taught by different teachers; the section means differ by 16 percentage points in every subject. Parents complain that the same essay receives different marks when re-marked by a tutor. The head teacher proposes buying a standardized test instead, arguing it will be ‘more reliable and therefore more valid’.", "task": "Analyse the problems using the concepts of validity, reliability, standard error and the characteristics of a good test. Evaluate the head teacher’s proposal and propose a better plan.", "hint": "Separate reliability failures from validity questions, evaluate the standardized-test proposal, then design the improvement.", "keywords": ["validity", "reliability", "inter-rater", "rubric", "moderation", "standard error", "criterion", "fairness", "blueprint", "usability"], "model": "The pattern of a 16-point gap in every subject, combined with re-marking discrepancies, points to a reliability failure rather than a difference in learning. Essays marked by the subject teacher without a rubric produce low inter-rater reliability: each marker applies private criteria, halo effects operate, and handwriting or presentation influences the score. Because every subject shows the same gap, the cause is likely to be marking and administration rather than subject-specific teaching. Reporting only percentages compounds the problem, because a percentage hides both the difficulty of the paper and the error attached to the score, and the standard error for an essay marked this way is likely to be several marks — enough to make many apparent differences meaningless. Validity is also unaddressed. There is no evidence that the papers sample the curriculum proportionately or at the intended cognitive levels, so even consistent marks might not mean what the school claims. The head teacher’s proposal is a partial response based on a false inference. A standardized test may be more reliable — its items are piloted, its administration fixed and its marking objective — but reliability does not make it valid for the school’s purposes. A standardized test will not match the school’s taught curriculum or its internal outcomes, so it may be less valid for reporting on what was taught, and its norms may not fit the school’s population. Buying it would solve consistency and leave meaning untouched, and it would add cost and reduce curricular alignment. A better plan addresses both properties. For reliability, introduce analytic rubrics derived from outcomes, anchor scripts at each level, marker training, second marking of a random sample, and moderation meetings in which discrepancies are discussed and the rubric revised; separate content from expression in the scoring. Reduce reliance on a single essay by requiring two shorter responses, so that one weak performance does not determine the result. For validity, build each paper from a table of specifications that maps marks to outcomes and cognitive levels, review items for construct-irrelevant difficulty such as unnecessary reading load, and pilot new items. For reporting, publish scores with a standard error band and lead with criterion-referenced information about which outcomes are secure; use rank or percentile only as supplementary context with a named group. Finally, evaluate the changes: compare the section means after moderation, check inter-rater agreement on a common sample, and follow one cohort to see whether the examination predicts later performance. If the school still wants external comparability, a standardized test can be added as one source of evidence rather than replacing the curriculum-based examination."};
+
+      /* ================= MCQs ================= */
+      var mcqContainer = document.getElementById('mcqContainer');
+      var scoreChip = document.getElementById('mcqProgress');
+      var answered = 0;
+      var correctCount = 0;
+      var letters = ['A', 'B', 'C', 'D'];
+
+      function updateScore() {
+        if (scoreChip) {
+          scoreChip.textContent = answered + ' / ' + mcqs.length + ' answered · ' + correctCount + ' correct';
+        }
+      }
+
+      mcqs.forEach(function (item, index) {
+        var wrap = document.createElement('article');
+        wrap.className = 'mcq';
+
+        var q = document.createElement('p');
+        q.className = 'mcq-q';
+        var num = document.createElement('span');
+        num.className = 'qnum';
+        num.textContent = String(index + 1);
+        var qText = document.createElement('span');
+        qText.textContent = item.q;
+        q.appendChild(num);
+        q.appendChild(qText);
+        wrap.appendChild(q);
+
+        var list = document.createElement('div');
+        list.className = 'options';
+        var feedback = document.createElement('div');
+        feedback.className = 'mcq-feedback';
+        var locked = false;
+
+        item.options.forEach(function (option, optionIndex) {
+          var button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'option';
+
+          var letter = document.createElement('span');
+          letter.className = 'letter';
+          letter.textContent = letters[optionIndex];
+
+          var text = document.createElement('span');
+          text.textContent = option;
+
+          button.appendChild(letter);
+          button.appendChild(text);
+
+          button.addEventListener('click', function () {
+            if (locked) return;
+            locked = true;
+            answered++;
+            var right = optionIndex === item.answer;
+            if (right) correctCount++;
+
+            Array.prototype.forEach.call(list.querySelectorAll('.option'), function (other) {
+              other.disabled = true;
+            });
+            button.classList.add(right ? 'correct' : 'wrong');
+            if (!right) {
+              var key = list.querySelectorAll('.option')[item.answer];
+              if (key) key.classList.add('correct');
+            }
+            feedback.className = 'mcq-feedback show ' + (right ? 'good' : 'bad');
+            feedback.textContent = (right ? 'Correct. ' : 'Not quite. ') + item.why;
+            updateScore();
+          });
+
+          list.appendChild(button);
+        });
+
+        wrap.appendChild(list);
+        wrap.appendChild(feedback);
+        mcqContainer.appendChild(wrap);
+      });
+      updateScore();
+
+      /* ================= CRQs ================= */
+      var crqContainer = document.getElementById('crqContainer');
+
+      crqs.forEach(function (item, index) {
+        var wrap = document.createElement('article');
+        wrap.className = 'crq';
+
+        var title = document.createElement('h4');
+        title.textContent = 'Question ' + (index + 1) + '. ' + item.q;
+        wrap.appendChild(title);
+
+        var hint = document.createElement('p');
+        hint.className = 'hint';
+        hint.textContent = 'Hint: ' + item.hint;
+        wrap.appendChild(hint);
+
+        var area = document.createElement('textarea');
+        area.placeholder = 'Write your answer here — aim for 80 to 120 words.';
+        area.setAttribute('aria-label', 'Answer for question ' + (index + 1));
+        wrap.appendChild(area);
+
+        var row = document.createElement('div');
+        row.className = 'word-row';
+        var count = document.createElement('span');
+        count.textContent = '0 words';
+        var target = document.createElement('span');
+        target.textContent = 'Target: 80–120 words';
+        row.appendChild(count);
+        row.appendChild(target);
+        wrap.appendChild(row);
+
+        function updateWords() {
+          var words = area.value.trim().split(/\s+/).filter(Boolean).length;
+          count.textContent = words + (words === 1 ? ' word' : ' words');
+          if (words >= 80 && words <= 160) {
+            count.className = 'word-count ok';
+          } else {
+            count.className = '';
+          }
+        }
+        area.addEventListener('input', updateWords);
+
+        var row2 = document.createElement('div');
+        row2.className = 'btn-row';
+        var modelBtn = document.createElement('button');
+        modelBtn.type = 'button';
+        modelBtn.className = 'btn secondary';
+        modelBtn.textContent = 'Show model answer';
+        row2.appendChild(modelBtn);
+        wrap.appendChild(row2);
+
+        var feedback = document.createElement('div');
+        feedback.className = 'feedback';
+        wrap.appendChild(feedback);
+
+        modelBtn.addEventListener('click', function () {
+          var open = feedback.classList.contains('show');
+          if (open) {
+            feedback.className = 'feedback';
+            feedback.textContent = '';
+            modelBtn.textContent = 'Show model answer';
+          } else {
+            feedback.className = 'feedback show model';
+            feedback.textContent = 'Model answer: ' + item.model;
+            modelBtn.textContent = 'Hide model answer';
+          }
+        });
+
+        crqContainer.appendChild(wrap);
+      });
+
+      /* ================= ERQ ================= */
+      var erqContainer = document.getElementById('erqContainer');
+
+      (function () {
+        var wrap = document.createElement('article');
+        wrap.className = 'erq';
+
+        var title = document.createElement('h4');
+        title.textContent = 'Situation-based extended response · 10 marks';
+        wrap.appendChild(title);
+
+        var scenario = document.createElement('div');
+        scenario.className = 'scenario';
+        scenario.textContent = erq.scenario;
+        wrap.appendChild(scenario);
+
+        var task = document.createElement('p');
+        task.className = 'task';
+        task.textContent = erq.task;
+        wrap.appendChild(task);
+
+        var hint = document.createElement('p');
+        hint.className = 'hint';
+        hint.textContent = 'Hint: ' + erq.hint;
+        wrap.appendChild(hint);
+
+        var keywords = document.createElement('div');
+        keywords.className = 'keyword-row';
+        erq.keywords.forEach(function (keyword) {
+          var chip = document.createElement('span');
+          chip.className = 'keyword';
+          chip.textContent = keyword;
+          keywords.appendChild(chip);
+        });
+        wrap.appendChild(keywords);
+
+        var area = document.createElement('textarea');
+        area.placeholder = 'Plan briefly, then write your answer — aim for 250 to 350 words.';
+        area.setAttribute('aria-label', 'Extended response answer');
+        wrap.appendChild(area);
+
+        var row = document.createElement('div');
+        row.className = 'word-row';
+        var count = document.createElement('span');
+        count.textContent = '0 words';
+        var target = document.createElement('span');
+        target.textContent = 'Target: 250–350 words';
+        row.appendChild(count);
+        row.appendChild(target);
+        wrap.appendChild(row);
+
+        area.addEventListener('input', function () {
+          var words = area.value.trim().split(/\s+/).filter(Boolean).length;
+          count.textContent = words + (words === 1 ? ' word' : ' words');
+        });
+
+        var row2 = document.createElement('div');
+        row2.className = 'btn-row';
+        var checkBtn = document.createElement('button');
+        checkBtn.type = 'button';
+        checkBtn.className = 'btn';
+        checkBtn.textContent = 'Check my coverage';
+        var modelBtn = document.createElement('button');
+        modelBtn.type = 'button';
+        modelBtn.className = 'btn secondary';
+        modelBtn.textContent = 'Show model answer';
+        row2.appendChild(checkBtn);
+        row2.appendChild(modelBtn);
+        wrap.appendChild(row2);
+
+        var feedback = document.createElement('div');
+        feedback.className = 'feedback';
+        wrap.appendChild(feedback);
+
+        checkBtn.addEventListener('click', function () {
+          var answer = area.value.toLowerCase();
+          if (!answer.trim()) {
+            feedback.className = 'feedback show partial';
+            feedback.textContent = 'Write your response first — aim for at least 250 words before self-checking.';
+            return;
+          }
+          var hits = erq.keywords.filter(function (keyword) {
+            return answer.indexOf(keyword.toLowerCase()) !== -1;
+          });
+          var missing = erq.keywords.filter(function (keyword) {
+            return hits.indexOf(keyword) === -1;
+          });
+          Array.prototype.forEach.call(keywords.querySelectorAll('.keyword'), function (chip) {
+            chip.classList.toggle('hit', hits.indexOf(chip.textContent) !== -1);
+          });
+          var ratio = hits.length / erq.keywords.length;
+          if (ratio >= 0.6) {
+            feedback.className = 'feedback show good';
+            feedback.textContent = 'Strong coverage: ' + hits.length + ' of ' + erq.keywords.length +
+              ' expected ideas present. Now tighten the structure: principle -> diagnosis -> action -> evaluation.' +
+              (missing.length ? ' Still to consider: ' + missing.join(', ') + '.' : '');
+          } else {
+            feedback.className = 'feedback show partial';
+            feedback.textContent = 'Partial coverage: ' + hits.length + ' of ' + erq.keywords.length +
+              ' expected ideas found. Add: ' + missing.join(', ') + '.';
+          }
+        });
+
+        modelBtn.addEventListener('click', function () {
+          var open = feedback.classList.contains('show') && feedback.classList.contains('model');
+          if (open) {
+            feedback.className = 'feedback';
+            feedback.textContent = '';
+            modelBtn.textContent = 'Show model answer';
+          } else {
+            feedback.className = 'feedback show model';
+            feedback.textContent = 'Model answer: ' + erq.model;
+            modelBtn.textContent = 'Hide model answer';
+          }
+        });
+
+        erqContainer.appendChild(wrap);
+      })();
+    })();
+</script>
+</body>
+</html>

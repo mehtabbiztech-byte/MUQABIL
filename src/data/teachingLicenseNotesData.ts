@@ -1,10 +1,12 @@
 import { EDUCATIONAL_PSYCHOLOGY_TOPICS } from './educationalPsychologyTopics';
 import { CLASSROOM_MANAGEMENT_TOPICS } from './classroomManagementTopics';
 import { CLASSROOM_ASSESSMENT_TOPICS } from './classroomAssessmentTopics';
+import { TEST_DEVELOPMENT_TOPICS } from './testDevelopmentTopics';
 
 export { EDUCATIONAL_PSYCHOLOGY_TOPICS };
 export { CLASSROOM_MANAGEMENT_TOPICS };
 export { CLASSROOM_ASSESSMENT_TOPICS };
+export { TEST_DEVELOPMENT_TOPICS };
 
 export interface QuickQuizItem {
   id: string;
@@ -2331,5 +2333,21 @@ export const TEACHING_LICENSE_PARTS: LicensePartModule[] = [
     description:
       'Conceptual revision module for the psychology content embedded in Part II: major learning theories, psychology versus educational psychology, individual differences, basic needs and motivation, and home–school–community influences — each with a full interactive note, MCQs, CRQs, and an ERQ.',
     topics: EDUCATIONAL_PSYCHOLOGY_TOPICS,
+  },
+  {
+    id: 'steda-part-2-test-development',
+    partNumber: 13,
+    partCategory: 'Part II: Pedagogical Content Knowledge (50%)',
+    subjectName: 'Test Development & Evaluation',
+    weightage: '10 MCQs · 10 Marks',
+    marks: 10,
+    targetLevel: 'Elementary (BPS-16) & Secondary (BPS-17)',
+    iconName: 'FileSpreadsheet',
+    themeColor: 'from-violet-600 to-indigo-700',
+    badgeBg: 'bg-violet-500/10',
+    badgeText: 'text-violet-600 dark:text-violet-400',
+    description:
+      'Five in-depth interactive notes on measuring learning: tests and measurement, principles of testing, domains and taxonomies, validity and reliability, and the full test development and review cycle — each with worked examples, comparison tables, exam-style questions with model answers and a revision checklist.',
+    topics: TEST_DEVELOPMENT_TOPICS,
   },
 ];

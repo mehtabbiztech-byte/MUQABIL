@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Principles of Testing — Test Development and Evaluation study note for the MUQABIL Teaching License hub: concepts, key vocabulary, comparison tables, worked examples, misconceptions, exam-style questions with model answers and a practice quiz.">
+  <title>Principles of Testing · Test Development &amp; Evaluation</title>
+  <style>
+    /* ================= DESIGN TOKENS ================= */
+    :root {
+      --ink: #101a2b;
+      --ink-soft: #33415c;
+      --muted: #5c6b82;
+      --line: #dbe4ef;
+      --surface: #ffffff;
+      --surface-alt: #f7f9fc;
+      --page: #eef2f8;
+      --indigo-900: #131b3a;
+      --indigo-800: #1b2450;
+      --indigo-600: #4338ca;
+      --indigo-500: #4f46e5;
+      --teal-600: #0f766e;
+      --teal-500: #14b8a6;
+      --amber-600: #b45309;
+      --amber-50: #fffbeb;
+      --green-700: #166534;
+      --green-50: #f0fdf4;
+      --red-700: #991b1b;
+      --red-50: #fef2f2;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+      --shadow-sm: 0 1px 2px rgba(16, 26, 43, 0.06), 0 2px 8px rgba(16, 26, 43, 0.05);
+      --shadow-md: 0 8px 24px rgba(16, 26, 43, 0.09);
+      --shadow-lg: 0 24px 60px rgba(16, 26, 43, 0.16);
+      --font: "Segoe UI", "Inter", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+
+    body {
+      margin: 0;
+      font-family: var(--font);
+      color: var(--ink);
+      background-color: var(--page);
+      background-image: linear-gradient(145deg, #f3f6fd 0%, #e9eff9 100%);
+      background-attachment: fixed;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    h1, h2, h3, h4, p, ul, ol, dl, dd, figure { margin: 0; }
+    ul, ol { padding-left: 0; list-style: none; }
+    strong { color: #0b1526; font-weight: 700; }
+    a { color: var(--indigo-600); }
+
+    ::selection { background: #d9defb; color: #14183a; }
+
+    /* ================= READING PROGRESS ================= */
+    .progress-track {
+      position: fixed; inset: 0 0 auto 0; height: 4px;
+      background: rgba(19, 27, 58, 0.08); z-index: 60;
+    }
+    .progress-fill {
+      display: block; height: 100%; width: 0;
+      background: linear-gradient(90deg, var(--indigo-500), var(--teal-500));
+      transition: width 0.12s linear;
+    }
+
+    .skip-link {
+      position: absolute; left: -999px; top: 0; z-index: 80;
+      background: #fff; color: var(--indigo-600);
+      padding: 0.7rem 1.1rem; border-radius: 0 0 10px 0; font-weight: 700;
+    }
+    .skip-link:focus { left: 0; }
+
+    .shell { max-width: 1180px; margin: 0 auto; padding: 1.4rem 1.1rem 3.5rem; }
+
+    /* ================= HERO ================= */
+    .hero {
+      position: relative; overflow: hidden;
+      border-radius: 26px; padding: 2.2rem 2.2rem 2rem;
+      color: #eef2ff;
+      background:
+        radial-gradient(1100px 380px at 88% -30%, rgba(20, 184, 166, 0.34), transparent 62%),
+        radial-gradient(760px 320px at 4% 0%, rgba(79, 70, 229, 0.55), transparent 60%),
+        linear-gradient(155deg, var(--indigo-900) 0%, var(--indigo-800) 58%, #16305a 100%);
+      box-shadow: var(--shadow-lg);
+    }
+    .hero::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+      background-size: 46px 46px;
+      mask-image: radial-gradient(620px 300px at 82% 12%, #000 0%, transparent 78%);
+    }
+    .hero > * { position: relative; z-index: 1; }
+
+    .hero-kicker {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem;
+      font-size: 0.76rem; letter-spacing: 0.05em; text-transform: uppercase;
+      color: #b9c6ee; font-weight: 700;
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.22);
+      padding: 0.34rem 0.72rem; border-radius: 999px;
+      color: #ffffff; text-transform: none; letter-spacing: 0; font-size: 0.76rem;
+    }
+    .kicker-sep { width: 4px; height: 4px; border-radius: 50%; background: rgba(255, 255, 255, 0.45); }
+
+    .hero h1 {
+      margin-top: 1rem; max-width: 26ch;
+      font-size: clamp(1.85rem, 3.6vw, 2.75rem); line-height: 1.12;
+      font-weight: 800; letter-spacing: -0.022em; color: #ffffff;
+      text-wrap: balance;
+    }
+    .hero .tagline {
+      margin-top: 0.9rem; max-width: 66ch; font-size: 1.03rem; line-height: 1.6;
+      color: #cdd8f5; border-left: 3px solid rgba(20, 184, 166, 0.85); padding-left: 0.95rem;
+    }
+
+    .meta-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.35rem; }
+    .meta-chips li {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(9, 14, 33, 0.42); border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #dbe4ff; font-size: 0.78rem; font-weight: 600;
+      padding: 0.36rem 0.72rem; border-radius: 999px;
+    }
+
+    .hero-cards {
+      display: grid; gap: 1rem; margin-top: 1.7rem;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    }
+    .hero-card {
+      background: rgba(255, 255, 255, 0.96); color: var(--ink);
+      border-radius: var(--radius-lg); padding: 1.3rem 1.35rem;
+      box-shadow: 0 18px 40px rgba(6, 11, 28, 0.28);
+    }
+    .hero-card h2 {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.71rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--indigo-600);
+    }
+    .hero-card h2::before {
+      content: ""; width: 22px; height: 3px; border-radius: 2px;
+      background: linear-gradient(90deg, var(--indigo-500), var(--teal-500));
+    }
+    .hero-card p { margin-top: 0.65rem; font-size: 0.96rem; color: #263449; }
+    .objectives { margin-top: 0.7rem; display: grid; gap: 0.5rem; counter-reset: obj; }
+    .objectives li {
+      position: relative; padding-left: 1.85rem; font-size: 0.92rem; color: #263449;
+      counter-increment: obj;
+    }
+    .objectives li::before {
+      content: counter(obj); position: absolute; left: 0; top: 0.1rem;
+      width: 1.25rem; height: 1.25rem; border-radius: 50%;
+      display: grid; place-items: center;
+      font-size: 0.68rem; font-weight: 800; color: #fff;
+      background: linear-gradient(135deg, var(--indigo-500), var(--teal-600));
+    }
+
+    /* ================= LAYOUT ================= */
+    .layout {
+      display: grid; gap: 1.6rem; margin-top: 1.6rem;
+      grid-template-columns: 232px minmax(0, 1fr);
+      align-items: start;
+    }
+
+    .rail {
+      position: sticky; top: 1.4rem;
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius-lg); padding: 1.05rem 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .rail-title {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.11em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .rail-list { margin-top: 0.7rem; display: grid; gap: 0.18rem; }
+    .rail-list a {
+      display: flex; align-items: baseline; gap: 0.5rem;
+      padding: 0.34rem 0.45rem; border-radius: 8px;
+      font-size: 0.83rem; font-weight: 600; color: #41506a;
+      text-decoration: none; line-height: 1.35;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .rail-list a:hover { background: #eef1fb; color: var(--indigo-600); }
+    .rail-list a[aria-current="true"] { background: #e8ecfd; color: var(--indigo-600); }
+    .rail-list .n {
+      font-variant-numeric: tabular-nums; font-size: 0.7rem; font-weight: 800;
+      color: #94a0b8; min-width: 1.35rem;
+    }
+    .rail-list a[aria-current="true"] .n { color: var(--indigo-500); }
+    .rail-progress { margin-top: 1rem; padding-top: 0.85rem; border-top: 1px dashed var(--line); }
+    .rail-progress-label {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-size: 0.68rem; font-weight: 700; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .rail-progress-label span:last-child { color: var(--indigo-600); font-size: 0.72rem; }
+    .rail-bar { margin-top: 0.4rem; height: 6px; border-radius: 999px; background: #e6ebf5; overflow: hidden; }
+    .rail-bar > span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--indigo-500), var(--teal-500)); }
+    .rail-note { margin-top: 0.9rem; font-size: 0.72rem; line-height: 1.5; color: var(--muted); }
+
+    main { min-width: 0; }
+
+    /* ================= TOOLBAR ================= */
+    .toolbar {
+      position: sticky; top: 0.6rem; z-index: 30;
+      display: flex; gap: 0.7rem; align-items: center;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--line); border-radius: 999px;
+      padding: 0.5rem 0.6rem 0.5rem 0.95rem;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 1.4rem;
+    }
+    .search-box { display: flex; align-items: center; gap: 0.5rem; flex: 1; min-width: 0; color: var(--muted); }
+    .search-box input {
+      flex: 1; min-width: 0; border: 0; background: transparent;
+      font: inherit; font-size: 0.88rem; color: var(--ink); padding: 0.35rem 0;
+    }
+    .search-box input:focus { outline: none; }
+    .search-box input::placeholder { color: #94a3b8; }
+    .count-pill {
+      flex-shrink: 0; font-size: 0.73rem; font-weight: 700; color: var(--indigo-600);
+      background: #eaedfd; border-radius: 999px; padding: 0.3rem 0.7rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ================= SECTIONS ================= */
+    .section { margin-bottom: 1.5rem; scroll-margin-top: 84px; }
+    .section-head {
+      display: flex; align-items: flex-start; gap: 0.9rem;
+      padding: 0.2rem 0.1rem 0.9rem;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 1.1rem;
+    }
+    .section-num {
+      flex-shrink: 0; width: 2.5rem; height: 2.5rem; border-radius: 12px;
+      display: grid; place-items: center;
+      font-size: 0.86rem; font-weight: 800; font-variant-numeric: tabular-nums;
+      color: #ffffff;
+      background: linear-gradient(140deg, var(--indigo-600), #1e3a8a);
+      box-shadow: 0 6px 16px rgba(67, 56, 202, 0.28);
+    }
+    .section-heading { flex: 1; min-width: 0; }
+    .eyebrow {
+      font-size: 0.66rem; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--teal-600);
+    }
+    .section-head h2 {
+      margin-top: 0.12rem; font-size: clamp(1.25rem, 2.1vw, 1.55rem);
+      line-height: 1.25; font-weight: 800; letter-spacing: -0.015em; text-wrap: balance;
+    }
+    .section-lead { margin-top: 0.35rem; font-size: 0.9rem; color: var(--muted); max-width: 72ch; }
+    .section-time {
+      flex-shrink: 0; align-self: center;
+      font-size: 0.68rem; font-weight: 700; color: #64748b;
+      background: #f1f5f9; border: 1px solid var(--line);
+      padding: 0.24rem 0.55rem; border-radius: 999px; white-space: nowrap;
+    }
+
+    /* ================= CARDS ================= */
+    .card-grid { display: grid; gap: 0.9rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .card {
+      position: relative; background: var(--surface);
+      border: 1px solid var(--line); border-radius: var(--radius-md);
+      padding: 1.15rem 1.2rem 1.1rem;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+    }
+    .card::before {
+      content: ""; position: absolute; inset: 0 0 auto 0; height: 3px;
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+      background: linear-gradient(90deg, var(--indigo-500), var(--teal-500));
+      opacity: 0.85;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: #c8d4e6; }
+    .card-top { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; }
+    .card-icon {
+      width: 2.1rem; height: 2.1rem; border-radius: 10px;
+      display: grid; place-items: center; font-size: 1rem;
+      background: #eef1fd; border: 1px solid #dfe5fb;
+    }
+    .card-index {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em;
+      color: #9aa6ba; font-variant-numeric: tabular-nums;
+    }
+    .card h3 {
+      margin-top: 0.75rem; font-size: 1rem; line-height: 1.35;
+      font-weight: 750; letter-spacing: -0.008em;
+    }
+    .card p { margin-top: 0.45rem; font-size: 0.88rem; color: #3a485e; }
+    .card .exam-wording {
+      margin-top: 0.7rem; font-size: 0.78rem; line-height: 1.5;
+      color: #4338ca; background: #eef0fe; border-radius: 8px; padding: 0.5rem 0.6rem;
+    }
+    .card .exam-wording b { font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.64rem; }
+    .card .practice {
+      margin-top: 0.7rem; padding: 0.6rem 0.7rem; border-radius: 9px;
+      background: #f1f7f5; border: 1px dashed #c6e3da;
+      font-size: 0.83rem; color: #22504a;
+    }
+    .card .practice b {
+      display: block; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--teal-600); margin-bottom: 0.15rem;
+    }
+
+    /* ================= GLOSSARY ================= */
+    .glossary { display: grid; gap: 0.7rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .term {
+      background: var(--surface); border: 1px solid var(--line);
+      border-left: 3px solid var(--teal-500);
+      border-radius: var(--radius-sm); padding: 0.85rem 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .term dt {
+      font-size: 0.9rem; font-weight: 800; color: #0f172a;
+      display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem;
+    }
+    .term .tag {
+      font-size: 0.6rem; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase;
+      color: #0f766e; background: #e6f7f3; border-radius: 999px; padding: 0.1rem 0.42rem;
+    }
+    .term dd { margin-top: 0.32rem; font-size: 0.855rem; color: #3f4c61; }
+
+    /* ================= TABLES ================= */
+    .table-card {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm);
+    }
+    .table-card + .table-card { margin-top: 0.9rem; }
+    .table-caption {
+      display: flex; justify-content: space-between; align-items: center; gap: 0.8rem;
+      padding: 0.8rem 1rem; background: #f8fafc; border-bottom: 1px solid var(--line);
+    }
+    .table-caption strong { font-size: 0.83rem; letter-spacing: -0.005em; }
+    .table-caption span { font-size: 0.68rem; color: var(--muted); white-space: nowrap; }
+    .table-scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.83rem; min-width: 540px; }
+    thead th {
+      position: sticky; top: 0; z-index: 1;
+      background: linear-gradient(160deg, #1c2445, #22305c);
+      color: #e8eeff; text-align: left; font-weight: 700; font-size: 0.72rem;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      padding: 0.62rem 0.85rem; white-space: nowrap;
+    }
+    tbody td {
+      padding: 0.62rem 0.85rem; border-top: 1px solid #e9eef6;
+      vertical-align: top; color: #33415c; line-height: 1.5;
+    }
+    tbody tr:nth-child(even) td { background: #fbfcfe; }
+    tbody td:first-child { font-weight: 650; color: #1c2740; }
+
+    /* ================= WORKED EXAMPLES ================= */
+    .example {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius-md); padding: 1.15rem 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .example + .example { margin-top: 0.9rem; }
+    .example-head { display: flex; flex-wrap: wrap; align-items: center; gap: 0.55rem; }
+    .example-head h3 { font-size: 0.98rem; font-weight: 800; letter-spacing: -0.01em; }
+    .example-tag {
+      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--indigo-600); background: #eceffe; border-radius: 999px; padding: 0.16rem 0.5rem;
+    }
+    .example-prompt { margin-top: 0.55rem; font-size: 0.88rem; color: #3b4a61; }
+    .steps { margin-top: 0.8rem; display: grid; gap: 0.55rem; counter-reset: step; }
+    .steps li {
+      position: relative; padding-left: 2.1rem; font-size: 0.86rem; color: #33415c;
+      counter-increment: step;
+    }
+    .steps li::before {
+      content: counter(step); position: absolute; left: 0; top: 0.05rem;
+      width: 1.45rem; height: 1.45rem; border-radius: 8px;
+      display: grid; place-items: center;
+      font-size: 0.68rem; font-weight: 800; color: var(--indigo-600);
+      background: #edf0fd; border: 1px solid #dfe4fb;
+    }
+    .steps li b { color: #101a2b; }
+    .result {
+      margin-top: 0.85rem; padding: 0.7rem 0.85rem; border-radius: 10px;
+      background: #f0f7ff; border: 1px solid #d7e6f8;
+      font-size: 0.85rem; color: #1e3a5f;
+    }
+    .result b { color: #0c2f57; }
+    details.reasoning { margin-top: 0.75rem; }
+    details.reasoning summary {
+      cursor: pointer; font-size: 0.8rem; font-weight: 700; color: var(--indigo-600);
+      list-style: none; display: inline-flex; align-items: center; gap: 0.35rem;
+    }
+    details.reasoning summary::-webkit-details-marker { display: none; }
+    details.reasoning summary::before { content: "＋"; font-weight: 800; }
+    details.reasoning[open] summary::before { content: "－"; }
+    details.reasoning p { margin-top: 0.5rem; font-size: 0.84rem; color: #46536a; }
+
+    /* ================= DO / AVOID ================= */
+    .do-avoid { display: grid; gap: 0.9rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .panel { border-radius: var(--radius-md); padding: 1.1rem 1.2rem; border: 1px solid; }
+    .panel h3 {
+      display: flex; align-items: center; gap: 0.45rem;
+      font-size: 0.85rem; font-weight: 800; letter-spacing: 0.02em; text-transform: uppercase;
+    }
+    .panel ul { margin-top: 0.7rem; display: grid; gap: 0.45rem; }
+    .panel li { position: relative; padding-left: 1.15rem; font-size: 0.86rem; line-height: 1.5; }
+    .panel li::before { position: absolute; left: 0; top: 0; font-weight: 800; }
+    .panel.do { background: var(--green-50); border-color: #bbf7d0; color: #14532d; }
+    .panel.do h3 { color: var(--green-700); }
+    .panel.do li::before { content: "✓"; color: #16a34a; }
+    .panel.avoid { background: var(--red-50); border-color: #fecaca; color: #7f1d1d; }
+    .panel.avoid h3 { color: var(--red-700); }
+    .panel.avoid li::before { content: "✕"; color: #dc2626; }
+
+    /* ================= MYTHS ================= */
+    .myths { display: grid; gap: 0.8rem; }
+    .myth {
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-md);
+      padding: 1rem 1.15rem; box-shadow: var(--shadow-sm);
+      display: grid; gap: 0.5rem; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    }
+    .myth-claim { font-size: 0.88rem; color: #7c2d12; }
+    .myth-claim span {
+      display: inline-block; margin-bottom: 0.3rem;
+      font-size: 0.6rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #b45309; background: #fef3c7; border-radius: 999px; padding: 0.1rem 0.45rem;
+    }
+    .myth-fix { font-size: 0.86rem; color: #14532d; border-left: 2px solid #86efac; padding-left: 0.75rem; }
+    .myth-fix span {
+      display: inline-block; margin-bottom: 0.3rem;
+      font-size: 0.6rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #15803d; background: #dcfce7; border-radius: 999px; padding: 0.1rem 0.45rem;
+    }
+
+    /* ================= EXAM ROOM ================= */
+    .exam-q {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius-md); padding: 1.05rem 1.15rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .exam-q + .exam-q { margin-top: 0.8rem; }
+    .exam-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem; }
+    .chip {
+      font-size: 0.64rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+      border-radius: 999px; padding: 0.16rem 0.5rem;
+    }
+    .chip.command { color: #4338ca; background: #eceffe; }
+    .chip.marks { color: #0f766e; background: #e6f7f3; }
+    .chip.level { color: #92400e; background: #fef3c7; }
+    .exam-q p { margin-top: 0.55rem; font-size: 0.9rem; color: #2c3a50; }
+    details.model { margin-top: 0.65rem; border-top: 1px dashed var(--line); padding-top: 0.55rem; }
+    details.model summary {
+      cursor: pointer; list-style: none; font-size: 0.8rem; font-weight: 700; color: var(--indigo-600);
+      display: inline-flex; align-items: center; gap: 0.35rem;
+    }
+    details.model summary::-webkit-details-marker { display: none; }
+    details.model summary::before { content: "▸"; }
+    details.model[open] summary::before { content: "▾"; }
+    details.model p { margin-top: 0.5rem; font-size: 0.855rem; color: #3b4a61; }
+
+    /* ================= TAKEAWAYS + CHECKLIST ================= */
+    .takeaways {
+      border-radius: var(--radius-lg); padding: 1.35rem 1.45rem;
+      background: linear-gradient(155deg, #151d3c, #1d2a52);
+      color: #e6ecff; box-shadow: var(--shadow-md);
+    }
+    .takeaways h3 {
+      font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #9fb2e6; font-weight: 800;
+    }
+    .takeaways ol { margin-top: 0.85rem; display: grid; gap: 0.55rem; counter-reset: tk; }
+    .takeaways li {
+      position: relative; padding-left: 2rem; font-size: 0.89rem; color: #dbe4ff;
+      counter-increment: tk;
+    }
+    .takeaways li::before {
+      content: counter(tk, decimal-leading-zero); position: absolute; left: 0; top: 0.05rem;
+      font-size: 0.72rem; font-weight: 800; color: #7dd3c0; font-variant-numeric: tabular-nums;
+    }
+    .takeaways strong { color: #ffffff; }
+
+    .summary {
+      margin-top: 0.9rem; background: var(--surface); border: 1px solid var(--line);
+      border-left: 4px solid var(--indigo-500); border-radius: var(--radius-md);
+      padding: 0.95rem 1.1rem; box-shadow: var(--shadow-sm);
+    }
+    .summary span {
+      font-size: 0.63rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--indigo-600);
+    }
+    .summary p { margin-top: 0.3rem; font-size: 0.9rem; color: #2f3d53; }
+
+    .exam-tip {
+      margin-top: 0.9rem; display: flex; gap: 0.8rem;
+      background: var(--amber-50); border: 1px solid #fde68a;
+      border-radius: var(--radius-md); padding: 0.95rem 1.1rem;
+    }
+    .exam-tip .tip-icon { font-size: 1.15rem; line-height: 1; }
+    .exam-tip span.tip-label {
+      font-size: 0.63rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--amber-600);
+    }
+    .exam-tip p { margin-top: 0.25rem; font-size: 0.88rem; color: #78350f; }
+
+    .checklist {
+      margin-top: 0.9rem; background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius-md); padding: 1rem 1.1rem; box-shadow: var(--shadow-sm);
+    }
+    .checklist-head { display: flex; justify-content: space-between; align-items: baseline; gap: 0.8rem; }
+    .checklist-head h3 { font-size: 0.8rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #334155; }
+    .checklist-head span { font-size: 0.74rem; font-weight: 700; color: var(--indigo-600); font-variant-numeric: tabular-nums; }
+    .checklist ul { margin-top: 0.65rem; display: grid; gap: 0.35rem; }
+    .checklist label {
+      display: flex; gap: 0.6rem; align-items: flex-start;
+      font-size: 0.86rem; color: #3a485e; cursor: pointer; padding: 0.2rem 0;
+    }
+    .checklist input { margin-top: 0.28rem; accent-color: var(--indigo-500); width: 15px; height: 15px; flex-shrink: 0; }
+    .checklist input:checked + span { color: #94a3b8; text-decoration: line-through; }
+
+    /* ================= QUIZ ================= */
+    .quiz {
+      margin-top: 1.6rem; background: var(--surface);
+      border: 1px solid var(--line); border-radius: 24px;
+      box-shadow: var(--shadow-md); overflow: hidden;
+    }
+    .quiz-head {
+      display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: center;
+      padding: 1.35rem 1.5rem 1.1rem;
+      background: linear-gradient(150deg, #f7f9ff, #eef3fb);
+      border-bottom: 1px solid var(--line);
+    }
+    .quiz-head h2 { font-size: clamp(1.2rem, 2vw, 1.45rem); font-weight: 800; letter-spacing: -0.015em; }
+    .quiz-chips { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .quiz-chips span {
+      font-size: 0.7rem; font-weight: 700; color: #3730a3; background: #e8ecfd;
+      border-radius: 999px; padding: 0.22rem 0.6rem;
+    }
+    .quiz-body { padding: 1.2rem 1.5rem 1.5rem; }
+    .quiz-tabs { display: flex; gap: 0.45rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .quiz-tab {
+      font: inherit; font-size: 0.8rem; font-weight: 700; cursor: pointer;
+      border: 1px solid var(--line); background: #fff; color: #475569;
+      padding: 0.45rem 0.85rem; border-radius: 999px;
+      transition: all 0.15s ease;
+    }
+    .quiz-tab:hover { border-color: #c7d2fe; color: var(--indigo-600); }
+    .quiz-tab.active {
+      background: linear-gradient(140deg, var(--indigo-600), #1e3a8a);
+      border-color: transparent; color: #fff; box-shadow: 0 6px 16px rgba(67, 56, 202, 0.3);
+    }
+    .quiz-panel { display: none; }
+    .quiz-panel.active { display: block; }
+    .panel-head {
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.6rem;
+      margin-bottom: 0.9rem;
+    }
+    .panel-head .section-label {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+    }
+    .score-chip {
+      font-size: 0.72rem; font-weight: 700; color: #0f766e; background: #e6f7f3;
+      border-radius: 999px; padding: 0.24rem 0.6rem; font-variant-numeric: tabular-nums;
+    }
+
+    .mcq {
+      border: 1px solid var(--line); border-radius: var(--radius-md);
+      padding: 0.95rem 1.05rem; background: #fff;
+    }
+    .mcq + .mcq { margin-top: 0.65rem; }
+    .mcq-q { font-size: 0.89rem; font-weight: 650; color: #1b2740; display: flex; gap: 0.55rem; }
+    .mcq-q .qnum {
+      flex-shrink: 0; width: 1.35rem; height: 1.35rem; border-radius: 6px;
+      display: grid; place-items: center; font-size: 0.68rem; font-weight: 800;
+      color: var(--indigo-600); background: #eef1fd;
+    }
+    .options { margin-top: 0.65rem; display: grid; gap: 0.35rem; }
+    .option {
+      display: flex; gap: 0.55rem; align-items: flex-start;
+      font: inherit; font-size: 0.845rem; text-align: left; cursor: pointer;
+      border: 1px solid #e4eaf4; background: #fbfcfe; color: #334155;
+      border-radius: 9px; padding: 0.45rem 0.6rem;
+      transition: all 0.12s ease;
+    }
+    .option:hover:not(:disabled) { border-color: #c7d2fe; background: #f5f7ff; }
+    .option .letter {
+      flex-shrink: 0; width: 1.15rem; height: 1.15rem; border-radius: 50%;
+      display: grid; place-items: center; font-size: 0.65rem; font-weight: 800;
+      background: #e8edf7; color: #475569;
+    }
+    .option.correct { border-color: #86efac; background: #f0fdf4; color: #14532d; }
+    .option.correct .letter { background: #16a34a; color: #fff; }
+    .option.wrong { border-color: #fca5a5; background: #fef2f2; color: #7f1d1d; }
+    .option.wrong .letter { background: #dc2626; color: #fff; }
+    .option:disabled { cursor: default; }
+    .mcq-feedback {
+      margin-top: 0.55rem; font-size: 0.8rem; border-radius: 8px; padding: 0.5rem 0.65rem;
+      display: none;
+    }
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.good { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+    .mcq-feedback.bad { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+
+    .crq, .erq { border: 1px solid var(--line); border-radius: var(--radius-md); background: #fff; padding: 1rem 1.1rem; }
+    .crq + .crq { margin-top: 0.7rem; }
+    .crq h4, .erq h4 { font-size: 0.9rem; font-weight: 700; color: #1b2740; }
+    .hint { margin-top: 0.3rem; font-size: 0.79rem; color: #64748b; font-style: italic; }
+    .word-row { margin-top: 0.6rem; display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; font-size: 0.75rem; color: #64748b; }
+    .word-count.ok { color: #15803d; font-weight: 700; }
+    textarea, .erq textarea {
+      width: 100%; margin-top: 0.5rem; min-height: 96px; resize: vertical;
+      font: inherit; font-size: 0.85rem; color: #1e293b;
+      border: 1px solid #dbe4ef; border-radius: 9px; padding: 0.6rem 0.7rem;
+      background: #fcfdff;
+    }
+    textarea:focus { outline: 2px solid #c7d2fe; border-color: #a5b4fc; }
+    .btn-row { margin-top: 0.55rem; display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .btn {
+      font: inherit; font-size: 0.78rem; font-weight: 700; cursor: pointer;
+      border-radius: 999px; padding: 0.42rem 0.85rem;
+      border: 1px solid transparent;
+      background: linear-gradient(140deg, var(--indigo-600), #1e3a8a); color: #fff;
+    }
+    .btn.secondary { background: #fff; color: var(--indigo-600); border-color: #c7d2fe; }
+    .feedback { display: none; margin-top: 0.6rem; font-size: 0.82rem; border-radius: 9px; padding: 0.6rem 0.7rem; }
+    .feedback.show { display: block; }
+    .feedback.good { background: #f0fdf4; color: #14532d; border: 1px solid #bbf7d0; }
+    .feedback.partial { background: #fffbeb; color: #78350f; border: 1px solid #fde68a; }
+    .feedback.model { background: #f5f7ff; color: #312e81; border: 1px solid #c7d2fe; }
+    .erq .scenario {
+      margin-top: 0.6rem; background: #f8fafc; border: 1px solid var(--line);
+      border-radius: 9px; padding: 0.7rem 0.8rem; font-size: 0.85rem; color: #334155;
+    }
+    .erq .task { margin-top: 0.6rem; font-size: 0.86rem; color: #1e293b; }
+    .keyword-row { margin-top: 0.6rem; display: flex; flex-wrap: wrap; gap: 0.3rem; }
+    .keyword {
+      font-size: 0.68rem; font-weight: 600; color: #475569; background: #f1f5f9;
+      border: 1px solid #e2e8f0; border-radius: 999px; padding: 0.12rem 0.45rem;
+    }
+    .keyword.hit { background: #dcfce7; border-color: #86efac; color: #166534; }
+
+    .no-results {
+      grid-column: 1 / -1; text-align: center; font-size: 0.85rem; color: var(--muted);
+      padding: 1.4rem; border: 1px dashed var(--line); border-radius: var(--radius-md);
+    }
+
+    /* ================= FOOTER + TOP ================= */
+    .note-footer {
+      margin-top: 1.6rem; padding: 1.1rem 0.2rem;
+      display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: space-between;
+      font-size: 0.73rem; color: #64748b; border-top: 1px solid var(--line);
+    }
+    .to-top {
+      position: fixed; right: 1.1rem; bottom: 1.1rem; z-index: 40;
+      width: 2.6rem; height: 2.6rem; border-radius: 50%; border: 1px solid var(--line);
+      background: #fff; color: var(--indigo-600); font-size: 1rem; cursor: pointer;
+      box-shadow: var(--shadow-md); opacity: 0; pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+    .to-top.visible { opacity: 1; pointer-events: auto; }
+    .to-top:hover { transform: translateY(-2px); }
+
+    /* ================= FOCUS / MOTION ================= */
+    .rail-list a:focus-visible,
+    .quiz-tab:focus-visible,
+    .option:focus-visible,
+    .btn:focus-visible,
+    .to-top:focus-visible,
+    details summary:focus-visible,
+    .checklist input:focus-visible {
+      outline: 3px solid rgba(79, 70, 229, 0.4);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 1000px) {
+      .layout { grid-template-columns: minmax(0, 1fr); }
+      .rail { position: static; order: 2; }
+      .rail-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .rail-progress, .rail-note { display: none; }
+      main { order: 1; }
+    }
+
+    @media (max-width: 760px) {
+      .hero { padding: 1.6rem 1.3rem 1.5rem; border-radius: 20px; }
+      .hero-cards { grid-template-columns: minmax(0, 1fr); }
+      .card-grid, .glossary, .do-avoid { grid-template-columns: minmax(0, 1fr); }
+      .myth { grid-template-columns: minmax(0, 1fr); }
+      .section-time { display: none; }
+      .quiz-body, .quiz-head { padding-left: 1.1rem; padding-right: 1.1rem; }
+    }
+
+    @media (max-width: 600px) {
+      .shell { padding: 0.9rem 0.75rem 2.5rem; }
+      .toolbar { position: static; border-radius: 14px; }
+      .rail-list { grid-template-columns: minmax(0, 1fr); }
+      .section-head { gap: 0.7rem; }
+      .section-num { width: 2.2rem; height: 2.2rem; font-size: 0.78rem; }
+      .hero h1 { font-size: 1.6rem; }
+      .hero .tagline { font-size: 0.95rem; }
+      .takeaways { padding: 1.1rem 1.15rem; }
+    }
+
+    /* ================= PRINT ================= */
+    @media print {
+      body { background: #fff; }
+      .progress-track, .toolbar, .to-top, .rail, .quiz-tabs, .btn-row { display: none !important; }
+      .shell { max-width: none; padding: 0; }
+      .hero { box-shadow: none; border-radius: 0; color: #000; background: #fff; border-bottom: 2px solid #000; }
+      .hero h1, .hero .tagline, .hero-kicker { color: #000; }
+      .hero-card { box-shadow: none; border: 1px solid #999; }
+      .layout { grid-template-columns: 1fr; }
+      .quiz-panel { display: block !important; }
+      details { open: true; }
+      .card, .term, .myth, .example, .exam-q, .table-card { break-inside: avoid; box-shadow: none; }
+      .takeaways { background: #f3f4f6; color: #000; }
+      .takeaways li, .takeaways strong { color: #000; }
+    }
+</style>
+</head>
+<body>
+  <a class="skip-link" href="#concepts">Skip to the first section</a>
+  <div class="progress-track" aria-hidden="true"><span class="progress-fill" id="progressFill"></span></div>
+
+  <div class="shell">
+    <!-- ================= HERO ================= -->
+    <header class="hero">
+      <p class="hero-kicker">
+        <span class="badge">🧪 Test Development & Evaluation</span>
+        <span class="kicker-sep" aria-hidden="true"></span>
+        <span>Teaching License · Part II · Module 13 · Note 2 of 5</span>
+      </p>
+      <h1>Principles of Testing</h1>
+      <p class="tagline">Every defensible test can be audited against the same short list of principles — purpose, alignment, fairness, consistency and practicality</p>
+      <ul class="meta-chips">
+        <li>⏱️ 16 min read</li>
+        <li>📚 8 sections</li>
+        <li>🔑 12 key terms</li>
+        <li>🧩 3 worked examples</li>
+        <li>📝 10 MCQs · 4 CRQs · 1 ERQ</li>
+      </ul>
+
+      <div class="hero-cards">
+        <section class="hero-card" aria-labelledby="bigidea-title">
+          <h2 id="bigidea-title">The big idea</h2>
+          <p><strong>Principles of testing</strong> are the standards a test must satisfy if its results are to support decisions. They are not abstract virtues: each one has a practical indicator you can check on a real paper. The core set is <strong>purpose</strong> (the test answers a stated question for a named user), <strong>validity</strong> (it measures the intended outcomes), <strong>reliability</strong> (results are consistent), <strong>fairness</strong> (no learner is advantaged or disadvantaged by irrelevant factors), <strong>objectivity</strong> (scoring is independent of the marker’s mood), <strong>comprehensiveness</strong> (it samples the domain, not a convenient corner), <strong>practicality</strong> (it can be built, administered, marked and reported within available resources) and <strong>ethics</strong> (it is secure, confidential and does not harm learners). A test that fails any one of these can still produce numbers; it cannot produce defensible decisions.</p>
+        </section>
+        <section class="hero-card" aria-labelledby="objectives-title">
+          <h2 id="objectives-title">What you will master</h2>
+          <ol class="objectives"><li>State the <strong>principles of testing</strong> and give a concrete indicator for each that can be checked on a real paper.</li><li>Audit a test against the principles and identify which failures matter most for a stated decision.</li><li>Resolve the tension between <strong>validity</strong>, <strong>fairness</strong> and <strong>practicality</strong> when resources are limited.</li></ol>
+        </section>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="rail" aria-label="Contents of this note">
+        <p class="rail-title">On this page</p>
+        <nav aria-label="Sections">
+          <ol class="rail-list">
+          <li><a href="#concepts"><span class="n">01</span>Core concepts</a></li>          <li><a href="#vocabulary"><span class="n">02</span>Key vocabulary</a></li>          <li><a href="#comparisons"><span class="n">03</span>Comparisons that decide marks</a></li>          <li><a href="#worked-examples"><span class="n">04</span>Worked examples</a></li>          <li><a href="#application"><span class="n">05</span>Classroom and test-room application</a></li>          <li><a href="#misconceptions"><span class="n">06</span>Misconceptions</a></li>          <li><a href="#exam"><span class="n">07</span>Exam-style questions</a></li>          <li><a href="#takeaways"><span class="n">08</span>Takeaways and revision</a></li>          <li><a href="#practice"><span class="n">09</span>Practice quiz</a></li>
+          </ol>
+        </nav>
+        <div class="rail-progress">
+          <p class="rail-progress-label"><span>Read</span><span id="railPct">0%</span></p>
+          <div class="rail-bar" aria-hidden="true"><span id="railFill"></span></div>
+        </div>
+        <p class="rail-note">Tip: use the search box to jump straight to a term, then answer the quiz without looking back.</p>
+      </aside>
+
+      <main>
+        <div class="toolbar" role="search">
+          <div class="search-box">
+            <span aria-hidden="true">🔍</span>
+            <input id="searchInput" type="search" placeholder="Search concepts, key terms and misconceptions…" aria-label="Search this note">
+          </div>
+          <div class="count-pill" id="countDisplay" role="status" aria-live="polite">22 items</div>
+        </div>
+
+        <!-- ================= 01 CONCEPTS ================= -->
+        <section class="section" id="concepts" aria-labelledby="concepts-title" data-section>
+          <div class="section-head">
+            <span class="section-num" aria-hidden="true">01</span>
+            <div class="section-heading">
+              <p class="eyebrow">Foundations</p>
+              <h2 id="concepts-title">Core concepts</h2>
+              <p class="section-lead">Six ideas carry this topic. Each card gives the definition, the wording examiners use, and what the idea looks like in a real test.</p>
+            </div>
+            <span class="section-time">6 cards</span>
+          </div>
+          <div class="card-grid searchable-grid" id="conceptGrid">
+        <article class="card" data-searchable="Purpose: every test answers a question">
+          <div class="card-top">
+            <span class="card-icon" aria-hidden="true">🎯</span>
+            <span class="card-index">01 / 06</span>
+          </div>
+          <h3>Purpose: every test answers a question</h3>
+          <p>A test must have a stated purpose and a named user — learner, teacher, parent, institution or system — because these determine content, difficulty, format and reporting. “To see how they are doing” is not a purpose. A purpose statement identifies the decision the result will support, which in turn dictates the evidence required.</p>
+          <p class="exam-wording"><b>Exam wording</b>“The purpose of a test determines its content, its form and the kind of score it reports.”</p>
+          <div class="practice"><b>In practice</b>Write the purpose sentence before writing the first item: “This test will help me decide which learners need reteaching on X.”</div>
+        </article>
+        <article class="card" data-searchable="Validity and alignment">
+          <div class="card-top">
+            <span class="card-icon" aria-hidden="true">🧭</span>
+            <span class="card-index">02 / 06</span>
+          </div>
+          <h3>Validity and alignment</h3>
+          <p><strong>Validity</strong> is the extent to which a test measures what it claims, for the purpose intended. At classroom level this is mainly <strong>content validity</strong> — representative coverage of the taught outcomes at the right cognitive level, achieved through a <strong>table of specifications</strong>. A test that is well marked but assesses the wrong outcomes is precisely and uselessly measured.</p>
+          <p class="exam-wording"><b>Exam wording</b>“Validity is the degree to which a test measures what it is intended to measure.”</p>
+          <div class="practice"><b>In practice</b>Check every item against an outcome; delete any item that cannot be traced to one.</div>
+        </article>
+        <article class="card" data-searchable="Reliability, objectivity and consistency">
+          <div class="card-top">
+            <span class="card-icon" aria-hidden="true">🔁</span>
+            <span class="card-index">03 / 06</span>
+          </div>
+          <h3>Reliability, objectivity and consistency</h3>
+          <p><strong>Reliability</strong> is consistency of results across occasions, forms and markers; <strong>objectivity</strong> is the narrower requirement that scoring does not depend on who marks. Both are served by clear items, adequate length, a marking scheme, rubrics, anchor scripts and moderation. Reliability is necessary for validity but not sufficient: a consistently wrong measurement is still wrong.</p>
+          <p class="exam-wording"><b>Exam wording</b>“Reliability is necessary but not sufficient for validity.”</p>
+          <div class="practice"><b>In practice</b>Second-mark ten scripts from another section and compare; disagreement is your reliability data.</div>
+        </article>
+        <article class="card" data-searchable="Fairness, bias and access">
+          <div class="card-top">
+            <span class="card-icon" aria-hidden="true">⚖️</span>
+            <span class="card-index">04 / 06</span>
+          </div>
+          <h3>Fairness, bias and access</h3>
+          <p><strong>Fairness</strong> requires that the test measures the intended construct and not irrelevant factors: language complexity, cultural references, gender or rural stereotypes, cost of materials, or speed when speed is not the construct. <strong>Bias</strong> is systematic, not random. Access arrangements remove barriers — extra time, a reader, larger print — without changing the standard.</p>
+          <p class="exam-wording"><b>Exam wording</b>“A test is fair when no learner is advantaged or disadvantaged by factors irrelevant to the construct being measured.”</p>
+          <div class="practice"><b>In practice</b>Read every item aloud to yourself: if the reading demand exceeds the subject demand, rewrite it.</div>
+        </article>
+        <article class="card" data-searchable="Comprehensiveness and discrimination">
+          <div class="card-top">
+            <span class="card-icon" aria-hidden="true">📐</span>
+            <span class="card-index">05 / 06</span>
+          </div>
+          <h3>Comprehensiveness and discrimination</h3>
+          <p><strong>Comprehensiveness</strong> means the test samples the whole domain in proportion to its importance, not only the topics that are easy to set. <strong>Discrimination</strong> is the capacity of the test to distinguish learners who have mastered the outcomes from those who have not — which requires a spread of difficulty and items that test more than recall.</p>
+          <p class="exam-wording"><b>Exam wording</b>“A comprehensive test samples all intended outcomes in proportion to their emphasis in the curriculum.”</p>
+          <div class="practice"><b>In practice</b>Draw the topic × level grid before writing items; if one cell is empty, the paper is unbalanced.</div>
+        </article>
+        <article class="card" data-searchable="Practicality and ethics">
+          <div class="card-top">
+            <span class="card-icon" aria-hidden="true">🧰</span>
+            <span class="card-index">06 / 06</span>
+          </div>
+          <h3>Practicality and ethics</h3>
+          <p><strong>Practicality</strong> covers time, cost, materials, marking load and reporting: an excellent test that cannot be marked in time produces no usable evidence. <strong>Ethics</strong> covers security, confidentiality, informed expectations and the avoidance of harm — including the anxiety created by unnecessary high-stakes testing and the misuse of results to label learners.</p>
+          <p class="exam-wording"><b>Exam wording</b>“Practicality concerns whether a test can be constructed, administered, scored and interpreted with the resources available.”</p>
+          <div class="practice"><b>In practice</b>Estimate marking time before you set the paper; if it exceeds the time available, shorten the constructed-response section.</div>
+        </article>
+          </div>
+        </section>
+
+        <!-- ================= 02 VOCABULARY ================= -->
+        <section class="section" id="vocabulary" aria-labelledby="vocab-title" data-section>
+          <div class="section-head">
+            <span class="section-num" aria-hidden="true">02</span>
+            <div class="section-heading">
+              <p class="eyebrow">Precision</p>
+              <h2 id="vocab-title">Key vocabulary</h2>
+              <p class="section-lead">Definitions are one sentence each so you can reproduce them under pressure. Bold terms recur highlighted in the rest of the note.</p>
+            </div>
+            <span class="section-time">12 terms</span>
+          </div>
+          <dl class="glossary searchable-grid" id="vocabGrid">
+        <div class="term" data-searchable="Principle of testing">
+          <dt>Principle of testing<span class="tag">Concept</span></dt>
+          <dd>A standard a test must meet if its results are to support defensible decisions.</dd>
+        </div>
+        <div class="term" data-searchable="Purpose">
+          <dt>Purpose<span class="tag">Principle</span></dt>
+          <dd>The stated question a test answers and the decision it will support.</dd>
+        </div>
+        <div class="term" data-searchable="Validity">
+          <dt>Validity<span class="tag">Principle</span></dt>
+          <dd>The extent to which a test measures what it claims to measure, for its intended purpose.</dd>
+        </div>
+        <div class="term" data-searchable="Reliability">
+          <dt>Reliability<span class="tag">Principle</span></dt>
+          <dd>The consistency of test results across occasions, forms and markers.</dd>
+        </div>
+        <div class="term" data-searchable="Fairness">
+          <dt>Fairness<span class="tag">Principle</span></dt>
+          <dd>The absence of advantage or disadvantage from factors irrelevant to the construct.</dd>
+        </div>
+        <div class="term" data-searchable="Bias">
+          <dt>Bias<span class="tag">Threat</span></dt>
+          <dd>A systematic error that consistently advantages or disadvantages a group.</dd>
+        </div>
+        <div class="term" data-searchable="Objectivity">
+          <dt>Objectivity<span class="tag">Principle</span></dt>
+          <dd>The degree to which scoring is independent of the marker’s judgement or mood.</dd>
+        </div>
+        <div class="term" data-searchable="Comprehensiveness">
+          <dt>Comprehensiveness<span class="tag">Principle</span></dt>
+          <dd>Representative coverage of the whole intended domain rather than a convenient part.</dd>
+        </div>
+        <div class="term" data-searchable="Discrimination">
+          <dt>Discrimination<span class="tag">Property</span></dt>
+          <dd>The capacity of a test or item to distinguish stronger from weaker performance.</dd>
+        </div>
+        <div class="term" data-searchable="Practicality">
+          <dt>Practicality<span class="tag">Principle</span></dt>
+          <dd>The feasibility of building, administering, marking and reporting a test with available resources.</dd>
+        </div>
+        <div class="term" data-searchable="Ethics of testing">
+          <dt>Ethics of testing<span class="tag">Principle</span></dt>
+          <dd>Security, confidentiality, informed expectations and avoidance of harm in testing.</dd>
+        </div>
+        <div class="term" data-searchable="Washback">
+          <dt>Washback<span class="tag">Effect</span></dt>
+          <dd>The influence of a test on teaching and learning.</dd>
+        </div>
+          </dl>
+        </section>
+
+        <!-- ================= 03 COMPARISONS ================= -->
+        <section class="section" id="comparisons" aria-labelledby="comparisons-title" data-section>
+          <div class="section-head">
+            <span class="section-num" aria-hidden="true">03</span>
+            <div class="section-heading">
+              <p class="eyebrow">Distinctions</p>
+              <h2 id="comparisons-title">Comparisons that decide marks</h2>
+              <p class="section-lead">Most lost marks come from near-misses between paired terms. Learn the dimension first, then the contrast — that is the structure full-mark answers use.</p>
+            </div>
+            <span class="section-time">2 tables</span>
+          </div>
+<div id="compareGrid">
+        <div class="table-card">
+          <div class="table-caption">
+            <strong>The Principles and Their Practical Indicators</strong>
+            <span>Swipe to view all columns →</span>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th scope="col">Principle</th><th scope="col">Question it answers</th><th scope="col">Indicator on a real paper</th><th scope="col">Typical failure</th></tr></thead>
+              <tbody>
+              <tr><td>Purpose</td><td>What decision will this support?</td><td>A written purpose and named user</td><td>A test that is set because it is the end of term</td></tr>
+              <tr><td>Validity</td><td>Does it measure the intended outcomes?</td><td>Every item traceable to an outcome in a blueprint</td><td>A recall paper for an ‘application’ objective</td></tr>
+              <tr><td>Reliability</td><td>Would the result be consistent?</td><td>Marking scheme, rubric, moderated sample</td><td>Two sections differing by 18 points</td></tr>
+              <tr><td>Fairness</td><td>Is anyone disadvantaged irrelevantly?</td><td>Reading level checked; access arrangements planned</td><td>Wordy items in a mathematics test</td></tr>
+              <tr><td>Objectivity</td><td>Does the marker change the score?</td><td>Double marking or a key with no discretion</td><td>Essay marked without a rubric</td></tr>
+              <tr><td>Comprehensiveness</td><td>Does it sample the whole domain?</td><td>Topic × level grid fully used</td><td>Only the topics the teacher enjoyed teaching</td></tr>
+              <tr><td>Practicality</td><td>Can we actually do this?</td><td>Marking time estimated against available hours</td><td>Sixty essays due in two days</td></tr>
+              <tr><td>Ethics</td><td>Is it secure and harmless?</td><td>Paper stored securely; results confidential</td><td>Rank lists published on a noticeboard</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="table-card">
+          <div class="table-caption">
+            <strong>When Principles Conflict: What to Trade</strong>
+            <span>Swipe to view all columns →</span>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th scope="col">Conflict</th><th scope="col">What is at stake</th><th scope="col">Defensible resolution</th></tr></thead>
+              <tbody>
+              <tr><td>Validity vs practicality</td><td>Detailed performance tasks give better evidence but cost time</td><td>Keep the performance task for one key outcome; use selected-response items for coverage</td></tr>
+              <tr><td>Reliability vs validity</td><td>Narrow, easily marked items are consistent but shallow</td><td>Use a rubric with anchors so constructed responses can be scored consistently</td></tr>
+              <tr><td>Fairness vs standardisation</td><td>Identical conditions can disadvantage learners with access needs</td><td>Standardise the construct, not the route: provide approved access arrangements</td></tr>
+              <tr><td>Security vs transparency</td><td>Sharing items improves teaching but reduces security</td><td>Publish the blueprint and sample items, not the live paper</td></tr>
+              <tr><td>Frequency vs learning</td><td>More testing produces more data but less teaching time</td><td>Assess formatively and often without grading; grade rarely and well</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        </div>
+        </section>
+
+        <!-- ================= 04 WORKED EXAMPLES ================= -->
+        <section class="section" id="worked-examples" aria-labelledby="examples-title" data-section>
+          <div class="section-head">
+            <span class="section-num" aria-hidden="true">04</span>
+            <div class="section-heading">
+              <p class="eyebrow">Application</p>
+              <h2 id="examples-title">Worked examples</h2>
+              <p class="section-lead">Three walkthroughs take the definitions to the level the paper asks for: a calculation, a judgement and a repair.</p>
+            </div>
+            <span class="section-time">3 walkthroughs</span>
+          </div>
+        <article class="example">
+          <div class="example-head">
+            <span class="example-tag">Audit</span>
+            <h3>Auditing a class test against the principles</h3>
+          </div>
+          <p class="example-prompt">A 40-mark Grade 8 science test contains 32 recall items and 8 marks of extended response. It was written the night before, marked out of 40 without a scheme, and returned three weeks later. Two items use vocabulary above the class reading level.</p>
+          <ol class="steps">
+            <li><strong>Purpose:</strong> unstated. There is no evidence about which decision the test supports, so the remaining judgements lack a reference point.</li>
+            <li><strong>Validity:</strong> recall items dominate a paper that should sample application, so content validity is weak against the practical outcomes of the curriculum.</li>
+            <li><strong>Reliability and objectivity:</strong> no scheme and no moderation, so marks depend on the marker’s judgement; a three-week return makes the evidence useless formatively.</li>
+            <li><strong>Fairness:</strong> two items test reading, not science, for learners working in a second language.</li>
+            <li><strong>Practicality:</strong> it was quick to set but expensive in re-teaching time, because the evidence arrived too late to change anything.</li>
+          </ol>
+          <div class="result"><b>Result</b> Four of eight principles fail. The cheapest fixes are a blueprint (validity), a marking scheme (reliability) and a return within one week (practicality and washback).</div>
+          <details class="reasoning">
+            <summary>Why this works</summary>
+            <p>Auditing in this order prevents the common mistake of fixing what is easy — neatening the paper — while leaving the structural failures untouched. Purpose comes first because it defines what validity means for this test.</p>
+          </details>
+        </article>
+        <article class="example">
+          <div class="example-head">
+            <span class="example-tag">Repair</span>
+            <h3>Rewriting a biased item</h3>
+          </div>
+          <p class="example-prompt">An item reads: “A cricket team scores 240 runs in 40 overs. Calculate the run rate. (2 marks)” A teacher notices that girls in the class, who play hockey, consistently skip it.</p>
+          <ol class="steps">
+            <li><strong>Diagnose the construct:</strong> the target is rate calculation, not knowledge of cricket.</li>
+            <li><strong>Identify the irrelevant demand:</strong> the cricket context adds a comprehension step and a cultural association that is not part of the construct.</li>
+            <li><strong>Neutralise the context:</strong> “A water tank fills 240 litres in 40 minutes. Calculate the rate in litres per minute.”</li>
+            <li><strong>Check the rest of the paper:</strong> look for other items where context, names, places or units create the same advantage.</li>
+          </ol>
+          <div class="result"><b>Result</b> The repaired item tests the same operation with no irrelevant context; a context review across the paper prevents the same bias elsewhere.</div>
+          <details class="reasoning">
+            <summary>Why this works</summary>
+            <p>Fairness is not achieved by removing all context — context can support understanding. It is achieved by ensuring the context does not add a demand that is unrelated to the construct and unevenly distributed across groups.</p>
+          </details>
+        </article>
+        <article class="example">
+          <div class="example-head">
+            <span class="example-tag">Trade-off</span>
+            <h3>Balancing validity and practicality</h3>
+          </div>
+          <p class="example-prompt">A teacher has 45 learners, one 40-minute lesson for assessment and two hours for marking. The outcome is “design a fair test and justify the variables”.</p>
+          <ol class="steps">
+            <li><strong>Recognise the constraint:</strong> a full investigation is the most valid task but cannot be run, observed and marked within the budget.</li>
+            <li><strong>Preserve the construct:</strong> keep the design decision, which is the core of the outcome, and remove the execution.</li>
+            <li><strong>Choose a compressed format:</strong> a one-page design brief — variables table, controlled variables, one paragraph of justification — marked with a three-criterion rubric.</li>
+            <li><strong>Sample for reliability:</strong> moderate six scripts with a colleague and adjust the rubric descriptors before marking the rest.</li>
+          </ol>
+          <div class="result"><b>Result</b> A 25-minute design brief with a three-criterion rubric assesses the same decision-making at a fraction of the cost, with moderation protecting consistency.</div>
+          <details class="reasoning">
+            <summary>Why this works</summary>
+            <p>Practicality failures are usually solved by narrowing the evidence rather than lowering the standard. Keeping the cognitive demand and shrinking the artefact preserves validity while making the assessment feasible.</p>
+          </details>
+        </article>
+        </section>
+
+        <!-- ================= 05 APPLICATION ================= -->
+        <section class="section" id="application" aria-labelledby="application-title" data-section>
+          <div class="section-head">
+            <span class="section-num" aria-hidden="true">05</span>
+            <div class="section-heading">
+              <p class="eyebrow">Practice</p>
+              <h2 id="application-title">Classroom and test-room application</h2>
+              <p class="section-lead">The left column is the professional standard; the right column lists the errors that cost marks and damage results.</p>
+            </div>
+            <span class="section-time">do / avoid</span>
+          </div>
+          <div class="do-avoid" id="applyGrid">
+            <div class="panel do">
+              <h3><span aria-hidden="true">✅</span> Do this</h3>
+              <ul><li>Write a purpose statement and name the user of the result before designing the test.</li><li>Trace every item to an outcome and build the paper from a <strong>table of specifications</strong>.</li><li>Write the <strong>marking scheme</strong> or rubric before administering the test.</li><li>Check reading demand, cultural references and access needs for <strong>fairness</strong>.</li><li>Estimate marking and reporting time before committing to the format.</li><li>Moderate a sample of scripts and store papers securely; treat results as confidential.</li></ul>
+            </div>
+            <div class="panel avoid">
+              <h3><span aria-hidden="true">🚫</span> Avoid this</h3>
+              <ul><li>Do not set a test because it is the end of term; set it because a decision needs evidence.</li><li>Do not accept a test as valid merely because it is reliable.</li><li>Do not let one section of a grade sit a harder or differently marked paper without moderation.</li><li>Do not use complex language or unfamiliar contexts that add demands unrelated to the construct.</li><li>Do not publish ranks or results in ways that label learners publicly.</li><li>Do not design a paper you cannot mark and return in time for the evidence to be useful.</li></ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= 06 MISCONCEPTIONS ================= -->
+        <section class="section" id="misconceptions" aria-labelledby="myths-title" data-section>
+          <div class="section-head">
+            <span class="section-num" aria-hidden="true">06</span>
+            <div class="section-heading">
+              <p class="eyebrow">Exam traps</p>
+              <h2 id="myths-title">Misconceptions</h2>
+              <p class="section-lead">Each myth is a plausible sentence that loses marks. Learn the reality column as the correction you can write.</p>
+            </div>
+            <span class="section-time">4 corrections</span>
+          </div>
+          <div class="myths searchable-grid" id="misGrid">
+        <article class="myth" data-searchable="A reliable test is automatically a valid one.">
+          <div class="myth-claim"><span>Myth</span>A reliable test is automatically a valid one.</div>
+          <div class="myth-fix"><span>Reality</span><strong>Reliability</strong> is consistency; <strong>validity</strong> is measuring the right thing. A test can be consistently measuring the wrong outcome — precise and useless.</div>
+        </article>
+        <article class="myth" data-searchable="Fairness means every learner gets exactly the same paper and conditions.">
+          <div class="myth-claim"><span>Myth</span>Fairness means every learner gets exactly the same paper and conditions.</div>
+          <div class="myth-fix"><span>Reality</span>Fairness means the same construct is assessed. Approved access arrangements change the route, not the standard, so identical treatment can be unfair.</div>
+        </article>
+        <article class="myth" data-searchable="Comprehensive coverage means asking at least one question on every topic.">
+          <div class="myth-claim"><span>Myth</span>Comprehensive coverage means asking at least one question on every topic.</div>
+          <div class="myth-fix"><span>Reality</span>Coverage must be <strong>proportionate</strong> to emphasis and cognitive level, not merely present. One recall item per topic can still leave the paper unbalanced.</div>
+        </article>
+        <article class="myth" data-searchable="If a test is valid and reliable, practicality does not matter.">
+          <div class="myth-claim"><span>Myth</span>If a test is valid and reliable, practicality does not matter.</div>
+          <div class="myth-fix"><span>Reality</span>An unmarkable test produces no usable evidence. <strong>Practicality</strong> is a genuine principle because assessment only works if it can be completed, scored and returned in time to inform teaching.</div>
+        </article>
+          </div>
+        </section>
+
+        <!-- ================= 07 EXAM ROOM ================= -->
+        <section class="section" id="exam" aria-labelledby="exam-title" data-section>
+          <div class="section-head">
+            <span class="section-num" aria-hidden="true">07</span>
+            <div class="section-heading">
+              <p class="eyebrow">Exam room</p>
+              <h2 id="exam-title">Exam-style questions</h2>
+              <p class="section-lead">Answer first, then open the model. The chips show the command word, the mark value and the cognitive level being tested.</p>
+            </div>
+            <span class="section-time">2 questions</span>
+          </div>
+        <article class="exam-q">
+          <div class="exam-meta">
+            <span class="chip command">Discuss</span>
+            <span class="chip marks">10 marks</span>
+            <span class="chip level">Evaluate</span>
+          </div>
+          <p>“A test that is valid and reliable is a good test.” Discuss this statement with reference to at least four principles of testing.</p>
+          <details class="model">
+            <summary>Model answer</summary>
+            <p>The statement is only partly true. Validity and reliability are central: a test that does not measure the intended outcomes, or that yields inconsistent results, cannot support defensible decisions. But a good test must also satisfy other principles. Fairness requires that no learner is advantaged or disadvantaged by factors irrelevant to the construct, such as unnecessary reading demand or culturally specific contexts; a valid and reliable test can still be biased. Comprehensiveness requires proportionate coverage of the domain rather than a convenient corner, so a test may be valid for the topics it includes yet misrepresent the curriculum. Practicality requires that the test can be built, administered, marked and reported within available resources, because an unmarkable or late-returned paper produces no usable evidence and no feedback. Finally, ethics and purpose matter: a technically sound test used for a decision it was not designed to support, or published in a way that labels learners, is harmful. The statement is therefore necessary but not sufficient; a good test satisfies all the principles in proportion to the stakes of the decision.</p>
+          </details>
+        </article>
+        <article class="exam-q">
+          <div class="exam-meta">
+            <span class="chip command">Apply</span>
+            <span class="chip marks">8 marks</span>
+            <span class="chip level">Apply</span>
+          </div>
+          <p>A Grade 9 teacher must assess ‘evaluate the reliability of a news report’ with 45 learners, one lesson and limited marking time. Explain how the principles of validity and practicality can both be respected.</p>
+          <details class="model">
+            <summary>Model answer</summary>
+            <p>The construct is evaluation, so the task must require a judgement with justification rather than recall of a definition. To respect practicality, the evidence can be compressed: give two short contrasting news extracts on one page and ask for a structured evaluation — two credibility criteria applied to each extract, and a justified overall judgement — in 25 minutes. This keeps the cognitive demand, which is where validity lives, while controlling the artefact. A three-criterion analytic rubric (criteria applied, evidence cited, judgement justified) with level descriptors allows consistent marking, and moderating a sample of six scripts before marking the rest protects reliability and therefore the defensibility of the results. Access needs such as extra time should be planned in advance for fairness. The lesson length and marking budget are respected, and the results can be returned within a week so that the evidence still informs teaching.</p>
+          </details>
+        </article>
+        </section>
+
+        <!-- ================= 08 TAKEAWAYS ================= -->
+        <section class="section" id="takeaways" aria-labelledby="takeaways-title" data-section>
+          <div class="section-head">
+            <span class="section-num" aria-hidden="true">08</span>
+            <div class="section-heading">
+              <p class="eyebrow">Compress</p>
+              <h2 id="takeaways-title">Takeaways and revision</h2>
+              <p class="section-lead">Revise these six lines the night before the paper, then tick the checklist once each one is retrievable without notes.</p>
+            </div>
+            <span class="section-time">6 lines</span>
+          </div>
+          <div class="takeaways">
+            <h3>Six things to remember</h3>
+            <ol><li>A test is defensible only when its <strong>purpose</strong> and the user of its results are stated.</li><li><strong>Validity</strong> is alignment with the intended outcomes, chiefly through a table of specifications.</li><li><strong>Reliability</strong> and <strong>objectivity</strong> come from clear items, marking schemes, rubrics and moderation.</li><li><strong>Fairness</strong> means the construct is assessed, not reading speed, cultural familiarity or access to materials.</li><li><strong>Comprehensiveness</strong> is proportionate coverage of the domain and its cognitive levels.</li><li><strong>Practicality</strong> and <strong>ethics</strong> decide whether a technically sound test can actually be used well.</li></ol>
+          </div>
+          <div class="summary">
+            <span>One-line summary</span>
+            <p>The principles of testing — purpose, validity, reliability, fairness, objectivity, comprehensiveness, practicality and ethics — are a checklist for defensibility, and every one of them has a concrete indicator you can inspect on a real paper.</p>
+          </div>
+          <div class="exam-tip">
+            <span class="tip-icon" aria-hidden="true">💡</span>
+            <div>
+              <span class="tip-label">Exam tip</span>
+              <p>Questions that ask you to “evaluate a test” expect the principles as headings. Name the principle, give the indicator from the paper, then state the consequence — that structure earns marks faster than a paragraph of opinion.</p>
+            </div>
+          </div>
+          <div class="checklist" id="checklist">
+            <div class="checklist-head">
+              <h3>Revision checklist</h3>
+              <span id="checklistCount">0 of 6 done</span>
+            </div>
+            <ul>
+          <li>
+            <label>
+              <input type="checkbox" data-key="check-1">
+              <span>I can list the principles of testing and define each in one sentence.</span>
+            </label>
+          </li>          <li>
+            <label>
+              <input type="checkbox" data-key="check-2">
+              <span>I can give a practical indicator for each principle on a real paper.</span>
+            </label>
+          </li>          <li>
+            <label>
+              <input type="checkbox" data-key="check-3">
+              <span>I can explain why reliability is necessary but not sufficient for validity.</span>
+            </label>
+          </li>          <li>
+            <label>
+              <input type="checkbox" data-key="check-4">
+              <span>I can identify bias in an item and rewrite it fairly.</span>
+            </label>
+          </li>          <li>
+            <label>
+              <input type="checkbox" data-key="check-5">
+              <span>I can resolve a conflict between validity and practicality without lowering the standard.</span>
+            </label>
+          </li>          <li>
+            <label>
+              <input type="checkbox" data-key="check-6">
+              <span>I can explain why ethics and security belong in a list of testing principles.</span>
+            </label>
+          </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ================= 09 QUIZ ================= -->
+        <section class="quiz" id="practice" aria-labelledby="quiz-title" data-section>
+          <div class="quiz-head">
+            <div>
+              <p class="eyebrow">Practice</p>
+              <h2 id="quiz-title">Test yourself</h2>
+            </div>
+            <div class="quiz-chips">
+              <span>10 MCQs</span>
+              <span>4 CRQs</span>
+              <span>1 ERQ</span>
+            </div>
+          </div>
+          <div class="quiz-body">
+            <div class="quiz-tabs" role="tablist" aria-label="Quiz sections">
+              <button class="quiz-tab active" role="tab" aria-selected="true" data-panel="mcqPanel">🔘 10 MCQs</button>
+              <button class="quiz-tab" role="tab" aria-selected="false" data-panel="crqPanel">✍️ 4 CRQs</button>
+              <button class="quiz-tab" role="tab" aria-selected="false" data-panel="erqPanel">📄 1 ERQ</button>
+            </div>
+
+            <div class="quiz-panel active" id="mcqPanel" role="tabpanel">
+              <div class="panel-head">
+                <span class="section-label">Multiple choice questions</span>
+                <span class="score-chip" id="mcqProgress">0 / 10 answered · 0 correct</span>
+              </div>
+              <div id="mcqContainer"></div>
+            </div>
+
+            <div class="quiz-panel" id="crqPanel" role="tabpanel">
+              <div class="panel-head">
+                <span class="section-label">Constructed response questions</span>
+                <span class="score-chip">Model answers included</span>
+              </div>
+              <div id="crqContainer"></div>
+            </div>
+
+            <div class="quiz-panel" id="erqPanel" role="tabpanel">
+              <div class="panel-head">
+                <span class="section-label">Extended response · situation-based</span>
+                <span class="score-chip">Keyword self-check</span>
+              </div>
+              <div id="erqContainer"></div>
+            </div>
+          </div>
+        </section>
+
+        <footer class="note-footer">
+          <span>MUQABIL · Teaching License Master Notes · Test Development & Evaluation</span>
+          <span>5 interactive notes in this module · revision 2 of 5</span>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <button class="to-top" id="toTop" type="button" aria-label="Back to top">↑</button>
+
+<script>
+    (function () {
+      'use strict';
+
+      var SLUG = 'principles-of-testing';
+
+      /* ================= READING PROGRESS + BACK TO TOP ================= */
+      var fill = document.getElementById('progressFill');
+      var railFill = document.getElementById('railFill');
+      var railPct = document.getElementById('railPct');
+      var toTop = document.getElementById('toTop');
+
+      function updateScroll() {
+        var doc = document.documentElement;
+        var max = doc.scrollHeight - doc.clientHeight;
+        var pct = max > 0 ? Math.min(100, Math.max(0, (doc.scrollTop / max) * 100)) : 0;
+        if (fill) fill.style.width = pct + '%';
+        if (railFill) railFill.style.width = pct + '%';
+        if (railPct) railPct.textContent = Math.round(pct) + '%';
+        if (toTop) {
+          if (doc.scrollTop > 600) toTop.classList.add('visible');
+          else toTop.classList.remove('visible');
+        }
+      }
+      window.addEventListener('scroll', updateScroll, { passive: true });
+      updateScroll();
+
+      if (toTop) {
+        toTop.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      /* ================= SIDE NAV: ACTIVE SECTION ================= */
+      var railLinks = Array.prototype.slice.call(document.querySelectorAll('.rail-list a'));
+      var sections = railLinks
+        .map(function (link) {
+          var id = link.getAttribute('href').slice(1);
+          return document.getElementById(id);
+        })
+        .filter(Boolean);
+
+      function setActive(id) {
+        railLinks.forEach(function (link) {
+          if (link.getAttribute('href') === '#' + id) link.setAttribute('aria-current', 'true');
+          else link.removeAttribute('aria-current');
+        });
+      }
+
+      if ('IntersectionObserver' in window && sections.length) {
+        var visible = {};
+        var observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              visible[entry.target.id] = entry.isIntersecting ? entry.intersectionRatio : 0;
+            });
+            var best = null;
+            var bestRatio = 0;
+            sections.forEach(function (section) {
+              var ratio = visible[section.id] || 0;
+              if (ratio > bestRatio) { bestRatio = ratio; best = section.id; }
+            });
+            if (best) setActive(best);
+          },
+          { rootMargin: '-96px 0px -55% 0px', threshold: [0, 0.15, 0.4, 0.75] }
+        );
+        sections.forEach(function (section) { observer.observe(section); });
+      }
+
+      railLinks.forEach(function (link) {
+        link.addEventListener('click', function () {
+          setActive(link.getAttribute('href').slice(1));
+        });
+      });
+
+      /* ================= LIVE SEARCH ================= */
+      var searchInput = document.getElementById('searchInput');
+      var countDisplay = document.getElementById('countDisplay');
+      var grids = Array.prototype.slice.call(document.querySelectorAll('.searchable-grid'));
+
+      var cards = [];
+      grids.forEach(function (grid) {
+        Array.prototype.forEach.call(grid.querySelectorAll('[data-searchable]'), function (card) {
+          cards.push(card);
+        });
+      });
+
+      function applySearch(raw) {
+        var q = (raw || '').trim().toLowerCase();
+        var shown = 0;
+        cards.forEach(function (card) {
+          var text = ((card.getAttribute('data-searchable') || '') + ' ' + card.textContent).toLowerCase();
+          var hit = q === '' || text.indexOf(q) !== -1;
+          card.style.display = hit ? '' : 'none';
+          if (hit) shown++;
+        });
+        Array.prototype.forEach.call(document.querySelectorAll('.no-results'), function (node) {
+          node.parentNode.removeChild(node);
+        });
+        grids.forEach(function (grid) {
+          var any = Array.prototype.filter.call(
+            grid.querySelectorAll('[data-searchable]'),
+            function (card) { return card.style.display !== 'none'; }
+          ).length;
+          if (any === 0) {
+            var note = document.createElement('div');
+            note.className = 'no-results';
+            note.textContent = 'No matching items in this section.';
+            grid.appendChild(note);
+          }
+        });
+        if (countDisplay) {
+          countDisplay.textContent = shown + (shown === 1 ? ' match' : ' matches');
+        }
+      }
+
+      var debounce;
+      if (searchInput) {
+        searchInput.addEventListener('input', function (event) {
+          clearTimeout(debounce);
+          var value = event.target.value;
+          debounce = setTimeout(function () { applySearch(value); }, 130);
+        });
+        searchInput.addEventListener('search', function (event) {
+          if (event.target.value === '') applySearch('');
+        });
+        searchInput.addEventListener('keydown', function (event) {
+          if (event.key === 'Escape' && searchInput.value !== '') {
+            searchInput.value = '';
+            applySearch('');
+          }
+        });
+      }
+      applySearch('');
+
+      /* ================= REVISION CHECKLIST ================= */
+      var checklist = document.getElementById('checklist');
+      var checklistCount = document.getElementById('checklistCount');
+      var storageKey = 'muqabil-checklist-' + SLUG;
+
+      function readStore() {
+        try {
+          var raw = window.localStorage.getItem(storageKey);
+          return raw ? JSON.parse(raw) : {};
+        } catch (error) {
+          return {};
+        }
+      }
+
+      function writeStore(value) {
+        try {
+          window.localStorage.setItem(storageKey, JSON.stringify(value));
+        } catch (error) {
+          /* storage unavailable: the checklist still works for this visit */
+        }
+      }
+
+      function refreshChecklist() {
+        if (!checklist) return;
+        var boxes = Array.prototype.slice.call(checklist.querySelectorAll('input[type="checkbox"]'));
+        var done = boxes.filter(function (box) { return box.checked; }).length;
+        if (checklistCount) checklistCount.textContent = done + ' of ' + boxes.length + ' done';
+      }
+
+      if (checklist) {
+        var stored = readStore();
+        Array.prototype.forEach.call(checklist.querySelectorAll('input[type="checkbox"]'), function (box) {
+          box.checked = Boolean(stored[box.getAttribute('data-key')]);
+          box.addEventListener('change', function () {
+            var state = readStore();
+            state[box.getAttribute('data-key')] = box.checked;
+            writeStore(state);
+            refreshChecklist();
+          });
+        });
+        refreshChecklist();
+      }
+
+      /* ================= QUIZ TABS ================= */
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.quiz-tab'));
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          tabs.forEach(function (item) {
+            item.classList.remove('active');
+            item.setAttribute('aria-selected', 'false');
+          });
+          Array.prototype.forEach.call(document.querySelectorAll('.quiz-panel'), function (panel) {
+            panel.classList.remove('active');
+          });
+          tab.classList.add('active');
+          tab.setAttribute('aria-selected', 'true');
+          var panel = document.getElementById(tab.getAttribute('data-panel'));
+          if (panel) panel.classList.add('active');
+        });
+      });
+
+      /* ================= DATA ================= */
+      var mcqs = [{"q": "The principle that requires a test to measure what it claims to measure is:", "options": ["Reliability", "Validity", "Practicality", "Objectivity"], "answer": 1, "why": "Validity concerns measuring the intended construct."}, {"q": "A test that gives the same result on repeated occasions is:", "options": ["Valid", "Fair", "Reliable", "Comprehensive"], "answer": 2, "why": "Consistency across occasions is reliability."}, {"q": "Content validity at classroom level is best ensured by:", "options": ["A longer test", "A table of specifications", "A harder paper", "Anonymous marking"], "answer": 1, "why": "The blueprint maps items to outcomes and levels."}, {"q": "Bias in a test is:", "options": ["Random error", "A systematic advantage or disadvantage unrelated to the construct", "Any difficult item", "A marking mistake"], "answer": 1, "why": "Bias is systematic, not random."}, {"q": "Objectivity in scoring means:", "options": ["All learners get the same mark", "Scoring does not depend on the marker’s judgement", "Items are multiple choice", "The test is standardized"], "answer": 1, "why": "Objectivity is independence from marker discretion."}, {"q": "Practicality concerns:", "options": ["Whether the test is difficult", "Whether it can be built, administered, marked and reported with available resources", "Whether learners enjoy it", "Whether it is norm-referenced"], "answer": 1, "why": "Practicality is feasibility, not difficulty."}, {"q": "Which is a fairness issue rather than a validity issue?", "options": ["Items do not match the outcomes", "Wordy items disadvantage second-language learners in a mathematics test", "The paper is too short", "The marking scheme is missing"], "answer": 1, "why": "The construct is mathematics; reading demand is irrelevant and unevenly distributed."}, {"q": "Comprehensiveness requires coverage that is:", "options": ["Equal for every topic regardless of emphasis", "Proportionate to emphasis and cognitive level", "Restricted to taught topics only", "Limited to recall"], "answer": 1, "why": "Proportion, not mere presence, is the requirement."}, {"q": "Security of a test paper is primarily an issue of:", "options": ["Validity", "Ethics", "Practicality", "Discrimination"], "answer": 1, "why": "Security and confidentiality are ethical requirements."}, {"q": "Which principle is most directly threatened by returning scripts three weeks late?", "options": ["Objectivity", "Washback and practical usefulness", "Comprehensiveness", "Nominal scaling"], "answer": 1, "why": "Late results cannot inform teaching, so the test loses formative value."}];
+      var crqs = [{"q": "Explain five principles of testing and give a practical indicator of each.", "hint": "Name each principle, then describe what you would inspect.", "model": "Purpose: a stated question and named user, indicated by a written purpose statement and a blueprint derived from it. Validity: alignment with intended outcomes, indicated by every item being traceable to an outcome at the right cognitive level. Reliability: consistency of results, indicated by a marking scheme, rubric, anchor scripts and moderation of a sample between sections. Fairness: no irrelevant advantage or disadvantage, indicated by a reading-level check, culturally neutral contexts and planned access arrangements. Practicality: feasibility, indicated by an estimate of marking and reporting time against the hours available. A sixth principle, ethics, is indicated by secure storage and confidential, non-labelling reporting."}, {"q": "Why is reliability necessary but not sufficient for validity? Illustrate with an example.", "hint": "Define both and give a counter-example.", "model": "Reliability is consistency: the same learners obtain similar scores on repeat testing, parallel forms or independent marking. Validity is whether the test measures the intended construct. Reliability is necessary because an inconsistent measure cannot support any interpretation, but it is not sufficient because a measure can be consistently wrong. A spelling test marked with a perfect key is highly reliable, yet it is an invalid measure of essay-writing competence because it measures spelling rather than argument and organisation. Similarly, a speeded arithmetic test may reliably measure calculation fluency but be invalid for assessing mathematical reasoning. Validity therefore requires evidence about what the scores mean, not only that they are stable."}, {"q": "A school wants to introduce weekly tests to ‘raise standards’. Evaluate this proposal against the principles of testing.", "hint": "Consider purpose, washback, validity, workload and the difference between testing and learning.", "model": "The proposal fails at the first principle: purpose. “Raising standards” is an aspiration, not a decision, and weekly tests do not specify what evidence is needed or how results will be used. If the tests are used summatively to rank, they increase anxiety and narrow teaching to tested content, which is negative washback; if they are used formatively, the same information could be obtained with shorter, ungraded checks at less cost. Validity is likely to suffer because frequently written tests drift towards items that are quick to set and mark, usually recall. Practicality is a serious concern: marking 45 scripts weekly consumes the time needed for feedback and planning, and the evidence may arrive too late to change anything. Fairness and ethics also arise if results are published. A defensible alternative is frequent low-stakes formative checks with feedback, one well-built summative assessment per unit with a blueprint and marking scheme, and a deliberate use of results to reteach — which addresses the underlying aim without the costs of a testing regime."}, {"q": "How would you ensure fairness in a test taken by learners with very different language backgrounds?", "hint": "Address construct, language demand, contexts, access arrangements and reporting.", "model": "Begin with the construct: identify what the test is intended to measure and remove demands that are not part of it. Write items in short, plain sentences; avoid idioms, culturally specific references and unnecessary narrative; keep vocabulary below the level required for the subject content; and use contexts that are equally familiar across groups. Where language itself is part of the construct, assess it explicitly rather than letting it contaminate other subjects. Provide access arrangements such as extra time, a reader or a bilingual glossary where these do not change the standard, and plan them in advance rather than improvising. Review the paper with a colleague from a different background and check for names, places, sports or examples that carry uneven familiarity. Finally, report results with the construct and the access arrangements in mind, and moderate marking so that language quality does not inflate or deflate scores in non-language subjects."}];
+      var erq = {"scenario": "A district introduces a common end-of-term test for all Grade 8 classes to compare schools. The paper is written centrally in English, contains 60 multiple-choice recall items and two essays, and must be marked by class teachers within four days. Rural schools report that learners struggled with contexts involving shopping malls and airport departure boards; urban schools report that the essays were marked generously because teachers feared comparison. One school’s average is 21 points above another’s, and the district publishes a league table.", "task": "Evaluate the district’s test against the principles of testing, and propose how the same accountability purpose could be met without the failures you identify.", "hint": "Work through purpose, validity, fairness, reliability, practicality and ethics, then redesign the assessment and its reporting.", "keywords": ["purpose", "validity", "reliability", "fairness", "bias", "practicality", "ethics", "moderation", "blueprint", "washback"], "model": "The district has a legitimate purpose — comparing achievement across schools to target support — but the instrument does not serve it. Validity is weak because 60 recall items dominate a paper that should sample the curriculum’s application outcomes; the two essays cannot compensate, and without a blueprint there is no evidence that the paper represents what was taught. Fairness fails on two counts. The paper is written in English and uses contexts drawn from urban, affluent experience, so it measures language and cultural familiarity as well as Grade 8 content; that is systematic bias, not random difficulty, and it explains the rural schools’ reports. The 21-point gap cannot be interpreted as a difference in learning when the instrument privileges one group’s context. Reliability fails because essays are marked by class teachers within four days, with no common rubric or moderation, and the incentive to mark generously in a league table is precisely the condition under which marker judgement drifts. Practicality is violated by the four-day marking demand, which forces rushed marking, and ethics by publishing a league table that labels schools and learners on an instrument of unknown quality. The same accountability purpose can be met with a better design. First, define the construct and build a table of specifications across content areas and cognitive levels, with a stated proportion of application and analysis items. Second, write items in plain language, review them for cultural and linguistic bias with teachers from rural and urban schools, and pilot them on a small sample before the live administration. Third, use a mixed format that can be marked reliably: selected-response items with a key, plus short constructed responses marked with an analytic rubric and anchor scripts. Fourth, introduce moderation: teachers mark a common sample, discuss discrepancies, and a district officer second-marks a random set from each school. Fifth, change the reporting. Instead of a league table, report each school’s performance against the outcomes, with confidence bands that acknowledge measurement error, and pair it with a diagnostic breakdown showing which outcomes need support. Sixth, reduce the stakes by separating accountability from individual learner results: the district can use the assessment to target resources and training, while classroom assessment remains the teacher’s formative tool. Finally, publish the blueprint, the rubric and the moderation process so that schools know what is being measured and how judgements are made. These changes keep the district’s legitimate interest in comparison while making the comparison meaningful, fair and defensible."};
+
+      /* ================= MCQs ================= */
+      var mcqContainer = document.getElementById('mcqContainer');
+      var scoreChip = document.getElementById('mcqProgress');
+      var answered = 0;
+      var correctCount = 0;
+      var letters = ['A', 'B', 'C', 'D'];
+
+      function updateScore() {
+        if (scoreChip) {
+          scoreChip.textContent = answered + ' / ' + mcqs.length + ' answered · ' + correctCount + ' correct';
+        }
+      }
+
+      mcqs.forEach(function (item, index) {
+        var wrap = document.createElement('article');
+        wrap.className = 'mcq';
+
+        var q = document.createElement('p');
+        q.className = 'mcq-q';
+        var num = document.createElement('span');
+        num.className = 'qnum';
+        num.textContent = String(index + 1);
+        var qText = document.createElement('span');
+        qText.textContent = item.q;
+        q.appendChild(num);
+        q.appendChild(qText);
+        wrap.appendChild(q);
+
+        var list = document.createElement('div');
+        list.className = 'options';
+        var feedback = document.createElement('div');
+        feedback.className = 'mcq-feedback';
+        var locked = false;
+
+        item.options.forEach(function (option, optionIndex) {
+          var button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'option';
+
+          var letter = document.createElement('span');
+          letter.className = 'letter';
+          letter.textContent = letters[optionIndex];
+
+          var text = document.createElement('span');
+          text.textContent = option;
+
+          button.appendChild(letter);
+          button.appendChild(text);
+
+          button.addEventListener('click', function () {
+            if (locked) return;
+            locked = true;
+            answered++;
+            var right = optionIndex === item.answer;
+            if (right) correctCount++;
+
+            Array.prototype.forEach.call(list.querySelectorAll('.option'), function (other) {
+              other.disabled = true;
+            });
+            button.classList.add(right ? 'correct' : 'wrong');
+            if (!right) {
+              var key = list.querySelectorAll('.option')[item.answer];
+              if (key) key.classList.add('correct');
+            }
+            feedback.className = 'mcq-feedback show ' + (right ? 'good' : 'bad');
+            feedback.textContent = (right ? 'Correct. ' : 'Not quite. ') + item.why;
+            updateScore();
+          });
+
+          list.appendChild(button);
+        });
+
+        wrap.appendChild(list);
+        wrap.appendChild(feedback);
+        mcqContainer.appendChild(wrap);
+      });
+      updateScore();
+
+      /* ================= CRQs ================= */
+      var crqContainer = document.getElementById('crqContainer');
+
+      crqs.forEach(function (item, index) {
+        var wrap = document.createElement('article');
+        wrap.className = 'crq';
+
+        var title = document.createElement('h4');
+        title.textContent = 'Question ' + (index + 1) + '. ' + item.q;
+        wrap.appendChild(title);
+
+        var hint = document.createElement('p');
+        hint.className = 'hint';
+        hint.textContent = 'Hint: ' + item.hint;
+        wrap.appendChild(hint);
+
+        var area = document.createElement('textarea');
+        area.placeholder = 'Write your answer here — aim for 80 to 120 words.';
+        area.setAttribute('aria-label', 'Answer for question ' + (index + 1));
+        wrap.appendChild(area);
+
+        var row = document.createElement('div');
+        row.className = 'word-row';
+        var count = document.createElement('span');
+        count.textContent = '0 words';
+        var target = document.createElement('span');
+        target.textContent = 'Target: 80–120 words';
+        row.appendChild(count);
+        row.appendChild(target);
+        wrap.appendChild(row);
+
+        function updateWords() {
+          var words = area.value.trim().split(/\s+/).filter(Boolean).length;
+          count.textContent = words + (words === 1 ? ' word' : ' words');
+          if (words >= 80 && words <= 160) {
+            count.className = 'word-count ok';
+          } else {
+            count.className = '';
+          }
+        }
+        area.addEventListener('input', updateWords);
+
+        var row2 = document.createElement('div');
+        row2.className = 'btn-row';
+        var modelBtn = document.createElement('button');
+        modelBtn.type = 'button';
+        modelBtn.className = 'btn secondary';
+        modelBtn.textContent = 'Show model answer';
+        row2.appendChild(modelBtn);
+        wrap.appendChild(row2);
+
+        var feedback = document.createElement('div');
+        feedback.className = 'feedback';
+        wrap.appendChild(feedback);
+
+        modelBtn.addEventListener('click', function () {
+          var open = feedback.classList.contains('show');
+          if (open) {
+            feedback.className = 'feedback';
+            feedback.textContent = '';
+            modelBtn.textContent = 'Show model answer';
+          } else {
+            feedback.className = 'feedback show model';
+            feedback.textContent = 'Model answer: ' + item.model;
+            modelBtn.textContent = 'Hide model answer';
+          }
+        });
+
+        crqContainer.appendChild(wrap);
+      });
+
+      /* ================= ERQ ================= */
+      var erqContainer = document.getElementById('erqContainer');
+
+      (function () {
+        var wrap = document.createElement('article');
+        wrap.className = 'erq';
+
+        var title = document.createElement('h4');
+        title.textContent = 'Situation-based extended response · 10 marks';
+        wrap.appendChild(title);
+
+        var scenario = document.createElement('div');
+        scenario.className = 'scenario';
+        scenario.textContent = erq.scenario;
+        wrap.appendChild(scenario);
+
+        var task = document.createElement('p');
+        task.className = 'task';
+        task.textContent = erq.task;
+        wrap.appendChild(task);
+
+        var hint = document.createElement('p');
+        hint.className = 'hint';
+        hint.textContent = 'Hint: ' + erq.hint;
+        wrap.appendChild(hint);
+
+        var keywords = document.createElement('div');
+        keywords.className = 'keyword-row';
+        erq.keywords.forEach(function (keyword) {
+          var chip = document.createElement('span');
+          chip.className = 'keyword';
+          chip.textContent = keyword;
+          keywords.appendChild(chip);
+        });
+        wrap.appendChild(keywords);
+
+        var area = document.createElement('textarea');
+        area.placeholder = 'Plan briefly, then write your answer — aim for 250 to 350 words.';
+        area.setAttribute('aria-label', 'Extended response answer');
+        wrap.appendChild(area);
+
+        var row = document.createElement('div');
+        row.className = 'word-row';
+        var count = document.createElement('span');
+        count.textContent = '0 words';
+        var target = document.createElement('span');
+        target.textContent = 'Target: 250–350 words';
+        row.appendChild(count);
+        row.appendChild(target);
+        wrap.appendChild(row);
+
+        area.addEventListener('input', function () {
+          var words = area.value.trim().split(/\s+/).filter(Boolean).length;
+          count.textContent = words + (words === 1 ? ' word' : ' words');
+        });
+
+        var row2 = document.createElement('div');
+        row2.className = 'btn-row';
+        var checkBtn = document.createElement('button');
+        checkBtn.type = 'button';
+        checkBtn.className = 'btn';
+        checkBtn.textContent = 'Check my coverage';
+        var modelBtn = document.createElement('button');
+        modelBtn.type = 'button';
+        modelBtn.className = 'btn secondary';
+        modelBtn.textContent = 'Show model answer';
+        row2.appendChild(checkBtn);
+        row2.appendChild(modelBtn);
+        wrap.appendChild(row2);
+
+        var feedback = document.createElement('div');
+        feedback.className = 'feedback';
+        wrap.appendChild(feedback);
+
+        checkBtn.addEventListener('click', function () {
+          var answer = area.value.toLowerCase();
+          if (!answer.trim()) {
+            feedback.className = 'feedback show partial';
+            feedback.textContent = 'Write your response first — aim for at least 250 words before self-checking.';
+            return;
+          }
+          var hits = erq.keywords.filter(function (keyword) {
+            return answer.indexOf(keyword.toLowerCase()) !== -1;
+          });
+          var missing = erq.keywords.filter(function (keyword) {
+            return hits.indexOf(keyword) === -1;
+          });
+          Array.prototype.forEach.call(keywords.querySelectorAll('.keyword'), function (chip) {
+            chip.classList.toggle('hit', hits.indexOf(chip.textContent) !== -1);
+          });
+          var ratio = hits.length / erq.keywords.length;
+          if (ratio >= 0.6) {
+            feedback.className = 'feedback show good';
+            feedback.textContent = 'Strong coverage: ' + hits.length + ' of ' + erq.keywords.length +
+              ' expected ideas present. Now tighten the structure: principle -> diagnosis -> action -> evaluation.' +
+              (missing.length ? ' Still to consider: ' + missing.join(', ') + '.' : '');
+          } else {
+            feedback.className = 'feedback show partial';
+            feedback.textContent = 'Partial coverage: ' + hits.length + ' of ' + erq.keywords.length +
+              ' expected ideas found. Add: ' + missing.join(', ') + '.';
+          }
+        });
+
+        modelBtn.addEventListener('click', function () {
+          var open = feedback.classList.contains('show') && feedback.classList.contains('model');
+          if (open) {
+            feedback.className = 'feedback';
+            feedback.textContent = '';
+            modelBtn.textContent = 'Show model answer';
+          } else {
+            feedback.className = 'feedback show model';
+            feedback.textContent = 'Model answer: ' + erq.model;
+            modelBtn.textContent = 'Hide model answer';
+          }
+        });
+
+        erqContainer.appendChild(wrap);
+      })();
+    })();
+</script>
+</body>
+</html>

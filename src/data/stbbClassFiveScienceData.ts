@@ -11,6 +11,7 @@ export interface StbbTopic {
       rows: string[][];
     };
   };
+  deepDiveHeading?: string;
   deepDiveSections?: {
     title: string;
     emoji: string;
@@ -134,6 +135,7 @@ export const STBB_TOPICS: StbbTopic[] = [
         ]
       }
     },
+    deepDiveHeading: 'Detailed Kingdom Breakdown',
     deepDiveSections: [
       {
         title: 'Kingdom Bacteria',

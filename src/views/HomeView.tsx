@@ -872,26 +872,26 @@ export const HomeView: React.FC = () => {
                 <Atom className="w-3.5 h-3.5" />
                 <span>STBB (Sindh Textbook Board) · Class 5 General Science</span>
                 <span className="px-1.5 py-0.2 rounded-md bg-amber-400 text-slate-950 text-[10px] font-black">
-                  Chapter 1 Complete
+                  Chapters 1 &amp; 2 Complete
                 </span>
               </div>
 
               <h2 className="text-2xl sm:text-3xl font-black font-display text-white tracking-tight">
-                Classification of Living Things — Interactive Learning Experience
+                Classification &amp; Microorganisms — Interactive Learning Hub
               </h2>
 
               <p className="text-xs sm:text-sm text-emerald-100/90 leading-relaxed">
-                Full 8-topic breakdown with 5 Kingdoms, Vertebrates vs Invertebrates, Monocots vs Dicots, interactive Dichotomous Key simulation, and 40 verified topic-covering MCQs. Essential for Sukkur IBA STS PST &amp; JEST test candidates.
+                Complete STBB Class 5 curriculum modules: <strong>Ch. 1 Classification of Living Things</strong> &amp; <strong>Ch. 2 Microorganisms — The Invisible World</strong> (16 deep-dive topics, interactive Dichotomous Keys &amp; Microbe Decision Tree, Mnemonics, Riddles, and 80 solved MCQs with 40-min mock exams).
               </p>
 
               <div className="flex flex-wrap gap-2 pt-1 text-[11px] text-emerald-200">
-                <span className="flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> 8 Topic Deep-Dives</span>
+                <span className="flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> 16 Topic Deep-Dives</span>
                 <span className="text-emerald-500">•</span>
-                <span className="flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5 text-amber-400" /> 40 Solved MCQs</span>
+                <span className="flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5 text-amber-400" /> 80 Solved MCQs</span>
                 <span className="text-emerald-500">•</span>
-                <span className="flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5 text-cyan-400" /> Dichotomous Key Tool</span>
+                <span className="flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5 text-cyan-400" /> Microbe &amp; Animal Decision Trees</span>
                 <span className="text-emerald-500">•</span>
-                <span className="flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5 text-rose-400" /> Mnemonics &amp; Riddles</span>
+                <span className="flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5 text-rose-400" /> Mnemonics, Riddles &amp; Decoders</span>
               </div>
             </div>
 
@@ -899,24 +899,26 @@ export const HomeView: React.FC = () => {
               <button
                 onClick={() => {
                   sessionStorage.setItem('matb_open_stbb_science', 'true');
+                  sessionStorage.setItem('matb_open_stbb_chapter', 'ch2-microorganisms');
                   setTab('study-notes');
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
                 className="px-5 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs sm:text-sm transition cursor-pointer flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
               >
-                <span>Launch Interactive Module</span>
+                <span>Open Ch 2: Microorganisms</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 
               <button
                 onClick={() => {
-                  setTab('mcqs');
-                  sessionStorage.setItem('matb_quick_exam_filter', 'STBB');
+                  sessionStorage.setItem('matb_open_stbb_science', 'true');
+                  sessionStorage.setItem('matb_open_stbb_chapter', 'ch1-classification');
+                  setTab('study-notes');
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
                 className="px-5 py-2.5 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/20 text-white font-bold text-xs transition cursor-pointer text-center"
               >
-                Practice 40 Chapter MCQs
+                Open Ch 1: Classification
               </button>
             </div>
           </div>

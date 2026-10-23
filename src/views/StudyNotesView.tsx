@@ -355,7 +355,7 @@ export const StudyNotesView: React.FC = () => {
       sessionStorage.removeItem('matb_open_stbb_science');
       return 'stbb';
     }
-    return plannerHandoff?.subtopic ? 'advanced' : 'mathematics';
+    return plannerHandoff?.subtopic ? 'advanced' : 'stbb';
   });
 
   const [topicQuery, setTopicQuery] = useState(() => plannerHandoff?.subtopic ?? '');

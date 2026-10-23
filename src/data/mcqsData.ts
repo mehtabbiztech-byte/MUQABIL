@@ -6,8 +6,9 @@ import { TEACHING_LICENSE_PAPER_1_MCQS } from './teachingLicensePaper1';
 import { TEACHING_LICENSE_PAPER_2_MCQS } from './teachingLicensePaper2';
 import { TEACHING_LICENSE_PAPER_3_MCQS } from './teachingLicensePaper3';
 import { STBB_MCQS_DATA } from './stbbClassFiveScienceData';
+import { STBB_CH2_MCQS_DATA } from './stbbChapterTwoMicroorganismsData';
 
-const STBB_CONVERTED_MCQS: MCQ[] = STBB_MCQS_DATA.map(m => ({
+const STBB_CONVERTED_MCQS: MCQ[] = [...STBB_MCQS_DATA, ...STBB_CH2_MCQS_DATA].map((m, idx) => ({
   id: m.id,
   question: m.question,
   options: m.options,
@@ -18,7 +19,7 @@ const STBB_CONVERTED_MCQS: MCQ[] = STBB_MCQS_DATA.map(m => ({
   examTags: ['STBB', 'Class 5 Science', 'PST', 'JEST', 'STS', 'SPSC'],
   year: 2025,
   difficulty: m.number > 25 ? 'Medium' : 'Easy',
-  viewsCount: 3500 + m.number * 40,
+  viewsCount: 3500 + idx * 40,
   submittedBy: 'Sindh Textbook Board (STBB) Jamshoro'
 }));
 

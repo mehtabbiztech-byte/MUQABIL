@@ -5,6 +5,8 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { STBB_CLASS_5_CHAPTERS, ALL_STBB_MCQS } from './stbbChaptersRegistry';
 import { STBB_CHAPTER_2_CONFIG } from './stbbChapterTwoMicroorganismsData';
 import { STBB_CHAPTER_3_CONFIG } from './stbbChapterThreeSeedsData';
+import { STBB_CHAPTER_5_CONFIG } from './stbbChapterFiveMatterData';
+import { STBB_CHAPTER_6_CONFIG } from './stbbChapterSixForceData';
 import { STBB_CHAPTER_4_CONFIG } from './stbbChapterFourPollutionData';
 import { AppProvider } from '../context/AppContext';
 import { StbbClassFiveScienceHub } from '../components/StbbClassFiveScienceHub';
@@ -23,8 +25,8 @@ function decodeA1Z26(encoded: string): string {
     .join(' / ');
 }
 
-test('STBB Class 5 chapters registry contains Chapters 1–4 with 8 topics and 40 unique MCQs each (160 total)', () => {
-  assert.equal(STBB_CLASS_5_CHAPTERS.length, 4);
+test('STBB Class 5 chapters registry contains Chapters 1–6 with 8 topics and 40 unique MCQs each (240 total)', () => {
+  assert.equal(STBB_CLASS_5_CHAPTERS.length, 6);
 
   for (const chapter of STBB_CLASS_5_CHAPTERS) {
     assert.equal(chapter.topics.length, 8, `${chapter.id} should have 8 topics`);
@@ -39,19 +41,21 @@ test('STBB Class 5 chapters registry contains Chapters 1–4 with 8 topics and 4
     }
   }
 
-  assert.equal(ALL_STBB_MCQS.length, 160);
-  assert.equal(new Set(ALL_STBB_MCQS.map((q) => q.id)).size, 160);
+  assert.equal(ALL_STBB_MCQS.length, 240);
+  assert.equal(new Set(ALL_STBB_MCQS.map((q) => q.id)).size, 240);
 });
 
 function questionOptionBound(options: string[]): number {
   return options.length;
 }
 
-test('Chapters 2, 3, and 4 validate every unscramble anagram, A1Z26 cipher, mnemonic, riddle, Venn diagram, and flowchart', () => {
+test('Chapters 2–6 validate every unscramble anagram, A1Z26 cipher, mnemonic, riddle, Venn diagram, and flowchart', () => {
   for (const chapter of [
     STBB_CHAPTER_2_CONFIG,
     STBB_CHAPTER_3_CONFIG,
-    STBB_CHAPTER_4_CONFIG
+    STBB_CHAPTER_4_CONFIG,
+    STBB_CHAPTER_5_CONFIG,
+    STBB_CHAPTER_6_CONFIG
   ]) {
     for (const topic of chapter.topics) {
       assert.ok(topic.mnemonic, `${chapter.id}/${topic.slug} missing mnemonic`);
@@ -88,7 +92,7 @@ test('Chapters 2, 3, and 4 validate every unscramble anagram, A1Z26 cipher, mnem
   }
 });
 
-test('StbbClassFiveScienceHub renders all 4 tabs cleanly across Chapters 1, 2, 3, and 4', () => {
+test('StbbClassFiveScienceHub renders all 6 tabs cleanly across Chapters 1–6', () => {
   const prevLocalStorage = (globalThis as Record<string, unknown>).localStorage;
   const prevWindow = (globalThis as Record<string, unknown>).window;
   const store = new Map<string, string>();
@@ -114,12 +118,20 @@ test('StbbClassFiveScienceHub renders all 4 tabs cleanly across Chapters 1, 2, 3
 
   try {
     for (const chapter of STBB_CLASS_5_CHAPTERS) {
-      for (const tab of ['topics', 'key-tool', 'mcqs', 'summary'] as const) {
+      for (const tab of ['topics', 'key-tool', 'mcqs', 'summary', 'activities', 'qa'] as const) {
         const html = renderToStaticMarkup(
           <AppProvider>
             <StbbClassFiveScienceHub initialChapterId={chapter.id} initialTab={tab} />
           </AppProvider>
         );
+        if (tab === 'activities') {
+          assert.ok(html.includes('Activities &amp; Investigation Journal'));
+          for (const activity of chapter.activitiesAndQA!.activities) assert.ok(html.includes(activity.title.replaceAll('&', '&amp;')));
+        }
+        if (tab === 'qa') {
+          assert.ok(html.includes('Questions &amp; Answers — All Types'));
+          assert.ok(html.includes('Give Reasons'));
+        }
         assert.ok(
           html.includes(chapter.heroTitle),
           `Expected ${chapter.heroTitle} in rendered markup for tab=${tab}`
@@ -136,6 +148,58 @@ test('StbbClassFiveScienceHub renders all 4 tabs cleanly across Chapters 1, 2, 3
       delete (globalThis as Record<string, unknown>).window;
     } else {
       Object.assign(globalThis, { window: prevWindow });
+    }
+  }
+});
+
+
+test('Every chapter has complete activity and all-type Q&A data with unique IDs', () => {
+  for (const chapter of STBB_CLASS_5_CHAPTERS) {
+    const extras = chapter.activitiesAndQA;
+    assert.ok(extras);
+    const items = [...extras.activities, ...extras.fillInBlanks, ...extras.trueFalse, ...extras.descriptiveQA];
+    assert.equal(new Set(items.map(item => item.id)).size, items.length);
+    assert.ok(extras.fillInBlanks.length >= 4);
+    assert.ok(extras.trueFalse.length >= 4);
+    for (const type of ['definition-short', 'give-reason', 'structured-long', 'problem-solving']) {
+      assert.ok(extras.descriptiveQA.some(q => q.category === type), `${chapter.id}/${type}`);
+    }
+    for (const activity of extras.activities) {
+      assert.ok(activity.materials.length > 0);
+      assert.ok(activity.procedure.length >= 2);
+      assert.ok(activity.questions.length > 0);
+      assert.ok(activity.conclusion.length > 20);
+      if (activity.observationTable) {
+        for (const row of activity.observationTable.rows) assert.equal(row.length, activity.observationTable.headers.length);
+      }
+    }
+    for (const q of extras.fillInBlanks) {
+      assert.ok(q.promptWithBlank.includes('___'));
+      assert.ok(q.answer.trim().length > 0);
+    }
+    for (const mcq of chapter.mcqs) assert.ok(chapter.topics.some(t => t.id === mcq.topicRefId));
+  }
+  assert.equal(STBB_CHAPTER_5_CONFIG.activitiesAndQA!.activities.length, 7);
+  assert.equal(STBB_CHAPTER_6_CONFIG.activitiesAndQA!.activities.length, 6); // 5 experiments + inquiry project
+});
+
+test('New chapter diagnostic sample paths reach their advertised outcomes', () => {
+  for (const chapter of [STBB_CHAPTER_5_CONFIG, STBB_CHAPTER_6_CONFIG]) {
+    for (const sample of chapter.decisionTool.specimens) {
+      let node = chapter.decisionTool.nodes[0];
+      const choices = sample.expectedPath.split(' → ');
+      for (const choice of choices) {
+        const branch = choice === 'Yes' ? node.onYes : node.onNo;
+        if (branch.type === 'result') assert.equal(branch.result.group, sample.targetGroup);
+        else {
+          assert.equal(branch.type, 'next');
+          if (branch.type === 'next') {
+            const next = chapter.decisionTool.nodes.find(n => n.id === branch.nextNodeId);
+            assert.ok(next);
+            node = next;
+          }
+        }
+      }
     }
   }
 });

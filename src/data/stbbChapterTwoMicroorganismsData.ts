@@ -43,6 +43,65 @@ export interface StbbComparisonMatrix {
   }[];
 }
 
+export interface StbbActivityLab {
+  id: string;
+  activityNumber: string;
+  title: string;
+  emoji: string;
+  aim: string;
+  materials: string[];
+  procedure: string[];
+  observationTable?: {
+    headers: string[];
+    rows: string[][];
+  };
+  questions: {
+    question: string;
+    answer: string;
+  }[];
+  conclusion: string;
+  safetyOrTeacherTip?: string;
+}
+
+export interface StbbFillBlankItem {
+  id: string;
+  promptWithBlank: string;
+  answer: string;
+  acceptedVariants?: string[];
+  hint?: string;
+  explanation: string;
+}
+
+export interface StbbTrueFalseItem {
+  id: string;
+  statement: string;
+  isTrue: boolean;
+  explanation: string;
+}
+
+export type StbbDescriptiveQaCategory =
+  | 'definition-short'
+  | 'give-reason'
+  | 'structured-long'
+  | 'problem-solving';
+
+export interface StbbDescriptiveQaItem {
+  id: string;
+  category: StbbDescriptiveQaCategory;
+  badgeLabel: string;
+  question: string;
+  answer: string;
+  bulletPoints?: string[];
+  examKeywords?: string[];
+}
+
+export interface StbbChapterExtras {
+  activities: StbbActivityLab[];
+  fillInBlanks: StbbFillBlankItem[];
+  trueFalse: StbbTrueFalseItem[];
+  descriptiveQA: StbbDescriptiveQaItem[];
+}
+
 export interface StbbChapterConfig {
   id: string;
   chapterNumber: number;
@@ -59,10 +118,13 @@ export interface StbbChapterConfig {
   }[];
   tabs: {
     topicsLabel: string;
+    activitiesLabel?: string;
+    qaLabel?: string;
     toolLabel: string;
     mcqsLabel: string;
     summaryLabel: string;
   };
+  activitiesAndQA?: StbbChapterExtras;
   sidebarHeading: string;
   decisionTool: {
     badge: string;

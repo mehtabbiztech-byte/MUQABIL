@@ -58,7 +58,7 @@ export const StbbClassFiveScienceHub: React.FC<{
     } catch {
       // ignore storage errors in restricted environments
     }
-    return 'ch2-microorganisms';
+    return 'ch3-seeds-germination';
   });
 
   const activeChapter = useMemo(() => {

@@ -8,6 +8,14 @@ import {
   STBB_CHAPTER_2_CONFIG,
   STBB_CH2_MCQS_DATA
 } from './stbbChapterTwoMicroorganismsData';
+import {
+  STBB_CHAPTER_3_CONFIG,
+  STBB_CH3_MCQS_DATA
+} from './stbbChapterThreeSeedsData';
+import {
+  STBB_CHAPTER_4_CONFIG,
+  STBB_CH4_MCQS_DATA
+} from './stbbChapterFourPollutionData';
 
 export const STBB_CHAPTER_1_CONFIG: StbbChapterConfig = {
   id: 'ch1-classification',
@@ -275,7 +283,14 @@ export const STBB_CHAPTER_1_CONFIG: StbbChapterConfig = {
 
 export const STBB_CLASS_5_CHAPTERS: StbbChapterConfig[] = [
   STBB_CHAPTER_1_CONFIG,
-  STBB_CHAPTER_2_CONFIG
+  { ...STBB_CHAPTER_2_CONFIG, isFeaturedNew: false },
+  STBB_CHAPTER_3_CONFIG,
+  STBB_CHAPTER_4_CONFIG
 ];
 
-export const ALL_STBB_MCQS = [...STBB_MCQS_DATA, ...STBB_CH2_MCQS_DATA];
+export const ALL_STBB_MCQS = [
+  ...STBB_MCQS_DATA,
+  ...STBB_CH2_MCQS_DATA,
+  ...STBB_CH3_MCQS_DATA,
+  ...STBB_CH4_MCQS_DATA
+];

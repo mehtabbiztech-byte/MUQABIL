@@ -5,10 +5,9 @@ import { STS_IBA_MCQS } from './stsIba5000';
 import { TEACHING_LICENSE_PAPER_1_MCQS } from './teachingLicensePaper1';
 import { TEACHING_LICENSE_PAPER_2_MCQS } from './teachingLicensePaper2';
 import { TEACHING_LICENSE_PAPER_3_MCQS } from './teachingLicensePaper3';
-import { STBB_MCQS_DATA } from './stbbClassFiveScienceData';
-import { STBB_CH2_MCQS_DATA } from './stbbChapterTwoMicroorganismsData';
+import { ALL_STBB_MCQS } from './stbbChaptersRegistry';
 
-const STBB_CONVERTED_MCQS: MCQ[] = [...STBB_MCQS_DATA, ...STBB_CH2_MCQS_DATA].map((m, idx) => ({
+const STBB_CONVERTED_MCQS: MCQ[] = ALL_STBB_MCQS.map((m, idx) => ({
   id: m.id,
   question: m.question,
   options: m.options,

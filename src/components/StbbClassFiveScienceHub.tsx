@@ -1,3 +1,4 @@
+import { StbbActivitiesAndQA } from './StbbActivitiesAndQA';
 import React, { useState, useMemo, useEffect } from 'react';
 import {
   BookOpen,
@@ -40,7 +41,7 @@ function formatTimer(seconds: number): string {
 
 export const StbbClassFiveScienceHub: React.FC<{
   onClose?: () => void;
-  initialTab?: 'topics' | 'key-tool' | 'mcqs' | 'summary';
+  initialTab?: 'topics' | 'key-tool' | 'mcqs' | 'summary' | 'activities' | 'qa';
   initialChapterId?: string;
 }> = ({ onClose, initialTab = 'topics', initialChapterId }) => {
   const { toggleBookmark, isBookmarked, addMistake } = useApp();
@@ -58,7 +59,7 @@ export const StbbClassFiveScienceHub: React.FC<{
     } catch {
       // ignore storage errors in restricted environments
     }
-    return 'ch3-seeds-germination';
+    return 'ch5-matter-states';
   });
 
   const activeChapter = useMemo(() => {
@@ -68,7 +69,7 @@ export const StbbClassFiveScienceHub: React.FC<{
     );
   }, [activeChapterId]);
 
-  const [activeMainTab, setActiveMainTab] = useState<'topics' | 'key-tool' | 'mcqs' | 'summary'>(initialTab);
+  const [activeMainTab, setActiveMainTab] = useState<'topics' | 'key-tool' | 'mcqs' | 'summary' | 'activities' | 'qa'>(initialTab);
 
   // Topic Reader State
   const [selectedTopicId, setSelectedTopicId] = useState<number>(1);
@@ -455,6 +456,15 @@ export const StbbClassFiveScienceHub: React.FC<{
             <BookOpen className="w-4 h-4" />
             <span>{activeChapter.tabs.topicsLabel}</span>
           </button>
+
+          {activeChapter.activitiesAndQA && (['activities', 'qa'] as const).map(tab => (
+            <button key={tab} type="button" aria-pressed={activeMainTab === tab}
+              onClick={() => setActiveMainTab(tab)}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black transition cursor-pointer ${activeMainTab === tab ? 'bg-emerald-600 text-white shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white'}`}>
+              {tab === 'activities' ? <Microscope className="w-4 h-4" /> : <HelpCircle className="w-4 h-4" />}
+              {tab === 'activities' ? 'Activities' : 'Questions & Answers'}
+            </button>
+          ))}
 
           <button
             type="button"
@@ -1043,6 +1053,10 @@ export const StbbClassFiveScienceHub: React.FC<{
             </article>
           </div>
         </div>
+      )}
+
+      {(activeMainTab === 'activities' || activeMainTab === 'qa') && (
+        <StbbActivitiesAndQA key={`${activeChapter.id}-${activeMainTab}`} chapter={activeChapter} mode={activeMainTab} />
       )}
 
       {/* 4. TAB 2: INTERACTIVE DECISION TREE / DICHOTOMOUS KEY SIMULATOR */}

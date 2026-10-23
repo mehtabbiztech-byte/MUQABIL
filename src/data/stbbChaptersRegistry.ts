@@ -1,3 +1,6 @@
+import { STBB_CHAPTER_5_CONFIG } from './stbbChapterFiveMatterData';
+import { STBB_CHAPTER_6_CONFIG } from './stbbChapterSixForceData';
+import { STBB_CH1_EXTRAS, STBB_CH2_EXTRAS, STBB_CH3_EXTRAS, STBB_CH4_EXTRAS } from './stbbActivitiesAndQaBank';
 import {
   STBB_TOPICS,
   STBB_MCQS_DATA,
@@ -5,16 +8,13 @@ import {
 } from './stbbClassFiveScienceData';
 import {
   StbbChapterConfig,
-  STBB_CHAPTER_2_CONFIG,
-  STBB_CH2_MCQS_DATA
+  STBB_CHAPTER_2_CONFIG
 } from './stbbChapterTwoMicroorganismsData';
 import {
-  STBB_CHAPTER_3_CONFIG,
-  STBB_CH3_MCQS_DATA
+  STBB_CHAPTER_3_CONFIG
 } from './stbbChapterThreeSeedsData';
 import {
-  STBB_CHAPTER_4_CONFIG,
-  STBB_CH4_MCQS_DATA
+  STBB_CHAPTER_4_CONFIG
 } from './stbbChapterFourPollutionData';
 
 export const STBB_CHAPTER_1_CONFIG: StbbChapterConfig = {
@@ -282,15 +282,12 @@ export const STBB_CHAPTER_1_CONFIG: StbbChapterConfig = {
 };
 
 export const STBB_CLASS_5_CHAPTERS: StbbChapterConfig[] = [
-  STBB_CHAPTER_1_CONFIG,
-  { ...STBB_CHAPTER_2_CONFIG, isFeaturedNew: false },
-  STBB_CHAPTER_3_CONFIG,
-  STBB_CHAPTER_4_CONFIG
+  { ...STBB_CHAPTER_1_CONFIG, activitiesAndQA: STBB_CH1_EXTRAS },
+  { ...STBB_CHAPTER_2_CONFIG, isFeaturedNew: false, activitiesAndQA: STBB_CH2_EXTRAS },
+  { ...STBB_CHAPTER_3_CONFIG, isFeaturedNew: false, activitiesAndQA: STBB_CH3_EXTRAS },
+  { ...STBB_CHAPTER_4_CONFIG, isFeaturedNew: false, activitiesAndQA: STBB_CH4_EXTRAS },
+  STBB_CHAPTER_5_CONFIG,
+  STBB_CHAPTER_6_CONFIG
 ];
 
-export const ALL_STBB_MCQS = [
-  ...STBB_MCQS_DATA,
-  ...STBB_CH2_MCQS_DATA,
-  ...STBB_CH3_MCQS_DATA,
-  ...STBB_CH4_MCQS_DATA
-];
+export const ALL_STBB_MCQS = STBB_CLASS_5_CHAPTERS.flatMap(chapter => chapter.mcqs);

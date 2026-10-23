@@ -872,24 +872,24 @@ export const HomeView: React.FC = () => {
                 <Atom className="w-3.5 h-3.5" />
                 <span>STBB (Sindh Textbook Board) · Class 5 General Science</span>
                 <span className="px-1.5 py-0.2 rounded-md bg-amber-400 text-slate-950 text-[10px] font-black">
-                  Chapters 1 &amp; 2 Complete
+                  Chapters 1–4 Complete
                 </span>
               </div>
 
               <h2 className="text-2xl sm:text-3xl font-black font-display text-white tracking-tight">
-                Classification &amp; Microorganisms — Interactive Learning Hub
+                Classification, Microorganisms, Seeds &amp; Environmental Pollution
               </h2>
 
               <p className="text-xs sm:text-sm text-emerald-100/90 leading-relaxed">
-                Complete STBB Class 5 curriculum modules: <strong>Ch. 1 Classification of Living Things</strong> &amp; <strong>Ch. 2 Microorganisms — The Invisible World</strong> (16 deep-dive topics, interactive Dichotomous Keys &amp; Microbe Decision Tree, Mnemonics, Riddles, and 80 solved MCQs with 40-min mock exams).
+                Complete STBB Class 5 curriculum modules: <strong>Ch. 1 Classification</strong>, <strong>Ch. 2 Microorganisms</strong>, <strong>Ch. 3 Seeds &amp; Germination</strong>, and <strong>Ch. 4 Environmental Pollution</strong> — 32 deep-dive topics, 4 interactive decision tree simulators, mnemonics, riddles, and 160 solved MCQs with 40-min mock exams.
               </p>
 
               <div className="flex flex-wrap gap-2 pt-1 text-[11px] text-emerald-200">
-                <span className="flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> 16 Topic Deep-Dives</span>
+                <span className="flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> 32 Topic Deep-Dives</span>
                 <span className="text-emerald-500">•</span>
-                <span className="flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5 text-amber-400" /> 80 Solved MCQs</span>
+                <span className="flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5 text-amber-400" /> 160 Solved MCQs</span>
                 <span className="text-emerald-500">•</span>
-                <span className="flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5 text-cyan-400" /> Microbe &amp; Animal Decision Trees</span>
+                <span className="flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5 text-cyan-400" /> 4 Interactive Decision Labs</span>
                 <span className="text-emerald-500">•</span>
                 <span className="flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5 text-rose-400" /> Mnemonics, Riddles &amp; Decoders</span>
               </div>
@@ -899,26 +899,26 @@ export const HomeView: React.FC = () => {
               <button
                 onClick={() => {
                   sessionStorage.setItem('matb_open_stbb_science', 'true');
-                  sessionStorage.setItem('matb_open_stbb_chapter', 'ch2-microorganisms');
+                  sessionStorage.setItem('matb_open_stbb_chapter', 'ch3-seeds-germination');
                   setTab('study-notes');
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
                 className="px-5 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs sm:text-sm transition cursor-pointer flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
               >
-                <span>Open Ch 2: Microorganisms</span>
+                <span>Open Ch 3: Seeds &amp; Germination</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 
               <button
                 onClick={() => {
                   sessionStorage.setItem('matb_open_stbb_science', 'true');
-                  sessionStorage.setItem('matb_open_stbb_chapter', 'ch1-classification');
+                  sessionStorage.setItem('matb_open_stbb_chapter', 'ch4-environmental-pollution');
                   setTab('study-notes');
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
                 className="px-5 py-2.5 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/20 text-white font-bold text-xs transition cursor-pointer text-center"
               >
-                Open Ch 1: Classification
+                Open Ch 4: Environmental Pollution
               </button>
             </div>
           </div>
